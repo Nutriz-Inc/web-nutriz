@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { LandingPageScreen } from "../pages/public/landing-page";
+import { LoginScreen } from "../pages/public/login";
 
 export const routerPrivate = createBrowserRouter([
 	// {
@@ -13,23 +14,22 @@ export const routerPrivate = createBrowserRouter([
 	// 	],
 	// },
 	{
-        path: "/",
-        element: <LandingPageScreen />,
-    },
+		path: "/",
+		element: <LandingPageScreen />,
+	},
 ]);
 
 export const publicRouter = createBrowserRouter([
-    {
-        path: "/",
-        element: <LandingPageScreen />,
-    },
-	// {
-	// 	path: "/login",
-	// 	element: <LoginScreen />,
-	// },
-
+	{
+		path: "/",
+		element: <LandingPageScreen />,
+	},
+	{
+		path: "/login",
+		element: <LoginScreen />,
+	},
 	{
 		path: "*",
-		element: <Navigate to={`/`} replace />,
+		element: <Navigate to="/login" replace />,
 	},
 ]);

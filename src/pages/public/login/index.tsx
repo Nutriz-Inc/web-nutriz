@@ -1,8 +1,8 @@
 import { useState } from "react";
-
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, Mail, LoaderCircle } from "lucide-react";
 import NutrizLogo from "@/assets/nutriz-logo.svg";
+import LoginBg from "@/assets/login-bg.svg";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -23,7 +23,7 @@ export function LoginScreen() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [errors, setErrors] = useState<FormErrors>({});
 
-    const { loginMutation } = useLogin({ updateAuth, setErrors });
+	const { loginMutation } = useLogin({ updateAuth, setErrors });
 
 	function validate(): boolean {
 		const next: FormErrors = {};
@@ -48,192 +48,171 @@ export function LoginScreen() {
 		e.preventDefault();
 		if (!validate()) return;
 		setErrors({});
-		loginMutation.mutate({ document: email, password });
+		loginMutation.mutate({ email, password });
 	}
 
 	const isPending = loginMutation.isPending;
 
 	return (
-		<div className="min-h-screen bg-[#eef3ff] relative overflow-hidden flex justify-center">
-			{/* Decorative circles */}
-			{/* Top-left: pink */}
-			<div className="absolute -top-12 -left-12 w-36 h-36 rounded-full bg-[#f4a8be] opacity-80 pointer-events-none" />
-			{/* Top-right: blue */}
-			<div className="absolute -top-4 -right-10 w-32 h-32 rounded-full bg-[#a4c4e8] opacity-70 pointer-events-none" />
-			{/* Right upper-middle: peach */}
-			<div
-				className="absolute -right-12 w-44 h-44 rounded-full bg-[#f4c4a0] opacity-65 pointer-events-none"
-				style={{ top: "32%" }}
+		<div className="relative min-h-screen w-full overflow-hidden bg-white">
+			<img
+				src={LoginBg}
+				alt=""
+				aria-hidden
+				className="pointer-events-none absolute inset-x-0 bottom-0 z-0 w-full select-none"
 			/>
-			{/* Left middle: lavender */}
+
 			<div
-				className="absolute -left-14 w-40 h-40 rounded-full bg-[#c8b0f0] opacity-45 pointer-events-none"
-				style={{ top: "50%" }}
-			/>
-			{/* Bottom-left: teal */}
-			<div className="absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-[#9cd4e0] opacity-55 pointer-events-none" />
-			{/* Bottom-right: yellow-soft */}
-			<div className="absolute -bottom-8 -right-8 w-28 h-28 rounded-full bg-[#f8e0a0] opacity-60 pointer-events-none" />
-			{/* Top-center small: soft-green */}
-			<div className="absolute top-[8%] left-[42%] w-14 h-14 rounded-full bg-[#b0e8cc] opacity-50 pointer-events-none" />
+				aria-hidden
+				className="pointer-events-none absolute inset-x-0 top-0 z-0 h-64 overflow-hidden"
+			>
+				<div className="absolute -left-16 -top-12 h-44 w-44 rounded-full bg-[#cfe0f8]" />
+				<div className="absolute left-7 top-16 h-16 w-16 rounded-full bg-[#f6d4dc]" />
+				<div className="absolute -right-12 -top-14 h-52 w-52 rounded-full bg-[#dbe7fb]" />
+				<div className="absolute right-5 top-24 h-20 w-20 rounded-full bg-[#f6d4dc]" />
+				<div className="absolute right-24 top-4 h-12 w-12 rounded-full bg-[#cfe0f8]" />
+			</div>
 
-			{/* Main column */}
-			<div className="relative z-10 w-full max-w-[460px] min-h-screen flex flex-col">
-				{/* Content area */}
-				<div className="flex-1 flex flex-col items-center px-6 pt-10 pb-4">
-					{/* Logo – centered and larger */}
-					<div className="mb-7 flex justify-center">
-						<img src={NutrizLogo} alt="Nutriz" className="h-14 w-auto" />
-					</div>
-
-					{/* Heading – centered */}
-					<h1 className="text-[1.65rem] font-bold text-[#1b2e6e] mb-1.5 leading-tight text-center">
-						Bem-vinda(o) de volta!
-					</h1>
-					<p className="text-sm text-[#5a6e8c] mb-8 text-center">
-						Faça login para acessar sua conta
-					</p>
-
-					{/* Login card / divider */}
-					<div className="w-full bg-white/75 backdrop-blur-md rounded-3xl border border-white shadow-xl shadow-[#1b2e6e]/10 px-6 py-7">
-						<form
-							onSubmit={handleSubmit}
-							noValidate
-							className="flex flex-col gap-4"
-						>
-							{/* Email field */}
-							<div className="flex flex-col gap-1.5">
-								<Label
-									htmlFor="email"
-									className="text-[#3a4a62] font-semibold text-sm"
-								>
-									E-mail
-								</Label>
-								<div className="relative">
-									<input
-										id="email"
-										type="email"
-										autoComplete="email"
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-										placeholder="Digite seu e-mail"
-										aria-invalid={!!errors.email}
-										aria-describedby={
-											errors.email ? "email-error" : undefined
-										}
-										className="w-full h-12 rounded-full border bg-white pl-4 pr-11 text-sm text-[#1b2e6e] placeholder:text-[#a0aec0] outline-none transition-all border-[#c8d8f0] focus:border-[#1b2e6e] focus:ring-2 focus:ring-[#1b2e6e]/15 aria-invalid:border-red-400 aria-invalid:ring-2 aria-invalid:ring-red-200"
-									/>
-									<Mail
-										className="absolute right-4 top-1/2 -translate-y-1/2 size-4 text-[#a0b4cc] pointer-events-none"
-										aria-hidden
-									/>
-								</div>
-								{errors.email && (
-									<p
-										id="email-error"
-										className="text-xs text-red-500 pl-1"
-									>
-										{errors.email}
-									</p>
-								)}
-							</div>
-
-							{/* Password field */}
-							<div className="flex flex-col gap-1.5">
-								<Label
-									htmlFor="password"
-									className="text-[#3a4a62] font-semibold text-sm"
-								>
-									Senha
-								</Label>
-								<div className="relative">
-									<input
-										id="password"
-										type={showPassword ? "text" : "password"}
-										autoComplete="current-password"
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
-										placeholder="Digite sua senha"
-										aria-invalid={!!errors.password}
-										aria-describedby={
-											errors.password ? "password-error" : undefined
-										}
-										className="w-full h-12 rounded-full border bg-white pl-4 pr-11 text-sm text-[#1b2e6e] placeholder:text-[#a0aec0] outline-none transition-all border-[#c8d8f0] focus:border-[#1b2e6e] focus:ring-2 focus:ring-[#1b2e6e]/15 aria-invalid:border-red-400 aria-invalid:ring-2 aria-invalid:ring-red-200"
-									/>
-									<button
-										type="button"
-										onClick={() => setShowPassword((v) => !v)}
-										aria-label={
-											showPassword ? "Ocultar senha" : "Mostrar senha"
-										}
-										className="absolute right-4 top-1/2 -translate-y-1/2 text-[#a0b4cc] hover:text-[#1b2e6e] transition-colors"
-									>
-										{showPassword ? (
-											<EyeOff className="size-4" />
-										) : (
-											<Eye className="size-4" />
-										)}
-									</button>
-								</div>
-								{errors.password && (
-									<p
-										id="password-error"
-										className="text-xs text-red-500 pl-1"
-									>
-										{errors.password}
-									</p>
-								)}
-							</div>
-
-							{/* Forgot password */}
-							<div className="flex justify-center">
-								<Link
-									to="/forgot-password"
-									className="text-sm text-[#2b5fd4] font-semibold hover:underline underline-offset-2"
-								>
-									Esqueci minha senha
-								</Link>
-							</div>
-
-							{/* General error */}
-							{errors.general && (
-								<p
-									role="alert"
-									className="text-sm text-red-500 text-center bg-red-50 border border-red-200 rounded-xl py-2 px-4"
-								>
-									{errors.general}
-								</p>
-							)}
-
-							{/* Submit */}
-							<Button
-								type="submit"
-								disabled={isPending}
-								className="w-full h-12 rounded-full bg-[#1b2e6e] hover:bg-[#152558] active:bg-[#0f1c42] text-white text-base font-semibold transition-all active:scale-[0.98] disabled:opacity-60 mt-1"
-							>
-								{isPending ? (
-									<span className="flex items-center gap-2">
-										<LoaderCircle className="size-4 animate-spin" />
-										Entrando...
-									</span>
-								) : (
-									"Entrar"
-								)}
-							</Button>
-						</form>
-					</div>
-
-					{/* Sign-up link */}
-					<p className="text-sm text-center text-[#5a6e8c] mt-6">
-						Ainda não tem uma conta?{" "}
-						<Link
-							to="/register"
-							className="text-[#2b5fd4] font-bold hover:underline underline-offset-2"
-						>
-							Criar conta
-						</Link>
-					</p>
+			<div className="relative z-10 mx-auto flex min-h-screen w-full max-w-sm flex-col px-6 pb-52 pt-24">
+				<div className="mb-5 flex justify-center">
+					<img
+						src={NutrizLogo}
+						alt="Nutriz"
+						className="h-14 w-auto select-none"
+					/>
 				</div>
+
+				<h1 className="text-center text-2xl font-bold text-[#16224a]">
+					Bem-vinda(o) de volta!
+				</h1>
+				<p className="mt-1 text-center text-sm text-[#54648a]">
+					Faça login para acessar sua conta
+				</p>
+
+				<div className="mt-6 border-t border-[#e2e7f1]" />
+
+				<div className="mt-6 rounded-2xl border border-white/60 bg-white/60 backdrop-blur-md shadow-lg shadow-[#0B57B8]/8 px-5 py-6">
+				<form
+					className="flex flex-col gap-5"
+					onSubmit={handleSubmit}
+					noValidate
+				>
+					<div className="flex flex-col gap-2">
+						<Label
+							htmlFor="email"
+							className="text-xs font-semibold text-[#2e3c5e]"
+						>
+							E-mail
+						</Label>
+						<div className="relative">
+							<input
+								id="email"
+								type="email"
+								autoComplete="email"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								placeholder="Digite seu e-mail"
+								aria-invalid={!!errors.email}
+								aria-describedby={errors.email ? "email-error" : undefined}
+								className="w-full h-11 rounded-full border border-[#e2e7f1] bg-white pl-4 pr-11 text-sm text-[#16224a] placeholder:text-[#9aa3b8] outline-none transition-all focus:border-[#0B57B8] focus:ring-2 focus:ring-[#0B57B8]/15 aria-invalid:border-red-400 aria-invalid:ring-2 aria-invalid:ring-red-200"
+							/>
+							<Mail
+								className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#9aa3b8]"
+								aria-hidden
+							/>
+						</div>
+						{errors.email && (
+							<p id="email-error" className="text-xs text-red-500 pl-1">
+								{errors.email}
+							</p>
+						)}
+					</div>
+
+					<div className="flex flex-col gap-2">
+						<Label
+							htmlFor="password"
+							className="text-xs font-semibold text-[#2e3c5e]"
+						>
+							Senha
+						</Label>
+						<div className="relative">
+							<input
+								id="password"
+								type={showPassword ? "text" : "password"}
+								autoComplete="current-password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								placeholder="Digite sua senha"
+								aria-invalid={!!errors.password}
+								aria-describedby={errors.password ? "password-error" : undefined}
+								className="w-full h-11 rounded-full border border-[#e2e7f1] bg-white pl-4 pr-11 text-sm text-[#16224a] placeholder:text-[#9aa3b8] outline-none transition-all focus:border-[#0B57B8] focus:ring-2 focus:ring-[#0B57B8]/15 aria-invalid:border-red-400 aria-invalid:ring-2 aria-invalid:ring-red-200"
+							/>
+							<button
+								type="button"
+								onClick={() => setShowPassword((v) => !v)}
+								aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+								className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9aa3b8] transition-colors hover:text-[#54648a]"
+							>
+								{showPassword ? (
+									<EyeOff className="h-5 w-5" />
+								) : (
+									<Eye className="h-5 w-5" />
+								)}
+							</button>
+						</div>
+						{errors.password && (
+							<p id="password-error" className="text-xs text-red-500 pl-1">
+								{errors.password}
+							</p>
+						)}
+					</div>
+
+					{/* <div className="flex justify-center">
+						<Link
+							to="/forgot-password"
+							className="text-xs font-semibold text-[#1c5fd0] hover:underline underline-offset-2"
+						>
+							Esqueci minha senha
+						</Link>
+					</div> */}
+
+					{errors.general && (
+						<p
+							role="alert"
+							className="text-sm text-red-500 text-center bg-red-50 border border-red-200 rounded-xl py-2 px-4"
+						>
+							{errors.general}
+						</p>
+					)}
+
+					<Button
+						type="submit"
+						disabled={isPending}
+						className="h-12 w-full rounded-full bg-[#0B57B8] text-sm font-medium text-white shadow-[0px_8px_18px_0px_rgba(11,87,184,0.3)] hover:bg-[#0a4ea4] active:scale-[0.98] disabled:opacity-60 transition-all"
+					>
+						{isPending ? (
+							<span className="flex items-center gap-2">
+								<LoaderCircle className="size-4 animate-spin" />
+								Entrando...
+							</span>
+						) : (
+							"Entrar"
+						)}
+					</Button>
+				</form>
+				</div>
+
+				<div className="mt-6 border-t border-[#e2e7f1]" />
+
+				<p className="mt-5 text-center text-sm text-[#54648a]">
+					Ainda não tem uma conta?{" "}
+					<Link
+						to="/register"
+						className="font-semibold text-[#1c5fd0] hover:underline underline-offset-2"
+					>
+						Criar conta
+					</Link>
+				</p>
 			</div>
 		</div>
 	);

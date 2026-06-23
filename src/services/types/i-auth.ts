@@ -2,7 +2,7 @@ import type { Address } from "./i-address";
 import type { EnumUserType } from "./i-user";
 
 export interface IAuthRequest {
-	document: string;
+	email: string;
 	password: string;
 }
 

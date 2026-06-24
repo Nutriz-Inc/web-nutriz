@@ -8,13 +8,15 @@ import type { FormErrors } from "..";
 export type UseLoginProps = {
     updateAuth: (data: IAuthResponse) => void;
     setErrors: Dispatch<SetStateAction<FormErrors>>;
+    onSuccess: () => void;
 }
 
-export function useLogin({ updateAuth, setErrors }: UseLoginProps) {
+export function useLogin({ updateAuth, setErrors, onSuccess }: UseLoginProps) {
     const loginMutation = useMutation({
 		mutationFn: (data: IAuthRequest) => services.auth.login(data),
 		onSuccess: (data) => {
 			updateAuth(data);
+			onSuccess();
 		},
 		onError: (error) => {
 			if (axios.isAxiosError(error) && error.response?.status === 401) {

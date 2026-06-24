@@ -24,7 +24,11 @@ export function LoginScreen() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [errors, setErrors] = useState<FormErrors>({});
 
-	const { loginMutation } = useLogin({ updateAuth, setErrors });
+	const { loginMutation } = useLogin({
+		updateAuth,
+		setErrors,
+		onSuccess: () => navigate("/home"),
+	});
 
 	function validate(): boolean {
 		const next: FormErrors = {};
@@ -50,7 +54,7 @@ export function LoginScreen() {
 		if (!validate()) return;
 		setErrors({});
 		loginMutation.mutate({ email, password });
-		navigate("/home");
+		
 	}
 
 	const isPending = loginMutation.isPending;

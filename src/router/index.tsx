@@ -10,9 +10,13 @@ export const routerPrivate = createBrowserRouter([
 		element: <Layout />,
 		children: [
 			{
-				path: "home",
+				path: "/home",
 				element: <HomePage />,
 			},
+			{
+		path: "*",
+		element: <Navigate to="/home" replace />,
+	},
 		],
 	},
 ]);

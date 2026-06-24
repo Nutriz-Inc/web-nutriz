@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Mail, LoaderCircle } from "lucide-react";
 import NutrizLogo from "@/assets/nutriz-logo.svg";
 import LoginBg from "@/assets/login-bg.svg";
@@ -17,6 +17,7 @@ export type FormErrors = {
 
 export function LoginScreen() {
 	const { updateAuth } = useAuth();
+	const navigate = useNavigate();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -49,6 +50,7 @@ export function LoginScreen() {
 		if (!validate()) return;
 		setErrors({});
 		loginMutation.mutate({ email, password });
+		navigate("/home");
 	}
 
 	const isPending = loginMutation.isPending;

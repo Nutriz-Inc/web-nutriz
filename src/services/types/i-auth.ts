@@ -13,3 +13,7 @@ export interface IAuthResponse {
     type: EnumUserType;
     addresses: Address[];
 }
+
+export interface IAuth {
+  login(data: IAuthRequest): Promise<IAuthResponse>;
+}

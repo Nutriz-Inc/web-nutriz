@@ -1,3 +1,4 @@
+import type { IGetDonationResponse } from "./i-donation";
 import type {
   IDeleteResponse,
   IPaginationRequest,
@@ -126,8 +127,12 @@ export type ICreateUserResponse = User;
 export interface IGetUserRequest {
   show_address: boolean;
   show_baby: boolean;
+  show_donations_completed: boolean;
+  show_current_donation: boolean;
 }
 export interface IGetUserResponse extends User {
+  current_donation?: IGetDonationResponse;
+  donations_completed?: number;
   addresses?: Address[];
   babies?: UserBaby[];
 }

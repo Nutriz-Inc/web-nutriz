@@ -8,3 +8,7 @@ export type IPaginationResponse = {
     page: number;
     total: number;
 };
+
+export type IDeleteResponse = {
+    success: boolean;
+}

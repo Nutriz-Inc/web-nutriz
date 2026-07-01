@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Auth } from "./auth";
 import { env } from "../config/env";
+import { Donation } from "./donation";
 
 export const baseURL = env?.VITE_API_URL;
 
@@ -38,4 +39,5 @@ httpClient.interceptors.response.use(
 
 export default {
 	auth: new Auth(httpClient),
+	donation: new Donation(httpClient),
 };

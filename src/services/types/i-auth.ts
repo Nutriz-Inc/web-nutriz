@@ -1,4 +1,4 @@
-import type { Address } from "./i-address";
+import type { Address } from "./i-user";
 import type { EnumUserType } from "./i-user";
 
 export interface IAuthRequest {

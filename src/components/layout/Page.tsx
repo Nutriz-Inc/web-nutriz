@@ -19,10 +19,6 @@ export type IPage = {
 	action?: ActionItem | ActionItem[];
 	actionSlot?: React.ReactNode;
 	loading?: boolean;
-	breadcrumb?: {
-		title: string;
-		to: string;
-	}[];
 	hasPermission?: boolean;
 };
 

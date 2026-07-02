@@ -16,13 +16,15 @@ export function MetricCard({
 	sublabel,
 }: MetricCardProps) {
 	return (
-		<div className="bg-white border border-[#e5ebf3] flex flex-col gap-2 items-start p-6 rounded-[20px] w-full shadow-[0px_10px_14px_rgba(10,38,77,0.05)]">
+		<div className="bg-white border border-[#e5ebf3] flex flex-col gap-2 items-start p-6 rounded-[20px] w-full shadow-[0px_10px_14px_rgba(10,38,77,0.05)] lg:flex-1 lg:gap-3.5 lg:p-7">
 			<div
 				className={`${iconBg} flex items-center justify-center rounded-2xl size-14 shrink-0`}
 			>
 				{icon}
 			</div>
-			<p className={`font-extrabold text-[40px] leading-none ${valueColor}`}>
+			<p
+				className={`font-extrabold text-[40px] leading-none lg:text-[46px] ${valueColor}`}
+			>
 				{value}
 			</p>
 			<div className="flex flex-col gap-1">

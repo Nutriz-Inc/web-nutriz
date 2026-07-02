@@ -1,4 +1,5 @@
 import { Status } from "@/components/full/Status";
+import { cn } from "@/lib/utils";
 import {
 	EnumDonationStepName,
 	EnumDonationStepStatus,
@@ -17,6 +18,7 @@ interface Props {
 	datetime: string;
 	status: EnumDonationStepStatus;
 	onConsult: () => void;
+	className?: string;
 }
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -35,6 +37,7 @@ export function NextDonationStep({
 	datetime,
 	status,
 	onConsult,
+	className,
 }: Props) {
 	const progress = (currentStep[stepName] / NUMBER_OF_DONATION_STEPS) * 100;
 
@@ -44,7 +47,12 @@ export function NextDonationStep({
 		.replace(":", "h")}`;
 
 	return (
-		<div className="bg-white flex flex-col gap-4 p-5 rounded-[20px] w-full shadow-[0px_14px_18px_rgba(10,38,77,0.18)]">
+		<div
+			className={cn(
+				"bg-white flex flex-col gap-4 p-5 rounded-[20px] w-full shadow-[0px_14px_18px_rgba(10,38,77,0.18)]",
+				className,
+			)}
+		>
 			<div className="flex gap-3 items-start">
 				<div className="flex flex-col gap-0.5 flex-1 min-w-0">
 					<p className="text-[11px] font-medium text-[#6b8faa] uppercase tracking-wide">

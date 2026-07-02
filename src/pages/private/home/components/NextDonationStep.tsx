@@ -1,9 +1,5 @@
 import { Status } from "@/components/full/Status";
-import {
-  EnumDonationStepName,
-  EnumDonationStepStatus,
-  NUMBER_OF_DONATION_STEPS,
-} from "@/services/types/i-donation-step";
+import { EnumDonationStepName, EnumDonationStepStatus, NUMBER_OF_DONATION_STEPS } from "@/services/types/i-donation";
 
 const currentStep: Record<EnumDonationStepName, number> = {
   [EnumDonationStepName.BloodTest]: 1,
@@ -14,10 +10,22 @@ const currentStep: Record<EnumDonationStepName, number> = {
 
 interface Props {
   stepName: EnumDonationStepName;
-  datetime: Date;
+  datetime: string;
   status: EnumDonationStepStatus;
   onConsult: () => void;
 }
+
+const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
+  day: "numeric",
+  month: "long",
+});
+
+const timeFormatter = new Intl.DateTimeFormat("pt-BR", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
+
 
 export function NextDonationStep({
   stepName,
@@ -27,22 +35,10 @@ export function NextDonationStep({
 }: Props) {
   const progress = (currentStep[stepName] / NUMBER_OF_DONATION_STEPS) * 100;
 
-  const formattedDate = (() => {
-  const date = new Intl.DateTimeFormat("pt-BR", {
-    day: "numeric",
-    month: "long",
-  }).format(datetime);
-
-  const time = new Intl.DateTimeFormat("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  })
-    .format(datetime)
-    .replace(":", "h");
-
-  return `${date} · ${time}`;
-})();
+  const date = new Date(datetime);
+  const formattedDate = `${dateFormatter.format(date)} · ${timeFormatter
+    .format(date)
+    .replace(":", "h")}`;
 
   return (
     <div className="bg-white flex flex-col gap-4 p-5 rounded-[20px] w-full shadow-[0px_14px_18px_rgba(10,38,77,0.18)]">

@@ -57,6 +57,8 @@ export enum EnumDonationStepName {
   MilkAnalysis = "Análise de leite",
 }
 
+export const NUMBER_OF_DONATION_STEPS = 4
+
 export enum EnumDonationStepStatus {
   Pending = "pending",
   Review = "review",

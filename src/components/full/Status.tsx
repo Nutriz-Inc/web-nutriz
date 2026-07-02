@@ -1,4 +1,4 @@
-import { EnumDonationStepStatus } from "@/services/types/i-donation-step";
+import { EnumDonationStepStatus } from "@/services/types/i-donation";
 
 const badgeConfig: Record<EnumDonationStepStatus, { label: string; className: string }> = {
   [EnumDonationStepStatus.Pending]:   { label: "Pendente",   className: "bg-[#faeeda] text-[#854f0b]" },

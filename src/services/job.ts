@@ -1,58 +1,54 @@
 import type { AxiosInstance } from "axios";
 import type {
-  ICreateJobRequest,
-  ICreateJobResponse,
-  IGetJobResponse,
-  IJob,
-  IListJobsRequest,
-  IListJobsResponse,
-  IRemoveJobResponse,
-  IUpdateJobRequest,
-  IUpdateJobResponse,
+	ICreateJobRequest,
+	ICreateJobResponse,
+	IGetJobResponse,
+	IJob,
+	IListJobsRequest,
+	IListJobsResponse,
+	IRemoveJobResponse,
+	IUpdateJobRequest,
+	IUpdateJobResponse,
 } from "./types/i-job";
 
 export class Job implements IJob {
-  constructor(private readonly httpClient: AxiosInstance) {}
+	constructor(private readonly httpClient: AxiosInstance) {}
 
-  async list(params: IListJobsRequest): Promise<IListJobsResponse> {
-    const { data } = await this.httpClient.get("/internal/job", {
-      params,
-    });
+	async list(params: IListJobsRequest): Promise<IListJobsResponse> {
+		const { data } = await this.httpClient.get("/internal/job", {
+			params,
+		});
 
-    return data;
-  }
+		return data;
+	}
 
-  async create(body: ICreateJobRequest): Promise<ICreateJobResponse> {
-    const { data } = await this.httpClient.post("/internal/job", body);
+	async create(body: ICreateJobRequest): Promise<ICreateJobResponse> {
+		const { data } = await this.httpClient.post("/internal/job", body);
 
-    return data;
-  }
+		return data;
+	}
 
-  async update(
-    id_job: string,
-    body: IUpdateJobRequest,
-  ): Promise<IUpdateJobResponse> {
-    const { data } = await this.httpClient.patch(
-      `/internal/job/${id_job}`,
-      body,
-    );
+	async update(
+		id_job: string,
+		body: IUpdateJobRequest,
+	): Promise<IUpdateJobResponse> {
+		const { data } = await this.httpClient.patch(
+			`/internal/job/${id_job}`,
+			body,
+		);
 
-    return data;
-  }
+		return data;
+	}
 
-  async get(id_job: string): Promise<IGetJobResponse> {
-    const { data } = await this.httpClient.get(
-      `/internal/job/${id_job}`,
-    );
+	async get(id_job: string): Promise<IGetJobResponse> {
+		const { data } = await this.httpClient.get(`/internal/job/${id_job}`);
 
-    return data;
-  }
+		return data;
+	}
 
-  async remove(id_job: string): Promise<IRemoveJobResponse> {
-    const { data } = await this.httpClient.delete(
-      `/internal/job/${id_job}`,
-    );
+	async remove(id_job: string): Promise<IRemoveJobResponse> {
+		const { data } = await this.httpClient.delete(`/internal/job/${id_job}`);
 
-    return data;
-  }
+		return data;
+	}
 }

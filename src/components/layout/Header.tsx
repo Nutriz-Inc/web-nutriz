@@ -9,13 +9,15 @@ type RouteHandle = {
 
 export function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
-	
+
 	const navigate = useNavigate();
 	const matches = useMatches();
 
 	const title =
-		(matches.findLast((m) => (m.handle as RouteHandle)?.title)?.handle as RouteHandle)?.title ??
-		"Início";
+		(
+			matches.findLast((m) => (m.handle as RouteHandle)?.title)
+				?.handle as RouteHandle
+		)?.title ?? "Início";
 
 	return (
 		<>

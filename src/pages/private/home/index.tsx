@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-	Gift,
-	Droplet,
-	Menu,
-} from "lucide-react";
+import { Gift, Droplet, Menu } from "lucide-react";
 import { AppDrawer } from "@/components/layout/AppDrawer";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -24,13 +20,13 @@ export function HomePage() {
 	const firstName = auth?.name?.split(" ")[0];
 	const currentStepDonation = data?.current_donation?.steps?.at(-1);
 	const dateForSubLabel = new Intl.DateTimeFormat("pt-BR", {
-  month: "long",
-  year: "numeric",
-}).format(new Date(data?.created_at || new Date()));
+		month: "long",
+		year: "numeric",
+	}).format(new Date(data?.created_at || new Date()));
 
 	const metrics = [
 		{
-			iconBg:'bg-[#e6f1fb]',
+			iconBg: "bg-[#e6f1fb]",
 			icon: <Gift className="size-6 text-[#00458b]" />,
 			value: String(data?.donations_completed),
 			valueColor: "text-[#00458b]",
@@ -38,7 +34,7 @@ export function HomePage() {
 			sublabel: `Desde ${dateForSubLabel}`,
 		},
 		{
-			iconBg:'bg-[#e1f5ee]',
+			iconBg: "bg-[#e1f5ee]",
 			icon: <Droplet className="size-6 text-[#0e9e94]" />,
 			value: `${data?.milk_donated} L`,
 			valueColor: "text-[#0e9e94]",
@@ -46,14 +42,22 @@ export function HomePage() {
 			sublabel: `${(data?.milk_donated || 0) * 1000} ml no total`,
 		},
 		{
-			iconBg:'bg-[#fbeaf0]',
-			icon: <span className="font-bold text-[#f2579f] text-[26px] leading-none">♥</span>,
-			value: String(data?.milk_donated ? Math.floor((data?.milk_donated || 0) * 1000 / BABY_ML_PER_DAY) : 0),
+			iconBg: "bg-[#fbeaf0]",
+			icon: (
+				<span className="font-bold text-[#f2579f] text-[26px] leading-none">
+					♥
+				</span>
+			),
+			value: String(
+				data?.milk_donated
+					? Math.floor(((data?.milk_donated || 0) * 1000) / BABY_ML_PER_DAY)
+					: 0,
+			),
 			valueColor: "text-[#f2579f]",
 			label: "Bebês alimentados",
 			sublabel: "Estimativa rBLH (~200 ml/bebê·dia)",
 		},
-	]
+	];
 
 	return (
 		<Page loading={loading} hasPermission={auth?.type === EnumUserType.Common}>
@@ -84,14 +88,18 @@ export function HomePage() {
 							type="button"
 							className="bg-[#72f2eb] flex items-center justify-center py-4 rounded-full w-full active:scale-[0.98] transition-transform"
 						>
-							<p className="font-semibold text-[#00458b] text-[16px]">Nova Doação</p>
+							<p className="font-semibold text-[#00458b] text-[16px]">
+								Nova Doação
+							</p>
 							{/* To do: Implementar redirect */}
 						</button>
 						<button
 							type="button"
 							className="border-[1.5px] border-white flex items-center justify-center py-4 rounded-full w-full active:scale-[0.98] transition-transform"
 						>
-							<p className="font-semibold text-white text-[16px]">Falar com a EVA</p>
+							<p className="font-semibold text-white text-[16px]">
+								Falar com a EVA
+							</p>
 							{/* To do:Implementar redirect */}
 						</button>
 					</div>
@@ -115,7 +123,8 @@ export function HomePage() {
 							O que você já realizou
 						</p>
 						<p className="font-normal leading-6 text-gray-800 text-[16px]">
-							Veja o impacto da sua generosidade. Cada doação sua transforma a vida de um bebê prematuro.
+							Veja o impacto da sua generosidade. Cada doação sua transforma a
+							vida de um bebê prematuro.
 						</p>
 					</div>
 

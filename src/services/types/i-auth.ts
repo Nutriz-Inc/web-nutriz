@@ -9,11 +9,11 @@ export interface IAuthRequest {
 export interface IAuthResponse {
 	token: string;
 	id_user: string;
-    name: string;
-    type: EnumUserType;
-    addresses: Address[];
+	name: string;
+	type: EnumUserType;
+	addresses: Address[];
 }
 
 export interface IAuth {
-  login(data: IAuthRequest): Promise<IAuthResponse>;
+	login(data: IAuthRequest): Promise<IAuthResponse>;
 }

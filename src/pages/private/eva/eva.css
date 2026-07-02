@@ -1,0 +1,37 @@
+@import "@fontsource-variable/plus-jakarta-sans";
+
+.eva-scope {
+	font-family:
+		"Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Segoe UI", sans-serif;
+	color: #1c1b1f;
+}
+
+@keyframes evaDot {
+	0%,
+	60%,
+	100% {
+		transform: translateY(0);
+		opacity: 0.35;
+	}
+	30% {
+		transform: translateY(-4px);
+		opacity: 1;
+	}
+}
+
+@keyframes evaPulse {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 rgba(206, 147, 216, 0.45);
+	}
+	50% {
+		box-shadow: 0 0 0 7px rgba(206, 147, 216, 0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.eva-scope .eva-avatar,
+	.eva-scope .eva-typing-dot {
+		animation: none;
+	}
+}

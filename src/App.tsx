@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useAuth } from "./hooks/use-auth";
 import { useMemo } from "react";
 
+const queryClient = new QueryClient();
+
 function App() {
 	const { isAuthenticated } = useAuth();
 
@@ -12,11 +14,9 @@ function App() {
 		return isAuthenticated ? routerPrivate : publicRouter;
 	}, [isAuthenticated]);
 
-	const queryClient = new QueryClient();
-
 	return (
 		<QueryClientProvider client={queryClient}>
-				<RouterProvider router={routes} />
+			<RouterProvider router={routes} />
 		</QueryClientProvider>
 	);
 }

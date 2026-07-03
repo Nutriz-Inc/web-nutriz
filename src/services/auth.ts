@@ -1,7 +1,7 @@
 import type { AxiosInstance } from "axios";
-import type { IAuthRequest, IAuthResponse } from "./types/i-auth";
+import type { IAuth, IAuthRequest, IAuthResponse } from "./types/i-auth";
 
-export class Auth {
+export class Auth implements IAuth {
 	constructor(private readonly httpClient: AxiosInstance) {}
 
 	async login({ email, password }: IAuthRequest): Promise<IAuthResponse> {

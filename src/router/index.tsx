@@ -1,9 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { Layout } from "../components/layout/Layout";
+import { EvaWelcomeScreen } from "../pages/private/eva";
+import { EvaChatScreen } from "../pages/private/eva/chat";
+import { HomePage } from "../pages/private/home";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
-import { Layout } from "../components/layout/Layout";
-import { HomePage } from "../pages/private/home";
-import { EvaWelcomeScreen } from "../pages/private/eva";
 
 export const routerPrivate = createBrowserRouter([
 	{
@@ -15,14 +16,18 @@ export const routerPrivate = createBrowserRouter([
 				element: <HomePage />,
 			},
 			{
-		path: "*",
-		element: <Navigate to="/home" replace />,
-	},
+				path: "*",
+				element: <Navigate to="/home" replace />,
+			},
 		],
 	},
 	{
 		path: "/eva",
 		element: <EvaWelcomeScreen />,
+	},
+	{
+		path: "/eva/chat",
+		element: <EvaChatScreen />,
 	},
 ]);
 

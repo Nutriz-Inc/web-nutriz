@@ -6,6 +6,242 @@
 	color: #1c1b1f;
 }
 
+.eva-scope :focus-visible {
+	outline: 3px solid rgba(217, 107, 143, 0.6);
+	outline-offset: 2px;
+}
+
+.eva-scope .eva-btn-primary:focus-visible,
+.eva-scope .eva-send-btn:focus-visible {
+	outline: 3px solid rgba(217, 107, 143, 0.7);
+	outline-offset: 3px;
+}
+
+.eva-scope .eva-link:focus-visible {
+	border-radius: 6px;
+}
+
+.eva-chip {
+	min-height: 44px;
+	padding: 10px 18px;
+	border: 1px solid #ede4ef;
+	background: #faf9fb;
+	border-radius: 999px;
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 600;
+	color: #1c1b1f;
+	cursor: pointer;
+}
+
+.eva-chip--desktop {
+	padding: 10px 20px;
+}
+
+.eva-chip:hover {
+	border-color: #d96b8f;
+	background: #ffffff;
+}
+
+.eva-btn-primary {
+	border: none;
+	background: #1a1a1a;
+	color: #ffffff;
+	border-radius: 999px;
+	font-family: inherit;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.eva-btn-primary:hover {
+	background: #2e2c31;
+}
+
+.eva-link {
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 600;
+	color: #1c1b1f;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.eva-menu-btn {
+	width: 44px;
+	height: 44px;
+	border: none;
+	background: rgba(255, 255, 255, 0.55);
+	border-radius: 999px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.eva-back-btn {
+	width: 44px;
+	height: 44px;
+	margin-left: -10px;
+	border: none;
+	background: transparent;
+	border-radius: 999px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.eva-back-btn:hover {
+	background: #f4f2f6;
+}
+
+.eva-send-btn {
+	flex-shrink: 0;
+	border: none;
+	background: #1a1a1a;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.eva-send-btn:hover {
+	background: #2e2c31;
+}
+
+.eva-send-btn:disabled {
+	opacity: 0.4;
+	cursor: default;
+}
+
+.eva-send-btn:disabled:hover {
+	background: #1a1a1a;
+}
+
+.eva-input {
+	flex: 1;
+	min-width: 0;
+	height: 50px;
+	border: none;
+	background: #f4f2f6;
+	border-radius: 999px;
+	padding: 0 20px;
+	font-family: inherit;
+	font-size: 15px;
+	color: #1c1b1f;
+}
+
+.eva-input--desktop {
+	height: 54px;
+	padding: 0 22px;
+}
+
+.eva-input::placeholder {
+	color: #6b6b76;
+}
+
+.eva-nav-link {
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	padding: 0 16px;
+	font-size: 15px;
+	font-weight: 600;
+	color: #52505a;
+	text-decoration: none;
+	border-radius: 999px;
+}
+
+.eva-nav-link:hover {
+	background: #f4f2f6;
+	color: #1c1b1f;
+}
+
+.eva-nav-link--active {
+	font-weight: 700;
+	color: #1c1b1f;
+	background: #f4f2f6;
+}
+
+.eva-outline-btn {
+	min-height: 44px;
+	padding: 0 20px;
+	border: 1px solid #e5dee8;
+	background: #ffffff;
+	border-radius: 999px;
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 700;
+	color: #1c1b1f;
+	cursor: pointer;
+}
+
+.eva-outline-btn:hover {
+	border-color: #d96b8f;
+}
+
+.eva-sidebar-item {
+	border: none;
+	background: transparent;
+	border-radius: 14px;
+	padding: 12px 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	cursor: pointer;
+	font-family: inherit;
+	text-align: left;
+}
+
+.eva-sidebar-item:hover {
+	background: #f4f2f6;
+}
+
+.eva-sidebar-item--active {
+	background: #f1e9f3;
+}
+
+.eva-sidebar-item--active:hover {
+	background: #f1e9f3;
+}
+
+.eva-date-pill {
+	align-self: center;
+	font-size: 13px;
+	font-weight: 600;
+	color: #6b6b76;
+	background: #f1edf3;
+	border-radius: 999px;
+	padding: 4px 12px;
+}
+
+.eva-typing-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: #8e8a96;
+	animation: evaDot 1.2s ease-in-out infinite;
+}
+
+.eva-typing-dot:nth-child(2) {
+	animation-delay: 0.15s;
+}
+
+.eva-typing-dot:nth-child(3) {
+	animation-delay: 0.3s;
+}
+
+.eva-avatar--pulse-slow {
+	animation: evaPulse 3s ease-in-out infinite;
+}
+
+.eva-avatar--pulse-fast {
+	animation: evaPulse 2s ease-in-out infinite;
+}
+
 @keyframes evaDot {
 	0%,
 	60%,

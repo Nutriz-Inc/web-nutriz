@@ -3,6 +3,7 @@ import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
 import { Layout } from "../components/layout/Layout";
 import { HomePage } from "../pages/private/home";
+import { EvaWelcomeScreen } from "../pages/private/eva";
 
 export const routerPrivate = createBrowserRouter([
 	{
@@ -18,6 +19,10 @@ export const routerPrivate = createBrowserRouter([
 		element: <Navigate to="/home" replace />,
 	},
 		],
+	},
+	{
+		path: "/eva",
+		element: <EvaWelcomeScreen />,
 	},
 ]);
 

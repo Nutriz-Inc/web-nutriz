@@ -6,13 +6,13 @@ import type { Dispatch, SetStateAction } from "react";
 import type { FormErrors } from "..";
 
 export type UseLoginProps = {
-    updateAuth: (data: IAuthResponse) => void;
-    setErrors: Dispatch<SetStateAction<FormErrors>>;
-    onSuccess: () => void;
-}
+	updateAuth: (data: IAuthResponse) => void;
+	setErrors: Dispatch<SetStateAction<FormErrors>>;
+	onSuccess: () => void;
+};
 
 export function useLogin({ updateAuth, setErrors, onSuccess }: UseLoginProps) {
-    const loginMutation = useMutation({
+	const loginMutation = useMutation({
 		mutationFn: (data: IAuthRequest) => services.auth.login(data),
 		onSuccess: (data) => {
 			updateAuth(data);
@@ -27,7 +27,7 @@ export function useLogin({ updateAuth, setErrors, onSuccess }: UseLoginProps) {
 		},
 	});
 
-    return {
-        loginMutation
-    }
+	return {
+		loginMutation,
+	};
 }

@@ -1,9 +1,10 @@
 import "./App.css";
-import { RouterProvider } from "react-router-dom";
-import { publicRouter, routerPrivate } from "./router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useAuth } from "./hooks/use-auth";
 import { useMemo } from "react";
+import { RouterProvider } from "react-router-dom";
+import { useAuth } from "./hooks/use-auth";
+import { EvaWidget } from "./pages/private/eva/widget/eva-widget";
+import { publicRouter, routerPrivate } from "./router";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,8 @@ function App() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-				<RouterProvider router={routes} />
+			<RouterProvider router={routes} />
+			<EvaWidget />
 		</QueryClientProvider>
 	);
 }

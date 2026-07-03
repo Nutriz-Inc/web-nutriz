@@ -1,11 +1,11 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "../components/layout/Layout";
-import { EvaWelcomeScreen } from "../pages/private/eva";
-import { EvaChatScreen } from "../pages/private/eva/chat";
 import { HomePage } from "../pages/private/home";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
 
+// A EVA deixou de ser rota de pagina inteira: agora e um widget flutuante
+// global (EvaWidget em App.tsx), disponivel em qualquer pagina permitida.
 export const routerPrivate = createBrowserRouter([
 	{
 		path: "/",
@@ -20,14 +20,6 @@ export const routerPrivate = createBrowserRouter([
 				element: <Navigate to="/home" replace />,
 			},
 		],
-	},
-	{
-		path: "/eva",
-		element: <EvaWelcomeScreen />,
-	},
-	{
-		path: "/eva/chat",
-		element: <EvaChatScreen />,
 	},
 ]);
 

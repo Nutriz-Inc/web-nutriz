@@ -7,7 +7,19 @@ const MAX_RECONNECT_ATTEMPTS = 3;
 
 export type EvaChatStatus = "connecting" | "open" | "reconnecting" | "failed";
 
-export type EvaBlockedReason = "session" | "consent" | null;
+export type EvaBlockedReason =
+	| "session"
+	| "consent"
+	| "rate_limit"
+	| "jailbreak"
+	| null;
+
+// Codigos de fechamento terminais do modo publico: nao reconectar, apenas
+// exibir o motivo (a mensagem amigavel ja foi transmitida antes do close).
+const PUBLIC_TERMINAL_CODES: Record<number, EvaBlockedReason> = {
+	4029: "rate_limit",
+	4008: "jailbreak",
+};
 
 function getEvaToken(authToken?: string) {
 	const devToken = env.VITE_EVA_DEV_TOKEN;
@@ -20,6 +32,23 @@ function getEvaToken(authToken?: string) {
 	}
 
 	return authToken ?? "";
+}
+
+async function fetchAnonymousToken(): Promise<string | null> {
+	try {
+		const response = await fetch(`${env.VITE_EVA_API_URL}/session/anonymous`, {
+			method: "POST",
+		});
+
+		if (!response.ok) {
+			return null;
+		}
+
+		const data = (await response.json()) as { token?: string };
+		return data.token ?? null;
+	} catch {
+		return null;
+	}
 }
 
 function formatTime(date: Date) {
@@ -39,7 +68,7 @@ function splitParagraphs(text: string) {
 }
 
 export function useEvaChat(initialMessage?: string) {
-	const { auth } = useAuth();
+	const { auth, isAuthenticated } = useAuth();
 
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [isTyping, setIsTyping] = useState(false);
@@ -59,8 +88,13 @@ export function useEvaChat(initialMessage?: string) {
 	const pendingInitialRef = useRef(initialMessage ?? null);
 	const nextIdRef = useRef(0);
 	const tokenRef = useRef(auth?.token);
+	// Modo anonimo: sem usuario autenticado. Usa /ws/chat-public com um
+	// session token efemero obtido de POST /session/anonymous.
+	const isAnonymousRef = useRef(!isAuthenticated);
+	const anonTokenRef = useRef<string | null>(null);
 
 	tokenRef.current = auth?.token;
+	isAnonymousRef.current = !isAuthenticated;
 
 	const nextId = useCallback(() => {
 		nextIdRef.current += 1;
@@ -122,20 +156,43 @@ export function useEvaChat(initialMessage?: string) {
 		[nextId],
 	);
 
-	const connect = useCallback(() => {
-		const token = getEvaToken(tokenRef.current);
+	const connect = useCallback(async () => {
+		let wsUrl: string;
 
-		if (!token) {
-			setBlockedReason("session");
-			setStatus("failed");
-			return;
+		if (isAnonymousRef.current) {
+			if (!anonTokenRef.current) {
+				anonTokenRef.current = await fetchAnonymousToken();
+			}
+
+			// Sessao pode ter sido descartada entre o inicio e o fim do fetch
+			if (disposedRef.current) {
+				return;
+			}
+
+			const anonToken = anonTokenRef.current;
+
+			if (!anonToken) {
+				setBlockedReason("session");
+				setStatus("failed");
+				return;
+			}
+
+			wsUrl = `${env.VITE_EVA_WS_URL}/ws/chat-public?token=${encodeURIComponent(anonToken)}`;
+		} else {
+			const token = getEvaToken(tokenRef.current);
+
+			if (!token) {
+				setBlockedReason("session");
+				setStatus("failed");
+				return;
+			}
+
+			wsUrl = `${env.VITE_EVA_WS_URL}/ws/chat?token=${encodeURIComponent(token)}`;
 		}
 
 		setStatus(attemptsRef.current > 0 ? "reconnecting" : "connecting");
 
-		const ws = new WebSocket(
-			`${env.VITE_EVA_WS_URL}/ws/chat?token=${encodeURIComponent(token)}`,
-		);
+		const ws = new WebSocket(wsUrl);
 
 		wsRef.current = ws;
 
@@ -230,6 +287,16 @@ export function useEvaChat(initialMessage?: string) {
 				return;
 			}
 
+			// Encerramentos terminais do modo publico (rate limit / jailbreak):
+			// a mensagem amigavel ja chegou como chunk; nao reconectar.
+			const terminalReason = PUBLIC_TERMINAL_CODES[event.code];
+
+			if (terminalReason) {
+				setBlockedReason(terminalReason);
+				setStatus("failed");
+				return;
+			}
+
 			if (attemptsRef.current >= MAX_RECONNECT_ATTEMPTS) {
 				setStatus("failed");
 				setErrorMessage(
@@ -299,6 +366,8 @@ export function useEvaChat(initialMessage?: string) {
 		streamTextRef.current = "";
 		streamIdRef.current = null;
 		attemptsRef.current = 0;
+		// Nova conversa anonima = nova sessao (novo session token e session_id)
+		anonTokenRef.current = null;
 
 		setMessages([]);
 		setErrorMessage(null);
@@ -319,5 +388,6 @@ export function useEvaChat(initialMessage?: string) {
 		sendMessage,
 		retry,
 		newConversation,
+		isAnonymous: !isAuthenticated,
 	};
 }

@@ -1,6 +1,7 @@
 import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
+import { CollectionType } from "./CollectionType";
 
 type DonationPointCardProps = {
 	point: IDonationPointResponse;
@@ -13,7 +14,6 @@ export function DonationPointCard({
 	selected,
 	onSelect,
 }: DonationPointCardProps) {
-	const donationLabel = point.has_home ? "Doação - Retirada" : "Retirada";
 	const address = point.address
 		? `${point.address.street}, ${point.address.number ?? "s/n"}`
 		: "Endereço não informado";
@@ -34,8 +34,8 @@ export function DonationPointCard({
 			</div>
 
 			<div className="flex min-w-0 flex-1 flex-col gap-1.5">
-				<div className="flex items-start justify-between gap-2">
-					<p className="truncate text-[13px] font-bold text-[#1a1a1a]">
+				<div className="flex min-w-0 items-start justify-between gap-2">
+					<p className="min-w-0 flex-1 truncate text-[13px] font-bold text-[#1a1a1a]">
 						{point.name}
 					</p>
 					{point.distance_from_you != null && (
@@ -48,9 +48,7 @@ export function DonationPointCard({
 				<p className="text-[11px] text-[#888]">{address}</p>
 
 				<div className="flex flex-wrap items-center gap-1.5">
-					<span className="rounded-md bg-[#e8fcf9] px-2 py-1 text-[10px] font-bold text-[#0f6e56]">
-						{donationLabel}
-					</span>
+					<CollectionType hasHome={point.has_home} />
 				</div>
 			</div>
 		</button>

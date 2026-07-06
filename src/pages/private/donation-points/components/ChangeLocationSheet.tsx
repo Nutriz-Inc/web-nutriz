@@ -1,4 +1,4 @@
-import { LocateFixed, Search } from "lucide-react";
+import { LocateFixed, LoaderCircle, Search } from "lucide-react";
 import { useState } from "react";
 import {
 	Sheet,
@@ -7,19 +7,12 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
+import { formatZipCode } from "@/utils/formatter";
 
 type Coordinates = {
 	latitude: number;
 	longitude: number;
 };
-
-function formatZipCode(raw: string) {
-	const digits = raw.replace(/\D/g, "").slice(0, 8);
-
-	if (digits.length <= 5) return digits;
-
-	return `${digits.slice(0, 5)}-${digits.slice(5)}`;
-}
 
 type ChangeLocationSheetProps = {
 	open: boolean;
@@ -35,11 +28,15 @@ export function ChangeLocationSheet({
 	onApplyCurrentLocation,
 }: ChangeLocationSheetProps) {
 	const [zipCode, setZipCode] = useState("");
+	const [isLocating, setIsLocating] = useState(false);
+	const [locationError, setLocationError] = useState("");
 
 	const zipCodeDigits = zipCode.replace(/\D/g, "");
 
 	function reset() {
 		setZipCode("");
+		setIsLocating(false);
+		setLocationError("");
 	}
 
 	function handleSearch() {
@@ -50,13 +47,32 @@ export function ChangeLocationSheet({
 	}
 
 	function handleUseCurrentLocation() {
-		navigator.geolocation?.getCurrentPosition((position) => {
-			onApplyCurrentLocation({
-				latitude: position.coords.latitude,
-				longitude: position.coords.longitude,
-			});
-			reset();
-		});
+		if (!navigator.geolocation) {
+			setLocationError("Seu navegador não suporta geolocalização.");
+			return;
+		}
+
+		setIsLocating(true);
+		setLocationError("");
+
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				onApplyCurrentLocation({
+					latitude: position.coords.latitude,
+					longitude: position.coords.longitude,
+				});
+				reset();
+			},
+			(error) => {
+				setIsLocating(false);
+				setLocationError(
+					error.code === error.PERMISSION_DENIED
+						? "Permissão de localização negada. Ative o acesso à localização nas configurações do navegador."
+						: "Não foi possível obter sua localização. Tente novamente.",
+				);
+			},
+			{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+		);
 	}
 
 	return (
@@ -101,18 +117,29 @@ export function ChangeLocationSheet({
 					<button
 						type="button"
 						onClick={handleUseCurrentLocation}
-						className="flex items-center gap-3 rounded-xl border border-[#e0e0e0] bg-[#f7f7f7] p-3 text-left"
+						disabled={isLocating}
+						className="flex items-center gap-3 rounded-xl border border-[#e0e0e0] bg-[#f7f7f7] p-3 text-left disabled:opacity-60"
 					>
-						<LocateFixed className="size-[19px] shrink-0 text-[#00458b]" />
+						{isLocating ? (
+							<LoaderCircle className="size-[19px] shrink-0 animate-spin text-[#00458b]" />
+						) : (
+							<LocateFixed className="size-[19px] shrink-0 text-[#00458b]" />
+						)}
 						<div className="flex flex-col">
 							<span className="text-[12px] font-bold text-[#1a1a1a]">
-								Usar minha localização atual
+								{isLocating
+									? "Obtendo localização..."
+									: "Usar minha localização atual"}
 							</span>
 							<span className="text-[10px] text-[#888]">
 								Ativa o GPS do dispositivo
 							</span>
 						</div>
 					</button>
+
+					{locationError && (
+						<p className="text-[11px] text-red-500">{locationError}</p>
+					)}
 
 					<button
 						type="button"

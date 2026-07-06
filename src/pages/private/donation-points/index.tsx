@@ -7,11 +7,7 @@ import { DonationPointDetailSheet } from "./components/DonationPointDetailSheet"
 import { type FilterKey, FilterTabs } from "./components/FilterTabs";
 import { MapPreview } from "./components/MapPreview";
 import { useQueryDonationPoints } from "./hooks";
-
-type Coordinates = {
-	latitude: number;
-	longitude: number;
-};
+import type { Coordinates } from "./components/FitMapView";
 
 type LocationOverride =
 	| ({ kind: "coordinates" } & Coordinates)

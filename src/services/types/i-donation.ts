@@ -99,7 +99,7 @@ export interface IListDonationPointsRequest extends IPaginationRequest {
 	zipcode?: string;
 }
 export interface IDonationPointResponse extends DonationPoint {
-	address?: Address;
+	address: Address;
 	distance_from_you?: number;
 }
 export interface IListDonationPointsResponse extends IPaginationResponse {

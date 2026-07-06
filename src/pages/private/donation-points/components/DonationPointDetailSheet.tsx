@@ -53,8 +53,11 @@ export function DonationPointDetailSheet({
 
 	return (
 		<Sheet open={open} onOpenChange={onOpenChange}>
-			<SheetContent side="bottom" className="rounded-t-2xl border-none">
-				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-[#e0e0e0]" />
+			<SheetContent
+				side="bottom"
+				className="rounded-t-2xl border-none lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:data-[side=bottom]:inset-x-auto lg:data-[side=bottom]:left-auto lg:data-[side=bottom]:right-8 lg:data-[side=bottom]:bottom-8 lg:data-[side=bottom]:w-[420px] lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-[#e0e0e0] lg:data-[side=bottom]:shadow-2xl p-2"
+			>
+				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-[#e0e0e0] lg:hidden" />
 
 				<SheetHeader className="gap-1 pb-0 pl-5 pr-12 pt-2 text-left">
 					<div className="flex min-w-0 items-start justify-between gap-2">

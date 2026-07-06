@@ -1,8 +1,9 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { Layout } from "@/components/layout/Layout";
+import { DonationPointsPage } from "../pages/private/donation-points";
+import { HomePage } from "../pages/private/home";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
-import { HomePage } from "../pages/private/home";
-import { Layout } from "@/components/layout/Layout";
 
 export const routerPrivate = createBrowserRouter([
 	{
@@ -17,14 +18,13 @@ export const routerPrivate = createBrowserRouter([
 		path: "/",
 		element: <Layout />,
 		children: [
-			// Add your private routes here
-			// For example:
 			{
-				path: "/test",
-				element: <LandingPageScreen />,
+				path: "/pontos-de-coleta",
+				element: <DonationPointsPage />,
+				handle: { title: "Pontos de Coleta" },
 			},
 		],
-	}
+	},
 ]);
 
 export const publicRouter = createBrowserRouter([

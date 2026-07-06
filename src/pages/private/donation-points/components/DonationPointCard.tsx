@@ -13,7 +13,6 @@ export function DonationPointCard({
 	selected,
 	onSelect,
 }: DonationPointCardProps) {
-	const isOpen = !!point.opening_hours;
 	const donationLabel = point.has_home ? "Doação - Retirada" : "Retirada";
 	const address = point.address
 		? `${point.address.street}, ${point.address.number ?? "s/n"}`
@@ -49,16 +48,6 @@ export function DonationPointCard({
 				<p className="text-[11px] text-[#888]">{address}</p>
 
 				<div className="flex flex-wrap items-center gap-1.5">
-					<span
-						className={cn(
-							"rounded-md px-2 py-1 text-[10px] font-bold",
-							isOpen
-								? "bg-[#d6ff9f] text-[#3b6d11]"
-								: "bg-[#df5a7a]/30 text-[#d92e2e]",
-						)}
-					>
-						{isOpen ? "Aberto" : "Fechado"}
-					</span>
 					<span className="rounded-md bg-[#e8fcf9] px-2 py-1 text-[10px] font-bold text-[#0f6e56]">
 						{donationLabel}
 					</span>

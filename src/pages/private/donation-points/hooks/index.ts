@@ -6,6 +6,7 @@ type UseQueryDonationPointsParams = {
 	has_home?: boolean;
 	latitude?: number;
 	longitude?: number;
+	zipcode?: string;
 };
 
 export function useQueryDonationPoints(params: UseQueryDonationPointsParams) {

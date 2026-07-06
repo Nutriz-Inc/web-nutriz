@@ -18,12 +18,6 @@ export const routerPrivate = createBrowserRouter([
 		path: "/",
 		element: <Layout />,
 		children: [
-			// Add your private routes here
-			// For example:
-			{
-				path: "/test",
-				element: <LandingPageScreen />,
-			},
 			{
 				path: "/pontos-de-coleta",
 				element: <DonationPointsPage />,

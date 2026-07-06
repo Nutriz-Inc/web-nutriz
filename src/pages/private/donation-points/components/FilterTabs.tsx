@@ -1,10 +1,9 @@
 import { cn } from "@/lib/utils";
 
-export type FilterKey = "all" | "open" | "home";
+export type FilterKey = "all" | "home";
 
 const FILTERS: { key: FilterKey; label: string }[] = [
 	{ key: "all", label: "Todos" },
-	{ key: "open", label: "Aberto" },
 	{ key: "home", label: "Coleta Domiciliar" },
 ];
 

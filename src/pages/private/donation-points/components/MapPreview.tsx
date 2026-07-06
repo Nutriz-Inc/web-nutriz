@@ -14,7 +14,7 @@ const pointIcon = (selected: boolean) =>
 		iconSize: [selected ? 24 : 18, selected ? 24 : 18],
 		iconAnchor: [selected ? 12 : 9, selected ? 12 : 9],
 		html: `<span class="block rounded-full border-2 border-white shadow-md ${
-			selected ? "bg-[#f2579f]" : "bg-[#387ccd]"
+			selected ? "bg-[#f2579f]" : "bg-[#0e9e94]"
 		}" style="width:100%;height:100%"></span>`,
 	});
 
@@ -50,20 +50,32 @@ function hasLocation(
 	);
 }
 
-function FitMapToData({
+function FitMapView({
 	userLocation,
 	points,
 	ready,
+	refitVersion,
 }: {
 	userLocation: Coordinates | null;
 	points: DonationPointWithLocation[];
 	ready: boolean;
+	refitVersion: number;
 }) {
 	const map = useMap();
 	const hasFitted = useRef(false);
+	const previousRefitVersion = useRef(refitVersion);
 
 	useEffect(() => {
-		if (hasFitted.current || !ready) return;
+		const isInitialFit = !hasFitted.current;
+
+		if (isInitialFit) {
+			if (!ready) return;
+		} else if (refitVersion === previousRefitVersion.current) {
+			return;
+		}
+
+		hasFitted.current = true;
+		previousRefitVersion.current = refitVersion;
 
 		const coords: [number, number][] = points.map((point) => [
 			point.address.latitude,
@@ -76,38 +88,23 @@ function FitMapToData({
 
 		if (coords.length === 0) return;
 
-		hasFitted.current = true;
-
 		if (coords.length === 1) {
-			map.setView(coords[0], 14);
+			map.setView(coords[0], 15);
 			return;
 		}
 
 		map.fitBounds(coords, { padding: [36, 36], maxZoom: 15 });
-	}, [map, userLocation, points, ready]);
+	}, [map, userLocation, points, ready, refitVersion]);
 
 	return null;
 }
 
-function LocateButton({ userLocation }: { userLocation: Coordinates | null }) {
-	const map = useMap();
-
-	function handleLocate() {
-		if (userLocation) {
-			map.flyTo([userLocation.latitude, userLocation.longitude], 15);
-			return;
-		}
-
-		navigator.geolocation?.getCurrentPosition((position) => {
-			map.flyTo([position.coords.latitude, position.coords.longitude], 15);
-		});
-	}
-
+function LocateButton({ onClick }: { onClick: () => void }) {
 	return (
 		<button
 			type="button"
-			onClick={handleLocate}
-			aria-label="Centralizar na minha localização"
+			onClick={onClick}
+			aria-label="Trocar endereço de busca"
 			className="absolute bottom-3 right-3 z-[1000] flex size-9 items-center justify-center rounded-full border border-[#e0e0e0] bg-white shadow-md"
 		>
 			<LocateFixed className="size-5 text-[#387ccd]" />
@@ -120,8 +117,10 @@ type MapPreviewProps = {
 	pointsReady: boolean;
 	userLocation: Coordinates | null;
 	userLocationReady: boolean;
+	refitVersion: number;
 	selectedId: string | null;
 	onSelectPoint?: (id: string) => void;
+	onRequestChangeLocation: () => void;
 };
 
 export function MapPreview({
@@ -129,8 +128,10 @@ export function MapPreview({
 	pointsReady,
 	userLocation,
 	userLocationReady,
+	refitVersion,
 	selectedId,
 	onSelectPoint,
+	onRequestChangeLocation,
 }: MapPreviewProps) {
 	const pointsWithLocation = points.filter(hasLocation);
 
@@ -148,10 +149,11 @@ export function MapPreview({
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 				/>
 
-				<FitMapToData
+				<FitMapView
 					userLocation={userLocation}
 					points={pointsWithLocation}
 					ready={pointsReady && userLocationReady}
+					refitVersion={refitVersion}
 				/>
 
 				{userLocation && (
@@ -172,7 +174,7 @@ export function MapPreview({
 					/>
 				))}
 
-				<LocateButton userLocation={userLocation} />
+				<LocateButton onClick={onRequestChangeLocation} />
 			</MapContainer>
 		</div>
 	);

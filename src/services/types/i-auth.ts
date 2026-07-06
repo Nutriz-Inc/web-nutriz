@@ -1,4 +1,3 @@
-import type { Address } from "./i-user";
 import type { EnumUserType } from "./i-user";
 
 export interface IAuthRequest {
@@ -11,7 +10,6 @@ export interface IAuthResponse {
 	id_user: string;
 	name: string;
 	type: EnumUserType;
-	addresses: Address[];
 }
 
 export interface IAuth {

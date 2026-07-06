@@ -70,6 +70,7 @@ export enum EnumDonationStepStatus {
 // donation
 export interface IListDonationsRequest extends IPaginationRequest {
 	is_active?: boolean;
+	user_document?: string;
 }
 export interface IListDonationsResponse extends IPaginationResponse {
 	data: Donation[];

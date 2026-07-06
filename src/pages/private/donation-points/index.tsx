@@ -1,16 +1,31 @@
 import { LoaderCircle, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useGeolocation } from "@/hooks/use-geolocation";
+import { ChangeLocationSheet } from "./components/ChangeLocationSheet";
 import { DonationPointCard } from "./components/DonationPointCard";
+import { DonationPointDetailSheet } from "./components/DonationPointDetailSheet";
 import { type FilterKey, FilterTabs } from "./components/FilterTabs";
 import { MapPreview } from "./components/MapPreview";
 import { useQueryDonationPoints } from "./hooks";
+
+type Coordinates = {
+	latitude: number;
+	longitude: number;
+};
+
+type LocationOverride =
+	| ({ kind: "coordinates" } & Coordinates)
+	| { kind: "zipcode"; zipcode: string };
 
 export function DonationPointsPage() {
 	const [search, setSearch] = useState("");
 	const [debouncedSearch, setDebouncedSearch] = useState("");
 	const [filter, setFilter] = useState<FilterKey>("all");
 	const [selectedId, setSelectedId] = useState<string | null>(null);
+	const [locationOverride, setLocationOverride] =
+		useState<LocationOverride | null>(null);
+	const [refitVersion, setRefitVersion] = useState(0);
+	const [isLocationSheetOpen, setIsLocationSheetOpen] = useState(false);
 
 	const { coordinates, isResolved: isGeolocationResolved } = useGeolocation();
 
@@ -20,16 +35,52 @@ export function DonationPointsPage() {
 		return () => clearTimeout(timeout);
 	}, [search]);
 
+	const zipCodeOverride =
+		locationOverride?.kind === "zipcode" ? locationOverride.zipcode : undefined;
+	const coordinatesOverride =
+		locationOverride?.kind === "coordinates" ? locationOverride : null;
+	const effectiveCoordinates = zipCodeOverride
+		? null
+		: (coordinatesOverride ?? coordinates);
+
 	const { data, isLoading } = useQueryDonationPoints({
 		name: debouncedSearch || undefined,
 		has_home: filter === "home" ? true : undefined,
-		latitude: coordinates?.latitude,
-		longitude: coordinates?.longitude,
+		zipcode: zipCodeOverride,
+		latitude: zipCodeOverride ? undefined : effectiveCoordinates?.latitude,
+		longitude: zipCodeOverride ? undefined : effectiveCoordinates?.longitude,
 	});
 
-	const points = (data?.data ?? []).filter((point) =>
-		filter === "open" ? !!point.opening_hours : true,
-	);
+	const points = data?.data ?? [];
+
+	const selectedPoint =
+		points.find((point) => point.id_donation_point === selectedId) ?? null;
+
+	const closestPointId = points.reduce<string | null>((closestId, point) => {
+		if (point.distance_from_you == null) return closestId;
+
+		const closestPoint = points.find(
+			(candidate) => candidate.id_donation_point === closestId,
+		);
+
+		if (!closestPoint || point.distance_from_you < (closestPoint.distance_from_you ?? Infinity)) {
+			return point.id_donation_point;
+		}
+
+		return closestId;
+	}, null);
+
+	function handleApplyZipCode(zipcode: string) {
+		setLocationOverride({ kind: "zipcode", zipcode });
+		setRefitVersion((version) => version + 1);
+		setIsLocationSheetOpen(false);
+	}
+
+	function handleApplyCurrentLocation(coords: Coordinates) {
+		setLocationOverride({ kind: "coordinates", ...coords });
+		setRefitVersion((version) => version + 1);
+		setIsLocationSheetOpen(false);
+	}
 
 	return (
 		<div className="-m-5 flex flex-col bg-[#f7f7fa]">
@@ -51,12 +102,12 @@ export function DonationPointsPage() {
 				<MapPreview
 					points={points}
 					pointsReady={!isLoading}
-					userLocation={coordinates}
-					userLocationReady={isGeolocationResolved}
+					userLocation={effectiveCoordinates}
+					userLocationReady={locationOverride !== null || isGeolocationResolved}
+					refitVersion={refitVersion}
 					selectedId={selectedId}
-					onSelectPoint={(id) =>
-						setSelectedId((current) => (current === id ? null : id))
-					}
+					onSelectPoint={(id) => setSelectedId(id)}
+					onRequestChangeLocation={() => setIsLocationSheetOpen(true)}
 				/>
 			</div>
 
@@ -78,18 +129,26 @@ export function DonationPointsPage() {
 								key={point.id_donation_point}
 								point={point}
 								selected={point.id_donation_point === selectedId}
-								onSelect={() =>
-									setSelectedId((current) =>
-										current === point.id_donation_point
-											? null
-											: point.id_donation_point,
-									)
-								}
+								onSelect={() => setSelectedId(point.id_donation_point)}
 							/>
 						))}
 					</div>
 				)}
 			</div>
+
+			<ChangeLocationSheet
+				open={isLocationSheetOpen}
+				onOpenChange={setIsLocationSheetOpen}
+				onApplyZipCode={handleApplyZipCode}
+				onApplyCurrentLocation={handleApplyCurrentLocation}
+			/>
+
+			<DonationPointDetailSheet
+				point={selectedPoint}
+				open={selectedId !== null}
+				isClosest={selectedId !== null && selectedId === closestPointId}
+				onOpenChange={(open) => !open && setSelectedId(null)}
+			/>
 		</div>
 	);
 }

@@ -102,9 +102,7 @@ export function DonationPointDetailSheet({
 						<DetailRow
 							icon={<Mail className="size-[18px] text-[#387ccd]" />}
 							label="Email"
-							value={
-								displayPoint.email || "Não informado"
-							}
+							value={displayPoint.email || "Não informado"}
 						/>
 					</div>
 

@@ -6,6 +6,7 @@ import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { FitMapView, type Coordinates } from "./FitMapView";
 import { LocateButton } from "./LocateButton";
+import { MapResizeHandler } from "./MapResizeHandler";
 
 const DEFAULT_CENTER: [number, number] = [-23.5505, -46.6333]; // São Paulo
 
@@ -59,7 +60,7 @@ export function MapPreview({
 			: DEFAULT_CENTER;
 
 	return (
-		<div className="relative isolate h-[225px] w-full overflow-hidden rounded-xl">
+		<div className="relative isolate h-[225px] w-full overflow-hidden rounded-xl lg:mx-auto lg:h-full lg:max-h-[900px] lg:w-full lg:max-w-[1200px] lg:rounded-2xl">
 			<MapContainer center={center} zoom={13} className="size-full">
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -72,6 +73,8 @@ export function MapPreview({
 					ready={pointsReady && userLocationReady}
 					refitVersion={refitVersion}
 				/>
+
+				<MapResizeHandler />
 
 				{userLocation && (
 					<Marker

@@ -21,8 +21,8 @@ export function formatPhoneNumber(raw: string) {
 }
 
 export function formatCep(value: string): string {
-  return value
-    .replace(/\D/g, "")
-    .replace(/^(\d{5})(\d)/, "$1-$2")
-    .slice(0, 9);
+	return value
+		.replace(/\D/g, "")
+		.replace(/^(\d{5})(\d)/, "$1-$2")
+		.slice(0, 9);
 }

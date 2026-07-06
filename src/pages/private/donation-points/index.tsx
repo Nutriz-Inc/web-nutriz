@@ -59,7 +59,10 @@ export function DonationPointsPage() {
 			(candidate) => candidate.id_donation_point === closestId,
 		);
 
-		if (!closestPoint || point.distance_from_you < (closestPoint.distance_from_you ?? Infinity)) {
+		if (
+			!closestPoint ||
+			point.distance_from_you < (closestPoint.distance_from_you ?? Infinity)
+		) {
 			return point.id_donation_point;
 		}
 
@@ -79,8 +82,8 @@ export function DonationPointsPage() {
 	}
 
 	return (
-		<div className="-m-5 flex flex-col bg-[#f7f7fa]">
-			<div className="flex flex-col gap-3 px-4 pt-4">
+		<div className="-m-5 flex flex-col bg-[#f7f7fa] lg:grid lg:h-[calc(100vh-69px)] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden">
+			<div className="flex flex-col gap-3 px-4 pt-4 lg:col-start-1 lg:row-start-1 lg:border-r lg:border-[#e0e0e0] lg:bg-white lg:px-5 lg:pb-4 lg:pt-5">
 				<div className="relative">
 					<Search className="pointer-events-none absolute left-4 top-1/2 size-[15px] -translate-y-1/2 text-[#387ccd]" />
 					<input
@@ -94,7 +97,7 @@ export function DonationPointsPage() {
 				<FilterTabs value={filter} onChange={setFilter} />
 			</div>
 
-			<div className="px-4 pt-4">
+			<div className="px-4 pt-4 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:h-full lg:overflow-hidden lg:p-6">
 				<MapPreview
 					points={points}
 					pointsReady={!isLoading}
@@ -107,8 +110,8 @@ export function DonationPointsPage() {
 				/>
 			</div>
 
-			<div className="relative mt-4 flex-1 rounded-t-2xl border-t border-[#e0e0e0] bg-white pb-6 pt-3">
-				<div className="mx-auto mb-3 h-1 w-9 rounded-full bg-[#e0e0e0]" />
+			<div className="relative mt-4 flex-1 rounded-t-2xl border-t border-[#e0e0e0] bg-white pb-6 pt-3 lg:col-start-1 lg:row-start-2 lg:mt-0 lg:min-h-0 lg:overflow-y-auto lg:rounded-none lg:border-r lg:border-t-0 lg:pt-4">
+				<div className="mx-auto mb-3 h-1 w-9 rounded-full bg-[#e0e0e0] lg:hidden" />
 
 				{isLoading ? (
 					<div className="flex justify-center py-8">

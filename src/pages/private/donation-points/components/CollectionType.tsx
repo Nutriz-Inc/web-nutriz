@@ -13,9 +13,7 @@ export function CollectionType({
 		: "bg-[#edf3ff] text-[#387ccd]";
 
 	if (variant === "detail") {
-		const borderClassName = hasHome
-			? "border-[#a8e6da]"
-			: "border-[#c7def5]";
+		const borderClassName = hasHome ? "border-[#a8e6da]" : "border-[#c7def5]";
 		const dotClassName = hasHome ? "bg-[#0f6e56]" : "bg-[#387ccd]";
 
 		return (

@@ -35,7 +35,7 @@ export function DonationPointCard({
 
 			<div className="flex min-w-0 flex-1 flex-col gap-1.5">
 				<div className="flex min-w-0 items-start justify-between gap-2">
-					<p className="min-w-0 flex-1 truncate text-[13px] font-bold text-[#1a1a1a]">
+					<p className="min-w-0 flex-1 truncate text-[13px] font-bold text-[#1a1a1a] lg:whitespace-normal lg:line-clamp-2">
 						{point.name}
 					</p>
 					{point.distance_from_you != null && (

@@ -1,4 +1,4 @@
-import { LocateFixed, LoaderCircle, Search } from "lucide-react";
+import { LoaderCircle, LocateFixed, Search } from "lucide-react";
 import { useState } from "react";
 import {
 	Sheet,

@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/sheet";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { formatCep, formatPhoneNumber } from "@/utils/formatter";
-import { DetailRow } from "./DetailRow";
 import { CollectionType } from "./CollectionType";
+import { DetailRow } from "./DetailRow";
 
 type DonationPointDetailSheetProps = {
 	point: IDonationPointResponse | null;

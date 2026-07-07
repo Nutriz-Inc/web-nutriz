@@ -1,8 +1,8 @@
+import { Eye, EyeOff, LoaderCircle, Mail } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, Mail, LoaderCircle } from "lucide-react";
-import NutrizLogo from "@/assets/nutriz-logo.svg";
 import LoginBg from "@/assets/login-bg.svg";
+import NutrizLogo from "@/assets/nutriz-logo.svg";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";

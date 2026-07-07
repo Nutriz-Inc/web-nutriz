@@ -1,6 +1,6 @@
-import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
+import type { IDonationPointResponse } from "@/services/types/i-donation";
 
 export type Coordinates = {
 	latitude: number;

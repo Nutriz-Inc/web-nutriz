@@ -2,7 +2,7 @@ import { Status } from "@/components/full/Status";
 import { cn } from "@/lib/utils";
 import {
 	EnumDonationStepName,
-	EnumDonationStepStatus,
+	type EnumDonationStepStatus,
 	NUMBER_OF_DONATION_STEPS,
 } from "@/services/types/i-donation";
 

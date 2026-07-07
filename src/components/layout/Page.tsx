@@ -1,10 +1,9 @@
-import { AlertCircle, LoaderCircle, icons } from "lucide-react";
-import React from "react";
-import { Link, type LinkProps } from "react-router-dom";
+import { AlertCircle, type icons, LoaderCircle } from "lucide-react";
+import type React from "react";
+import type { LinkProps } from "react-router-dom";
 
-import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { Button, type ButtonProps, buttonVariants } from "../ui/button";
+import type { ButtonProps } from "../ui/button";
 
 export type ActionItem = {
 	label: string;
@@ -16,8 +15,7 @@ export type ActionItem = {
 export type IPage = {
 	children: React.ReactNode;
 	title?: string;
-	action?: ActionItem | ActionItem[];
-	actionSlot?: React.ReactNode;
+	description?: string;
 	loading?: boolean;
 	hasPermission?: boolean;
 };
@@ -25,9 +23,8 @@ export type IPage = {
 export function Page({
 	children,
 	title,
+	description,
 	loading,
-	action,
-	actionSlot,
 	hasPermission = true,
 }: IPage) {
 	if (!hasPermission) {
@@ -47,17 +44,15 @@ export function Page({
 	return (
 		<>
 			{title && (
-				<div className="flex flex-col mb-4">
-					<div className="flex items-center justify-between">
+				<div className="flex flex-col mb-8">
+					<div className="flex items-center justify-between mb-2">
 						{title && (
-							<h1 className="text-lg font-semibold md:text-2xl">{title}</h1>
+							<h1 className="text-2xl font-extrabold text-[#0e2a45] lg:text-4xl">
+								{title}
+							</h1>
 						)}
-						{actionSlot ? (
-							actionSlot
-						) : action ? (
-							<RenderActions action={action} />
-						) : null}
 					</div>
+					{description && <p className="text-sm text-[#888]">{description}</p>}
 				</div>
 			)}
 
@@ -74,58 +69,3 @@ export function Page({
 		</>
 	);
 }
-
-const RenderActions = ({ action }: { action?: ActionItem | ActionItem[] }) => {
-	if (!action) {
-		return null;
-	}
-
-	const actionsArray = Array.isArray(action) ? action : [action];
-
-	if (actionsArray.length === 0) {
-		return null;
-	}
-
-	return (
-		<div className="flex items-center gap-2">
-			{actionsArray.map((singleAction, index) => {
-				const Icon = icons[singleAction.icon as keyof typeof icons];
-				const content = (
-					<>
-						<Icon size={12} />
-						<span className="ml-2">{singleAction.label}</span>
-					</>
-				);
-				const key = `action-${index}-${singleAction.label}`;
-
-				if ("to" in singleAction) {
-					return (
-						<Link
-							key={key}
-							data-testid={singleAction.testid}
-							className={cn(
-								buttonVariants({ variant: "outline" }),
-								"max-h-[28px] py-1 px-2",
-							)}
-							to={singleAction.to}
-						>
-							{content}
-						</Link>
-					);
-				}
-
-				return (
-					<Button
-						key={key}
-						data-testid={singleAction.testid}
-						onClick={singleAction.onAction}
-						variant={singleAction?.variant || "outline"}
-						className="max-h-[28px] py-1 px-2"
-					>
-						{content}
-					</Button>
-				);
-			})}
-		</div>
-	);
-};

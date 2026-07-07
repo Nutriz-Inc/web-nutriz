@@ -4,7 +4,7 @@ import { divIcon } from "leaflet";
 
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
-import { FitMapView, type Coordinates } from "./FitMapView";
+import { type Coordinates, FitMapView } from "./FitMapView";
 import { LocateButton } from "./LocateButton";
 import { MapResizeHandler } from "./MapResizeHandler";
 

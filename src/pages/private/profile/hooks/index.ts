@@ -79,3 +79,14 @@ export function useCreateBaby(id?: string) {
 			queryClient.invalidateQueries({ queryKey: [PROFILE_QUERY_KEY, id] }),
 	});
 }
+
+export function useRemoveBaby(id?: string) {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (id_user_baby: string) =>
+			services.user.removeBaby(id_user_baby),
+		onSuccess: () =>
+			queryClient.invalidateQueries({ queryKey: [PROFILE_QUERY_KEY, id] }),
+	});
+}

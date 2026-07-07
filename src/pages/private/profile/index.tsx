@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import { formatDateBR } from "@/utils/formatter";
 import { BabySection } from "./components/BabySection";
 import { BottomActionBar } from "./components/BottomActionBar";
 import {
@@ -13,13 +14,14 @@ import { type ProfileTabKey, ProfileTabs } from "./components/ProfileTabs";
 import {
 	useCreateBaby,
 	useQueryProfile,
+	useRemoveBaby,
 	useSaveAddress,
 	useUpdateBaby,
 	useUpdateProfile,
 } from "./hooks";
 
 function createDraft(): BabyDraft {
-	return { key: crypto.randomUUID(), name: "", birth_date: "", gender: null };
+	return { key: crypto.randomUUID(), name: "", birth_date: "" };
 }
 
 export function ProfilePage() {
@@ -29,12 +31,16 @@ export function ProfilePage() {
 	const [tab, setTab] = useState<ProfileTabKey>("dados");
 	const [myData, setMyData] = useState<MyDataFormValues | null>(null);
 	const [babyNames, setBabyNames] = useState<Record<string, string>>({});
+	const [babyBirthDates, setBabyBirthDates] = useState<Record<string, string>>(
+		{},
+	);
 	const [drafts, setDrafts] = useState<BabyDraft[]>([]);
 
 	const updateProfile = useUpdateProfile(auth?.id_user);
 	const saveAddress = useSaveAddress(auth?.id_user);
 	const updateBaby = useUpdateBaby(auth?.id_user);
 	const createBaby = useCreateBaby(auth?.id_user);
+	const removeBaby = useRemoveBaby(auth?.id_user);
 
 	const address = data?.addresses?.[0];
 	const babies = data?.babies ?? [];
@@ -42,6 +48,8 @@ export function ProfilePage() {
 	const values: MyDataFormValues = myData ?? {
 		name: data?.name ?? "",
 		phone_number: data?.phone_number ?? "",
+		email: data?.email ?? "",
+		password: "",
 		zip_code: address?.zipcode ?? "",
 		number: address?.number ?? "",
 		complement: address?.complement ?? "",
@@ -50,6 +58,17 @@ export function ProfilePage() {
 	const resolvedBabyNames = babies.reduce<Record<string, string>>(
 		(acc, baby) => {
 			acc[baby.id_user_baby] = babyNames[baby.id_user_baby] ?? baby.name ?? "";
+			return acc;
+		},
+		{},
+	);
+
+	const resolvedBabyBirthDates = babies.reduce<Record<string, string>>(
+		(acc, baby) => {
+			acc[baby.id_user_baby] =
+				babyBirthDates[baby.id_user_baby] ??
+				baby.birth_date?.slice(0, 10) ??
+				"";
 			return acc;
 		},
 		{},
@@ -69,9 +88,23 @@ export function ProfilePage() {
 		setDrafts((prev) => prev.filter((draft) => draft.key !== key));
 	}
 
+	async function handleRemoveBaby(id_user_baby: string) {
+		await removeBaby.mutateAsync(id_user_baby);
+
+		setBabyNames((prev) => {
+			const { [id_user_baby]: _removed, ...rest } = prev;
+			return rest;
+		});
+		setBabyBirthDates((prev) => {
+			const { [id_user_baby]: _removed, ...rest } = prev;
+			return rest;
+		});
+	}
+
 	function handleCancel() {
 		setMyData(null);
 		setBabyNames({});
+		setBabyBirthDates({});
 		setDrafts([]);
 	}
 
@@ -82,6 +115,8 @@ export function ProfilePage() {
 			await updateProfile.mutateAsync({
 				name: values.name,
 				phone_number: values.phone_number,
+				email: values.email,
+				password: values.password || undefined,
 			});
 
 			const zipDigits = values.zip_code.replace(/\D/g, "");
@@ -97,12 +132,24 @@ export function ProfilePage() {
 				});
 			}
 
+			setMyData(null);
 			return;
 		}
 
+		const touchedBabyIds = new Set([
+			...Object.keys(babyNames),
+			...Object.keys(babyBirthDates),
+		]);
+
 		await Promise.all([
-			...Object.entries(babyNames).map(([id_user_baby, name]) =>
-				updateBaby.mutateAsync({ id_user_baby, data: { name } }),
+			...Array.from(touchedBabyIds).map((id_user_baby) =>
+				updateBaby.mutateAsync({
+					id_user_baby,
+					data: {
+						name: resolvedBabyNames[id_user_baby],
+						birth_date: resolvedBabyBirthDates[id_user_baby],
+					},
+				}),
 			),
 			...drafts
 				.filter((draft) => draft.name && draft.birth_date)
@@ -114,6 +161,8 @@ export function ProfilePage() {
 				),
 		]);
 
+		setBabyNames({});
+		setBabyBirthDates({});
 		setDrafts([]);
 	}
 
@@ -137,12 +186,7 @@ export function ProfilePage() {
 						<MyDataSection
 							values={values}
 							onChange={setMyData}
-							birthDate={
-								data?.birth_date
-									? new Date(data.birth_date).toLocaleDateString("pt-BR")
-									: ""
-							}
-							email={data?.email ?? ""}
+							birthDate={data?.birth_date ? formatDateBR(data.birth_date) : ""}
 							street={address?.street ?? ""}
 						/>
 					) : (
@@ -151,6 +195,14 @@ export function ProfilePage() {
 							babyNames={resolvedBabyNames}
 							onChangeBabyName={(id, name) =>
 								setBabyNames((prev) => ({ ...prev, [id]: name }))
+							}
+							babyBirthDates={resolvedBabyBirthDates}
+							onChangeBabyBirthDate={(id, birthDate) =>
+								setBabyBirthDates((prev) => ({ ...prev, [id]: birthDate }))
+							}
+							onRemoveBaby={handleRemoveBaby}
+							removingBabyId={
+								removeBaby.isPending ? removeBaby.variables : undefined
 							}
 							drafts={drafts}
 							onAddDraft={handleAddDraft}

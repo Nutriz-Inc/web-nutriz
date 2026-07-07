@@ -4,6 +4,7 @@ import { DonationPointsPage } from "../pages/private/donation-points";
 import { HomePage } from "../pages/private/home";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
+import { NewDonationPage } from "@/pages/private/new-donations";
 
 export const routerPrivate = createBrowserRouter([
 	{
@@ -22,6 +23,11 @@ export const routerPrivate = createBrowserRouter([
 				path: "/pontos-de-coleta",
 				element: <DonationPointsPage />,
 				handle: { title: "Pontos de Coleta" },
+			},
+						{
+				path: "/nova-doacao",
+				element: <NewDonationPage />,
+				handle: { title: "Nova Doação" },
 			},
 		],
 	},

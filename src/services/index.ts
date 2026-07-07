@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Auth } from "./auth";
 import { env } from "../config/env";
+import { Auth } from "./auth";
 import { Donation } from "./donation";
 import { Job } from "./job";
 import { User } from "./user";

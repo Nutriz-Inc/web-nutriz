@@ -45,6 +45,8 @@ pages/private/donation-points/
 
 See `pages/private/donation-points` and `pages/private/home` as the two fullest examples. `pages/public/login` follows the same shape (`index.tsx` + `hooks/index.ts`). Route registration + per-route `handle: { title }` (read by `Header.tsx` to set the top bar title) happens in `router/index.tsx`, not in the page file.
 
+**Every page's root component MUST return its content wrapped in `<Page>` (`@/components/layout/Page`)** — never return a bare top-level `<div>`/fragment from a page component. `Page` centralizes the `hasPermission` gate (renders a permission-denied `Alert` instead of children) and the `loading` gate (renders a centered spinner instead of children), so pages get these behaviors for free instead of hand-rolling them. Pass `hasPermission`/`loading` when the page needs them (see `pages/private/home/index.tsx`); when a page doesn't need either, still wrap children in `<Page>` with no props (see `pages/private/donation-points/index.tsx`) — `Page` renders children transparently with no extra DOM when `title`/`loading` are omitted, so it never interferes with a page's own layout (including tricks like the `-m-5` full-bleed override in `donation-points/index.tsx`).
+
 Shared, cross-page components go in `src/components/` instead, split by intent:
 - `components/ui/` — low-level primitives (shadcn/radix-based: `button.tsx`, `sheet.tsx`, `input.tsx`, `label.tsx`, `alert.tsx`)
 - `components/layout/` — app chrome (`Layout.tsx`, `Header.tsx`, `Footer.tsx`, `AppDrawer.tsx`, `Page.tsx`)

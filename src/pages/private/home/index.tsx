@@ -1,14 +1,14 @@
+import { Droplet, Gift, Menu } from "lucide-react";
 import { useState } from "react";
-import { Gift, Droplet, Menu } from "lucide-react";
+import NutrizLogo from "@/assets/nutriz-log-alternative.svg";
 import { AppDrawer } from "@/components/layout/AppDrawer";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import { EnumUserType } from "@/services/types/i-user";
 import { MetricCard } from "./components/MetricCard";
-import NutrizLogo from "@/assets/nutriz-log-alternative.svg";
 import { NextDonationStep } from "./components/NextDonationStep";
 import { useQueryUserInfo } from "./hooks";
-import { EnumUserType } from "@/services/types/i-user";
 
 const BABY_ML_PER_DAY = 200;
 

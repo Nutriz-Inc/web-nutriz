@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import { EnumUserType } from "@/services/types/i-user";
 import { formatDateBR } from "@/utils/formatter";
 import { BabySection } from "./components/BabySection";
 import { BottomActionBar } from "./components/BottomActionBar";
@@ -211,7 +212,12 @@ export function ProfilePage() {
 		createBaby.isPending;
 
 	return (
-		<Page loading={isLoading}>
+		<Page
+			loading={isLoading}
+			hasPermission={auth?.type === EnumUserType.Common}
+			title="Perfil"
+			description="Gerencie suas informações pessoais e de seu bebê."
+		>
 			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col bg-[#f7f9fb] lg:m-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:px-8 lg:py-8">
 				<div className="lg:mb-5 lg:flex lg:items-center lg:justify-between lg:gap-6 lg:rounded-2xl lg:border lg:border-[#e3eaf2] lg:bg-white lg:p-6">
 					<ProfileHeader name={data?.name ?? ""} email={data?.email ?? ""} />

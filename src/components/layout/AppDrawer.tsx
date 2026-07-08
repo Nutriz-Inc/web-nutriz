@@ -1,5 +1,6 @@
 import {
 	BookOpen,
+	ClipboardList,
 	Droplets,
 	Home,
 	LogOut,
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
+import { EnumUserType } from "@/services/types/i-user";
 import { getInitials } from "./utils";
 
 const navItems = [
@@ -27,6 +29,12 @@ const navItems = [
 	{ label: "Conteúdo educativo", icon: BookOpen, to: "/conteudo-educativo" },
 	{ label: "EVA — Assistente Virtual", icon: MessageCircle, to: "/eva" },
 	{ label: "Perfil", icon: User, to: "/perfil" },
+	{
+		label: "Gestão de Doações",
+		icon: ClipboardList,
+		to: "/gestao-doacoes",
+		adminOnly: true,
+	},
 ];
 
 type AppDrawerProps = {
@@ -67,7 +75,9 @@ export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 				</SheetHeader>
 
 				<nav className="flex-1 py-2 overflow-y-auto">
-					{navItems.map((item) => {
+					{navItems
+						.filter((item) => !item.adminOnly || auth?.type === EnumUserType.Admin)
+						.map((item) => {
 						const Icon = item.icon;
 						return (
 							<NavLink

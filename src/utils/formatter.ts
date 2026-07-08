@@ -27,6 +27,15 @@ export function formatCep(value: string): string {
 		.slice(0, 9);
 }
 
+export function formatCpf(value: string): string {
+	return value
+		.replace(/\D/g, "")
+		.slice(0, 11)
+		.replace(/^(\d{3})(\d)/, "$1.$2")
+		.replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+		.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
+}
+
 export function formatDateBR(isoDate: string): string {
 	return new Date(isoDate).toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }

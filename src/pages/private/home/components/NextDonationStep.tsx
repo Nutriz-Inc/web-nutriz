@@ -1,17 +1,12 @@
 import { Status } from "@/components/full/Status";
 import { cn } from "@/lib/utils";
 import {
-	EnumDonationStepName,
-	EnumDonationStepStatus,
+	type EnumDonationStepName,
+	type EnumDonationStepStatus,
 	NUMBER_OF_DONATION_STEPS,
 } from "@/services/types/i-donation";
-
-const currentStep: Record<EnumDonationStepName, number> = {
-	[EnumDonationStepName.BloodTest]: 1,
-	[EnumDonationStepName.DeliverMilkingKit]: 2,
-	[EnumDonationStepName.CollectMilk]: 3,
-	[EnumDonationStepName.MilkAnalysis]: 4,
-};
+import { STEP_NUMBER } from "@/utils/constants";
+import { formatCreatedAt } from "@/utils/formatter";
 
 interface Props {
 	stepName: EnumDonationStepName;
@@ -21,17 +16,6 @@ interface Props {
 	className?: string;
 }
 
-const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
-	day: "numeric",
-	month: "long",
-});
-
-const timeFormatter = new Intl.DateTimeFormat("pt-BR", {
-	hour: "2-digit",
-	minute: "2-digit",
-	hour12: false,
-});
-
 export function NextDonationStep({
 	stepName,
 	datetime,
@@ -39,12 +23,10 @@ export function NextDonationStep({
 	onConsult,
 	className,
 }: Props) {
-	const progress = (currentStep[stepName] / NUMBER_OF_DONATION_STEPS) * 100;
-
-	const date = new Date(datetime);
-	const formattedDate = `${dateFormatter.format(date)} · ${timeFormatter
-		.format(date)
-		.replace(":", "h")}`;
+	const progress = (STEP_NUMBER[stepName] / NUMBER_OF_DONATION_STEPS) * 100;
+	const formattedDate = datetime
+		? formatCreatedAt(datetime)
+		: "Sem data marcada";
 
 	return (
 		<div
@@ -80,7 +62,7 @@ export function NextDonationStep({
 					/>
 				</div>
 				<span className="text-[12px] font-semibold text-[#33536f]">
-					{currentStep[stepName]} / {NUMBER_OF_DONATION_STEPS}
+					{STEP_NUMBER[stepName]} / {NUMBER_OF_DONATION_STEPS}
 				</span>
 			</div>
 

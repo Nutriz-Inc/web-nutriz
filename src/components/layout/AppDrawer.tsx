@@ -1,19 +1,20 @@
-import { NavLink, useNavigate } from "react-router-dom";
 import {
-	Home,
-	MapPin,
-	Droplets,
 	BookOpen,
-	MessageCircle,
+	Droplets,
+	Home,
 	LogOut,
+	MapPin,
+	MessageCircle,
+	User,
 	X,
 } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
 	Sheet,
+	SheetClose,
 	SheetContent,
 	SheetHeader,
 	SheetTitle,
-	SheetClose,
 } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
@@ -22,9 +23,10 @@ import { getInitials } from "./utils";
 const navItems = [
 	{ label: "Início", icon: Home, to: "/home" },
 	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
-	{ label: "Minha doação", icon: Droplets, to: "/minha-doacao" },
+	{ label: "Minhas doações", icon: Droplets, to: "/minhas-doacoes" },
 	{ label: "Conteúdo educativo", icon: BookOpen, to: "/conteudo-educativo" },
 	{ label: "EVA — Assistente Virtual", icon: MessageCircle, to: "/eva" },
+	{ label: "Perfil", icon: User, to: "/perfil" },
 ];
 
 type AppDrawerProps = {

@@ -32,10 +32,7 @@ export class Job implements IJob {
 		id_job: string,
 		body: IUpdateJobRequest,
 	): Promise<IUpdateJobResponse> {
-		const { data } = await this.httpClient.patch(
-			`/internal/job/${id_job}`,
-			body,
-		);
+		const { data } = await this.httpClient.put(`/internal/job/${id_job}`, body);
 
 		return data;
 	}

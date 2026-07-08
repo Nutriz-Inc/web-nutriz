@@ -1,7 +1,7 @@
 import { Status } from "@/components/full/Status";
 import { cn } from "@/lib/utils";
 import {
-	EnumDonationStepName,
+	type EnumDonationStepName,
 	type EnumDonationStepStatus,
 	NUMBER_OF_DONATION_STEPS,
 } from "@/services/types/i-donation";
@@ -24,7 +24,9 @@ export function NextDonationStep({
 	className,
 }: Props) {
 	const progress = (STEP_NUMBER[stepName] / NUMBER_OF_DONATION_STEPS) * 100;
-	const formattedDate = datetime ? formatCreatedAt(datetime) : "Sem data marcada";
+	const formattedDate = datetime
+		? formatCreatedAt(datetime)
+		: "Sem data marcada";
 
 	return (
 		<div

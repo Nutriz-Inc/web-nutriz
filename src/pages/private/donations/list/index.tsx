@@ -1,4 +1,4 @@
-import { LoaderCircle, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -6,18 +6,13 @@ import { NUMBER_OF_DONATION_STEPS } from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";
 import { STEP_NUMBER } from "@/utils/constants";
 import { DonationCard } from "./components/DonationCard";
-import {
-	useActiveDonationSteps,
-	useCreateDonation,
-	useDonationsList,
-} from "./hooks";
+import { useActiveDonationSteps, useDonationsList } from "./hooks";
 
 export function DonationsPage() {
 	const navigate = useNavigate();
 	const { auth } = useAuth();
 
 	const { data, isLoading, isError, refetch } = useDonationsList();
-	const createDonation = useCreateDonation();
 
 	const donations = data?.data ?? [];
 
@@ -44,12 +39,6 @@ export function DonationsPage() {
 		navigate(`/minhas-doacoes/${idDonation}`);
 	}
 
-	function handleCreateDonation() {
-		createDonation.mutate(undefined, {
-			onSuccess: (donation) => goToDetail(donation.id_donation),
-		});
-	}
-
 	return (
 		<Page
 			title="Minhas doações"
@@ -58,15 +47,11 @@ export function DonationsPage() {
 			actionSlot={
 				<button
 					type="button"
-					onClick={handleCreateDonation}
-					disabled={createDonation.isPending}
+					onClick={() => {}} // To do: Implement create donation functionality
+					disabled={false}
 					className="hidden items-center gap-2 rounded-full bg-[#00458b] px-6 py-3 text-[14px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60 lg:flex"
 				>
-					{createDonation.isPending ? (
-						<LoaderCircle className="size-4 animate-spin" />
-					) : (
-						<Plus className="size-4" />
-					)}
+					<Plus className="size-4" />
 					Nova Doação
 				</button>
 			}
@@ -131,15 +116,11 @@ export function DonationsPage() {
 				<div className="sticky bottom-0 border-t border-[#e3e9f2] bg-[#f4f7fb] px-5 pb-5 pt-3 lg:hidden">
 					<button
 						type="button"
-						onClick={handleCreateDonation}
-						disabled={createDonation.isPending}
+						onClick={() => {}} // To do: Implement create donation functionality
+						disabled={false}
 						className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#00458b] text-[15px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60"
 					>
-						{createDonation.isPending ? (
-							<LoaderCircle className="size-5 animate-spin" />
-						) : (
-							<Plus className="size-5" />
-						)}
+						<Plus className="size-5" />
 						Nova Doação
 					</button>
 				</div>

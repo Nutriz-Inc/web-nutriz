@@ -13,7 +13,7 @@ import { useQueryUserInfo } from "./hooks";
 
 export function HomePage() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
-	const { auth } = useAuth()
+	const { auth } = useAuth();
 
 	const { isLoading: loading, data } = useQueryUserInfo(auth?.id_user);
 

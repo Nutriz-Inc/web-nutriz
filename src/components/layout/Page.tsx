@@ -1,21 +1,13 @@
-import { AlertCircle, type icons, LoaderCircle } from "lucide-react";
+import { AlertCircle, LoaderCircle } from "lucide-react";
 import type React from "react";
-import type { LinkProps } from "react-router-dom";
 
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import type { ButtonProps } from "../ui/button";
-
-export type ActionItem = {
-	label: string;
-	icon: keyof typeof icons;
-	testid?: string;
-	variant?: ButtonProps["variant"];
-} & ({ onAction: () => void } | Pick<LinkProps, "to">);
 
 export type IPage = {
 	children: React.ReactNode;
 	title?: string;
 	description?: string;
+	actionSlot?: React.ReactNode;
 	loading?: boolean;
 	hasPermission?: boolean;
 };
@@ -24,6 +16,7 @@ export function Page({
 	children,
 	title,
 	description,
+	actionSlot,
 	loading,
 	hasPermission = true,
 }: IPage) {
@@ -51,6 +44,7 @@ export function Page({
 								{title}
 							</h1>
 						)}
+						{actionSlot}
 					</div>
 					{description && <p className="text-sm text-[#888]">{description}</p>}
 				</div>

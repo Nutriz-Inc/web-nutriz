@@ -34,6 +34,9 @@ export function RemoveBabyButton({
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
+					<div className="flex size-12 items-center justify-center rounded-full bg-[#fbe8ec]">
+						<Trash2 className="size-5 text-[#df5a7a]" />
+					</div>
 					<AlertDialogTitle>Remover bebê</AlertDialogTitle>
 					<AlertDialogDescription>
 						Tem certeza que deseja remover? Essa ação não poderá ser desfeita.

@@ -53,7 +53,7 @@ function AlertDialogContent({
 			<AlertDialogPrimitive.Content
 				data-slot="alert-dialog-content"
 				className={cn(
-					"fixed left-1/2 top-1/2 z-50 w-[calc(100%-2.5rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-5 shadow-xl duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+					"fixed left-1/2 top-1/2 z-50 w-[calc(100%-2.5rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white p-6 shadow-2xl duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
 					className,
 				)}
 				{...props}
@@ -69,7 +69,7 @@ function AlertDialogHeader({
 	return (
 		<div
 			data-slot="alert-dialog-header"
-			className={cn("flex flex-col gap-1.5", className)}
+			className={cn("flex flex-col items-center gap-2 text-center", className)}
 			{...props}
 		/>
 	);
@@ -82,10 +82,7 @@ function AlertDialogFooter({
 	return (
 		<div
 			data-slot="alert-dialog-footer"
-			className={cn(
-				"mt-5 flex flex-col-reverse gap-2 sm:flex-row-reverse",
-				className,
-			)}
+			className={cn("mt-6 flex flex-col gap-2.5", className)}
 			{...props}
 		/>
 	);
@@ -98,7 +95,7 @@ function AlertDialogTitle({
 	return (
 		<AlertDialogPrimitive.Title
 			data-slot="alert-dialog-title"
-			className={cn("text-[15px] font-bold text-[#1a1a1a]", className)}
+			className={cn("text-[16px] font-bold text-[#1a1a1a]", className)}
 			{...props}
 		/>
 	);
@@ -111,7 +108,7 @@ function AlertDialogDescription({
 	return (
 		<AlertDialogPrimitive.Description
 			data-slot="alert-dialog-description"
-			className={cn("text-[13px] text-[#888]", className)}
+			className={cn("text-[13px] leading-relaxed text-[#888]", className)}
 			{...props}
 		/>
 	);
@@ -125,8 +122,8 @@ function AlertDialogAction({
 		<AlertDialogPrimitive.Action
 			data-slot="alert-dialog-action"
 			className={cn(
-				buttonVariants({ variant: "destructive" }),
-				"h-10 flex-1",
+				buttonVariants({ variant: "default" }),
+				"h-12 w-full rounded-2xl bg-[#df5a7a] text-[14px] font-semibold text-white hover:bg-[#c94a68]",
 				className,
 			)}
 			{...props}
@@ -143,7 +140,7 @@ function AlertDialogCancel({
 			data-slot="alert-dialog-cancel"
 			className={cn(
 				buttonVariants({ variant: "outline" }),
-				"h-10 flex-1",
+				"h-11 w-full rounded-2xl border-[#e1e7ee] text-[14px] font-medium text-[#888]",
 				className,
 			)}
 			{...props}

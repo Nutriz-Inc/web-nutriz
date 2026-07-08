@@ -1,6 +1,6 @@
 import { MapPin, User } from "lucide-react";
 import { formatCep, formatPhoneNumber } from "@/utils/formatter";
-import { Field } from "./Field";
+import { Field } from "../../../../components/full/Field";
 import { PasswordField } from "./PasswordField";
 import { SectionCard } from "./SectionCard";
 

@@ -45,7 +45,7 @@ export class User implements IUser {
 		id_user: string,
 		body: IUpdateUserRequest,
 	): Promise<IUpdateUserResponse> {
-		const { data } = await this.httpClient.patch(
+		const { data } = await this.httpClient.put(
 			`/internal/user/${id_user}`,
 			body,
 		);
@@ -82,7 +82,7 @@ export class User implements IUser {
 		id_address: string,
 		body: IUpdateAddressRequest,
 	): Promise<IUpdateAddressResponse> {
-		const { data } = await this.httpClient.patch(
+		const { data } = await this.httpClient.put(
 			`/internal/user/address/${id_address}`,
 			body,
 		);
@@ -110,7 +110,7 @@ export class User implements IUser {
 		id_user_baby: string,
 		body: IUpdateUserBabyRequest,
 	): Promise<IUpdateUserBabyResponse> {
-		const { data } = await this.httpClient.patch(
+		const { data } = await this.httpClient.put(
 			`/internal/user/baby/${id_user_baby}`,
 			body,
 		);

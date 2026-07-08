@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -45,7 +46,7 @@ export function ProfilePage() {
 	const address = data?.addresses?.[0];
 	const babies = data?.babies ?? [];
 
-	const values: MyDataFormValues = myData ?? {
+	const baselineValues: MyDataFormValues = {
 		name: data?.name ?? "",
 		phone_number: data?.phone_number ?? "",
 		email: data?.email ?? "",
@@ -54,6 +55,23 @@ export function ProfilePage() {
 		number: address?.number ?? "",
 		complement: address?.complement ?? "",
 	};
+
+	const values: MyDataFormValues = myData ?? baselineValues;
+
+	const hasUserChanges =
+		myData !== null &&
+		(values.name !== baselineValues.name ||
+			values.phone_number !== baselineValues.phone_number ||
+			values.email !== baselineValues.email ||
+			values.password !== "");
+
+	const hasAddressChanges =
+		myData !== null &&
+		(values.zip_code !== baselineValues.zip_code ||
+			values.number !== baselineValues.number ||
+			values.complement !== baselineValues.complement);
+
+	const hasDadosChanges = hasUserChanges || hasAddressChanges;
 
 	const resolvedBabyNames = babies.reduce<Record<string, string>>(
 		(acc, baby) => {
@@ -73,6 +91,13 @@ export function ProfilePage() {
 		},
 		{},
 	);
+
+	const hasBabyChanges =
+		Object.keys(babyNames).length > 0 ||
+		Object.keys(babyBirthDates).length > 0 ||
+		drafts.length > 0;
+
+	const hasChanges = tab === "dados" ? hasDadosChanges : hasBabyChanges;
 
 	function handleAddDraft() {
 		setDrafts((prev) => [...prev, createDraft()]);
@@ -112,25 +137,38 @@ export function ProfilePage() {
 		if (!auth?.id_user) return;
 
 		if (tab === "dados") {
-			await updateProfile.mutateAsync({
-				name: values.name,
-				phone_number: values.phone_number,
-				email: values.email,
-				password: values.password || undefined,
-			});
+			const requests: Promise<unknown>[] = [];
 
-			const zipDigits = values.zip_code.replace(/\D/g, "");
-
-			if (zipDigits.length === 8) {
-				await saveAddress.mutateAsync({
-					id_address: address?.id_address,
-					data: {
-						zip_code: zipDigits,
-						number: values.number || undefined,
-						complement: values.complement || undefined,
-					},
-				});
+			if (hasUserChanges) {
+				requests.push(
+					updateProfile.mutateAsync({
+						name: values.name,
+						phone_number: values.phone_number,
+						email: values.email,
+						password: values.password || undefined,
+					}),
+				);
 			}
+
+			if (hasAddressChanges) {
+				const zipDigits = values.zip_code.replace(/\D/g, "");
+				const canSaveAddress = !!address?.id_address || zipDigits.length === 8;
+
+				if (canSaveAddress) {
+					requests.push(
+						saveAddress.mutateAsync({
+							id_address: address?.id_address,
+							data: {
+								zip_code: zipDigits.length === 8 ? zipDigits : undefined,
+								number: values.number || undefined,
+								complement: values.complement || undefined,
+							},
+						}),
+					);
+				}
+			}
+
+			await Promise.all(requests);
 
 			setMyData(null);
 			return;
@@ -212,11 +250,13 @@ export function ProfilePage() {
 					)}
 				</div>
 
-				<BottomActionBar
-					onSave={handleSave}
-					onCancel={handleCancel}
-					saving={saving}
-				/>
+				{hasChanges && (
+					<BottomActionBar
+						onSave={handleSave}
+						onCancel={handleCancel}
+						saving={saving}
+					/>
+				)}
 			</div>
 		</Page>
 	);

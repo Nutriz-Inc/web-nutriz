@@ -1,8 +1,8 @@
 import { Baby } from "lucide-react";
 import type { UserBaby } from "@/services/types/i-user";
 import { formatDateBR } from "@/utils/formatter";
+import { Field } from "../../../../components/full/Field";
 import { AddBabyButton } from "./AddBabyButton";
-import { Field } from "./Field";
 import type { BabyDraft } from "./NewBabyCard";
 import { NewBabyCard } from "./NewBabyCard";
 import { RemoveBabyButton } from "./RemoveBabyButton";

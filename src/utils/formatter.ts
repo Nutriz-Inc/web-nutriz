@@ -26,3 +26,7 @@ export function formatCep(value: string): string {
 		.replace(/^(\d{5})(\d)/, "$1-$2")
 		.slice(0, 9);
 }
+
+export function formatDateBR(isoDate: string): string {
+	return new Date(isoDate).toLocaleDateString("pt-BR", { timeZone: "UTC" });
+}

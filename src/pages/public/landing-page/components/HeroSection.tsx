@@ -34,7 +34,7 @@ export function HeroSection() {
 			<div className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-12 px-5 pt-28 pb-16 lg:grid-cols-2 lg:gap-10 lg:px-8 lg:pt-36 lg:pb-24">
 				<motion.div {...contentReveal} className="flex flex-col items-start">
 					<motion.span variants={fadeScale} className="inline-flex">
-						<ActivityBadge label="Faça sua doação" dotColor="#f9a620" />
+						<ActivityBadge label="Faça sua doação" dotColor="#72f2eb" />
 					</motion.span>
 
 					<motion.h1
@@ -43,7 +43,7 @@ export function HeroSection() {
 					>
 						Doar Amor.
 						<br />
-						<span className="text-[#f9a620]">Multiplica Vidas.</span>
+						<span className="text-[#72f2eb]">Multiplica Vidas.</span>
 					</motion.h1>
 
 					<motion.p

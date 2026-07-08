@@ -24,7 +24,7 @@ export function FinalCtaSection() {
 
 						<div className="relative z-10 flex flex-col gap-8 p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:p-14">
 							<div className="max-w-lg">
-								<ActivityBadge label="Junte-se a nós" dotColor="#f9a620" />
+								<ActivityBadge label="Junte-se a nós" dotColor="#72f2eb" />
 
 								<h2 className="mt-5 text-[28px] font-extrabold leading-tight tracking-tight text-white sm:text-[34px] lg:text-[40px]">
 									Pronta para fazer a diferença?

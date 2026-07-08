@@ -1,5 +1,14 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { Menu } from "lucide-react";
+import {
+	BookOpen,
+	HelpCircle,
+	type LucideIcon,
+	MapPin,
+	Menu,
+	MessageCircle,
+	Quote,
+	X,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -15,6 +24,14 @@ import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "../data/landing-content";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
 import { Wordmark } from "./Wordmark";
+
+const NAV_ICONS: Record<string, LucideIcon> = {
+	"como-funciona": HelpCircle,
+	"pontos-de-coleta": MapPin,
+	"a-eva": MessageCircle,
+	artigos: BookOpen,
+	depoimentos: Quote,
+};
 
 export function LandingHeader() {
 	const navigate = useNavigate();
@@ -87,6 +104,7 @@ export function LandingHeader() {
 					>
 						Login
 					</button>
+					{/* To do: navegar para a pagina de cadastro quando disponivel */}
 					<Button
 						onClick={() => navigate("/login")}
 						className="h-11 rounded-full bg-white px-6 text-[14px] font-semibold text-[#0a3a87] hover:bg-[#eaf0f8]"
@@ -106,40 +124,57 @@ export function LandingHeader() {
 						</button>
 					</SheetTrigger>
 
-					<SheetContent side="right" className="w-4/5 max-w-xs bg-white">
-						<SheetHeader className="sr-only">
-							<SheetTitle>Menu</SheetTitle>
+					<SheetContent
+						side="right"
+						showCloseButton={false}
+						className="flex w-[300px] flex-col gap-0 bg-white p-0"
+					>
+						<SheetHeader className="relative bg-[#1B4FBB] px-5 pt-10 pb-6 text-white">
+							<SheetClose className="absolute top-4 right-4 text-white/80 transition hover:text-white">
+								<X className="h-5 w-5" />
+							</SheetClose>
+							<SheetTitle className="text-left">
+								<Wordmark className="h-7" />
+							</SheetTitle>
+							<p className="text-left text-[13px] text-white/70">
+								Doe leite. Multiplique vidas.
+							</p>
 						</SheetHeader>
 
 						<nav
 							aria-label="Navegação principal"
-							className="flex flex-col gap-1 px-4 pt-14"
+							className="flex-1 overflow-y-auto py-2"
 						>
-							{NAV_LINKS.map((link) => (
-								<button
-									key={link.targetId}
-									type="button"
-									onClick={() => handleNavClick(link.targetId)}
-									className="cursor-pointer rounded-lg px-3 py-3 text-left text-[15px] font-medium text-[#12294d] transition-colors hover:bg-[#f5f7fb] hover:text-[#0a3a87]"
-								>
-									{link.label}
-								</button>
-							))}
+							{NAV_LINKS.map((link) => {
+								const Icon = NAV_ICONS[link.targetId];
+								return (
+									<button
+										key={link.targetId}
+										type="button"
+										onClick={() => handleNavClick(link.targetId)}
+										className="flex w-full items-center gap-4 border-l-4 border-transparent px-5 py-4 text-left text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+									>
+										{Icon && <Icon className="h-5 w-5 shrink-0" />}
+										{link.label}
+									</button>
+								);
+							})}
 						</nav>
 
-						<div className="mt-2 flex flex-col gap-3 border-t border-[#eef2f7] px-4 pt-4">
+						<div className="flex flex-col gap-3 border-t border-slate-200 p-4">
 							<SheetClose asChild>
 								<Button
 									onClick={() => navigate("/login")}
-									className="h-11 w-full cursor-pointer rounded-full border border-[#d0d9e8] bg-white text-[15px] font-semibold text-[#0a3a87] hover:bg-[#f5f7fb]"
+									className="h-11 w-full cursor-pointer rounded-full border border-[#d0d9e8] bg-white text-[15px] font-semibold text-[#1B4FBB] hover:bg-slate-50"
 								>
 									Login
 								</Button>
 							</SheetClose>
+							{/* To do: navegar para a pagina de cadastro quando disponivel */}
 							<SheetClose asChild>
 								<Button
 									onClick={() => navigate("/login")}
-									className="h-11 w-full cursor-pointer rounded-full bg-[#0a3a87] text-[15px] font-semibold text-white hover:bg-[#0e4aa0]"
+									className="h-11 w-full cursor-pointer rounded-full bg-[#1B4FBB] text-[15px] font-semibold text-white hover:bg-[#1745a3]"
 								>
 									Cadastrar-se
 								</Button>

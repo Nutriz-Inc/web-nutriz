@@ -1,9 +1,13 @@
 import { motion } from "framer-motion";
+import {
+	buildLactareWhatsAppLink,
+	EnumWhatsAppLinkContext,
+} from "@/utils/whatsapp-link";
 import { fadeUp, staggerContainer } from "../animations/variants";
 import bancoLeite from "../assets/milk-bank.jpg";
 import whatsappLogo from "../assets/whatsapp-logo.png";
 import { useReveal } from "../hooks/use-reveal";
-import { STEP_ICONS, STEPS, WHATSAPP_URL } from "./constants";
+import { STEP_ICONS, STEPS } from "./constants";
 import { SectionLabel } from "./SectionLabel";
 import { SlideButton } from "./SlideButton";
 
@@ -114,7 +118,11 @@ export function HowItWorksSection() {
 							<SlideButton
 								label="Chamar no WhatsApp"
 								onClick={() =>
-									window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer")
+									window.open(
+										buildLactareWhatsAppLink(EnumWhatsAppLinkContext.NewDonor),
+										"_blank",
+										"noopener,noreferrer",
+									)
 								}
 								pillClassName="bg-[#25d366] text-white"
 								circleClassName="bg-white text-[#1a8f47]"

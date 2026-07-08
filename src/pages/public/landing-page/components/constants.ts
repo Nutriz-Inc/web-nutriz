@@ -74,10 +74,6 @@ export const STEPS: Step[] = [
 
 export const STEP_ICONS = [RegisterIcon, ExamIcon, DonateIcon];
 
-export const WHATSAPP_URL = `https://wa.me/5511999999999?text=${encodeURIComponent(
-	"Olá! Quero ser doadora de leite pela Nutriz.",
-)}`;
-
 export type Metric = {
 	Icon: LucideIcon;
 	iconClassName: string;

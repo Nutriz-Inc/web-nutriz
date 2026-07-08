@@ -21,10 +21,7 @@ import {
 	useUpdateBaby,
 	useUpdateProfile,
 } from "./hooks";
-
-function createDraft(): BabyDraft {
-	return { key: crypto.randomUUID(), name: "", birth_date: "" };
-}
+import { createDraft } from "./utils";
 
 export function ProfilePage() {
 	const { auth } = useAuth();

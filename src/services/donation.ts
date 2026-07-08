@@ -38,7 +38,7 @@ export class Donation implements IDonation {
 		id_donation: string,
 		body: IUpdateDonationRequest,
 	): Promise<IUpdateDonationResponse> {
-		const { data } = await this.httpClient.patch(
+		const { data } = await this.httpClient.put(
 			`/internal/donation/${id_donation}`,
 			body,
 		);
@@ -79,7 +79,7 @@ export class Donation implements IDonation {
 		id_donation_step: string,
 		body: IUpdateDonationStepRequest,
 	): Promise<IUpdateDonationStepResponse> {
-		const { data } = await this.httpClient.patch(
+		const { data } = await this.httpClient.put(
 			`/internal/donation/step/${id_donation_step}`,
 			body,
 		);

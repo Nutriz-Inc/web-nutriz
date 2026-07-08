@@ -6,11 +6,10 @@ import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
+import { BABY_ML_PER_DAY } from "@/utils/constants";
 import { MetricCard } from "./components/MetricCard";
 import { NextDonationStep } from "./components/NextDonationStep";
 import { useQueryUserInfo } from "./hooks";
-
-const BABY_ML_PER_DAY = 200;
 
 export function HomePage() {
 	const [drawerOpen, setDrawerOpen] = useState(false);

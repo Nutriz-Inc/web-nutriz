@@ -59,7 +59,7 @@ export function DonationsPage() {
 	return (
 		<Page title="Minhas doações" description="Acompanhe as suas doações">
 			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col bg-[#f4f7fb]">
-				<div className="flex flex-1 flex-col gap-4 px-5 pb-4 pt-6">
+				<div className="flex flex-1 flex-col gap-4 px-5 pb-4 pt-6 lg:mx-auto lg:w-full lg:max-w-5xl lg:gap-6 lg:px-8 lg:pt-8">
 					{isLoading ? (
 						<div className="flex flex-col gap-3">
 							{[0, 1, 2].map((index) => (
@@ -92,7 +92,7 @@ export function DonationsPage() {
 							</p>
 						</div>
 					) : (
-						<div className="flex flex-col gap-3">
+						<div className="flex flex-col gap-3 lg:grid lg:grid-cols-2 lg:items-start lg:gap-4">
 							{orderedDonations.map(({ donation, number }) => {
 								const isInProgress = donation.is_active;
 
@@ -108,6 +108,7 @@ export function DonationsPage() {
 										totalSteps={NUMBER_OF_DONATION_STEPS}
 										stepLabel={isInProgress ? activeStepLabel : undefined}
 										onClick={() => goToDetail(donation.id_donation)}
+										className={isInProgress ? "lg:col-span-2" : undefined}
 									/>
 								);
 							})}
@@ -115,12 +116,12 @@ export function DonationsPage() {
 					)}
 				</div>
 
-				<div className="sticky bottom-0 border-t border-[#e3e9f2] bg-[#f4f7fb] px-5 pb-5 pt-3">
+				<div className="sticky bottom-0 border-t border-[#e3e9f2] bg-[#f4f7fb] px-5 pb-5 pt-3 lg:static lg:mx-auto lg:flex lg:w-full lg:max-w-5xl lg:justify-end lg:border-t-0 lg:bg-transparent lg:px-8 lg:pb-8 lg:pt-0">
 					<button
 						type="button"
 						onClick={handleCreateDonation}
 						disabled={createDonation.isPending}
-						className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#00458b] text-[15px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60"
+						className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#00458b] text-[15px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60 lg:w-auto lg:px-8"
 					>
 						{createDonation.isPending ? (
 							<LoaderCircle className="size-5 animate-spin" />

@@ -1,4 +1,5 @@
 import { Calendar, ChevronRight, Heart } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { ProgressBar } from "./ProgressBar";
 
 type DonationCardProps = {
@@ -9,6 +10,7 @@ type DonationCardProps = {
 	totalSteps: number;
 	stepLabel?: string;
 	onClick?: () => void;
+	className?: string;
 };
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -36,6 +38,7 @@ export function DonationCard({
 	totalSteps,
 	stepLabel,
 	onClick,
+	className,
 }: DonationCardProps) {
 	const formattedDate = formatCreatedAt(createdAt);
 
@@ -44,7 +47,10 @@ export function DonationCard({
 			<button
 				type="button"
 				onClick={onClick}
-				className="flex w-full flex-col gap-3 rounded-2xl bg-white p-4 text-left shadow-[0px_8px_16px_rgba(10,38,77,0.06)] active:scale-[0.99] transition-transform"
+				className={cn(
+					"flex w-full flex-col gap-3 rounded-2xl bg-white p-4 text-left shadow-[0px_8px_16px_rgba(10,38,77,0.06)] active:scale-[0.99] transition-transform",
+					className,
+				)}
 			>
 				<div className="flex items-start gap-3">
 					<span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#e8f1fb]">
@@ -89,7 +95,10 @@ export function DonationCard({
 		<button
 			type="button"
 			onClick={onClick}
-			className="flex w-full flex-col gap-2.5 rounded-2xl bg-white p-4 text-left shadow-[0px_8px_16px_rgba(10,38,77,0.06)] active:scale-[0.99] transition-transform"
+			className={cn(
+				"flex w-full flex-col gap-2.5 rounded-2xl bg-white p-4 text-left shadow-[0px_8px_16px_rgba(10,38,77,0.06)] active:scale-[0.99] transition-transform",
+				className,
+			)}
 		>
 			<div className="flex items-center gap-3">
 				<span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#fce4f0]">

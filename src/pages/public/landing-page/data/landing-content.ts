@@ -11,37 +11,6 @@ export const NAV_LINKS: NavLink[] = [
 	{ label: "Depoimentos", targetId: "depoimentos" },
 ];
 
-export type Stat = {
-	target: number;
-	prefix?: string;
-	suffix?: string;
-	format?: "thousands";
-	label: string;
-	color: string;
-};
-
-export const STATS: Stat[] = [
-	{
-		target: 4200,
-		suffix: "+",
-		format: "thousands",
-		label: "Doadoras ativas",
-		color: "#ec4899",
-	},
-	{
-		target: 12,
-		suffix: " mil L",
-		label: "Leite coletado",
-		color: "#f9a620",
-	},
-	{
-		target: 98,
-		suffix: "%",
-		label: "Satisfação",
-		color: "#10b981",
-	},
-];
-
 export type Step = {
 	number: string;
 	title: string;
@@ -55,89 +24,22 @@ export const STEPS: Step[] = [
 		title: "Cadastre-se e faça triagem",
 		description:
 			"Clique em Quero doar e nossa equipe entrará em contato via WhatsApp para a triagem inicial.",
-		color: "#3b82f6",
+		color: "#00458b",
 	},
 	{
 		number: "2",
 		title: "Realize os exames",
 		description:
 			"Exames simples de saúde para garantir a segurança do leite para os bebês receptores.",
-		color: "#f9a620",
+		color: "#0e9e94",
 	},
 	{
 		number: "3",
 		title: "Doe e acompanhe",
 		description:
 			"Coletamos o leite e você acompanha cada etapa pela plataforma em tempo real.",
-		color: "#ec4899",
+		color: "#f2579f",
 	},
-];
-
-export type PointTagTone = "open" | "closed" | "donation" | "pickup";
-
-export type PointTag = {
-	label: string;
-	tone: PointTagTone;
-};
-
-export type CollectionPoint = {
-	id: string;
-	name: string;
-	address: string;
-	distance: string;
-	tags: PointTag[];
-};
-
-export const COLLECTION_POINTS: CollectionPoint[] = [
-	{
-		id: "santa-casa-1",
-		name: "BLH Santa Casa SP",
-		address: "R. Dr. Cesário Motta Jr., 112",
-		distance: "0,8 km",
-		tags: [
-			{ label: "Aberto", tone: "open" },
-			{ label: "Retirada", tone: "pickup" },
-		],
-	},
-	{
-		id: "santa-casa-2",
-		name: "BLH Santa Casa SP",
-		address: "R. Dr. Cesário Motta Jr., 112",
-		distance: "0,8 km",
-		tags: [
-			{ label: "Aberto", tone: "open" },
-			{ label: "Doação", tone: "donation" },
-			{ label: "Retirada", tone: "pickup" },
-		],
-	},
-	{
-		id: "santa-casa-3",
-		name: "BLH Santa Casa SP",
-		address: "R. Dr. Cesário Motta Jr., 112",
-		distance: "0,8 km",
-		tags: [
-			{ label: "Fechado", tone: "closed" },
-			{ label: "Doação", tone: "donation" },
-		],
-	},
-	{
-		id: "santa-casa-4",
-		name: "BLH Santa Casa SP",
-		address: "R. Dr. Cesário Motta Jr., 112",
-		distance: "0,6 km",
-		tags: [
-			{ label: "Aberto", tone: "open" },
-			{ label: "Doação", tone: "donation" },
-			{ label: "Retirada", tone: "pickup" },
-		],
-	},
-];
-
-export const POINT_FILTERS = [
-	"Todos",
-	"Aberto",
-	"Mais Próximo",
-	"Coleta Domiciliar",
 ];
 
 export type Article = {

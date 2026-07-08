@@ -1,14 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import {
-	BookOpen,
-	HelpCircle,
-	type LucideIcon,
-	MapPin,
-	Menu,
-	MessageCircle,
-	Quote,
-	X,
-} from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -21,17 +12,9 @@ import {
 	SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { NAV_LINKS } from "../data/landing-content";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
+import { NAV_ICONS, NAV_LINKS } from "./constants";
 import { Wordmark } from "./Wordmark";
-
-const NAV_ICONS: Record<string, LucideIcon> = {
-	"como-funciona": HelpCircle,
-	"pontos-de-coleta": MapPin,
-	"a-eva": MessageCircle,
-	artigos: BookOpen,
-	depoimentos: Quote,
-};
 
 export function LandingHeader() {
 	const navigate = useNavigate();

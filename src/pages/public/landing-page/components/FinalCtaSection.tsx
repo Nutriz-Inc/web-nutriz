@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "../hooks/use-reveal";
 import { ActivityBadge } from "./ActivityBadge";
+import { CTA_AVATARS } from "./constants";
 import { HeroBackground } from "./HeroBackground";
 import { SlideButton } from "./SlideButton";
-
-const AVATARS = ["#f9a620", "#2fd9c5", "#387ccd", "#ec4899"];
 
 export function FinalCtaSection() {
 	const navigate = useNavigate();
@@ -52,7 +51,7 @@ export function FinalCtaSection() {
 
 								<div className="flex items-center gap-3">
 									<div className="flex -space-x-2" aria-hidden>
-										{AVATARS.map((color) => (
+										{CTA_AVATARS.map((color) => (
 											<span
 												key={color}
 												className="size-8 rounded-full border-2 border-white"

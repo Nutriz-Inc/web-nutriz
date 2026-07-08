@@ -1,44 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
-import {
-	FacebookIcon,
-	InstagramIcon,
-	LinkedinIcon,
-	YoutubeIcon,
-} from "./SocialIcons";
+import { FOOTER_COLUMNS, FOOTER_SOCIALS, type FooterLink } from "./constants";
 import { Wordmark } from "./Wordmark";
-
-type FooterLink = {
-	label: string;
-	targetId?: string;
-	to?: string;
-};
-
-const COLUMNS: { title: string; links: FooterLink[] }[] = [
-	{
-		title: "Plataforma",
-		links: [
-			{ label: "Como funciona", targetId: "como-funciona" },
-			{ label: "Pontos de coleta", targetId: "pontos-de-coleta" },
-			{ label: "A EVA", targetId: "a-eva" },
-		],
-	},
-	{
-		title: "Conteúdo",
-		links: [
-			{ label: "Artigos", targetId: "artigos" },
-			{ label: "Depoimentos", targetId: "depoimentos" },
-			{ label: "Entrar", to: "/login" },
-		],
-	},
-];
-
-const SOCIALS = [
-	{ label: "Instagram", Icon: InstagramIcon },
-	{ label: "Facebook", Icon: FacebookIcon },
-	{ label: "YouTube", Icon: YoutubeIcon },
-	{ label: "LinkedIn", Icon: LinkedinIcon },
-];
 
 export function LandingFooter() {
 	const navigate = useNavigate();
@@ -68,7 +31,7 @@ export function LandingFooter() {
 						</p>
 
 						<div className="mt-5 flex gap-2.5">
-							{SOCIALS.map(({ label, Icon }) => (
+							{FOOTER_SOCIALS.map(({ label, Icon }) => (
 								<button
 									key={label}
 									type="button"
@@ -82,7 +45,7 @@ export function LandingFooter() {
 					</div>
 
 					<div className="grid grid-cols-2 gap-10 sm:gap-16">
-						{COLUMNS.map((column) => (
+						{FOOTER_COLUMNS.map((column) => (
 							<nav
 								key={column.title}
 								aria-label={column.title}

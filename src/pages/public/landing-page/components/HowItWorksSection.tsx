@@ -2,16 +2,10 @@ import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "../animations/variants";
 import bancoLeite from "../assets/milk-bank.jpg";
 import whatsappLogo from "../assets/whatsapp-logo.png";
-import { STEPS } from "../data/landing-content";
 import { useReveal } from "../hooks/use-reveal";
+import { STEP_ICONS, STEPS, WHATSAPP_URL } from "./constants";
 import { SectionLabel } from "./SectionLabel";
 import { SlideButton } from "./SlideButton";
-
-const STEP_ICONS = [IconRegister, IconExam, IconDonate];
-
-const WHATSAPP_URL = `https://wa.me/5511999999999?text=${encodeURIComponent(
-	"Olá! Quero ser doadora de leite pela Nutriz.",
-)}`;
 
 export function HowItWorksSection() {
 	const headerReveal = useReveal();
@@ -130,90 +124,5 @@ export function HowItWorksSection() {
 				</motion.div>
 			</div>
 		</section>
-	);
-}
-
-function IconRegister() {
-	return (
-		<svg
-			width="26"
-			height="26"
-			viewBox="0 0 24 24"
-			fill="none"
-			aria-hidden="true"
-		>
-			<circle cx="9.5" cy="8" r="3.3" stroke="currentColor" strokeWidth="1.7" />
-			<path
-				d="M4 20a5.5 5.5 0 0 1 11 0"
-				stroke="currentColor"
-				strokeWidth="1.7"
-				strokeLinecap="round"
-			/>
-			<path
-				d="M18 7.5v5M15.5 10h5"
-				stroke="currentColor"
-				strokeWidth="1.7"
-				strokeLinecap="round"
-			/>
-		</svg>
-	);
-}
-
-function IconExam() {
-	return (
-		<svg
-			width="26"
-			height="26"
-			viewBox="0 0 24 24"
-			fill="none"
-			aria-hidden="true"
-		>
-			<rect
-				x="5"
-				y="5"
-				width="14"
-				height="16"
-				rx="2.5"
-				stroke="currentColor"
-				strokeWidth="1.7"
-			/>
-			<path
-				d="M9 5V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"
-				stroke="currentColor"
-				strokeWidth="1.7"
-			/>
-			<path
-				d="m8.5 13 2.2 2.2L15 11"
-				stroke="currentColor"
-				strokeWidth="1.7"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-		</svg>
-	);
-}
-
-function IconDonate() {
-	return (
-		<svg
-			width="26"
-			height="26"
-			viewBox="0 0 24 24"
-			fill="none"
-			aria-hidden="true"
-		>
-			<path
-				d="M12 3.2c3.2 3.8 5.6 6.6 5.6 9.6a5.6 5.6 0 1 1-11.2 0c0-3 2.4-5.8 5.6-9.6Z"
-				stroke="currentColor"
-				strokeWidth="1.7"
-				strokeLinejoin="round"
-			/>
-			<path
-				d="M9.6 13.4a1.4 1.4 0 0 1 2.4-1 1.4 1.4 0 0 1 2.4 1c0 1.2-2.4 2.6-2.4 2.6s-2.4-1.4-2.4-2.6Z"
-				stroke="currentColor"
-				strokeWidth="1.3"
-				strokeLinejoin="round"
-			/>
-		</svg>
 	);
 }

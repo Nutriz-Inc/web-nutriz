@@ -121,7 +121,7 @@ export function CollectionPointsSection() {
 					</div>
 
 					<div className="grid lg:h-[520px] lg:grid-cols-[1fr_400px]">
-						<div className="relative order-1 h-[300px] p-4 pt-0 lg:h-full lg:p-6 lg:pt-0">
+						<div className="px-4 pb-4 lg:h-full lg:p-6 lg:pt-0">
 							<MapPreview
 								points={points}
 								pointsReady={!isLoading}
@@ -136,7 +136,7 @@ export function CollectionPointsSection() {
 							/>
 						</div>
 
-						<div className="order-2 flex flex-col gap-3 px-4 pb-4 lg:h-full lg:overflow-y-auto lg:border-l lg:border-[#e0e0e0] lg:p-4">
+						<div className="flex max-h-[380px] flex-col gap-3 overflow-y-auto px-4 pb-4 lg:h-full lg:max-h-none lg:border-l lg:border-[#e0e0e0] lg:p-4">
 							{isLoading ? (
 								<div className="flex justify-center py-8">
 									<LoaderCircle className="size-5 animate-spin text-[#387ccd]" />

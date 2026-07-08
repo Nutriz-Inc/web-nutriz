@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck, BookOpen } from "lucide-react";
 import { fadeUp, staggerContainer } from "../animations/variants";
-import { ARTICLES } from "../data/landing-content";
+import { ARTICLES } from "../data/mock";
 import { useReveal } from "../hooks/use-reveal";
 import { SectionLabel } from "./SectionLabel";
 

@@ -1,6 +1,7 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
+import { EVA_CARD_BG, EVA_FEATURES } from "./constants";
 import { SlideButton } from "./SlideButton";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -14,27 +15,6 @@ const item: Variants = {
 	hidden: { opacity: 0, y: 18 },
 	show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
 };
-
-const CARD_BG =
-	"radial-gradient(130% 90% at 15% 8%, #f8bbd0 0%, rgba(248,187,208,0) 58%), radial-gradient(110% 85% at 88% 18%, #ce93d8 0%, rgba(206,147,216,0) 62%), radial-gradient(140% 110% at 55% 105%, #b39ddb 0%, rgba(179,157,219,0) 60%), #fdf4f8";
-
-const FEATURES = [
-	{
-		title: "Resposta em segundos",
-		desc: "Sem fila e sem espera. A EVA responde na hora, dia e noite.",
-		Icon: ClockIcon,
-	},
-	{
-		title: "Acolhimento de verdade",
-		desc: "Linguagem calma e humana, pensada para o pós-parto.",
-		Icon: HeartIcon,
-	},
-	{
-		title: "Suas conversas protegidas",
-		desc: "Privacidade garantida. A EVA não substitui avaliação médica.",
-		Icon: ShieldIcon,
-	},
-];
 
 export function EvaSection() {
 	const navigate = useNavigate();
@@ -88,7 +68,7 @@ export function EvaSection() {
 					</motion.p>
 
 					<motion.ul variants={item} className="mt-8 flex flex-col gap-5">
-						{FEATURES.map(({ title, desc, Icon }) => (
+						{EVA_FEATURES.map(({ title, desc, Icon }) => (
 							<li key={title} className="flex items-start gap-4">
 								<span
 									aria-hidden
@@ -136,7 +116,7 @@ export function EvaSection() {
 					<div
 						className="flex h-[260px] flex-col items-center justify-center gap-4 overflow-hidden rounded-[26px] p-7 lg:h-[460px] lg:gap-6 lg:rounded-[32px] lg:p-10"
 						style={{
-							background: CARD_BG,
+							background: EVA_CARD_BG,
 							boxShadow: "0 20px 50px rgba(179,157,219,0.28)",
 						}}
 					>
@@ -213,71 +193,5 @@ export function EvaSection() {
 				</motion.div>
 			</motion.div>
 		</section>
-	);
-}
-
-function ClockIcon() {
-	return (
-		<svg
-			width="22"
-			height="22"
-			viewBox="0 0 24 24"
-			fill="none"
-			aria-hidden="true"
-		>
-			<circle cx="12" cy="12" r="9" stroke="#C25E86" strokeWidth="1.6" />
-			<path
-				d="M12 7.5V12l3 2"
-				stroke="#C25E86"
-				strokeWidth="1.6"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-		</svg>
-	);
-}
-
-function HeartIcon() {
-	return (
-		<svg
-			width="22"
-			height="22"
-			viewBox="0 0 24 24"
-			fill="none"
-			aria-hidden="true"
-		>
-			<path
-				d="M12 20s-7-4.35-7-9.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 2.5C19 15.65 12 20 12 20Z"
-				stroke="#C25E86"
-				strokeWidth="1.6"
-				strokeLinejoin="round"
-			/>
-		</svg>
-	);
-}
-
-function ShieldIcon() {
-	return (
-		<svg
-			width="22"
-			height="22"
-			viewBox="0 0 24 24"
-			fill="none"
-			aria-hidden="true"
-		>
-			<path
-				d="M12 3.5 5.5 6.2v5c0 4 2.8 6.6 6.5 8 3.7-1.4 6.5-4 6.5-8v-5L12 3.5Z"
-				stroke="#C25E86"
-				strokeWidth="1.6"
-				strokeLinejoin="round"
-			/>
-			<path
-				d="m9.3 12 1.9 1.9 3.6-3.8"
-				stroke="#C25E86"
-				strokeWidth="1.6"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-		</svg>
 	);
 }

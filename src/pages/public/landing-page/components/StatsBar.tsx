@@ -1,34 +1,7 @@
 import { motion } from "framer-motion";
-import { Droplet, Heart, Users } from "lucide-react";
 import { MetricCard } from "@/pages/private/home/components/MetricCard";
 import { useReveal } from "../hooks/use-reveal";
-
-const METRICS = [
-	{
-		iconBg: "bg-[#e6f1fb]",
-		icon: <Users className="size-6 text-[#00458b]" />,
-		value: "4.200+",
-		valueColor: "text-[#00458b]",
-		label: "Doadoras ativas",
-		sublabel: "Em todo o Brasil",
-	},
-	{
-		iconBg: "bg-[#e1f5ee]",
-		icon: <Droplet className="size-6 text-[#0e9e94]" />,
-		value: "12 mil L",
-		valueColor: "text-[#0e9e94]",
-		label: "Leite coletado",
-		sublabel: "Doados aos bancos de leite",
-	},
-	{
-		iconBg: "bg-[#fbeaf0]",
-		icon: <Heart className="size-6 text-[#f2579f]" fill="#f2579f" />,
-		value: "98%",
-		valueColor: "text-[#f2579f]",
-		label: "Satisfação",
-		sublabel: "Das nossas doadoras",
-	},
-];
+import { METRICS } from "./constants";
 
 export function StatsBar() {
 	const reveal = useReveal();
@@ -39,11 +12,11 @@ export function StatsBar() {
 				{...reveal}
 				className="flex flex-col gap-4 lg:flex-row lg:gap-6"
 			>
-				{METRICS.map((metric) => (
+				{METRICS.map(({ Icon, iconClassName, ...metric }) => (
 					<MetricCard
 						key={metric.label}
 						iconBg={metric.iconBg}
-						icon={metric.icon}
+						icon={<Icon className={iconClassName} />}
 						value={metric.value}
 						valueColor={metric.valueColor}
 						label={metric.label}

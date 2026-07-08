@@ -42,55 +42,59 @@ export function BabySection({
 				<AddBabyButton onClick={onAddDraft} />
 			</div>
 
-			{babies.length === 0 ? (
-				<SectionCard icon={<Baby className="size-[18px]" />} title="Bebê">
-					<p className="px-3 py-4 text-center text-[12px] text-[#888]">
-						Nenhum bebê cadastrado ainda.
-					</p>
-				</SectionCard>
-			) : (
-				babies.map((baby) => {
-					const birthDate = babyBirthDates[baby.id_user_baby] ?? "";
+			<div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:items-start lg:gap-5">
+				{babies.length === 0 ? (
+					<SectionCard icon={<Baby className="size-[18px]" />} title="Bebê">
+						<p className="px-3 py-4 text-center text-[12px] text-[#888]">
+							Nenhum bebê cadastrado ainda.
+						</p>
+					</SectionCard>
+				) : (
+					babies.map((baby) => {
+						const birthDate = babyBirthDates[baby.id_user_baby] ?? "";
 
-					return (
-						<SectionCard
-							key={baby.id_user_baby}
-							icon={<Baby className="size-[18px]" />}
-							title="Bebê"
-							action={
-								<RemoveBabyButton
-									onConfirm={() => onRemoveBaby(baby.id_user_baby)}
-									loading={removingBabyId === baby.id_user_baby}
-								/>
-							}
-						>
-							<Field
-								label="Nome do Bebê"
-								value={babyNames[baby.id_user_baby] ?? ""}
-								onChange={(value) => onChangeBabyName(baby.id_user_baby, value)}
-							/>
-							<Field
-								label="Data de Nascimento"
-								type="date"
-								value={birthDate}
-								displayValue={birthDate ? formatDateBR(birthDate) : ""}
-								onChange={(value) =>
-									onChangeBabyBirthDate(baby.id_user_baby, value)
+						return (
+							<SectionCard
+								key={baby.id_user_baby}
+								icon={<Baby className="size-[18px]" />}
+								title="Bebê"
+								action={
+									<RemoveBabyButton
+										onConfirm={() => onRemoveBaby(baby.id_user_baby)}
+										loading={removingBabyId === baby.id_user_baby}
+									/>
 								}
-							/>
-						</SectionCard>
-					);
-				})
-			)}
+							>
+								<Field
+									label="Nome do Bebê"
+									value={babyNames[baby.id_user_baby] ?? ""}
+									onChange={(value) =>
+										onChangeBabyName(baby.id_user_baby, value)
+									}
+								/>
+								<Field
+									label="Data de Nascimento"
+									type="date"
+									value={birthDate}
+									displayValue={birthDate ? formatDateBR(birthDate) : ""}
+									onChange={(value) =>
+										onChangeBabyBirthDate(baby.id_user_baby, value)
+									}
+								/>
+							</SectionCard>
+						);
+					})
+				)}
 
-			{drafts.map((draft) => (
-				<NewBabyCard
-					key={draft.key}
-					draft={draft}
-					onChange={onChangeDraft}
-					onRemove={() => onRemoveDraft(draft.key)}
-				/>
-			))}
+				{drafts.map((draft) => (
+					<NewBabyCard
+						key={draft.key}
+						draft={draft}
+						onChange={onChangeDraft}
+						onRemove={() => onRemoveDraft(draft.key)}
+					/>
+				))}
+			</div>
 		</div>
 	);
 }

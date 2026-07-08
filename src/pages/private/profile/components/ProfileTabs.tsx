@@ -24,7 +24,7 @@ export function ProfileTabs({ value, onChange }: ProfileTabsProps) {
 						type="button"
 						onClick={() => onChange(tab.key)}
 						className={cn(
-							"flex-1 rounded-full py-2 text-[13px] transition-colors",
+							"flex-1 whitespace-nowrap rounded-full py-2 text-[13px] transition-colors lg:px-6",
 							active
 								? "bg-[#00458b] font-bold text-white"
 								: "font-medium text-[#387ccd]/55",

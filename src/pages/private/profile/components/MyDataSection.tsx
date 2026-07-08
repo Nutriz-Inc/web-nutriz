@@ -35,7 +35,7 @@ export function MyDataSection({
 	}
 
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:items-start lg:gap-5">
 			<SectionCard icon={<User className="size-[18px]" />} title="Perfil">
 				<Field
 					label="Nome Completo"

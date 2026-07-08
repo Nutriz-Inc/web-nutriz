@@ -1,6 +1,7 @@
 import { Calendar, ChevronRight, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProgressBar } from "./ProgressBar";
+import { formatCreatedAt } from "@/utils/formatter";
 
 type DonationCardProps = {
 	number: number;
@@ -12,23 +13,6 @@ type DonationCardProps = {
 	onClick?: () => void;
 	className?: string;
 };
-
-const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
-	day: "2-digit",
-	month: "2-digit",
-	year: "numeric",
-});
-
-const timeFormatter = new Intl.DateTimeFormat("pt-BR", {
-	hour: "2-digit",
-	minute: "2-digit",
-	hour12: false,
-});
-
-function formatCreatedAt(createdAt: string) {
-	const date = new Date(createdAt);
-	return `${dateFormatter.format(date)} - ${timeFormatter.format(date)}`;
-}
 
 export function DonationCard({
 	number,

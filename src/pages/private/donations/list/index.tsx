@@ -2,7 +2,6 @@ import { LoaderCircle, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import {
-	EnumDonationStepName,
 	NUMBER_OF_DONATION_STEPS,
 } from "@/services/types/i-donation";
 import { DonationCard } from "./components/DonationCard";
@@ -11,16 +10,13 @@ import {
 	useCreateDonation,
 	useDonationsList,
 } from "./hooks";
-
-const STEP_NUMBER: Record<EnumDonationStepName, number> = {
-	[EnumDonationStepName.BloodTest]: 1,
-	[EnumDonationStepName.DeliverMilkingKit]: 2,
-	[EnumDonationStepName.CollectMilk]: 3,
-	[EnumDonationStepName.MilkAnalysis]: 4,
-};
+import { STEP_NUMBER } from "@/utils/constants";
+import { useAuth } from "@/hooks/use-auth";
+import { EnumUserType } from "@/services/types/i-user";
 
 export function DonationsPage() {
 	const navigate = useNavigate();
+	const { auth } = useAuth();
 
 	const { data, isLoading, isError, refetch } = useDonationsList();
 	const createDonation = useCreateDonation();
@@ -57,7 +53,7 @@ export function DonationsPage() {
 	}
 
 	return (
-		<Page title="Minhas doações" description="Acompanhe as suas doações">
+		<Page title="Minhas doações" description="Acompanhe as suas doações" hasPermission={auth?.type === EnumUserType.Common}>
 			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col bg-[#f4f7fb]">
 				<div className="flex flex-1 flex-col gap-4 px-5 pb-4 pt-6 lg:mx-auto lg:w-full lg:max-w-5xl lg:gap-6 lg:px-8 lg:pt-8">
 					{isLoading ? (

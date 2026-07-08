@@ -9,8 +9,7 @@ import { EnumUserType } from "@/services/types/i-user";
 import { MetricCard } from "./components/MetricCard";
 import { NextDonationStep } from "./components/NextDonationStep";
 import { useQueryUserInfo } from "./hooks";
-
-const BABY_ML_PER_DAY = 200;
+import { BABY_ML_PER_DAY } from "@/utils/constants";
 
 export function HomePage() {
 	const [drawerOpen, setDrawerOpen] = useState(false);

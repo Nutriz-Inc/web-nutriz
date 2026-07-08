@@ -1,11 +1,9 @@
 import { Calendar, ChevronRight, Heart } from "lucide-react";
 import { ProgressBar } from "./ProgressBar";
 
-export type DonationCardStatus = "in_progress" | "completed";
-
 type DonationCardProps = {
 	number: number;
-	status: DonationCardStatus;
+	isInProgress: boolean;
 	createdAt: string;
 	currentStep: number;
 	totalSteps: number;
@@ -32,14 +30,13 @@ function formatCreatedAt(createdAt: string) {
 
 export function DonationCard({
 	number,
-	status,
+	isInProgress,
 	createdAt,
 	currentStep,
 	totalSteps,
 	stepLabel,
 	onClick,
 }: DonationCardProps) {
-	const isInProgress = status === "in_progress";
 	const formattedDate = formatCreatedAt(createdAt);
 
 	if (isInProgress) {
@@ -61,7 +58,7 @@ export function DonationCard({
 							<ChevronRight className="size-5 shrink-0 text-[#9aa3b8]" />
 						</div>
 						<span className="w-fit rounded-full bg-[#e8f1fb] px-2.5 py-1 text-[11px] font-bold tracking-wide text-[#387ccd]">
-							EM ANDAMENTO
+							Em andamento
 						</span>
 					</div>
 				</div>

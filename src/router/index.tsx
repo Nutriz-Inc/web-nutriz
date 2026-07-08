@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { DonationPointsPage } from "../pages/private/donation-points";
-import { DonationsPage } from "../pages/private/donations";
+import { DonationsPage } from "../pages/private/donations/list";
 import { HomePage } from "../pages/private/home";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
@@ -25,9 +25,9 @@ export const routerPrivate = createBrowserRouter([
 				handle: { title: "Pontos de Coleta" },
 			},
 			{
-				path: "/minha-doacao",
+				path: "/minhas-doacoes",
 				element: <DonationsPage />,
-				handle: { title: "Minha Jornada" },
+				handle: { title: "Minhas doações" },
 			},
 		],
 	},

@@ -120,6 +120,7 @@ export interface ICreateUserRequest {
 	birth_date?: string;
 	address?: AddressCreateBase;
 	user_baby?: UserBabyCreateBase;
+	consent_log?: ICreateConsentRequest;
 	identifier?: string;
 }
 export type ICreateUserResponse = User;

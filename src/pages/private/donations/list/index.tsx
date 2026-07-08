@@ -35,6 +35,10 @@ export function DonationsPage() {
 	const activeStepNumber = activeStep ? STEP_NUMBER[activeStep.name] : 0;
 	const activeStepLabel = activeStep?.name;
 
+	function goToCreation() {
+		navigate("/nova-doacao");
+	}
+
 	function goToDetail(idDonation: string) {
 		navigate(`/minhas-doacoes/${idDonation}`);
 	}
@@ -47,7 +51,7 @@ export function DonationsPage() {
 			actionSlot={
 				<button
 					type="button"
-					onClick={() => {}} // To do: Implement create donation functionality
+					onClick={goToCreation}
 					disabled={false}
 					className="hidden items-center gap-2 rounded-full bg-[#00458b] px-6 py-3 text-[14px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60 lg:flex"
 				>
@@ -116,7 +120,7 @@ export function DonationsPage() {
 				<div className="sticky bottom-0 border-t border-[#e3e9f2] bg-[#f4f7fb] px-5 pb-5 pt-3 lg:hidden">
 					<button
 						type="button"
-						onClick={() => {}} // To do: Implement create donation functionality
+						onClick={goToCreation}
 						disabled={false}
 						className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#00458b] text-[15px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60"
 					>

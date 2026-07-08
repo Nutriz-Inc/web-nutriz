@@ -1,9 +1,28 @@
-const LACTARE_WHATSAPP_NUMBER = "5511999999999";
+import { env } from "@/config/env";
 
-export function buildLactareWhatsAppLink() {
-	const message = encodeURIComponent(
-		"Olá! Gostaria de iniciar uma nova doação de leite materno.",
-	);
+export enum EnumWhatsAppLinkContext {
+	NewDonation = "new-donation",
+	NewDonor = "new-donor",
+}
 
-	return `https://wa.me/${LACTARE_WHATSAPP_NUMBER}?text=${message}`;
+export function buildLactareWhatsAppLink(context: EnumWhatsAppLinkContext) {
+	let message: string;
+
+	switch (context) {
+		case EnumWhatsAppLinkContext.NewDonation:
+			message = encodeURIComponent(
+				"Olá! Gostaria de iniciar uma nova doação de leite materno.",
+			);
+			break;
+		case EnumWhatsAppLinkContext.NewDonor:
+			message = encodeURIComponent(
+				"Olá! Quero ser doadora de leite pela Nutriz.",
+			);
+			break;
+		default:
+			message = encodeURIComponent("Olá!");
+			break;
+	}
+
+	return `https://wa.me/${env?.LACTARE_WHATSAPP_NUMBER}?text=${message}`;
 }

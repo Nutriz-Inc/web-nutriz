@@ -4,7 +4,10 @@ import WhatsAppIcon from "@/assets/whatsapp-icon.svg";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
-import { buildLactareWhatsAppLink } from "@/utils/whatsapp-link";
+import {
+	buildLactareWhatsAppLink,
+	EnumWhatsAppLinkContext,
+} from "@/utils/whatsapp-link";
 import { AttentionNotice } from "./components/AttentionNotice";
 import { HeroIllustration } from "./components/HeroIllustration";
 import { StepItem } from "./components/StepItem";
@@ -18,7 +21,11 @@ export function NewDonationPage() {
 	function handleConfirm() {
 		createDonationMutation.mutate(undefined, {
 			onSuccess: () => {
-				window.open(buildLactareWhatsAppLink(), "_blank", "noopener");
+				window.open(
+					buildLactareWhatsAppLink(EnumWhatsAppLinkContext.NewDonation),
+					"_blank",
+					"noopener",
+				);
 				navigate("/home");
 			},
 		});

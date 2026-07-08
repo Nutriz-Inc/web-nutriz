@@ -30,6 +30,7 @@
 		"framer-motion": "^12.42.2",
 		"leaflet": "^1.9.4",
 		"lucide-react": "^1.21.0",
+		"pnpm": "^11.10.0",
 		"radix-ui": "^1.6.0",
 		"react": "^19.2.6",
 		"react-dom": "^19.2.6",

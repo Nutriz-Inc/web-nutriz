@@ -6,8 +6,8 @@ import {
 import { fadeUp, staggerContainer } from "../animations/variants";
 import bancoLeite from "../assets/milk-bank.jpg";
 import whatsappLogo from "../assets/whatsapp-logo.png";
+import { STEP_ICONS, STEPS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
-import { STEP_ICONS, STEPS } from "./constants";
 import { SectionLabel } from "./SectionLabel";
 import { SlideButton } from "./SlideButton";
 

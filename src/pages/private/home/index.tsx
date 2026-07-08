@@ -6,17 +6,14 @@ import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
+import { BABY_ML_PER_DAY } from "@/utils/constants";
 import { MetricCard } from "./components/MetricCard";
 import { NextDonationStep } from "./components/NextDonationStep";
 import { useQueryUserInfo } from "./hooks";
-// import { useNavigate } from "react-router-dom";
-
-const BABY_ML_PER_DAY = 200;
 
 export function HomePage() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const { auth } = useAuth()
-	// const navigate = useNavigate()
 
 	const { isLoading: loading, data } = useQueryUserInfo(auth?.id_user);
 
@@ -93,7 +90,6 @@ export function HomePage() {
 							<div className="flex flex-col gap-3 pt-2 w-full lg:flex-row lg:w-auto lg:gap-4">
 								<button
 									type="button"
-									// onClick={() => navigate("/nova-doacao")} 
 									className="bg-[#72f2eb] flex items-center justify-center py-4 rounded-full w-full active:scale-[0.98] transition-transform lg:w-auto lg:px-7"
 								>
 									<p className="font-semibold text-[#00458b] text-[16px]">

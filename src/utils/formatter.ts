@@ -26,3 +26,23 @@ export function formatCep(value: string): string {
 		.replace(/^(\d{5})(\d)/, "$1-$2")
 		.slice(0, 9);
 }
+
+export function formatDateBR(isoDate: string): string {
+	return new Date(isoDate).toLocaleDateString("pt-BR", { timeZone: "UTC" });
+}
+
+const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
+	day: "2-digit",
+	month: "2-digit",
+	year: "numeric",
+});
+const timeFormatter = new Intl.DateTimeFormat("pt-BR", {
+	hour: "2-digit",
+	minute: "2-digit",
+	hour12: false,
+});
+
+export function formatCreatedAt(createdAt: string) {
+	const date = new Date(createdAt);
+	return `${dateFormatter.format(date)} - ${timeFormatter.format(date)}`;
+}

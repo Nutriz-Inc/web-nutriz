@@ -7,6 +7,7 @@ import { HomePage } from "../pages/private/home";
 import { ProfilePage } from "../pages/private/profile";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
+import { DonationTrackPage } from "@/pages/private/donations/track";
 
 export const routerPrivate = createBrowserRouter([
 	{
@@ -40,6 +41,11 @@ export const routerPrivate = createBrowserRouter([
 				path: "/nova-doacao",
 				element: <NewDonationPage />,
 				handle: { title: "Nova Doação" },
+			},
+			{
+				path: "/doacoes/:id_donation",
+				element: <DonationTrackPage />,
+				handle: { title: "Acompanhamento" },
 			},
 		],
 	},

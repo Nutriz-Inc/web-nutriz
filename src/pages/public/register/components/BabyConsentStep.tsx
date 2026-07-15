@@ -115,6 +115,7 @@ export function BabyConsentStep({
 			<hr className="border-[#e4e4e7]" />
 
 			<div className="flex flex-col gap-1.5">
+				{/* To do: criar as paginas de termos de uso e politica de privacidade */}
 				<RoundCheckbox
 					id="register-consent"
 					checked={form.acceptedTerms}

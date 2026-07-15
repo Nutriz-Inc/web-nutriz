@@ -7,6 +7,7 @@ import { BabyConsentStep } from "./components/BabyConsentStep";
 import { WIZARD_STEPS } from "./components/constants";
 import { PasswordStep } from "./components/PasswordStep";
 import { PersonalDataStep } from "./components/PersonalDataStep";
+import { ReviewSummary } from "./components/ReviewSummary";
 import { Stepper } from "./components/Stepper";
 import { SuccessCard } from "./components/SuccessCard";
 import { useRegister } from "./hooks";
@@ -24,6 +25,7 @@ export function RegisterScreen() {
 	const [form, setForm] = useState<RegisterFormData>(EMPTY_REGISTER_FORM);
 	const [errors, setErrors] = useState<RegisterFormErrors>({});
 	const [step, setStep] = useState(0);
+	const [maxStep, setMaxStep] = useState(0);
 	const [success, setSuccess] = useState(false);
 
 	const { registerMutation } = useRegister({
@@ -46,7 +48,23 @@ export function RegisterScreen() {
 
 	function goToStep(target: number) {
 		setStep(target);
+		setMaxStep((current) => Math.max(current, target));
 		setErrors({});
+	}
+
+	function handleStepClick(target: number) {
+		if (target <= step) {
+			goToStep(target);
+			return;
+		}
+
+		const stepErrors = STEP_VALIDATORS[step](form);
+		if (Object.keys(stepErrors).length > 0) {
+			setErrors(stepErrors);
+			return;
+		}
+
+		goToStep(target);
 	}
 
 	function handleContinue(event: { preventDefault(): void }) {
@@ -60,6 +78,15 @@ export function RegisterScreen() {
 		}
 
 		if (isLastStep) {
+			for (let index = 0; index < STEP_VALIDATORS.length; index++) {
+				const previousErrors = STEP_VALIDATORS[index](form);
+				if (Object.keys(previousErrors).length > 0) {
+					setStep(index);
+					setErrors(previousErrors);
+					return;
+				}
+			}
+
 			setErrors({});
 			registerMutation.mutate(form);
 			return;
@@ -97,7 +124,8 @@ export function RegisterScreen() {
 							<Stepper
 								steps={WIZARD_STEPS}
 								current={step}
-								onStepClick={goToStep}
+								maxVisited={maxStep}
+								onStepClick={handleStepClick}
 							/>
 						</div>
 
@@ -129,12 +157,15 @@ export function RegisterScreen() {
 									/>
 								)}
 								{step === 3 && (
-									<BabyConsentStep
-										form={form}
-										errors={errors}
-										onChange={handleChange}
-										onToggle={handleToggle}
-									/>
+									<>
+										<ReviewSummary form={form} onEdit={goToStep} />
+										<BabyConsentStep
+											form={form}
+											errors={errors}
+											onChange={handleChange}
+											onToggle={handleToggle}
+										/>
+									</>
 								)}
 
 								{errors.general && (

@@ -4,15 +4,23 @@ import { cn } from "@/lib/utils";
 type StepperProps = {
 	steps: string[];
 	current: number;
+	maxVisited: number;
 	onStepClick: (step: number) => void;
 };
 
-export function Stepper({ steps, current, onStepClick }: StepperProps) {
+export function Stepper({
+	steps,
+	current,
+	maxVisited,
+	onStepClick,
+}: StepperProps) {
 	return (
 		<ol className="flex w-full items-start" aria-label="Etapas do cadastro">
 			{steps.map((label, index) => {
 				const done = index < current;
 				const active = index === current;
+				const visited = index <= maxVisited;
+				const clickable = visited && !active;
 
 				return (
 					<li
@@ -32,12 +40,14 @@ export function Stepper({ steps, current, onStepClick }: StepperProps) {
 
 						<button
 							type="button"
-							onClick={() => done && onStepClick(index)}
-							disabled={!done}
-							aria-label={`Etapa ${index + 1}: ${label}${done ? " (concluída)" : ""}`}
+							onClick={() => clickable && onStepClick(index)}
+							disabled={!clickable}
+							aria-label={`Etapa ${index + 1}: ${label}${
+								done ? " (concluída)" : visited && !active ? " (visitada)" : ""
+							}`}
 							className={cn(
 								"flex min-w-0 flex-col items-center gap-1.5",
-								done ? "cursor-pointer" : "cursor-default",
+								clickable ? "cursor-pointer" : "cursor-default",
 							)}
 						>
 							<span
@@ -48,7 +58,9 @@ export function Stepper({ steps, current, onStepClick }: StepperProps) {
 										"border-2 border-[#0d3b6e] bg-white text-[#0d3b6e] ring-4 ring-[#0d3b6e]/12",
 									!done &&
 										!active &&
-										"border border-[#e4e4e7] bg-white text-[#a1a1aa]",
+										(visited
+											? "border-2 border-[#0d3b6e]/40 bg-white text-[#0d3b6e]"
+											: "border border-[#e4e4e7] bg-white text-[#a1a1aa]"),
 								)}
 							>
 								{done ? <Check className="size-4" aria-hidden /> : index + 1}
@@ -58,7 +70,9 @@ export function Stepper({ steps, current, onStepClick }: StepperProps) {
 									"hidden whitespace-nowrap text-[12px] sm:block",
 									active && "font-semibold text-[#0d3b6e]",
 									done && "font-medium text-[#09090b]",
-									!done && !active && "text-[#a1a1aa]",
+									!done &&
+										!active &&
+										(visited ? "text-[#0d3b6e]/70" : "text-[#a1a1aa]"),
 								)}
 							>
 								{label}

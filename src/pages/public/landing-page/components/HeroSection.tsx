@@ -60,7 +60,7 @@ export function HeroSection() {
 					>
 						<SlideButton
 							label="Quero doar"
-							onClick={() => navigate("/login")}
+							onClick={() => navigate("/register")}
 						/>
 						<button
 							type="button"

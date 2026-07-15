@@ -33,6 +33,9 @@ function mapRegisterError(error: unknown): string {
 		if (raw.includes("invalid_birth_date")) {
 			return "Data de nascimento inválida.";
 		}
+		if (raw.includes("coordinates") || raw.includes("zipcode")) {
+			return "Não conseguimos localizar o endereço do seu CEP agora. Confira o CEP ou tente novamente mais tarde.";
+		}
 		if (error.response.status >= 500) {
 			return "Erro no servidor. Tente novamente em instantes.";
 		}

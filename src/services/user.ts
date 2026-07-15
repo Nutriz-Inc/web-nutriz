@@ -1,4 +1,4 @@
-import type { AxiosInstance } from "axios";
+import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import type {
 	ICreateAddressRequest,
 	ICreateAddressResponse,
@@ -100,8 +100,13 @@ export class User implements IUser {
 
 	async createBaby(
 		body: ICreateUserBabyRequest,
+		config?: AxiosRequestConfig,
 	): Promise<ICreateUserBabyResponse> {
-		const { data } = await this.httpClient.post("/internal/user/baby", body);
+		const { data } = await this.httpClient.post(
+			"/internal/user/baby",
+			body,
+			config,
+		);
 
 		return data;
 	}

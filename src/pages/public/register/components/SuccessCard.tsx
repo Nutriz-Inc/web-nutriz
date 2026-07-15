@@ -2,7 +2,11 @@ import { Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-export function SuccessCard() {
+type SuccessCardProps = {
+	babiesPending?: boolean;
+};
+
+export function SuccessCard({ babiesPending = false }: SuccessCardProps) {
 	const navigate = useNavigate();
 
 	return (
@@ -17,6 +21,12 @@ export function SuccessCard() {
 				Seu cadastro foi concluído. Faça login para acessar a sua conta e
 				começar a doar.
 			</p>
+			{babiesPending && (
+				<p className="rounded-md border border-[#fadbe7] bg-[#fdf1f5] px-4 py-2 text-[13px] leading-relaxed text-[#c2325f]">
+					Não conseguimos salvar todos os bebês agora. Você pode adicioná-los
+					depois no seu perfil.
+				</p>
+			)}
 			<Button
 				onClick={() => navigate("/login")}
 				className="mt-2 h-11 w-full rounded-md bg-[#0d3b6e] text-sm font-semibold text-white hover:bg-[#0a2e56]"

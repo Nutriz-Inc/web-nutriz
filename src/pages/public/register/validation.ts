@@ -79,11 +79,15 @@ export function validateBabyConsent(
 	const errors: RegisterFormErrors = {};
 
 	if (form.hasBaby) {
-		if (!form.babyBirthDate.trim()) {
-			errors.babyBirthDate = "Data de nascimento do bebê é obrigatória.";
-		} else if (!isValidDateBr(form.babyBirthDate)) {
-			errors.babyBirthDate = "Informe uma data válida (DD/MM/AAAA).";
-		}
+		form.babies.forEach((baby, index) => {
+			if (!baby.birthDate.trim()) {
+				errors[`baby-${index}-birthDate`] =
+					"Data de nascimento do bebê é obrigatória.";
+			} else if (!isValidDateBr(baby.birthDate)) {
+				errors[`baby-${index}-birthDate`] =
+					"Informe uma data válida (DD/MM/AAAA).";
+			}
+		});
 	}
 
 	if (!form.acceptedTerms) {

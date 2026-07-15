@@ -1,3 +1,13 @@
+export type BabyFormData = {
+	id: string;
+	name: string;
+	birthDate: string;
+};
+
+export function makeEmptyBaby(): BabyFormData {
+	return { id: crypto.randomUUID(), name: "", birthDate: "" };
+}
+
 export type RegisterFormData = {
 	name: string;
 	cpf: string;
@@ -10,16 +20,16 @@ export type RegisterFormData = {
 	password: string;
 	confirmPassword: string;
 	hasBaby: boolean;
-	babyName: string;
-	babyBirthDate: string;
+	babies: BabyFormData[];
 	acceptedTerms: boolean;
 };
 
-export type RegisterFieldName = keyof RegisterFormData;
-
-export type RegisterFormErrors = Partial<
-	Record<RegisterFieldName | "general", string>
+export type RegisterFieldName = Exclude<
+	keyof RegisterFormData,
+	"hasBaby" | "babies" | "acceptedTerms"
 >;
+
+export type RegisterFormErrors = Record<string, string | undefined>;
 
 export const EMPTY_REGISTER_FORM: RegisterFormData = {
 	name: "",
@@ -33,7 +43,6 @@ export const EMPTY_REGISTER_FORM: RegisterFormData = {
 	password: "",
 	confirmPassword: "",
 	hasBaby: false,
-	babyName: "",
-	babyBirthDate: "",
+	babies: [makeEmptyBaby()],
 	acceptedTerms: false,
 };

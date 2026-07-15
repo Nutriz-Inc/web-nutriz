@@ -20,12 +20,13 @@ export function buildCreateUserRequest(
 			number: form.number.trim() || undefined,
 			complement: form.complement.trim() || undefined,
 		},
-		user_baby: form.hasBaby
-			? {
-					name: form.babyName.trim() || undefined,
-					birth_date: dateBrToIso(form.babyBirthDate),
-				}
-			: undefined,
+		user_baby:
+			form.hasBaby && form.babies[0]
+				? {
+						name: form.babies[0].name.trim() || undefined,
+						birth_date: dateBrToIso(form.babies[0].birthDate),
+					}
+				: undefined,
 		consent_log: {
 			terms_version: TERMS_VERSION,
 			ip_address: ipAddress,

@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import type { Dispatch, SetStateAction } from "react";
+import { dateBrToIso } from "@/lib/masks";
 import services from "@/services";
 import { FALLBACK_IP } from "../components/constants";
 import { buildCreateUserRequest } from "../payload";
@@ -46,16 +47,46 @@ function mapRegisterError(error: unknown): string {
 
 export type UseRegisterProps = {
 	setErrors: Dispatch<SetStateAction<RegisterFormErrors>>;
-	onSuccess: () => void;
+	onSuccess: (babiesPending: boolean) => void;
 };
+
+async function createExtraBabies(form: RegisterFormData): Promise<boolean> {
+	const extraBabies = form.hasBaby ? form.babies.slice(1) : [];
+	if (extraBabies.length === 0) return false;
+
+	try {
+		const auth = await services.auth.login({
+			email: form.email.trim(),
+			password: form.password,
+		});
+
+		for (const baby of extraBabies) {
+			await services.user.createBaby(
+				{
+					name: baby.name.trim() || undefined,
+					birth_date: dateBrToIso(baby.birthDate),
+				},
+				{ headers: { Authorization: `Bearer ${auth.token}` } },
+			);
+		}
+
+		return false;
+	} catch {
+		return true;
+	}
+}
 
 export function useRegister({ setErrors, onSuccess }: UseRegisterProps) {
 	const registerMutation = useMutation({
 		mutationFn: async (form: RegisterFormData) => {
 			const ipAddress = await resolveClientIp();
-			return services.user.create(buildCreateUserRequest(form, ipAddress));
+			const user = await services.user.create(
+				buildCreateUserRequest(form, ipAddress),
+			);
+			const babiesPending = await createExtraBabies(form);
+			return { user, babiesPending };
 		},
-		onSuccess,
+		onSuccess: (result) => onSuccess(result.babiesPending),
 		onError: (error) => {
 			setErrors({ general: mapRegisterError(error) });
 		},

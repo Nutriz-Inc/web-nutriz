@@ -13,6 +13,7 @@ import { SuccessCard } from "./components/SuccessCard";
 import { useRegister } from "./hooks";
 import {
 	EMPTY_REGISTER_FORM,
+	makeEmptyBaby,
 	type RegisterFieldName,
 	type RegisterFormData,
 	type RegisterFormErrors,
@@ -26,11 +27,13 @@ export function RegisterScreen() {
 	const [errors, setErrors] = useState<RegisterFormErrors>({});
 	const [step, setStep] = useState(0);
 	const [maxStep, setMaxStep] = useState(0);
-	const [success, setSuccess] = useState(false);
+	const [success, setSuccess] = useState<{ babiesPending: boolean } | null>(
+		null,
+	);
 
 	const { registerMutation } = useRegister({
 		setErrors,
-		onSuccess: () => setSuccess(true),
+		onSuccess: (babiesPending) => setSuccess({ babiesPending }),
 	});
 
 	const isPending = registerMutation.isPending;
@@ -44,6 +47,38 @@ export function RegisterScreen() {
 	function handleToggle(field: "hasBaby" | "acceptedTerms", value: boolean) {
 		setForm((current) => ({ ...current, [field]: value }));
 		setErrors((current) => ({ ...current, [field]: undefined }));
+	}
+
+	function handleBabyChange(
+		index: number,
+		field: "name" | "birthDate",
+		value: string,
+	) {
+		setForm((current) => ({
+			...current,
+			babies: current.babies.map((baby, babyIndex) =>
+				babyIndex === index ? { ...baby, [field]: value } : baby,
+			),
+		}));
+		setErrors((current) => ({
+			...current,
+			[`baby-${index}-${field}`]: undefined,
+		}));
+	}
+
+	function handleAddBaby() {
+		setForm((current) => ({
+			...current,
+			babies: [...current.babies, makeEmptyBaby()],
+		}));
+	}
+
+	function handleRemoveBaby(index: number) {
+		setForm((current) => ({
+			...current,
+			babies: current.babies.filter((_, babyIndex) => babyIndex !== index),
+		}));
+		setErrors({});
 	}
 
 	function goToStep(target: number) {
@@ -110,7 +145,7 @@ export function RegisterScreen() {
 
 			<main className="mx-auto w-full max-w-[640px] flex-1 px-4 pt-8 pb-12">
 				{success ? (
-					<SuccessCard />
+					<SuccessCard babiesPending={success.babiesPending} />
 				) : (
 					<>
 						<h1 className="text-[22px] font-bold text-[#09090b]">
@@ -164,6 +199,9 @@ export function RegisterScreen() {
 											errors={errors}
 											onChange={handleChange}
 											onToggle={handleToggle}
+											onBabyChange={handleBabyChange}
+											onAddBaby={handleAddBaby}
+											onRemoveBaby={handleRemoveBaby}
 										/>
 									</>
 								)}

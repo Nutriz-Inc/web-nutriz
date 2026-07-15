@@ -1,3 +1,4 @@
+import { Plus, X } from "lucide-react";
 import { maskDate } from "@/lib/masks";
 import type {
 	RegisterFieldName,
@@ -12,13 +13,22 @@ type BabyConsentStepProps = {
 	errors: RegisterFormErrors;
 	onChange: (field: RegisterFieldName, value: string) => void;
 	onToggle: (field: "hasBaby" | "acceptedTerms", value: boolean) => void;
+	onBabyChange: (
+		index: number,
+		field: "name" | "birthDate",
+		value: string,
+	) => void;
+	onAddBaby: () => void;
+	onRemoveBaby: (index: number) => void;
 };
 
 export function BabyConsentStep({
 	form,
 	errors,
-	onChange,
 	onToggle,
+	onBabyChange,
+	onAddBaby,
+	onRemoveBaby,
 }: BabyConsentStepProps) {
 	return (
 		<fieldset className="flex flex-col gap-6">
@@ -44,31 +54,61 @@ export function BabyConsentStep({
 			</div>
 
 			{form.hasBaby && (
-				<div className="rounded-[10px] border border-[#fadbe7] bg-[#fdf1f5] p-[18px]">
-					<p className="mb-4 text-xs font-bold uppercase tracking-[0.08em] text-[#e0457a]">
-						Bebê
-					</p>
-					<div className="grid gap-4 sm:grid-cols-2">
-						<WizardField
-							id="register-baby-name"
-							label="Nome do bebê"
-							value={form.babyName}
-							onChange={(value) => onChange("babyName", value)}
-							placeholder="Nome do bebê"
-							error={errors.babyName}
-							optional
-						/>
-						<WizardField
-							id="register-baby-birth-date"
-							label="Data de nascimento do bebê"
-							value={form.babyBirthDate}
-							onChange={(value) => onChange("babyBirthDate", maskDate(value))}
-							placeholder="DD/MM/AAAA"
-							error={errors.babyBirthDate}
-							inputMode="numeric"
-							maxLength={10}
-						/>
-					</div>
+				<div className="flex flex-col gap-4">
+					{form.babies.map((baby, index) => (
+						<div
+							key={baby.id}
+							className="rounded-[10px] border border-[#fadbe7] bg-[#fdf1f5] p-[18px]"
+						>
+							<div className="mb-4 flex items-center justify-between">
+								<p className="text-xs font-bold uppercase tracking-[0.08em] text-[#e0457a]">
+									Bebê {index + 1}
+								</p>
+								{form.babies.length > 1 && (
+									<button
+										type="button"
+										onClick={() => onRemoveBaby(index)}
+										className="flex min-h-11 items-center gap-1 rounded-md px-2 text-[13px] font-semibold text-[#e0457a] transition-colors hover:text-[#c2325f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e0457a]"
+									>
+										<X className="size-3.5" aria-hidden />
+										Remover
+									</button>
+								)}
+							</div>
+							<div className="grid gap-4 sm:grid-cols-2">
+								<WizardField
+									id={`register-baby-${index}-name`}
+									label="Nome do bebê"
+									value={baby.name}
+									onChange={(value) => onBabyChange(index, "name", value)}
+									placeholder="Nome do bebê"
+									error={errors[`baby-${index}-name`]}
+									optional
+								/>
+								<WizardField
+									id={`register-baby-${index}-birth-date`}
+									label="Data de nascimento do bebê"
+									value={baby.birthDate}
+									onChange={(value) =>
+										onBabyChange(index, "birthDate", maskDate(value))
+									}
+									placeholder="DD/MM/AAAA"
+									error={errors[`baby-${index}-birthDate`]}
+									inputMode="numeric"
+									maxLength={10}
+								/>
+							</div>
+						</div>
+					))}
+
+					<button
+						type="button"
+						onClick={onAddBaby}
+						className="flex min-h-11 w-fit items-center gap-2 rounded-md border border-dashed border-[#e0457a] px-4 text-sm font-semibold text-[#e0457a] transition-colors hover:bg-[#fdf1f5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e0457a]"
+					>
+						<Plus className="size-4" aria-hidden />
+						Adicionar outro bebê
+					</button>
 				</div>
 			)}
 

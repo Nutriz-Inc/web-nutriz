@@ -11,13 +11,12 @@ import { ReviewSummary } from "./components/ReviewSummary";
 import { Stepper } from "./components/Stepper";
 import { SuccessCard } from "./components/SuccessCard";
 import { useRegister } from "./hooks";
-import {
-	EMPTY_REGISTER_FORM,
-	makeEmptyBaby,
-	type RegisterFieldName,
-	type RegisterFormData,
-	type RegisterFormErrors,
+import type {
+	RegisterFieldName,
+	RegisterFormData,
+	RegisterFormErrors,
 } from "./types";
+import { EMPTY_REGISTER_FORM, makeEmptyBaby } from "./utils";
 import { STEP_VALIDATORS } from "./validation";
 
 export function RegisterScreen() {

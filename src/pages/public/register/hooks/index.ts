@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import type { Dispatch, SetStateAction } from "react";
-import { dateBrToIso } from "@/lib/masks";
 import services from "@/services";
+import { dateBrToIso } from "@/utils/formatter";
 import { FALLBACK_IP } from "../components/constants";
-import { buildCreateUserRequest } from "../payload";
 import type { RegisterFormData, RegisterFormErrors } from "../types";
+import { buildCreateUserRequest } from "../utils";
 
 async function resolveClientIp(): Promise<string> {
 	try {

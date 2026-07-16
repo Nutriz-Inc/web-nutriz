@@ -1,4 +1,4 @@
-import { maskCpf, maskDate, maskPhone } from "@/lib/masks";
+import { formatCpf, maskDate, maskPhone } from "@/utils/formatter";
 import type {
 	RegisterFieldName,
 	RegisterFormData,
@@ -38,7 +38,7 @@ export function PersonalDataStep({
 					id="register-cpf"
 					label="CPF"
 					value={form.cpf}
-					onChange={(value) => onChange("cpf", maskCpf(value))}
+					onChange={(value) => onChange("cpf", formatCpf(value))}
 					placeholder="000.000.000-00"
 					error={errors.cpf}
 					inputMode="numeric"

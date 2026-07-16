@@ -4,10 +4,6 @@ export type BabyFormData = {
 	birthDate: string;
 };
 
-export function makeEmptyBaby(): BabyFormData {
-	return { id: crypto.randomUUID(), name: "", birthDate: "" };
-}
-
 export type RegisterFormData = {
 	name: string;
 	cpf: string;
@@ -30,19 +26,3 @@ export type RegisterFieldName = Exclude<
 >;
 
 export type RegisterFormErrors = Record<string, string | undefined>;
-
-export const EMPTY_REGISTER_FORM: RegisterFormData = {
-	name: "",
-	cpf: "",
-	birthDate: "",
-	phone: "",
-	email: "",
-	cep: "",
-	number: "",
-	complement: "",
-	password: "",
-	confirmPassword: "",
-	hasBaby: false,
-	babies: [makeEmptyBaby()],
-	acceptedTerms: false,
-};

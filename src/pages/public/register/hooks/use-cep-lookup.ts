@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { onlyDigits } from "@/lib/masks";
+import { onlyDigits } from "@/utils/formatter";
 
 export type CepAddress = {
 	street: string;

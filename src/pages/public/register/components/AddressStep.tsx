@@ -1,5 +1,5 @@
 import { LoaderCircle, MapPin } from "lucide-react";
-import { maskCep } from "@/lib/masks";
+import { formatZipCode } from "@/utils/formatter";
 import { useCepLookup } from "../hooks/use-cep-lookup";
 import type {
 	RegisterFieldName,
@@ -28,7 +28,7 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 					id="register-cep"
 					label="CEP"
 					value={form.cep}
-					onChange={(value) => onChange("cep", maskCep(value))}
+					onChange={(value) => onChange("cep", formatZipCode(value))}
 					placeholder="00000-000"
 					error={errors.cep}
 					inputMode="numeric"

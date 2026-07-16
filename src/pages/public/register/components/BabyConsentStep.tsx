@@ -1,5 +1,5 @@
 import { Plus, X } from "lucide-react";
-import { maskDate } from "@/lib/masks";
+import { maskDate } from "@/utils/formatter";
 import type {
 	RegisterFieldName,
 	RegisterFormData,

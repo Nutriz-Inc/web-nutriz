@@ -1,7 +1,27 @@
-import { dateBrToIso, onlyDigits, phoneToE164 } from "@/lib/masks";
 import { EnumUserType, type ICreateUserRequest } from "@/services/types/i-user";
+import { dateBrToIso, onlyDigits, phoneToE164 } from "@/utils/formatter";
 import { TERMS_VERSION } from "./components/constants";
-import type { RegisterFormData } from "./types";
+import type { BabyFormData, RegisterFormData } from "./types";
+
+export function makeEmptyBaby(): BabyFormData {
+	return { id: crypto.randomUUID(), name: "", birthDate: "" };
+}
+
+export const EMPTY_REGISTER_FORM: RegisterFormData = {
+	name: "",
+	cpf: "",
+	birthDate: "",
+	phone: "",
+	email: "",
+	cep: "",
+	number: "",
+	complement: "",
+	password: "",
+	confirmPassword: "",
+	hasBaby: false,
+	babies: [makeEmptyBaby()],
+	acceptedTerms: false,
+};
 
 export function buildCreateUserRequest(
 	form: RegisterFormData,

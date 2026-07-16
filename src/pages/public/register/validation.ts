@@ -1,7 +1,39 @@
-import { isValidCpf, isValidDateBr, onlyDigits } from "@/lib/masks";
+import { onlyDigits } from "@/utils/formatter";
 import type { RegisterFormData, RegisterFormErrors } from "./types";
 
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
+
+function isValidDateBr(value: string): boolean {
+	const digits = onlyDigits(value);
+	if (digits.length !== 8) return false;
+	const day = Number(digits.slice(0, 2));
+	const month = Number(digits.slice(2, 4));
+	const year = Number(digits.slice(4, 8));
+	if (year < 1900 || month < 1 || month > 12) return false;
+	const date = new Date(year, month - 1, day);
+	return (
+		date.getFullYear() === year &&
+		date.getMonth() === month - 1 &&
+		date.getDate() === day
+	);
+}
+
+function isValidCpf(value: string): boolean {
+	const digits = onlyDigits(value);
+	if (digits.length !== 11 || /^(\d)\1{10}$/.test(digits)) return false;
+	const checkDigit = (factor: number): number => {
+		let total = 0;
+		for (let index = 0; index < factor - 1; index++) {
+			total += Number(digits[index]) * (factor - index);
+		}
+		const rest = (total * 10) % 11;
+		return rest === 10 ? 0 : rest;
+	};
+	return (
+		checkDigit(10) === Number(digits[9]) &&
+		checkDigit(11) === Number(digits[10])
+	);
+}
 
 export function validatePersonalData(
 	form: RegisterFormData,

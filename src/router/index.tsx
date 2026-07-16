@@ -50,7 +50,7 @@ export const routerPrivate = createBrowserRouter([
 				handle: { title: "Doações" },
 			},
 			{
-				path: "/doacoes/:id_donation",
+				path: "/doacao/:id_donation",
 				element: <DonationTrackPage />,
 				handle: { title: "Acompanhamento" },
 			},

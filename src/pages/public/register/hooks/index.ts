@@ -19,34 +19,66 @@ async function resolveClientIp(): Promise<string> {
 	}
 }
 
-function mapRegisterError(error: unknown): string {
+export type RegisterErrorInfo = {
+	message: string;
+	alreadyRegistered: boolean;
+};
+
+function mapRegisterError(error: unknown): RegisterErrorInfo {
 	if (axios.isAxiosError(error) && error.response) {
 		const raw = JSON.stringify(error.response.data ?? "");
 		if (raw.includes("duplicate_cpf")) {
-			return "Já existe uma conta com este CPF.";
+			return {
+				message: "Já existe uma conta com este CPF.",
+				alreadyRegistered: true,
+			};
 		}
 		if (raw.includes("duplicate_email")) {
-			return "Já existe uma conta com este e-mail.";
+			return {
+				message: "Já existe uma conta com este e-mail.",
+				alreadyRegistered: true,
+			};
 		}
 		if (raw.includes("duplicate_phone_number")) {
-			return "Já existe uma conta com este telefone.";
+			return {
+				message: "Já existe uma conta com este telefone.",
+				alreadyRegistered: true,
+			};
 		}
 		if (raw.includes("invalid_birth_date")) {
-			return "Data de nascimento inválida.";
+			return {
+				message: "Data de nascimento inválida.",
+				alreadyRegistered: false,
+			};
 		}
 		if (raw.includes("coordinates") || raw.includes("zipcode")) {
-			return "Não conseguimos localizar o endereço do seu CEP agora. Confira o CEP ou tente novamente mais tarde.";
+			return {
+				message:
+					"Não conseguimos localizar o endereço do seu CEP agora. Confira o CEP ou tente novamente mais tarde.",
+				alreadyRegistered: false,
+			};
 		}
 		if (error.response.status >= 500) {
-			return "Erro no servidor. Tente novamente em instantes.";
+			return {
+				message: "Erro no servidor. Tente novamente em instantes.",
+				alreadyRegistered: false,
+			};
 		}
-		return "Não foi possível criar a conta. Revise os dados e tente novamente.";
+		return {
+			message:
+				"Não foi possível criar a conta. Revise os dados e tente novamente.",
+			alreadyRegistered: false,
+		};
 	}
-	return "Erro de conexão. Verifique sua internet e tente novamente.";
+	return {
+		message: "Erro de conexão. Verifique sua internet e tente novamente.",
+		alreadyRegistered: false,
+	};
 }
 
 export type UseRegisterProps = {
 	setErrors: Dispatch<SetStateAction<RegisterFormErrors>>;
+	onError: (info: RegisterErrorInfo) => void;
 	onSuccess: (babiesPending: boolean) => void;
 };
 
@@ -76,7 +108,11 @@ async function createExtraBabies(form: RegisterFormData): Promise<boolean> {
 	}
 }
 
-export function useRegister({ setErrors, onSuccess }: UseRegisterProps) {
+export function useRegister({
+	setErrors,
+	onError,
+	onSuccess,
+}: UseRegisterProps) {
 	const registerMutation = useMutation({
 		mutationFn: async (form: RegisterFormData) => {
 			const ipAddress = await resolveClientIp();
@@ -88,7 +124,9 @@ export function useRegister({ setErrors, onSuccess }: UseRegisterProps) {
 		},
 		onSuccess: (result) => onSuccess(result.babiesPending),
 		onError: (error) => {
-			setErrors({ general: mapRegisterError(error) });
+			const info = mapRegisterError(error);
+			setErrors({ general: info.message });
+			onError(info);
 		},
 	});
 

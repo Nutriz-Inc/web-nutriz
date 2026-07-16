@@ -30,9 +30,11 @@ export function RegisterScreen() {
 	const [success, setSuccess] = useState<{ babiesPending: boolean } | null>(
 		null,
 	);
+	const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
 	const { registerMutation } = useRegister({
 		setErrors,
+		onError: (info) => setAlreadyRegistered(info.alreadyRegistered),
 		onSuccess: (babiesPending) => setSuccess({ babiesPending }),
 	});
 
@@ -85,6 +87,7 @@ export function RegisterScreen() {
 		setStep(target);
 		setMaxStep((current) => Math.max(current, target));
 		setErrors({});
+		setAlreadyRegistered(false);
 	}
 
 	function handleStepClick(target: number) {
@@ -207,12 +210,21 @@ export function RegisterScreen() {
 								)}
 
 								{errors.general && (
-									<p
+									<div
 										role="alert"
-										className="mt-5 rounded-md border border-red-200 bg-red-50 px-4 py-2 text-center text-sm text-[#dc2626]"
+										className="mt-5 flex flex-col items-center gap-3 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-center"
 									>
-										{errors.general}
-									</p>
+										<p className="text-sm text-[#dc2626]">{errors.general}</p>
+										{alreadyRegistered && (
+											<Button
+												type="button"
+												onClick={() => navigate("/login")}
+												className="h-10 rounded-md bg-[#0d3b6e] px-5 text-sm font-semibold text-white hover:bg-[#0a2e56]"
+											>
+												Fazer login
+											</Button>
+										)}
+									</div>
 								)}
 							</div>
 

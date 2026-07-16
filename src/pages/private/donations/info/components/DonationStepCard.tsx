@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import { Calendar, Check, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatCreatedAt } from "@/utils/formatter";
 
 export type StepVisualStatus = "done" | "current" | "waiting";
 
@@ -20,6 +21,8 @@ interface Props {
 	order: number;
 	title: string;
 	description: string;
+	setDate?: string;
+	completedAt?: string;
 	icon: LucideIcon;
 	visualStatus: StepVisualStatus;
 	isLast: boolean;
@@ -29,12 +32,16 @@ export function DonationStepCard({
 	order,
 	title,
 	description,
+	setDate,
+	completedAt,
 	icon: Icon,
 	visualStatus,
 	isLast,
 }: Props) {
 	const isCurrent = visualStatus === "current";
 	const isDone = visualStatus === "done";
+	const hasCurrentDetails = isCurrent && Boolean(setDate);
+	const hasCompletedInfo = Boolean(completedAt);
 
 	return (
 		<div className="flex gap-4">
@@ -86,7 +93,7 @@ export function DonationStepCard({
 
 					<p
 						className={cn(
-							"flex-1 font-bold",
+							"min-w-0 flex-1 truncate font-bold",
 							isCurrent
 								? "text-[16px] text-[#0e2a45]"
 								: isDone
@@ -97,33 +104,67 @@ export function DonationStepCard({
 						{title}
 					</p>
 
-					<span
-						className={cn(
-							"inline-flex shrink-0 items-center rounded-full font-semibold",
-							isCurrent ? "px-2.5 py-1 text-[11px]" : "px-2 py-0.5 text-[10px]",
-							BADGE_CLASSNAME[visualStatus],
-						)}
-					>
-						{BADGE_LABEL[visualStatus]}
-					</span>
+					<div className="flex shrink-0 items-center gap-2">
+						<span
+							className={cn(
+								"inline-flex items-center rounded-full font-semibold",
+								isCurrent
+									? "px-2.5 py-1 text-[11px]"
+									: "px-2 py-0.5 text-[10px]",
+								BADGE_CLASSNAME[visualStatus],
+							)}
+						>
+							{BADGE_LABEL[visualStatus]}
+						</span>
 
-					<ChevronRight
-						className={cn(
-							"shrink-0",
-							isCurrent ? "size-5 text-[#93a9bd]" : "size-4 text-[#c3c8d1]",
-						)}
-					/>
+						<ChevronRight
+							className={cn(
+								isCurrent ? "size-5 text-[#93a9bd]" : "size-4 text-[#c3c8d1]",
+							)}
+						/>
+					</div>
 				</div>
 
-				{isCurrent && (
-					<>
-						<div className="my-4 h-px bg-[#e5ebf3]" />
+				<p
+					className={cn(
+						"mt-1",
+						isCurrent
+							? "pl-14 text-[13px] text-[#6b8faa]"
+							: "pl-11 text-[12px] text-[#c3c8d1]",
+					)}
+				>
+					{description}
+				</p>
 
-						<div className="flex items-start gap-2">
-							<Calendar className="mt-0.5 size-4 shrink-0 text-[#93a9bd]" />
-							<p className="text-[14px] leading-[20px] text-[#5a7690]">
-								{description}
-							</p>
+				{(hasCurrentDetails || hasCompletedInfo) && (
+					<>
+						<div
+							className={cn("h-px bg-[#e5ebf3]", isCurrent ? "my-4" : "my-3")}
+						/>
+
+						<div className="flex flex-col gap-2">
+							{isCurrent && setDate && (
+								<div className="flex items-start gap-2">
+									<Calendar className="mt-0.5 size-4 shrink-0 text-[#93a9bd]" />
+									<p className="text-[14px] leading-[20px] text-[#5a7690]">
+										{formatCreatedAt(setDate)}
+									</p>
+								</div>
+							)}
+
+							{completedAt && (
+								<div className="flex items-start gap-2">
+									<Check className="mt-0.5 size-3.5 shrink-0 text-[#00458b]" />
+									<p
+										className={cn(
+											"leading-[18px] text-[#00458b]",
+											isCurrent ? "text-[13px]" : "text-[12px]",
+										)}
+									>
+										Concluído em {formatCreatedAt(completedAt)}
+									</p>
+								</div>
+							)}
 						</div>
 					</>
 				)}

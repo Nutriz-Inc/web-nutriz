@@ -56,8 +56,10 @@ export function DonationInfoPage() {
 						<DonationStepCard
 							key={definition.name}
 							order={definition.order}
-							title={definition.title}
-							description={step?.description ?? definition.name}
+							title={step?.name || definition.name}
+							description={definition.description}
+							setDate={step?.set_date}
+							completedAt={step?.completed_at}
 							icon={definition.icon}
 							visualStatus={visualStatus}
 							isLast={index === STEP_DEFINITIONS.length - 1}

@@ -1,8 +1,12 @@
 import { Plus } from "lucide-react";
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
+import {
+	type ActiveFilter,
+	ActiveFilterChips,
+} from "./components/ActiveFilterChips";
 import { DonationManagementCard } from "./components/DonationManagementCard";
 import { FilterChips, type StepFilter } from "./components/FilterChips";
 import { SearchBar } from "./components/SearchBar";
@@ -10,33 +14,34 @@ import { useAdminDonationsList } from "./hooks";
 
 export function DonationsManagementPage() {
 	const { auth } = useAuth();
-	const { data, isLoading } = useAdminDonationsList();
 
-	const [search, setSearch] = useState("");
+	const [name, setName] = useState("");
+	const [debouncedName, setDebouncedName] = useState("");
+	const [cpf, setCpf] = useState("");
+	const [debouncedCpf, setDebouncedCpf] = useState("");
 	const [filter, setFilter] = useState<StepFilter>("all");
+	const [activeFilter, setActiveFilter] = useState<ActiveFilter>("all");
+
+	useEffect(() => {
+		const timeout = setTimeout(() => setDebouncedName(name), 400);
+
+		return () => clearTimeout(timeout);
+	}, [name]);
+
+	useEffect(() => {
+		const timeout = setTimeout(() => setDebouncedCpf(cpf), 400);
+
+		return () => clearTimeout(timeout);
+	}, [cpf]);
+
+	const { data, isLoading } = useAdminDonationsList({
+		user_name: debouncedName || undefined,
+		user_document: debouncedCpf.replace(/\D/g, "") || undefined,
+		current_step: filter === "all" ? undefined : filter,
+		is_active: activeFilter === "all" ? undefined : activeFilter === "active",
+	});
 
 	const donations = data ?? [];
-
-	const filteredDonations = useMemo(() => {
-		const searchDigits = search.replace(/\D/g, "");
-		const searchLower = search.trim().toLowerCase();
-
-		return donations.filter((donation) => {
-			const matchesFilter =
-				filter === "all" || donation.currentStepName === filter;
-
-			const matchesSearch =
-				searchLower.length === 0 ||
-				donation.userName.toLowerCase().includes(searchLower) ||
-				(searchDigits.length > 0 && donation.userCpf.includes(searchDigits));
-
-			return matchesFilter && matchesSearch;
-		});
-	}, [donations, search, filter]);
-
-	function handleEdit(_idDonation: string) {
-		// To do: Implementar tela de edição de doação
-	}
 
 	function handleNewDonation() {
 		// To do: Implementar fluxo de nova doação pelo administrador
@@ -50,11 +55,26 @@ export function DonationsManagementPage() {
 			hasPermission={auth?.type === EnumUserType.Admin}
 		>
 			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-[#f4f7fb] px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[900px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
-				<SearchBar value={search} onChange={setSearch} />
+				<div className="flex flex-col gap-2.5 lg:flex-row">
+					<SearchBar
+						value={name}
+						onChange={setName}
+						placeholder="Buscar por nome..."
+					/>
+					<SearchBar
+						value={cpf}
+						onChange={setCpf}
+						placeholder="Buscar por CPF..."
+					/>
+				</div>
 
-				<FilterChips value={filter} onChange={setFilter} />
+				<div className="flex items-center gap-2.5 overflow-x-auto pb-1">
+					<ActiveFilterChips value={activeFilter} onChange={setActiveFilter} />
+					<div className="h-6 w-px shrink-0 bg-[#e5e7eb]" />
+					<FilterChips value={filter} onChange={setFilter} />
+				</div>
 
-				{filteredDonations.length === 0 ? (
+				{donations.length === 0 ? (
 					<div className="flex flex-col items-center gap-2 rounded-2xl bg-white p-8 text-center">
 						<p className="text-[15px] font-semibold text-[#1f2a37]">
 							Nenhuma doação encontrada
@@ -65,13 +85,10 @@ export function DonationsManagementPage() {
 					</div>
 				) : (
 					<div className="overflow-hidden rounded-2xl border border-[#e5e7eb] bg-[#f4f7fb]">
-						{filteredDonations.map((donation, index) => (
+						{donations.map((donation, index) => (
 							<Fragment key={donation.id_donation}>
 								{index > 0 && <div className="h-2 bg-[#f4f7fb]" />}
-								<DonationManagementCard
-									donation={donation}
-									onEdit={() => handleEdit(donation.id_donation)}
-								/>
+								<DonationManagementCard donation={donation} />
 							</Fragment>
 						))}
 					</div>

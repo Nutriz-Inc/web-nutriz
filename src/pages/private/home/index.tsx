@@ -1,6 +1,6 @@
 import { Droplet, Gift, Menu } from "lucide-react";
 import { useState } from "react";
-import NutrizLogo from "@/assets/nutriz-log-alternative.svg";
+import NutrizLogo from "@/assets/images/nutriz-log-alternative.svg";
 import { AppDrawer } from "@/components/layout/AppDrawer";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
@@ -111,7 +111,7 @@ export function HomePage() {
 
 						{currentStepDonation && (
 							<NextDonationStep
-								datetime={currentStepDonation.set_date!}
+								datetime={currentStepDonation.set_date}
 								status={currentStepDonation.status}
 								onConsult={() => {}}
 								stepName={currentStepDonation.name}
@@ -137,9 +137,9 @@ export function HomePage() {
 						</div>
 
 						<div className="flex flex-col gap-4 w-full lg:flex-row lg:gap-6">
-							{metrics.map((metric, index) => (
+							{metrics.map((metric) => (
 								<MetricCard
-									key={index}
+									key={metric.label}
 									iconBg={metric.iconBg}
 									icon={metric.icon}
 									value={metric.value}

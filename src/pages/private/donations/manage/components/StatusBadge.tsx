@@ -1,5 +1,6 @@
-import { EnumDonationStepName } from "@/services/types/i-donation";
+/* eslint-disable react-refresh/only-export-components */
 import { cn } from "@/lib/utils";
+import { EnumDonationStepName } from "@/services/types/i-donation";
 
 export const STEP_DISPLAY: Record<
 	EnumDonationStepName,
@@ -46,7 +47,9 @@ export function StatusBadge({ step }: StatusBadgeProps) {
 				display?.text ?? "text-[#6b7280]",
 			)}
 		>
-			<span className={cn("size-2 rounded-full", display?.dot ?? "bg-[#9ca3af]")} />
+			<span
+				className={cn("size-2 rounded-full", display?.dot ?? "bg-[#9ca3af]")}
+			/>
 			{display?.label ?? "Sem etapa"}
 		</span>
 	);

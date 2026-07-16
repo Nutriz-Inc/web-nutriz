@@ -15,7 +15,7 @@ export const routerPrivate = createBrowserRouter([
 		element: <HomePage />,
 	},
 	{
-		path: "*",
+		path: "/*",
 		element: <Navigate to="/home" replace />,
 	},
 	{

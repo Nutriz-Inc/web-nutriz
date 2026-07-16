@@ -31,7 +31,7 @@ type FilterChipsProps = {
 
 export function FilterChips({ value, onChange }: FilterChipsProps) {
 	return (
-		<div className="flex gap-2.5 overflow-x-auto pb-1">
+		<>
 			{FILTERS.map((filter) => {
 				const active = filter.key === value;
 
@@ -51,6 +51,6 @@ export function FilterChips({ value, onChange }: FilterChipsProps) {
 					</button>
 				);
 			})}
-		</div>
+		</>
 	);
 }

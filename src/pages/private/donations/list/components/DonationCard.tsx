@@ -60,17 +60,20 @@ export function DonationCard({
 
 				<div className="h-px bg-[#e3e9f2]" />
 
-				<div className="flex flex-col gap-2 lg:gap-3">
-					<div className="flex flex-col gap-0.5">
-						<p className="text-[13px] font-bold text-[#0e2a45] lg:text-[15px]">
-							Etapa {currentStep} de {totalSteps}
-						</p>
-						{stepLabel && (
-							<p className="text-[13px] text-[#6b8faa] lg:text-[14px]">
-								{stepLabel}
-							</p>
-						)}
+				<div className="flex flex-col gap-2.5 rounded-xl bg-[#f4f7fb] p-3.5 lg:gap-3 lg:rounded-2xl lg:p-5">
+					<div className="flex items-center justify-between gap-2">
+						<span className="text-[10px] font-bold uppercase tracking-wider text-[#6b8faa] lg:text-[11px]">
+							Etapa atual
+						</span>
+						<span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-bold text-[#0e2a45] lg:text-[12px]">
+							{currentStep}/{totalSteps}
+						</span>
 					</div>
+					{stepLabel && (
+						<p className="text-[16px] font-bold leading-tight text-[#0e2a45] lg:text-[19px]">
+							{stepLabel}
+						</p>
+					)}
 					<ProgressBar current={currentStep} total={totalSteps} />
 				</div>
 			</button>

@@ -1,23 +1,39 @@
-import { Calendar, CreditCard, Pencil } from "lucide-react";
+import { Calendar, CreditCard } from "lucide-react";
 import { getInitials } from "@/components/layout/utils";
+import { cn } from "@/lib/utils";
 import { formatCpf, formatDateBR } from "@/utils/formatter";
 import type { AdminDonationRow } from "../hooks";
+import { ActiveBadge } from "./ActiveBadge";
+import { CopyableId } from "./CopyableId";
 import { StatusBadge } from "./StatusBadge";
 
 type DonationManagementCardProps = {
 	donation: AdminDonationRow;
-	onEdit: () => void;
 };
 
 export function DonationManagementCard({
 	donation,
-	onEdit,
 }: DonationManagementCardProps) {
 	return (
-		<div className="flex flex-col gap-3.5 bg-white p-[18px]">
+		<div
+			className={cn(
+				"flex flex-col gap-3.5 bg-white p-[18px]",
+				!donation.isActive && "opacity-70",
+			)}
+		>
 			<div className="flex items-center gap-3">
-				<div className="flex size-[46px] shrink-0 items-center justify-center rounded-full bg-[#e1f1fb]">
-					<span className="text-[16px] font-bold text-[#00458b]">
+				<div
+					className={cn(
+						"flex size-[46px] shrink-0 items-center justify-center rounded-full",
+						donation.isActive ? "bg-[#e1f1fb]" : "bg-[#fce4f0]",
+					)}
+				>
+					<span
+						className={cn(
+							"text-[16px] font-bold",
+							donation.isActive ? "text-[#00458b]" : "text-[#f2579f]",
+						)}
+					>
 						{getInitials(donation.userName)}
 					</span>
 				</div>
@@ -25,11 +41,14 @@ export function DonationManagementCard({
 					<p className="truncate text-[18px] font-bold text-[#1f2a37]">
 						{donation.userName}
 					</p>
-					<p className="text-[13px] text-[#9ca3af]">Doação #{donation.number}</p>
+					<CopyableId id={donation.id_donation} />
 				</div>
 			</div>
 
-			<StatusBadge step={donation.currentStepName} />
+			<div className="flex flex-wrap items-center gap-2">
+				<ActiveBadge isActive={donation.isActive} />
+				<StatusBadge step={donation.currentStepName} />
+			</div>
 
 			<div className="h-px bg-[#e5e7eb]" />
 
@@ -49,15 +68,6 @@ export function DonationManagementCard({
 					</span>
 				</div>
 			</div>
-
-			<button
-				type="button"
-				onClick={onEdit}
-				className="flex items-center justify-center gap-2 rounded-xl border-[1.5px] border-[#54b2e3] px-4 py-3 text-[15px] font-semibold text-[#00458b] transition-transform active:scale-[0.99]"
-			>
-				<Pencil className="size-[18px]" />
-				Editar doação
-			</button>
 		</div>
 	);
 }

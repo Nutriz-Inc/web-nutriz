@@ -83,7 +83,7 @@ export interface IDonationResponse extends Donation {
 	current_step?: EnumDonationStepName;
 }
 export interface IListDonationsResponse extends IPaginationResponse {
-	data: Donation[];
+	data: IDonationResponse[];
 }
 
 export type ICreateDonationResponse = Donation;

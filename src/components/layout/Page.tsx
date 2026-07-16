@@ -1,6 +1,7 @@
 import { AlertCircle, LoaderCircle } from "lucide-react";
 import type React from "react";
 
+import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 export type IPage = {
@@ -10,6 +11,7 @@ export type IPage = {
 	actionSlot?: React.ReactNode;
 	loading?: boolean;
 	hasPermission?: boolean;
+	titleClassName?: string;
 };
 
 export function Page({
@@ -19,6 +21,7 @@ export function Page({
 	actionSlot,
 	loading,
 	hasPermission = true,
+	titleClassName,
 }: IPage) {
 	if (!hasPermission) {
 		return (
@@ -37,7 +40,7 @@ export function Page({
 	return (
 		<>
 			{title && (
-				<div className="flex flex-col mb-8">
+				<div className={cn("flex flex-col mb-8", titleClassName)}>
 					<div className="flex items-center justify-between mb-2">
 						{title && (
 							<h1 className="text-2xl font-extrabold text-[#0e2a45] lg:text-4xl">

@@ -18,10 +18,11 @@ export function DonationManagementCard({
 		<div
 			className={cn(
 				"flex flex-col gap-3.5 bg-white p-[18px]",
+				"lg:flex-row lg:items-center lg:gap-6 lg:px-6 lg:py-4",
 				!donation.isActive && "opacity-70",
 			)}
 		>
-			<div className="flex items-center gap-3">
+			<div className="flex items-center gap-3 lg:w-[240px] lg:shrink-0">
 				<div
 					className={cn(
 						"flex size-[46px] shrink-0 items-center justify-center rounded-full",
@@ -45,14 +46,14 @@ export function DonationManagementCard({
 				</div>
 			</div>
 
-			<div className="flex flex-wrap items-center gap-2">
+			<div className="flex flex-wrap items-center gap-2 lg:w-[260px] lg:shrink-0">
 				<ActiveBadge isActive={donation.isActive} />
 				<StatusBadge step={donation.currentStepName} />
 			</div>
 
-			<div className="h-px bg-[#e5e7eb]" />
+			<div className="h-px bg-[#e5e7eb] lg:hidden" />
 
-			<div className="flex flex-col gap-2.5">
+			<div className="flex flex-col gap-2.5 lg:flex-1 lg:flex-row lg:items-center lg:justify-end lg:gap-6">
 				<div className="flex items-center gap-2.5">
 					<CreditCard className="size-[18px] shrink-0 text-[#9ca3af]" />
 					<span className="text-[14px] text-[#6b7280]">CPF:</span>

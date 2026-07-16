@@ -1,8 +1,9 @@
-import { Plus } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
+import { Search, X } from "lucide-react";
+import { type FormEvent, Fragment, useState } from "react";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
+import { formatCpf } from "@/utils/formatter";
 import {
 	type ActiveFilter,
 	ActiveFilterChips,
@@ -16,36 +17,36 @@ export function DonationsManagementPage() {
 	const { auth } = useAuth();
 
 	const [name, setName] = useState("");
-	const [debouncedName, setDebouncedName] = useState("");
+	const [appliedName, setAppliedName] = useState("");
 	const [cpf, setCpf] = useState("");
-	const [debouncedCpf, setDebouncedCpf] = useState("");
+	const [appliedCpf, setAppliedCpf] = useState("");
 	const [filter, setFilter] = useState<StepFilter>("all");
 	const [activeFilter, setActiveFilter] = useState<ActiveFilter>("all");
 
-	useEffect(() => {
-		const timeout = setTimeout(() => setDebouncedName(name), 400);
+	function handleApplyFilters(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
 
-		return () => clearTimeout(timeout);
-	}, [name]);
+		setAppliedName(name);
+		setAppliedCpf(cpf);
+	}
 
-	useEffect(() => {
-		const timeout = setTimeout(() => setDebouncedCpf(cpf), 400);
-
-		return () => clearTimeout(timeout);
-	}, [cpf]);
+	function handleClearFilters() {
+		setName("");
+		setAppliedName("");
+		setCpf("");
+		setAppliedCpf("");
+		setFilter("all");
+		setActiveFilter("all");
+	}
 
 	const { data, isLoading } = useAdminDonationsList({
-		user_name: debouncedName || undefined,
-		user_document: debouncedCpf.replace(/\D/g, "") || undefined,
+		user_name: appliedName || undefined,
+		user_document: appliedCpf.replace(/\D/g, "") || undefined,
 		current_step: filter === "all" ? undefined : filter,
 		is_active: activeFilter === "all" ? undefined : activeFilter === "active",
 	});
 
 	const donations = data ?? [];
-
-	function handleNewDonation() {
-		// To do: Implementar fluxo de nova doação pelo administrador
-	}
 
 	return (
 		<Page
@@ -53,20 +54,43 @@ export function DonationsManagementPage() {
 			description={`${donations.length} doações cadastradas`}
 			loading={isLoading}
 			hasPermission={auth?.type === EnumUserType.Admin}
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-[#f4f7fb] px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[900px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
-				<div className="flex flex-col gap-2.5 lg:flex-row">
-					<SearchBar
-						value={name}
-						onChange={setName}
-						placeholder="Buscar por nome..."
-					/>
-					<SearchBar
-						value={cpf}
-						onChange={setCpf}
-						placeholder="Buscar por CPF..."
-					/>
-				</div>
+			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-[#f4f7fb] px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
+				<form
+					onSubmit={handleApplyFilters}
+					className="flex flex-col gap-2.5 lg:flex-row lg:items-center"
+				>
+					<div className="lg:flex-1">
+						<SearchBar
+							value={name}
+							onChange={setName}
+							placeholder="Buscar por nome..."
+						/>
+					</div>
+					<div className="lg:flex-1">
+						<SearchBar
+							value={cpf}
+							onChange={(value) => setCpf(formatCpf(value))}
+							placeholder="Buscar por CPF..."
+						/>
+					</div>
+					<button
+						type="submit"
+						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[#00458b] px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+					>
+						<Search className="size-4" />
+						Aplicar filtro
+					</button>
+					<button
+						type="button"
+						onClick={handleClearFilters}
+						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-xl border border-[#e5e7eb] bg-white px-5 text-[14px] font-semibold text-[#6b7280] transition-transform active:scale-[0.98]"
+					>
+						<X className="size-4" />
+						Limpar filtro
+					</button>
+				</form>
 
 				<div className="flex items-center gap-2.5 overflow-x-auto pb-1">
 					<ActiveFilterChips value={activeFilter} onChange={setActiveFilter} />
@@ -94,15 +118,6 @@ export function DonationsManagementPage() {
 					</div>
 				)}
 			</div>
-
-			<button
-				type="button"
-				onClick={handleNewDonation}
-				className="fixed bottom-7 right-5 flex items-center gap-2 rounded-full bg-[#00458b] px-[22px] py-4 text-[16px] font-bold text-white shadow-[0px_6px_16px_rgba(0,0,0,0.18)] transition-transform active:scale-[0.97] lg:bottom-8 lg:right-8"
-			>
-				<Plus className="size-[22px]" />
-				Nova doação
-			</button>
 		</Page>
 	);
 }

@@ -88,7 +88,7 @@ export function LandingHeader() {
 						Login
 					</button>
 					<Button
-						onClick={() => navigate("/register")}
+						onClick={() => navigate("/registro")}
 						className="h-11 rounded-full bg-white px-6 text-[14px] font-semibold text-[#0a3a87] hover:bg-[#eaf0f8]"
 					>
 						Cadastrar-se
@@ -154,7 +154,7 @@ export function LandingHeader() {
 							</SheetClose>
 							<SheetClose asChild>
 								<Button
-									onClick={() => navigate("/register")}
+									onClick={() => navigate("/registro")}
 									className="h-11 w-full cursor-pointer rounded-full bg-[#1B4FBB] text-[15px] font-semibold text-white hover:bg-[#1745a3]"
 								>
 									Cadastrar-se

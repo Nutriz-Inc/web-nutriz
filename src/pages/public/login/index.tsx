@@ -214,7 +214,7 @@ export function LoginScreen() {
 				<p className="mt-5 text-center text-sm text-[#54648a]">
 					Ainda não tem uma conta?{" "}
 					<Link
-						to="/register"
+						to="/registro"
 						className="font-semibold text-[#1c5fd0] hover:underline underline-offset-2"
 					>
 						Criar conta

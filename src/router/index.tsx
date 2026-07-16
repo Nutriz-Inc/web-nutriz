@@ -56,7 +56,7 @@ export const publicRouter = createBrowserRouter([
 		element: <LoginScreen />,
 	},
 	{
-		path: "/register",
+		path: "/registro",
 		element: <RegisterScreen />,
 	},
 	{

@@ -1,5 +1,6 @@
-import { Droplet, Gift, Menu } from "lucide-react";
+import { Droplet, Gift, Menu, Plus } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NutrizLogo from "@/assets/images/nutriz-log-alternative.svg";
 import { AppDrawer } from "@/components/layout/AppDrawer";
 import { Footer } from "@/components/layout/Footer";
@@ -13,6 +14,7 @@ import { useQueryUserInfo } from "./hooks";
 
 export function HomePage() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
+	const navigate = useNavigate();
 	const { auth } = useAuth();
 
 	const { isLoading: loading, data } = useQueryUserInfo(auth?.id_user);
@@ -23,6 +25,10 @@ export function HomePage() {
 		month: "long",
 		year: "numeric",
 	}).format(new Date(data?.created_at || new Date()));
+
+	function goToCreation() {
+		navigate("/nova-doacao");
+	}
 
 	const metrics = [
 		{
@@ -90,12 +96,15 @@ export function HomePage() {
 							<div className="flex flex-col gap-3 pt-2 w-full lg:flex-row lg:w-auto lg:gap-4">
 								<button
 									type="button"
+									onClick={goToCreation}
 									className="bg-[#72f2eb] flex items-center justify-center py-4 rounded-full w-full active:scale-[0.98] transition-transform lg:w-auto lg:px-7"
 								>
-									<p className="font-semibold text-[#00458b] text-[16px]">
-										Nova Doação
-									</p>
-									{/* To do: Implementar redirect */}
+									<div className="flex gap-2 items-center">
+										<p className="font-semibold text-[#00458b] text-[16px]">
+											Nova Doação
+										</p>
+										<Plus className="size-4 text-[#00458b]" />
+									</div>
 								</button>
 								<button
 									type="button"

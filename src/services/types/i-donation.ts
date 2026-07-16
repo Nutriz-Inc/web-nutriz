@@ -73,6 +73,14 @@ export enum EnumDonationStepStatus {
 export interface IListDonationsRequest extends IPaginationRequest {
 	is_active?: boolean;
 	user_document?: string;
+	user_name?: string;
+	id_user_common?: string;
+	current_step?: EnumDonationStepName;
+}
+export interface IDonationResponse extends Donation {
+	user_document?: string;
+	user_name?: string;
+	current_step?: EnumDonationStepName;
 }
 export interface IListDonationsResponse extends IPaginationResponse {
 	data: Donation[];
@@ -116,6 +124,8 @@ export interface ICreateDonationStepRequest {
 	name: EnumDonationStepName;
 	description: string;
 	set_date?: string;
+	id_address?: string;
+	address?: AddressCreateBase;
 }
 export type ICreateDonationStepResponse = DonationStep;
 
@@ -125,6 +135,8 @@ export interface IUpdateDonationStepRequest {
 	description: string;
 	set_date?: string;
 	status?: EnumDonationStepStatus;
+	id_address?: string;
+	address?: AddressCreateBase;
 }
 export type IUpdateDonationStepResponse = DonationStep;
 

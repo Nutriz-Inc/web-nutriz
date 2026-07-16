@@ -1,10 +1,10 @@
-import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import type {
 	RegisterFieldName,
 	RegisterFormData,
 	RegisterFormErrors,
 } from "../types";
+import { PasswordToggle } from "./PasswordToggle";
 import { WizardField } from "./WizardField";
 
 type PasswordStepProps = {
@@ -12,24 +12,6 @@ type PasswordStepProps = {
 	errors: RegisterFormErrors;
 	onChange: (field: RegisterFieldName, value: string) => void;
 };
-
-type PasswordToggleProps = {
-	visible: boolean;
-	onToggle: () => void;
-};
-
-function PasswordToggle({ visible, onToggle }: PasswordToggleProps) {
-	return (
-		<button
-			type="button"
-			onClick={onToggle}
-			aria-label={visible ? "Ocultar senha" : "Mostrar senha"}
-			className="text-[#a1a1aa] transition-colors hover:text-[#71717a]"
-		>
-			{visible ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-		</button>
-	);
-}
 
 export function PasswordStep({ form, errors, onChange }: PasswordStepProps) {
 	const [showPassword, setShowPassword] = useState(false);

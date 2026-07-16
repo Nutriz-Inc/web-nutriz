@@ -1,15 +1,17 @@
-import { useParams } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
+import { STEP_DEFINITIONS } from "@/utils/step-definitions";
 import {
 	DonationStepCard,
 	type StepVisualStatus,
 } from "./components/DonationStepCard";
 import { useDonation } from "./hooks/use-donation";
-import { STEP_DEFINITIONS } from "@/utils/step-definitions";
 
-export function DonationTrackPage() {
+export function DonationInfoPage() {
 	const { id_donation = "" } = useParams();
+	const navigate = useNavigate();
 	const { donationQuery } = useDonation(id_donation);
 
 	const steps = donationQuery.data?.steps ?? [];
@@ -21,6 +23,15 @@ export function DonationTrackPage() {
 
 	return (
 		<Page>
+			<button
+				type="button"
+				onClick={() => navigate("/minhas-doacoes")}
+				className="mb-3 inline-flex items-center gap-1 rounded-full py-1.5 pl-2 pr-3 text-[13px] font-semibold text-[#00458b] transition-colors hover:bg-[#eef3f8]"
+			>
+				<ChevronLeft className="size-4" />
+				Voltar
+			</button>
+
 			<div className="flex flex-col gap-1 pb-2">
 				<h1 className="text-[24px] font-extrabold text-[#0e2a45]">
 					Doação #{id_donation.slice(0, 8)}

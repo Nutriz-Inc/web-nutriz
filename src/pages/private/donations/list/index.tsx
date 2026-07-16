@@ -31,7 +31,7 @@ export function DonationsPage() {
 	}
 
 	function goToDetail(idDonation: string) {
-		navigate(`/minhas-doacoes/${idDonation}`);
+		navigate(`/doacao/${idDonation}`);
 	}
 
 	return (

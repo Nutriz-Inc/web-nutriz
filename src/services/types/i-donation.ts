@@ -124,8 +124,6 @@ export interface ICreateDonationStepRequest {
 	name: EnumDonationStepName;
 	description: string;
 	set_date?: string;
-	id_address?: string;
-	address?: AddressCreateBase;
 }
 export type ICreateDonationStepResponse = DonationStep;
 
@@ -135,8 +133,6 @@ export interface IUpdateDonationStepRequest {
 	description: string;
 	set_date?: string;
 	status?: EnumDonationStepStatus;
-	id_address?: string;
-	address?: AddressCreateBase;
 }
 export type IUpdateDonationStepResponse = DonationStep;
 

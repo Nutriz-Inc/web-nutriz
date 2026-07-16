@@ -1,11 +1,15 @@
-import { LoaderCircle, Search } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import {
+	type FilterChipOption,
+	FilterChips,
+} from "@/components/full/FilterChips";
+import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useGeolocation } from "@/hooks/use-geolocation";
 import { ChangeLocationSheet } from "./components/ChangeLocationSheet";
 import { DonationPointCard } from "./components/DonationPointCard";
 import { DonationPointDetailSheet } from "./components/DonationPointDetailSheet";
-import { type FilterKey, FilterTabs } from "./components/FilterTabs";
 import type { Coordinates } from "./components/FitMapView";
 import { MapPreview } from "./components/MapPreview";
 import { useQueryDonationPoints } from "./hooks";
@@ -13,6 +17,13 @@ import { useQueryDonationPoints } from "./hooks";
 type LocationOverride =
 	| ({ kind: "coordinates" } & Coordinates)
 	| { kind: "zipcode"; zipcode: string };
+
+type FilterKey = "all" | "home";
+
+const FILTER_OPTIONS: FilterChipOption<FilterKey>[] = [
+	{ key: "all", label: "Todos" },
+	{ key: "home", label: "Coleta Domiciliar" },
+];
 
 export function DonationPointsPage() {
 	const [search, setSearch] = useState("");
@@ -90,17 +101,19 @@ export function DonationPointsPage() {
 		>
 			<div className="-m-5 flex flex-col bg-[#f7f7fa] lg:grid lg:h-[calc(100vh-69px)] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden">
 				<div className="flex flex-col gap-3 px-4 pt-4 lg:col-start-1 lg:row-start-1 lg:border-r lg:border-[#e0e0e0] lg:bg-[#f7f7fa]lg:px-5 lg:pb-4 lg:pt-5">
-					<div className="relative">
-						<Search className="pointer-events-none absolute left-4 top-1/2 size-[15px] -translate-y-1/2 text-[#387ccd]" />
-						<input
-							value={search}
-							onChange={(e) => setSearch(e.target.value)}
-							placeholder="Buscar ponto de coleta"
-							className="h-[39px] w-full rounded-full bg-[#dbe7f6] pl-10 pr-4 text-[11px] text-[#387ccd] outline-none placeholder:text-[#387ccd]/70"
+					<SearchBar
+						value={search}
+						onChange={setSearch}
+						placeholder="Buscar ponto de coleta"
+					/>
+
+					<div className="flex gap-2 overflow-x-auto pb-1">
+						<FilterChips
+							options={FILTER_OPTIONS}
+							value={filter}
+							onChange={setFilter}
 						/>
 					</div>
-
-					<FilterTabs value={filter} onChange={setFilter} />
 				</div>
 
 				<div className="px-4 pt-4 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:h-full lg:overflow-hidden lg:p-6">

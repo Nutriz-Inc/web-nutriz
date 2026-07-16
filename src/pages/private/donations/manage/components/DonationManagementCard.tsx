@@ -1,10 +1,10 @@
 import { Calendar, CreditCard } from "lucide-react";
 import { ActiveBadge } from "@/components/full/ActiveBadge";
+import { CopyableId } from "@/components/full/CopyableId";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import { formatCpf, formatDateBR } from "@/utils/formatter";
 import type { AdminDonationRow } from "../hooks";
-import { CopyableId } from "./CopyableId";
 import { StatusBadge } from "./StatusBadge";
 
 type DonationManagementCardProps = {

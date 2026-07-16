@@ -1,17 +1,47 @@
 import { Search, X } from "lucide-react";
 import { type FormEvent, Fragment, useState } from "react";
+import {
+	type FilterChipOption,
+	FilterChips,
+} from "@/components/full/FilterChips";
+import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import { EnumDonationStepName } from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";
 import { formatCpf } from "@/utils/formatter";
-import {
-	type ActiveFilter,
-	ActiveFilterChips,
-} from "./components/ActiveFilterChips";
 import { DonationManagementCard } from "./components/DonationManagementCard";
-import { FilterChips, type StepFilter } from "./components/FilterChips";
-import { SearchBar } from "./components/SearchBar";
+import { STEP_DISPLAY } from "./components/StatusBadge";
 import { useAdminDonationsList } from "./hooks";
+
+type StepFilter = "all" | EnumDonationStepName;
+type ActiveFilter = "all" | "active" | "inactive";
+
+const STEP_FILTER_OPTIONS: FilterChipOption<StepFilter>[] = [
+	{ key: "all", label: "Todas" },
+	{
+		key: EnumDonationStepName.BloodTest,
+		label: STEP_DISPLAY[EnumDonationStepName.BloodTest].label,
+	},
+	{
+		key: EnumDonationStepName.CollectMilk,
+		label: STEP_DISPLAY[EnumDonationStepName.CollectMilk].label,
+	},
+	{
+		key: EnumDonationStepName.DeliverMilkingKit,
+		label: STEP_DISPLAY[EnumDonationStepName.DeliverMilkingKit].label,
+	},
+	{
+		key: EnumDonationStepName.MilkAnalysis,
+		label: STEP_DISPLAY[EnumDonationStepName.MilkAnalysis].label,
+	},
+];
+
+const ACTIVE_FILTER_OPTIONS: FilterChipOption<ActiveFilter>[] = [
+	{ key: "all", label: "Todas" },
+	{ key: "active", label: "Em andamento" },
+	{ key: "inactive", label: "Concluídas" },
+];
 
 export function DonationsManagementPage() {
 	const { auth } = useAuth();
@@ -93,9 +123,17 @@ export function DonationsManagementPage() {
 				</form>
 
 				<div className="flex items-center gap-2.5 overflow-x-auto pb-1">
-					<ActiveFilterChips value={activeFilter} onChange={setActiveFilter} />
+					<FilterChips
+						options={ACTIVE_FILTER_OPTIONS}
+						value={activeFilter}
+						onChange={setActiveFilter}
+					/>
 					<div className="h-6 w-px shrink-0 bg-[#e5e7eb]" />
-					<FilterChips value={filter} onChange={setFilter} />
+					<FilterChips
+						options={STEP_FILTER_OPTIONS}
+						value={filter}
+						onChange={setFilter}
+					/>
 				</div>
 
 				{donations.length === 0 ? (

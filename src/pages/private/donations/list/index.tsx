@@ -6,7 +6,7 @@ import { NUMBER_OF_DONATION_STEPS } from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";
 import { STEP_NUMBER } from "@/utils/constants";
 import { DonationCard } from "./components/DonationCard";
-import { useActiveDonationSteps, useDonationsList } from "./hooks";
+import { useDonationsList } from "./hooks";
 
 export function DonationsPage() {
 	const navigate = useNavigate();
@@ -25,15 +25,6 @@ export function DonationsPage() {
 			}
 			return a.donation.created_at.localeCompare(b.donation.created_at);
 		});
-
-	const activeDonation = donations.find((donation) => donation.is_active);
-	const { data: activeDetail } = useActiveDonationSteps(
-		activeDonation?.id_donation,
-	);
-
-	const activeStep = activeDetail?.steps?.at(-1);
-	const activeStepNumber = activeStep ? STEP_NUMBER[activeStep.name] : 0;
-	const activeStepLabel = activeStep?.name;
 
 	function goToCreation() {
 		navigate("/nova-doacao");
@@ -97,6 +88,9 @@ export function DonationsPage() {
 						<div className="flex flex-col gap-3 lg:gap-4">
 							{orderedDonations.map(({ donation, number }) => {
 								const isInProgress = donation.is_active;
+								const currentStepNumber = donation.current_step
+									? STEP_NUMBER[donation.current_step]
+									: 0;
 
 								return (
 									<DonationCard
@@ -105,10 +99,12 @@ export function DonationsPage() {
 										isInProgress={isInProgress}
 										createdAt={donation.created_at}
 										currentStep={
-											isInProgress ? activeStepNumber : NUMBER_OF_DONATION_STEPS
+											isInProgress
+												? currentStepNumber
+												: NUMBER_OF_DONATION_STEPS
 										}
 										totalSteps={NUMBER_OF_DONATION_STEPS}
-										stepLabel={isInProgress ? activeStepLabel : undefined}
+										stepLabel={isInProgress ? donation.current_step : undefined}
 										onClick={() => goToDetail(donation.id_donation)}
 									/>
 								);

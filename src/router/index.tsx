@@ -3,10 +3,12 @@ import { Layout } from "@/components/layout/Layout";
 import { NewDonationPage } from "@/pages/private/donations/create";
 import { DonationPointsPage } from "../pages/private/donation-points";
 import { DonationsPage } from "../pages/private/donations/list";
+import { DonationsManagementPage } from "../pages/private/donations/manage";
 import { HomePage } from "../pages/private/home";
 import { ProfilePage } from "../pages/private/profile";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
+import { DefaultRedirect } from "./DefaultRedirect";
 
 export const routerPrivate = createBrowserRouter([
 	{
@@ -14,8 +16,8 @@ export const routerPrivate = createBrowserRouter([
 		element: <HomePage />,
 	},
 	{
-		path: "*",
-		element: <Navigate to="/home" replace />,
+		path: "/*",
+		element: <DefaultRedirect />,
 	},
 	{
 		path: "/",
@@ -40,6 +42,11 @@ export const routerPrivate = createBrowserRouter([
 				path: "/nova-doacao",
 				element: <NewDonationPage />,
 				handle: { title: "Nova Doação" },
+			},
+			{
+				path: "/gestao-doacoes",
+				element: <DonationsManagementPage />,
+				handle: { title: "Doações" },
 			},
 		],
 	},

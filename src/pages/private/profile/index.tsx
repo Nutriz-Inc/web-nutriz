@@ -52,6 +52,7 @@ export function ProfilePage() {
 		zip_code: address?.zipcode ?? "",
 		number: address?.number ?? "",
 		complement: address?.complement ?? "",
+		cpf: data?.cpf ?? "",
 	};
 
 	const values: MyDataFormValues = myData ?? baselineValues;

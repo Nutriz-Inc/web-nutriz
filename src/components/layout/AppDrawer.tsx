@@ -1,13 +1,4 @@
-import {
-	BookOpen,
-	Droplets,
-	Home,
-	LogOut,
-	MapPin,
-	MessageCircle,
-	User,
-	X,
-} from "lucide-react";
+import { LogOut, X } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
 	Sheet,
@@ -18,16 +9,8 @@ import {
 } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
-import { getInitials } from "./utils";
-
-const navItems = [
-	{ label: "Início", icon: Home, to: "/home" },
-	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
-	{ label: "Minhas doações", icon: Droplets, to: "/minhas-doacoes" },
-	{ label: "Conteúdo educativo", icon: BookOpen, to: "/conteudo-educativo" },
-	{ label: "EVA — Assistente Virtual", icon: MessageCircle, to: "/eva" },
-	{ label: "Perfil", icon: User, to: "/perfil" },
-];
+import { EnumUserType } from "@/services/types/i-user";
+import { getInitials, getUserMenu } from "./utils";
 
 type AppDrawerProps = {
 	open: boolean;
@@ -37,6 +20,8 @@ type AppDrawerProps = {
 export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 	const { auth, handleLogout } = useAuth();
 	const navigate = useNavigate();
+
+	const navItems = getUserMenu(auth!.type);
 
 	function onLogout() {
 		handleLogout();
@@ -67,27 +52,31 @@ export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 				</SheetHeader>
 
 				<nav className="flex-1 py-2 overflow-y-auto">
-					{navItems.map((item) => {
-						const Icon = item.icon;
-						return (
-							<NavLink
-								key={item.label}
-								to={item.to}
-								onClick={() => onOpenChange(false)}
-								className={({ isActive }) =>
-									cn(
-										"flex items-center gap-4 px-5 py-4 text-sm text-slate-700 transition hover:bg-slate-50 border-l-4",
-										isActive
-											? "border-[#1B4FBB] text-[#1B4FBB] bg-blue-50/60 font-medium"
-											: "border-transparent hover:bg-slate-100 hover:text-slate-900",
-									)
-								}
-							>
-								<Icon className="h-5 w-5 shrink-0" />
-								{item.label}
-							</NavLink>
-						);
-					})}
+					{navItems
+						.filter(
+							(item) => !item.adminOnly || auth?.type === EnumUserType.Admin,
+						)
+						.map((item) => {
+							const Icon = item.icon;
+							return (
+								<NavLink
+									key={item.label}
+									to={item.to}
+									onClick={() => onOpenChange(false)}
+									className={({ isActive }) =>
+										cn(
+											"flex items-center gap-4 px-5 py-4 text-sm text-slate-700 transition hover:bg-slate-50 border-l-4",
+											isActive
+												? "border-[#1B4FBB] text-[#1B4FBB] bg-blue-50/60 font-medium"
+												: "border-transparent hover:bg-slate-100 hover:text-slate-900",
+										)
+									}
+								>
+									<Icon className="h-5 w-5 shrink-0" />
+									{item.label}
+								</NavLink>
+							);
+						})}
 				</nav>
 
 				<div className="border-t border-slate-200 px-5 py-4">

@@ -83,7 +83,7 @@ export interface IDonationResponse extends Donation {
 	current_step?: EnumDonationStepName;
 }
 export interface IListDonationsResponse extends IPaginationResponse {
-	data: Donation[];
+	data: IDonationResponse[];
 }
 
 export type ICreateDonationResponse = Donation;
@@ -119,20 +119,20 @@ export interface IListDonationPointsResponse extends IPaginationResponse {
 // donation step
 export interface ICreateDonationStepRequest {
 	id_donation: string;
+	id_address?: string;
+	address?: AddressCreateBase;
 	name: EnumDonationStepName;
 	description: string;
 	set_date?: string;
-	id_address?: string;
-	address?: AddressCreateBase;
 }
 export type ICreateDonationStepResponse = DonationStep;
 
 export interface IUpdateDonationStepRequest {
+	id_address?: string;
+	address?: AddressCreateBase;
 	description: string;
 	set_date?: string;
 	status?: EnumDonationStepStatus;
-	id_address?: string;
-	address?: AddressCreateBase;
 }
 export type IUpdateDonationStepResponse = DonationStep;
 

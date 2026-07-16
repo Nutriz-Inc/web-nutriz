@@ -1,6 +1,6 @@
 import { Check, Droplet, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import WhatsAppIcon from "@/assets/whatsapp-icon.svg";
+import WhatsAppIcon from "@/assets/images/whatsapp-icon.svg";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";

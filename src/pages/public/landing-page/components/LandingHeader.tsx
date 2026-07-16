@@ -12,8 +12,8 @@ import {
 	SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { NAV_ICONS, NAV_LINKS } from "../constants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
-import { NAV_ICONS, NAV_LINKS } from "./constants";
 import { Wordmark } from "./Wordmark";
 
 export function LandingHeader() {

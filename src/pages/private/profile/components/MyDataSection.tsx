@@ -1,5 +1,5 @@
 import { MapPin, User } from "lucide-react";
-import { formatCep, formatPhoneNumber } from "@/utils/formatter";
+import { formatCep, formatCpf, formatPhoneNumber } from "@/utils/formatter";
 import { Field } from "../../../../components/full/Field";
 import { PasswordField } from "./PasswordField";
 import { SectionCard } from "./SectionCard";
@@ -12,6 +12,7 @@ export type MyDataFormValues = {
 	zip_code: string;
 	number: string;
 	complement: string;
+	cpf: string;
 };
 
 type MyDataSectionProps = {
@@ -45,6 +46,12 @@ export function MyDataSection({
 				<Field
 					label="Data de Nascimento"
 					value={birthDate}
+					editable={false}
+					onChange={() => {}}
+				/>
+				<Field
+					label="CPF"
+					value={formatCpf(values.cpf)}
 					editable={false}
 					onChange={() => {}}
 				/>

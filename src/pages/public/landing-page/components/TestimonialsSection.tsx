@@ -2,8 +2,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { TESTIMONIALS } from "../data/mock";
 import { useReveal } from "../hooks/use-reveal";
+import { TESTIMONIALS } from "../mock";
 import { SectionLabel } from "./SectionLabel";
 import { TestimonialCard } from "./TestimonialCard";
 

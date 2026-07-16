@@ -1,9 +1,9 @@
 import { Calendar, CreditCard } from "lucide-react";
+import { ActiveBadge } from "@/components/full/ActiveBadge";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import { formatCpf, formatDateBR } from "@/utils/formatter";
 import type { AdminDonationRow } from "../hooks";
-import { ActiveBadge } from "./ActiveBadge";
 import { CopyableId } from "./CopyableId";
 import { StatusBadge } from "./StatusBadge";
 

@@ -3,6 +3,7 @@ import type {
 	IPaginationRequest,
 	IPaginationResponse,
 } from "./i-index";
+import type { Address } from "./i-user";
 
 // entity
 export interface Job {
@@ -42,6 +43,15 @@ export type IGetJobResponse = Job;
 export interface IListJobsRequest extends IPaginationRequest {
 	date_set?: string;
 	id_step?: string;
+	id_user_common?: string;
+	id_user_nurse?: string;
+	user_common_name?: string;
+	user_nurse_name?: string;
+}
+export interface IJobResponse extends Job {
+	user_common_name?: string;
+	user_nurse_name?: string;
+	address?: Address;
 }
 export interface IListJobsResponse extends IPaginationResponse {
 	data: Job[];

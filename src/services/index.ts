@@ -30,7 +30,10 @@ httpClient.interceptors.response.use(
 		return response;
 	},
 	(error) => {
-		if (error.response?.status === 403) {
+		const status = error.response?.status;
+		const isLoginRequest = error.config?.url?.includes("/auth/login");
+
+		if ((status === 401 || status === 403) && !isLoginRequest) {
 			localStorage.clear();
 			window.location.reload();
 		}

@@ -9,16 +9,16 @@ import {
 	Quote,
 	Users,
 } from "lucide-react";
-import { ClockIcon } from "../assets/icons/ClockIcon";
-import { DonateIcon } from "../assets/icons/DonateIcon";
-import { ExamIcon } from "../assets/icons/ExamIcon";
-import { FacebookIcon } from "../assets/icons/FacebookIcon";
-import { HeartIcon } from "../assets/icons/HeartIcon";
-import { InstagramIcon } from "../assets/icons/InstagramIcon";
-import { LinkedinIcon } from "../assets/icons/LinkedinIcon";
-import { RegisterIcon } from "../assets/icons/RegisterIcon";
-import { ShieldIcon } from "../assets/icons/ShieldIcon";
-import { YoutubeIcon } from "../assets/icons/YoutubeIcon";
+import { ClockIcon } from "../../../assets/icons/ClockIcon";
+import { DonateIcon } from "../../../assets/icons/DonateIcon";
+import { ExamIcon } from "../../../assets/icons/ExamIcon";
+import { FacebookIcon } from "../../../assets/icons/FacebookIcon";
+import { HeartIcon } from "../../../assets/icons/HeartIcon";
+import { InstagramIcon } from "../../../assets/icons/InstagramIcon";
+import { LinkedinIcon } from "../../../assets/icons/LinkedinIcon";
+import { RegisterIcon } from "../../../assets/icons/RegisterIcon";
+import { ShieldIcon } from "../../../assets/icons/ShieldIcon";
+import { YoutubeIcon } from "../../../assets/icons/YoutubeIcon";
 
 export type NavLink = {
 	label: string;

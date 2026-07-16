@@ -10,7 +10,7 @@ import { formatCreatedAt } from "@/utils/formatter";
 
 interface Props {
 	stepName: EnumDonationStepName;
-	datetime: string;
+	datetime?: string;
 	status: EnumDonationStepStatus;
 	onConsult: () => void;
 	className?: string;

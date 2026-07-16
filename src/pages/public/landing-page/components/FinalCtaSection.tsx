@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { CTA_AVATARS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
 import { ActivityBadge } from "./ActivityBadge";
-import { CTA_AVATARS } from "./constants";
 import { HeroBackground } from "./HeroBackground";
 import { SlideButton } from "./SlideButton";
 

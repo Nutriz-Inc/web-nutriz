@@ -8,6 +8,7 @@ import type {
 	ICreateUserBabyResponse,
 	ICreateUserRequest,
 	ICreateUserResponse,
+	IGetAddressResponse,
 	IGetUserRequest,
 	IGetUserResponse,
 	IListUsersRequest,
@@ -92,6 +93,14 @@ export class User implements IUser {
 
 	async removeAddress(id_address: string): Promise<IRemoveAddressResponse> {
 		const { data } = await this.httpClient.delete(
+			`/internal/user/address/${id_address}`,
+		);
+
+		return data;
+	}
+
+	async getAddresses(id_address: string): Promise<IGetAddressResponse> {
+		const { data } = await this.httpClient.get(
 			`/internal/user/address/${id_address}`,
 		);
 

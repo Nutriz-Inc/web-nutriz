@@ -25,7 +25,7 @@ export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 
 	function onLogout() {
 		handleLogout();
-		navigate("/login");
+		navigate("/");
 	}
 
 	return (

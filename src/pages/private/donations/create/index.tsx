@@ -26,13 +26,13 @@ export function NewDonationPage() {
 					"_blank",
 					"noopener",
 				);
-				navigate("/home");
+				navigate("/minhas-doacoes");
 			},
 		});
 	}
 
 	function handleCancel() {
-		navigate("/home");
+		navigate("/minhas-doacoes");
 	}
 
 	return (

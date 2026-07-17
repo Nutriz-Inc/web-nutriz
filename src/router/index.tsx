@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { NewDonationPage } from "@/pages/private/donations/create";
+import { DonationInfoPage } from "@/pages/private/donations/info";
 import { DonationPointsPage } from "../pages/private/donation-points";
 import { DonationsPage } from "../pages/private/donations/list";
 import { DonationsManagementPage } from "../pages/private/donations/manage";
@@ -48,6 +49,11 @@ export const routerPrivate = createBrowserRouter([
 				element: <DonationsManagementPage />,
 				handle: { title: "Doações" },
 			},
+			{
+				path: "/doacao/:id_donation",
+				element: <DonationInfoPage />,
+				handle: { title: "Acompanhamento" },
+			},
 		],
 	},
 ]);
@@ -63,6 +69,6 @@ export const publicRouter = createBrowserRouter([
 	},
 	{
 		path: "*",
-		element: <Navigate to="/login" replace />,
+		element: <Navigate to="/" replace />,
 	},
 ]);

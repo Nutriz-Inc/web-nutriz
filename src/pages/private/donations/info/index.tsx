@@ -1,7 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
-import { EnumDonationStepName, EnumDonationStepStatus } from "@/services/types/i-donation";
+import {
+	EnumDonationStepName,
+	EnumDonationStepStatus,
+} from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";
 import { DonationStepCard } from "./components/DonationStepCard";
 import { STEP_DEFINITIONS, type StepVisualStatus } from "./constants";
@@ -9,6 +12,7 @@ import { useDonation } from "./hooks/use-donation";
 
 export function DonationInfoPage() {
 	const { id_donation = "" } = useParams();
+	const navigate = useNavigate();
 	const { donationQuery } = useDonation(id_donation);
 	const { auth } = useAuth();
 
@@ -49,6 +53,14 @@ export function DonationInfoPage() {
 							icon={definition.icon}
 							visualStatus={visualStatus}
 							isLast={index === STEP_DEFINITIONS.length - 1}
+							onClick={
+								step
+									? () =>
+											navigate(
+												`/doacao/${id_donation}/etapa/${step.id_donation_step}`,
+											)
+									: undefined
+							}
 						/>
 					);
 				})}

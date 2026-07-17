@@ -17,6 +17,7 @@ interface Props {
 	icon: LucideIcon;
 	visualStatus: StepVisualStatus;
 	isLast: boolean;
+	onClick?: () => void;
 }
 
 export function DonationStepCard({
@@ -28,11 +29,13 @@ export function DonationStepCard({
 	icon: Icon,
 	visualStatus,
 	isLast,
+	onClick,
 }: Props) {
 	const isCurrent = visualStatus === "current";
 	const isDone = visualStatus === "done";
 	const hasCurrentDetails = isCurrent && Boolean(setDate);
 	const hasCompletedInfo = Boolean(completedAt);
+	const isClickable = Boolean(onClick);
 
 	return (
 		<div className="flex gap-4">
@@ -59,12 +62,20 @@ export function DonationStepCard({
 				)}
 			</div>
 
-			<div
+			<button
+				type="button"
+				onClick={onClick}
+				disabled={!isClickable}
 				className={cn(
-					"flex-1 rounded-2xl bg-white transition-shadow",
+					"flex-1 rounded-2xl bg-white text-left transition-shadow disabled:cursor-default",
+					isCurrent ? "mb-6 p-5" : "mb-4 p-3.5",
 					isCurrent
-						? "mb-6 p-5 shadow-[0px_14px_18px_rgba(10,38,77,0.08)] hover:shadow-[0px_18px_24px_rgba(10,38,77,0.14)]"
-						: "mb-4 p-3.5 shadow-[0px_6px_10px_rgba(10,38,77,0.04)] hover:shadow-[0px_8px_14px_rgba(10,38,77,0.08)]",
+						? "shadow-[0px_14px_18px_rgba(10,38,77,0.08)]"
+						: "shadow-[0px_6px_10px_rgba(10,38,77,0.04)]",
+					isClickable &&
+						(isCurrent
+							? "hover:shadow-[0px_18px_24px_rgba(10,38,77,0.14)]"
+							: "hover:shadow-[0px_8px_14px_rgba(10,38,77,0.08)]"),
 					!isCurrent && !isDone && "bg-[#fafbfc]",
 				)}
 			>
@@ -162,7 +173,7 @@ export function DonationStepCard({
 						</div>
 					</>
 				)}
-			</div>
+			</button>
 		</div>
 	);
 }

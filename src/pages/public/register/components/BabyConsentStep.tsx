@@ -44,7 +44,7 @@ export function BabyConsentStep({
 					accent="pink"
 				>
 					<span className="text-sm font-semibold text-[#09090b]">
-						♥ Já quero cadastrar meu bebê
+						Já quero cadastrar meu bebê
 					</span>
 				</RoundCheckbox>
 				<p className="pl-[30px] text-[13px] text-[#71717a]">

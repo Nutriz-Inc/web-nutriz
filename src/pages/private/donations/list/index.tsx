@@ -44,7 +44,7 @@ export function DonationsPage() {
 					type="button"
 					onClick={goToCreation}
 					disabled={false}
-					className="hidden items-center gap-2 rounded-full bg-[#00458b] px-6 py-3 text-[14px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60 lg:flex"
+					className="hidden items-center gap-2 rounded-full bg-[#00458b] px-6 py-3 text-[14px] font-semibold text-white transition-[transform,background-color] hover:bg-[#00366e] active:scale-[0.98] disabled:opacity-60 lg:flex"
 				>
 					<Plus className="size-4" />
 					Nova Doação
@@ -70,7 +70,7 @@ export function DonationsPage() {
 							<button
 								type="button"
 								onClick={() => refetch()}
-								className="rounded-full border-[1.5px] border-[#00458b] px-5 py-2 text-[13px] font-semibold text-[#00458b] active:scale-[0.98] transition-transform"
+								className="rounded-full border-[1.5px] border-[#00458b] px-5 py-2 text-[13px] font-semibold text-[#00458b] transition-[transform,background-color] hover:bg-[#eef3f8] active:scale-[0.98]"
 							>
 								Tentar novamente
 							</button>
@@ -124,7 +124,7 @@ export function DonationsPage() {
 						type="button"
 						onClick={goToCreation}
 						disabled={false}
-						className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#00458b] text-[15px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60"
+						className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#00458b] text-[15px] font-semibold text-white transition-[transform,background-color] hover:bg-[#00366e] active:scale-[0.98] disabled:opacity-60"
 					>
 						<Plus className="size-5" />
 						Nova Doação

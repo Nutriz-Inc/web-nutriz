@@ -35,8 +35,10 @@ export function DonationCard({
 			onClick={onClick}
 			disabled={!isClickable}
 			className={cn(
-				"relative flex w-full flex-col gap-3 rounded-2xl bg-white p-4 text-left shadow-[0px_8px_16px_rgba(10,38,77,0.06)] transition-transform lg:gap-5 lg:rounded-3xl lg:p-8",
-				isClickable ? "active:scale-[0.99]" : "cursor-default",
+				"relative flex w-full flex-col gap-3 rounded-2xl bg-white p-4 text-left shadow-[0px_8px_16px_rgba(10,38,77,0.06)] transition-[transform,box-shadow] lg:gap-5 lg:rounded-3xl lg:p-8",
+				isClickable
+					? "active:scale-[0.99] hover:-translate-y-0.5 hover:shadow-[0px_12px_22px_rgba(10,38,77,0.12)]"
+					: "cursor-default",
 				className,
 			)}
 		>

@@ -77,7 +77,7 @@ export function DonationStepCard({
 					!isCurrent && !isDone && "bg-[#fafbfc]",
 				)}
 			>
-				<div className="flex items-center gap-3">
+				<div className="flex items-start gap-3">
 					<div
 						className={cn(
 							"flex shrink-0 items-center justify-center rounded-full transition-all",
@@ -93,7 +93,7 @@ export function DonationStepCard({
 
 					<p
 						className={cn(
-							"min-w-0 flex-1 truncate font-bold",
+							"min-w-0 flex-1 break-words font-bold",
 							isCurrent
 								? "text-[16px] text-[#0e2a45]"
 								: isDone
@@ -104,37 +104,40 @@ export function DonationStepCard({
 						{title}
 					</p>
 
-					<div className="flex shrink-0 items-center gap-2">
-						<span
-							className={cn(
-								"inline-flex items-center rounded-full font-semibold",
-								isCurrent
-									? "px-2.5 py-1 text-[11px]"
-									: "px-2 py-0.5 text-[10px]",
-								BADGE_CLASSNAME[visualStatus],
-							)}
-						>
-							{BADGE_LABEL[visualStatus]}
-						</span>
-
-						<ChevronRight
-							className={cn(
-								isCurrent ? "size-5 text-[#93a9bd]" : "size-4 text-[#c3c8d1]",
-							)}
-						/>
-					</div>
+					<ChevronRight
+						className={cn(
+							"mt-0.5 shrink-0",
+							isCurrent ? "size-5 text-[#93a9bd]" : "size-4 text-[#c3c8d1]",
+						)}
+					/>
 				</div>
 
-				<p
+				<div
 					className={cn(
-						"mt-1",
-						isCurrent
-							? "pl-14 text-[13px] text-[#6b8faa]"
-							: "pl-11 text-[12px] text-[#c3c8d1]",
+						"mt-1.5 flex flex-col gap-1.5",
+						isCurrent ? "pl-14" : "pl-11",
 					)}
 				>
-					{description}
-				</p>
+					<span
+						className={cn(
+							"inline-flex w-fit items-center rounded-full font-semibold",
+							isCurrent ? "px-2.5 py-1 text-[11px]" : "px-2 py-0.5 text-[10px]",
+							BADGE_CLASSNAME[visualStatus],
+						)}
+					>
+						{BADGE_LABEL[visualStatus]}
+					</span>
+
+					<p
+						className={
+							isCurrent
+								? "text-[13px] text-[#6b8faa]"
+								: "text-[12px] text-[#c3c8d1]"
+						}
+					>
+						{description}
+					</p>
+				</div>
 
 				{(hasCurrentDetails || hasCompletedInfo) && (
 					<>

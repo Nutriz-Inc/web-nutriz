@@ -2,11 +2,8 @@ import { ChevronLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
-import { STEP_DEFINITIONS } from "@/utils/step-definitions";
-import {
-	DonationStepCard,
-	type StepVisualStatus,
-} from "./components/DonationStepCard";
+import { DonationStepCard } from "./components/DonationStepCard";
+import { STEP_DEFINITIONS, type StepVisualStatus } from "./constants";
 import { useDonation } from "./hooks/use-donation";
 
 export function DonationInfoPage() {

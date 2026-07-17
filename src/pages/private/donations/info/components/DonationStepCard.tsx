@@ -2,20 +2,11 @@ import type { LucideIcon } from "lucide-react";
 import { Calendar, Check, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
-
-export type StepVisualStatus = "done" | "current" | "waiting";
-
-const BADGE_LABEL: Record<StepVisualStatus, string> = {
-	done: "CONCLUÍDO",
-	current: "EM ANDAMENTO",
-	waiting: "AGUARDANDO",
-};
-
-const BADGE_CLASSNAME: Record<StepVisualStatus, string> = {
-	done: "bg-[#e1f5ee] text-[#0f6e56]",
-	current: "bg-[#dbe7f6] text-[#00458b]",
-	waiting: "bg-[#eef0f4] text-[#9aa3b8]",
-};
+import {
+	BADGE_CLASSNAME,
+	BADGE_LABEL,
+	type StepVisualStatus,
+} from "../constants";
 
 interface Props {
 	order: number;

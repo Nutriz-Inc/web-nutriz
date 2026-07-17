@@ -38,7 +38,7 @@ export function FinalCtaSection() {
 								<div className="flex w-full flex-col gap-3 sm:flex-row lg:justify-end">
 									<SlideButton
 										label="Quero ser doadora"
-										onClick={() => navigate("/login")}
+										onClick={() => navigate("/registro")}
 										className="w-full sm:w-auto"
 									/>
 									<Button

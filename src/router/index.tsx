@@ -9,6 +9,7 @@ import { HomePage } from "../pages/private/home";
 import { ProfilePage } from "../pages/private/profile";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
+import { RegisterScreen } from "../pages/public/register";
 import { DefaultRedirect } from "./DefaultRedirect";
 
 export const routerPrivate = createBrowserRouter([
@@ -66,6 +67,10 @@ export const publicRouter = createBrowserRouter([
 	{
 		path: "/login",
 		element: <LoginScreen />,
+	},
+	{
+		path: "/registro",
+		element: <RegisterScreen />,
 	},
 	{
 		path: "*",

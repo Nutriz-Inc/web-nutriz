@@ -1,15 +1,16 @@
-import { ChevronLeft } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
+import { useAuth } from "@/hooks/use-auth";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
+import { EnumUserType } from "@/services/types/i-user";
 import { DonationStepCard } from "./components/DonationStepCard";
 import { STEP_DEFINITIONS, type StepVisualStatus } from "./constants";
 import { useDonation } from "./hooks/use-donation";
 
 export function DonationInfoPage() {
 	const { id_donation = "" } = useParams();
-	const navigate = useNavigate();
 	const { donationQuery } = useDonation(id_donation);
+	const { auth } = useAuth();
 
 	const steps = donationQuery.data?.steps ?? [];
 
@@ -19,25 +20,13 @@ export function DonationInfoPage() {
 	})?.order;
 
 	return (
-		<Page>
-			<button
-				type="button"
-				onClick={() => navigate("/minhas-doacoes")}
-				className="mb-3 inline-flex items-center gap-1 rounded-full py-1.5 pl-2 pr-3 text-[13px] font-semibold text-[#00458b] transition-colors hover:bg-[#eef3f8]"
-			>
-				<ChevronLeft className="size-4" />
-				Voltar
-			</button>
-
-			<div className="flex flex-col gap-1 pb-2">
-				<h1 className="text-[24px] font-extrabold text-[#0e2a45]">
-					Doação #{id_donation.slice(0, 8)}
-				</h1>
-				<p className="text-[15px] text-[#6b8faa]">
-					Acompanhe cada etapa do processo da sua doação.
-				</p>
-			</div>
-
+		<Page
+			title={`Doação #${id_donation.slice(0, 8)}`}
+			description="Acompanhe cada etapa do processo da sua doação."
+			hasPermission={auth?.type === EnumUserType.Common}
+			loading={donationQuery.isLoading}
+			backTo="/minhas-doacoes"
+		>
 			<div className="flex flex-col pt-4">
 				{STEP_DEFINITIONS.map((definition, index) => {
 					const step = steps.find((s) => s.name === definition.name);

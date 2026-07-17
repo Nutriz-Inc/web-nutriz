@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
-import { EnumDonationStepStatus } from "@/services/types/i-donation";
+import { EnumDonationStepName, EnumDonationStepStatus } from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";
 import { DonationStepCard } from "./components/DonationStepCard";
 import { STEP_DEFINITIONS, type StepVisualStatus } from "./constants";
@@ -15,7 +15,7 @@ export function DonationInfoPage() {
 	const steps = donationQuery.data?.steps ?? [];
 
 	const firstPendingOrder = STEP_DEFINITIONS.find((definition) => {
-		const step = steps.find((s) => s.name === definition.name);
+		const step = steps.find((s: { name: EnumDonationStepName; }) => s.name === definition.name);
 		return step?.status !== EnumDonationStepStatus.Done;
 	})?.order;
 
@@ -29,7 +29,7 @@ export function DonationInfoPage() {
 		>
 			<div className="flex flex-col pt-4">
 				{STEP_DEFINITIONS.map((definition, index) => {
-					const step = steps.find((s) => s.name === definition.name);
+					const step = steps.find((s: { name: EnumDonationStepName; }) => s.name === definition.name);
 
 					const visualStatus: StepVisualStatus =
 						step?.status === EnumDonationStepStatus.Done

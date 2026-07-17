@@ -4,20 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { AddressStep } from "./components/AddressStep";
 import { BabyConsentStep } from "./components/BabyConsentStep";
-import { WIZARD_STEPS } from "./components/constants";
+import { WIZARD_STEPS } from "./constants";
 import { PasswordStep } from "./components/PasswordStep";
 import { PersonalDataStep } from "./components/PersonalDataStep";
 import { ReviewSummary } from "./components/ReviewSummary";
 import { Stepper } from "./components/Stepper";
 import { SuccessCard } from "./components/SuccessCard";
 import { useRegister } from "./hooks";
-import type {
-	RegisterFieldName,
-	RegisterFormData,
-	RegisterFormErrors,
-} from "./types";
 import { EMPTY_REGISTER_FORM, makeEmptyBaby } from "./utils";
-import { STEP_VALIDATORS } from "./validation";
+import { STEP_VALIDATORS, type RegisterFieldName, type RegisterFormData, type RegisterFormErrors } from "./validation";
 
 export function RegisterScreen() {
 	const navigate = useNavigate();
@@ -26,15 +21,13 @@ export function RegisterScreen() {
 	const [errors, setErrors] = useState<RegisterFormErrors>({});
 	const [step, setStep] = useState(0);
 	const [maxStep, setMaxStep] = useState(0);
-	const [success, setSuccess] = useState<{ babiesPending: boolean } | null>(
-		null,
-	);
+	const [success, setSuccess] = useState(false);
 	const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
 	const { registerMutation } = useRegister({
 		setErrors,
 		onError: (info) => setAlreadyRegistered(info.alreadyRegistered),
-		onSuccess: (babiesPending) => setSuccess({ babiesPending }),
+		onSuccess: () => setSuccess(true),
 	});
 
 	const isPending = registerMutation.isPending;
@@ -147,7 +140,7 @@ export function RegisterScreen() {
 
 			<main className="mx-auto w-full max-w-[640px] flex-1 px-4 pt-8 pb-12">
 				{success ? (
-					<SuccessCard babiesPending={success.babiesPending} />
+					<SuccessCard />
 				) : (
 					<>
 						<h1 className="text-[22px] font-bold text-[#09090b]">

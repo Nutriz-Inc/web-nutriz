@@ -121,7 +121,7 @@ export interface ICreateUserRequest {
 	phone_number: string;
 	birth_date?: string;
 	address?: AddressCreateBase;
-	user_baby?: UserBabyCreateBase;
+	user_baby?: UserBabyCreateBase[];
 	consent_log?: ICreateConsentRequest;
 	identifier?: string;
 }

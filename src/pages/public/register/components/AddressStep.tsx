@@ -5,7 +5,7 @@ import type {
 	RegisterFieldName,
 	RegisterFormData,
 	RegisterFormErrors,
-} from "../types";
+} from "../validation";
 import { WizardField } from "./WizardField";
 
 type AddressStepProps = {

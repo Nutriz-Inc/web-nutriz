@@ -1,9 +1,9 @@
-import { formatCpf, maskDate, maskPhone } from "@/utils/formatter";
+import { formatCpf, maskDate, formatPhoneNumber } from "@/utils/formatter";
 import type {
 	RegisterFieldName,
 	RegisterFormData,
 	RegisterFormErrors,
-} from "../types";
+} from "../validation";
 import { WizardField } from "./WizardField";
 
 type PersonalDataStepProps = {
@@ -59,7 +59,7 @@ export function PersonalDataStep({
 					id="register-phone"
 					label="Telefone"
 					value={form.phone}
-					onChange={(value) => onChange("phone", maskPhone(value))}
+					onChange={(value) => onChange("phone", formatPhoneNumber(value))}
 					placeholder="(11) 98765-4321"
 					error={errors.phone}
 					inputMode="tel"

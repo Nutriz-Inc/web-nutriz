@@ -1,5 +1,5 @@
 import { Pencil } from "lucide-react";
-import type { RegisterFormData } from "../types";
+import type { RegisterFormData } from "../validation";
 
 type ReviewSummaryProps = {
 	form: RegisterFormData;

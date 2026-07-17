@@ -2,10 +2,9 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import type { Dispatch, SetStateAction } from "react";
 import services from "@/services";
-import { dateBrToIso } from "@/utils/formatter";
-import { FALLBACK_IP } from "../components/constants";
-import type { RegisterFormData, RegisterFormErrors } from "../types";
+import { FALLBACK_IP } from "../constants";
 import { buildCreateUserRequest } from "../utils";
+import type { RegisterFormData, RegisterFormErrors } from "../validation";
 
 async function resolveClientIp(): Promise<string> {
 	try {
@@ -79,34 +78,8 @@ function mapRegisterError(error: unknown): RegisterErrorInfo {
 export type UseRegisterProps = {
 	setErrors: Dispatch<SetStateAction<RegisterFormErrors>>;
 	onError: (info: RegisterErrorInfo) => void;
-	onSuccess: (babiesPending: boolean) => void;
+	onSuccess: () => void;
 };
-
-async function createExtraBabies(form: RegisterFormData): Promise<boolean> {
-	const extraBabies = form.hasBaby ? form.babies.slice(1) : [];
-	if (extraBabies.length === 0) return false;
-
-	try {
-		const auth = await services.auth.login({
-			email: form.email.trim(),
-			password: form.password,
-		});
-
-		for (const baby of extraBabies) {
-			await services.user.createBaby(
-				{
-					name: baby.name.trim() || undefined,
-					birth_date: dateBrToIso(baby.birthDate),
-				},
-				{ headers: { Authorization: `Bearer ${auth.token}` } },
-			);
-		}
-
-		return false;
-	} catch {
-		return true;
-	}
-}
 
 export function useRegister({
 	setErrors,
@@ -116,14 +89,10 @@ export function useRegister({
 	const registerMutation = useMutation({
 		mutationFn: async (form: RegisterFormData) => {
 			const ipAddress = await resolveClientIp();
-			const user = await services.user.create(
-				buildCreateUserRequest(form, ipAddress),
-			);
-			const babiesPending = await createExtraBabies(form);
-			return { user, babiesPending };
+			return services.user.create(buildCreateUserRequest(form, ipAddress));
 		},
-		onSuccess: (result) => onSuccess(result.babiesPending),
-		onError: (error) => {
+		onSuccess,
+		onError: (error: unknown) => {
 			const info = mapRegisterError(error);
 			setErrors({ general: info.message });
 			onError(info);

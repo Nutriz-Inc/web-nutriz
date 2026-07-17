@@ -1,5 +1,35 @@
 import { onlyDigits } from "@/utils/formatter";
-import type { RegisterFormData, RegisterFormErrors } from "./types";
+import { cpf } from 'cpf-cnpj-validator'
+
+export type BabyFormData = {
+	id: string;
+	name: string;
+	birthDate: string;
+};
+
+export type RegisterFormData = {
+	name: string;
+	cpf: string;
+	birthDate: string;
+	phone: string;
+	email: string;
+	cep: string;
+	number: string;
+	complement: string;
+	password: string;
+	confirmPassword: string;
+	hasBaby: boolean;
+	babies: BabyFormData[];
+	acceptedTerms: boolean;
+};
+
+export type RegisterFieldName = Exclude<
+	keyof RegisterFormData,
+	"hasBaby" | "babies" | "acceptedTerms"
+>;
+
+export type RegisterFormErrors = Record<string, string | undefined>;
+
 
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
 
@@ -18,23 +48,6 @@ function isValidDateBr(value: string): boolean {
 	);
 }
 
-function isValidCpf(value: string): boolean {
-	const digits = onlyDigits(value);
-	if (digits.length !== 11 || /^(\d)\1{10}$/.test(digits)) return false;
-	const checkDigit = (factor: number): number => {
-		let total = 0;
-		for (let index = 0; index < factor - 1; index++) {
-			total += Number(digits[index]) * (factor - index);
-		}
-		const rest = (total * 10) % 11;
-		return rest === 10 ? 0 : rest;
-	};
-	return (
-		checkDigit(10) === Number(digits[9]) &&
-		checkDigit(11) === Number(digits[10])
-	);
-}
-
 export function validatePersonalData(
 	form: RegisterFormData,
 ): RegisterFormErrors {
@@ -46,7 +59,7 @@ export function validatePersonalData(
 
 	if (!form.cpf.trim()) {
 		errors.cpf = "CPF é obrigatório.";
-	} else if (onlyDigits(form.cpf).length !== 11 || !isValidCpf(form.cpf)) {
+	} else if (onlyDigits(form.cpf).length !== 11 || !cpf.isValid(form.cpf)) {
 		errors.cpf = "Informe um CPF válido.";
 	}
 

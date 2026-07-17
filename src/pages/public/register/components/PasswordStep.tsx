@@ -3,7 +3,7 @@ import type {
 	RegisterFieldName,
 	RegisterFormData,
 	RegisterFormErrors,
-} from "../types";
+} from "../validation";
 import { PasswordToggle } from "./PasswordToggle";
 import { WizardField } from "./WizardField";
 

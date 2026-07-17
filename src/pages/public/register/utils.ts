@@ -1,7 +1,7 @@
 import { EnumUserType, type ICreateUserRequest } from "@/services/types/i-user";
 import { dateBrToIso, onlyDigits, phoneToE164 } from "@/utils/formatter";
-import { TERMS_VERSION } from "./components/constants";
-import type { BabyFormData, RegisterFormData } from "./types";
+import { TERMS_VERSION } from "./constants";
+import type { BabyFormData, RegisterFormData } from "./validation";
 
 export function makeEmptyBaby(): BabyFormData {
 	return { id: crypto.randomUUID(), name: "", birthDate: "" };
@@ -40,13 +40,12 @@ export function buildCreateUserRequest(
 			number: form.number.trim() || undefined,
 			complement: form.complement.trim() || undefined,
 		},
-		user_baby:
-			form.hasBaby && form.babies[0]
-				? {
-						name: form.babies[0].name.trim() || undefined,
-						birth_date: dateBrToIso(form.babies[0].birthDate),
-					}
-				: undefined,
+		user_baby: form.hasBaby
+			? form.babies.map((baby) => ({
+					name: baby.name.trim() || undefined,
+					birth_date: dateBrToIso(baby.birthDate),
+				}))
+			: undefined,
 		consent_log: {
 			terms_version: TERMS_VERSION,
 			ip_address: ipAddress,

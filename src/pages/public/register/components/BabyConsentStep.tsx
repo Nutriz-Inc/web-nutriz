@@ -4,7 +4,7 @@ import type {
 	RegisterFieldName,
 	RegisterFormData,
 	RegisterFormErrors,
-} from "../types";
+} from "../validation";
 import { RoundCheckbox } from "./RoundCheckbox";
 import { WizardField } from "./WizardField";
 

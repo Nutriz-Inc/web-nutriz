@@ -1,7 +1,7 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { EVA_CARD_BG, EVA_FEATURES } from "../constants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
-import { EVA_CARD_BG, EVA_FEATURES } from "./constants";
 import { SlideButton } from "./SlideButton";
 
 const EASE = [0.22, 1, 0.36, 1] as const;

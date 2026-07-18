@@ -23,6 +23,14 @@ src/
     └── types/      # Tipagens usadas nos serviços/API
 ```
 
+## Tela de artigos
+
+A rota pública `/artigos` exibe a leitura dos 4 artigos da seção "Artigos para te apoiar em cada fase" da landing page. O artigo ativo é definido pelo query param `a` (ex.: `/artigos?a=2`), e os cards da landing navegam direto para o artigo correspondente.
+
+- Os dados dos artigos (título, categoria, tempo de leitura, conteúdo e cores) ficam centralizados em `src/data/articles.ts`, compartilhados entre a landing e a tela de leitura.
+- A troca de artigo (busca do header ou card "Outros artigos") anima com Framer Motion e respeita `prefers-reduced-motion`.
+- O vídeo, os links de compartilhamento e a imagem de capa são mockados (marcados com `To do` no código).
+
 ## Como rodar o projeto
 
 1. Instale as dependências:

@@ -7,6 +7,7 @@ import { DonationsPage } from "../pages/private/donations/list";
 import { DonationsManagementPage } from "../pages/private/donations/manage";
 import { HomePage } from "../pages/private/home";
 import { ProfilePage } from "../pages/private/profile";
+import { ArticlesScreen } from "../pages/public/articles";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
 import { RegisterScreen } from "../pages/public/register";
@@ -71,6 +72,10 @@ export const publicRouter = createBrowserRouter([
 	{
 		path: "/registro",
 		element: <RegisterScreen />,
+	},
+	{
+		path: "/artigos",
+		element: <ArticlesScreen />,
 	},
 	{
 		path: "*",

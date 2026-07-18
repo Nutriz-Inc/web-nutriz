@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck, BookOpen } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { fadeUp, staggerContainer } from "../animations/variants";
 import { useReveal } from "../hooks/use-reveal";
 import { ARTICLES } from "../mock";
 import { SectionLabel } from "./SectionLabel";
 
 export function ArticlesSection() {
+	const navigate = useNavigate();
 	const headerReveal = useReveal();
 	const gridReveal = useReveal(staggerContainer);
 
@@ -80,7 +82,9 @@ export function ArticlesSection() {
 									</span>
 									<button
 										type="button"
-										className="inline-flex items-center gap-1 text-[13px] font-semibold transition-colors"
+										onClick={() => navigate(`/artigos?a=${article.id}`)}
+										aria-label={`Ler artigo: ${article.title}`}
+										className="inline-flex items-center gap-1 rounded-lg text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
 										style={{ color: article.categoryColor }}
 									>
 										Ler artigo

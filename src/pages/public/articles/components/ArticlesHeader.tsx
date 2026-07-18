@@ -2,14 +2,11 @@ import { ArrowLeft, Search } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ARTICLES } from "@/data/articles";
+import { normalizeText } from "../utils";
 
 type ArticlesHeaderProps = {
 	onSelectArticle: (id: number) => void;
 };
-
-function normalize(text: string) {
-	return text.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");
-}
 
 export function ArticlesHeader({ onSelectArticle }: ArticlesHeaderProps) {
 	const navigate = useNavigate();
@@ -17,7 +14,7 @@ export function ArticlesHeader({ onSelectArticle }: ArticlesHeaderProps) {
 
 	const results = query.trim()
 		? ARTICLES.filter((article) =>
-				normalize(article.title).includes(normalize(query.trim())),
+				normalizeText(article.title).includes(normalizeText(query.trim())),
 			)
 		: [];
 

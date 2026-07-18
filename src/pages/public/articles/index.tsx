@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getArticleById } from "@/data/articles";
+import { ArticleCard } from "./components/ArticleCard";
 import { ArticlesHeader } from "./components/ArticlesHeader";
 
 export function ArticlesScreen() {
@@ -21,10 +22,8 @@ export function ArticlesScreen() {
 			<ArticlesHeader onSelectArticle={handleSelectArticle} />
 
 			<main className="mx-auto flex w-full max-w-[1100px] flex-col gap-6 px-5 py-6 lg:grid lg:grid-cols-[1fr_320px] lg:items-start lg:px-8 lg:py-8">
-				<article className="rounded-xl border border-[#e4e4e7] bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.05)] sm:p-7">
-					<h1 className="text-[26px] font-bold leading-[1.25] text-[#09090b]">
-						{article.title}
-					</h1>
+				<article>
+					<ArticleCard article={article} />
 				</article>
 
 				<aside

@@ -22,7 +22,8 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 						<h2
 							key={blockKey(block)}
 							id={headingId(block.h)}
-							className="mb-2 mt-[22px] scroll-mt-20 text-[17px] font-bold text-[#09090b]"
+							tabIndex={-1}
+							className="mb-2 mt-[22px] scroll-mt-20 text-[17px] font-bold text-[#09090b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0d3b6e]"
 						>
 							{block.h}
 						</h2>

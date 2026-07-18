@@ -49,7 +49,8 @@ export function ArticlesSection() {
 							variants={fadeUp}
 							whileHover={{ y: -6 }}
 							transition={{ type: "spring", stiffness: 300, damping: 22 }}
-							className="flex flex-col overflow-hidden rounded-2xl border border-[#e6ecf5] bg-white shadow-sm"
+							onClick={() => navigate(`/artigos?a=${article.id}`)}
+							className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#e6ecf5] bg-white shadow-sm"
 						>
 							<div
 								className="flex h-24 items-center justify-center"
@@ -82,7 +83,10 @@ export function ArticlesSection() {
 									</span>
 									<button
 										type="button"
-										onClick={() => navigate(`/artigos?a=${article.id}`)}
+										onClick={(e) => {
+											e.stopPropagation();
+											navigate(`/artigos?a=${article.id}`);
+										}}
 										aria-label={`Ler artigo: ${article.title}`}
 										className="inline-flex items-center gap-1 rounded-lg text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
 										style={{ color: article.categoryColor }}

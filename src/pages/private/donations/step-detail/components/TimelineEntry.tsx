@@ -30,7 +30,12 @@ export function TimelineEntry({ entry, isLast }: Props) {
 	return (
 		<div className="flex gap-3">
 			<div className="flex flex-col items-center">
-				<div className={cn("size-3 shrink-0 rounded-full", DOT_CLASSNAME[entry.status])} />
+				<div
+					className={cn(
+						"size-3 shrink-0 rounded-full",
+						DOT_CLASSNAME[entry.status],
+					)}
+				/>
 				{!isLast && <div className="mt-1 w-px flex-1 bg-[#e0e0e0]" />}
 			</div>
 

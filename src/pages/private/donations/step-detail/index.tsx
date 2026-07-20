@@ -1,15 +1,15 @@
-import { Calendar, History, Info, MapPin } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { DetailRow } from "@/components/full/DetailRow";
-import { Status } from "@/components/full/Status";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { formatCep, formatCreatedAt } from "@/utils/formatter";
 import { STEP_DEFINITIONS } from "../info/constants";
 import { useDonation } from "../info/hooks/use-donation";
-import { StepActionRow } from "./components/StepActionRow";
+import { StepAboutCard } from "./components/StepAboutCard";
+import { StepHeroCard } from "./components/StepHeroCard";
+import { StepInfoRow } from "./components/StepInfoRow";
 import { StepTimelineSheet } from "./components/StepTimelineSheet";
 import { useStepAddress } from "./hooks";
 
@@ -21,7 +21,7 @@ export function DonationStepDetailPage() {
 
 	const steps = donationQuery.data?.steps ?? [];
 	const step = steps.find((s) => s.id_donation_step === id_donation_step);
-	const definition = STEP_DEFINITIONS.find((d) => d.name === step?.name);
+	const definition = STEP_DEFINITIONS.find((d) => d.name === step?.name)!;
 
 	const { addressQuery } = useStepAddress(step?.id_address);
 	const address = addressQuery.data;
@@ -33,13 +33,12 @@ export function DonationStepDetailPage() {
 
 	return (
 		<Page
-			title={definition ? `Etapa ${definition.order} - ${definition.name}` : "Etapa"}
 			hasPermission={auth?.type === EnumUserType.Common}
 			loading={donationQuery.isLoading}
 			backTo={`/doacao/${id_donation}`}
 		>
 			{!donationQuery.isLoading && !step ? (
-				<div className="flex flex-col items-center gap-2 rounded-2xl bg-white p-8 text-center shadow-[0px_8px_16px_rgba(10,38,77,0.06)]">
+				<div className="flex flex-col items-center gap-2 rounded-2xl bg-white p-8 text-center shadow-[0px_8px_16px_rgba(10,38,77,0.06)] lg:mx-auto lg:w-full lg:max-w-[640px]">
 					<p className="text-[15px] font-semibold text-[#0e2a45]">
 						Etapa ainda não iniciada
 					</p>
@@ -50,56 +49,48 @@ export function DonationStepDetailPage() {
 			) : (
 				step && (
 					<>
-						<div className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 shadow-[0px_8px_16px_rgba(10,38,77,0.06)]">
-							<div className="flex size-[72px] items-center justify-center rounded-full bg-[#dbe7f6]">
-								{Icon && <Icon className="size-8 text-[#00458b]" />}
-							</div>
-							<Status status={step.status} />
-						</div>
+						<div className="flex flex-col gap-5 lg:mx-auto lg:w-full lg:max-w-[640px] lg:gap-6">
+							<StepHeroCard
+								icon={Icon}
+								title={
+									definition
+										? `Etapa ${definition.order} — ${definition.name}`
+										: "Etapa"
+								}
+								status={step.status}
+								onViewTimeline={() => setTimelineOpen(true)}
+								description={definition.description}
+							/>
 
-						<div className="mt-4 rounded-2xl border border-[#e5ebf3] bg-white p-4">
-							<p className="text-[13px] font-semibold text-[#0e2a45]">
-								Informações da etapa
-							</p>
-							<div className="my-3 h-px bg-[#e5ebf3]" />
+							{(step.set_date || addressText) && (
+								<div className="flex flex-col gap-4 rounded-2xl border border-[#e3eaf2] bg-white px-[18px] py-5 shadow-[0px_6px_10px_rgba(15,26,51,0.06)]">
+									<p className="text-[14px] font-bold text-[#1b2a41]">
+										Informações da etapa
+									</p>
 
-							<div className="flex flex-col gap-3">
-								{step.set_date && (
-									<>
-										<DetailRow
-											icon={<Calendar className="size-[18px] text-[#387ccd]" />}
+									{step.set_date && (
+										<StepInfoRow
+											icon={Calendar}
 											label="Data / Previsão"
 											value={formatCreatedAt(step.set_date)}
 										/>
-										<div className="h-px bg-[#e5ebf3]" />
-									</>
-								)}
+									)}
 
-								{addressText && (
-									<>
-										<DetailRow
-											icon={<MapPin className="size-[18px] text-[#387ccd]" />}
+									{step.set_date && addressText && (
+										<div className="h-px bg-[#e3eaf2]" />
+									)}
+
+									{addressText && (
+										<StepInfoRow
+											icon={MapPin}
 											label="Endereço"
 											value={addressText}
 										/>
-										<div className="h-px bg-[#e5ebf3]" />
-									</>
-								)}
+									)}
+								</div>
+							)}
 
-								<DetailRow
-									icon={<Info className="size-[18px] text-[#387ccd]" />}
-									label="Sobre esta etapa"
-									value={step.description || definition?.description || ""}
-								/>
-
-								<div className="h-px bg-[#e5ebf3]" />
-
-								<StepActionRow
-									icon={<History className="size-[18px] text-[#387ccd]" />}
-									label="Ver linha do tempo desta etapa"
-									onClick={() => setTimelineOpen(true)}
-								/>
-							</div>
+							<StepAboutCard text={step.description} />
 						</div>
 
 						<StepTimelineSheet

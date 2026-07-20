@@ -14,8 +14,7 @@ export function useStepAddress(id_address?: string) {
 export function useStepTimelines(id_donation_step: string, enabled = true) {
 	const timelinesQuery = useQuery({
 		queryKey: ["donation-step-timelines", id_donation_step],
-		queryFn: () =>
-			services.donation.listStepTimelines({ id_donation_step }),
+		queryFn: () => services.donation.listStepTimelines({ id_donation_step }),
 		enabled: enabled && Boolean(id_donation_step),
 	});
 

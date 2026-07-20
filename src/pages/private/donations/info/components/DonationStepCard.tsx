@@ -132,7 +132,7 @@ export function DonationStepCard({
 
 					<p
 						className={
-							isCurrent
+							isCurrent || isDone
 								? "text-[13px] text-[#6b8faa]"
 								: "text-[12px] text-[#c3c8d1]"
 						}

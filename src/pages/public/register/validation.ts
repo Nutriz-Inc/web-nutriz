@@ -1,5 +1,5 @@
 import { onlyDigits } from "@/utils/formatter";
-import { cpf } from 'cpf-cnpj-validator'
+import { cpf } from "cpf-cnpj-validator";
 
 export type BabyFormData = {
 	id: string;
@@ -29,7 +29,6 @@ export type RegisterFieldName = Exclude<
 >;
 
 export type RegisterFormErrors = Record<string, string | undefined>;
-
 
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
 

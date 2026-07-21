@@ -4,16 +4,3 @@ export function getArticleSummary(article: Article) {
 	const firstParagraph = article.blocks.find((block) => "p" in block);
 	return firstParagraph && "p" in firstParagraph ? firstParagraph.p : "";
 }
-
-export function matchesQuery(article: Article, query: string) {
-	const normalized = query.trim().toLowerCase();
-
-	if (!normalized) {
-		return true;
-	}
-
-	return (
-		article.title.toLowerCase().includes(normalized) ||
-		article.category.toLowerCase().includes(normalized)
-	);
-}

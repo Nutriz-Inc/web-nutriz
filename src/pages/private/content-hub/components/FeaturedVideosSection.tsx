@@ -10,7 +10,7 @@ type FeaturedVideosSectionProps = {
 
 export function FeaturedVideosSection({ videos }: FeaturedVideosSectionProps) {
 	return (
-		<section id="videos" className="scroll-mt-24 flex flex-col gap-4">
+		<section className="flex flex-col gap-4">
 			<div className="flex items-center gap-2">
 				<Play className="size-4 fill-[#0d3b6e] text-[#0d3b6e]" aria-hidden />
 				<h2 className="text-[15px] font-bold text-[#09090b]">

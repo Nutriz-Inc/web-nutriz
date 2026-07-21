@@ -67,3 +67,16 @@ export function getUserMenu(userType: EnumUserType) {
 			return navItemsUserCommon;
 	}
 }
+
+export function getuserRootPage(userType?: EnumUserType) {
+	if (!userType) return "/home";
+
+	switch (userType) {
+		case EnumUserType.Admin:
+			return "/gestao-doacoes";
+		case EnumUserType.Nurse:
+			return "/agendamentos";
+		default:
+			return "/home";
+	}
+}

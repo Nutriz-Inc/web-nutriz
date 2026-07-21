@@ -2,6 +2,8 @@ import { ChevronLeft, Menu } from "lucide-react";
 import { useState } from "react";
 import { useMatches, useNavigate } from "react-router-dom";
 import { AppDrawer } from "./AppDrawer";
+import { getuserRootPage } from "./utils";
+import { useAuth } from "@/hooks/use-auth";
 
 type RouteHandle = {
 	title?: string;
@@ -9,6 +11,7 @@ type RouteHandle = {
 
 export function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
+	const { auth } = useAuth();
 
 	const navigate = useNavigate();
 	const matches = useMatches();
@@ -24,7 +27,7 @@ export function Header() {
 			<header className="flex items-center justify-between bg-[#00458B] px-4 py-4 border-b border-white sticky top-0 z-10">
 				<button
 					type="button"
-					onClick={() => navigate("/home")}
+					onClick={() => navigate(getuserRootPage(auth?.type))}
 					className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white hover:bg-white transition"
 					aria-label="Voltar para início"
 				>

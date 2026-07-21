@@ -22,13 +22,18 @@ const LANDING_ARTICLE_COLORS: Record<
 	Cuidados: { categoryColor: "#3b6fd0", accent: "#dbe7fb" },
 };
 
-export const ARTICLES: Article[] = SHARED_ARTICLES.map((article) => ({
-	id: article.id,
-	category: article.category,
-	title: article.title,
-	readTime: `${article.readTimeMinutes} min de leitura`,
-	...LANDING_ARTICLE_COLORS[article.category],
-}));
+// A landing mostra só um teaser de 4 artigos (grid lg:grid-cols-4) — o
+// catálogo completo (agora com mais conteúdos) fica na Central de
+// Conteúdos, área logada. Os 4 primeiros são os originais da spec.
+export const ARTICLES: Article[] = SHARED_ARTICLES.slice(0, 4).map(
+	(article) => ({
+		id: article.id,
+		category: article.category,
+		title: article.title,
+		readTime: `${article.readTimeMinutes} min de leitura`,
+		...LANDING_ARTICLE_COLORS[article.category],
+	}),
+);
 
 export type Testimonial = {
 	name: string;

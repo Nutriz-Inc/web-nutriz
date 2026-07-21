@@ -1,6 +1,6 @@
 import { Calendar, CreditCard } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { ActiveBadge } from "@/components/full/ActiveBadge";
-import { CopyableId } from "@/components/full/CopyableId";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import { formatCpf, formatDateBR } from "@/utils/formatter";
@@ -14,10 +14,14 @@ type DonationManagementCardProps = {
 export function DonationManagementCard({
 	donation,
 }: DonationManagementCardProps) {
+	const navigate = useNavigate();
+
 	return (
-		<div
+		<button
+			type="button"
+			onClick={() => navigate(`/gestao-doacoes/${donation.id_donation}`)}
 			className={cn(
-				"flex flex-col gap-3.5 bg-white p-[18px]",
+				"flex w-full flex-col gap-3.5 bg-white p-[18px] text-left transition-colors hover:bg-[#f4f7fb]",
 				"lg:flex-row lg:items-center lg:gap-6 lg:px-6 lg:py-4",
 				!donation.isActive && "opacity-70",
 			)}
@@ -42,7 +46,9 @@ export function DonationManagementCard({
 					<p className="truncate text-[18px] font-bold text-[#1f2a37]">
 						{donation.userName}
 					</p>
-					<CopyableId id={donation.id_donation} />
+					<span className="truncate font-mono text-[13px] text-[#9ca3af]">
+						{donation.id_donation}
+					</span>
 				</div>
 			</div>
 
@@ -69,6 +75,6 @@ export function DonationManagementCard({
 					</span>
 				</div>
 			</div>
-		</div>
+		</button>
 	);
 }

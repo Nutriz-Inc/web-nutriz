@@ -44,10 +44,10 @@ export function HomePage() {
 		{
 			iconBg: "bg-[#e1f5ee]",
 			icon: <Droplet className="size-6 text-[#0e9e94]" />,
-			value: `${data?.milk_donated || 0} L`,
+			value: `${data?.milk_donated ? data?.milk_donated / 1000 : 0} L`,
 			valueColor: "text-[#0e9e94]",
 			label: "Leite doado",
-			sublabel: `${(data?.milk_donated || 0) * 1000} ml no total`,
+			sublabel: `${data?.milk_donated || 0} ml no total`,
 		},
 		{
 			iconBg: "bg-[#fbeaf0]",
@@ -57,9 +57,7 @@ export function HomePage() {
 				</span>
 			),
 			value: String(
-				data?.milk_donated
-					? Math.floor(((data?.milk_donated || 0) * 1000) / BABY_ML_PER_DAY)
-					: 0,
+				data?.milk_donated ? data?.milk_donated / BABY_ML_PER_DAY : 0,
 			),
 			valueColor: "text-[#f2579f]",
 			label: "Bebês alimentados",

@@ -20,7 +20,14 @@ export function AppointmentsPage() {
 	const filtered = filterAppointments(appointments, tab, dateFilter);
 
 	return (
-		<Page hasPermission={auth?.type === EnumUserType.Nurse} loading={isLoading}>
+		<Page
+			// TODO: temporariamente visível também para usuários comuns; voltar
+			// para somente EnumUserType.Nurse depois.
+			hasPermission={
+				auth?.type === EnumUserType.Nurse || auth?.type === EnumUserType.Common
+			}
+			loading={isLoading}
+		>
 			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-[#f4f7fb] px-4 pb-24 pt-5 lg:m-0 lg:mx-auto lg:min-h-0 lg:w-full lg:max-w-[1200px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
 				<div className="flex flex-col gap-4">
 					<div className="flex items-start justify-between gap-3">

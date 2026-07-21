@@ -20,7 +20,11 @@ export function AppointmentDetailPage() {
 
 	return (
 		<Page
-			hasPermission={auth?.type === EnumUserType.Nurse}
+			// TODO: temporariamente visível também para usuários comuns; voltar
+			// para somente EnumUserType.Nurse depois.
+			hasPermission={
+				auth?.type === EnumUserType.Nurse || auth?.type === EnumUserType.Common
+			}
 			loading={isLoading}
 			backTo="/agendamentos"
 		>

@@ -1,3 +1,4 @@
+import { AlertTriangle } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -22,6 +23,9 @@ export function DonationManagementDetailPage() {
 
 	const donation = donationQuery.data;
 	const steps = donation?.steps ?? [];
+	const hasFailedStep = steps.some(
+		(s) => s.status === EnumDonationStepStatus.Failed,
+	);
 
 	const firstPendingOrder = ADMIN_STEP_DEFINITIONS.find((definition) => {
 		const step = steps.find((s) => s.name === definition.name);
@@ -82,6 +86,16 @@ export function DonationManagementDetailPage() {
 							</p>
 						</div>
 
+						{hasFailedStep && (
+							<div className="flex items-center gap-2.5 rounded-xl border border-[#f3caca] bg-[#fcebeb] px-4 py-3">
+								<AlertTriangle className="size-4 shrink-0 text-[#a32d2d]" />
+								<p className="text-[13px] font-semibold text-[#a32d2d]">
+									Esta doação foi encerrada — uma das etapas foi marcada como
+									erro.
+								</p>
+							</div>
+						)}
+
 						{ADMIN_STEP_DEFINITIONS.map((definition) => {
 							const step = steps.find((s) => s.name === definition.name);
 
@@ -94,6 +108,7 @@ export function DonationManagementDetailPage() {
 									visualStatus={getVisualStatus(definition.order)}
 									donorAddresses={donorQuery.data?.addresses ?? []}
 									onFinalized={() => handleStepFinalized(definition.order)}
+									donationEnded={hasFailedStep}
 								/>
 							);
 						})}

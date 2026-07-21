@@ -1,6 +1,9 @@
-import { Check } from "lucide-react";
+import { AlertTriangle, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { DonationStep } from "@/services/types/i-donation";
+import {
+	type DonationStep,
+	EnumDonationStepStatus,
+} from "@/services/types/i-donation";
 import {
 	ADMIN_STEP_DEFINITIONS,
 	ADMIN_STEP_STATUS_LABEL,
@@ -13,6 +16,10 @@ type Props = {
 };
 
 export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
+	const hasFailedStep = steps.some(
+		(s) => s.status === EnumDonationStepStatus.Failed,
+	);
+
 	return (
 		<div className="flex flex-col gap-4 rounded-2xl border border-[#e7eaef] bg-white p-6">
 			<div className="flex flex-col gap-1">
@@ -28,6 +35,14 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 					const visualStatus = getVisualStatus(definition.order);
 					const isDone = visualStatus === "done";
 					const isCurrent = visualStatus === "current";
+					const isFailed = step?.status === EnumDonationStepStatus.Failed;
+					const subLabel = step
+						? ADMIN_STEP_STATUS_LABEL[step.status]
+						: isCurrent
+							? "Aguardando agendamento"
+							: hasFailedStep
+								? "Encerrada"
+								: "Bloqueada";
 
 					return (
 						<div
@@ -37,39 +52,48 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 							<div
 								className={cn(
 									"flex size-7 shrink-0 items-center justify-center rounded-full text-[12px] font-bold",
-									isDone
-										? "bg-[#1b7f79] text-white"
-										: isCurrent
-											? "bg-[#e0f5fb] text-[#0e7490]"
-											: "bg-[#eef2f7] text-[#9ca3af]",
+									isFailed
+										? "bg-[#a32d2d] text-white"
+										: isDone
+											? "bg-[#1b7f79] text-white"
+											: isCurrent
+												? "bg-[#e0f5fb] text-[#0e7490]"
+												: "bg-[#eef2f7] text-[#9ca3af]",
 								)}
 							>
-								{isDone ? <Check className="size-3.5" /> : definition.order}
+								{isFailed ? (
+									<AlertTriangle className="size-3.5" />
+								) : isDone ? (
+									<Check className="size-3.5" />
+								) : (
+									definition.order
+								)}
 							</div>
 
 							<div className="flex min-w-0 flex-1 flex-col gap-px">
 								<p
 									className={cn(
 										"text-[14px]",
-										isCurrent
-											? "font-bold text-[#1f2a37]"
-											: "font-semibold text-[#6b7280]",
+										isFailed
+											? "font-bold text-[#a32d2d]"
+											: isCurrent
+												? "font-bold text-[#1f2a37]"
+												: "font-semibold text-[#6b7280]",
 									)}
 								>
 									{definition.label}
 								</p>
-								<p className="text-[11px] text-[#9ca3af]">
-									{isDone
-										? "Concluído"
-										: isCurrent
-											? step
-												? ADMIN_STEP_STATUS_LABEL[step.status]
-												: "Aguardando agendamento"
-											: "Bloqueada"}
+								<p
+									className={cn(
+										"text-[11px]",
+										isFailed ? "text-[#a32d2d]" : "text-[#9ca3af]",
+									)}
+								>
+									{subLabel}
 								</p>
 							</div>
 
-							{isCurrent && (
+							{isCurrent && !isFailed && (
 								<span className="shrink-0 rounded-full bg-[#e0f5fb] px-2.5 py-1 text-[11px] font-semibold text-[#0e7490]">
 									Atual
 								</span>

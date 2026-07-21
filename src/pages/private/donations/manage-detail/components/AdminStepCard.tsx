@@ -1,4 +1,5 @@
 import {
+	AlertTriangle,
 	Calendar,
 	Check,
 	Clock,
@@ -54,6 +55,7 @@ type Props = {
 	visualStatus: "done" | "current" | "locked";
 	donorAddresses: Address[];
 	onFinalized?: () => void;
+	donationEnded?: boolean;
 };
 
 export function AdminStepCard({
@@ -63,6 +65,7 @@ export function AdminStepCard({
 	visualStatus,
 	donorAddresses,
 	onFinalized,
+	donationEnded,
 }: Props) {
 	const Icon = definition.icon;
 	const [timelineOpen, setTimelineOpen] = useState(false);
@@ -105,6 +108,27 @@ export function AdminStepCard({
 	const removeJobMutation = useRemoveStepJob(step?.id_donation_step);
 
 	if (visualStatus === "locked") {
+		if (donationEnded) {
+			return (
+				<div className="flex flex-col gap-5 rounded-2xl border border-[#f3caca] bg-[#fef5f5] p-6">
+					<div className="flex items-center gap-3.5">
+						<div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#fcebeb]">
+							<AlertTriangle className="size-5 text-[#a32d2d]" />
+						</div>
+						<p className="text-[17px] font-bold text-[#a32d2d]">
+							{definition.label}
+						</p>
+					</div>
+					<div className="flex items-center gap-2.5 rounded-xl bg-[#fcebeb] px-[18px] py-4">
+						<AlertTriangle className="size-[15px] shrink-0 text-[#a32d2d]" />
+						<p className="text-[13px] text-[#a32d2d]">
+							Doação encerrada — uma etapa anterior foi marcada como erro.
+						</p>
+					</div>
+				</div>
+			);
+		}
+
 		return (
 			<div className="flex flex-col gap-5 rounded-2xl border border-[#e7eaef] bg-[#fafbfc] p-6">
 				<div className="flex items-center gap-3.5">
@@ -126,6 +150,7 @@ export function AdminStepCard({
 	}
 
 	const isDone = step?.status === EnumDonationStepStatus.Done;
+	const isFailed = step?.status === EnumDonationStepStatus.Failed;
 
 	function buildAddressPayload() {
 		if (addressMode === "new") {
@@ -236,9 +261,11 @@ export function AdminStepCard({
 					<div
 						className={cn(
 							"flex size-11 shrink-0 items-center justify-center rounded-xl",
-							isDone
-								? "bg-[#d9f7f4] text-[#0e9e94]"
-								: "bg-[#e1f1fb] text-[#00458b]",
+							isFailed
+								? "bg-[#fcebeb] text-[#a32d2d]"
+								: isDone
+									? "bg-[#d9f7f4] text-[#0e9e94]"
+									: "bg-[#e1f1fb] text-[#00458b]",
 						)}
 					>
 						<Icon className="size-[18px]" />
@@ -341,6 +368,15 @@ export function AdminStepCard({
 				</div>
 			) : (
 				<>
+					{isFailed && (
+						<div className="flex items-center gap-2.5 rounded-xl border border-[#f3caca] bg-[#fcebeb] px-4 py-3">
+							<AlertTriangle className="size-4 shrink-0 text-[#a32d2d]" />
+							<p className="text-[13px] font-semibold text-[#a32d2d]">
+								Etapa marcada como erro — a doação foi encerrada.
+							</p>
+						</div>
+					)}
+
 					<div className="flex flex-col gap-3.5">
 						{!isDone && (
 							<p className="text-[11px] font-bold tracking-[0.6px] text-[#00458b]">

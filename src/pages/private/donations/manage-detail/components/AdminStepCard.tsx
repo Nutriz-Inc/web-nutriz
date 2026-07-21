@@ -33,6 +33,7 @@ import type { Address } from "@/services/types/i-user";
 import { formatCreatedAt, formatDateBR } from "@/utils/formatter";
 import {
 	ADMIN_STEP_STATUS_LABEL,
+	EDITABLE_STATUSES,
 	type AdminStepDefinition,
 } from "../constants";
 import {
@@ -43,8 +44,8 @@ import {
 	useUpdateDonationStep,
 	useUpdateStepJob,
 } from "../hooks";
-import { combineDateTime, toDateInputValue, toTimeInputValue } from "../utils";
-import { formatAddressLine, StepAddressPicker } from "./StepAddressPicker";
+import { combineDateTime, formatAddressLine, toDateInputValue, toTimeInputValue } from "../utils";
+import { StepAddressPicker } from "./StepAddressPicker";
 import { StepJobsSection } from "./StepJobsSection";
 
 type Props = {
@@ -59,12 +60,6 @@ type Props = {
 	jobs: Job[];
 	jobsLoading: boolean;
 };
-
-const EDITABLE_STATUSES = Object.values(EnumDonationStepStatus).filter(
-	(status) =>
-		status !== EnumDonationStepStatus.Done &&
-		status !== EnumDonationStepStatus.Failed,
-);
 
 export function AdminStepCard({
 	idDonation,

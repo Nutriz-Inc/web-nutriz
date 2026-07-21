@@ -1,9 +1,6 @@
 import type { Address } from "@/services/types/i-user";
-import { formatCep, formatZipCode } from "@/utils/formatter";
-
-export function formatAddressLine(address: Address) {
-	return `${address.street}, ${address.number ?? "s/n"}${address.complement ? `, ${address.complement}` : ""} - ${address.neighborhood}, ${address.city} - ${address.state}, ${formatCep(address.zipcode)}`;
-}
+import { formatZipCode } from "@/utils/formatter";
+import { formatAddressLine } from "../utils";
 
 type Props = {
 	addresses: Address[];

@@ -1,3 +1,6 @@
+import type { Address } from "@/services/types/i-user";
+import { formatCep } from "@/utils/formatter";
+
 export function toDateInputValue(iso?: string) {
 	if (!iso) return "";
 	const date = new Date(iso);
@@ -21,4 +24,8 @@ export function combineDateTime(date: string, time: string) {
 	const combined = new Date(`${date}T00:00:00`);
 	combined.setHours(hours, minutes, 0, 0);
 	return combined.toISOString();
+}
+
+export function formatAddressLine(address: Address) {
+	return `${address.street}, ${address.number ?? "s/n"}${address.complement ? `, ${address.complement}` : ""} - ${address.neighborhood}, ${address.city} - ${address.state}, ${formatCep(address.zipcode)}`;
 }

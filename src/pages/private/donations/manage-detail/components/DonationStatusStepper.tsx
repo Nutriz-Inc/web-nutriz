@@ -5,10 +5,10 @@ import {
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
 import {
-	ADMIN_STEP_DEFINITIONS,
 	ADMIN_STEP_STATUS_LABEL,
 	type AdminStepVisualStatus,
 } from "../constants";
+import { STEP_DEFINITIONS } from "../../info/constants";
 
 type Props = {
 	steps: DonationStep[];
@@ -30,7 +30,7 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 			</div>
 
 			<div className="flex flex-col">
-				{ADMIN_STEP_DEFINITIONS.map((definition) => {
+				{STEP_DEFINITIONS.map((definition) => {
 					const step = steps.find((s) => s.name === definition.name);
 					const visualStatus = getVisualStatus(definition.order);
 					const isDone = visualStatus === "done";
@@ -81,7 +81,7 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 												: "font-semibold text-[#6b7280]",
 									)}
 								>
-									{definition.label}
+									{definition.name}
 								</p>
 								<p
 									className={cn(

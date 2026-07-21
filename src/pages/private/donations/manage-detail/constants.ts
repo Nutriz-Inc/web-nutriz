@@ -43,7 +43,7 @@ export const ADMIN_STEP_DEFINITIONS: AdminStepDefinition[] = [
 
 export const ADMIN_STEP_STATUS_LABEL: Record<EnumDonationStepStatus, string> = {
 	[EnumDonationStepStatus.Pending]: "Pendente",
-	[EnumDonationStepStatus.Review]: "Em processamento",
+	[EnumDonationStepStatus.Review]: "Em análise",
 	[EnumDonationStepStatus.Done]: "Concluído",
 	[EnumDonationStepStatus.Warn]: "Aviso",
 	[EnumDonationStepStatus.Failed]: "Erro",

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import {
-	EnumDonationStepName,
+	type EnumDonationStepName,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";

@@ -1,6 +1,6 @@
 import { Calendar, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { ActiveBadge } from "@/components/full/ActiveBadge";
+import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import { formatCpf, formatDateBR } from "@/utils/formatter";
@@ -53,7 +53,10 @@ export function DonationManagementCard({
 			</div>
 
 			<div className="flex flex-wrap items-center gap-2 lg:w-[260px] lg:shrink-0">
-				<ActiveBadge isActive={donation.isActive} />
+				<DonationStatusBadge
+					isActive={donation.isActive}
+					hasError={donation.hasError}
+				/>
 				<StatusBadge step={donation.currentStepName} />
 			</div>
 

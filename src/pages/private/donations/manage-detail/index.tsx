@@ -1,4 +1,4 @@
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -13,7 +13,11 @@ import {
 	ADMIN_STEP_DEFINITIONS,
 	type AdminStepVisualStatus,
 } from "./constants";
-import { useAdminDonationDetail, useCreateDonationStep } from "./hooks";
+import {
+	useAdminDonationDetail,
+	useCreateDonationStep,
+	useDonationJobs,
+} from "./hooks";
 
 export function DonationManagementDetailPage() {
 	const { id_donation = "" } = useParams();
@@ -22,10 +26,19 @@ export function DonationManagementDetailPage() {
 	const createNextStepMutation = useCreateDonationStep(id_donation);
 
 	const donation = donationQuery.data;
+	const jobsQuery = useDonationJobs(donation?.created_by);
+	const jobs = jobsQuery.data ?? [];
 	const steps = donation?.steps ?? [];
 	const hasFailedStep = steps.some(
 		(s) => s.status === EnumDonationStepStatus.Failed,
 	);
+
+	const isFullyCompleted =
+		!hasFailedStep &&
+		ADMIN_STEP_DEFINITIONS.every((definition) => {
+			const step = steps.find((s) => s.name === definition.name);
+			return step?.status === EnumDonationStepStatus.Done;
+		});
 
 	const firstPendingOrder = ADMIN_STEP_DEFINITIONS.find((definition) => {
 		const step = steps.find((s) => s.name === definition.name);
@@ -96,6 +109,16 @@ export function DonationManagementDetailPage() {
 							</div>
 						)}
 
+						{isFullyCompleted && (
+							<div className="flex items-center gap-2.5 rounded-xl border border-[#bfe3d3] bg-[#e1f5ee] px-4 py-3">
+								<CheckCircle2 className="size-4 shrink-0 text-[#0f6e56]" />
+								<p className="text-[13px] font-semibold text-[#0f6e56]">
+									Esta doação foi concluída com sucesso — todas as etapas foram
+									finalizadas.
+								</p>
+							</div>
+						)}
+
 						{ADMIN_STEP_DEFINITIONS.map((definition) => {
 							const step = steps.find((s) => s.name === definition.name);
 
@@ -103,12 +126,17 @@ export function DonationManagementDetailPage() {
 								<AdminStepCard
 									key={`${definition.name}-${step?.updated_at ?? step?.created_at ?? "pending"}`}
 									idDonation={id_donation}
+									idUserCommon={donation.created_by}
 									definition={definition}
 									step={step}
 									visualStatus={getVisualStatus(definition.order)}
 									donorAddresses={donorQuery.data?.addresses ?? []}
 									onFinalized={() => handleStepFinalized(definition.order)}
 									donationEnded={hasFailedStep}
+									jobs={jobs.filter(
+										(job) => job.id_step === step?.id_donation_step,
+									)}
+									jobsLoading={jobsQuery.isLoading}
 								/>
 							);
 						})}

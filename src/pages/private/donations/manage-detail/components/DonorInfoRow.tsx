@@ -19,9 +19,16 @@ export function DonorInfoRow({
 			<span className="text-[12px] font-semibold text-[#6b7280]">{label}</span>
 			<div className="flex items-center gap-2.5 rounded-[10px] border border-[#e7eaef] bg-white px-3.5 py-3">
 				<Icon className="size-4 shrink-0 text-[#9ca3af]" />
-				<span className="truncate text-[14px] font-semibold text-[#1f2a37]">
-					{isCopyable ? <CopyableId id={value} /> : value}
-				</span>
+				{isCopyable ? (
+					<CopyableId
+						id={value}
+						className="flex-1 text-[14px] font-semibold text-[#1f2a37]"
+					/>
+				) : (
+					<span className="truncate text-[14px] font-semibold text-[#1f2a37]">
+						{value}
+					</span>
+				)}
 			</div>
 		</div>
 	);

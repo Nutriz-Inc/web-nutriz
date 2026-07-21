@@ -28,7 +28,7 @@ import {
 	type DonationStep,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
-import type { EnumJobStatus } from "@/services/types/i-job";
+import type { EnumJobStatus, Job } from "@/services/types/i-job";
 import type { Address } from "@/services/types/i-user";
 import { formatCreatedAt, formatDateBR } from "@/utils/formatter";
 import {
@@ -40,7 +40,6 @@ import {
 	useCreateStepJob,
 	useNurses,
 	useRemoveStepJob,
-	useStepJobs,
 	useUpdateDonationStep,
 	useUpdateStepJob,
 } from "../hooks";
@@ -50,22 +49,34 @@ import { StepJobsSection } from "./StepJobsSection";
 
 type Props = {
 	idDonation: string;
+	idUserCommon?: string;
 	definition: AdminStepDefinition;
 	step?: DonationStep;
 	visualStatus: "done" | "current" | "locked";
 	donorAddresses: Address[];
 	onFinalized?: () => void;
 	donationEnded?: boolean;
+	jobs: Job[];
+	jobsLoading: boolean;
 };
+
+const EDITABLE_STATUSES = Object.values(EnumDonationStepStatus).filter(
+	(status) =>
+		status !== EnumDonationStepStatus.Done &&
+		status !== EnumDonationStepStatus.Failed,
+);
 
 export function AdminStepCard({
 	idDonation,
+	idUserCommon,
 	definition,
 	step,
 	visualStatus,
 	donorAddresses,
 	onFinalized,
 	donationEnded,
+	jobs,
+	jobsLoading,
 }: Props) {
 	const Icon = definition.icon;
 	const [timelineOpen, setTimelineOpen] = useState(false);
@@ -77,6 +88,8 @@ export function AdminStepCard({
 	const [selectedStatus, setSelectedStatus] = useState(
 		() => step?.status ?? EnumDonationStepStatus.Pending,
 	);
+	const [finalizeDescription, setFinalizeDescription] = useState("");
+	const [errorDescription, setErrorDescription] = useState("");
 
 	const [addressMode, setAddressMode] = useState<"existing" | "new">(() =>
 		donorAddresses.length > 0 ? "existing" : "new",
@@ -94,18 +107,16 @@ export function AdminStepCard({
 
 	const nursesQuery = useNurses();
 	const nurses = nursesQuery.data ?? [];
-	const jobsQuery = useStepJobs(step?.id_donation_step);
-	const jobs = jobsQuery.data ?? [];
 	const nurseNames = jobs
-		.map((j) => nurses.find((nurse) => nurse.id_user === j.id_user)?.name)
+		.map((job) => nurses.find((nurse) => nurse.id_user === job.id_user)?.name)
 		.filter(Boolean)
 		.join(", ");
 
 	const updateStepMutation = useUpdateDonationStep(idDonation);
 	const createStepMutation = useCreateDonationStep(idDonation);
-	const createJobMutation = useCreateStepJob(step?.id_donation_step);
-	const updateJobMutation = useUpdateStepJob(step?.id_donation_step);
-	const removeJobMutation = useRemoveStepJob(step?.id_donation_step);
+	const createJobMutation = useCreateStepJob(idUserCommon);
+	const updateJobMutation = useUpdateStepJob(idUserCommon);
+	const removeJobMutation = useRemoveStepJob(idUserCommon);
 
 	if (visualStatus === "locked") {
 		if (donationEnded) {
@@ -151,6 +162,7 @@ export function AdminStepCard({
 
 	const isDone = step?.status === EnumDonationStepStatus.Done;
 	const isFailed = step?.status === EnumDonationStepStatus.Failed;
+	const isLocked = isDone || isFailed;
 
 	function buildAddressPayload() {
 		if (addressMode === "new") {
@@ -173,18 +185,8 @@ export function AdminStepCard({
 			data: {
 				description: stepDescription,
 				set_date: combineDateTime(date, time),
-				...buildAddressPayload(),
-			},
-		});
-	}
-
-	function handleSaveStatus() {
-		if (!step) return;
-		updateStepMutation.mutate({
-			id_donation_step: step.id_donation_step,
-			data: {
-				description: stepDescription,
 				status: selectedStatus,
+				...buildAddressPayload(),
 			},
 		});
 	}
@@ -196,11 +198,22 @@ export function AdminStepCard({
 				id_donation_step: step.id_donation_step,
 				data: {
 					status: EnumDonationStepStatus.Done,
-					description: stepDescription,
+					description: finalizeDescription,
 				},
 			},
 			{ onSuccess: () => onFinalized?.() },
 		);
+	}
+
+	function handleMarkAsError() {
+		if (!step) return;
+		updateStepMutation.mutate({
+			id_donation_step: step.id_donation_step,
+			data: {
+				status: EnumDonationStepStatus.Failed,
+				description: errorDescription,
+			},
+		});
 	}
 
 	function handleCreate() {
@@ -250,9 +263,7 @@ export function AdminStepCard({
 
 	const statusChanged = Boolean(step) && selectedStatus !== step?.status;
 
-	const nonDoneStatuses = Object.values(EnumDonationStepStatus).filter(
-		(status) => status !== EnumDonationStepStatus.Done,
-	);
+	const hasNoInfo = isLocked && !step?.set_date && !addressText && !nurseNames;
 
 	return (
 		<div className="flex flex-col gap-5 rounded-2xl border border-[#e7eaef] bg-white p-6">
@@ -378,13 +389,13 @@ export function AdminStepCard({
 					)}
 
 					<div className="flex flex-col gap-3.5">
-						{!isDone && (
+						{!isLocked && (
 							<p className="text-[11px] font-bold tracking-[0.6px] text-[#00458b]">
 								DADOS DO AGENDAMENTO · EDITÁVEL
 							</p>
 						)}
 
-						{isDone ? (
+						{isLocked ? (
 							<div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:gap-7">
 								{step.set_date && (
 									<div className="flex items-center gap-2.5">
@@ -418,6 +429,11 @@ export function AdminStepCard({
 											{nurseNames}
 										</span>
 									</div>
+								)}
+								{hasNoInfo && (
+									<p className="text-[13px] text-[#9ca3af]">
+										Sem informações registradas nesta etapa.
+									</p>
 								)}
 							</div>
 						) : (
@@ -454,6 +470,28 @@ export function AdminStepCard({
 									</label>
 								</div>
 
+								<label className="flex flex-col gap-1.5">
+									<span className="text-[12px] font-semibold text-[#6b7280]">
+										Status da etapa
+									</span>
+									<select
+										value={selectedStatus}
+										onChange={(event) =>
+											setSelectedStatus(
+												event.target.value as EnumDonationStepStatus,
+											)
+										}
+										disabled={updateStepMutation.isPending}
+										className="rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3.5 py-3 text-[14px] text-[#1f2a37] outline-none disabled:opacity-60"
+									>
+										{EDITABLE_STATUSES.map((status) => (
+											<option key={status} value={status}>
+												{ADMIN_STEP_STATUS_LABEL[status]}
+											</option>
+										))}
+									</select>
+								</label>
+
 								<StepAddressPicker
 									addresses={donorAddresses}
 									mode={addressMode}
@@ -471,17 +509,6 @@ export function AdminStepCard({
 									onComplementChange={setComplement}
 								/>
 
-								<button
-									type="button"
-									onClick={handleSaveSchedule}
-									disabled={updateStepMutation.isPending || !scheduleChanged}
-									className="self-start rounded-lg bg-[#eef3f8] px-3 py-1.5 text-[12px] font-semibold text-[#00458b] disabled:opacity-60"
-								>
-									{step.set_date ? "Editar agendamento" : "Criar agendamento"}
-								</button>
-
-								<div className="h-px bg-[#e7eaef]" />
-
 								<label className="flex flex-col gap-1.5">
 									<span className="text-[12px] font-semibold text-[#6b7280]">
 										Descrição da etapa
@@ -498,15 +525,18 @@ export function AdminStepCard({
 								<button
 									type="button"
 									onClick={handleSaveSchedule}
-									disabled={updateStepMutation.isPending || !descriptionChanged}
-									className="self-start rounded-lg bg-[#eef3f8] px-3 py-1.5 text-[12px] font-semibold text-[#00458b] disabled:opacity-60"
+									disabled={
+										updateStepMutation.isPending ||
+										!(scheduleChanged || descriptionChanged || statusChanged)
+									}
+									className="self-start rounded-[10px] bg-[#00458b] px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 								>
-									Salvar descrição
+									Salvar
 								</button>
 
 								<div className="h-px bg-[#e7eaef]" />
 
-								{!jobsQuery.isLoading && (
+								{!jobsLoading && (
 									<StepJobsSection
 										jobs={jobs}
 										nurses={nurses}
@@ -543,52 +573,29 @@ export function AdminStepCard({
 								</div>
 							)}
 						</div>
-					) : (
-						<>
-							<div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-								<div className="flex flex-1 items-center gap-2">
-									<span className="text-[13px] font-semibold text-[#6b7280]">
-										Status da etapa:
-									</span>
-									<select
-										value={selectedStatus}
-										onChange={(event) =>
-											setSelectedStatus(
-												event.target.value as EnumDonationStepStatus,
-											)
-										}
-										disabled={updateStepMutation.isPending}
-										className="rounded-[10px] border-[1.5px] border-[#00458b] bg-white px-3.5 py-2 text-[13px] font-semibold text-[#00458b] outline-none disabled:opacity-60"
-									>
-										{nonDoneStatuses.map((status) => (
-											<option key={status} value={status}>
-												{ADMIN_STEP_STATUS_LABEL[status]}
-											</option>
-										))}
-									</select>
-								</div>
-
-								<button
-									type="button"
-									onClick={handleSaveStatus}
-									disabled={updateStepMutation.isPending || !statusChanged}
-									className="self-start rounded-lg bg-[#eef3f8] px-3 py-1.5 text-[12px] font-semibold text-[#00458b] disabled:opacity-60"
-								>
-									Salvar status
-								</button>
+					) : isFailed ? (
+						<div className="flex flex-col gap-1.5">
+							<div className="flex items-center gap-2">
+								<span className="text-[13px] font-semibold text-[#6b7280]">
+									Status da etapa:
+								</span>
+								<Status status={step.status} dot />
 							</div>
-
-							<div className="h-px bg-[#e7eaef]" />
-
-							<div className="flex flex-col gap-3 rounded-xl border border-[#00458b]/20 bg-[#eef3f8] p-4 lg:flex-row lg:items-center lg:justify-between">
+							{step.description && (
+								<p className="text-[13px] text-[#6b7280]">
+									Motivo: {step.description}
+								</p>
+							)}
+						</div>
+					) : (
+						<div className="flex flex-col gap-3 lg:flex-row">
+							<div className="flex flex-1 flex-col gap-3 rounded-xl border border-[#00458b]/20 bg-[#eef3f8] p-4 lg:items-center lg:justify-between lg:flex-row">
 								<div className="flex flex-col gap-0.5">
 									<p className="text-[13px] font-bold text-[#00458b]">
 										Finalizar etapa
 									</p>
 									<p className="text-[12px] text-[#6b7280]">
-										{stepDescription
-											? "A próxima etapa é liberada automaticamente."
-											: "Adicione uma descrição da etapa para poder finalizar."}
+										A próxima etapa é liberada automaticamente.
 									</p>
 								</div>
 
@@ -596,9 +603,7 @@ export function AdminStepCard({
 									<AlertDialogTrigger asChild>
 										<button
 											type="button"
-											disabled={
-												updateStepMutation.isPending || !stepDescription
-											}
+											onClick={() => setFinalizeDescription(stepDescription)}
 											className="flex shrink-0 items-center justify-center gap-2 rounded-[10px] bg-[#00458b] px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 										>
 											<Check className="size-4" />
@@ -619,9 +624,30 @@ export function AdminStepCard({
 												desfeita.
 											</AlertDialogDescription>
 										</AlertDialogHeader>
+
+										<div className="flex flex-col gap-1.5 text-left">
+											<label
+												htmlFor="finalize-description"
+												className="text-[12px] font-semibold text-[#6b7280]"
+											>
+												Descrição a ser registrada
+											</label>
+											<textarea
+												id="finalize-description"
+												value={finalizeDescription}
+												onChange={(event) =>
+													setFinalizeDescription(event.target.value)
+												}
+												rows={3}
+												placeholder="Descreva o resultado desta etapa"
+												className="rounded-[10px] border border-[#e1e7ee] bg-white px-3 py-2 text-[13px] text-[#1a1a1a] outline-none placeholder:text-[#9ca3af]"
+											/>
+										</div>
+
 										<AlertDialogFooter>
 											<AlertDialogAction
 												onClick={handleFinalize}
+												disabled={!finalizeDescription}
 												className="bg-[#00458b] hover:bg-[#00335f]"
 											>
 												Finalizar etapa
@@ -631,7 +657,75 @@ export function AdminStepCard({
 									</AlertDialogContent>
 								</AlertDialog>
 							</div>
-						</>
+
+							<div className="flex flex-1 flex-col gap-3 rounded-xl border border-[#f3caca] bg-[#fcebeb] p-4 lg:items-center lg:justify-between lg:flex-row">
+								<div className="flex flex-col gap-0.5">
+									<p className="text-[13px] font-bold text-[#a32d2d]">
+										Marcar como erro
+									</p>
+									<p className="text-[12px] text-[#a32d2d]">
+										Encerra a doação — não pode ser desfeito.
+									</p>
+								</div>
+
+								<AlertDialog>
+									<AlertDialogTrigger asChild>
+										<button
+											type="button"
+											onClick={() => setErrorDescription(stepDescription)}
+											className="flex shrink-0 items-center justify-center gap-2 rounded-[10px] bg-[#a32d2d] px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+										>
+											<AlertTriangle className="size-4" />
+											Marcar como erro
+										</button>
+									</AlertDialogTrigger>
+									<AlertDialogContent>
+										<AlertDialogHeader>
+											<div className="flex size-12 items-center justify-center rounded-full bg-[#fcebeb]">
+												<AlertTriangle className="size-5 text-[#a32d2d]" />
+											</div>
+											<AlertDialogTitle>
+												Marcar {definition.label} como erro?
+											</AlertDialogTitle>
+											<AlertDialogDescription>
+												A doação será encerrada e nenhuma etapa seguinte poderá
+												ser iniciada. Essa ação não pode ser desfeita.
+											</AlertDialogDescription>
+										</AlertDialogHeader>
+
+										<div className="flex flex-col gap-1.5 text-left">
+											<label
+												htmlFor="error-description"
+												className="text-[12px] font-semibold text-[#6b7280]"
+											>
+												Descreva o erro ocorrido
+											</label>
+											<textarea
+												id="error-description"
+												value={errorDescription}
+												onChange={(event) =>
+													setErrorDescription(event.target.value)
+												}
+												rows={3}
+												placeholder="Explique o motivo do encerramento"
+												className="rounded-[10px] border border-[#e1e7ee] bg-white px-3 py-2 text-[13px] text-[#1a1a1a] outline-none placeholder:text-[#9ca3af]"
+											/>
+										</div>
+
+										<AlertDialogFooter>
+											<AlertDialogAction
+												onClick={handleMarkAsError}
+												disabled={!errorDescription}
+												className="bg-[#a32d2d] hover:bg-[#8a2424]"
+											>
+												Marcar como erro
+											</AlertDialogAction>
+											<AlertDialogCancel>Cancelar</AlertDialogCancel>
+										</AlertDialogFooter>
+									</AlertDialogContent>
+								</AlertDialog>
+							</div>
+						</div>
 					)}
 				</>
 			)}

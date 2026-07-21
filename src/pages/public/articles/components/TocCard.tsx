@@ -1,6 +1,6 @@
 import { useReducedMotion } from "framer-motion";
 import type { Article } from "@/data/articles";
-import { getHeadings, headingId } from "../../utils";
+import { getHeadings, headingId } from "../utils";
 
 type TocCardProps = {
 	article: Article;

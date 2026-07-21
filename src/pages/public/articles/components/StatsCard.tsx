@@ -1,4 +1,4 @@
-import { DONATION_STATS } from "../../constants";
+import { DONATION_STATS } from "../constants";
 
 export function StatsCard() {
 	return (

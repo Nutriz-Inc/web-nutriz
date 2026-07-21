@@ -5,11 +5,11 @@ import { getArticleById } from "@/data/articles";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { ArticleCard } from "./components/ArticleCard";
 import { ArticlesHeader } from "./components/ArticlesHeader";
-import { DonateCta } from "./components/sidebar/DonateCta";
-import { RelatedCard } from "./components/sidebar/RelatedCard";
-import { ShareCard } from "./components/sidebar/ShareCard";
-import { StatsCard } from "./components/sidebar/StatsCard";
-import { TocCard } from "./components/sidebar/TocCard";
+import { DonateCta } from "./components/DonateCta";
+import { RelatedCard } from "./components/RelatedCard";
+import { ShareCard } from "./components/ShareCard";
+import { StatsCard } from "./components/StatsCard";
+import { TocCard } from "./components/TocCard";
 
 export function ArticlesScreen() {
 	const [searchParams, setSearchParams] = useSearchParams();

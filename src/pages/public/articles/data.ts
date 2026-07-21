@@ -227,6 +227,206 @@ export const ARTICLES: Article[] = [
 			},
 		],
 	},
+	{
+		id: 5,
+		category: "Amamentação",
+		accent: "#14b8a6",
+		soft: "#ccfbf1",
+		softBorder: "#99f6e4",
+		title: "Excesso de leite: transforme o que sobra em doação",
+		author: "Dra. Beatriz Nogueira",
+		authorInitials: "BN",
+		authorBio:
+			"Pediatra e consultora em aleitamento materno, atua em maternidades públicas de São Paulo há 8 anos.",
+		date: "16 de julho, 2026",
+		readTimeMinutes: 4,
+		takeaways: [
+			"Sinais de que você produz mais leite do que o bebê precisa",
+			"Por que o excedente não deve ser desperdiçado",
+			"Como organizar a ordenha do excesso na rotina",
+			"O primeiro passo para virar doadora",
+		],
+		videoTitle: "O que fazer quando sobra leite depois da mamada",
+		videoDuration: "3:15",
+		blocks: [
+			{
+				p: "Muitas mães percebem que produzem mais leite do que o bebê consegue mamar — e esse excedente, quando descartado, é uma oportunidade perdida. Transformá-lo em doação é mais simples do que parece.",
+			},
+			{ h: "Como identificar o excesso" },
+			{
+				p: "Seios que continuam cheios logo após a mamada, vazamentos frequentes ou desconforto por acúmulo de leite são sinais comuns de produção acima da necessidade do bebê.",
+			},
+			{
+				list: [
+					"Desconforto ou peso nos seios após mamar",
+					"Vazamentos entre as mamadas",
+					"Bebê satisfeito antes de esvaziar a mama",
+					"Facilidade para extrair leite extra na ordenha",
+				],
+			},
+			{ h: "Aproveitando o excedente" },
+			{
+				p: "Em vez de descartar, o leite excedente pode ser coletado com a mesma higiene de uma ordenha normal e destinado à doação, ajudando bebês prematuros ou internados.",
+			},
+			{
+				callout:
+					"Antes de doar, é preciso passar por uma triagem simples com o banco de leite — veja o artigo sobre critérios de doação para saber como funciona.",
+			},
+			{ h: "O primeiro contato com o banco de leite" },
+			{
+				p: "Basta procurar o posto de coleta mais próximo ou entrar em contato pelo Disque Saúde (136) para iniciar o processo e saber se você pode se tornar doadora.",
+			},
+		],
+	},
+	{
+		id: 6,
+		category: "Cuidados",
+		accent: "#3b82f6",
+		soft: "#dbeafe",
+		softBorder: "#bfdbfe",
+		title: "Quem pode doar? Critérios de saúde e triagem",
+		author: "Renata Lima",
+		authorInitials: "RL",
+		authorBio:
+			"Enfermeira obstétrica, integra equipes de coleta domiciliar de leite humano e capacita novas doadoras pela rBLH.",
+		date: "14 de julho, 2026",
+		readTimeMinutes: 5,
+		takeaways: [
+			"Quem pode se candidatar a doadora",
+			"O que é avaliado na triagem inicial",
+			"Situações que pedem avaliação médica antes de doar",
+			"Como agendar os exames",
+		],
+		videoTitle: "Como funciona a triagem de uma nova doadora",
+		videoDuration: "4:48",
+		blocks: [
+			{
+				p: "Qualquer nutriz saudável, que produza leite além do que o próprio bebê consome, pode se candidatar a doadora. A triagem existe para garantir segurança para quem doa e para quem recebe.",
+			},
+			{ h: "Quem pode se candidatar" },
+			{
+				p: "Mulheres em amamentação, com boa saúde geral e sem uso de medicamentos incompatíveis com a doação, podem procurar um banco de leite para iniciar o processo.",
+			},
+			{
+				list: [
+					"Estar amamentando e produzir leite excedente",
+					"Não fumar e não fazer uso de álcool ou drogas",
+					"Não estar em tratamento com medicações restritivas",
+					"Passar por uma avaliação de saúde simples",
+				],
+			},
+			{ h: "O que é avaliado" },
+			{
+				p: "A equipe do banco de leite faz uma entrevista sobre saúde geral, hábitos e uso de medicamentos. Em alguns casos, exames de sangue já feitos no pré-natal são suficientes.",
+			},
+			{
+				callout:
+					"Cada banco de leite pode ter critérios levemente diferentes — a triagem final é sempre feita por um profissional de saúde, nunca por conta própria.",
+			},
+			{ h: "Como começar" },
+			{
+				p: "Ligue para o banco de leite mais próximo ou use o Disque Saúde (136) para agendar a primeira conversa e entender os próximos passos.",
+			},
+		],
+	},
+	{
+		id: 7,
+		category: "Acolhimento",
+		accent: "#e0457a",
+		soft: "#fdf1f5",
+		softBorder: "#fadbe7",
+		title: "Diário de uma doadora: a história da Juliana e do Theo",
+		author: "Camila Duarte",
+		authorInitials: "CD",
+		authorBio:
+			"Jornalista colaboradora da rBLH, escreve histórias reais de doadoras e famílias apoiadas pela rede de bancos de leite.",
+		date: "17 de julho, 2026",
+		readTimeMinutes: 6,
+		takeaways: [
+			"Como começou a jornada de doação da Juliana",
+			"Os desafios da rotina com um recém-nascido",
+			"O que mudou depois da primeira doação",
+			"A mensagem da Juliana para novas doadoras",
+		],
+		videoTitle: "Juliana e Theo: uma história de doação",
+		videoDuration: "7:12",
+		blocks: [
+			{
+				p: "Juliana descobriu que produzia leite além do que o filho, Theo, conseguia mamar. Em vez de descartar o excedente, decidiu procurar um banco de leite — e essa escolha mudou sua rotina de um jeito que ela não esperava.",
+			},
+			{ h: "O começo da jornada" },
+			{
+				p: '"No início eu nem sabia que dava pra doar leite. Uma amiga comentou e eu fui atrás — foi bem mais simples do que eu imaginava", conta Juliana sobre os primeiros passos até a triagem.',
+			},
+			{ h: "A rotina com o Theo" },
+			{
+				list: [
+					"Ordenha encaixada nos intervalos das mamadas",
+					"Frascos etiquetados guardados no freezer",
+					"Busca do leite feita pelo próprio banco de leite",
+					"Acompanhamento a cada nova coleta",
+				],
+			},
+			{ h: "O que mudou" },
+			{
+				p: '"Saber que meu leite ajudou bebês prematuros que eu nunca vou conhecer é uma sensação que não tem explicação", diz Juliana, hoje doadora há alguns meses.',
+			},
+			{
+				callout:
+					"Histórias como a da Juliana mostram que doar pode caber na rotina — o primeiro passo é sempre conversar com um banco de leite.",
+			},
+		],
+	},
+	{
+		id: 8,
+		category: "Nutrição",
+		accent: "#65a30d",
+		soft: "#ecfccb",
+		softBorder: "#d9f99d",
+		title: "Ferro, cálcio e vitamina D: os nutrientes-chave da lactação",
+		author: "Carla Menezes",
+		authorInitials: "CM",
+		authorBio:
+			"Nutricionista materno-infantil, atua com orientação alimentar de gestantes e lactantes na rede pública há 9 anos.",
+		date: "13 de julho, 2026",
+		readTimeMinutes: 5,
+		takeaways: [
+			"Por que esses três nutrientes merecem atenção na lactação",
+			"Alimentos que são boas fontes de cada um",
+			"Sinais de que vale conversar com um profissional",
+			"Como manter as reservas do corpo em dia",
+		],
+		videoTitle: "Micronutrientes da nutriz: guia rápido",
+		videoDuration: "4:20",
+		blocks: [
+			{
+				p: "Durante a lactação, o corpo tem uma demanda maior por alguns nutrientes específicos. Conhecer os principais ajuda a montar refeições mais completas no dia a dia.",
+			},
+			{ h: "Ferro" },
+			{
+				p: "Importante para repor as reservas após o parto. Carnes magras, feijão e vegetais verde-escuros são boas fontes — combinar com uma fruta cítrica ajuda na absorção.",
+			},
+			{
+				list: [
+					"Ferro: carnes magras, feijão, vegetais verde-escuros",
+					"Cálcio: leite e derivados, vegetais verde-escuros",
+					"Vitamina D: exposição solar moderada e alguns peixes",
+				],
+			},
+			{ h: "Cálcio e vitamina D" },
+			{
+				p: "O cálcio ajuda a manter a saúde óssea da nutriz, e a vitamina D auxilia sua absorção. Uma rotina com sol pela manhã, com proteção adequada, já contribui bastante.",
+			},
+			{
+				callout:
+					"Suplementação, quando necessária, deve ser sempre orientada por um profissional de saúde — evite se automedicar.",
+			},
+			{ h: "Mantendo as reservas em dia" },
+			{
+				p: "Uma alimentação variada, com acompanhamento nas consultas de rotina, costuma ser suficiente para a maioria das nutrizes saudáveis.",
+			},
+		],
+	},
 ];
 
 export function getArticleById(id: number | null): Article {

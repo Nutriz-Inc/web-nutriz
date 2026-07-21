@@ -1,6 +1,7 @@
 import { ArrowLeft, Search } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
 import { ARTICLES } from "../data";
 import { normalizeText } from "../utils";
 
@@ -10,7 +11,16 @@ type ArticlesHeaderProps = {
 
 export function ArticlesHeader({ onSelectArticle }: ArticlesHeaderProps) {
 	const navigate = useNavigate();
+	const { isAuthenticated } = useAuth();
 	const [query, setQuery] = useState("");
+
+	// Esta tela é acessível tanto pelo publicRouter (visitante) quanto pelo
+	// routerPrivate (usuária logada, vinda da Central de Conteúdos) — o
+	// destino e o texto do "Voltar" mudam conforme o contexto.
+	const backTo = isAuthenticated ? "/conteudo-educativo" : "/";
+	const backLabel = isAuthenticated
+		? "Voltar para conteúdo educativo"
+		: "Voltar para a página inicial";
 
 	const results = query.trim()
 		? ARTICLES.filter((article) =>
@@ -28,11 +38,11 @@ export function ArticlesHeader({ onSelectArticle }: ArticlesHeaderProps) {
 			<div className="mx-auto flex h-full w-full max-w-[1100px] items-center justify-between gap-4 px-5 lg:px-8">
 				<button
 					type="button"
-					onClick={() => navigate("/")}
+					onClick={() => navigate(backTo)}
 					className="flex min-h-11 shrink-0 items-center gap-2 rounded-lg text-[14px] font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
 				>
 					<ArrowLeft className="size-4" aria-hidden />
-					<span className="hidden sm:inline">Voltar para a página inicial</span>
+					<span className="hidden sm:inline">{backLabel}</span>
 					<span className="sm:hidden">Voltar</span>
 				</button>
 

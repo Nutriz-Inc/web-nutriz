@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContentHubPage } from "@/pages/private/content-hub";
 import { NewDonationPage } from "@/pages/private/donations/create";
 import { DonationInfoPage } from "@/pages/private/donations/info";
 import { DonationPointsPage } from "../pages/private/donation-points";
@@ -26,6 +27,15 @@ export const routerPrivate = createBrowserRouter([
 		element: <HomePage />,
 	},
 	{
+		// A tela de leitura de artigo é a mesma do publicRouter — reaparece
+		// aqui porque a Central de Conteúdos (área logada) também navega
+		// para ela; sem essa entrada, o navigate("/artigos") caía no
+		// fallback "/*" abaixo (DefaultRedirect) e ia parar em "/home".
+		id: "private-artigos",
+		path: "/artigos",
+		element: <ArticlesScreen />,
+	},
+	{
 		id: "private-fallback",
 		path: "/*",
 		element: <DefaultRedirect />,
@@ -40,6 +50,12 @@ export const routerPrivate = createBrowserRouter([
 				path: "/pontos-de-coleta",
 				element: <DonationPointsPage />,
 				handle: { title: "Pontos de Coleta" },
+			},
+			{
+				id: "private-conteudo-educativo",
+				path: "/conteudo-educativo",
+				element: <ContentHubPage />,
+				handle: { title: "Conteúdo educativo" },
 			},
 			{
 				id: "private-perfil",

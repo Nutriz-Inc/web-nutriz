@@ -25,11 +25,15 @@ src/
 
 ## Tela de artigos
 
-A rota pública `/artigos` exibe a leitura dos 4 artigos da seção "Artigos para te apoiar em cada fase" da landing page. O artigo ativo é definido pelo query param `a` (ex.: `/artigos?a=2`), e os cards da landing navegam direto para o artigo correspondente.
+A rota `/artigos` exibe a leitura dos artigos da seção "Artigos para te apoiar em cada fase" da landing page — é acessível tanto deslogada (`publicRouter`) quanto logada (`routerPrivate`, vinda da Central de Conteúdos), por isso está registrada nos dois roteadores. O artigo ativo é definido pelo query param `a` (ex.: `/artigos?a=2`), e o botão "Voltar" muda de destino conforme o contexto (landing para visitante, Central de Conteúdos para usuária logada).
 
-- Os dados dos artigos (título, categoria, tempo de leitura, conteúdo e cores) ficam centralizados em `src/data/articles.ts`, compartilhados entre a landing e a tela de leitura.
+- Os dados dos artigos (título, categoria, tempo de leitura, conteúdo e cores) moram em `src/pages/public/articles/data.ts`. `src/data/articles.ts` é só um re-export desse módulo para quem precisa reaproveitar os artigos fora daquela pasta (landing e Central de Conteúdos).
 - A troca de artigo (busca do header ou card "Outros artigos") anima com Framer Motion e respeita `prefers-reduced-motion`.
 - O vídeo, os links de compartilhamento e a imagem de capa são mockados (marcados com `To do` no código).
+
+## Central de conteúdos
+
+A rota privada `/conteudo-educativo` (`src/pages/private/content-hub/`) é a home de artigos da área logada, acessível pelo menu hambúrguer. Destaques, grid "Mais conteúdos", vídeos em destaque, dicas rápidas e um accordion de dúvidas frequentes — todos os cards/vídeos abrem a mesma tela de leitura de artigos acima. A busca do header filtra por título/categoria; o CTA de newsletter no rodapé é mockado (`// TODO: integrar newsletter`).
 
 ## Como rodar o projeto
 

@@ -27,7 +27,7 @@ export function ContentHubPage() {
 
 	return (
 		<Page hasPermission={auth?.type === EnumUserType.Common}>
-			<div className="flex flex-col gap-10">
+			<div className="mx-auto flex w-full max-w-[1200px] flex-col gap-10">
 				<HeroSection />
 
 				<FeaturedSection

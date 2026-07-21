@@ -4,7 +4,7 @@ import {
 	type DonationStep,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
-import { STEP_DEFINITIONS } from "../../info/constants";
+import { STEP_DEFINITIONS } from "../../../common/info/constants";
 import {
 	ADMIN_STEP_STATUS_LABEL,
 	type AdminStepVisualStatus,

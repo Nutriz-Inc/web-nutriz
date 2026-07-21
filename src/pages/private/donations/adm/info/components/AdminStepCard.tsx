@@ -1,7 +1,5 @@
 import { AlertTriangle } from "lucide-react";
 import { useState } from "react";
-import { StepTimelineSheet } from "@/pages/private/donations/step-detail/components/StepTimelineSheet";
-import { useStepAddress } from "@/pages/private/donations/step-detail/hooks";
 import {
 	type DonationStep,
 	EnumDonationStepStatus,
@@ -30,7 +28,9 @@ import { StepEditableForm } from "./StepEditableForm";
 import { StepFailedFooter } from "./StepFailedFooter";
 import { StepLockedCard } from "./StepLockedCard";
 import { StepReadOnlyInfo } from "./StepReadOnlyInfo";
-import type { StepDefinition } from "../../info/constants";
+import type { StepDefinition } from "../../../common/info/constants";
+import { useStepAddress } from "../../../common/step-detail/hooks";
+import { StepTimelineSheet } from "../../../common/step-detail/components/StepTimelineSheet";
 
 type Props = {
 	idDonation: string;

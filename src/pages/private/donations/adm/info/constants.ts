@@ -1,6 +1,4 @@
-import {
-	EnumDonationStepStatus,
-} from "@/services/types/i-donation";
+import { EnumDonationStepStatus } from "@/services/types/i-donation";
 import { EnumJobStatus } from "@/services/types/i-job";
 
 export type AdminStepVisualStatus = "done" | "current" | "locked";

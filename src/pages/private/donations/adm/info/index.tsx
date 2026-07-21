@@ -4,14 +4,12 @@ import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";
-import { STEP_DEFINITIONS } from "../info/constants";
+import { STEP_DEFINITIONS } from "../../common/info/constants";
 import { AdminStepCard } from "./components/AdminStepCard";
 import { DonationInfoCard } from "./components/DonationInfoCard";
 import { DonationStatusStepper } from "./components/DonationStatusStepper";
 import { DonorInfoCard } from "./components/DonorInfoCard";
-import {
-	type AdminStepVisualStatus,
-} from "./constants";
+import { type AdminStepVisualStatus } from "./constants";
 import {
 	useAdminDonationDetail,
 	useCreateDonationStep,

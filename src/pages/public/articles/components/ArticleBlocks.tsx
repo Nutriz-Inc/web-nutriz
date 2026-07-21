@@ -1,17 +1,10 @@
 import { Info } from "lucide-react";
-import type { Article, ArticleBlock } from "@/data/articles";
-import { headingId } from "../utils";
+import type { Article } from "@/data/articles";
+import { blockKey, headingId } from "../utils";
 
 type ArticleBlocksProps = {
 	article: Article;
 };
-
-function blockKey(block: ArticleBlock) {
-	if ("h" in block) return `h-${block.h}`;
-	if ("p" in block) return `p-${block.p.slice(0, 40)}`;
-	if ("list" in block) return `list-${block.list[0]}`;
-	return `callout-${block.callout.slice(0, 40)}`;
-}
 
 export function ArticleBlocks({ article }: ArticleBlocksProps) {
 	return (

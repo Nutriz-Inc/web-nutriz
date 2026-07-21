@@ -1,5 +1,6 @@
 import {
 	BookOpen,
+	CalendarCheck,
 	ClipboardList,
 	Droplets,
 	Home,
@@ -55,7 +56,9 @@ const navItemsUserAdmin: NavItem[] = [
 	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
 ];
 
-const navItemsUserNurse: NavItem[] = [];
+const navItemsUserNurse: NavItem[] = [
+	{ label: "Meus Agendamentos", icon: CalendarCheck, to: "/agendamentos" },
+];
 
 export function getUserMenu(userType: EnumUserType) {
 	switch (userType) {

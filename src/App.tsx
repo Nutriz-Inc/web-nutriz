@@ -16,7 +16,10 @@ function App() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={routes} />
+			<RouterProvider
+				key={isAuthenticated ? "private" : "public"}
+				router={routes}
+			/>
 		</QueryClientProvider>
 	);
 }

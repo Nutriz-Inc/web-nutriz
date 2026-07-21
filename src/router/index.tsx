@@ -13,45 +13,60 @@ import { LoginScreen } from "../pages/public/login";
 import { RegisterScreen } from "../pages/public/register";
 import { DefaultRedirect } from "./DefaultRedirect";
 
+// IDs explícitos em toda rota: `routerPrivate` e `publicRouter` são duas
+// instâncias separadas de createBrowserRouter ativas ao mesmo tempo (ver
+// App.tsx). Sem `id`, o React Router gera ids automáticos por índice do
+// array — como os dois routers têm rotas na mesma posição, os ids colidem
+// entre eles (ex.: routerPrivate[2] e publicRouter[2] viravam ambos "2"),
+// contaminando o estado interno do router ao trocar de instância no logout.
 export const routerPrivate = createBrowserRouter([
 	{
+		id: "private-home",
 		path: "/home",
 		element: <HomePage />,
 	},
 	{
+		id: "private-fallback",
 		path: "/*",
 		element: <DefaultRedirect />,
 	},
 	{
+		id: "private-layout",
 		path: "/",
 		element: <Layout />,
 		children: [
 			{
+				id: "private-pontos-de-coleta",
 				path: "/pontos-de-coleta",
 				element: <DonationPointsPage />,
 				handle: { title: "Pontos de Coleta" },
 			},
 			{
+				id: "private-perfil",
 				path: "/perfil",
 				element: <ProfilePage />,
 				handle: { title: "Perfil" },
 			},
 			{
+				id: "private-minhas-doacoes",
 				path: "/minhas-doacoes",
 				element: <DonationsPage />,
 				handle: { title: "Minhas doações" },
 			},
 			{
+				id: "private-nova-doacao",
 				path: "/nova-doacao",
 				element: <NewDonationPage />,
 				handle: { title: "Nova Doação" },
 			},
 			{
+				id: "private-gestao-doacoes",
 				path: "/gestao-doacoes",
 				element: <DonationsManagementPage />,
 				handle: { title: "Doações" },
 			},
 			{
+				id: "private-doacao-info",
 				path: "/doacao/:id_donation",
 				element: <DonationInfoPage />,
 				handle: { title: "Acompanhamento" },
@@ -62,22 +77,27 @@ export const routerPrivate = createBrowserRouter([
 
 export const publicRouter = createBrowserRouter([
 	{
+		id: "public-landing",
 		path: "/",
 		element: <LandingPageScreen />,
 	},
 	{
+		id: "public-login",
 		path: "/login",
 		element: <LoginScreen />,
 	},
 	{
+		id: "public-registro",
 		path: "/registro",
 		element: <RegisterScreen />,
 	},
 	{
+		id: "public-artigos",
 		path: "/artigos",
 		element: <ArticlesScreen />,
 	},
 	{
+		id: "public-fallback",
 		path: "*",
 		element: <Navigate to="/" replace />,
 	},

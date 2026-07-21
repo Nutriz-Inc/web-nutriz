@@ -1,11 +1,13 @@
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 type CopyableIdProps = {
 	id: string;
+	className?: string;
 };
 
-export function CopyableId({ id }: CopyableIdProps) {
+export function CopyableId({ id, className }: CopyableIdProps) {
 	const [copied, setCopied] = useState(false);
 
 	async function handleCopy() {
@@ -18,7 +20,10 @@ export function CopyableId({ id }: CopyableIdProps) {
 		<button
 			type="button"
 			onClick={handleCopy}
-			className="flex min-w-0 items-center gap-1.5 text-[13px] text-[#9ca3af] transition-colors active:text-[#6b7280]"
+			className={cn(
+				"flex min-w-0 items-center gap-1.5 text-[13px] text-[#9ca3af] transition-colors active:text-[#6b7280]",
+				className,
+			)}
 		>
 			<span className="truncate font-mono">{id}</span>
 			{copied ? (

@@ -1,4 +1,4 @@
-import { Search, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { type FormEvent, Fragment, useState } from "react";
 import {
 	type FilterChipOption,
@@ -43,6 +43,8 @@ const ACTIVE_FILTER_OPTIONS: FilterChipOption<ActiveFilter>[] = [
 	{ key: "inactive", label: "Concluídas" },
 ];
 
+const PAGE_SIZE = 20;
+
 export function DonationsManagementPage() {
 	const { auth } = useAuth();
 
@@ -52,12 +54,14 @@ export function DonationsManagementPage() {
 	const [appliedCpf, setAppliedCpf] = useState("");
 	const [filter, setFilter] = useState<StepFilter>("all");
 	const [activeFilter, setActiveFilter] = useState<ActiveFilter>("all");
+	const [page, setPage] = useState(1);
 
 	function handleApplyFilters(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 
 		setAppliedName(name);
 		setAppliedCpf(cpf);
+		setPage(1);
 	}
 
 	function handleClearFilters() {
@@ -67,21 +71,36 @@ export function DonationsManagementPage() {
 		setAppliedCpf("");
 		setFilter("all");
 		setActiveFilter("all");
+		setPage(1);
+	}
+
+	function handleFilterChange(value: StepFilter) {
+		setFilter(value);
+		setPage(1);
+	}
+
+	function handleActiveFilterChange(value: ActiveFilter) {
+		setActiveFilter(value);
+		setPage(1);
 	}
 
 	const { data, isLoading } = useAdminDonationsList({
+		page,
+		page_size: PAGE_SIZE,
 		user_name: appliedName || undefined,
 		user_document: appliedCpf.replace(/\D/g, "") || undefined,
 		current_step: filter === "all" ? undefined : filter,
 		is_active: activeFilter === "all" ? undefined : activeFilter === "active",
 	});
 
-	const donations = data ?? [];
+	const donations = data?.data ?? [];
+	const total = data?.total ?? 0;
+	const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
 	return (
 		<Page
 			title="Gestão de Doações"
-			description={`${donations.length} doações cadastradas`}
+			description={`${total} doações cadastradas`}
 			loading={isLoading}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
@@ -126,13 +145,13 @@ export function DonationsManagementPage() {
 					<FilterChips
 						options={ACTIVE_FILTER_OPTIONS}
 						value={activeFilter}
-						onChange={setActiveFilter}
+						onChange={handleActiveFilterChange}
 					/>
 					<div className="h-6 w-px shrink-0 bg-[#e5e7eb]" />
 					<FilterChips
 						options={STEP_FILTER_OPTIONS}
 						value={filter}
-						onChange={setFilter}
+						onChange={handleFilterChange}
 					/>
 				</div>
 
@@ -146,14 +165,44 @@ export function DonationsManagementPage() {
 						</p>
 					</div>
 				) : (
-					<div className="overflow-hidden rounded-2xl border border-[#e5e7eb] bg-[#f4f7fb]">
-						{donations.map((donation, index) => (
-							<Fragment key={donation.id_donation}>
-								{index > 0 && <div className="h-2 bg-[#f4f7fb]" />}
-								<DonationManagementCard donation={donation} />
-							</Fragment>
-						))}
-					</div>
+					<>
+						<div className="overflow-hidden rounded-2xl border border-[#e5e7eb] bg-[#f4f7fb]">
+							{donations.map((donation, index) => (
+								<Fragment key={donation.id_donation}>
+									{index > 0 && <div className="h-2 bg-[#f4f7fb]" />}
+									<DonationManagementCard donation={donation} />
+								</Fragment>
+							))}
+						</div>
+
+						{totalPages > 1 && (
+							<div className="flex items-center justify-center gap-3 lg:justify-end">
+								<button
+									type="button"
+									onClick={() => setPage((current) => Math.max(1, current - 1))}
+									disabled={page === 1}
+									aria-label="Página anterior"
+									className="flex size-9 items-center justify-center rounded-lg border border-[#e5e7eb] bg-white text-[#6b7280] transition-colors hover:bg-[#f4f7fb] disabled:opacity-40"
+								>
+									<ChevronLeft className="size-4" />
+								</button>
+								<span className="text-[13px] font-semibold text-[#1f2a37]">
+									Página {page} de {totalPages}
+								</span>
+								<button
+									type="button"
+									onClick={() =>
+										setPage((current) => Math.min(totalPages, current + 1))
+									}
+									disabled={page === totalPages}
+									aria-label="Próxima página"
+									className="flex size-9 items-center justify-center rounded-lg border border-[#e5e7eb] bg-white text-[#6b7280] transition-colors hover:bg-[#f4f7fb] disabled:opacity-40"
+								>
+									<ChevronRight className="size-4" />
+								</button>
+							</div>
+						)}
+					</>
 				)}
 			</div>
 		</Page>

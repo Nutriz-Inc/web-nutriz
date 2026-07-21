@@ -1,5 +1,5 @@
 import { Calendar, ChevronRight, Heart, Lock } from "lucide-react";
-import { ActiveBadge } from "@/components/full/ActiveBadge";
+import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
 import { ProgressBar } from "./ProgressBar";
@@ -7,6 +7,7 @@ import { ProgressBar } from "./ProgressBar";
 type DonationCardProps = {
 	number: number;
 	isInProgress: boolean;
+	hasError: boolean;
 	createdAt: string;
 	currentStep: number;
 	totalSteps: number;
@@ -19,6 +20,7 @@ type DonationCardProps = {
 export function DonationCard({
 	number,
 	isInProgress,
+	hasError,
 	createdAt,
 	currentStep,
 	totalSteps,
@@ -68,7 +70,10 @@ export function DonationCard({
 							<p className="truncate text-[16px] font-bold text-[#0e2a45] lg:text-[22px]">
 								Doação #{number}
 							</p>
-							<ActiveBadge isActive={isInProgress} />
+							<DonationStatusBadge
+								isActive={isInProgress}
+								hasError={hasError}
+							/>
 						</div>
 						{isClickable && (
 							<ChevronRight className="size-5 shrink-0 text-[#9aa3b8] lg:size-6" />

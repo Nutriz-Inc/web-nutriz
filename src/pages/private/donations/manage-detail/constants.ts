@@ -1,18 +1,9 @@
-import { FlaskConical } from "lucide-react";
 import {
-	EnumDonationStepName,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
 import { EnumJobStatus } from "@/services/types/i-job";
 
 export type AdminStepVisualStatus = "done" | "current" | "locked";
-
-export interface AdminStepDefinition {
-	order: number;
-	name: EnumDonationStepName;
-	label: string;
-	icon: typeof FlaskConical;
-}
 
 export const ADMIN_STEP_STATUS_LABEL: Record<EnumDonationStepStatus, string> = {
 	[EnumDonationStepStatus.Pending]: "Pendente",

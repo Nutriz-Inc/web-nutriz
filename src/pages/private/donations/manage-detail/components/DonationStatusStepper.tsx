@@ -4,11 +4,11 @@ import {
 	type DonationStep,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
+import { STEP_DEFINITIONS } from "../../info/constants";
 import {
 	ADMIN_STEP_STATUS_LABEL,
 	type AdminStepVisualStatus,
 } from "../constants";
-import { STEP_DEFINITIONS } from "../../info/constants";
 
 type Props = {
 	steps: DonationStep[];

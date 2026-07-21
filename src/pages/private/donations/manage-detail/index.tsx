@@ -10,7 +10,6 @@ import { DonationInfoCard } from "./components/DonationInfoCard";
 import { DonationStatusStepper } from "./components/DonationStatusStepper";
 import { DonorInfoCard } from "./components/DonorInfoCard";
 import {
-	ADMIN_STEP_DEFINITIONS,
 	type AdminStepVisualStatus,
 } from "./constants";
 import {
@@ -35,12 +34,12 @@ export function DonationManagementDetailPage() {
 
 	const isFullyCompleted =
 		!hasFailedStep &&
-		ADMIN_STEP_DEFINITIONS.every((definition) => {
+		STEP_DEFINITIONS.every((definition) => {
 			const step = steps.find((s) => s.name === definition.name);
 			return step?.status === EnumDonationStepStatus.Done;
 		});
 
-	const firstPendingOrder = ADMIN_STEP_DEFINITIONS.find((definition) => {
+	const firstPendingOrder = STEP_DEFINITIONS.find((definition) => {
 		const step = steps.find((s) => s.name === definition.name);
 		return step?.status !== EnumDonationStepStatus.Done;
 	})?.order;
@@ -53,7 +52,7 @@ export function DonationManagementDetailPage() {
 	}
 
 	function handleStepFinalized(order: number) {
-		const nextDefinition = ADMIN_STEP_DEFINITIONS.find(
+		const nextDefinition = STEP_DEFINITIONS.find(
 			(definition) => definition.order === order + 1,
 		);
 		if (!nextDefinition) return;
@@ -119,7 +118,7 @@ export function DonationManagementDetailPage() {
 							</div>
 						)}
 
-						{ADMIN_STEP_DEFINITIONS.map((definition) => {
+						{STEP_DEFINITIONS.map((definition) => {
 							const step = steps.find((s) => s.name === definition.name);
 
 							return (

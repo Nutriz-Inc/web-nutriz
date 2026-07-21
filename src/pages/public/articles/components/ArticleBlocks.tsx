@@ -1,5 +1,5 @@
 import { Info } from "lucide-react";
-import type { Article } from "@/data/articles";
+import type { Article } from "../data";
 import { blockKey, headingId } from "../utils";
 
 type ArticleBlocksProps = {

@@ -1,5 +1,5 @@
 import { BadgeCheck, Check, Sparkles } from "lucide-react";
-import type { Article } from "@/data/articles";
+import type { Article } from "../data";
 import { ArticleBlocks } from "./ArticleBlocks";
 import { VideoSection } from "./VideoSection";
 

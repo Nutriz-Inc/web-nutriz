@@ -1,7 +1,7 @@
 import { ArrowLeft, Search } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ARTICLES } from "@/data/articles";
+import { ARTICLES } from "../data";
 import { normalizeText } from "../utils";
 
 type ArticlesHeaderProps = {

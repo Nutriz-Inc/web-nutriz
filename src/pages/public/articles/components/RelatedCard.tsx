@@ -1,5 +1,5 @@
 import { BookOpen } from "lucide-react";
-import { ARTICLES, type Article } from "@/data/articles";
+import { ARTICLES, type Article } from "../data";
 
 type RelatedCardProps = {
 	article: Article;

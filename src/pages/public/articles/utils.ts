@@ -1,4 +1,4 @@
-import type { Article, ArticleBlock } from "@/data/articles";
+import type { Article, ArticleBlock } from "./data";
 
 export function blockKey(block: ArticleBlock) {
 	if ("h" in block) return `h-${block.h}`;

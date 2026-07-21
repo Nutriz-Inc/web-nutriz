@@ -1,7 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getArticleById } from "@/data/articles";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { ArticleCard } from "./components/ArticleCard";
 import { ArticlesHeader } from "./components/ArticlesHeader";
@@ -10,6 +9,7 @@ import { RelatedCard } from "./components/RelatedCard";
 import { ShareCard } from "./components/ShareCard";
 import { StatsCard } from "./components/StatsCard";
 import { TocCard } from "./components/TocCard";
+import { getArticleById } from "./data";
 
 export function ArticlesScreen() {
 	const [searchParams, setSearchParams] = useSearchParams();

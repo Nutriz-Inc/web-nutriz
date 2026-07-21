@@ -1,5 +1,5 @@
 import { Play } from "lucide-react";
-import type { Article } from "@/data/articles";
+import type { Article } from "../data";
 
 type VideoSectionProps = {
 	article: Article;

@@ -6,11 +6,15 @@ import {
 } from "@/services/types/i-donation";
 import type { EnumJobStatus, Job } from "@/services/types/i-job";
 import type { Address } from "@/services/types/i-user";
+import type { StepDefinition } from "../../../common/info/constants";
+import { StepTimelineSheet } from "../../../common/step-detail/components/StepTimelineSheet";
+import { useStepAddress } from "../../../common/step-detail/hooks";
 import {
 	useCreateDonationStep,
 	useCreateStepJob,
 	useNurses,
 	useRemoveStepJob,
+	useUpdateDonation,
 	useUpdateDonationStep,
 	useUpdateStepJob,
 } from "../hooks";
@@ -28,9 +32,6 @@ import { StepEditableForm } from "./StepEditableForm";
 import { StepFailedFooter } from "./StepFailedFooter";
 import { StepLockedCard } from "./StepLockedCard";
 import { StepReadOnlyInfo } from "./StepReadOnlyInfo";
-import type { StepDefinition } from "../../../common/info/constants";
-import { useStepAddress } from "../../../common/step-detail/hooks";
-import { StepTimelineSheet } from "../../../common/step-detail/components/StepTimelineSheet";
 
 type Props = {
 	idDonation: string;
@@ -43,6 +44,7 @@ type Props = {
 	donationEnded?: boolean;
 	jobs: Job[];
 	jobsLoading: boolean;
+	isLastStep?: boolean;
 };
 
 export function AdminStepCard({
@@ -56,6 +58,7 @@ export function AdminStepCard({
 	donationEnded,
 	jobs,
 	jobsLoading,
+	isLastStep,
 }: Props) {
 	const [timelineOpen, setTimelineOpen] = useState(false);
 	const [date, setDate] = useState(() => toDateInputValue(step?.set_date));
@@ -68,6 +71,7 @@ export function AdminStepCard({
 	);
 	const [finalizeDescription, setFinalizeDescription] = useState("");
 	const [errorDescription, setErrorDescription] = useState("");
+	const [quantityDonated, setQuantityDonated] = useState("");
 
 	const [addressMode, setAddressMode] = useState<"existing" | "new">(() =>
 		donorAddresses.length > 0 ? "existing" : "new",
@@ -91,6 +95,7 @@ export function AdminStepCard({
 		.join(", ");
 
 	const updateStepMutation = useUpdateDonationStep(idDonation);
+	const updateDonationMutation = useUpdateDonation(idDonation);
 	const createStepMutation = useCreateDonationStep(idDonation);
 	const createJobMutation = useCreateStepJob(idUserCommon);
 	const updateJobMutation = useUpdateStepJob(idUserCommon);
@@ -143,7 +148,16 @@ export function AdminStepCard({
 					description: finalizeDescription,
 				},
 			},
-			{ onSuccess: () => onFinalized?.() },
+			{
+				onSuccess: () => {
+					if (isLastStep && quantityDonated) {
+						updateDonationMutation.mutate({
+							quantity_donated: Number(quantityDonated),
+						});
+					}
+					onFinalized?.();
+				},
+			},
 		);
 	}
 
@@ -311,7 +325,9 @@ export function AdminStepCard({
 					) : (
 						<StepActionsFooter
 							definitionLabel={definition.name}
-							isPending={updateStepMutation.isPending}
+							isPending={
+								updateStepMutation.isPending || updateDonationMutation.isPending
+							}
 							stepDescription={stepDescription}
 							finalizeDescription={finalizeDescription}
 							onFinalizeDescriptionChange={setFinalizeDescription}
@@ -319,6 +335,9 @@ export function AdminStepCard({
 							errorDescription={errorDescription}
 							onErrorDescriptionChange={setErrorDescription}
 							onMarkAsError={handleMarkAsError}
+							isLastStep={isLastStep}
+							quantityDonated={quantityDonated}
+							onQuantityDonatedChange={setQuantityDonated}
 						/>
 					)}
 				</>

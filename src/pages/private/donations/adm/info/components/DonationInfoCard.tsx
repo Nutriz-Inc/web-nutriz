@@ -1,4 +1,4 @@
-import { Calendar, IdCardLanyard } from "lucide-react";
+import { Calendar, IdCardLanyard, Milk } from "lucide-react";
 import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
 import {
 	EnumDonationStepStatus,
@@ -45,6 +45,14 @@ export function DonationInfoCard({ donation }: Props) {
 				label="Data de criação da doação"
 				value={formatDateBR(donation.created_at)}
 			/>
+
+			{donation.quantity_donated != null && (
+				<DonorInfoRow
+					icon={Milk}
+					label="Quantidade doada"
+					value={`${donation.quantity_donated} ml`}
+				/>
+			)}
 		</div>
 	);
 }

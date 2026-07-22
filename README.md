@@ -27,7 +27,7 @@ src/
 
 A rota `/artigos` exibe a leitura dos artigos da seção "Artigos para te apoiar em cada fase" da landing page — é acessível tanto deslogada (`publicRouter`) quanto logada (`routerPrivate`, vinda da Central de Conteúdos), por isso está registrada nos dois roteadores. O artigo ativo é definido pelo query param `a` (ex.: `/artigos?a=2`), e o botão "Voltar" muda de destino conforme o contexto (landing para visitante, Central de Conteúdos para usuária logada).
 
-- Os dados dos artigos (título, categoria, tempo de leitura, conteúdo e cores) moram em `src/pages/public/articles/data.ts`. `src/data/articles.ts` é só um re-export desse módulo para quem precisa reaproveitar os artigos fora daquela pasta (landing e Central de Conteúdos).
+- Os dados dos artigos (título, categoria, tempo de leitura, conteúdo e cores) moram em `src/pages/public/articles/data.ts`. Landing e Central de Conteúdos importam direto desse módulo.
 - A troca de artigo (busca do header ou card "Outros artigos") anima com Framer Motion e respeita `prefers-reduced-motion`.
 - O vídeo, os links de compartilhamento e a imagem de capa são mockados (marcados com `To do` no código).
 

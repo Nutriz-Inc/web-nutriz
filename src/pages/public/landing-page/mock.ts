@@ -1,7 +1,7 @@
 import {
 	type ArticleCategory,
 	ARTICLES as SHARED_ARTICLES,
-} from "@/data/articles";
+} from "@/pages/public/articles/data";
 
 export type Article = {
 	id: number;

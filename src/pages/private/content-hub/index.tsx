@@ -6,7 +6,6 @@ import { ArticlesGrid } from "./components/ArticlesGrid";
 import { FaqCard } from "./components/FaqCard";
 import { FeaturedSection } from "./components/FeaturedSection";
 import { FeaturedVideosSection } from "./components/FeaturedVideosSection";
-import { HeroSection } from "./components/HeroSection";
 import { NewsletterCta } from "./components/NewsletterCta";
 import { QuickTipsCard } from "./components/QuickTipsCard";
 import { FEATURED_MAIN_ID, FEATURED_MEDIUM_IDS, VIDEO_IDS } from "./constants";
@@ -24,10 +23,12 @@ export function ContentHubPage() {
 	);
 
 	return (
-		<Page hasPermission={auth?.type === EnumUserType.Common}>
+		<Page
+			title="Conteúdo educativo"
+			description="Artigos, vídeos e guias práticos para acompanhar você em cada etapa da doação de leite materno."
+			hasPermission={auth?.type === EnumUserType.Common}
+		>
 			<div className="mx-auto flex w-full max-w-[1200px] flex-col gap-10">
-				<HeroSection />
-
 				<FeaturedSection
 					mainArticle={mainArticle}
 					mediumArticles={mediumArticles}

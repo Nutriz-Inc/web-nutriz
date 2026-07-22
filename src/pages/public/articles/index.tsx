@@ -1,9 +1,10 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Page } from "@/components/layout/Page";
+import { useAuth } from "@/hooks/use-auth";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { ArticleCard } from "./components/ArticleCard";
-import { ArticlesHeader } from "./components/ArticlesHeader";
 import { DonateCta } from "./components/DonateCta";
 import { RelatedCard } from "./components/RelatedCard";
 import { ShareCard } from "./components/ShareCard";
@@ -14,6 +15,7 @@ import { getArticleById } from "./data";
 export function ArticlesScreen() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const shouldReduceMotion = useReducedMotion();
+	const { isAuthenticated } = useAuth();
 	const article = getArticleById(Number(searchParams.get("a")));
 
 	useEffect(() => {
@@ -46,42 +48,44 @@ export function ArticlesScreen() {
 
 	return (
 		<div className="min-h-screen bg-[#eef2f7] [&_button]:cursor-pointer">
-			<ArticlesHeader onSelectArticle={handleSelectArticle} />
+			<div className="mx-auto w-full max-w-[1100px] px-5 py-6 lg:px-8 lg:py-8">
+				<Page backTo={isAuthenticated ? "/conteudo-educativo" : "/"}>
+					<main className="flex flex-col gap-6 lg:grid lg:grid-cols-[1fr_320px] lg:items-start">
+						<article>
+							<AnimatePresence mode="wait">
+								<motion.div key={article.id} {...articleSwap}>
+									<ArticleCard article={article} />
+								</motion.div>
+							</AnimatePresence>
+						</article>
 
-			<main className="mx-auto flex w-full max-w-[1100px] flex-col gap-6 px-5 py-6 lg:grid lg:grid-cols-[1fr_320px] lg:items-start lg:px-8 lg:py-8">
-				<article>
-					<AnimatePresence mode="wait">
-						<motion.div key={article.id} {...articleSwap}>
-							<ArticleCard article={article} />
-						</motion.div>
-					</AnimatePresence>
-				</article>
-
-				<motion.aside
-					{...sidebarReveal}
-					aria-label="Complementos do artigo"
-					className="flex flex-col gap-5"
-				>
-					<motion.div variants={sidebarItem} className="lg:order-2">
-						<TocCard article={article} />
-					</motion.div>
-					<motion.div variants={sidebarItem} className="lg:order-4">
-						<RelatedCard
-							article={article}
-							onSelectArticle={handleSelectArticle}
-						/>
-					</motion.div>
-					<motion.div variants={sidebarItem} className="lg:order-5">
-						<DonateCta />
-					</motion.div>
-					<motion.div variants={sidebarItem} className="lg:order-1">
-						<ShareCard />
-					</motion.div>
-					<motion.div variants={sidebarItem} className="lg:order-3">
-						<StatsCard />
-					</motion.div>
-				</motion.aside>
-			</main>
+						<motion.aside
+							{...sidebarReveal}
+							aria-label="Complementos do artigo"
+							className="flex flex-col gap-5"
+						>
+							<motion.div variants={sidebarItem} className="lg:order-2">
+								<TocCard article={article} />
+							</motion.div>
+							<motion.div variants={sidebarItem} className="lg:order-4">
+								<RelatedCard
+									article={article}
+									onSelectArticle={handleSelectArticle}
+								/>
+							</motion.div>
+							<motion.div variants={sidebarItem} className="lg:order-5">
+								<DonateCta />
+							</motion.div>
+							<motion.div variants={sidebarItem} className="lg:order-1">
+								<ShareCard />
+							</motion.div>
+							<motion.div variants={sidebarItem} className="lg:order-3">
+								<StatsCard />
+							</motion.div>
+						</motion.aside>
+					</main>
+				</Page>
+			</div>
 		</div>
 	);
 }

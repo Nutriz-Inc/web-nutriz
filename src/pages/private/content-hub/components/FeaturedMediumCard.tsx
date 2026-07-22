@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import type { Article } from "@/pages/public/articles/data";
-import { ArticleCoverPlaceholder } from "./ArticleCoverPlaceholder";
+import { ArticleCover } from "./ArticleCover";
 
 type FeaturedMediumCardProps = {
 	article: Article;
@@ -17,7 +17,7 @@ export function FeaturedMediumCard({ article }: FeaturedMediumCardProps) {
 			onClick={() => navigate(`/artigos?a=${article.id}`)}
 			className="flex cursor-pointer flex-col overflow-hidden rounded-xl border border-[#e4e4e7] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
 		>
-			<ArticleCoverPlaceholder article={article} className="h-[100px]" />
+			<ArticleCover article={article} className="h-[100px]" />
 
 			<div className="flex flex-col gap-2 p-4">
 				<span

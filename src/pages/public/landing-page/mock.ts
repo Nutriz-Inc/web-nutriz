@@ -10,6 +10,10 @@ export type Article = {
 	accent: string;
 	title: string;
 	readTime: string;
+	coverImage: string;
+	coverAlt: string;
+	coverWidth: number;
+	coverHeight: number;
 };
 
 const LANDING_ARTICLE_COLORS: Record<
@@ -22,15 +26,16 @@ const LANDING_ARTICLE_COLORS: Record<
 	Cuidados: { categoryColor: "#3b6fd0", accent: "#dbe7fb" },
 };
 
-// A landing mostra só um teaser de 4 artigos (grid lg:grid-cols-4) — o
-// catálogo completo (agora com mais conteúdos) fica na Central de
-// Conteúdos, área logada. Os 4 primeiros são os originais da spec.
 export const ARTICLES: Article[] = SHARED_ARTICLES.slice(0, 4).map(
 	(article) => ({
 		id: article.id,
 		category: article.category,
 		title: article.title,
 		readTime: `${article.readTimeMinutes} min de leitura`,
+		coverImage: article.coverImage,
+		coverAlt: article.coverAlt,
+		coverWidth: article.coverWidth,
+		coverHeight: article.coverHeight,
 		...LANDING_ARTICLE_COLORS[article.category],
 	}),
 );

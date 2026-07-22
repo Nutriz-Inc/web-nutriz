@@ -1,4 +1,3 @@
-import { BookOpen } from "lucide-react";
 import { ARTICLES, type Article } from "../data";
 
 type RelatedCardProps = {
@@ -20,13 +19,14 @@ export function RelatedCard({ article, onSelectArticle }: RelatedCardProps) {
 							onClick={() => onSelectArticle(item.id)}
 							className="flex w-full items-start gap-3 rounded-lg p-2 text-left transition-colors duration-150 hover:bg-[#f4f6f9] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#0d3b6e]"
 						>
-							<span
+							<img
+								src={item.coverImage}
+								alt=""
 								aria-hidden
-								className="flex size-11 shrink-0 items-center justify-center rounded-lg"
-								style={{ backgroundColor: item.soft }}
-							>
-								<BookOpen className="size-5" style={{ color: item.accent }} />
-							</span>
+								width={item.coverWidth}
+								height={item.coverHeight}
+								className="size-11 shrink-0 rounded-lg object-cover"
+							/>
 							<span className="flex flex-col gap-0.5">
 								<span className="text-[13px] font-semibold leading-snug text-[#09090b]">
 									{item.title}

@@ -1,3 +1,12 @@
+import alimentacaoNutriz from "@/assets/artigos/alimentacao-nutriz.jpg";
+import apoioSemDoar from "@/assets/artigos/apoio-sem-doar.jpg";
+import armazenamentoLeite from "@/assets/artigos/armazenamento-leite.jpg";
+import diarioDoadora from "@/assets/artigos/diario-doadora.jpg";
+import excessoDeLeite from "@/assets/artigos/excesso-de-leite.jpg";
+import higieneOrdenha from "@/assets/artigos/higiene-ordenha.jpg";
+import nutrientesLactacao from "@/assets/artigos/nutrientes-lactacao.jpg";
+import triagemDoacao from "@/assets/artigos/triagem-doacao.jpg";
+
 export type ArticleBlock =
 	| { h: string }
 	| { p: string }
@@ -17,6 +26,10 @@ export type Article = {
 	soft: string;
 	softBorder: string;
 	title: string;
+	coverImage: string;
+	coverAlt: string;
+	coverWidth: number;
+	coverHeight: number;
 	author: string;
 	authorInitials: string;
 	authorBio: string;
@@ -25,6 +38,7 @@ export type Article = {
 	takeaways: string[];
 	videoTitle: string;
 	videoDuration: string;
+	videoUrl?: string;
 	blocks: ArticleBlock[];
 };
 
@@ -36,6 +50,10 @@ export const ARTICLES: Article[] = [
 		soft: "#ccfbf1",
 		softBorder: "#99f6e4",
 		title: "Como armazenar e transportar seu leite com segurança",
+		coverImage: armazenamentoLeite,
+		coverAlt: "Frascos de leite materno identificados e organizados em freezer",
+		coverWidth: 772,
+		coverHeight: 960,
 		author: "Dra. Mariana Costa",
 		authorInitials: "MC",
 		authorBio:
@@ -87,6 +105,10 @@ export const ARTICLES: Article[] = [
 		soft: "#ecfccb",
 		softBorder: "#d9f99d",
 		title: "Alimentação da nutriz: o que comer durante a doação",
+		coverImage: alimentacaoNutriz,
+		coverAlt: "Mulher segurando bomba manual de extração de leite materno",
+		coverWidth: 678,
+		coverHeight: 452,
 		author: "Carla Menezes",
 		authorInitials: "CM",
 		authorBio:
@@ -138,6 +160,11 @@ export const ARTICLES: Article[] = [
 		soft: "#fdf1f5",
 		softBorder: "#fadbe7",
 		title: "Não pôde doar? Veja como você ainda pode ajudar",
+		coverImage: apoioSemDoar,
+		coverAlt:
+			"Profissional de banco de leite segurando dois frascos de leite doado",
+		coverWidth: 1100,
+		coverHeight: 734,
 		author: "Juliana Prado",
 		authorInitials: "JP",
 		authorBio:
@@ -186,6 +213,11 @@ export const ARTICLES: Article[] = [
 		soft: "#dbeafe",
 		softBorder: "#bfdbfe",
 		title: "Higiene na ordenha: passo a passo da rBLH",
+		coverImage: higieneOrdenha,
+		coverAlt:
+			"Profissional manipulando frascos esterilizados com luvas em capela de fluxo",
+		coverWidth: 539,
+		coverHeight: 371,
 		author: "Renata Lima",
 		authorInitials: "RL",
 		authorBio:
@@ -234,6 +266,11 @@ export const ARTICLES: Article[] = [
 		soft: "#ccfbf1",
 		softBorder: "#99f6e4",
 		title: "Excesso de leite: transforme o que sobra em doação",
+		coverImage: excessoDeLeite,
+		coverAlt:
+			"Bomba de extração de leite materno com mamadeira, mãe amamentando ao fundo",
+		coverWidth: 1200,
+		coverHeight: 675,
 		author: "Dra. Beatriz Nogueira",
 		authorInitials: "BN",
 		authorBio:
@@ -285,6 +322,11 @@ export const ARTICLES: Article[] = [
 		soft: "#dbeafe",
 		softBorder: "#bfdbfe",
 		title: "Quem pode doar? Critérios de saúde e triagem",
+		coverImage: triagemDoacao,
+		coverAlt:
+			"Profissional de saúde realizando coleta de sangue para triagem de doadora",
+		coverWidth: 962,
+		coverHeight: 552,
 		author: "Renata Lima",
 		authorInitials: "RL",
 		authorBio:
@@ -336,6 +378,10 @@ export const ARTICLES: Article[] = [
 		soft: "#fdf1f5",
 		softBorder: "#fadbe7",
 		title: "Diário de uma doadora: a história da Juliana e do Theo",
+		coverImage: diarioDoadora,
+		coverAlt: "Mãos servindo leite materno em um recipiente",
+		coverWidth: 776,
+		coverHeight: 486,
 		author: "Camila Duarte",
 		authorInitials: "CD",
 		authorBio:
@@ -384,6 +430,11 @@ export const ARTICLES: Article[] = [
 		soft: "#ecfccb",
 		softBorder: "#d9f99d",
 		title: "Ferro, cálcio e vitamina D: os nutrientes-chave da lactação",
+		coverImage: nutrientesLactacao,
+		coverAlt:
+			"Profissional de laboratório organizando frascos e tubos de amostras",
+		coverWidth: 984,
+		coverHeight: 653,
 		author: "Carla Menezes",
 		authorInitials: "CM",
 		authorBio:

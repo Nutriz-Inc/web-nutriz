@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, BadgeCheck, BookOpen } from "lucide-react";
+import { ArrowRight, BadgeCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { fadeUp, staggerContainer } from "../animations/variants";
 import { useReveal } from "../hooks/use-reveal";
@@ -52,15 +52,13 @@ export function ArticlesSection() {
 							onClick={() => navigate(`/artigos?a=${article.id}`)}
 							className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#e6ecf5] bg-white shadow-sm"
 						>
-							<div
-								className="flex h-24 items-center justify-center"
-								style={{ backgroundColor: article.accent }}
-							>
-								<BookOpen
-									className="size-8"
-									style={{ color: article.categoryColor }}
-								/>
-							</div>
+							<img
+								src={article.coverImage}
+								alt={article.coverAlt}
+								width={article.coverWidth}
+								height={article.coverHeight}
+								className="h-24 w-full object-cover"
+							/>
 
 							<div className="flex flex-1 flex-col gap-3 p-5">
 								<span

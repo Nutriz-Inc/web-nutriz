@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import type { Article } from "@/pages/public/articles/data";
 import { getArticleSummary } from "../utils";
-import { ArticleCoverPlaceholder } from "./ArticleCoverPlaceholder";
+import { ArticleCover } from "./ArticleCover";
 
 type FeaturedMainCardProps = {
 	article: Article;
@@ -22,7 +22,7 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 			onClick={goToArticle}
 			className="flex cursor-pointer flex-col overflow-hidden rounded-xl border border-[#e4e4e7] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
 		>
-			<ArticleCoverPlaceholder article={article} className="h-[220px]" />
+			<ArticleCover article={article} className="h-[220px]" />
 
 			<div className="flex flex-1 flex-col gap-3 p-6">
 				<span

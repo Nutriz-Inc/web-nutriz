@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { Article } from "@/pages/public/articles/data";
 import { getArticleSummary } from "../utils";
+import { ArticleCover } from "./ArticleCover";
 
 type ArticleGridCardProps = {
 	article: Article;
@@ -18,13 +18,10 @@ export function ArticleGridCard({ article }: ArticleGridCardProps) {
 			onClick={() => navigate(`/artigos?a=${article.id}`)}
 			className="flex cursor-pointer gap-4 rounded-xl border border-[#e4e4e7] bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
 		>
-			<span
-				aria-hidden
-				className="flex size-[72px] shrink-0 items-center justify-center rounded-lg"
-				style={{ backgroundColor: article.soft }}
-			>
-				<BookOpen className="size-6" style={{ color: article.accent }} />
-			</span>
+			<ArticleCover
+				article={article}
+				className="size-[72px] shrink-0 rounded-lg"
+			/>
 
 			<div className="flex min-w-0 flex-col gap-1.5">
 				<span

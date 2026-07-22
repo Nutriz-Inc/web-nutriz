@@ -46,20 +46,14 @@ export function ArticleCard({ article }: ArticleCardProps) {
 				</span>
 			</div>
 
-			{/* To do: substituir o placeholder pela imagem de capa real do artigo */}
-			<div
-				className="mt-5 flex h-[260px] items-center justify-center rounded-[10px] border"
-				style={{
-					backgroundColor: article.soft,
-					borderColor: article.softBorder,
-				}}
-				role="img"
-				aria-label={`Imagem de capa do artigo ${article.title}`}
-			>
-				<span className="text-[13px]" style={{ color: article.accent }}>
-					Imagem de capa do artigo
-				</span>
-			</div>
+			<img
+				src={article.coverImage}
+				alt={article.coverAlt}
+				width={article.coverWidth}
+				height={article.coverHeight}
+				className="mt-5 h-[260px] w-full rounded-[10px] border object-cover"
+				style={{ borderColor: article.softBorder }}
+			/>
 
 			<section
 				aria-label="O que você vai aprender"

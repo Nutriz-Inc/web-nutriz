@@ -23,11 +23,19 @@ export function VideoPreviewCard({ article }: VideoPreviewCardProps) {
 			<button
 				type="button"
 				onClick={goToArticle}
-				aria-label={`Assistir: ${article.videoTitle}`}
-				className="group relative flex h-[160px] cursor-pointer items-center justify-center bg-[#0d3b6e]"
+				aria-label={`Ver vídeo no artigo: ${article.videoTitle}`}
+				className="group relative flex h-[160px] cursor-pointer items-center justify-center"
 			>
-				<span className="flex size-12 items-center justify-center rounded-full bg-[rgba(13,59,110,0.9)] ring-1 ring-white/40 transition-transform duration-150 group-hover:scale-105">
-					<Play className="ml-0.5 size-5 fill-white text-white" aria-hidden />
+				<img
+					src={article.coverImage}
+					alt=""
+					aria-hidden
+					className="absolute inset-0 h-full w-full object-cover brightness-[0.6] transition-transform duration-150 group-hover:scale-105"
+				/>
+
+				<span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/50 px-2 py-1 text-[11px] font-medium text-white">
+					<Play className="size-3 fill-white" aria-hidden />
+					Vídeo no artigo
 				</span>
 
 				<span className="absolute right-3 top-3 rounded bg-black/50 px-1.5 py-0.5 text-[11px] font-medium text-white">
@@ -53,9 +61,6 @@ export function VideoPreviewCard({ article }: VideoPreviewCardProps) {
 				>
 					{article.videoTitle}
 				</button>
-				<span className="text-[11.5px] text-[#71717a]">
-					Canal rBLH Brasil · dentro do artigo
-				</span>
 			</div>
 		</motion.div>
 	);

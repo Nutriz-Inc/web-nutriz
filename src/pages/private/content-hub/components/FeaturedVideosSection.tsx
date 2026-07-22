@@ -17,7 +17,7 @@ export function FeaturedVideosSection({ videos }: FeaturedVideosSectionProps) {
 					Vídeos em destaque
 				</h2>
 				<span className="hidden text-[13px] text-[#71717a] sm:inline">
-					Demonstrações práticas do Canal rBLH Brasil
+					Demonstrações práticas passo a passo
 				</span>
 			</div>
 

@@ -23,28 +23,30 @@ export function ContentHubPage() {
 	);
 
 	return (
-		<Page
-			title="Conteúdo educativo"
-			description="Artigos, vídeos e guias práticos para acompanhar você em cada etapa da doação de leite materno."
-			hasPermission={auth?.type === EnumUserType.Common}
-		>
-			<div className="mx-auto flex w-full max-w-[1200px] flex-col gap-10">
-				<FeaturedSection
-					mainArticle={mainArticle}
-					mediumArticles={mediumArticles}
-				/>
+		<div className="mx-auto w-full max-w-[1200px]">
+			<Page
+				title="Conteúdo educativo"
+				description="Artigos, vídeos e guias práticos para acompanhar você em cada etapa da doação de leite materno."
+				hasPermission={auth?.type === EnumUserType.Common}
+			>
+				<div className="flex flex-col gap-10">
+					<FeaturedSection
+						mainArticle={mainArticle}
+						mediumArticles={mediumArticles}
+					/>
 
-				<ArticlesGrid articles={gridArticles} />
+					<ArticlesGrid articles={gridArticles} />
 
-				<FeaturedVideosSection videos={videos} />
+					<FeaturedVideosSection videos={videos} />
 
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<QuickTipsCard />
-					<FaqCard />
+					<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+						<QuickTipsCard />
+						<FaqCard />
+					</div>
+
+					<NewsletterCta />
 				</div>
-
-				<NewsletterCta />
-			</div>
-		</Page>
+			</Page>
+		</div>
 	);
 }

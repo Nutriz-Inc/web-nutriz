@@ -7,7 +7,6 @@ import { fadeUp, staggerContainer } from "@/lib/motion";
 import { ArticleCard } from "./components/ArticleCard";
 import { DonateCta } from "./components/DonateCta";
 import { RelatedCard } from "./components/RelatedCard";
-import { ShareCard } from "./components/ShareCard";
 import { StatsCard } from "./components/StatsCard";
 import { TocCard } from "./components/TocCard";
 import { getArticleById } from "./data";
@@ -64,23 +63,20 @@ export function ArticlesScreen() {
 							aria-label="Complementos do artigo"
 							className="flex flex-col gap-5"
 						>
-							<motion.div variants={sidebarItem} className="lg:order-2">
+							<motion.div variants={sidebarItem} className="lg:order-1">
 								<TocCard article={article} />
 							</motion.div>
-							<motion.div variants={sidebarItem} className="lg:order-4">
+							<motion.div variants={sidebarItem} className="lg:order-2">
+								<StatsCard />
+							</motion.div>
+							<motion.div variants={sidebarItem} className="lg:order-3">
 								<RelatedCard
 									article={article}
 									onSelectArticle={handleSelectArticle}
 								/>
 							</motion.div>
-							<motion.div variants={sidebarItem} className="lg:order-5">
+							<motion.div variants={sidebarItem} className="lg:order-4">
 								<DonateCta />
-							</motion.div>
-							<motion.div variants={sidebarItem} className="lg:order-1">
-								<ShareCard />
-							</motion.div>
-							<motion.div variants={sidebarItem} className="lg:order-3">
-								<StatsCard />
 							</motion.div>
 						</motion.aside>
 					</main>

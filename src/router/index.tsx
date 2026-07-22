@@ -14,12 +14,6 @@ import { LoginScreen } from "../pages/public/login";
 import { RegisterScreen } from "../pages/public/register";
 import { DefaultRedirect } from "./DefaultRedirect";
 
-// IDs explícitos em toda rota: `routerPrivate` e `publicRouter` são duas
-// instâncias separadas de createBrowserRouter ativas ao mesmo tempo (ver
-// App.tsx). Sem `id`, o React Router gera ids automáticos por índice do
-// array — como os dois routers têm rotas na mesma posição, os ids colidem
-// entre eles (ex.: routerPrivate[2] e publicRouter[2] viravam ambos "2"),
-// contaminando o estado interno do router ao trocar de instância no logout.
 export const routerPrivate = createBrowserRouter([
 	{
 		id: "private-home",
@@ -27,10 +21,6 @@ export const routerPrivate = createBrowserRouter([
 		element: <HomePage />,
 	},
 	{
-		// A tela de leitura de artigo é a mesma do publicRouter — reaparece
-		// aqui porque a Central de Conteúdos (área logada) também navega
-		// para ela; sem essa entrada, o navigate("/artigos") caía no
-		// fallback "/*" abaixo (DefaultRedirect) e ia parar em "/home".
 		id: "private-artigos",
 		path: "/artigos",
 		element: <ArticlesScreen />,

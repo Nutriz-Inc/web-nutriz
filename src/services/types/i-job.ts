@@ -54,7 +54,7 @@ export interface IJobResponse extends Job {
 	address?: Address;
 }
 export interface IListJobsResponse extends IPaginationResponse {
-	data: Job[];
+	data: IJobResponse[];
 }
 
 export interface IUpdateJobRequest {

@@ -20,10 +20,6 @@ type AppDrawerProps = {
 export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 	const { auth, handleLogout } = useAuth();
 
-	// No instante do logout, `auth` vira null antes deste componente
-	// desmontar (a troca de router acontece no mesmo commit) — sem essa
-	// guarda, `auth!.type` derruba o AppDrawer com o error boundary do
-	// React Router e a UI fica presa numa tela intermediária.
 	if (!auth) {
 		return null;
 	}

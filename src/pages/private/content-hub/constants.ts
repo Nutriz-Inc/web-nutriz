@@ -1,3 +1,7 @@
+export const FEATURED_MAIN_ID = 1;
+export const FEATURED_MEDIUM_IDS = [2, 3];
+export const VIDEO_IDS = [1, 7, 8];
+
 export type QuickTip = {
 	title: string;
 	description: string;

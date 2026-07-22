@@ -9,10 +9,8 @@ import { FeaturedVideosSection } from "./components/FeaturedVideosSection";
 import { HeroSection } from "./components/HeroSection";
 import { NewsletterCta } from "./components/NewsletterCta";
 import { QuickTipsCard } from "./components/QuickTipsCard";
+import { FEATURED_MAIN_ID, FEATURED_MEDIUM_IDS, VIDEO_IDS } from "./constants";
 
-const FEATURED_MAIN_ID = 1;
-const FEATURED_MEDIUM_IDS = [2, 3];
-const VIDEO_IDS = [1, 7, 8];
 const FEATURED_IDS = new Set([FEATURED_MAIN_ID, ...FEATURED_MEDIUM_IDS]);
 
 export function ContentHubPage() {

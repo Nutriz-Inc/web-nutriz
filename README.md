@@ -27,13 +27,14 @@ src/
 
 A rota `/artigos` exibe a leitura dos artigos da seção "Artigos para te apoiar em cada fase" da landing page — é acessível tanto deslogada (`publicRouter`) quanto logada (`routerPrivate`, vinda da Central de Conteúdos), por isso está registrada nos dois roteadores. O artigo ativo é definido pelo query param `a` (ex.: `/artigos?a=2`), e o botão "Voltar" muda de destino conforme o contexto (landing para visitante, Central de Conteúdos para usuária logada).
 
-- Os dados dos artigos (título, categoria, tempo de leitura, conteúdo e cores) moram em `src/pages/public/articles/data.ts`. Landing e Central de Conteúdos importam direto desse módulo.
-- A troca de artigo (busca do header ou card "Outros artigos") anima com Framer Motion e respeita `prefers-reduced-motion`.
-- O vídeo, os links de compartilhamento e a imagem de capa são mockados (marcados com `To do` no código).
+- Os dados dos artigos (título, categoria, tempo de leitura, conteúdo, cores e imagem de capa) moram em `src/pages/public/articles/data.ts`. Landing, Central de Conteúdos e a tela de artigo individual importam direto desse módulo.
+- A troca de artigo (card "Outros artigos" na sidebar) anima com Framer Motion e respeita `prefers-reduced-motion`.
+- A capa de cada artigo é uma imagem real (`src/assets/artigos/`). O vídeo usa `Article.videoUrl` quando definido (embed real); sem URL, mostra a capa com o selo "Vídeo em breve" em vez de simular um player.
+- O cabeçalho de cada tela usa o componente compartilhado `Page` (título/descrição/botão de voltar); não há mais busca nem função de compartilhar.
 
 ## Central de conteúdos
 
-A rota privada `/conteudo-educativo` (`src/pages/private/content-hub/`) é a home de artigos da área logada, acessível pelo menu hambúrguer. Destaques, grid "Mais conteúdos", vídeos em destaque, dicas rápidas e um accordion de dúvidas frequentes — todos os cards/vídeos abrem a mesma tela de leitura de artigos acima. A busca do header filtra por título/categoria; o CTA de newsletter no rodapé é mockado (`// TODO: integrar newsletter`).
+A rota privada `/conteudo-educativo` (`src/pages/private/content-hub/`) é a home de artigos da área logada, acessível pelo menu hambúrguer. Destaques, grid "Mais conteúdos", vídeos em destaque, dicas rápidas e um accordion de dúvidas frequentes — todos os cards/vídeos abrem a mesma tela de leitura de artigos acima. O CTA de newsletter no rodapé é mockado (`// TODO: integrar newsletter`).
 
 ## Como rodar o projeto
 

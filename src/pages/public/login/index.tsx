@@ -1,6 +1,6 @@
 import { Eye, EyeOff, LoaderCircle, Mail } from "lucide-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginBg from "@/assets/images/login-bg.svg";
 import NutrizLogo from "@/assets/images/nutriz-logo.svg";
 
@@ -17,7 +17,6 @@ export type FormErrors = {
 
 export function LoginScreen() {
 	const { updateAuth } = useAuth();
-	const navigate = useNavigate();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -27,7 +26,6 @@ export function LoginScreen() {
 	const { loginMutation } = useLogin({
 		updateAuth,
 		setErrors,
-		onSuccess: () => navigate("/home"),
 	});
 
 	function validate(): boolean {

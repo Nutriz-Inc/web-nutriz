@@ -8,8 +8,10 @@ import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { BABY_ML_PER_DAY } from "@/utils/constants";
+import { DonationStatusCard } from "./components/DonationStatusCard";
 import { MetricCard } from "./components/MetricCard";
 import { NextDonationStep } from "./components/NextDonationStep";
+import { StoriesCard } from "./components/StoriesCard";
 import { useQueryUserInfo } from "./hooks";
 
 export function HomePage() {
@@ -42,10 +44,10 @@ export function HomePage() {
 		{
 			iconBg: "bg-[#e1f5ee]",
 			icon: <Droplet className="size-6 text-[#0e9e94]" />,
-			value: `${data?.milk_donated || 0} L`,
+			value: `${data?.milk_donated ? data?.milk_donated / 1000 : 0} L`,
 			valueColor: "text-[#0e9e94]",
 			label: "Leite doado",
-			sublabel: `${(data?.milk_donated || 0) * 1000} ml no total`,
+			sublabel: `${data?.milk_donated || 0} ml no total`,
 		},
 		{
 			iconBg: "bg-[#fbeaf0]",
@@ -55,9 +57,7 @@ export function HomePage() {
 				</span>
 			),
 			value: String(
-				data?.milk_donated
-					? Math.floor(((data?.milk_donated || 0) * 1000) / BABY_ML_PER_DAY)
-					: 0,
+				data?.milk_donated ? data?.milk_donated / BABY_ML_PER_DAY : 0,
 			),
 			valueColor: "text-[#f2579f]",
 			label: "Bebês alimentados",
@@ -157,6 +157,43 @@ export function HomePage() {
 									sublabel={metric.sublabel}
 								/>
 							))}
+						</div>
+					</div>
+				</div>
+
+				{data?.current_donation?.steps &&
+					data.current_donation.steps.length > 0 && (
+						<div className="bg-[#f6f8fd]">
+							<div className="flex flex-col gap-6 items-start max-w-[1440px] mx-auto px-5 pb-10 lg:gap-8 lg:px-20 lg:pb-[106px]">
+								<div className="flex flex-col gap-2 w-full lg:max-w-[620px]">
+									<p className="font-semibold text-[#0e9e94] text-[13px] tracking-[1.12px] uppercase">
+										Status
+									</p>
+									<p className="font-extrabold leading-[34px] text-[#0e2a45] text-[22px] lg:text-[34px] lg:leading-[40px]">
+										Acompanhe sua doação
+									</p>
+								</div>
+
+								<div className="w-full lg:max-w-[620px]">
+									<DonationStatusCard steps={data.current_donation.steps} />
+								</div>
+							</div>
+						</div>
+					)}
+
+				<div className="bg-[#f6f8fd]">
+					<div className="flex flex-col gap-6 items-start max-w-[1440px] mx-auto px-5 pb-10 lg:gap-8 lg:px-20 lg:pb-[106px]">
+						<div className="flex flex-col gap-2 w-full lg:max-w-[620px]">
+							<p className="font-semibold text-[#0e9e94] text-[13px] tracking-[1.12px] uppercase">
+								Rede de apoio
+							</p>
+							<p className="font-extrabold leading-[34px] text-[#0e2a45] text-[22px] lg:text-[34px] lg:leading-[40px]">
+								Histórias que o seu leite escreve
+							</p>
+						</div>
+
+						<div className="w-full lg:max-w-[620px]">
+							<StoriesCard />
 						</div>
 					</div>
 				</div>

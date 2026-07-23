@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
-import { formatDateBR } from "@/utils/formatter";
 import { BabySection } from "./components/BabySection";
 import { BottomActionBar } from "./components/BottomActionBar";
 import {
@@ -41,6 +40,8 @@ export function ProfilePage() {
 	const createBaby = useCreateBaby(auth?.id_user);
 	const removeBaby = useRemoveBaby(auth?.id_user);
 
+	const isCommon = auth?.type === EnumUserType.Common;
+
 	const address = data?.addresses?.[0];
 	const babies = data?.babies ?? [];
 
@@ -65,6 +66,7 @@ export function ProfilePage() {
 			values.password !== "");
 
 	const hasAddressChanges =
+		isCommon &&
 		myData !== null &&
 		(values.zip_code !== baselineValues.zip_code ||
 			values.number !== baselineValues.number ||
@@ -212,26 +214,32 @@ export function ProfilePage() {
 	return (
 		<Page
 			loading={isLoading}
-			hasPermission={auth?.type === EnumUserType.Common}
 			title="Perfil"
 			description="Gerencie suas informações pessoais e de seu bebê."
 		>
 			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col bg-[#f7f9fb] lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:px-8 lg:py-8">
 				<div className="lg:mb-5 lg:flex lg:items-center lg:justify-between lg:gap-6 lg:rounded-2xl lg:border lg:border-[#e3eaf2] lg:bg-white lg:p-6">
-					<ProfileHeader name={data?.name ?? ""} email={data?.email ?? ""} />
+					<ProfileHeader
+						name={data?.name ?? ""}
+						email={data?.email ?? ""}
+						userType={auth?.type}
+					/>
 
-					<div className="border-b border-[#888]/12 px-4 py-3 lg:shrink-0 lg:border-none lg:p-0">
-						<ProfileTabs value={tab} onChange={setTab} />
-					</div>
+					{isCommon && (
+						<div className="border-b border-[#888]/12 px-4 py-3 lg:shrink-0 lg:border-none lg:p-0">
+							<ProfileTabs value={tab} onChange={setTab} />
+						</div>
+					)}
 				</div>
 
 				<div className="flex-1 px-3 py-4 lg:flex-none lg:px-0 lg:py-0">
-					{tab === "dados" ? (
+					{!isCommon || tab === "dados" ? (
 						<MyDataSection
 							values={values}
 							onChange={setMyData}
-							birthDate={data?.birth_date ? formatDateBR(data.birth_date) : ""}
+							identifier={data?.internal_identifier ?? ""}
 							street={address?.street ?? ""}
+							showAddress={isCommon}
 						/>
 					) : (
 						<BabySection

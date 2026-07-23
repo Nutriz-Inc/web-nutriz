@@ -9,7 +9,7 @@ import { AdminStepCard } from "./components/AdminStepCard";
 import { DonationInfoCard } from "./components/DonationInfoCard";
 import { DonationStatusStepper } from "./components/DonationStatusStepper";
 import { DonorInfoCard } from "./components/DonorInfoCard";
-import { type AdminStepVisualStatus } from "./constants";
+import type { AdminStepVisualStatus } from "./constants";
 import {
 	useAdminDonationDetail,
 	useCreateDonationStep,
@@ -130,6 +130,7 @@ export function DonationManagementDetailPage() {
 									donorAddresses={donorQuery.data?.addresses ?? []}
 									onFinalized={() => handleStepFinalized(definition.order)}
 									donationEnded={hasFailedStep}
+									isLastStep={definition.order === STEP_DEFINITIONS.length}
 									jobs={jobs.filter(
 										(job) => job.id_step === step?.id_donation_step,
 									)}

@@ -1,4 +1,5 @@
 import { MapPin, User } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { formatCep, formatCpf, formatPhoneNumber } from "@/utils/formatter";
 import { Field } from "../../../../components/full/Field";
 import { PasswordField } from "./PasswordField";
@@ -18,15 +19,17 @@ export type MyDataFormValues = {
 type MyDataSectionProps = {
 	values: MyDataFormValues;
 	onChange: (values: MyDataFormValues) => void;
-	birthDate: string;
+	identifier: string;
 	street: string;
+	showAddress?: boolean;
 };
 
 export function MyDataSection({
 	values,
 	onChange,
-	birthDate,
+	identifier,
 	street,
+	showAddress = true,
 }: MyDataSectionProps) {
 	function setField<K extends keyof MyDataFormValues>(
 		key: K,
@@ -36,7 +39,12 @@ export function MyDataSection({
 	}
 
 	return (
-		<div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:items-start lg:gap-5">
+		<div
+			className={cn(
+				"flex flex-col gap-4 lg:gap-5",
+				showAddress ? "lg:grid lg:grid-cols-2 lg:items-start" : "lg:max-w-xl",
+			)}
+		>
 			<SectionCard icon={<User className="size-[18px]" />} title="Perfil">
 				<Field
 					label="Nome Completo"
@@ -44,8 +52,8 @@ export function MyDataSection({
 					onChange={(value) => setField("name", value)}
 				/>
 				<Field
-					label="Data de Nascimento"
-					value={birthDate}
+					label="Identificador"
+					value={identifier}
 					editable={false}
 					onChange={() => {}}
 				/>
@@ -75,36 +83,38 @@ export function MyDataSection({
 				/>
 			</SectionCard>
 
-			<SectionCard icon={<MapPin className="size-[18px]" />} title="Endereço">
-				<Field
-					label="CEP"
-					value={values.zip_code}
-					inputMode="numeric"
-					onChange={(value) => setField("zip_code", formatCep(value))}
-				/>
-				<Field
-					label="Endereço"
-					value={street}
-					editable={false}
-					onChange={() => {}}
-				/>
-				<div className="flex">
-					<div className="flex-1 border-r border-[#387ccd]/10">
-						<Field
-							label="Número"
-							value={values.number}
-							onChange={(value) => setField("number", value)}
-						/>
+			{showAddress && (
+				<SectionCard icon={<MapPin className="size-[18px]" />} title="Endereço">
+					<Field
+						label="CEP"
+						value={values.zip_code}
+						inputMode="numeric"
+						onChange={(value) => setField("zip_code", formatCep(value))}
+					/>
+					<Field
+						label="Endereço"
+						value={street}
+						editable={false}
+						onChange={() => {}}
+					/>
+					<div className="flex">
+						<div className="flex-1 border-r border-[#387ccd]/10">
+							<Field
+								label="Número"
+								value={values.number}
+								onChange={(value) => setField("number", value)}
+							/>
+						</div>
+						<div className="flex-1">
+							<Field
+								label="Complemento"
+								value={values.complement}
+								onChange={(value) => setField("complement", value)}
+							/>
+						</div>
 					</div>
-					<div className="flex-1">
-						<Field
-							label="Complemento"
-							value={values.complement}
-							onChange={(value) => setField("complement", value)}
-						/>
-					</div>
-				</div>
-			</SectionCard>
+				</SectionCard>
+			)}
 		</div>
 	);
 }

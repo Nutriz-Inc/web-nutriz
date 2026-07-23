@@ -7,6 +7,7 @@ export interface Donation {
 	is_active: boolean;
 	quantity_donated?: number;
 	user_feedback?: string;
+	score_feedback?: number;
 	created_at: string;
 	created_by: string;
 	updated_at?: string;
@@ -97,6 +98,7 @@ export interface IUpdateDonationRequest {
 	is_active?: boolean;
 	quantity_donated?: number;
 	user_feedback?: string;
+	score_feedback?: number;
 }
 export type IUpdateDonationResponse = Donation;
 

@@ -5,13 +5,13 @@ import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { formatCep, formatCreatedAt } from "@/utils/formatter";
+import { STEP_DEFINITIONS } from "../info/constants";
+import { useDonation } from "../info/hooks/use-donation";
 import { StepAboutCard } from "./components/StepAboutCard";
 import { StepHeroCard } from "./components/StepHeroCard";
 import { StepInfoRow } from "./components/StepInfoRow";
 import { StepTimelineSheet } from "./components/StepTimelineSheet";
 import { useStepAddress } from "./hooks";
-import { useDonation } from "../info/hooks/use-donation";
-import { STEP_DEFINITIONS } from "../info/constants";
 
 export function DonationStepDetailPage() {
 	const { id_donation = "", id_donation_step = "" } = useParams();

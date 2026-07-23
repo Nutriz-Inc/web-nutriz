@@ -21,6 +21,9 @@ type Props = {
 	errorDescription: string;
 	onErrorDescriptionChange: (value: string) => void;
 	onMarkAsError: () => void;
+	isLastStep?: boolean;
+	quantityDonated?: string;
+	onQuantityDonatedChange?: (value: string) => void;
 };
 
 export function StepActionsFooter({
@@ -33,6 +36,9 @@ export function StepActionsFooter({
 	errorDescription,
 	onErrorDescriptionChange,
 	onMarkAsError,
+	isLastStep,
+	quantityDonated,
+	onQuantityDonatedChange,
 }: Props) {
 	return (
 		<div className="flex flex-col gap-3 lg:flex-row">
@@ -89,10 +95,34 @@ export function StepActionsFooter({
 							/>
 						</div>
 
+						{isLastStep && (
+							<div className="flex flex-col gap-1.5 text-left">
+								<label
+									htmlFor="quantity-donated"
+									className="text-[12px] font-semibold text-[#6b7280]"
+								>
+									Quantidade doada (ml)
+								</label>
+								<input
+									id="quantity-donated"
+									type="number"
+									min={0}
+									value={quantityDonated}
+									onChange={(event) =>
+										onQuantityDonatedChange?.(event.target.value)
+									}
+									placeholder="Ex: 250"
+									className="rounded-[10px] border border-[#e1e7ee] bg-white px-3 py-2 text-[13px] text-[#1a1a1a] outline-none placeholder:text-[#9ca3af]"
+								/>
+							</div>
+						)}
+
 						<AlertDialogFooter>
 							<AlertDialogAction
 								onClick={onFinalize}
-								disabled={!finalizeDescription}
+								disabled={
+									!finalizeDescription || (isLastStep && !quantityDonated)
+								}
 								className="bg-[#00458b] hover:bg-[#00335f]"
 							>
 								Finalizar etapa

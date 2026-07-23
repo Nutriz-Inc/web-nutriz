@@ -30,42 +30,34 @@ export const routerPrivate = createBrowserRouter([
 			{
 				path: "/pontos-de-coleta",
 				element: <DonationPointsPage />,
-				handle: { title: "Pontos de Coleta" },
 			},
 			{
 				path: "/perfil",
 				element: <ProfilePage />,
-				handle: { title: "Perfil" },
 			},
 			{
 				path: "/minhas-doacoes",
 				element: <DonationsPage />,
-				handle: { title: "Minhas doações" },
 			},
 			{
 				path: "/nova-doacao",
 				element: <NewDonationPage />,
-				handle: { title: "Nova Doação" },
 			},
 			{
 				path: "/gestao-doacoes",
 				element: <DonationsManagementPage />,
-				handle: { title: "Doações" },
 			},
 			{
 				path: "/gestao-doacoes/:id_donation",
 				element: <DonationManagementDetailPage />,
-				handle: { title: "Editar Doação" },
 			},
 			{
 				path: "/doacao/:id_donation",
 				element: <DonationInfoPage />,
-				handle: { title: "Acompanhamento" },
 			},
 			{
 				path: "/doacao/:id_donation/etapa/:id_donation_step",
 				element: <DonationStepDetailPage />,
-				handle: { title: "Etapa da Doação" },
 			},
 		],
 	},

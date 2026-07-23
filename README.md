@@ -34,7 +34,7 @@ A rota `/artigos` exibe a leitura dos artigos da seção "Artigos para te apoiar
 
 ## Central de conteúdos
 
-A rota privada `/conteudo-educativo` (`src/pages/private/content-hub/`) é a home de artigos da área logada, acessível pelo menu hambúrguer. Destaques, grid "Mais conteúdos", vídeos em destaque, dicas rápidas e um accordion de dúvidas frequentes — todos os cards/vídeos abrem a mesma tela de leitura de artigos acima. O CTA de newsletter no rodapé é mockado (`// TODO: integrar newsletter`).
+A rota privada `/conteudo-educativo` (`src/pages/private/content-hub/`) é a home de artigos da área logada, acessível pelo menu hambúrguer. Destaques, grid "Mais conteúdos", vídeos em destaque, dicas rápidas e um accordion de dúvidas frequentes — todos os cards/vídeos abrem a mesma tela de leitura de artigos acima.
 
 ## Como rodar o projeto
 

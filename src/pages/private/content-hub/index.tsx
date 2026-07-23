@@ -6,7 +6,6 @@ import { ArticlesGrid } from "./components/ArticlesGrid";
 import { FaqCard } from "./components/FaqCard";
 import { FeaturedSection } from "./components/FeaturedSection";
 import { FeaturedVideosSection } from "./components/FeaturedVideosSection";
-import { NewsletterCta } from "./components/NewsletterCta";
 import { QuickTipsCard } from "./components/QuickTipsCard";
 import { FEATURED_MAIN_ID, FEATURED_MEDIUM_IDS, VIDEO_IDS } from "./constants";
 
@@ -43,8 +42,6 @@ export function ContentHubPage() {
 						<QuickTipsCard />
 						<FaqCard />
 					</div>
-
-					<NewsletterCta />
 				</div>
 			</Page>
 		</div>

@@ -12,7 +12,12 @@ import { Stepper } from "./components/Stepper";
 import { SuccessCard } from "./components/SuccessCard";
 import { useRegister } from "./hooks";
 import { EMPTY_REGISTER_FORM, makeEmptyBaby } from "./utils";
-import { STEP_VALIDATORS, type RegisterFieldName, type RegisterFormData, type RegisterFormErrors } from "./validation";
+import {
+	STEP_VALIDATORS,
+	type RegisterFieldName,
+	type RegisterFormData,
+	type RegisterFormErrors,
+} from "./validation";
 
 export function RegisterScreen() {
 	const navigate = useNavigate();

@@ -1,11 +1,9 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { ContentHubPage } from "@/pages/private/content-hub";
-import { NewDonationPage } from "@/pages/private/donations/create";
-import { DonationInfoPage } from "@/pages/private/donations/info";
 import { DonationPointsPage } from "../pages/private/donation-points";
-import { DonationsPage } from "../pages/private/donations/list";
-import { DonationsManagementPage } from "../pages/private/donations/manage";
+import { DonationsPage } from "../pages/private/donations/common/list";
+import { DonationsManagementPage } from "../pages/private/donations/adm/list";
 import { HomePage } from "../pages/private/home";
 import { ProfilePage } from "../pages/private/profile";
 import { ArticlesScreen } from "../pages/public/articles";
@@ -13,6 +11,10 @@ import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
 import { RegisterScreen } from "../pages/public/register";
 import { DefaultRedirect } from "./DefaultRedirect";
+import { DonationStepDetailPage } from "@/pages/private/donations/common/step-detail";
+import { NewDonationPage } from "@/pages/private/donations/common/create";
+import { DonationInfoPage } from "@/pages/private/donations/common/info";
+import { DonationManagementDetailPage } from "@/pages/private/donations/adm/info";
 
 export function routerPrivate() {
 	return createBrowserRouter([
@@ -77,6 +79,18 @@ export function routerPrivate() {
 					path: "/doacao/:id_donation",
 					element: <DonationInfoPage />,
 					handle: { title: "Acompanhamento" },
+				},
+				{
+					id: "private-gestao-doacoes-detalhe",
+					path: "/gestao-doacoes/:id_donation",
+					element: <DonationManagementDetailPage />,
+					handle: { title: "Editar Doação" },
+				},
+				{
+					id: "private-doacao-etapa",
+					path: "/doacao/:id_donation/etapa/:id_donation_step",
+					element: <DonationStepDetailPage />,
+					handle: { title: "Etapa da Doação" },
 				},
 			],
 		},

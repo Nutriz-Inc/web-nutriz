@@ -38,7 +38,10 @@ export interface ICreateJobRequest {
 }
 export type ICreateJobResponse = Job;
 
-export type IGetJobResponse = Job;
+export interface IGetJobResponse extends Job {
+	id_user_common?: string;
+	id_address?: string;
+}
 
 export interface IListJobsRequest extends IPaginationRequest {
 	date_set?: string;
@@ -47,6 +50,7 @@ export interface IListJobsRequest extends IPaginationRequest {
 	id_user_nurse?: string;
 	user_common_name?: string;
 	user_nurse_name?: string;
+	status?: EnumJobStatus;
 }
 export interface IJobResponse extends Job {
 	user_common_name?: string;
@@ -54,7 +58,7 @@ export interface IJobResponse extends Job {
 	address?: Address;
 }
 export interface IListJobsResponse extends IPaginationResponse {
-	data: Job[];
+	data: IJobResponse[];
 }
 
 export interface IUpdateJobRequest {

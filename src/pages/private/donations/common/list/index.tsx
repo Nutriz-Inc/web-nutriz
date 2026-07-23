@@ -98,6 +98,7 @@ export function DonationsPage() {
 										key={donation.id_donation}
 										number={number}
 										isInProgress={isInProgress}
+										hasError={donation.has_error}
 										createdAt={donation.created_at}
 										currentStep={
 											isInProgress

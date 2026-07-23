@@ -81,6 +81,7 @@ export interface IDonationResponse extends Donation {
 	user_document?: string;
 	user_name?: string;
 	current_step?: EnumDonationStepName;
+	has_error: boolean;
 }
 export interface IListDonationsResponse extends IPaginationResponse {
 	data: IDonationResponse[];

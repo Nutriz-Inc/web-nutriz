@@ -14,7 +14,7 @@ import { LoginScreen } from "../pages/public/login";
 import { RegisterScreen } from "../pages/public/register";
 import { DefaultRedirect } from "./DefaultRedirect";
 
-export function createPrivateRouter() {
+export function routerPrivate() {
 	return createBrowserRouter([
 		{
 			id: "private-home",
@@ -83,7 +83,7 @@ export function createPrivateRouter() {
 	]);
 }
 
-export function createPublicRouter() {
+export function publicRouter() {
 	return createBrowserRouter([
 		{
 			id: "public-landing",

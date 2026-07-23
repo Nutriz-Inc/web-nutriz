@@ -1,27 +1,35 @@
-import { CheckCircle2, ClipboardEdit, Save } from "lucide-react";
+import {
+	AlertCircle,
+	CheckCircle2,
+	ClipboardEdit,
+	Loader2,
+	Save,
+} from "lucide-react";
 import { type FormEvent, useState } from "react";
 import type { AppointmentStatus } from "../../types";
 import { STATUS_OPTION_ORDER } from "../constants";
+import { useUpdateAppointment } from "../hooks";
 import { StatusRadioOption } from "./StatusRadioOption";
 
 type UpdateStepStatusFormProps = {
+	id_job: string;
 	currentStatus: AppointmentStatus;
 	stepName: string;
 };
 
 export function UpdateStepStatusForm({
+	id_job,
 	currentStatus,
 	stepName,
 }: UpdateStepStatusFormProps) {
 	const [status, setStatus] = useState<AppointmentStatus>(currentStatus);
 	const [report, setReport] = useState("");
-	const [saved, setSaved] = useState(false);
+	const { mutate, isPending, isSuccess, isError, reset } =
+		useUpdateAppointment(id_job);
 
 	function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		// NOTE: mock — quando o endpoint existir, chamar a mutation de atualização
-		// da etapa (services.job.update / donation step) com { status, report }.
-		setSaved(true);
+		mutate({ status, report });
 	}
 
 	return (
@@ -51,7 +59,7 @@ export function UpdateStepStatusForm({
 						isCurrent={currentStatus === option}
 						onSelect={(next) => {
 							setStatus(next);
-							setSaved(false);
+							reset();
 						}}
 					/>
 				))}
@@ -69,7 +77,7 @@ export function UpdateStepStatusForm({
 					value={report}
 					onChange={(event) => {
 						setReport(event.target.value);
-						setSaved(false);
+						reset();
 					}}
 					rows={4}
 					placeholder="Descreva o resultado desta etapa e os próximos passos..."
@@ -77,7 +85,7 @@ export function UpdateStepStatusForm({
 				/>
 			</div>
 
-			{saved && (
+			{isSuccess && (
 				<div className="flex items-center gap-2 rounded-xl border border-[#c7e9db] bg-[#e9f6f0] px-4 py-3">
 					<CheckCircle2 className="size-4 shrink-0 text-[#0f6e56]" />
 					<p className="text-[13px] font-semibold text-[#0f6e56]">
@@ -86,12 +94,26 @@ export function UpdateStepStatusForm({
 				</div>
 			)}
 
+			{isError && (
+				<div className="flex items-center gap-2 rounded-xl border border-[#f5c9c9] bg-[#fdecec] px-4 py-3">
+					<AlertCircle className="size-4 shrink-0 text-[#cf3030]" />
+					<p className="text-[13px] font-semibold text-[#cf3030]">
+						Não foi possível salvar. Tente novamente.
+					</p>
+				</div>
+			)}
+
 			<button
 				type="submit"
-				className="flex h-[46px] w-fit items-center justify-center gap-2 rounded-xl bg-[#00458b] px-6 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+				disabled={isPending}
+				className="flex h-[46px] w-fit items-center justify-center gap-2 rounded-xl bg-[#00458b] px-6 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
-				<Save className="size-4" />
-				Salvar Alterações
+				{isPending ? (
+					<Loader2 className="size-4 animate-spin" />
+				) : (
+					<Save className="size-4" />
+				)}
+				{isPending ? "Salvando..." : "Salvar Alterações"}
 			</button>
 		</form>
 	);

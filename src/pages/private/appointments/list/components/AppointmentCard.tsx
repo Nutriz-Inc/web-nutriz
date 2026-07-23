@@ -8,11 +8,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
-import { EnumDonationStepStatus } from "@/services/types/i-donation";
+import { EnumJobStatus } from "@/services/types/i-job";
 import { formatAppointmentDateTime } from "../../format";
 import { AppointmentInfoRow } from "../../shared/AppointmentInfoRow";
 import { AppointmentStatusBadge } from "../../shared/AppointmentStatusBadge";
+import { findStepDefinition } from "../../steps";
 import type { Appointment } from "../../types";
+import { getReportHint } from "../utils";
 
 type AppointmentCardProps = {
 	appointment: Appointment;
@@ -22,9 +24,13 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 	const navigate = useNavigate();
 
 	const stepLabel =
-		appointment.status === EnumDonationStepStatus.Failed
+		appointment.status === EnumJobStatus.Failed
 			? "Interrompida na etapa"
 			: "Etapa da doação";
+
+	const reportHint = getReportHint(appointment);
+
+	const StepIcon = findStepDefinition(appointment.stepName)?.icon ?? Bookmark;
 
 	return (
 		<button
@@ -64,7 +70,7 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 					value={appointment.locationName}
 				/>
 				<AppointmentInfoRow
-					icon={<Bookmark className="size-[18px] shrink-0 text-[#94a3b8]" />}
+					icon={<StepIcon className="size-[18px] shrink-0 text-[#94a3b8]" />}
 					label={stepLabel}
 					value={appointment.stepName}
 				/>
@@ -74,13 +80,11 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 				<span
 					className={cn(
 						"flex items-center gap-2 text-[13px] font-semibold",
-						appointment.hasReport ? "text-[#387ccd]" : "text-[#9ca3af]",
+						reportHint.highlighted ? "text-[#387ccd]" : "text-[#9ca3af]",
 					)}
 				>
 					<FileText className="size-4 shrink-0" />
-					{appointment.hasReport
-						? "Relatório disponível · toque para ver"
-						: "Nenhum relatório ainda"}
+					{reportHint.text}
 					<ChevronRight className="ml-auto size-4 shrink-0" />
 				</span>
 			</div>

@@ -1,6 +1,6 @@
 import { Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { EnumDonationStepStatus } from "@/services/types/i-donation";
+import { EnumJobStatus } from "@/services/types/i-job";
 import type { AppointmentStatus } from "../../types";
 
 type EndedNoticeProps = {
@@ -8,7 +8,7 @@ type EndedNoticeProps = {
 };
 
 export function EndedNotice({ status }: EndedNoticeProps) {
-	const isFailed = status === EnumDonationStepStatus.Failed;
+	const isFailed = status === EnumJobStatus.Failed;
 
 	return (
 		<div

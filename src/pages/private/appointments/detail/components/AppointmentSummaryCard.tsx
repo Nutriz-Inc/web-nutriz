@@ -1,6 +1,7 @@
-import { Bookmark, Calendar, MapPin } from "lucide-react";
+import { Bookmark, Calendar, Mail, MapPin, Phone } from "lucide-react";
 import { getInitials } from "@/components/layout/utils";
-import { EnumDonationStepStatus } from "@/services/types/i-donation";
+import { EnumJobStatus } from "@/services/types/i-job";
+import { formatPhoneNumber } from "@/utils/formatter";
 import { formatAppointmentDateTime } from "../../format";
 import { AppointmentInfoRow } from "../../shared/AppointmentInfoRow";
 import { AppointmentStatusBadge } from "../../shared/AppointmentStatusBadge";
@@ -11,10 +12,10 @@ type AppointmentSummaryCardProps = {
 };
 
 function getStepLabel(appointment: AppointmentDetail): string {
-	if (appointment.status === EnumDonationStepStatus.Failed) {
+	if (appointment.status === EnumJobStatus.Failed) {
 		return "Interrompida na etapa";
 	}
-	if (appointment.status === EnumDonationStepStatus.Done) {
+	if (appointment.status === EnumJobStatus.Done) {
 		return "Etapa final da doação";
 	}
 	return "Etapa atual da doação";
@@ -44,6 +45,25 @@ export function AppointmentSummaryCard({
 					className="mt-0.5 shrink-0"
 				/>
 			</div>
+
+			{(appointment.donorPhone || appointment.donorEmail) && (
+				<div className="flex flex-col gap-3 border-t border-[#eef1f5] pt-4">
+					{appointment.donorPhone && (
+						<AppointmentInfoRow
+							icon={<Phone className="size-[18px] shrink-0 text-[#94a3b8]" />}
+							label="Telefone"
+							value={formatPhoneNumber(appointment.donorPhone)}
+						/>
+					)}
+					{appointment.donorEmail && (
+						<AppointmentInfoRow
+							icon={<Mail className="size-[18px] shrink-0 text-[#94a3b8]" />}
+							label="E-mail"
+							value={appointment.donorEmail}
+						/>
+					)}
+				</div>
+			)}
 
 			<div className="flex flex-col gap-3 border-t border-[#eef1f5] pt-4">
 				<AppointmentInfoRow

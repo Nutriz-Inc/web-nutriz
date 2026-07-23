@@ -1,4 +1,4 @@
-import { EnumDonationStepStatus } from "@/services/types/i-donation";
+import { EnumJobStatus } from "@/services/types/i-job";
 import { onlyDigits } from "@/utils/formatter";
 import { formatAppointmentDate } from "../format";
 import type { Appointment, AppointmentStatus } from "../types";
@@ -6,20 +6,31 @@ import type { Appointment, AppointmentStatus } from "../types";
 export type AppointmentTab = "andamento" | "concluidas";
 
 const ENDED_STATUSES: AppointmentStatus[] = [
-	EnumDonationStepStatus.Done,
-	EnumDonationStepStatus.Failed,
+	EnumJobStatus.Done,
+	EnumJobStatus.Failed,
 ];
 
 export function isEndedStatus(status: AppointmentStatus): boolean {
 	return ENDED_STATUSES.includes(status);
 }
 
+export function getReportHint(appointment: Appointment): {
+	text: string;
+	highlighted: boolean;
+} {
+	if (appointment.hasReport) {
+		return { text: "Relatório disponível · toque para ver", highlighted: true };
+	}
+	if (isEndedStatus(appointment.status)) {
+		return { text: "Encerrado sem relatório", highlighted: false };
+	}
+	return { text: "Toque para preencher o relatório", highlighted: true };
+}
+
 function formatDateFilter(digits: string): string {
 	return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
 }
 
-// Filtra pela aba (andamento/concluídas) e, opcionalmente, por uma data
-// no formato dd/mm/aaaa digitada no filtro de período.
 export function filterAppointments(
 	appointments: Appointment[],
 	tab: AppointmentTab,

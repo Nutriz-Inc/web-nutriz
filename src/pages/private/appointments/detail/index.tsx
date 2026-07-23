@@ -10,6 +10,7 @@ import { EndedActionsFooter } from "./components/EndedActionsFooter";
 import { EndedNotice } from "./components/EndedNotice";
 import { FinalResultCard } from "./components/FinalResultCard";
 import { ReportHistory } from "./components/ReportHistory";
+import { StepDescriptionCard } from "./components/StepDescriptionCard";
 import { UpdateStepStatusForm } from "./components/UpdateStepStatusForm";
 import { useAppointmentDetail } from "./hooks";
 
@@ -20,11 +21,7 @@ export function AppointmentDetailPage() {
 
 	return (
 		<Page
-			// TODO: temporariamente visível também para usuários comuns; voltar
-			// para somente EnumUserType.Nurse depois.
-			hasPermission={
-				auth?.type === EnumUserType.Nurse || auth?.type === EnumUserType.Common
-			}
+			hasPermission={auth?.type === EnumUserType.Nurse}
 			loading={isLoading}
 			backTo="/agendamentos"
 		>
@@ -45,35 +42,53 @@ export function AppointmentDetailPage() {
 						ended={appointment.ended}
 					/>
 
-					{appointment.ended && appointment.finalResult && (
+					{appointment.ended && (
 						<div className="lg:hidden">
-							<EndedNotice status={appointment.finalResult.status} />
+							<EndedNotice status={appointment.status} />
 						</div>
 					)}
 
 					<div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:gap-6">
 						<div className="flex flex-col gap-5 lg:w-[340px] lg:shrink-0">
 							<AppointmentSummaryCard appointment={appointment} />
-							<AppointmentStepper
-								steps={appointment.steps}
-								ended={appointment.ended}
-							/>
+							{appointment.steps.length > 0 && (
+								<AppointmentStepper
+									steps={appointment.steps}
+									ended={appointment.ended}
+								/>
+							)}
 						</div>
 
 						<div className="flex min-w-0 flex-1 flex-col gap-5">
-							{appointment.ended && appointment.finalResult ? (
+							{appointment.ended ? (
 								<>
 									<div className="hidden lg:block">
-										<EndedNotice status={appointment.finalResult.status} />
+										<EndedNotice status={appointment.status} />
 									</div>
-									<FinalResultCard result={appointment.finalResult} />
-									<ReportHistory reports={appointment.reports} />
+									{appointment.finalResult && (
+										<FinalResultCard result={appointment.finalResult} />
+									)}
+									<StepDescriptionCard
+										stepName={appointment.stepName}
+										description={appointment.description}
+									/>
+									{(appointment.steps.length > 0 ||
+										appointment.reports.length > 0) && (
+										<ReportHistory reports={appointment.reports} />
+									)}
 								</>
 							) : (
-								<UpdateStepStatusForm
-									currentStatus={appointment.status}
-									stepName={appointment.stepName}
-								/>
+								<>
+									<StepDescriptionCard
+										stepName={appointment.stepName}
+										description={appointment.description}
+									/>
+									<UpdateStepStatusForm
+										id_job={id_job}
+										currentStatus={appointment.status}
+										stepName={appointment.stepName}
+									/>
+								</>
 							)}
 						</div>
 					</div>

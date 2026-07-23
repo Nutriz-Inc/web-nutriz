@@ -35,9 +35,6 @@ const navItemsUserCommon: NavItem[] = [
 	{ label: "Início", icon: Home, to: "/home" },
 	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
 	{ label: "Minhas doações", icon: Droplets, to: "/minhas-doacoes" },
-	// TODO: temporariamente exposto para usuários comuns; appointments é feature
-	// de enfermeiro (ver navItemsUserNurse). Remover daqui depois.
-	{ label: "Meus Agendamentos", icon: CalendarCheck, to: "/agendamentos" },
 	{ label: "Conteúdo educativo", icon: BookOpen, to: "/conteudo-educativo" },
 	{ label: "Perfil", icon: User, to: "/perfil" },
 	{ label: "EVA — Assistente Virtual", icon: MessageCircle, to: "/eva" },

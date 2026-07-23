@@ -1,28 +1,14 @@
-import type { EnumDonationStepStatus } from "@/services/types/i-donation";
+import type { EnumJobStatus } from "@/services/types/i-job";
 
-// O status de um agendamento reaproveita o enum de status de etapa da doação
-// (Pending/Review/Done/Warn/Failed), que mapeia exatamente para os 5 status do
-// design: Aguardando, Em Processamento, Concluído, Atenção, Não Concluído.
-export type AppointmentStatus = EnumDonationStepStatus;
+export type AppointmentStatus = EnumJobStatus;
 
-// As etapas exibidas no fluxo de agendamento seguem o design (não o
-// EnumDonationStepName, que difere). Ficam centralizadas em steps.ts.
-export type AppointmentStepName =
-	| "Exames"
-	| "Coleta"
-	| "Análise do Leite"
-	| "Confirmação";
-
-// Um agendamento atribuído a um(a) enfermeiro(a). Espelha o que o endpoint
-// `GET /internal/job` (services.job.list) deverá enriquecer no futuro:
-// donorName ← user_common_name, dateSet ← date_set, locationName ← address,
-// stepName ← id_step, status ← status da etapa atual.
 export type Appointment = {
 	id: string;
 	donorName: string;
-	dateSet: string; // ISO
+	dateSet: string;
 	locationName: string;
-	stepName: AppointmentStepName;
+	stepName: string;
+	description: string;
 	status: AppointmentStatus;
 	hasReport: boolean;
 };
@@ -30,28 +16,30 @@ export type Appointment = {
 export type AppointmentStepState = "done" | "failed" | "current" | "locked";
 
 export type AppointmentStepItem = {
-	name: AppointmentStepName;
+	name: string;
 	state: AppointmentStepState;
-	date?: string; // ISO, preenchido quando concluída/não concluída
+	date?: string;
 };
 
 export type AppointmentReport = {
-	stepName: AppointmentStepName;
+	stepName: string;
 	status: AppointmentStatus;
-	date: string; // ISO
+	date: string;
 	responsible: string;
 	text: string;
 };
 
 export type AppointmentFinalResult = {
-	status: AppointmentStatus; // Done ou Failed
+	status: AppointmentStatus;
 	description: string;
-	endedAt: string; // ISO
+	endedAt: string;
 	responsible: string;
 };
 
 export type AppointmentDetail = Appointment & {
 	ended: boolean;
+	donorPhone?: string;
+	donorEmail?: string;
 	finalResult?: AppointmentFinalResult;
 	steps: AppointmentStepItem[];
 	reports: AppointmentReport[];

@@ -7,7 +7,12 @@ import { FaqCard } from "./components/FaqCard";
 import { FeaturedSection } from "./components/FeaturedSection";
 import { FeaturedVideosSection } from "./components/FeaturedVideosSection";
 import { QuickTipsCard } from "./components/QuickTipsCard";
-import { FEATURED_IDS, FEATURED_MAIN_ID, FEATURED_MEDIUM_IDS, VIDEO_IDS } from "./constants";
+import {
+	FEATURED_IDS,
+	FEATURED_MAIN_ID,
+	FEATURED_MEDIUM_IDS,
+	VIDEO_IDS,
+} from "./constants";
 
 export function ContentHubPage() {
 	const { auth } = useAuth();

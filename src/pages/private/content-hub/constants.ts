@@ -62,3 +62,5 @@ export const FAQ_ITEMS: FaqItem[] = [
 			"Depende do medicamento. A equipe do banco de leite avalia cada caso na triagem — por isso é importante informar tudo o que você está usando.",
 	},
 ];
+
+export const FEATURED_IDS = new Set([FEATURED_MAIN_ID, ...FEATURED_MEDIUM_IDS]);

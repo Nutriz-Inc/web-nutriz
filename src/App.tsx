@@ -41,12 +41,15 @@ function App() {
 	const { isAuthenticated } = useAuth();
 
 	const routes = useMemo(() => {
-		return isAuthenticated ? routerPrivate : publicRouter;
+		return isAuthenticated ? routerPrivate() : publicRouter();
 	}, [isAuthenticated]);
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={routes} />
+			<RouterProvider
+				key={isAuthenticated ? "private" : "public"}
+				router={routes}
+			/>
 			<Toaster position="bottom-right" richColors />
 		</QueryClientProvider>
 	);

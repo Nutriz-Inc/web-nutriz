@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
 import { useAuth } from "./hooks/use-auth";
-import { publicRouter, routerPrivate } from "./router";
+import { createPrivateRouter, createPublicRouter } from "./router";
 
 const queryClient = new QueryClient();
 
@@ -11,7 +11,7 @@ function App() {
 	const { isAuthenticated } = useAuth();
 
 	const routes = useMemo(() => {
-		return isAuthenticated ? routerPrivate : publicRouter;
+		return isAuthenticated ? createPrivateRouter() : createPublicRouter();
 	}, [isAuthenticated]);
 
 	return (

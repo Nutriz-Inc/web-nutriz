@@ -14,97 +14,101 @@ import { LoginScreen } from "../pages/public/login";
 import { RegisterScreen } from "../pages/public/register";
 import { DefaultRedirect } from "./DefaultRedirect";
 
-export const routerPrivate = createBrowserRouter([
-	{
-		id: "private-home",
-		path: "/home",
-		element: <HomePage />,
-	},
-	{
-		id: "private-artigos",
-		path: "/artigos",
-		element: <ArticlesScreen />,
-	},
-	{
-		id: "private-fallback",
-		path: "/*",
-		element: <DefaultRedirect />,
-	},
-	{
-		id: "private-layout",
-		path: "/",
-		element: <Layout />,
-		children: [
-			{
-				id: "private-pontos-de-coleta",
-				path: "/pontos-de-coleta",
-				element: <DonationPointsPage />,
-				handle: { title: "Pontos de Coleta" },
-			},
-			{
-				id: "private-conteudo-educativo",
-				path: "/conteudo-educativo",
-				element: <ContentHubPage />,
-				handle: { title: "Conteúdo educativo" },
-			},
-			{
-				id: "private-perfil",
-				path: "/perfil",
-				element: <ProfilePage />,
-				handle: { title: "Perfil" },
-			},
-			{
-				id: "private-minhas-doacoes",
-				path: "/minhas-doacoes",
-				element: <DonationsPage />,
-				handle: { title: "Minhas doações" },
-			},
-			{
-				id: "private-nova-doacao",
-				path: "/nova-doacao",
-				element: <NewDonationPage />,
-				handle: { title: "Nova Doação" },
-			},
-			{
-				id: "private-gestao-doacoes",
-				path: "/gestao-doacoes",
-				element: <DonationsManagementPage />,
-				handle: { title: "Doações" },
-			},
-			{
-				id: "private-doacao-info",
-				path: "/doacao/:id_donation",
-				element: <DonationInfoPage />,
-				handle: { title: "Acompanhamento" },
-			},
-		],
-	},
-]);
+export function createPrivateRouter() {
+	return createBrowserRouter([
+		{
+			id: "private-home",
+			path: "/home",
+			element: <HomePage />,
+		},
+		{
+			id: "private-artigos",
+			path: "/artigos",
+			element: <ArticlesScreen />,
+		},
+		{
+			id: "private-fallback",
+			path: "/*",
+			element: <DefaultRedirect />,
+		},
+		{
+			id: "private-layout",
+			path: "/",
+			element: <Layout />,
+			children: [
+				{
+					id: "private-pontos-de-coleta",
+					path: "/pontos-de-coleta",
+					element: <DonationPointsPage />,
+					handle: { title: "Pontos de Coleta" },
+				},
+				{
+					id: "private-conteudo-educativo",
+					path: "/conteudo-educativo",
+					element: <ContentHubPage />,
+					handle: { title: "Conteúdo educativo" },
+				},
+				{
+					id: "private-perfil",
+					path: "/perfil",
+					element: <ProfilePage />,
+					handle: { title: "Perfil" },
+				},
+				{
+					id: "private-minhas-doacoes",
+					path: "/minhas-doacoes",
+					element: <DonationsPage />,
+					handle: { title: "Minhas doações" },
+				},
+				{
+					id: "private-nova-doacao",
+					path: "/nova-doacao",
+					element: <NewDonationPage />,
+					handle: { title: "Nova Doação" },
+				},
+				{
+					id: "private-gestao-doacoes",
+					path: "/gestao-doacoes",
+					element: <DonationsManagementPage />,
+					handle: { title: "Doações" },
+				},
+				{
+					id: "private-doacao-info",
+					path: "/doacao/:id_donation",
+					element: <DonationInfoPage />,
+					handle: { title: "Acompanhamento" },
+				},
+			],
+		},
+	]);
+}
 
-export const publicRouter = createBrowserRouter([
-	{
-		id: "public-landing",
-		path: "/",
-		element: <LandingPageScreen />,
-	},
-	{
-		id: "public-login",
-		path: "/login",
-		element: <LoginScreen />,
-	},
-	{
-		id: "public-registro",
-		path: "/registro",
-		element: <RegisterScreen />,
-	},
-	{
-		id: "public-artigos",
-		path: "/artigos",
-		element: <ArticlesScreen />,
-	},
-	{
-		id: "public-fallback",
-		path: "*",
-		element: <Navigate to="/" replace />,
-	},
-]);
+export function createPublicRouter() {
+	return createBrowserRouter([
+		{
+			id: "public-landing",
+			path: "/",
+			element: <LandingPageScreen />,
+		},
+		{
+			id: "public-login",
+			path: "/login",
+			element: <LoginScreen />,
+		},
+		{
+			id: "public-registro",
+			path: "/registro",
+			element: <RegisterScreen />,
+		},
+		{
+			id: "public-artigos",
+			path: "/artigos",
+			element: <ArticlesScreen />,
+		},
+		{
+			id: "public-fallback",
+			path: "*",
+			element: <Navigate to="/" replace />,
+		},
+	]);
+}

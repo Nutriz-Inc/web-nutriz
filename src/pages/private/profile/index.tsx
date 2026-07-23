@@ -54,6 +54,7 @@ export function ProfilePage() {
 		number: address?.number ?? "",
 		complement: address?.complement ?? "",
 		cpf: data?.cpf ?? "",
+		birth_date: data?.birth_date ?? "",
 	};
 
 	const values: MyDataFormValues = myData ?? baselineValues;
@@ -240,6 +241,7 @@ export function ProfilePage() {
 							identifier={data?.internal_identifier ?? ""}
 							street={address?.street ?? ""}
 							showAddress={isCommon}
+							userType={auth?.type}
 						/>
 					) : (
 						<BabySection

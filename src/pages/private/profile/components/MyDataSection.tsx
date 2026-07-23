@@ -1,9 +1,10 @@
 import { MapPin, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { formatCep, formatCpf, formatPhoneNumber } from "@/utils/formatter";
+import { formatCep, formatCpf, formatDateBR, formatPhoneNumber } from "@/utils/formatter";
 import { Field } from "../../../../components/full/Field";
 import { PasswordField } from "./PasswordField";
 import { SectionCard } from "./SectionCard";
+import { EnumUserType } from "@/services/types/i-user";
 
 export type MyDataFormValues = {
 	name: string;
@@ -14,6 +15,7 @@ export type MyDataFormValues = {
 	number: string;
 	complement: string;
 	cpf: string;
+	birth_date?: string;
 };
 
 type MyDataSectionProps = {
@@ -22,6 +24,7 @@ type MyDataSectionProps = {
 	identifier: string;
 	street: string;
 	showAddress?: boolean;
+	userType?: EnumUserType;
 };
 
 export function MyDataSection({
@@ -30,6 +33,7 @@ export function MyDataSection({
 	identifier,
 	street,
 	showAddress = true,
+	userType = EnumUserType.Common,
 }: MyDataSectionProps) {
 	function setField<K extends keyof MyDataFormValues>(
 		key: K,
@@ -51,15 +55,25 @@ export function MyDataSection({
 					value={values.name}
 					onChange={(value) => setField("name", value)}
 				/>
-				<Field
+				{
+					userType !== EnumUserType.Common && (
+<Field
 					label="Identificador"
 					value={identifier}
 					editable={false}
 					onChange={() => {}}
 				/>
+					)
+				}
 				<Field
 					label="CPF"
 					value={formatCpf(values.cpf)}
+					editable={false}
+					onChange={() => {}}
+				/>
+				<Field
+					label="Data de Nascimento"
+					value={values.birth_date ? formatDateBR(values.birth_date) : ""}
 					editable={false}
 					onChange={() => {}}
 				/>

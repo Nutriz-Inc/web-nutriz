@@ -1,26 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { env } from "../../../../config/env";
 import { useAuth } from "../../../../hooks/use-auth";
-import type { ChatMessage } from "../types";
+import {
+	CONNECTION_ERROR_MESSAGE,
+	GENERIC_ERROR_MESSAGE,
+	MAX_RECONNECT_ATTEMPTS,
+	TERMINAL_CLOSE_REASONS,
+} from "../constants";
+import type {
+	ChatMessage,
+	EvaBlockedReason,
+	EvaChatStatus,
+	EvaSocketFrame,
+} from "../types";
 
-const MAX_RECONNECT_ATTEMPTS = 3;
-
-export type EvaChatStatus = "connecting" | "open" | "reconnecting" | "failed";
-
-export type EvaBlockedReason =
-	| "session"
-	| "consent"
-	| "forbidden"
-	| "rate_limit"
-	| "jailbreak"
-	| null;
-
-// Codigos de fechamento terminais do modo publico: nao reconectar, apenas
-// exibir o motivo (a mensagem amigavel ja foi transmitida antes do close).
-const PUBLIC_TERMINAL_CODES: Record<number, EvaBlockedReason> = {
-	4029: "rate_limit",
-	4008: "jailbreak",
-};
+export type { EvaBlockedReason, EvaChatStatus } from "../types";
 
 function getEvaToken(authToken?: string) {
 	const devToken = env.VITE_EVA_DEV_TOKEN;
@@ -211,12 +205,7 @@ export function useEvaChat(initialMessage?: string) {
 		};
 
 		ws.onmessage = (event) => {
-			let frame: {
-				type?: string;
-				conversation_id?: string;
-				content?: string;
-				message?: string;
-			};
+			let frame: EvaSocketFrame;
 
 			try {
 				frame = JSON.parse(event.data);
@@ -262,7 +251,7 @@ export function useEvaChat(initialMessage?: string) {
 				case "error": {
 					finalizeStream(true);
 					finishSending();
-					setErrorMessage(frame.message ?? "Algo deu errado. Tente novamente.");
+					setErrorMessage(frame.message ?? GENERIC_ERROR_MESSAGE);
 					break;
 				}
 			}
@@ -276,29 +265,10 @@ export function useEvaChat(initialMessage?: string) {
 			finalizeStream(true);
 			finishSending();
 
-			if (event.code === 4001) {
-				setBlockedReason("session");
-				setStatus("failed");
-				return;
-			}
-
-			if (event.code === 4003) {
-				setBlockedReason("consent");
-				setStatus("failed");
-				return;
-			}
-
-			// 4403: papel sem acesso a EVA (adm/nurse). O FAB nem monta para
-			// staff, mas o backend tambem recusa - nao reconectar.
-			if (event.code === 4403) {
-				setBlockedReason("forbidden");
-				setStatus("failed");
-				return;
-			}
-
-			// Encerramentos terminais do modo publico (rate limit / jailbreak):
-			// a mensagem amigavel ja chegou como chunk; nao reconectar.
-			const terminalReason = PUBLIC_TERMINAL_CODES[event.code];
+			// Encerramentos terminais (sessao, consent, papel bloqueado, rate
+			// limit, jailbreak): exibir o motivo e nao reconectar. Nos casos do
+			// modo publico a mensagem amigavel ja chegou como chunk antes do close.
+			const terminalReason = TERMINAL_CLOSE_REASONS[event.code];
 
 			if (terminalReason) {
 				setBlockedReason(terminalReason);
@@ -308,9 +278,7 @@ export function useEvaChat(initialMessage?: string) {
 
 			if (attemptsRef.current >= MAX_RECONNECT_ATTEMPTS) {
 				setStatus("failed");
-				setErrorMessage(
-					"Não foi possível conectar à EVA. Verifique sua conexão.",
-				);
+				setErrorMessage(CONNECTION_ERROR_MESSAGE);
 				return;
 			}
 
@@ -361,32 +329,6 @@ export function useEvaChat(initialMessage?: string) {
 		connect();
 	}, [connect]);
 
-	const newConversation = useCallback(() => {
-		disposedRef.current = true;
-
-		if (reconnectTimerRef.current !== null) {
-			window.clearTimeout(reconnectTimerRef.current);
-		}
-
-		wsRef.current?.close(1000);
-		wsRef.current = null;
-
-		conversationIdRef.current = null;
-		streamTextRef.current = "";
-		streamIdRef.current = null;
-		attemptsRef.current = 0;
-		// Nova conversa anonima = nova sessao (novo session token e session_id)
-		anonTokenRef.current = null;
-
-		setMessages([]);
-		setErrorMessage(null);
-		setBlockedReason(null);
-		finishSending();
-
-		disposedRef.current = false;
-		connect();
-	}, [connect, finishSending]);
-
 	return {
 		messages,
 		isTyping,
@@ -396,7 +338,6 @@ export function useEvaChat(initialMessage?: string) {
 		errorMessage,
 		sendMessage,
 		retry,
-		newConversation,
 		isAnonymous: !isAuthenticated,
 	};
 }

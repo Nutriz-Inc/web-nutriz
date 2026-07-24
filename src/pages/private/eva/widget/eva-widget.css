@@ -237,3 +237,14 @@
 	outline: 2px solid #c25e86;
 	outline-offset: 2px;
 }
+
+@media (prefers-reduced-motion: reduce) {
+	.eva-fab,
+	.eva-widget-register-cta {
+		transition: none;
+	}
+
+	.eva-fab:hover {
+		transform: none;
+	}
+}

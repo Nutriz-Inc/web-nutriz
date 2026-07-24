@@ -1,7 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChatInput } from "../components/chat-input";
 import { MessageBubble } from "../components/message-bubble";
 import { TypingIndicator } from "../components/typing-indicator";
+import {
+	BLOCKED_MESSAGES,
+	CONNECTION_ERROR_MESSAGE,
+	EVA_GREETING_TEXT,
+	REGISTER_CTA_TEXT,
+} from "../constants";
 import "../eva.css";
 import { useEvaChat } from "../hooks/use-eva-chat";
 import type { ChatMessage } from "../types";
@@ -9,19 +15,12 @@ import type { ChatMessage } from "../types";
 const GREETING: ChatMessage = {
 	id: "greeting",
 	role: "eva",
-	paragraphs: [
-		"Oi! Eu sou a EVA. Estou aqui a qualquer hora para falar sobre doação de leite, ordenha e amamentação. Como posso te ajudar?",
-	],
+	paragraphs: [EVA_GREETING_TEXT],
 };
 
-const BLOCKED_MESSAGES: Record<string, string> = {
-	session: "Sessão expirada. Recarregue a página para conversar novamente.",
-	consent: "É necessário aceitar os termos de uso para conversar com a EVA.",
-	forbidden: "O chat da EVA é exclusivo para nutrizes doadoras.",
-	rate_limit:
-		"Você atingiu o limite deste chat público. Cadastre-se na Nutriz para um atendimento sem limites.",
-	jailbreak: "Sessão encerrada. Recarregue a página para começar de novo.",
-};
+// Margem (px) do fim da area de mensagens dentro da qual o usuario ainda e
+// considerado "acompanhando" o streaming - so entao o auto-scroll atua.
+const AUTO_SCROLL_THRESHOLD = 48;
 
 type EvaChatPanelProps = {
 	initialMessage?: string;
@@ -31,7 +30,8 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 	// Persistencia MVP: nutriz logada NAO persiste em localStorage (dado sensivel
 	// de saude; o backend ja grava conversation/message para auditoria). Ao
 	// recarregar, o chat reinicia limpo na UI. Anonimo vive so em memoria.
-	// TODO: carregar historico via GET /conversations quando o endpoint existir.
+	// TODO: exibir historico consumindo o GET /conversations do IA service
+	// quando a UI de historico for definida com o produto.
 	const {
 		messages,
 		isTyping,
@@ -46,8 +46,23 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 
 	const [input, setInput] = useState("");
 	const scrollRef = useRef<HTMLDivElement>(null);
+	// Auto-scroll so quando o usuario esta perto do fim; rolar para cima para
+	// reler uma resposta nao pode ser desfeito pelo streaming.
+	const stickToBottomRef = useRef(true);
 
-	// Rola para o fim a cada nova mensagem / mudanca no indicador de digitacao.
+	const handleScroll = useCallback(() => {
+		const container = scrollRef.current;
+
+		if (!container) {
+			return;
+		}
+
+		const distanceFromBottom =
+			container.scrollHeight - container.scrollTop - container.clientHeight;
+
+		stickToBottomRef.current = distanceFromBottom <= AUTO_SCROLL_THRESHOLD;
+	}, []);
+
 	useEffect(() => {
 		const container = scrollRef.current;
 
@@ -55,11 +70,16 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 			return;
 		}
 
-		container.scrollTop = container.scrollHeight;
+		if (stickToBottomRef.current) {
+			container.scrollTop = container.scrollHeight;
+		}
 	}, [messages, isTyping]);
 
 	function handleSend() {
 		if (sendMessage(input)) {
+			// Enviar mensagem devolve a visao para o fim, mesmo que a nutriz
+			// estivesse relendo algo acima.
+			stickToBottomRef.current = true;
 			setInput("");
 		}
 	}
@@ -87,7 +107,7 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 	) : status === "failed" || errorMessage ? (
 		<div className="eva-widget-notice-group">
 			<p className="eva-widget-notice">
-				{errorMessage ?? "Não foi possível conectar à EVA."}
+				{errorMessage ?? CONNECTION_ERROR_MESSAGE}
 			</p>
 			{status === "failed" && !blocked && (
 				<button type="button" className="eva-outline-btn" onClick={retry}>
@@ -101,24 +121,24 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 		<div className="eva-scope eva-widget-chat">
 			<div
 				ref={scrollRef}
+				onScroll={handleScroll}
 				className="eva-widget-scroll"
 				role="log"
 				aria-live="polite"
 			>
-				<MessageBubble message={GREETING} desktop={false} />
+				<MessageBubble message={GREETING} />
 				{messages.map((message) => (
-					<MessageBubble key={message.id} message={message} desktop={false} />
+					<MessageBubble key={message.id} message={message} />
 				))}
-				{isTyping && <TypingIndicator desktop={false} />}
+				{isTyping && <TypingIndicator />}
 				{statusNotice}
 			</div>
 			{showRegisterCta && (
 				<a className="eva-widget-register-cta" href="/registro">
-					Cadastre-se na Nutriz para um atendimento personalizado
+					{REGISTER_CTA_TEXT}
 				</a>
 			)}
 			<ChatInput
-				desktop={false}
 				value={input}
 				onChange={setInput}
 				onSend={handleSend}

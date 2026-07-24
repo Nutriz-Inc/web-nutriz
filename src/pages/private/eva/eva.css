@@ -134,11 +134,6 @@
 	color: #1c1b1f;
 }
 
-.eva-input--desktop {
-	height: 54px;
-	padding: 0 22px;
-}
-
 .eva-input::placeholder {
 	color: #6b6b76;
 }

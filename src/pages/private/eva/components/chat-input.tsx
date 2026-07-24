@@ -1,7 +1,6 @@
 import type { FormEvent } from "react";
 
 type ChatInputProps = {
-	desktop: boolean;
 	value: string;
 	onChange: (value: string) => void;
 	onSend: () => void;
@@ -10,7 +9,6 @@ type ChatInputProps = {
 };
 
 export function ChatInput({
-	desktop,
 	value,
 	onChange,
 	onSend,
@@ -24,33 +22,24 @@ export function ChatInput({
 
 	return (
 		<div
-			style={
-				desktop
-					? {
-							padding: "10px 8px 20px",
-							display: "flex",
-							flexDirection: "column",
-							gap: 9,
-						}
-					: {
-							padding: "10px 16px 14px",
-							background: "rgba(255,255,255,0.92)",
-							display: "flex",
-							flexDirection: "column",
-							gap: 8,
-						}
-			}
+			style={{
+				padding: "10px 16px 14px",
+				background: "rgba(255,255,255,0.92)",
+				display: "flex",
+				flexDirection: "column",
+				gap: 8,
+			}}
 		>
 			<form
 				onSubmit={handleSubmit}
 				style={{
 					display: "flex",
 					alignItems: "center",
-					gap: desktop ? 12 : 10,
+					gap: 10,
 				}}
 			>
 				<input
-					className={desktop ? "eva-input eva-input--desktop" : "eva-input"}
+					className="eva-input"
 					type="text"
 					placeholder="Escreva sua dúvida..."
 					aria-label="Escreva sua dúvida"
@@ -63,8 +52,8 @@ export function ChatInput({
 					aria-label="Enviar mensagem"
 					className="eva-send-btn"
 					style={{
-						width: desktop ? 54 : 50,
-						height: desktop ? 54 : 50,
+						width: 50,
+						height: 50,
 					}}
 					disabled={disabled || sending || value.trim() === ""}
 				>

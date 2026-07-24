@@ -30,7 +30,7 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 				<div className="eva-widget-lgpd" role="note">
 					Este é um chat público. Não compartilhe dados pessoais (CPF, e-mail,
 					telefone). Para um atendimento personalizado e seguro,{" "}
-					<a className="eva-link" href="/login">
+					<a className="eva-link" href="/registro">
 						cadastre-se na Nutriz
 					</a>
 					.

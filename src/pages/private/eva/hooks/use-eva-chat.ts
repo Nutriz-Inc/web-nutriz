@@ -10,6 +10,7 @@ export type EvaChatStatus = "connecting" | "open" | "reconnecting" | "failed";
 export type EvaBlockedReason =
 	| "session"
 	| "consent"
+	| "forbidden"
 	| "rate_limit"
 	| "jailbreak"
 	| null;
@@ -283,6 +284,14 @@ export function useEvaChat(initialMessage?: string) {
 
 			if (event.code === 4003) {
 				setBlockedReason("consent");
+				setStatus("failed");
+				return;
+			}
+
+			// 4403: papel sem acesso a EVA (adm/nurse). O FAB nem monta para
+			// staff, mas o backend tambem recusa - nao reconectar.
+			if (event.code === 4403) {
+				setBlockedReason("forbidden");
 				setStatus("failed");
 				return;
 			}

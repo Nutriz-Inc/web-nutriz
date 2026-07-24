@@ -1,7 +1,8 @@
 import { Dialog } from "radix-ui";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
+import { subscribeEvaOpen } from "./eva-widget-bus";
 import "./eva-widget.css";
 import { useEvaAccess } from "./use-eva-access";
 
@@ -51,7 +52,9 @@ export function EvaWidget() {
 				markWelcomeSeen(userId);
 			}
 
-			setInitialMessage(message);
+			// Sem mensagem nova, preserva a que veio de um CTA (openEva) e ficou
+			// aguardando a ciencia do aviso LGPD na tela de boas-vindas.
+			setInitialMessage((previous) => message ?? previous);
 			setView("chat");
 		},
 		[mode, userId],
@@ -71,6 +74,26 @@ export function EvaWidget() {
 		},
 		[mode, userId],
 	);
+
+	// CTAs "Falar com a EVA" (landing/home) abrem o widget via bus, ja que
+	// vivem dentro do RouterProvider e o widget fora dele.
+	useEffect(() => {
+		return subscribeEvaOpen((message?: string) => {
+			// Anonimo SEMPRE passa pela boas-vindas (e o aviso LGPD e bloqueante);
+			// nutriz pula direto para o chat se ja viu a boas-vindas ou se o CTA
+			// trouxe uma mensagem para enviar.
+			const skipWelcome =
+				mode === "nutriz" && (hasSeenWelcome(userId) || Boolean(message));
+
+			if (skipWelcome && mode === "nutriz") {
+				markWelcomeSeen(userId);
+			}
+
+			setInitialMessage(message);
+			setView(skipWelcome ? "chat" : "welcome");
+			setOpen(true);
+		});
+	}, [mode, userId]);
 
 	if (!allowed) {
 		return null;

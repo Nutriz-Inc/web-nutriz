@@ -1,5 +1,5 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EVA_CARD_BG, EVA_FEATURES } from "../constants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
 import { SlideButton } from "./SlideButton";
@@ -17,7 +17,6 @@ const item: Variants = {
 };
 
 export function EvaSection() {
-	const navigate = useNavigate();
 	const scrollToSection = useScrollToSection();
 	const reduce = useReducedMotion();
 
@@ -94,7 +93,7 @@ export function EvaSection() {
 					>
 						<SlideButton
 							label="Falar com a EVA"
-							onClick={() => navigate("/login")}
+							onClick={() => openEva()}
 							pillClassName="bg-gradient-to-r from-[#d96b8f] to-[#b39ddb] text-white"
 							circleClassName="bg-white text-[#c25e86]"
 						/>

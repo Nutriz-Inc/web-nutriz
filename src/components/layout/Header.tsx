@@ -1,49 +1,29 @@
-import { ChevronLeft, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState } from "react";
-import { useMatches, useNavigate } from "react-router-dom";
+import NutrizLogo from "@/assets/images/nutriz-log-alternative.svg";
 import { AppDrawer } from "./AppDrawer";
-import { getuserRootPage } from "./utils";
-import { useAuth } from "@/hooks/use-auth";
-
-type RouteHandle = {
-	title?: string;
-};
 
 export function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
-	const { auth } = useAuth();
-
-	const navigate = useNavigate();
-	const matches = useMatches();
-
-	const title =
-		(
-			matches.findLast((m) => (m.handle as RouteHandle)?.title)
-				?.handle as RouteHandle
-		)?.title ?? "Início";
 
 	return (
 		<>
-			<header className="flex items-center justify-between bg-[#00458B] px-4 py-4 border-b border-white sticky top-0 z-10">
-				<button
-					type="button"
-					onClick={() => navigate(getuserRootPage(auth?.type))}
-					className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white hover:bg-white transition"
-					aria-label="Voltar para início"
-				>
-					<ChevronLeft className="h-5 w-5" />
-				</button>
-
-				<span className="text-base font-semibold text-white">{title}</span>
-
-				<button
-					type="button"
-					onClick={() => setDrawerOpen(true)}
-					className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white hover:bg-slate-200 transition"
-					aria-label="Abrir menu"
-				>
-					<Menu className="h-5 w-5" />
-				</button>
+			<header className="bg-[#00458b] sticky top-0 z-10">
+				<div className="relative flex items-center justify-end max-w-[1440px] mx-auto pl-5 pr-4 py-6 lg:pl-20 lg:pr-9">
+					<img
+						src={NutrizLogo}
+						alt="Nutriz"
+						className="absolute left-1/2 -translate-x-1/2 h-14 w-auto select-none"
+					/>
+					<button
+						type="button"
+						onClick={() => setDrawerOpen(true)}
+						aria-label="Abrir menu"
+						className="text-white hover:text-white/80 transition-colors"
+					>
+						<Menu className="size-6" />
+					</button>
+				</div>
 			</header>
 
 			<AppDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />

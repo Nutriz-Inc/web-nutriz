@@ -3,6 +3,7 @@ import services from "@/services";
 import type {
 	ICreateDonationStepRequest,
 	IGetDonationResponse,
+	IUpdateDonationRequest,
 	IUpdateDonationStepRequest,
 } from "@/services/types/i-donation";
 import type {
@@ -77,6 +78,22 @@ export function useUpdateDonationStep(id_donation: string) {
 								: step,
 						),
 					},
+			);
+		},
+	});
+}
+
+export function useUpdateDonation(id_donation: string) {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (data: IUpdateDonationRequest) =>
+			services.donation.update(id_donation, data),
+		onSuccess: async (updatedDonation) => {
+			await queryClient.cancelQueries({ queryKey: ["donation", id_donation] });
+			queryClient.setQueryData<IGetDonationResponse>(
+				["donation", id_donation],
+				(current) => current && { ...current, ...updatedDonation },
 			);
 		},
 	});

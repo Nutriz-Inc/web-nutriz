@@ -38,12 +38,6 @@ const navItemsUserCommon: NavItem[] = [
 	{ label: "Conteúdo educativo", icon: BookOpen, to: "/conteudo-educativo" },
 	{ label: "Perfil", icon: User, to: "/perfil" },
 	{ label: "EVA — Assistente Virtual", icon: MessageCircle, to: "/eva" },
-	{
-		label: "Gestão de Doações",
-		icon: ClipboardList,
-		to: "/gestao-doacoes",
-		adminOnly: true,
-	},
 ];
 
 const navItemsUserAdmin: NavItem[] = [
@@ -54,10 +48,12 @@ const navItemsUserAdmin: NavItem[] = [
 		adminOnly: true,
 	},
 	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
+	{ label: "Perfil", icon: User, to: "/perfil" },
 ];
 
 const navItemsUserNurse: NavItem[] = [
 	{ label: "Meus Agendamentos", icon: CalendarCheck, to: "/agendamentos" },
+	{ label: "Perfil", icon: User, to: "/perfil" }
 ];
 
 export function getUserMenu(userType: EnumUserType) {

@@ -1,6 +1,6 @@
+import wordmarkColor from "@/assets/images/nutriz-wordmark-blue.png";
+import wordmarkWhite from "@/assets/images/nutriz-wordmark-white.png";
 import { cn } from "@/lib/utils";
-import wordmarkColor from "../assets/nutriz-wordmark-blue.png";
-import wordmarkWhite from "../assets/nutriz-wordmark-white.png";
 
 type WordmarkProps = {
 	className?: string;

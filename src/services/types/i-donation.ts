@@ -1,5 +1,5 @@
 import type { IPaginationRequest, IPaginationResponse } from "./i-index";
-import type { Address } from "./i-user";
+import type { Address, AddressCreateBase } from "./i-user";
 
 // entities
 export interface Donation {
@@ -7,6 +7,7 @@ export interface Donation {
 	is_active: boolean;
 	quantity_donated?: number;
 	user_feedback?: string;
+	score_feedback?: number;
 	created_at: string;
 	created_by: string;
 	updated_at?: string;
@@ -29,6 +30,7 @@ export interface DonationPoint {
 export interface DonationStep {
 	id_donation_step: string;
 	id_donation: string;
+	id_address?: string;
 	name: EnumDonationStepName;
 	description: string;
 	status: EnumDonationStepStatus;
@@ -43,6 +45,7 @@ export interface DonationStep {
 export interface DonationStepTimeline {
 	id_donation_step_timeline: string;
 	id_donation_step: string;
+	id_address?: string;
 	description: string;
 	status: EnumDonationStepStatus;
 	set_date?: string;
@@ -71,9 +74,18 @@ export enum EnumDonationStepStatus {
 export interface IListDonationsRequest extends IPaginationRequest {
 	is_active?: boolean;
 	user_document?: string;
+	user_name?: string;
+	id_user_common?: string;
+	current_step?: EnumDonationStepName;
+}
+export interface IDonationResponse extends Donation {
+	user_document?: string;
+	user_name?: string;
+	current_step?: EnumDonationStepName;
+	has_error: boolean;
 }
 export interface IListDonationsResponse extends IPaginationResponse {
-	data: Donation[];
+	data: IDonationResponse[];
 }
 
 export type ICreateDonationResponse = Donation;
@@ -86,6 +98,7 @@ export interface IUpdateDonationRequest {
 	is_active?: boolean;
 	quantity_donated?: number;
 	user_feedback?: string;
+	score_feedback?: number;
 }
 export type IUpdateDonationResponse = Donation;
 
@@ -109,6 +122,8 @@ export interface IListDonationPointsResponse extends IPaginationResponse {
 // donation step
 export interface ICreateDonationStepRequest {
 	id_donation: string;
+	id_address?: string;
+	address?: AddressCreateBase;
 	name: EnumDonationStepName;
 	description: string;
 	set_date?: string;
@@ -116,6 +131,8 @@ export interface ICreateDonationStepRequest {
 export type ICreateDonationStepResponse = DonationStep;
 
 export interface IUpdateDonationStepRequest {
+	id_address?: string;
+	address?: AddressCreateBase;
 	description: string;
 	set_date?: string;
 	status?: EnumDonationStepStatus;

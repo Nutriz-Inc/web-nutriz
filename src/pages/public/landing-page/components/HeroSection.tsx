@@ -1,12 +1,12 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import heroImage from "@/assets/images/hero-mother-baby.png";
 import {
 	fadeScale,
 	fadeUp,
 	heroStagger,
 	slideInRight,
 } from "../animations/variants";
-import heroImage from "../assets/hero-mother-baby.png";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
 import { ActivityBadge } from "./ActivityBadge";
 import { HeroBackground } from "./HeroBackground";
@@ -60,7 +60,7 @@ export function HeroSection() {
 					>
 						<SlideButton
 							label="Quero doar"
-							onClick={() => navigate("/login")}
+							onClick={() => navigate("/registro")}
 						/>
 						<button
 							type="button"

@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
 import { getInitials } from "@/components/layout/utils";
-import type { Testimonial } from "../data/mock";
+import type { Testimonial } from "../mock";
 
 const STARS = ["s1", "s2", "s3", "s4", "s5"];
 

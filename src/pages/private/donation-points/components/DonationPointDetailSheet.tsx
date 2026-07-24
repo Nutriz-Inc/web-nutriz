@@ -7,10 +7,10 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
+import { DetailRow } from "@/components/full/DetailRow";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { formatCep, formatPhoneNumber } from "@/utils/formatter";
 import { CollectionType } from "./CollectionType";
-import { DetailRow } from "./DetailRow";
 
 type DonationPointDetailSheetProps = {
 	point: IDonationPointResponse | null;

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { FOOTER_COLUMNS, FOOTER_SOCIALS, type FooterLink } from "../constants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
-import { FOOTER_COLUMNS, FOOTER_SOCIALS, type FooterLink } from "./constants";
 import { Wordmark } from "./Wordmark";
 
 export function LandingFooter() {

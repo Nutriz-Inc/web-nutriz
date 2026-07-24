@@ -85,6 +85,8 @@ export type IUpdateAddressResponse = Address;
 
 export type IRemoveAddressResponse = IDeleteResponse;
 
+export type IGetAddressResponse = Address;
+
 // consent
 export interface ICreateConsentRequest {
 	terms_version: string;
@@ -119,7 +121,7 @@ export interface ICreateUserRequest {
 	phone_number: string;
 	birth_date?: string;
 	address?: AddressCreateBase;
-	user_baby?: UserBabyCreateBase;
+	user_baby?: UserBabyCreateBase[];
 	consent_log?: ICreateConsentRequest;
 	identifier?: string;
 }
@@ -175,6 +177,7 @@ export interface IUser {
 		data: IUpdateAddressRequest,
 	): Promise<IUpdateAddressResponse>;
 	removeAddress(id_address: string): Promise<IRemoveAddressResponse>;
+	getAddresses(id_address: string): Promise<IGetAddressResponse>;
 
 	// user baby
 	createBaby(data: ICreateUserBabyRequest): Promise<ICreateUserBabyResponse>;

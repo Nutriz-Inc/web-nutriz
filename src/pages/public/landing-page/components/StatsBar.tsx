@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { MetricCard } from "@/pages/private/home/components/MetricCard";
+import { METRICS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
-import { METRICS } from "./constants";
 
 export function StatsBar() {
 	const reveal = useReveal();

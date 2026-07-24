@@ -1,8 +1,8 @@
 import { Eye, EyeOff, LoaderCircle, Mail } from "lucide-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import LoginBg from "@/assets/login-bg.svg";
-import NutrizLogo from "@/assets/nutriz-logo.svg";
+import { Link } from "react-router-dom";
+import LoginBg from "@/assets/images/login-bg.svg";
+import NutrizLogo from "@/assets/images/nutriz-logo.svg";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -17,7 +17,6 @@ export type FormErrors = {
 
 export function LoginScreen() {
 	const { updateAuth } = useAuth();
-	const navigate = useNavigate();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -27,7 +26,6 @@ export function LoginScreen() {
 	const { loginMutation } = useLogin({
 		updateAuth,
 		setErrors,
-		onSuccess: () => navigate("/home"),
 	});
 
 	function validate(): boolean {
@@ -214,7 +212,7 @@ export function LoginScreen() {
 				<p className="mt-5 text-center text-sm text-[#54648a]">
 					Ainda não tem uma conta?{" "}
 					<Link
-						to="/register"
+						to="/registro"
 						className="font-semibold text-[#1c5fd0] hover:underline underline-offset-2"
 					>
 						Criar conta

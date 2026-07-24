@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
+import bancoLeite from "@/assets/images/milk-bank.jpg";
+import whatsappLogo from "@/assets/images/whatsapp-logo.png";
 import {
 	buildLactareWhatsAppLink,
 	EnumWhatsAppLinkContext,
 } from "@/utils/whatsapp-link";
 import { fadeUp, staggerContainer } from "../animations/variants";
-import bancoLeite from "../assets/milk-bank.jpg";
-import whatsappLogo from "../assets/whatsapp-logo.png";
+import { STEP_ICONS, STEPS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
-import { STEP_ICONS, STEPS } from "./constants";
 import { SectionLabel } from "./SectionLabel";
 import { SlideButton } from "./SlideButton";
 

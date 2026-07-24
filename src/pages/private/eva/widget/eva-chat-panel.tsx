@@ -41,6 +41,7 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 		errorMessage,
 		sendMessage,
 		retry,
+		isAnonymous,
 	} = useEvaChat(initialMessage);
 
 	const [input, setInput] = useState("");
@@ -65,6 +66,17 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 
 	const blocked = blockedReason !== null;
 	const inputDisabled = blocked || status === "failed";
+
+	// O prompt do modo publico sugere cadastro apos algumas mensagens; quando a
+	// EVA fala em cadastro, o front destaca o CTA sem bloquear a conversa.
+	const showRegisterCta =
+		isAnonymous &&
+		!blocked &&
+		messages.some(
+			(message) =>
+				message.role === "eva" &&
+				message.paragraphs.join(" ").toLowerCase().includes("cadastr"),
+		);
 
 	const statusNotice = blocked ? (
 		<p className="eva-widget-notice">{BLOCKED_MESSAGES[blockedReason]}</p>
@@ -100,6 +112,11 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 				{isTyping && <TypingIndicator desktop={false} />}
 				{statusNotice}
 			</div>
+			{showRegisterCta && (
+				<a className="eva-widget-register-cta" href="/registro">
+					Cadastre-se na Nutriz para um atendimento personalizado
+				</a>
+			)}
 			<ChatInput
 				desktop={false}
 				value={input}

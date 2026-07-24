@@ -212,3 +212,28 @@
 	line-height: 1.5;
 	color: #6b6b76;
 }
+
+.eva-widget-register-cta {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+	margin: 0 14px 8px;
+	padding: 10px 14px;
+	border-radius: 12px;
+	background: linear-gradient(90deg, #fbeaf0, #f3e8f7);
+	font-size: 13px;
+	font-weight: 600;
+	color: #c25e86;
+	text-align: center;
+	text-decoration: none;
+}
+
+.eva-widget-register-cta:hover {
+	filter: brightness(0.97);
+}
+
+.eva-widget-register-cta:focus-visible {
+	outline: 2px solid #c25e86;
+	outline-offset: 2px;
+}

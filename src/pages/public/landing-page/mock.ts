@@ -1,41 +1,44 @@
+import {
+	type ArticleCategory,
+	ARTICLES as SHARED_ARTICLES,
+} from "@/pages/public/articles/data";
+
 export type Article = {
+	id: number;
 	category: string;
 	categoryColor: string;
 	accent: string;
 	title: string;
 	readTime: string;
+	coverImage: string;
+	coverAlt: string;
+	coverWidth: number;
+	coverHeight: number;
 };
 
-export const ARTICLES: Article[] = [
-	{
-		category: "Amamentação",
-		categoryColor: "#0f9d8c",
-		accent: "#d7f2ec",
-		title: "Como armazenar e transportar seu leite com segurança",
-		readTime: "4 min de leitura",
-	},
-	{
-		category: "Nutrição",
-		categoryColor: "#3f8f2f",
-		accent: "#e2f1d6",
-		title: "Alimentação da nutriz: o que comer durante a doação",
-		readTime: "5 min de leitura",
-	},
-	{
-		category: "Acolhimento",
-		categoryColor: "#d84e83",
-		accent: "#fbdce8",
-		title: "Não pôde doar? Veja como você ainda pode ajudar",
-		readTime: "3 min de leitura",
-	},
-	{
-		category: "Cuidados",
-		categoryColor: "#3b6fd0",
-		accent: "#dbe7fb",
-		title: "Higiene na ordenha: passo a passo da rBLH",
-		readTime: "6 min de leitura",
-	},
-];
+const LANDING_ARTICLE_COLORS: Record<
+	ArticleCategory,
+	{ categoryColor: string; accent: string }
+> = {
+	Amamentação: { categoryColor: "#0f9d8c", accent: "#d7f2ec" },
+	Nutrição: { categoryColor: "#3f8f2f", accent: "#e2f1d6" },
+	Acolhimento: { categoryColor: "#d84e83", accent: "#fbdce8" },
+	Cuidados: { categoryColor: "#3b6fd0", accent: "#dbe7fb" },
+};
+
+export const ARTICLES: Article[] = SHARED_ARTICLES.slice(0, 4).map(
+	(article) => ({
+		id: article.id,
+		category: article.category,
+		title: article.title,
+		readTime: `${article.readTimeMinutes} min de leitura`,
+		coverImage: article.coverImage,
+		coverAlt: article.coverAlt,
+		coverWidth: article.coverWidth,
+		coverHeight: article.coverHeight,
+		...LANDING_ARTICLE_COLORS[article.category],
+	}),
+);
 
 export type Testimonial = {
 	name: string;

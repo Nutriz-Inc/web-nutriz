@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
-import { ArrowRight, BadgeCheck, BookOpen } from "lucide-react";
+import { ArrowRight, BadgeCheck } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { fadeUp, staggerContainer } from "../animations/variants";
 import { useReveal } from "../hooks/use-reveal";
 import { ARTICLES } from "../mock";
 import { SectionLabel } from "./SectionLabel";
 
 export function ArticlesSection() {
+	const navigate = useNavigate();
 	const headerReveal = useReveal();
 	const gridReveal = useReveal(staggerContainer);
 
@@ -47,17 +49,16 @@ export function ArticlesSection() {
 							variants={fadeUp}
 							whileHover={{ y: -6 }}
 							transition={{ type: "spring", stiffness: 300, damping: 22 }}
-							className="flex flex-col overflow-hidden rounded-2xl border border-[#e6ecf5] bg-white shadow-sm"
+							onClick={() => navigate(`/artigos?a=${article.id}`)}
+							className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#e6ecf5] bg-white shadow-sm"
 						>
-							<div
-								className="flex h-24 items-center justify-center"
-								style={{ backgroundColor: article.accent }}
-							>
-								<BookOpen
-									className="size-8"
-									style={{ color: article.categoryColor }}
-								/>
-							</div>
+							<img
+								src={article.coverImage}
+								alt={article.coverAlt}
+								width={article.coverWidth}
+								height={article.coverHeight}
+								className="h-24 w-full object-cover"
+							/>
 
 							<div className="flex flex-1 flex-col gap-3 p-5">
 								<span
@@ -80,7 +81,12 @@ export function ArticlesSection() {
 									</span>
 									<button
 										type="button"
-										className="inline-flex items-center gap-1 text-[13px] font-semibold transition-colors"
+										onClick={(e) => {
+											e.stopPropagation();
+											navigate(`/artigos?a=${article.id}`);
+										}}
+										aria-label={`Ler artigo: ${article.title}`}
+										className="inline-flex items-center gap-1 rounded-lg text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
 										style={{ color: article.categoryColor }}
 									>
 										Ler artigo

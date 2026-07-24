@@ -1,6 +1,5 @@
 import { Flag } from "lucide-react";
-import { formatAppointmentDateTime } from "../../format";
-import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
+import { formatCreatedAt } from "@/utils/formatter";
 import type { AppointmentFinalResult } from "../../types";
 
 type FinalResultCardProps = {
@@ -17,18 +16,11 @@ export function FinalResultCard({ result }: FinalResultCardProps) {
 				</span>
 			</div>
 
-			<div className="flex flex-col gap-3 lg:flex-row lg:items-start">
-				<AppointmentStatusBadge status={result.status} className="shrink-0" />
-				<p className="text-[14px] leading-relaxed text-[#374151]">
-					{result.description}
-				</p>
-			</div>
-
 			<div className="grid grid-cols-1 gap-4 border-t border-[#eef1f5] pt-4 sm:grid-cols-2">
 				<div className="flex flex-col gap-0.5">
 					<span className="text-[12px] text-[#9ca3af]">Encerrado em</span>
 					<span className="text-[14px] font-semibold text-[#374151]">
-						{formatAppointmentDateTime(result.endedAt)}
+						{result.endedAt ? formatCreatedAt(result.endedAt) : "—"}
 					</span>
 				</div>
 				<div className="flex flex-col gap-0.5">

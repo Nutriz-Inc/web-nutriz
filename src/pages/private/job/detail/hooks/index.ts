@@ -1,15 +1,28 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { STEP_DEFINITIONS } from "@/pages/private/donations/common/info/constants";
 import services from "@/services";
-import type { EnumJobStatus, IGetJobResponse } from "@/services/types/i-job";
-import { formatAppointmentLocation } from "../../format";
+import type { IGetJobResponse } from "@/services/types/i-job";
+import { EnumJobStatus } from "@/services/types/i-job";
+import type { Address } from "@/services/types/i-user";
 import { isEndedStatus } from "../../list/utils";
-import { toFinalResult, toReports, toStepItems } from "../../mapper";
+import { findStepDefinition } from "../../steps";
 import type {
 	AppointmentDetail,
 	AppointmentFinalResult,
 	AppointmentReport,
 	AppointmentStepItem,
 } from "../../types";
+
+function formatLocation(address?: Address): string {
+	if (!address) return "—";
+
+	const street = [address.street, address.number ?? "s/n"]
+		.filter(Boolean)
+		.join(", ");
+	const region = [address.city, address.state].filter(Boolean).join("/");
+
+	return [street, address.neighborhood, region].filter(Boolean).join(" - ");
+}
 
 type UpdateAppointmentInput = {
 	status: EnumJobStatus;
@@ -34,61 +47,86 @@ export function useUpdateAppointment(id_job: string) {
 	});
 }
 
-type DonationTrail = {
-	steps: AppointmentStepItem[];
-	reports: AppointmentReport[];
-	finalResult?: AppointmentFinalResult;
-};
-
-const EMPTY_TRAIL: DonationTrail = { steps: [], reports: [] };
-
-const DONATION_SCAN_CHUNK = 5;
-
-async function fetchDonationTrail(
-	job: IGetJobResponse,
-): Promise<DonationTrail> {
-	if (!job.id_user_common || !job.id_step) return EMPTY_TRAIL;
+async function fetchNurseName(id_user?: string): Promise<string> {
+	if (!id_user) return "—";
 
 	try {
-		const [donations, jobs] = await Promise.all([
-			services.donation.list({
-				page: 1,
-				page_size: 50,
-				id_user_common: job.id_user_common,
-			}),
-			services.job.list({
-				page: 1,
-				page_size: 50,
-				id_user_common: job.id_user_common,
-			}),
-		]);
-
-		let donation: Awaited<ReturnType<typeof services.donation.get>> | undefined;
-
-		for (
-			let index = 0;
-			index < donations.data.length && !donation;
-			index += DONATION_SCAN_CHUNK
-		) {
-			const chunk = donations.data.slice(index, index + DONATION_SCAN_CHUNK);
-			const details = await Promise.all(
-				chunk.map((item) => services.donation.get(item.id_donation)),
-			);
-			donation = details.find((detail) =>
-				detail.steps.some((step) => step.id_donation_step === job.id_step),
-			);
-		}
-
-		if (!donation) return EMPTY_TRAIL;
-
-		const steps = toStepItems(donation.steps, job);
-		const reports = toReports(donation.steps, jobs.data);
-		const finalResult = toFinalResult(job, donation, jobs.data, reports);
-
-		return { steps, reports, finalResult };
+		const nurse = await services.user.get(id_user, {
+			show_address: false,
+			show_baby: false,
+			show_donations_completed: false,
+			show_current_donation: false,
+		});
+		return nurse.name ?? "—";
 	} catch {
-		return EMPTY_TRAIL;
+		return "—";
 	}
+}
+
+function toStepItems(job: IGetJobResponse): AppointmentStepItem[] {
+	const currentOrder = findStepDefinition(job.name)?.order;
+
+	return STEP_DEFINITIONS.map((definition) => {
+		if (currentOrder === undefined || definition.order > currentOrder) {
+			return { name: definition.name, state: "locked" as const };
+		}
+		if (definition.order < currentOrder) {
+			return { name: definition.name, state: "done" as const };
+		}
+		if (job.status === EnumJobStatus.Done) {
+			return {
+				name: definition.name,
+				state: "done" as const,
+				date: job.updated_at ?? job.date_set,
+			};
+		}
+		if (job.status === EnumJobStatus.Failed) {
+			return {
+				name: definition.name,
+				state: "failed" as const,
+				date: job.updated_at ?? job.date_set,
+			};
+		}
+		return { name: definition.name, state: "current" as const };
+	});
+}
+
+function toReports(
+	job: IGetJobResponse,
+	responsible: string,
+): AppointmentReport[] {
+	if (!job.user_feedback) return [];
+
+	return [
+		{
+			stepName: job.name,
+			status: job.status,
+			date: job.updated_at ?? job.date_set ?? job.created_at,
+			responsible,
+			text: job.user_feedback,
+		},
+	];
+}
+
+function toFinalResult(
+	job: IGetJobResponse,
+	responsible: string,
+): AppointmentFinalResult | undefined {
+	if (job.status !== EnumJobStatus.Done && job.status !== EnumJobStatus.Failed)
+		return undefined;
+
+	const description =
+		job.user_feedback ??
+		(job.status === EnumJobStatus.Done
+			? `Etapa "${job.name}" concluída com sucesso.`
+			: `Doação encerrada na etapa ${job.name}.`);
+
+	return {
+		status: job.status,
+		description,
+		endedAt: job.updated_at ?? job.date_set ?? "",
+		responsible,
+	};
 }
 
 export function useAppointmentDetail(id_job: string) {
@@ -98,8 +136,9 @@ export function useAppointmentDetail(id_job: string) {
 		staleTime: 10000,
 		queryFn: async (): Promise<AppointmentDetail> => {
 			const job = await services.job.get(id_job);
+			const ended = isEndedStatus(job.status);
 
-			const [donor, address, trail] = await Promise.all([
+			const [donor, address, nurseName] = await Promise.all([
 				job.id_user_common
 					? services.user.get(job.id_user_common, {
 							show_address: true,
@@ -109,7 +148,7 @@ export function useAppointmentDetail(id_job: string) {
 						})
 					: undefined,
 				job.id_address ? services.user.getAddresses(job.id_address) : undefined,
-				fetchDonationTrail(job),
+				ended ? fetchNurseName(job.id_user) : "—",
 			]);
 
 			return {
@@ -118,17 +157,15 @@ export function useAppointmentDetail(id_job: string) {
 				donorPhone: donor?.phone_number,
 				donorEmail: donor?.email,
 				dateSet: job.date_set ?? "",
-				locationName: formatAppointmentLocation(
-					address ?? donor?.addresses?.[0],
-				),
+				locationName: formatLocation(address ?? donor?.addresses?.[0]),
 				stepName: job.name,
 				description: job.description,
 				status: job.status,
 				hasReport: Boolean(job.user_feedback),
-				ended: isEndedStatus(job.status),
-				steps: trail.steps,
-				reports: trail.reports,
-				finalResult: trail.finalResult,
+				ended,
+				steps: toStepItems(job),
+				reports: toReports(job, nurseName),
+				finalResult: ended ? toFinalResult(job, nurseName) : undefined,
 			};
 		},
 	});

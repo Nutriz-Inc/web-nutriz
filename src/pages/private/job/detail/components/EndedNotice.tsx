@@ -32,10 +32,10 @@ export function EndedNotice({ status }: EndedNoticeProps) {
 						isFailed ? "text-[#cf3030]" : "text-[#0f6e56]",
 					)}
 				>
-					Doação encerrada
+					Tarefa encerrada
 				</p>
 				<p className="text-[13px] text-[#6b7280]">
-					Esta doação foi finalizada e o status não pode mais ser alterado.
+					Esta tarefa foi finalizada e o status não pode mais ser alterado.
 				</p>
 			</div>
 		</div>

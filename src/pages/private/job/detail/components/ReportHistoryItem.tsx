@@ -1,5 +1,5 @@
 import { Calendar, User } from "lucide-react";
-import { formatAppointmentDate } from "../../format";
+import { formatDateBR } from "@/utils/formatter";
 import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
 import type { AppointmentReport } from "../../types";
 
@@ -20,7 +20,7 @@ export function ReportHistoryItem({ report }: ReportHistoryItemProps) {
 			<div className="flex flex-wrap items-center gap-x-4 gap-y-1">
 				<span className="flex items-center gap-1.5 text-[12px] text-[#9ca3af]">
 					<Calendar className="size-3.5 shrink-0" />
-					{formatAppointmentDate(report.date)}
+					{formatDateBR(report.date)}
 				</span>
 				<span className="flex items-center gap-1.5 text-[12px] text-[#9ca3af]">
 					<User className="size-3.5 shrink-0" />

@@ -16,9 +16,6 @@ export function ReportHistory({ reports }: ReportHistoryProps) {
 						Histórico de relatórios
 					</span>
 				</div>
-				<p className="text-[13px] text-[#9ca3af]">
-					Registro de cada etapa da doação, em ordem cronológica.
-				</p>
 			</div>
 
 			{reports.length === 0 ? (

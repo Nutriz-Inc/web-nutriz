@@ -1,5 +1,5 @@
 import { FileText } from "lucide-react";
-import { findStepDefinition } from "../../steps";
+import { findStepDefinition } from "../utils";
 
 type StepDescriptionCardProps = {
 	stepName: string;

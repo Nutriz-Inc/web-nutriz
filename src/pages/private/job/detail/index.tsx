@@ -5,7 +5,6 @@ import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { AppointmentStepper } from "./components/AppointmentStepper";
 import { AppointmentSummaryCard } from "./components/AppointmentSummaryCard";
-import { DetailBreadcrumb } from "./components/DetailBreadcrumb";
 import { EndedNotice } from "./components/EndedNotice";
 import { FinalResultCard } from "./components/FinalResultCard";
 import { ReportHistory } from "./components/ReportHistory";
@@ -23,6 +22,8 @@ export function AppointmentDetailPage() {
 			hasPermission={auth?.type === EnumUserType.Nurse}
 			loading={isLoading}
 			backTo="/agendamentos"
+			title={`Agendamento #${id_job.slice(0, 8)}`}
+			description="Acompanhe cada etapa do processo do agendamento."
 		>
 			{!appointment ? (
 				<div className="flex flex-col items-center gap-2 rounded-2xl border border-[#e7ecf2] bg-white p-10 text-center">
@@ -36,11 +37,6 @@ export function AppointmentDetailPage() {
 				</div>
 			) : (
 				<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-[#f4f7fb] p-4 pb-24 lg:m-0 lg:mx-auto lg:min-h-0 lg:max-w-[1200px] lg:bg-transparent lg:p-0 lg:pb-8">
-					<DetailBreadcrumb
-						donorName={appointment.donorName}
-						ended={appointment.ended}
-					/>
-
 					{appointment.ended && (
 						<div className="lg:hidden">
 							<EndedNotice status={appointment.status} />
@@ -84,7 +80,6 @@ export function AppointmentDetailPage() {
 									/>
 									<UpdateStepStatusForm
 										id_job={id_job}
-										currentStatus={appointment.status}
 										stepName={appointment.stepName}
 									/>
 								</>

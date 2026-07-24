@@ -1,18 +1,52 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/use-auth";
 import services from "@/services";
+import type { EnumJobStatus, IJobResponse } from "@/services/types/i-job";
+import type { Address } from "@/services/types/i-user";
 import { EnumUserType } from "@/services/types/i-user";
-import { toAppointment } from "../../mapper";
+import type { Appointment } from "../../types";
 
 export const APPOINTMENTS_PAGE_SIZE = 50;
 
-export function useAppointmentsList() {
+type UseAppointmentsListParams = {
+	status: EnumJobStatus;
+	dateSet?: string;
+};
+
+function formatLocation(address?: Address): string {
+	if (!address) return "—";
+
+	const street = [address.street, address.number ?? "s/n"]
+		.filter(Boolean)
+		.join(", ");
+	const region = [address.city, address.state].filter(Boolean).join("/");
+
+	return [street, address.neighborhood, region].filter(Boolean).join(" - ");
+}
+
+function toAppointment(job: IJobResponse): Appointment {
+	return {
+		id: job.id_job,
+		donorName: job.user_common_name ?? "—",
+		dateSet: job.date_set ?? "",
+		locationName: formatLocation(job.address),
+		stepName: job.name,
+		description: job.description,
+		status: job.status,
+		hasReport: Boolean(job.user_feedback),
+	};
+}
+
+export function useAppointmentsList({
+	status,
+	dateSet,
+}: UseAppointmentsListParams) {
 	const { auth } = useAuth();
 	const id_user_nurse =
 		auth?.type === EnumUserType.Nurse ? auth.id_user : undefined;
 
 	const query = useInfiniteQuery({
-		queryKey: ["appointments-list", id_user_nurse],
+		queryKey: ["appointments-list", id_user_nurse, status, dateSet],
 		enabled: Boolean(id_user_nurse),
 		initialPageParam: 1,
 		queryFn: ({ pageParam }) =>
@@ -20,6 +54,8 @@ export function useAppointmentsList() {
 				page: pageParam,
 				page_size: APPOINTMENTS_PAGE_SIZE,
 				id_user_nurse,
+				status,
+				date_set: dateSet,
 			}),
 		getNextPageParam: (lastPage, allPages) => {
 			if (lastPage.data.length < APPOINTMENTS_PAGE_SIZE) return undefined;

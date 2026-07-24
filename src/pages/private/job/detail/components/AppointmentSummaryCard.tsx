@@ -1,7 +1,6 @@
 import { Bookmark, Calendar, Mail, MapPin, Phone } from "lucide-react";
 import { getInitials } from "@/components/layout/utils";
-import { formatPhoneNumber } from "@/utils/formatter";
-import { formatAppointmentDateTime } from "../../format";
+import { formatCreatedAt, formatPhoneNumber } from "@/utils/formatter";
 import { AppointmentInfoRow } from "../../../../../components/full/AppointmentInfoRow";
 import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
 import type { AppointmentDetail } from "../../types";
@@ -59,7 +58,9 @@ export function AppointmentSummaryCard({
 				<AppointmentInfoRow
 					icon={<Calendar className="size-[18px] shrink-0 text-[#94a3b8]" />}
 					label="Data do agendamento"
-					value={formatAppointmentDateTime(appointment.dateSet)}
+					value={
+						appointment.dateSet ? formatCreatedAt(appointment.dateSet) : "—"
+					}
 				/>
 				<AppointmentInfoRow
 					icon={<MapPin className="size-[18px] shrink-0 text-[#94a3b8]" />}

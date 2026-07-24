@@ -6,14 +6,12 @@ import { STATUS_OPTION_DESCRIPTION } from "../constants";
 type StatusRadioOptionProps = {
 	status: AppointmentStatus;
 	selected: boolean;
-	isCurrent: boolean;
 	onSelect: (status: AppointmentStatus) => void;
 };
 
 export function StatusRadioOption({
 	status,
 	selected,
-	isCurrent,
 	onSelect,
 }: StatusRadioOptionProps) {
 	const display = APPOINTMENT_STATUS_DISPLAY[status];
@@ -44,11 +42,6 @@ export function StatusRadioOption({
 					<span className="text-[14px] font-semibold text-[#1f2a37]">
 						{display.label}
 					</span>
-					{isCurrent && (
-						<span className="rounded-full bg-[#eef2f7] px-2 py-0.5 text-[11px] font-semibold text-[#6b7280]">
-							atual
-						</span>
-					)}
 				</div>
 				<span className="text-[13px] text-[#6b7280]">
 					{STATUS_OPTION_DESCRIPTION[status]}

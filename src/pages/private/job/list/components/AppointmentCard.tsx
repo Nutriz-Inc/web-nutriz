@@ -9,12 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import { EnumJobStatus } from "@/services/types/i-job";
-import { formatAppointmentDateTime } from "../../format";
+import { formatCreatedAt } from "@/utils/formatter";
 import { AppointmentInfoRow } from "../../../../../components/full/AppointmentInfoRow";
 import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
-import { findStepDefinition } from "../../steps";
 import type { Appointment } from "../../types";
 import { getReportHint } from "../utils";
+import { findStepDefinition } from "../../detail/utils";
 
 type AppointmentCardProps = {
 	appointment: Appointment;
@@ -29,14 +29,13 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 			: "Etapa da doação";
 
 	const reportHint = getReportHint(appointment);
-
 	const StepIcon = findStepDefinition(appointment.stepName)?.icon ?? Bookmark;
 
 	return (
 		<button
 			type="button"
 			onClick={() => navigate(`/agendamentos/${appointment.id}`)}
-			className="flex w-full flex-col gap-4 rounded-2xl border border-[#e7ecf2] bg-white p-5 text-left transition-shadow hover:shadow-[0_4px_16px_rgba(15,42,80,0.08)]"
+			className="flex w-full flex-col gap-4 rounded-2xl border border-[#e7ecf2] bg-white p-5 text-left transition-transform duration-200 hover:scale-[1.02] hover:shadow-[0_4px_16px_rgba(15,42,80,0.08)]"
 		>
 			<div className="flex items-start justify-between gap-3">
 				<div className="flex min-w-0 items-center gap-3">
@@ -62,7 +61,9 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 				<AppointmentInfoRow
 					icon={<Calendar className="size-[18px] shrink-0 text-[#94a3b8]" />}
 					label="Data do agendamento"
-					value={formatAppointmentDateTime(appointment.dateSet)}
+					value={
+						appointment.dateSet ? formatCreatedAt(appointment.dateSet) : "—"
+					}
 				/>
 				<AppointmentInfoRow
 					icon={<MapPin className="size-[18px] shrink-0 text-[#94a3b8]" />}

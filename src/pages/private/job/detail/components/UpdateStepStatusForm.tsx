@@ -13,16 +13,16 @@ import { StatusRadioOption } from "./StatusRadioOption";
 
 type UpdateStepStatusFormProps = {
 	id_job: string;
-	currentStatus: AppointmentStatus;
 	stepName: string;
 };
 
 export function UpdateStepStatusForm({
 	id_job,
-	currentStatus,
 	stepName,
 }: UpdateStepStatusFormProps) {
-	const [status, setStatus] = useState<AppointmentStatus>(currentStatus);
+	const [status, setStatus] = useState<AppointmentStatus>(
+		STATUS_OPTION_ORDER[0],
+	);
 	const [report, setReport] = useState("");
 	const { mutate, isPending, isSuccess, isError, reset } =
 		useUpdateAppointment(id_job);
@@ -56,7 +56,6 @@ export function UpdateStepStatusForm({
 						key={option}
 						status={option}
 						selected={status === option}
-						isCurrent={currentStatus === option}
 						onSelect={(next) => {
 							setStatus(next);
 							reset();

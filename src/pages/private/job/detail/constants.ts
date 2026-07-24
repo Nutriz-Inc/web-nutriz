@@ -8,7 +8,6 @@ export const STATUS_OPTION_DESCRIPTION: Record<AppointmentStatus, string> = {
 };
 
 export const STATUS_OPTION_ORDER: AppointmentStatus[] = [
-	EnumJobStatus.Pending,
 	EnumJobStatus.Done,
 	EnumJobStatus.Failed,
 ];

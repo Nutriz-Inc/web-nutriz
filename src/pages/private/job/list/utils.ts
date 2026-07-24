@@ -1,9 +1,6 @@
 import { EnumJobStatus } from "@/services/types/i-job";
 import { onlyDigits } from "@/utils/formatter";
-import { formatAppointmentDate } from "../format";
 import type { Appointment, AppointmentStatus } from "../types";
-
-export type AppointmentTab = "andamento" | "concluidas";
 
 const ENDED_STATUSES: AppointmentStatus[] = [
 	EnumJobStatus.Done,
@@ -27,28 +24,12 @@ export function getReportHint(appointment: Appointment): {
 	return { text: "Toque para preencher o relatório", highlighted: true };
 }
 
-function formatDateFilter(digits: string): string {
-	return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
-}
-
-export function filterAppointments(
-	appointments: Appointment[],
-	tab: AppointmentTab,
-	dateFilter: string,
-): Appointment[] {
+export function toDateSetParam(dateFilter: string): string | undefined {
 	const digits = onlyDigits(dateFilter);
-	const hasFullDate = digits.length === 8;
+	if (digits.length !== 8) return undefined;
 
-	return appointments.filter((appointment) => {
-		const matchesTab =
-			tab === "concluidas"
-				? isEndedStatus(appointment.status)
-				: !isEndedStatus(appointment.status);
-		if (!matchesTab) return false;
-
-		if (!hasFullDate) return true;
-		return (
-			formatAppointmentDate(appointment.dateSet) === formatDateFilter(digits)
-		);
-	});
+	const day = digits.slice(0, 2);
+	const month = digits.slice(2, 4);
+	const year = digits.slice(4, 8);
+	return `${year}-${month}-${day}`;
 }

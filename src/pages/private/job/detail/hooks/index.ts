@@ -5,13 +5,13 @@ import type { IGetJobResponse } from "@/services/types/i-job";
 import { EnumJobStatus } from "@/services/types/i-job";
 import type { Address } from "@/services/types/i-user";
 import { isEndedStatus } from "../../list/utils";
-import { findStepDefinition } from "../../steps";
 import type {
 	AppointmentDetail,
 	AppointmentFinalResult,
 	AppointmentReport,
 	AppointmentStepItem,
 } from "../../types";
+import { findStepDefinition } from "../utils";
 
 function formatLocation(address?: Address): string {
 	if (!address) return "—";

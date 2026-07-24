@@ -13,12 +13,16 @@ export function formatZipCode(raw: string): string {
 export function formatPhoneNumber(raw: string) {
 	const digits = raw.replace(/\D/g, "");
 
-	if (digits.length === 11) {
-		return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+	const phone = digits.startsWith("55") && digits.length === 13
+		? digits.slice(2)
+		: digits;
+
+	if (phone.length === 11) {
+		return `(${phone.slice(0, 2)}) ${phone.slice(2, 7)}-${phone.slice(7)}`;
 	}
 
-	if (digits.length === 10) {
-		return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+	if (phone.length === 10) {
+		return `(${phone.slice(0, 2)}) ${phone.slice(2, 6)}-${phone.slice(6)}`;
 	}
 
 	return raw;

@@ -4,19 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { AddressStep } from "./components/AddressStep";
 import { BabyConsentStep } from "./components/BabyConsentStep";
-import { WIZARD_STEPS } from "./constants";
 import { PasswordStep } from "./components/PasswordStep";
 import { PersonalDataStep } from "./components/PersonalDataStep";
 import { ReviewSummary } from "./components/ReviewSummary";
 import { Stepper } from "./components/Stepper";
 import { SuccessCard } from "./components/SuccessCard";
+import { WIZARD_STEPS } from "./constants";
 import { useRegister } from "./hooks";
 import { EMPTY_REGISTER_FORM, makeEmptyBaby } from "./utils";
 import {
-	STEP_VALIDATORS,
 	type RegisterFieldName,
 	type RegisterFormData,
 	type RegisterFormErrors,
+	STEP_VALIDATORS,
 } from "./validation";
 
 export function RegisterScreen() {

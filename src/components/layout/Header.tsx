@@ -1,9 +1,9 @@
 import { ChevronLeft, Menu } from "lucide-react";
 import { useState } from "react";
 import { useMatches, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
 import { AppDrawer } from "./AppDrawer";
 import { getuserRootPage } from "./utils";
-import { useAuth } from "@/hooks/use-auth";
 
 type RouteHandle = {
 	title?: string;

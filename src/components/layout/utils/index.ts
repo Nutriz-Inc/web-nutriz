@@ -9,6 +9,7 @@ import {
 	User,
 } from "lucide-react";
 import type { ForwardRefExoticComponent, RefAttributes } from "react";
+import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EnumUserType } from "@/services/types/i-user";
 
 export function getInitials(name: string | undefined): string {
@@ -21,12 +22,15 @@ export function getInitials(name: string | undefined): string {
 		.toUpperCase();
 }
 
-type NavItem = {
+export type NavItem = {
 	label: string;
 	icon: ForwardRefExoticComponent<
 		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
 	>;
-	to: string;
+	// Item de rota (to) OU de acao (action) - a EVA e um widget global, nao
+	// uma pagina, entao o item dela dispara openEva() em vez de navegar.
+	to?: string;
+	action?: () => void;
 	adminOnly?: boolean;
 };
 
@@ -36,7 +40,7 @@ const navItemsUserCommon: NavItem[] = [
 	{ label: "Minhas doações", icon: Droplets, to: "/minhas-doacoes" },
 	{ label: "Conteúdo educativo", icon: BookOpen, to: "/conteudo-educativo" },
 	{ label: "Perfil", icon: User, to: "/perfil" },
-	{ label: "EVA — Assistente Virtual", icon: MessageCircle, to: "/eva" },
+	{ label: "EVA — Assistente Virtual", icon: MessageCircle, action: openEva },
 	{
 		label: "Gestão de Doações",
 		icon: ClipboardList,

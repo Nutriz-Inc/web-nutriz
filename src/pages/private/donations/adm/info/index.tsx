@@ -9,7 +9,7 @@ import { AdminStepCard } from "./components/AdminStepCard";
 import { DonationInfoCard } from "./components/DonationInfoCard";
 import { DonationStatusStepper } from "./components/DonationStatusStepper";
 import { DonorInfoCard } from "./components/DonorInfoCard";
-import { type AdminStepVisualStatus } from "./constants";
+import type { AdminStepVisualStatus } from "./constants";
 import {
 	useAdminDonationDetail,
 	useCreateDonationStep,

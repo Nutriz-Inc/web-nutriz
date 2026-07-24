@@ -6,6 +6,9 @@ import {
 } from "@/services/types/i-donation";
 import type { EnumJobStatus, Job } from "@/services/types/i-job";
 import type { Address } from "@/services/types/i-user";
+import type { StepDefinition } from "../../../common/info/constants";
+import { StepTimelineSheet } from "../../../common/step-detail/components/StepTimelineSheet";
+import { useStepAddress } from "../../../common/step-detail/hooks";
 import {
 	useCreateDonationStep,
 	useCreateStepJob,
@@ -28,9 +31,6 @@ import { StepEditableForm } from "./StepEditableForm";
 import { StepFailedFooter } from "./StepFailedFooter";
 import { StepLockedCard } from "./StepLockedCard";
 import { StepReadOnlyInfo } from "./StepReadOnlyInfo";
-import type { StepDefinition } from "../../../common/info/constants";
-import { useStepAddress } from "../../../common/step-detail/hooks";
-import { StepTimelineSheet } from "../../../common/step-detail/components/StepTimelineSheet";
 
 type Props = {
 	idDonation: string;

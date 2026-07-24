@@ -9,6 +9,7 @@ import { useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { useAuth } from "./hooks/use-auth";
+import { EvaWidget } from "./pages/private/eva/widget/eva-widget";
 import { publicRouter, routerPrivate } from "./router";
 
 function getErrorMessage(error: unknown): string {
@@ -50,6 +51,7 @@ function App() {
 				key={isAuthenticated ? "private" : "public"}
 				router={routes}
 			/>
+			<EvaWidget />
 			<Toaster position="bottom-right" richColors />
 		</QueryClientProvider>
 	);

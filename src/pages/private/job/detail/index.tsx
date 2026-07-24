@@ -6,7 +6,6 @@ import { EnumUserType } from "@/services/types/i-user";
 import { AppointmentStepper } from "./components/AppointmentStepper";
 import { AppointmentSummaryCard } from "./components/AppointmentSummaryCard";
 import { DetailBreadcrumb } from "./components/DetailBreadcrumb";
-import { EndedActionsFooter } from "./components/EndedActionsFooter";
 import { EndedNotice } from "./components/EndedNotice";
 import { FinalResultCard } from "./components/FinalResultCard";
 import { ReportHistory } from "./components/ReportHistory";
@@ -92,8 +91,6 @@ export function AppointmentDetailPage() {
 							)}
 						</div>
 					</div>
-
-					{appointment.ended && <EndedActionsFooter />}
 				</div>
 			)}
 		</Page>

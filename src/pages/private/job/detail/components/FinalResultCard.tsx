@@ -1,6 +1,6 @@
 import { Flag } from "lucide-react";
 import { formatAppointmentDateTime } from "../../format";
-import { AppointmentStatusBadge } from "../../shared/AppointmentStatusBadge";
+import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
 import type { AppointmentFinalResult } from "../../types";
 
 type FinalResultCardProps = {

@@ -1,26 +1,12 @@
 import { Bookmark, Check, Lock, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { formatAppointmentDate } from "../../format";
 import type { AppointmentStepItem } from "../../types";
+import { getSubLabel } from "../utils";
 
 type AppointmentStepperProps = {
 	steps: AppointmentStepItem[];
 	ended: boolean;
 };
-
-function getSubLabel(step: AppointmentStepItem, ended: boolean): string {
-	const date = step.date ? ` · ${formatAppointmentDate(step.date)}` : "";
-	switch (step.state) {
-		case "done":
-			return `Concluída${date}`;
-		case "failed":
-			return `Não concluída${date}`;
-		case "current":
-			return "Etapa atual";
-		default:
-			return ended ? "Não realizada" : "Aguardando liberação";
-	}
-}
 
 export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 	return (

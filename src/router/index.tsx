@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { AppointmentDetailPage } from "@/pages/private/appointments/detail";
-import { AppointmentsPage } from "@/pages/private/appointments/list";
+import { AppointmentDetailPage } from "@/pages/private/job/detail";
+import { AppointmentsPage } from "@/pages/private/job/list";
 import { ContentHubPage } from "@/pages/private/content-hub";
 import { DonationManagementDetailPage } from "@/pages/private/donations/adm/info";
 import { NewDonationPage } from "@/pages/private/donations/common/create";

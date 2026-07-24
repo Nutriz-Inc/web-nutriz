@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { cn } from "@/lib/utils";
 import { EnumJobStatus } from "@/services/types/i-job";
-import type { AppointmentStatus } from "../types";
+import type { AppointmentStatus } from "../../pages/private/job/types";
 
 export const APPOINTMENT_STATUS_DISPLAY: Record<
 	AppointmentStatus,

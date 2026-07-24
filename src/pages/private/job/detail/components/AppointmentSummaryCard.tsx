@@ -1,25 +1,15 @@
 import { Bookmark, Calendar, Mail, MapPin, Phone } from "lucide-react";
 import { getInitials } from "@/components/layout/utils";
-import { EnumJobStatus } from "@/services/types/i-job";
 import { formatPhoneNumber } from "@/utils/formatter";
 import { formatAppointmentDateTime } from "../../format";
-import { AppointmentInfoRow } from "../../shared/AppointmentInfoRow";
-import { AppointmentStatusBadge } from "../../shared/AppointmentStatusBadge";
+import { AppointmentInfoRow } from "../../../../../components/full/AppointmentInfoRow";
+import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
 import type { AppointmentDetail } from "../../types";
+import { getStepLabel } from "../utils";
 
 type AppointmentSummaryCardProps = {
 	appointment: AppointmentDetail;
 };
-
-function getStepLabel(appointment: AppointmentDetail): string {
-	if (appointment.status === EnumJobStatus.Failed) {
-		return "Interrompida na etapa";
-	}
-	if (appointment.status === EnumJobStatus.Done) {
-		return "Etapa final da doação";
-	}
-	return "Etapa atual da doação";
-}
 
 export function AppointmentSummaryCard({
 	appointment,

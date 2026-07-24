@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { APPOINTMENT_STATUS_DISPLAY } from "../../shared/AppointmentStatusBadge";
+import { APPOINTMENT_STATUS_DISPLAY } from "../../../../../components/full/AppointmentStatusBadge";
 import type { AppointmentStatus } from "../../types";
 import { STATUS_OPTION_DESCRIPTION } from "../constants";
 

@@ -1,6 +1,6 @@
 import { Calendar, User } from "lucide-react";
 import { formatAppointmentDate } from "../../format";
-import { AppointmentStatusBadge } from "../../shared/AppointmentStatusBadge";
+import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
 import type { AppointmentReport } from "../../types";
 
 type ReportHistoryItemProps = {

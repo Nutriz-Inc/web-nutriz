@@ -4,7 +4,7 @@ import {
 	type DonationStep,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
-import type { EnumJobStatus, Job } from "@/services/types/i-job";
+import type { Job } from "@/services/types/i-job";
 import type { Address } from "@/services/types/i-user";
 import type { StepDefinition } from "../../../common/info/constants";
 import { StepTimelineSheet } from "../../../common/step-detail/components/StepTimelineSheet";
@@ -195,7 +195,7 @@ export function AdminStepCard({
 
 	function handleUpdateJob(
 		id_job: string,
-		data: { id_user: string; description: string; status: EnumJobStatus },
+		data: { id_user: string; description: string },
 	) {
 		updateJobMutation.mutate({
 			id_job,

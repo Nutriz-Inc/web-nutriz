@@ -1,6 +1,9 @@
 import axios from "axios";
-import { Auth } from "./auth";
 import { env } from "../config/env";
+import { Auth } from "./auth";
+import { Donation } from "./donation";
+import { Job } from "./job";
+import { User } from "./user";
 
 export const baseURL = env?.VITE_API_URL;
 
@@ -27,7 +30,10 @@ httpClient.interceptors.response.use(
 		return response;
 	},
 	(error) => {
-		if (error.response?.status === 403) {
+		const status = error.response?.status;
+		const isLoginRequest = error.config?.url?.includes("/auth/login");
+
+		if ((status === 401 || status === 403) && !isLoginRequest) {
 			localStorage.clear();
 			window.location.reload();
 		}
@@ -38,4 +44,7 @@ httpClient.interceptors.response.use(
 
 export default {
 	auth: new Auth(httpClient),
+	donation: new Donation(httpClient),
+	job: new Job(httpClient),
+	user: new User(httpClient),
 };

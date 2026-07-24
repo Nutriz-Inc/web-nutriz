@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import {
-	type PropsWithChildren,
 	createContext,
+	type PropsWithChildren,
 	useEffect,
 	useState,
 } from "react";
@@ -51,10 +51,7 @@ export function AuthProvider({ children }: IAuthProvider) {
 	function updateAuth(data: IAuthResponse) {
 		setAuth(data);
 
-		localStorage.setItem(
-			CONTEXT_KEY,
-			JSON.stringify(data),
-		);
+		localStorage.setItem(CONTEXT_KEY, JSON.stringify(data));
 	}
 
 	function handleLogout() {

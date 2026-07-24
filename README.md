@@ -1,6 +1,40 @@
-# web-nutriz
+# Web Nutriz
 
-Frontend da plataforma Nutriz (doação de leite humano).
+Frontend do projeto Nutriz, construído com React + TypeScript + Vite.
+
+## Estrutura de pastas
+
+```
+src/
+├── assets/         # Imagens, ícones e outros arquivos estáticos
+├── components/
+│   ├── full/       # Componentes completos/compostos da aplicação
+│   ├── layout/     # Componentes de layout (Header, Footer, etc.)
+│   └── ui/         # Componentes de UI reutilizáveis (shadcn/radix)
+├── config/         # Configurações gerais da aplicação
+├── context/        # Contextos React (estado global)
+├── hooks/          # Custom hooks
+├── lib/            # Funções utilitárias e helpers
+├── pages/
+│   ├── private/    # Páginas que exigem autenticação (ex: home)
+│   └── public/     # Páginas públicas (ex: landing-page, login)
+├── router/         # Configuração de rotas
+└── services/
+    └── types/      # Tipagens usadas nos serviços/API
+```
+
+## Tela de artigos
+
+A rota `/artigos` exibe a leitura dos artigos da seção "Artigos para te apoiar em cada fase" da landing page — é acessível tanto deslogada (`publicRouter`) quanto logada (`routerPrivate`, vinda da Central de Conteúdos), por isso está registrada nos dois roteadores. O artigo ativo é definido pelo query param `a` (ex.: `/artigos?a=2`), e o botão "Voltar" muda de destino conforme o contexto (landing para visitante, Central de Conteúdos para usuária logada).
+
+- Os dados dos artigos (título, categoria, tempo de leitura, conteúdo, cores e imagem de capa) moram em `src/pages/public/articles/data.ts`. Landing, Central de Conteúdos e a tela de artigo individual importam direto desse módulo.
+- A troca de artigo (card "Outros artigos" na sidebar) anima com Framer Motion e respeita `prefers-reduced-motion`.
+- A capa de cada artigo é uma imagem real (`src/assets/artigos/`). O vídeo usa `Article.videoUrl` quando definido (embed real); sem URL, mostra a capa com o selo "Vídeo em breve" em vez de simular um player.
+- O cabeçalho de cada tela usa o componente compartilhado `Page` (título/descrição/botão de voltar); não há mais busca nem função de compartilhar.
+
+## Central de conteúdos
+
+A rota privada `/conteudo-educativo` (`src/pages/private/content-hub/`) é a home de artigos da área logada, acessível pelo menu hambúrguer. Destaques, grid "Mais conteúdos", vídeos em destaque, dicas rápidas e um accordion de dúvidas frequentes — todos os cards/vídeos abrem a mesma tela de leitura de artigos acima.
 
 ## Chat da EVA (widget flutuante)
 
@@ -17,12 +51,11 @@ página permitida. Consome o microserviço `nutriz-ia-service` (FastAPI, porta
 
 ### Controle de acesso
 
-O gate fica em `use-eva-access.ts`. Não existe componente `Page`/`hasPermission`
-neste repo, então o gate usa `useAuth()` + `EnumUserType`:
+O gate fica em `use-eva-access.ts`, construído sobre `useAuth()` + `EnumUserType`:
 
 - **Permitidos**: visitante anônimo (não autenticado) e nutriz (`common`).
 - **Negados**: `adm` e `nurse` — o FAB nem é montado (checagem no topo da árvore,
-  não via CSS).
+  não via CSS). O backend também recusa esses papéis no `/ws/chat`.
 
 ### Dois modos
 
@@ -42,14 +75,14 @@ neste repo, então o gate usa `useAuth()` + `EnumUserType`:
 
 - **Nutriz logada**: as mensagens **NÃO** são persistidas em localStorage. Ao
   recarregar, o chat reinicia limpo na UI. O backend já grava tudo
-  (`conversation`/`message`) para auditoria; a listagem visual virá de uma API
-  futura (`// TODO: carregar histórico via GET /conversations`).
+  (`conversation`/`message`) para auditoria; a listagem visual virá numa fase
+  futura consumindo o `GET /conversations` já existente no IA service.
   - Motivo: conversa de saúde em localStorage é dado sensível fora do controle do
     backend (risco LGPD) e duplicaria o que o backend já persiste.
 - **Anônimo**: as mensagens vivem apenas em memória e são descartadas ao
   recarregar/fechar. Nunca em localStorage persistente.
 
-### Variáveis de ambiente
+### Variáveis de ambiente da EVA
 
 Em `.env.development`:
 
@@ -74,12 +107,7 @@ docker compose up -d
 Sobe a API na porta 8000 e o banco pgvector com migrations. O IA service já
 aceita a origin do Vite (`http://localhost:5173`) via CORS.
 
-### Rodando o E2E manual
-
-```bash
-pnpm install
-pnpm dev        # http://localhost:5173
-```
+### Testando a EVA manualmente
 
 - **Anônimo**: abra `http://localhost:5173/` (deslogado), clique no FAB, aceite o
   aviso LGPD e converse. Recarregar descarta o histórico.
@@ -97,78 +125,29 @@ location.reload();
 Close codes `4001` (sessão) e `4003` (consentimento) bloqueiam o input com aviso;
 quedas de conexão disparam reconexão com backoff (1s → 2s → 4s).
 
----
+## Como rodar o projeto
 
-# React + TypeScript + Vite
+1. Instale as dependências:
+   ```bash
+   pnpm install
+   ```
+2. Configure o arquivo `.env.development` e preencha `VITE_API_URL` com o link que será enviado no privado.
+3. Rode o projeto em modo desenvolvimento:
+   ```bash
+   pnpm dev
+   ```
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Outros comandos úteis
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm build      # Gera o build de produção
+pnpm preview    # Faz o preview do build de produção
+pnpm lint       # Verifica lint (biome)
+pnpm lint:fix   # Corrige problemas de lint automaticamente
+pnpm format     # Formata o código
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Fluxo de contribuição
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Nunca faça merge direto na branch principal. Sempre abra um **Pull Request**.
+- Todo PR deve conter um **vídeo de evidência** mostrando o que foi feito/testado antes de ser revisado e mergeado.

@@ -120,8 +120,12 @@ export function useEvaChat(initialMessage?: string) {
 	}, []);
 
 	const sendRaw = useCallback(
-		(text: string) => {
-			const ws = wsRef.current;
+		(text: string, socket?: WebSocket) => {
+			// A mensagem inicial e enviada de dentro do onopen do socket que acabou
+			// de abrir; usar esse socket (e nao wsRef.current) evita perder o envio
+			// quando ha uma conexao concorrente que ja reatribuiu wsRef.current
+			// (ex.: duplo-mount do StrictMode em dev).
+			const ws = socket ?? wsRef.current;
 
 			if (!ws || ws.readyState !== WebSocket.OPEN || sendingRef.current) {
 				return false;
@@ -200,7 +204,7 @@ export function useEvaChat(initialMessage?: string) {
 
 			if (pending) {
 				pendingInitialRef.current = null;
-				sendRaw(pending);
+				sendRaw(pending, ws);
 			}
 		};
 

@@ -39,6 +39,22 @@ export const BLOCKED_MESSAGES: Record<
 export const EVA_GREETING_TEXT =
 	"Oi! Eu sou a EVA. Estou aqui a qualquer hora para falar sobre doação de leite, ordenha e amamentação. Como posso te ajudar?";
 
+// Chips de sugestao da tela de boas-vindas e da secao da landing: clicar
+// envia a pergunta como mensagem normal (mesma mecanica do input).
+export const EVA_SUGGESTIONS = [
+	"Posso doar leite?",
+	"Como fazer a ordenha?",
+	"Como armazenar o leite?",
+	"Como agendar a coleta?",
+] as const;
+
+// Atalhos de acao rapida acima do input na conversa. Cada um envia a pergunta
+// correspondente ao LLM (nao ha fluxo dedicado no backend - e so texto).
+export const EVA_QUICK_ACTIONS: { label: string; message: string }[] = [
+	{ label: "Passo a passo", message: "Me explica o passo a passo da ordenha?" },
+	{ label: "Agendar coleta", message: "Como agendar a coleta do leite?" },
+];
+
 export const CONNECTION_ERROR_MESSAGE =
 	"Não foi possível conectar à EVA. Verifique sua conexão.";
 

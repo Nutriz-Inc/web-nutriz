@@ -1,9 +1,39 @@
 @import "@fontsource-variable/plus-jakarta-sans";
 
 .eva-scope {
+	/* Tokens do visual da EVA — fonte unica de gradientes, cores e raios. */
+	--eva-grad-brand: linear-gradient(
+		135deg,
+		#f7cca0 0%,
+		#f0a0be 48%,
+		#b79ce0 100%
+	);
+	/* Gradiente do titulo: versao escurecida do brand para o texto atingir
+	   WCAG AA (>=4.5:1) mesmo no ponto mais claro do gradiente. */
+	--eva-grad-title: linear-gradient(
+		100deg,
+		#b8531f 0%,
+		#c0295e 46%,
+		#7a45b0 100%
+	);
+	--eva-bubble-user: linear-gradient(
+		115deg,
+		#fce0c6 0%,
+		#f6c4d4 55%,
+		#f2bccf 100%
+	);
+	--eva-bubble-eva: #f1f0f4;
+	--eva-chip-bg: #fce7ef;
+	--eva-chip-text: #b8386a;
+	--eva-ink: #1c1b1f;
+	--eva-ink-soft: #52505a;
+	--eva-send-bg: #111111;
+	--eva-online: #227a52;
+	--eva-radius-card: 22px;
+
 	font-family:
 		"Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Segoe UI", sans-serif;
-	color: #1c1b1f;
+	color: var(--eva-ink);
 }
 
 .eva-scope :focus-visible {
@@ -24,28 +54,24 @@
 .eva-chip {
 	min-height: 44px;
 	padding: 10px 18px;
-	border: 1px solid #ede4ef;
-	background: #faf9fb;
+	border: none;
+	background: var(--eva-chip-bg);
 	border-radius: 999px;
 	font-family: inherit;
 	font-size: 14px;
 	font-weight: 600;
-	color: #1c1b1f;
+	color: var(--eva-chip-text);
 	cursor: pointer;
-}
-
-.eva-chip--desktop {
-	padding: 10px 20px;
+	transition: filter 0.15s ease;
 }
 
 .eva-chip:hover {
-	border-color: #d96b8f;
-	background: #ffffff;
+	filter: brightness(0.97);
 }
 
 .eva-btn-primary {
 	border: none;
-	background: #1a1a1a;
+	background: var(--eva-send-bg);
 	color: #ffffff;
 	border-radius: 999px;
 	font-family: inherit;
@@ -63,27 +89,15 @@
 	align-items: center;
 	font-size: 14px;
 	font-weight: 600;
-	color: #1c1b1f;
+	color: var(--eva-ink);
 	text-decoration: underline;
 	text-underline-offset: 3px;
-}
-
-.eva-menu-btn {
-	width: 44px;
-	height: 44px;
-	border: none;
-	background: rgba(255, 255, 255, 0.55);
-	border-radius: 999px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
 }
 
 .eva-back-btn {
 	width: 44px;
 	height: 44px;
-	margin-left: -10px;
+	margin-left: -8px;
 	border: none;
 	background: transparent;
 	border-radius: 999px;
@@ -91,6 +105,7 @@
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	color: var(--eva-ink);
 }
 
 .eva-back-btn:hover {
@@ -100,7 +115,7 @@
 .eva-send-btn {
 	flex-shrink: 0;
 	border: none;
-	background: #1a1a1a;
+	background: var(--eva-send-bg);
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
@@ -118,47 +133,24 @@
 }
 
 .eva-send-btn:disabled:hover {
-	background: #1a1a1a;
+	background: var(--eva-send-bg);
 }
 
 .eva-input {
 	flex: 1;
 	min-width: 0;
 	height: 50px;
-	border: none;
-	background: #f4f2f6;
+	border: 1px solid #ece8ef;
+	background: #f6f4f8;
 	border-radius: 999px;
 	padding: 0 20px;
 	font-family: inherit;
 	font-size: 15px;
-	color: #1c1b1f;
+	color: var(--eva-ink);
 }
 
 .eva-input::placeholder {
 	color: #6b6b76;
-}
-
-.eva-nav-link {
-	min-height: 44px;
-	display: inline-flex;
-	align-items: center;
-	padding: 0 16px;
-	font-size: 15px;
-	font-weight: 600;
-	color: #52505a;
-	text-decoration: none;
-	border-radius: 999px;
-}
-
-.eva-nav-link:hover {
-	background: #f4f2f6;
-	color: #1c1b1f;
-}
-
-.eva-nav-link--active {
-	font-weight: 700;
-	color: #1c1b1f;
-	background: #f4f2f6;
 }
 
 .eva-outline-btn {
@@ -170,7 +162,7 @@
 	font-family: inherit;
 	font-size: 14px;
 	font-weight: 700;
-	color: #1c1b1f;
+	color: var(--eva-ink);
 	cursor: pointer;
 }
 
@@ -178,39 +170,18 @@
 	border-color: #d96b8f;
 }
 
-.eva-sidebar-item {
-	border: none;
-	background: transparent;
-	border-radius: 14px;
-	padding: 12px 14px;
-	display: flex;
-	flex-direction: column;
-	gap: 3px;
-	cursor: pointer;
-	font-family: inherit;
-	text-align: left;
-}
-
-.eva-sidebar-item:hover {
-	background: #f4f2f6;
-}
-
-.eva-sidebar-item--active {
-	background: #f1e9f3;
-}
-
-.eva-sidebar-item--active:hover {
-	background: #f1e9f3;
-}
-
 .eva-date-pill {
 	align-self: center;
 	font-size: 13px;
 	font-weight: 600;
-	color: #6b6b76;
+	color: #52505a;
 	background: #f1edf3;
 	border-radius: 999px;
 	padding: 4px 12px;
+}
+
+.eva-avatar {
+	background: var(--eva-grad-brand);
 }
 
 .eva-typing-dot {

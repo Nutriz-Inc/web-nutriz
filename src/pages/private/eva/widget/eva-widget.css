@@ -7,7 +7,7 @@
 	height: 60px;
 	border: none;
 	border-radius: 50%;
-	background: linear-gradient(135deg, #d96b8f, #b46bd9);
+	background: linear-gradient(135deg, #f0a0be, #b79ce0);
 	color: #ffffff;
 	display: flex;
 	align-items: center;
@@ -46,7 +46,7 @@
 	height: 620px;
 	max-height: calc(100dvh - 40px);
 	background: #ffffff;
-	border-radius: 20px;
+	border-radius: 24px;
 	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
 	display: flex;
 	flex-direction: column;
@@ -65,32 +65,68 @@
 	}
 }
 
+/* Header — branco, muda conforme a view (boas-vindas x conversa) */
 .eva-widget-header {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 14px 16px;
-	background: linear-gradient(135deg, #fbe4ec, #efdff4);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	padding: 10px 12px;
+	background: #ffffff;
+	border-bottom: 1px solid #f0edf2;
 	flex-shrink: 0;
-}
-
-.eva-widget-header-info {
-	display: flex;
-	flex-direction: column;
-	gap: 1px;
 }
 
 .eva-widget-header-title {
 	margin: 0;
 	font-size: 16px;
 	font-weight: 700;
-	color: #1c1b1f;
+	color: var(--eva-ink);
 }
 
-.eva-widget-header-sub {
-	font-size: 12px;
-	color: #6b6b76;
+.eva-widget-header--welcome {
+	display: grid;
+	grid-template-columns: 44px 1fr 44px;
+	align-items: center;
+}
+
+.eva-widget-header--welcome .eva-widget-header-title {
+	text-align: center;
+}
+
+.eva-widget-header--chat {
+	justify-content: space-between;
+}
+
+.eva-widget-header-spacer {
+	width: 44px;
+	height: 44px;
+}
+
+.eva-widget-header-id {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.eva-widget-header-info {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+.eva-widget-header-status {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--eva-online);
+}
+
+.eva-widget-status-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: #2ea36a;
 }
 
 .eva-widget-close {
@@ -98,8 +134,8 @@
 	height: 44px;
 	border: none;
 	border-radius: 50%;
-	background: rgba(255, 255, 255, 0.6);
-	color: #4a3a4f;
+	background: transparent;
+	color: var(--eva-ink);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -107,7 +143,7 @@
 }
 
 .eva-widget-close:hover {
-	background: rgba(255, 255, 255, 0.9);
+	background: #f4f2f6;
 }
 
 .eva-widget-close:focus-visible {
@@ -115,12 +151,90 @@
 	outline-offset: 2px;
 }
 
+/* Boas-vindas */
+.eva-widget-welcome {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: 24px 22px 20px;
+	background: #ffffff;
+}
+
+.eva-widget-welcome-top {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 18px;
+}
+
+.eva-widget-welcome-title {
+	margin: 0;
+	font-size: 30px;
+	font-weight: 800;
+	line-height: 1.14;
+	letter-spacing: -0.02em;
+	background: var(--eva-grad-title);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: #b8531f;
+}
+
+.eva-widget-welcome-suggestions {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+}
+
+.eva-widget-welcome-label {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--eva-ink);
+}
+
+.eva-widget-lgpd {
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--eva-ink-soft);
+	background: #faf5fb;
+	border: 1px solid rgba(180, 107, 217, 0.25);
+	border-radius: 14px;
+	padding: 12px 14px;
+}
+
+.eva-widget-start {
+	width: 100%;
+	height: 50px;
+	font-size: 15px;
+}
+
+.eva-widget-welcome-foot-wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.eva-widget-welcome-foot {
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.5;
+	color: var(--eva-ink-soft);
+	text-align: center;
+}
+
+/* Conversa */
 .eva-widget-chat {
 	flex: 1;
 	min-height: 0;
 	display: flex;
 	flex-direction: column;
-	background: #ffffff;
+	background: #f7f6fa;
 }
 
 .eva-widget-scroll {
@@ -138,7 +252,7 @@
 	text-align: center;
 	font-size: 13px;
 	font-weight: 600;
-	color: #6b6b76;
+	color: var(--eva-ink-soft);
 }
 
 .eva-widget-notice-group {
@@ -148,69 +262,33 @@
 	gap: 10px;
 }
 
-.eva-widget-welcome {
-	flex: 1;
-	min-height: 0;
-	overflow-y: auto;
+.eva-widget-input-area {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	gap: 18px;
-	padding: 28px 22px;
-	text-align: center;
-	background:
-		radial-gradient(120% 90% at 15% 0%, #f8bbd0 0%, rgba(248, 187, 208, 0) 55%),
-		radial-gradient(100% 80% at 90% 8%, #ce93d8 0%, rgba(206, 147, 216, 0) 60%),
-		#ffffff;
+	gap: 8px;
+	padding: 10px 14px 12px;
+	background: #ffffff;
+	border-top: 1px solid #eeecf1;
+	flex-shrink: 0;
 }
 
-.eva-widget-welcome-hero {
+.eva-widget-quick-actions {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 12px;
+	flex-wrap: wrap;
+	gap: 8px;
 }
 
-.eva-widget-welcome-title {
-	margin: 0;
-	font-size: 26px;
-	font-weight: 700;
-	letter-spacing: -0.02em;
-}
-
-.eva-widget-welcome-title span {
-	color: #d96b8f;
-}
-
-.eva-widget-welcome-sub {
-	margin: 0;
-	font-size: 14px;
-	line-height: 1.5;
-	color: #52505a;
-	max-width: 280px;
-}
-
-.eva-widget-lgpd {
+.eva-quick-chip {
+	min-height: 40px;
+	padding: 0 14px;
 	font-size: 13px;
-	line-height: 1.5;
-	color: #52505a;
-	background: rgba(255, 255, 255, 0.7);
-	border: 1px solid rgba(180, 107, 217, 0.25);
-	border-radius: 14px;
-	padding: 12px 14px;
 }
 
-.eva-widget-start {
-	width: 100%;
-	height: 50px;
-	font-size: 15px;
-}
-
-.eva-widget-welcome-foot {
+.eva-widget-input-foot {
 	margin: 0;
+	text-align: center;
 	font-size: 12px;
-	line-height: 1.5;
-	color: #6b6b76;
+	color: var(--eva-ink-soft);
 }
 
 .eva-widget-register-cta {
@@ -218,13 +296,12 @@
 	align-items: center;
 	justify-content: center;
 	min-height: 44px;
-	margin: 0 14px 8px;
 	padding: 10px 14px;
 	border-radius: 12px;
 	background: linear-gradient(90deg, #fbeaf0, #f3e8f7);
 	font-size: 13px;
 	font-weight: 600;
-	color: #c25e86;
+	color: #b8386a;
 	text-align: center;
 	text-decoration: none;
 }
@@ -234,7 +311,7 @@
 }
 
 .eva-widget-register-cta:focus-visible {
-	outline: 2px solid #c25e86;
+	outline: 2px solid #b8386a;
 	outline-offset: 2px;
 }
 

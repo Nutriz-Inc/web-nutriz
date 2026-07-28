@@ -1,34 +1,28 @@
-const SUGGESTIONS = [
-	"Posso doar leite?",
-	"Como fazer a ordenha?",
-	"Como armazenar o leite?",
-];
+import { EVA_SUGGESTIONS } from "../constants";
 
 type SuggestionChipsProps = {
-	desktop?: boolean;
 	onSelect: (suggestion: string) => void;
+	disabled?: boolean;
 };
 
-export function SuggestionChips({ desktop, onSelect }: SuggestionChipsProps) {
+// Chips "Comece por aqui" da tela de boas-vindas: clicar envia a pergunta.
+export function SuggestionChips({ onSelect, disabled }: SuggestionChipsProps) {
 	return (
 		<div
-			style={
-				desktop
-					? { display: "flex", gap: 10 }
-					: {
-							display: "flex",
-							flexWrap: "wrap",
-							gap: 10,
-							justifyContent: "center",
-						}
-			}
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "flex-start",
+				gap: 10,
+			}}
 		>
-			{SUGGESTIONS.map((suggestion) => (
+			{EVA_SUGGESTIONS.map((suggestion) => (
 				<button
 					key={suggestion}
 					type="button"
-					className={desktop ? "eva-chip eva-chip--desktop" : "eva-chip"}
+					className="eva-chip"
 					onClick={() => onSelect(suggestion)}
+					disabled={disabled}
 				>
 					{suggestion}
 				</button>

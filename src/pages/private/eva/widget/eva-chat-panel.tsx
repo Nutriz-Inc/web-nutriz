@@ -6,6 +6,7 @@ import {
 	BLOCKED_MESSAGES,
 	CONNECTION_ERROR_MESSAGE,
 	EVA_GREETING_TEXT,
+	EVA_QUICK_ACTIONS,
 	REGISTER_CTA_TEXT,
 } from "../constants";
 import "../eva.css";
@@ -84,8 +85,15 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 		}
 	}
 
+	function handleQuickAction(message: string) {
+		if (sendMessage(message)) {
+			stickToBottomRef.current = true;
+		}
+	}
+
 	const blocked = blockedReason !== null;
 	const inputDisabled = blocked || status === "failed";
+	const canQuickAct = status === "open" && !blocked && !isSending;
 
 	// O prompt do modo publico sugere cadastro apos algumas mensagens; quando a
 	// EVA fala em cadastro, o front destaca o CTA sem bloquear a conversa.
@@ -126,6 +134,7 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 				role="log"
 				aria-live="polite"
 			>
+				<span className="eva-date-pill">Hoje</span>
 				<MessageBubble message={GREETING} />
 				{messages.map((message) => (
 					<MessageBubble key={message.id} message={message} />
@@ -133,18 +142,40 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 				{isTyping && <TypingIndicator />}
 				{statusNotice}
 			</div>
-			{showRegisterCta && (
-				<a className="eva-widget-register-cta" href="/registro">
-					{REGISTER_CTA_TEXT}
-				</a>
-			)}
-			<ChatInput
-				value={input}
-				onChange={setInput}
-				onSend={handleSend}
-				disabled={inputDisabled}
-				sending={isSending}
-			/>
+
+			<div className="eva-widget-input-area">
+				{showRegisterCta && (
+					<a className="eva-widget-register-cta" href="/registro">
+						{REGISTER_CTA_TEXT}
+					</a>
+				)}
+
+				{canQuickAct && (
+					<div className="eva-widget-quick-actions">
+						{EVA_QUICK_ACTIONS.map((action) => (
+							<button
+								key={action.label}
+								type="button"
+								className="eva-outline-btn eva-quick-chip"
+								onClick={() => handleQuickAction(action.message)}
+							>
+								{action.label}
+							</button>
+						))}
+					</div>
+				)}
+
+				<ChatInput
+					value={input}
+					onChange={setInput}
+					onSend={handleSend}
+					disabled={inputDisabled}
+					sending={isSending}
+				/>
+				<p className="eva-widget-input-foot">
+					A EVA não substitui avaliação médica.
+				</p>
+			</div>
 		</div>
 	);
 }

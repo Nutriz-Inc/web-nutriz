@@ -18,12 +18,13 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 			>
 				<div
 					style={{
-						maxWidth: "76%",
-						background: "linear-gradient(135deg, #FBE4EC, #EFDFF4)",
+						maxWidth: "82%",
+						background: "var(--eva-bubble-user)",
 						borderRadius: "18px 18px 6px 18px",
-						padding: "12px 15px",
+						padding: "12px 16px",
 						fontSize: 15,
 						lineHeight: 1.55,
+						color: "var(--eva-ink)",
 					}}
 				>
 					{message.paragraphs.join("\n\n")}
@@ -50,22 +51,23 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 				gap: 8,
 			}}
 		>
-			<AvatarEva size={28} petal={9} variant="bubble" />
+			<AvatarEva size={28} />
 			<div
 				style={{
 					display: "flex",
 					flexDirection: "column",
 					gap: 5,
-					maxWidth: "80%",
+					maxWidth: "82%",
 				}}
 			>
 				<div
 					style={{
-						background: "#F4F2F6",
+						background: "var(--eva-bubble-eva)",
 						borderRadius: "18px 18px 18px 6px",
-						padding: "13px 15px",
+						padding: "13px 16px",
 						fontSize: 15,
 						lineHeight: 1.55,
+						color: "var(--eva-ink)",
 						display: "flex",
 						flexDirection: "column",
 						gap: 10,

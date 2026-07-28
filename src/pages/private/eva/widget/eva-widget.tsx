@@ -1,5 +1,6 @@
 import { Dialog } from "radix-ui";
 import { useCallback, useEffect, useState } from "react";
+import { AvatarEva } from "../components/avatar-eva";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
 import { subscribeEvaOpen } from "./eva-widget-bus";
@@ -7,6 +8,35 @@ import "./eva-widget.css";
 import { useEvaAccess } from "./use-eva-access";
 
 type WidgetView = "welcome" | "chat";
+
+function CloseButton() {
+	return (
+		<Dialog.Close asChild>
+			<button
+				type="button"
+				className="eva-widget-close"
+				aria-label="Fechar chat"
+			>
+				<svg
+					width="18"
+					height="18"
+					viewBox="0 0 20 20"
+					fill="none"
+					role="img"
+					aria-hidden="true"
+				>
+					<title>Fechar</title>
+					<path
+						d="M5 5l10 10M15 5L5 15"
+						stroke="currentColor"
+						strokeWidth="1.8"
+						strokeLinecap="round"
+					/>
+				</svg>
+			</button>
+		</Dialog.Close>
+	);
+}
 
 function welcomeSeenKey(userId: string) {
 	return `eva:welcome-seen:${userId}`;
@@ -130,40 +160,31 @@ export function EvaWidget() {
 					className="eva-widget-modal"
 					aria-describedby={undefined}
 				>
-					<div className="eva-widget-header">
-						<div className="eva-widget-header-info">
+					{view === "welcome" ? (
+						<div className="eva-widget-header eva-widget-header--welcome">
+							<CloseButton />
 							<Dialog.Title className="eva-widget-header-title">
-								EVA
+								Assistente EVA
 							</Dialog.Title>
-							<span className="eva-widget-header-sub">
-								Assistente de amamentação
-							</span>
+							<span className="eva-widget-header-spacer" aria-hidden />
 						</div>
-						<Dialog.Close asChild>
-							<button
-								type="button"
-								className="eva-widget-close"
-								aria-label="Fechar chat"
-							>
-								<svg
-									width="18"
-									height="18"
-									viewBox="0 0 20 20"
-									fill="none"
-									role="img"
-									aria-hidden="true"
-								>
-									<title>Fechar</title>
-									<path
-										d="M5 5l10 10M15 5L5 15"
-										stroke="currentColor"
-										strokeWidth="1.8"
-										strokeLinecap="round"
-									/>
-								</svg>
-							</button>
-						</Dialog.Close>
-					</div>
+					) : (
+						<div className="eva-widget-header eva-widget-header--chat">
+							<div className="eva-widget-header-id">
+								<AvatarEva size={38} />
+								<div className="eva-widget-header-info">
+									<Dialog.Title className="eva-widget-header-title">
+										EVA
+									</Dialog.Title>
+									<span className="eva-widget-header-status">
+										<span className="eva-widget-status-dot" aria-hidden />
+										online
+									</span>
+								</div>
+							</div>
+							<CloseButton />
+						</div>
+					)}
 
 					{view === "welcome" ? (
 						<EvaWelcomePanel mode={mode} onStart={startChat} />

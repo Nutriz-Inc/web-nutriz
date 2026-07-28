@@ -9,12 +9,12 @@ export function TypingIndicator() {
 				gap: 8,
 			}}
 		>
-			<AvatarEva size={28} petal={9} variant="bubble" pulse="fast" />
+			<AvatarEva size={28} pulse="fast" />
 			<div
 				aria-label="EVA está digitando"
 				role="status"
 				style={{
-					background: "#F4F2F6",
+					background: "var(--eva-bubble-eva)",
 					borderRadius: "18px 18px 18px 6px",
 					padding: "15px 16px",
 					display: "flex",

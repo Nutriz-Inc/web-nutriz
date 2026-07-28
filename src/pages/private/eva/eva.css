@@ -94,24 +94,6 @@
 	text-underline-offset: 3px;
 }
 
-.eva-back-btn {
-	width: 44px;
-	height: 44px;
-	margin-left: -8px;
-	border: none;
-	background: transparent;
-	border-radius: 999px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	color: var(--eva-ink);
-}
-
-.eva-back-btn:hover {
-	background: #f4f2f6;
-}
-
 .eva-send-btn {
 	flex-shrink: 0;
 	border: none;
@@ -200,11 +182,7 @@
 	animation-delay: 0.3s;
 }
 
-.eva-avatar--pulse-slow {
-	animation: evaPulse 3s ease-in-out infinite;
-}
-
-.eva-avatar--pulse-fast {
+.eva-avatar--pulse {
 	animation: evaPulse 2s ease-in-out infinite;
 }
 

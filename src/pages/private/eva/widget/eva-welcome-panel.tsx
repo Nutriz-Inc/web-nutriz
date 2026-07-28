@@ -12,11 +12,7 @@ type EvaWelcomePanelProps = {
 
 export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 	const isAnonymous = mode === "anonymous";
-	// Modo anonimo: input e chips so liberam apos a ciencia do aviso LGPD.
-	const [acknowledged, setAcknowledged] = useState(!isAnonymous);
 	const [text, setText] = useState("");
-
-	const locked = isAnonymous && !acknowledged;
 
 	function handleSend() {
 		const trimmed = text.trim();
@@ -44,36 +40,37 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 					</div>
 				)}
 
-				{locked ? (
+				<div className="eva-widget-welcome-suggestions">
+					<p className="eva-widget-welcome-label">Comece por aqui</p>
+					<SuggestionChips onSelect={(suggestion) => onStart(suggestion)} />
+				</div>
+			</div>
+
+			<div className="eva-widget-welcome-foot-wrap">
+				{isAnonymous ? (
+					// Modo anonimo: o aviso LGPD e bloqueante. O botao de ciencia leva
+					// ao chat preservando uma eventual pergunta vinda de um CTA (o
+					// input so aparece na conversa, apos a ciencia).
 					<button
 						type="button"
 						className="eva-btn-primary eva-widget-start"
-						onClick={() => setAcknowledged(true)}
+						onClick={() => onStart()}
 					>
 						Entendi, começar conversa
 					</button>
 				) : (
-					<div className="eva-widget-welcome-suggestions">
-						<p className="eva-widget-welcome-label">Comece por aqui</p>
-						<SuggestionChips onSelect={(suggestion) => onStart(suggestion)} />
-					</div>
-				)}
-			</div>
-
-			{!locked && (
-				<div className="eva-widget-welcome-foot-wrap">
 					<ChatInput
 						value={text}
 						onChange={setText}
 						onSend={handleSend}
 						placeholder="Pergunte à EVA..."
 					/>
-					<p className="eva-widget-welcome-foot">
-						A EVA pode se enganar e não substitui avaliação médica. Suas
-						conversas são protegidas.
-					</p>
-				</div>
-			)}
+				)}
+				<p className="eva-widget-welcome-foot">
+					A EVA pode se enganar e não substitui avaliação médica. Suas conversas
+					são protegidas.
+				</p>
+			</div>
 		</div>
 	);
 }

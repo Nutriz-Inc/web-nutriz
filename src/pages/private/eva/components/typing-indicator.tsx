@@ -9,7 +9,7 @@ export function TypingIndicator() {
 				gap: 8,
 			}}
 		>
-			<AvatarEva size={28} pulse="fast" />
+			<AvatarEva size={28} pulse />
 			<div
 				aria-label="EVA está digitando"
 				role="status"

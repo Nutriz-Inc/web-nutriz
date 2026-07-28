@@ -1,17 +1,18 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { AppointmentDetailPage } from "@/pages/private/job/detail";
-import { AppointmentsPage } from "@/pages/private/job/list";
 import { ContentHubPage } from "@/pages/private/content-hub";
 import { DonationManagementDetailPage } from "@/pages/private/donations/adm/info";
 import { NewDonationPage } from "@/pages/private/donations/common/create";
 import { DonationInfoPage } from "@/pages/private/donations/common/info";
 import { DonationStepDetailPage } from "@/pages/private/donations/common/step-detail";
+import { AppointmentDetailPage } from "@/pages/private/job/detail";
+import { AppointmentsPage } from "@/pages/private/job/list";
 import { DonationPointsPage } from "../pages/private/donation-points";
 import { DonationsManagementPage } from "../pages/private/donations/adm/list";
 import { DonationsPage } from "../pages/private/donations/common/list";
 import { HomePage } from "../pages/private/home";
 import { ProfilePage } from "../pages/private/profile";
+import { UserManagementDetailPage } from "../pages/private/users/adm/info";
 import { ArticlesScreen } from "../pages/public/articles";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
@@ -89,6 +90,11 @@ export function routerPrivate() {
 					id: "private-gestao-doacoes-detalhe",
 					path: "/gestao-doacoes/:id_donation",
 					element: <DonationManagementDetailPage />,
+				},
+				{
+					id: "private-gestao-usuarios-detalhe",
+					path: "/gestao-usuarios/:id_user",
+					element: <UserManagementDetailPage />,
 				},
 				{
 					id: "private-doacao-etapa",

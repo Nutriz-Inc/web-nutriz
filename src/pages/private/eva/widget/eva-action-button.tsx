@@ -22,6 +22,8 @@ function resolveTarget(slug: string, isAnonymous: boolean): Target | null {
 	switch (slug) {
 		case "signup":
 			return { kind: "route", to: "/registro" };
+		case "login":
+			return { kind: "route", to: "/login" };
 		case "articles":
 			return { kind: "route", to: "/artigos" };
 		case "collection_points":

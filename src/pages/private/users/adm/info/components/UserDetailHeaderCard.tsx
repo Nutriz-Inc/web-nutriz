@@ -4,7 +4,6 @@ import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import type { IGetUserResponse } from "@/services/types/i-user";
 import { EnumUserType } from "@/services/types/i-user";
-import { UserStatusBadge } from "./UserStatusBadge";
 import { UserTypeBadge } from "./UserTypeBadge";
 
 type UserDetailHeaderCardProps = {
@@ -42,7 +41,6 @@ export function UserDetailHeaderCard({
 					</p>
 					<div className="flex flex-wrap items-center gap-2">
 						<UserTypeBadge type={user.type} />
-						<UserStatusBadge active={!user.removed_at} feminine={isDonor} />
 					</div>
 					<CopyableId id={user.id_user} />
 				</div>

@@ -78,10 +78,19 @@ export function EvaSection() {
 								className="mt-9 flex flex-wrap items-center gap-4"
 							>
 								<div className="relative inline-flex">
-									<span
-										aria-hidden
-										className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-white opacity-60 motion-reduce:animate-none"
-									/>
+									{!reduce && (
+										<motion.span
+											aria-hidden
+											className="pointer-events-none absolute inset-0 rounded-full border border-white"
+											initial={{ opacity: 0.6, scale: 1 }}
+											animate={{ opacity: 0, scale: 1.18 }}
+											transition={{
+												duration: 2.6,
+												repeat: Number.POSITIVE_INFINITY,
+												ease: "easeOut",
+											}}
+										/>
+									)}
 									<SlideButton
 										label="Falar com a EVA"
 										onClick={() => openEva()}

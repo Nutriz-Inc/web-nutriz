@@ -1,5 +1,5 @@
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
@@ -18,6 +18,8 @@ import {
 
 export function DonationManagementDetailPage() {
 	const { id_donation = "" } = useParams();
+	const location = useLocation();
+	const backTo = location.state?.backTo ?? "/gestao-doacoes";
 	const { auth } = useAuth();
 	const { donationQuery, donorQuery } = useAdminDonationDetail(id_donation);
 	const createNextStepMutation = useCreateDonationStep(id_donation);
@@ -72,7 +74,10 @@ export function DonationManagementDetailPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={donationQuery.isLoading}
-			backTo="/gestao-doacoes"
+			backTo={backTo}
+			title={id_donation.slice(0, 16)}
+			description="Informações cadastrais e histórico da doação na plataforma"
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			{donation && (
 				<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-[#f4f7fb] p-4 lg:m-0 lg:min-h-0 lg:mx-auto lg:max-w-[1400px] lg:flex-row lg:items-start lg:gap-6 lg:bg-transparent lg:p-0">

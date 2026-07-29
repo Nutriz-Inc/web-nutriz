@@ -4,6 +4,7 @@ import { Auth } from "./auth";
 import { Donation } from "./donation";
 import { Job } from "./job";
 import { User } from "./user";
+import { Dashboard } from "./dashboard";
 
 export const baseURL = env?.VITE_API_URL;
 
@@ -47,4 +48,5 @@ export default {
 	donation: new Donation(httpClient),
 	job: new Job(httpClient),
 	user: new User(httpClient),
+	dashboard: new Dashboard(httpClient),
 };

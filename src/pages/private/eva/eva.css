@@ -8,13 +8,14 @@
 		#f0a0be 48%,
 		#b79ce0 100%
 	);
-	/* Gradiente do titulo: versao escurecida do brand para o texto atingir
-	   WCAG AA (>=4.5:1) mesmo no ponto mais claro do gradiente. */
+	/* Gradiente do titulo: tom vivo/claro da referencia (laranja -> rosa ->
+	   lilas). Mais claro que a marca escura anterior; contraste sobre branco
+	   fica ~2.8:1 (abaixo de AA) - escolha estetica alinhada ao mock. */
 	--eva-grad-title: linear-gradient(
 		100deg,
-		#b8531f 0%,
-		#c0295e 46%,
-		#7a45b0 100%
+		#ee7d33 0%,
+		#dc3f7e 46%,
+		#9b46c2 100%
 	);
 	--eva-bubble-user: linear-gradient(
 		115deg,
@@ -53,13 +54,18 @@
 
 .eva-chip {
 	min-height: 44px;
-	padding: 10px 18px;
+	padding: 8px 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 	border: none;
 	background: var(--eva-chip-bg);
 	border-radius: 999px;
 	font-family: inherit;
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: 600;
+	line-height: 1.25;
 	color: var(--eva-chip-text);
 	cursor: pointer;
 	transition: filter 0.15s ease;

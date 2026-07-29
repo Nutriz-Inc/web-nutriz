@@ -24,7 +24,7 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 	return (
 		<div className="eva-scope eva-widget-welcome">
 			<div className="eva-widget-welcome-top">
-				<AvatarEva size={64} />
+				<AvatarEva size={52} />
 				<h2 className="eva-widget-welcome-title">
 					Fale com a EVA sobre amamentação
 				</h2>

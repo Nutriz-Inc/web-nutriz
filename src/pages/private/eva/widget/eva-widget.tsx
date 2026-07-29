@@ -1,11 +1,15 @@
 import { Dialog } from "radix-ui";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
 import { AvatarEva } from "../components/avatar-eva";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
 import { subscribeEvaOpen } from "./eva-widget-bus";
 import "./eva-widget.css";
 import { useEvaAccess } from "./use-eva-access";
+
+// Rotas onde o widget da EVA nao deve aparecer (foco no formulario).
+const HIDDEN_ROUTES = new Set(["/login", "/registro"]);
 
 type WidgetView = "welcome" | "chat";
 
@@ -69,6 +73,11 @@ function markWelcomeSeen(userId: string | null) {
 
 export function EvaWidget() {
 	const { allowed, mode, userId } = useEvaAccess();
+	const pathname = useSyncExternalStore(
+		subscribeAppPath,
+		getAppPathname,
+		getAppPathname,
+	);
 
 	const [open, setOpen] = useState(false);
 	const [view, setView] = useState<WidgetView>("welcome");
@@ -125,7 +134,7 @@ export function EvaWidget() {
 		});
 	}, [mode, userId]);
 
-	if (!allowed) {
+	if (!allowed || HIDDEN_ROUTES.has(pathname)) {
 		return null;
 	}
 
@@ -189,7 +198,10 @@ export function EvaWidget() {
 					{view === "welcome" ? (
 						<EvaWelcomePanel mode={mode} onStart={startChat} />
 					) : (
-						<EvaChatPanel initialMessage={initialMessage} />
+						<EvaChatPanel
+							initialMessage={initialMessage}
+							onClose={() => setOpen(false)}
+						/>
 					)}
 				</Dialog.Content>
 			</Dialog.Portal>

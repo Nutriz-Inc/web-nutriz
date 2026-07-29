@@ -247,6 +247,26 @@ export function useEvaChat(initialMessage?: string) {
 					});
 					break;
 				}
+				case "action": {
+					// Frame opcional enviado antes do "done": anexa a acao a
+					// mensagem da EVA em streaming. Nao afeta chunk/done/error.
+					const streamId = streamIdRef.current;
+					const slug = frame.action;
+
+					if (streamId && slug) {
+						setMessages((previous) =>
+							previous.map((message) =>
+								message.id === streamId
+									? {
+											...message,
+											action: { slug, label: frame.label ?? "" },
+										}
+									: message,
+							),
+						);
+					}
+					break;
+				}
 				case "done": {
 					finalizeStream(true);
 					finishSending();

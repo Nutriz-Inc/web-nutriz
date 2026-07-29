@@ -60,7 +60,4 @@ export const CONNECTION_ERROR_MESSAGE =
 
 export const GENERIC_ERROR_MESSAGE = "Algo deu errado. Tente novamente.";
 
-export const REGISTER_CTA_TEXT =
-	"Cadastre-se na Nutriz para um atendimento personalizado";
-
 export const MAX_RECONNECT_ATTEMPTS = 3;

@@ -7,11 +7,11 @@ import {
 	CONNECTION_ERROR_MESSAGE,
 	EVA_GREETING_TEXT,
 	EVA_QUICK_ACTIONS,
-	REGISTER_CTA_TEXT,
 } from "../constants";
 import "../eva.css";
 import { useEvaChat } from "../hooks/use-eva-chat";
-import type { ChatMessage } from "../types";
+import type { ChatMessage, EvaMessageAction } from "../types";
+import { EvaActionButton } from "./eva-action-button";
 
 const GREETING: ChatMessage = {
 	id: "greeting",
@@ -23,11 +23,34 @@ const GREETING: ChatMessage = {
 // considerado "acompanhando" o streaming - so entao o auto-scroll atua.
 const AUTO_SCROLL_THRESHOLD = 48;
 
+// Acao efetiva de uma mensagem da EVA: a acao do backend tem precedencia; na
+// falta dela, o modo anonimo ainda oferece cadastro quando a EVA sugere isso
+// na propria resposta (nudge do prompt publico).
+function messageAction(
+	message: ChatMessage,
+	isAnonymous: boolean,
+): EvaMessageAction | null {
+	if (message.role !== "eva") {
+		return null;
+	}
+	if (message.action) {
+		return message.action;
+	}
+	if (
+		isAnonymous &&
+		message.paragraphs.join(" ").toLowerCase().includes("cadastr")
+	) {
+		return { slug: "signup", label: "Criar conta" };
+	}
+	return null;
+}
+
 type EvaChatPanelProps = {
 	initialMessage?: string;
+	onClose: () => void;
 };
 
-export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
+export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 	// Persistencia MVP: nutriz logada NAO persiste em localStorage (dado sensivel
 	// de saude; o backend ja grava conversation/message para auditoria). Ao
 	// recarregar, o chat reinicia limpo na UI. Anonimo vive so em memoria.
@@ -95,17 +118,6 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 	const inputDisabled = blocked || status === "failed";
 	const canQuickAct = status === "open" && !blocked && !isSending;
 
-	// O prompt do modo publico sugere cadastro apos algumas mensagens; quando a
-	// EVA fala em cadastro, o front destaca o CTA sem bloquear a conversa.
-	const showRegisterCta =
-		isAnonymous &&
-		!blocked &&
-		messages.some(
-			(message) =>
-				message.role === "eva" &&
-				message.paragraphs.join(" ").toLowerCase().includes("cadastr"),
-		);
-
 	const statusNotice = blocked ? (
 		<p className="eva-widget-notice">{BLOCKED_MESSAGES[blockedReason]}</p>
 	) : status === "reconnecting" || status === "connecting" ? (
@@ -136,20 +148,27 @@ export function EvaChatPanel({ initialMessage }: EvaChatPanelProps) {
 			>
 				<span className="eva-date-pill">Hoje</span>
 				<MessageBubble message={GREETING} />
-				{messages.map((message) => (
-					<MessageBubble key={message.id} message={message} />
-				))}
+				{messages.map((message) => {
+					const action = messageAction(message, isAnonymous);
+					if (!action) {
+						return <MessageBubble key={message.id} message={message} />;
+					}
+					return (
+						<div key={message.id} className="eva-msg-with-action">
+							<MessageBubble message={message} />
+							<EvaActionButton
+								action={action}
+								isAnonymous={isAnonymous}
+								onNavigate={onClose}
+							/>
+						</div>
+					);
+				})}
 				{isTyping && <TypingIndicator />}
 				{statusNotice}
 			</div>
 
 			<div className="eva-widget-input-area">
-				{showRegisterCta && (
-					<a className="eva-widget-register-cta" href="/registro">
-						{REGISTER_CTA_TEXT}
-					</a>
-				)}
-
 				{canQuickAct && (
 					<div className="eva-widget-quick-actions">
 						{EVA_QUICK_ACTIONS.map((action) => (

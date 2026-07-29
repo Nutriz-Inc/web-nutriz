@@ -290,37 +290,64 @@
 	color: var(--eva-ink-soft);
 }
 
-.eva-widget-register-cta {
+/* Botao de acao contextual, abaixo da mensagem da EVA */
+.eva-msg-with-action {
 	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 8px;
+}
+
+.eva-action-btn {
+	display: inline-flex;
 	align-items: center;
-	justify-content: center;
+	gap: 8px;
 	min-height: 44px;
-	padding: 10px 14px;
-	border-radius: 12px;
-	background: linear-gradient(90deg, #fbeaf0, #f3e8f7);
-	font-size: 13px;
-	font-weight: 600;
-	color: #b8386a;
-	text-align: center;
+	/* alinha sob a bolha da EVA, depois do avatar (28px + 8px de gap) */
+	margin-left: 36px;
+	padding: 0 16px;
+	border: none;
+	border-radius: 999px;
+	background: var(--eva-grad-brand);
+	color: var(--eva-ink);
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 700;
 	text-decoration: none;
+	cursor: pointer;
+	transition:
+		transform 0.15s ease,
+		filter 0.15s ease;
 }
 
-.eva-widget-register-cta:hover {
-	filter: brightness(0.97);
+.eva-action-btn:hover {
+	transform: scale(1.03);
+	filter: brightness(0.98);
 }
 
-.eva-widget-register-cta:focus-visible {
-	outline: 2px solid #b8386a;
+.eva-action-btn:focus-visible {
+	outline: 3px solid rgba(217, 107, 143, 0.7);
 	outline-offset: 2px;
 }
 
+.eva-action-btn-arrow {
+	font-size: 15px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-	.eva-fab,
-	.eva-widget-register-cta {
+	.eva-fab {
 		transition: none;
 	}
 
 	.eva-fab:hover {
+		transform: none;
+	}
+
+	.eva-action-btn {
+		transition: none;
+	}
+
+	.eva-action-btn:hover {
 		transform: none;
 	}
 }

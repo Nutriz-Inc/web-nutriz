@@ -1,6 +1,11 @@
 import { MapPin, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { formatCep, formatCpf, formatDateBR, formatPhoneNumber } from "@/utils/formatter";
+import {
+	formatCep,
+	formatCpf,
+	formatDateBR,
+	formatPhoneNumber,
+} from "@/utils/formatter";
 import { Field } from "../../../../components/full/Field";
 import { PasswordField } from "./PasswordField";
 import { SectionCard } from "./SectionCard";
@@ -55,16 +60,14 @@ export function MyDataSection({
 					value={values.name}
 					onChange={(value) => setField("name", value)}
 				/>
-				{
-					userType !== EnumUserType.Common && (
-<Field
-					label="Identificador"
-					value={identifier}
-					editable={false}
-					onChange={() => {}}
-				/>
-					)
-				}
+				{userType !== EnumUserType.Common && (
+					<Field
+						label="Identificador"
+						value={identifier}
+						editable={false}
+						onChange={() => {}}
+					/>
+				)}
 				<Field
 					label="CPF"
 					value={formatCpf(values.cpf)}

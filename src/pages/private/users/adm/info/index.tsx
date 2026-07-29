@@ -24,7 +24,7 @@ import { formatLiters, formatShortDateTime } from "./utils";
 export function UserManagementDetailPage() {
 	const { id_user = "" } = useParams();
 	const location = useLocation();
-	const backTo = location.state?.backTo ?? "/home";
+	const backTo = location.state?.backTo ?? "/usuarios";
 	const { auth } = useAuth();
 	const [deactivateOpen, setDeactivateOpen] = useState(false);
 	const [donationFilter, setDonationFilter] = useState<DonationFilter>("all");

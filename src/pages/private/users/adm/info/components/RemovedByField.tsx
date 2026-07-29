@@ -15,7 +15,7 @@ export function RemovedByField({ idUser }: RemovedByFieldProps) {
 				Removido por
 			</p>
 			<Link
-				to={`/gestao-usuarios/${idUser}`}
+				to={`/usuarios/${idUser}`}
 				state={{ backTo: location.pathname }}
 				className="w-fit text-[14px] font-medium text-[#00458b] underline underline-offset-2 transition-colors hover:text-[#387ccd]"
 			>

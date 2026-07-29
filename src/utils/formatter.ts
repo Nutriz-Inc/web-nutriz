@@ -13,9 +13,8 @@ export function formatZipCode(raw: string): string {
 export function formatPhoneNumber(raw: string) {
 	const digits = raw.replace(/\D/g, "");
 
-	const phone = digits.startsWith("55") && digits.length === 13
-		? digits.slice(2)
-		: digits;
+	const phone =
+		digits.startsWith("55") && digits.length === 13 ? digits.slice(2) : digits;
 
 	if (phone.length === 11) {
 		return `(${phone.slice(0, 2)}) ${phone.slice(2, 7)}-${phone.slice(7)}`;

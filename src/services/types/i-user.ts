@@ -144,6 +144,7 @@ export interface IListUsersRequest extends IPaginationRequest {
 	name?: string;
 	type?: EnumUserType;
 	internal_identifier?: string;
+	cpf?: string;
 }
 export interface IListUsersResponse extends IPaginationResponse {
 	data: User[];

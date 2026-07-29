@@ -13,6 +13,7 @@ import { DonationsPage } from "../pages/private/donations/common/list";
 import { HomePage } from "../pages/private/home";
 import { ProfilePage } from "../pages/private/profile";
 import { UserManagementDetailPage } from "../pages/private/users/adm/info";
+import { UsersManagementPage } from "../pages/private/users/list";
 import { ArticlesScreen } from "../pages/public/articles";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
@@ -92,14 +93,19 @@ export function routerPrivate() {
 					element: <DonationManagementDetailPage />,
 				},
 				{
-					id: "private-gestao-usuarios-detalhe",
-					path: "/gestao-usuarios/:id_user",
+					id: "private-usuarios-detalhe",
+					path: "/usuarios/:id_user",
 					element: <UserManagementDetailPage />,
 				},
 				{
 					id: "private-doacao-etapa",
 					path: "/doacao/:id_donation/etapa/:id_donation_step",
 					element: <DonationStepDetailPage />,
+				},
+				{
+					id: "private-usuarios",
+					path: "/usuarios",
+					element: <UsersManagementPage />,
 				},
 			],
 		},

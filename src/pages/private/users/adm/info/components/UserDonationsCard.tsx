@@ -1,4 +1,5 @@
-import { Fragment, useState } from "react";
+import { LoaderCircle } from "lucide-react";
+import { Fragment } from "react";
 import {
 	type FilterChipOption,
 	FilterChips,
@@ -8,35 +9,34 @@ import { DONATIONS_GRID_COLS } from "../constants";
 import { InfoCard } from "./InfoCard";
 import { UserDonationRow } from "./UserDonationRow";
 
-type DonationFilter = "all" | "open" | "done" | "ended";
+export type DonationFilter = "all" | "active" | "inactive";
 
 const FILTER_OPTIONS: FilterChipOption<DonationFilter>[] = [
 	{ key: "all", label: "Todas" },
-	{ key: "open", label: "Em aberto" },
-	{ key: "done", label: "Concluídas" },
-	{ key: "ended", label: "Encerradas" },
+	{ key: "active", label: "Em andamento" },
+	{ key: "inactive", label: "Concluídas" },
 ];
 
 const COLUMN_LABELS = ["Doação", "Etapa atual", "Data", "Volume", "Status", ""];
 
 type UserDonationsCardProps = {
 	donations: IDonationResponse[];
+	numberById: Map<string, number>;
+	filter: DonationFilter;
+	onFilterChange: (filter: DonationFilter) => void;
+	loading?: boolean;
 };
 
-export function UserDonationsCard({ donations }: UserDonationsCardProps) {
-	const [filter, setFilter] = useState<DonationFilter>("all");
-
-	const numbered = [...donations]
-		.sort((a, b) => a.created_at.localeCompare(b.created_at))
-		.map((donation, index) => ({ donation, number: index + 1 }))
-		.reverse();
-
-	const filtered = numbered.filter(({ donation }) => {
-		if (filter === "open") return donation.is_active && !donation.has_error;
-		if (filter === "done") return !donation.is_active && !donation.has_error;
-		if (filter === "ended") return donation.has_error;
-		return true;
-	});
+export function UserDonationsCard({
+	donations,
+	numberById,
+	filter,
+	onFilterChange,
+	loading,
+}: UserDonationsCardProps) {
+	const sorted = [...donations].sort((a, b) =>
+		b.created_at.localeCompare(a.created_at),
+	);
 
 	return (
 		<InfoCard
@@ -46,12 +46,16 @@ export function UserDonationsCard({ donations }: UserDonationsCardProps) {
 					<FilterChips
 						options={FILTER_OPTIONS}
 						value={filter}
-						onChange={setFilter}
+						onChange={onFilterChange}
 					/>
 				</div>
 			}
 		>
-			{filtered.length === 0 ? (
+			{loading ? (
+				<div className="flex w-full justify-center py-6">
+					<LoaderCircle className="animate-spin text-[#9ca3af]" />
+				</div>
+			) : sorted.length === 0 ? (
 				<p className="text-[13px] text-[#9ca3af]">
 					Nenhuma doação encontrada para o filtro selecionado.
 				</p>
@@ -69,10 +73,13 @@ export function UserDonationsCard({ donations }: UserDonationsCardProps) {
 							</span>
 						))}
 					</div>
-					{filtered.map(({ donation, number }, index) => (
+					{sorted.map((donation, index) => (
 						<Fragment key={donation.id_donation}>
 							{index > 0 && <div className="h-px bg-[#eef1f5]" />}
-							<UserDonationRow donation={donation} number={number} />
+							<UserDonationRow
+								donation={donation}
+								number={numberById.get(donation.id_donation)}
+							/>
 						</Fragment>
 					))}
 				</div>

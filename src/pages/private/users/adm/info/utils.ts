@@ -22,53 +22,6 @@ export function formatJobLocation(address?: Address): string {
 	return [street, address.neighborhood, region].filter(Boolean).join(" - ");
 }
 
-export function formatTimeOnPlatform(createdAt: string): string {
-	const start = new Date(createdAt);
-	const now = new Date();
-
-	let months =
-		(now.getFullYear() - start.getFullYear()) * 12 +
-		(now.getMonth() - start.getMonth());
-	if (now.getDate() < start.getDate()) months -= 1;
-
-	if (months < 1) {
-		const days = Math.max(
-			1,
-			Math.floor((now.getTime() - start.getTime()) / 86_400_000),
-		);
-		return `${days} ${days === 1 ? "dia" : "dias"}`;
-	}
-
-	const years = Math.floor(months / 12);
-	const rest = months % 12;
-
-	const parts: string[] = [];
-	if (years > 0) parts.push(`${years} ${years === 1 ? "ano" : "anos"}`);
-	if (rest > 0) parts.push(`${rest} ${rest === 1 ? "mês" : "meses"}`);
-
-	return parts.join(" e ");
-}
-
-export function formatBabyAge(birthDate: string): string {
-	const [year, month, day] = birthDate.slice(0, 10).split("-").map(Number);
-	const now = new Date();
-
-	let months = (now.getFullYear() - year) * 12 + (now.getMonth() + 1 - month);
-	let days = now.getDate() - day;
-
-	if (days < 0) {
-		months -= 1;
-		days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-	}
-
-	if (months <= 0) return `${days} ${days === 1 ? "dia" : "dias"}`;
-
-	const monthsLabel = `${months} ${months === 1 ? "mês" : "meses"}`;
-	if (days === 0) return monthsLabel;
-
-	return `${monthsLabel} e ${days} ${days === 1 ? "dia" : "dias"}`;
-}
-
 export function formatLiters(value?: number): string {
 	if (value === undefined || value === null) return "—";
 
@@ -99,7 +52,19 @@ export function formatTimeHM(iso: string): string {
 }
 
 export function toStepName(name: string): EnumDonationStepName | null {
-	return (Object.values(EnumDonationStepName) as string[]).includes(name)
-		? (name as EnumDonationStepName)
-		: null;
+	const normalized = name.trim().toLowerCase();
+
+	const exact = (Object.values(EnumDonationStepName) as string[]).find(
+		(value) => value.toLowerCase() === normalized,
+	);
+	if (exact) return exact as EnumDonationStepName;
+
+	// jobs antigos foram salvos com nomes curtos ("Exame", "Coleta"...)
+	if (normalized.includes("exame")) return EnumDonationStepName.BloodTest;
+	if (normalized.includes("kit")) return EnumDonationStepName.DeliverMilkingKit;
+	if (normalized.includes("análise") || normalized.includes("analise"))
+		return EnumDonationStepName.MilkAnalysis;
+	if (normalized.includes("colet")) return EnumDonationStepName.CollectMilk;
+
+	return null;
 }

@@ -1,10 +1,10 @@
 import { EnumUserType } from "@/services/types/i-user";
 
 export const DONATIONS_GRID_COLS =
-	"lg:grid-cols-[120px_1.4fr_1fr_0.9fr_1.1fr_32px]";
+	"lg:grid-cols-[repeat(5,minmax(0,1fr))_32px]";
 
 export const APPOINTMENTS_GRID_COLS =
-	"lg:grid-cols-[1.4fr_1fr_0.9fr_0.7fr_1.6fr_1fr]";
+	"lg:grid-cols-[repeat(6,minmax(0,1fr))_32px]";
 
 export type UserTypeDisplay = {
 	label: string;

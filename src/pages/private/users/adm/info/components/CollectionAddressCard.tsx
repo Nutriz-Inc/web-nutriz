@@ -20,10 +20,6 @@ export function CollectionAddressCard({ user }: CollectionAddressCardProps) {
 				/>
 				<div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
 					<InfoField
-						label="Status do cadastro"
-						value={user.removed_at ? "Inativa" : "Ativa"}
-					/>
-					<InfoField
 						label="Cadastrada em"
 						value={formatDateBR(user.created_at)}
 					/>

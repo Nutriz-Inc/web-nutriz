@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumJobStatus } from "@/services/types/i-job";
 import { EnumUserType } from "@/services/types/i-user";
 import { formatDateBR } from "@/utils/formatter";
-import { AccessInfoCard } from "./components/AccessInfoCard";
-import { BabiesCard } from "./components/BabiesCard";
 import { CollectionAddressCard } from "./components/CollectionAddressCard";
 import { ContactInfoCard } from "./components/ContactInfoCard";
 import { DeactivateUserSheet } from "./components/DeactivateUserSheet";
 import { HeaderStat } from "./components/HeaderStat";
 import { NurseAppointmentsCard } from "./components/NurseAppointmentsCard";
 import { UserDetailHeaderCard } from "./components/UserDetailHeaderCard";
+import type { DonationFilter } from "./components/UserDonationsCard";
 import { UserDonationsCard } from "./components/UserDonationsCard";
 import {
 	useAdminUserDetail,
@@ -20,16 +19,15 @@ import {
 	useRemoveUser,
 	useUserDonations,
 } from "./hooks";
-import {
-	formatLiters,
-	formatShortDateTime,
-	formatTimeOnPlatform,
-} from "./utils";
+import { formatLiters, formatShortDateTime } from "./utils";
 
 export function UserManagementDetailPage() {
 	const { id_user = "" } = useParams();
+	const location = useLocation();
+	const backTo = location.state?.backTo ?? "/home";
 	const { auth } = useAuth();
 	const [deactivateOpen, setDeactivateOpen] = useState(false);
+	const [donationFilter, setDonationFilter] = useState<DonationFilter>("all");
 
 	const userQuery = useAdminUserDetail(id_user);
 	const user = userQuery.data;
@@ -42,19 +40,33 @@ export function UserManagementDetailPage() {
 		});
 	}
 
-	const donationsQuery = useUserDonations(
+	const isCommon = user?.type === EnumUserType.Common;
+
+	const allDonationsQuery = useUserDonations(id_user, isCommon);
+	const filteredDonationsQuery = useUserDonations(
 		id_user,
-		user?.type === EnumUserType.Common,
+		isCommon && donationFilter !== "all",
+		donationFilter === "active",
 	);
 	const jobsQuery = useNurseAppointments(
 		id_user,
 		user?.type === EnumUserType.Nurse,
 	);
 
-	const donations = donationsQuery.data?.data ?? [];
+	const allDonations = allDonationsQuery.data?.data ?? [];
+	const donations =
+		donationFilter === "all"
+			? allDonations
+			: (filteredDonationsQuery.data?.data ?? []);
 	const jobs = jobsQuery.data?.data ?? [];
 
-	const lastDonation = donations.reduce<string | null>(
+	const donationNumberById = new Map(
+		[...allDonations]
+			.sort((a, b) => a.created_at.localeCompare(b.created_at))
+			.map((donation, index) => [donation.id_donation, index + 1] as const),
+	);
+
+	const lastDonation = allDonations.reduce<string | null>(
 		(latest, donation) =>
 			!latest || donation.created_at > latest ? donation.created_at : latest,
 		null,
@@ -78,27 +90,26 @@ export function UserManagementDetailPage() {
 
 	return (
 		<Page
+			title="Detalhes do Usuário"
+			description="Informações cadastrais e histórico do usuário na plataforma"
+			backTo={backTo}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={userQuery.isLoading}
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			actionSlot={
+				user && user.type !== EnumUserType.Common && !user.removed_at ? (
+					<button
+						type="button"
+						onClick={() => setDeactivateOpen(true)}
+						className="rounded-lg border border-[#f3caca] bg-white px-4 py-2 text-[13px] font-semibold text-[#cf3030] transition-colors hover:bg-[#fdecec]"
+					>
+						Desativar usuário
+					</button>
+				) : undefined
+			}
 		>
 			{user && (
 				<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-[#f4f7fb] p-4 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:bg-transparent lg:p-0">
-					<div className="flex flex-wrap items-center justify-between gap-3">
-						<p className="text-[13px] text-[#9ca3af]">
-							{user.type === EnumUserType.Common ? "Doadoras" : "Usuários"} /{" "}
-							<span className="font-semibold text-[#1f2a37]">{user.name}</span>
-						</p>
-						{user.type !== EnumUserType.Common && !user.removed_at && (
-							<button
-								type="button"
-								onClick={() => setDeactivateOpen(true)}
-								className="rounded-lg border border-[#f3caca] bg-white px-4 py-2 text-[13px] font-semibold text-[#cf3030] transition-colors hover:bg-[#fdecec]"
-							>
-								Desativar usuário
-							</button>
-						)}
-					</div>
-
 					<UserDetailHeaderCard
 						user={user}
 						stats={
@@ -137,31 +148,27 @@ export function UserManagementDetailPage() {
 										label="Próximo agendamento"
 									/>
 								</>
-							) : (
-								<HeaderStat
-									value={formatTimeOnPlatform(user.created_at)}
-									label="Na plataforma"
-								/>
-							)
+							) : undefined
 						}
 					/>
 
 					<div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
 						<ContactInfoCard user={user} />
-						{user.type === EnumUserType.Common ? (
+						{user.type === EnumUserType.Common && (
 							<CollectionAddressCard user={user} />
-						) : (
-							<AccessInfoCard user={user} />
 						)}
 					</div>
 
 					{user.type === EnumUserType.Common && (
-						<>
-							<div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-								<BabiesCard babies={user.babies ?? []} />
-							</div>
-							<UserDonationsCard donations={donations} />
-						</>
+						<UserDonationsCard
+							donations={donations}
+							numberById={donationNumberById}
+							filter={donationFilter}
+							onFilterChange={setDonationFilter}
+							loading={
+								donationFilter !== "all" && filteredDonationsQuery.isLoading
+							}
+						/>
 					)}
 
 					{user.type === EnumUserType.Nurse && (

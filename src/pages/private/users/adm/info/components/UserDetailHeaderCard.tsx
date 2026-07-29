@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { CopyableId } from "@/components/full/CopyableId";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import type { IGetUserResponse } from "@/services/types/i-user";
@@ -43,6 +44,7 @@ export function UserDetailHeaderCard({
 						<UserTypeBadge type={user.type} />
 						<UserStatusBadge active={!user.removed_at} feminine={isDonor} />
 					</div>
+					<CopyableId id={user.id_user} />
 				</div>
 			</div>
 

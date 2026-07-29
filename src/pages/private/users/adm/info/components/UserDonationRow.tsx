@@ -9,7 +9,7 @@ import { formatLiters } from "../utils";
 
 type UserDonationRowProps = {
 	donation: IDonationResponse;
-	number: number;
+	number?: number;
 };
 
 export function UserDonationRow({ donation, number }: UserDonationRowProps) {
@@ -28,7 +28,7 @@ export function UserDonationRow({ donation, number }: UserDonationRowProps) {
 		>
 			<div className="flex items-center justify-between lg:block">
 				<span className="font-mono text-[13px] font-semibold text-[#1f2a37]">
-					Doação #{number}
+					{number ? `Doação #${number}` : "Doação"}
 				</span>
 				<ChevronRight className="size-4 text-[#9ca3af] lg:hidden" />
 			</div>

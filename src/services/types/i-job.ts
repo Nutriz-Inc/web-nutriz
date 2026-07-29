@@ -56,6 +56,7 @@ export interface IJobResponse extends Job {
 	user_common_name?: string;
 	user_nurse_name?: string;
 	address?: Address;
+	id_donation?: string;
 }
 export interface IListJobsResponse extends IPaginationResponse {
 	data: IJobResponse[];

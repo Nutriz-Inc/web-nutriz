@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { ContentHubPage } from "@/pages/private/content-hub";
+import { AdmDashboardPage } from "@/pages/private/dashboard";
 import { DonationManagementDetailPage } from "@/pages/private/donations/adm/info";
 import { NewDonationPage } from "@/pages/private/donations/common/create";
 import { DonationInfoPage } from "@/pages/private/donations/common/info";
@@ -100,6 +101,11 @@ export function routerPrivate() {
 					id: "private-usuarios",
 					path: "/usuarios",
 					element: <UsersManagementPage />,
+				},
+				{
+					id: "private-dashboard",
+					path: "/dashboard",
+					element: <AdmDashboardPage />,
 				},
 			],
 		},

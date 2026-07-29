@@ -4,6 +4,7 @@ import {
 	ClipboardList,
 	Droplets,
 	Home,
+	LayoutDashboard,
 	type LucideProps,
 	MapPin,
 	MessageCircle,
@@ -42,6 +43,12 @@ const navItemsUserCommon: NavItem[] = [
 ];
 
 const navItemsUserAdmin: NavItem[] = [
+	{
+		label: "Dashboard",
+		icon: LayoutDashboard,
+		to: "/dashboard",
+		adminOnly: true,
+	},
 	{
 		label: "Gestão de Doações",
 		icon: ClipboardList,

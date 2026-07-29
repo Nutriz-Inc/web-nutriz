@@ -21,7 +21,6 @@ const COLUMN_LABELS = ["Doação", "Etapa atual", "Data", "Volume", "Status", ""
 
 type UserDonationsCardProps = {
 	donations: IDonationResponse[];
-	numberById: Map<string, number>;
 	filter: DonationFilter;
 	onFilterChange: (filter: DonationFilter) => void;
 	loading?: boolean;
@@ -29,7 +28,6 @@ type UserDonationsCardProps = {
 
 export function UserDonationsCard({
 	donations,
-	numberById,
 	filter,
 	onFilterChange,
 	loading,
@@ -78,7 +76,6 @@ export function UserDonationsCard({
 							{index > 0 && <div className="h-px bg-[#eef1f5]" />}
 							<UserDonationRow
 								donation={donation}
-								number={numberById.get(donation.id_donation)}
 							/>
 						</Fragment>
 					))}

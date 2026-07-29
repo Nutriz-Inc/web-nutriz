@@ -5,14 +5,13 @@ import { StatusBadge } from "@/pages/private/donations/adm/list/components/Statu
 import type { IDonationResponse } from "@/services/types/i-donation";
 import { formatDateBR } from "@/utils/formatter";
 import { DONATIONS_GRID_COLS } from "../constants";
-import { formatLiters } from "../utils";
+import { formatML } from "../utils";
 
 type UserDonationRowProps = {
 	donation: IDonationResponse;
-	number?: number;
 };
 
-export function UserDonationRow({ donation, number }: UserDonationRowProps) {
+export function UserDonationRow({ donation }: UserDonationRowProps) {
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -28,7 +27,7 @@ export function UserDonationRow({ donation, number }: UserDonationRowProps) {
 		>
 			<div className="flex items-center justify-between lg:block">
 				<span className="font-mono text-[13px] font-semibold text-[#1f2a37]">
-					{number ? `Doação #${number}` : "Doação"}
+					{donation.id_donation.slice(0, 16)}
 				</span>
 				<ChevronRight className="size-4 text-[#9ca3af] lg:hidden" />
 			</div>
@@ -39,7 +38,7 @@ export function UserDonationRow({ donation, number }: UserDonationRowProps) {
 			</span>
 			<span className="text-[14px] font-semibold text-[#1f2a37]">
 				<span className="font-normal text-[#6b7280] lg:hidden">Volume: </span>
-				{formatLiters(donation.quantity_donated)}
+				{formatML(donation.quantity_donated)}
 			</span>
 			<DonationStatusBadge
 				isActive={donation.is_active}

@@ -75,6 +75,9 @@ export function DonationManagementDetailPage() {
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={donationQuery.isLoading}
 			backTo={backTo}
+			title={id_donation.slice(0, 16)}
+			description="Informações cadastrais e histórico da doação na plataforma"
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			{donation && (
 				<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-[#f4f7fb] p-4 lg:m-0 lg:min-h-0 lg:mx-auto lg:max-w-[1400px] lg:flex-row lg:items-start lg:gap-6 lg:bg-transparent lg:p-0">

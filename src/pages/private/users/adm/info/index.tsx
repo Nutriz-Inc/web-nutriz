@@ -19,7 +19,7 @@ import {
 	useRemoveUser,
 	useUserDonations,
 } from "./hooks";
-import { formatLiters, formatShortDateTime } from "./utils";
+import { formatML, formatShortDateTime } from "./utils";
 
 export function UserManagementDetailPage() {
 	const { id_user = "" } = useParams();
@@ -59,12 +59,6 @@ export function UserManagementDetailPage() {
 			? allDonations
 			: (filteredDonationsQuery.data?.data ?? []);
 	const jobs = jobsQuery.data?.data ?? [];
-
-	const donationNumberById = new Map(
-		[...allDonations]
-			.sort((a, b) => a.created_at.localeCompare(b.created_at))
-			.map((donation, index) => [donation.id_donation, index + 1] as const),
-	);
 
 	const lastDonation = allDonations.reduce<string | null>(
 		(latest, donation) =>
@@ -116,7 +110,7 @@ export function UserManagementDetailPage() {
 							user.type === EnumUserType.Common ? (
 								<>
 									<HeaderStat
-										value={formatLiters(user.milk_donated ?? 0)}
+										value={formatML(user.milk_donated ?? 0)}
 										label="Total doado"
 									/>
 									<HeaderStat
@@ -162,7 +156,6 @@ export function UserManagementDetailPage() {
 					{user.type === EnumUserType.Common && (
 						<UserDonationsCard
 							donations={donations}
-							numberById={donationNumberById}
 							filter={donationFilter}
 							onFilterChange={setDonationFilter}
 							loading={

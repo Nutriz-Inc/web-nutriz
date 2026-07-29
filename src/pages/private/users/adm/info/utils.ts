@@ -22,10 +22,10 @@ export function formatJobLocation(address?: Address): string {
 	return [street, address.neighborhood, region].filter(Boolean).join(" - ");
 }
 
-export function formatLiters(value?: number): string {
+export function formatML(value?: number): string {
 	if (value === undefined || value === null) return "—";
 
-	return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} L`;
+	return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} ml`;
 }
 
 export function formatShortDateTime(iso: string): string {

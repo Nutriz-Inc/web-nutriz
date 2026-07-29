@@ -1,7 +1,10 @@
 import { EnumJobStatus } from "@/services/types/i-job";
 import { formatDateBR } from "@/utils/formatter";
 import type { AppointmentDetail, AppointmentStepItem } from "../types";
-import { STEP_DEFINITIONS, type StepDefinition } from "../../donations/common/info/constants";
+import {
+	STEP_DEFINITIONS,
+	type StepDefinition,
+} from "../../donations/common/info/constants";
 
 export function getSubLabel(step: AppointmentStepItem, ended: boolean): string {
 	const date = step.date ? ` · ${formatDateBR(step.date)}` : "";

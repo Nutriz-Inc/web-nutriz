@@ -1,17 +1,18 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { AppointmentDetailPage } from "@/pages/private/job/detail";
-import { AppointmentsPage } from "@/pages/private/job/list";
 import { ContentHubPage } from "@/pages/private/content-hub";
 import { DonationManagementDetailPage } from "@/pages/private/donations/adm/info";
 import { NewDonationPage } from "@/pages/private/donations/common/create";
 import { DonationInfoPage } from "@/pages/private/donations/common/info";
 import { DonationStepDetailPage } from "@/pages/private/donations/common/step-detail";
+import { AppointmentDetailPage } from "@/pages/private/job/detail";
+import { AppointmentsPage } from "@/pages/private/job/list";
 import { DonationPointsPage } from "../pages/private/donation-points";
 import { DonationsManagementPage } from "../pages/private/donations/adm/list";
 import { DonationsPage } from "../pages/private/donations/common/list";
 import { HomePage } from "../pages/private/home";
 import { ProfilePage } from "../pages/private/profile";
+import { UsersManagementPage } from "../pages/private/users/list";
 import { ArticlesScreen } from "../pages/public/articles";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
@@ -94,6 +95,11 @@ export function routerPrivate() {
 					id: "private-doacao-etapa",
 					path: "/doacao/:id_donation/etapa/:id_donation_step",
 					element: <DonationStepDetailPage />,
+				},
+				{
+					id: "private-usuarios",
+					path: "/usuarios",
+					element: <UsersManagementPage />,
 				},
 			],
 		},

@@ -5,8 +5,7 @@ import type { EnumJobStatus, IJobResponse } from "@/services/types/i-job";
 import type { Address } from "@/services/types/i-user";
 import { EnumUserType } from "@/services/types/i-user";
 import type { Appointment } from "../../types";
-
-export const APPOINTMENTS_PAGE_SIZE = 50;
+import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 
 type UseAppointmentsListParams = {
 	status: EnumJobStatus;
@@ -52,13 +51,13 @@ export function useAppointmentsList({
 		queryFn: ({ pageParam }) =>
 			services.job.list({
 				page: pageParam,
-				page_size: APPOINTMENTS_PAGE_SIZE,
+				page_size: DEFAULT_PAGE_SIZE,
 				id_user_nurse,
 				status,
 				date_set: dateSet,
 			}),
 		getNextPageParam: (lastPage, allPages) => {
-			if (lastPage.data.length < APPOINTMENTS_PAGE_SIZE) return undefined;
+			if (lastPage.data.length < DEFAULT_PAGE_SIZE) return undefined;
 
 			const loaded = allPages.reduce((sum, page) => sum + page.data.length, 0);
 			if (lastPage.total && loaded >= lastPage.total) return undefined;

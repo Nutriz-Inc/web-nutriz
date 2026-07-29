@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-	type FilterChipOption,
-	FilterChips,
-} from "@/components/full/FilterChips";
+import { FilterChips } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -10,17 +7,8 @@ import { EnumUserType } from "@/services/types/i-user";
 import { UserRow } from "./components/UserRow";
 import { UsersTableHeader } from "./components/UsersTableHeader";
 import { useUsersList } from "./hooks";
-
-type ProfileFilter = "all" | EnumUserType;
-
-const PROFILE_FILTER_OPTIONS: FilterChipOption<ProfileFilter>[] = [
-	{ key: "all", label: "Todos" },
-	{ key: EnumUserType.Admin, label: "Adm" },
-	{ key: EnumUserType.Nurse, label: "Enfermeiro" },
-	{ key: EnumUserType.Common, label: "Doadora" },
-];
-
-const PAGE_SIZE = 50;
+import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
+import { PROFILE_FILTER_OPTIONS, type ProfileFilter } from "./constants";
 
 export function UsersManagementPage() {
 	const { auth } = useAuth();
@@ -32,7 +20,7 @@ export function UsersManagementPage() {
 
 	const { usersQuery } = useUsersList({
 		page: 1,
-		page_size: PAGE_SIZE,
+		page_size: DEFAULT_PAGE_SIZE,
 		name: name || undefined,
 		cpf: cpf || undefined,
 		internal_identifier: internalIdentifier || undefined,

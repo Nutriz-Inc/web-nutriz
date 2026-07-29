@@ -2,24 +2,13 @@ import { ChevronRight, IdCard, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
-import { EnumUserType, type User } from "@/services/types/i-user";
-import { USER_TYPE_LABEL } from "@/utils/user";
+import type { User } from "@/services/types/i-user";
+import { formatCpf } from "@/utils/formatter";
+import { USER_TYPE_BADGE_CLASSNAME, USER_TYPE_LABEL } from "@/utils/constants";
 
 type Props = {
 	user: User;
 };
-
-const PROFILE_BADGE_STYLE: Record<EnumUserType, string> = {
-	[EnumUserType.Admin]: "bg-[#e8f0fe] text-[#00458b]",
-	[EnumUserType.Nurse]: "bg-[#ede9fe] text-[#6d28d9]",
-	[EnumUserType.Common]: "bg-[#d5f3ea] text-[#0f766e]",
-};
-
-function formatCpf(cpf: string) {
-	const digits = cpf.replace(/\D/g, "");
-	if (digits.length !== 11) return cpf;
-	return digits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-}
 
 export function UserRow({ user }: Props) {
 	return (
@@ -47,7 +36,7 @@ export function UserRow({ user }: Props) {
 				<span
 					className={cn(
 						"whitespace-nowrap rounded-full px-3 py-1 text-[12px] font-semibold",
-						PROFILE_BADGE_STYLE[user.type],
+						USER_TYPE_BADGE_CLASSNAME[user.type],
 					)}
 				>
 					{USER_TYPE_LABEL[user.type]}

@@ -53,10 +53,10 @@ export interface IListJobsRequest extends IPaginationRequest {
 	status?: EnumJobStatus;
 }
 export interface IJobResponse extends Job {
+	id_donation?: string;
 	user_common_name?: string;
 	user_nurse_name?: string;
 	address?: Address;
-	id_donation?: string;
 }
 export interface IListJobsResponse extends IPaginationResponse {
 	data: IJobResponse[];

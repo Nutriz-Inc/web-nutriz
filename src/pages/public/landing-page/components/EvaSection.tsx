@@ -82,12 +82,14 @@ export function EvaSection() {
 										<motion.span
 											aria-hidden
 											className="pointer-events-none absolute inset-0 rounded-full border border-white"
-											initial={{ opacity: 0.6, scale: 1 }}
-											animate={{ opacity: 0, scale: 1.18 }}
+											// Opacidade comeca e termina em 0: a emenda do loop fica
+											// invisivel, sem o "pulo" de reset entre um pulso e outro.
+											animate={{ opacity: [0, 0.6, 0], scale: [1, 1.1, 1.2] }}
 											transition={{
-												duration: 2.6,
+												duration: 2.8,
 												repeat: Number.POSITIVE_INFINITY,
 												ease: "easeOut",
+												times: [0, 0.4, 1],
 											}}
 										/>
 									)}

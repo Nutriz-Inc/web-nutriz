@@ -100,7 +100,7 @@ export function CollectionPointsSection() {
 	return (
 		<section
 			id="pontos-de-coleta"
-			className="scroll-mt-20 bg-white py-20 lg:py-24"
+			className="scroll-mt-20 bg-white py-12 lg:py-16"
 		>
 			<div className="mx-auto w-full max-w-[1200px] px-5 lg:px-8">
 				<motion.div
@@ -113,7 +113,7 @@ export function CollectionPointsSection() {
 					</h2>
 				</motion.div>
 
-				<div className="mt-10 overflow-hidden rounded-3xl border border-[#e5ebf3] bg-[#f7f7fa] shadow-[0px_10px_14px_rgba(10,38,77,0.05)]">
+				<div className="mt-8 overflow-hidden rounded-3xl border border-[#e5ebf3] bg-[#f7f7fa] shadow-[0px_10px_14px_rgba(10,38,77,0.05)] lg:mt-10">
 					<div className="flex flex-col gap-3 p-4 lg:p-5">
 						<SearchBar
 							value={search}

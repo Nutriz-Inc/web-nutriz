@@ -2,6 +2,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { EVA_SUGGESTIONS } from "@/pages/private/eva/constants";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EVA_LANDING_BG } from "../constants";
+import { SlideButton } from "./SlideButton";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -28,10 +29,10 @@ export function EvaSection() {
 			} as const);
 
 	return (
-		<section id="a-eva" className="scroll-mt-20 bg-white py-14 lg:py-20">
+		<section id="a-eva" className="scroll-mt-20 bg-white py-12 lg:py-16">
 			<div
 				aria-hidden
-				className="mx-auto mb-14 h-1.5 w-16 rounded-full bg-[#e3e8f0]"
+				className="mx-auto mb-8 h-1.5 w-16 rounded-full bg-[#e3e8f0] lg:mb-12"
 			/>
 
 			<motion.div
@@ -59,14 +60,14 @@ export function EvaSection() {
 							<motion.h2
 								variants={item}
 								id="eva-section-title"
-								className="mt-6 text-[34px] font-extrabold leading-[1.08] tracking-[-0.02em] text-white lg:text-[48px]"
+								className="mt-6 text-[34px] font-extrabold leading-[1.08] tracking-[-0.02em] text-[#1c1b1f] lg:text-[48px]"
 							>
 								Como você está hoje?
 							</motion.h2>
 
 							<motion.p
 								variants={item}
-								className="mt-5 max-w-[440px] text-[15px] leading-relaxed text-white/92 lg:text-[17px]"
+								className="mt-5 max-w-[440px] text-[15px] leading-relaxed text-[#3d3543] lg:text-[17px]"
 							>
 								A EVA acolhe você a qualquer hora — doação de leite, ordenha,
 								armazenamento e amamentação. Sem fila, sem espera.
@@ -76,32 +77,21 @@ export function EvaSection() {
 								variants={item}
 								className="mt-9 flex flex-wrap items-center gap-4"
 							>
-								<button
-									type="button"
-									onClick={() => openEva()}
-									className="group inline-flex h-12 cursor-pointer items-center gap-3 rounded-full bg-gradient-to-r from-[#f7cca0] via-[#f0a0be] to-[#b79ce0] py-1.5 pr-1.5 pl-6 text-[15px] font-semibold text-[#1c1b1f] transition-[filter] hover:brightness-[0.97] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-white"
-								>
-									Falar com a EVA
-									<span className="grid size-9 place-items-center rounded-full bg-white text-[#b8531f]">
-										<svg
-											width="16"
-											height="16"
-											viewBox="0 0 20 20"
-											fill="none"
-											aria-hidden="true"
-										>
-											<path
-												d="M4 10h11M11 5l5 5-5 5"
-												stroke="currentColor"
-												strokeWidth="1.9"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-											/>
-										</svg>
-									</span>
-								</button>
+								<div className="relative inline-flex">
+									<span
+										aria-hidden
+										className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-white opacity-60 motion-reduce:animate-none"
+									/>
+									<SlideButton
+										label="Falar com a EVA"
+										onClick={() => openEva()}
+										className="relative"
+										pillClassName="bg-gradient-to-r from-[#f2a878] via-[#ec7ba6] to-[#a878d0] text-[#1c1b1f]"
+										circleClassName="bg-white text-[#b8531f]"
+									/>
+								</div>
 
-								<span className="max-w-[150px] text-[14px] leading-snug text-white/92">
+								<span className="max-w-[150px] text-[14px] leading-snug text-[#3d3543]">
 									Atendimento acolhedor, a qualquer hora
 								</span>
 							</motion.div>

@@ -31,7 +31,7 @@ export function AppointmentsPage() {
 			loading={isLoading}
 			title="Agendamentos atribuídos"
 			description="Toque ou clique em um card para ver os detalhes e o relatório da consulta."
-			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1200px]"
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={
 				<span className="shrink-0 rounded-full bg-[#e8f1fb] px-3 py-1.5 text-[13px] font-semibold text-[#387ccd]">
 					{appointments.length}

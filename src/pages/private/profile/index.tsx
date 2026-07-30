@@ -217,6 +217,7 @@ export function ProfilePage() {
 			loading={isLoading}
 			title="Perfil"
 			description="Gerencie suas informações pessoais e de seu bebê."
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col bg-[#f7f9fb] lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:px-8 lg:py-8">
 				<div className="lg:mb-5 lg:flex lg:items-center lg:justify-between lg:gap-6 lg:rounded-2xl lg:border lg:border-[#e3eaf2] lg:bg-white lg:p-6">

@@ -30,6 +30,7 @@ export function ContentHubPage() {
 				title="Conteúdo educativo"
 				description="Artigos, vídeos e guias práticos para acompanhar você em cada etapa da doação de leite materno."
 				hasPermission={auth?.type === EnumUserType.Common}
+				titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			>
 				<div className="flex flex-col gap-10">
 					<FeaturedSection

@@ -13,7 +13,7 @@ import { DonationsManagementPage } from "../pages/private/donations/adm/list";
 import { DonationsPage } from "../pages/private/donations/common/list";
 import { HomePage } from "../pages/private/home";
 import { ProfilePage } from "../pages/private/profile";
-import { UserManagementDetailPage } from "../pages/private/users/adm/info";
+import { UserManagementDetailPage } from "../pages/private/users/info";
 import { UsersManagementPage } from "../pages/private/users/list";
 import { ArticlesScreen } from "../pages/public/articles";
 import { LandingPageScreen } from "../pages/public/landing-page";

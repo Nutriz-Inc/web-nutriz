@@ -24,6 +24,7 @@ export function AppointmentDetailPage() {
 			backTo="/agendamentos"
 			title={`Agendamento #${id_job.slice(0, 8)}`}
 			description="Acompanhe cada etapa do processo do agendamento."
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			{!appointment ? (
 				<div className="flex flex-col items-center gap-2 rounded-2xl border border-[#e7ecf2] bg-white p-10 text-center">

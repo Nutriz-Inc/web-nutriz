@@ -98,9 +98,10 @@ export function DonationPointsPage() {
 			loading={isLoading}
 			title="Pontos de Coleta"
 			description="Encontre o ponto de coleta mais próximo de você."
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-m-5 flex flex-col bg-[#f7f7fa] lg:grid lg:h-[calc(100vh-69px)] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden">
-				<div className="flex flex-col gap-3 px-4 pt-4 lg:col-start-1 lg:row-start-1 lg:border-r lg:border-[#e0e0e0] lg:bg-[#f7f7fa]lg:px-5 lg:pb-4 lg:pt-5">
+			<div className="-m-5 flex flex-col bg-[#f7f7fa] lg:mx-auto lg:grid lg:h-[calc(100vh-69px)] lg:max-w-[1400px] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden">
+				<div className="flex flex-col gap-3 px-4 pt-4 lg:col-start-1 lg:row-start-1 lg:border-r lg:border-[#e0e0e0] lg:bg-[#f7f7fa] lg:px-5 lg:pb-4 lg:pt-5">
 					<SearchBar
 						value={search}
 						onChange={setSearch}
@@ -139,11 +140,11 @@ export function DonationPointsPage() {
 							<LoaderCircle className="size-5 animate-spin text-[#387ccd]" />
 						</div>
 					) : points.length === 0 ? (
-						<p className="px-4 py-8 text-center text-sm text-[#888]">
+						<p className="px-4 py-8 text-center text-sm text-[#888] lg:px-5">
 							Nenhum ponto de coleta encontrado.
 						</p>
 					) : (
-						<div className="flex flex-col gap-3 px-4">
+						<div className="flex flex-col gap-3 px-4 lg:px-5">
 							{points.map((point) => (
 								<DonationPointCard
 									key={point.id_donation_point}

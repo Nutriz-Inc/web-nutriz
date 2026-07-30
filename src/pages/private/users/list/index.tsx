@@ -1,4 +1,4 @@
-import { Search, X } from "lucide-react";
+import { Plus, Search, X } from "lucide-react";
 import { type FormEvent, useState } from "react";
 import { FilterChips } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
@@ -7,10 +7,13 @@ import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { formatCpf } from "@/utils/formatter";
+import { CreateUserSheet } from "./components/CreateUserSheet";
 import { UserRow } from "./components/UserRow";
 import { UsersTableHeader } from "./components/UsersTableHeader";
 import { PROFILE_FILTER_OPTIONS, type ProfileFilter } from "./constants";
-import { useUsersList } from "./hooks";
+import { useCreateUser, useUsersList } from "./hooks";
+import { buildCreateUserRequest } from "./utils";
+import type { CreateUserFormData } from "./validation";
 
 export function UsersManagementPage() {
 	const { auth } = useAuth();
@@ -23,6 +26,7 @@ export function UsersManagementPage() {
 	const [appliedInternalIdentifier, setAppliedInternalIdentifier] =
 		useState("");
 	const [profileFilter, setProfileFilter] = useState<ProfileFilter>("all");
+	const [isCreateUserOpen, setIsCreateUserOpen] = useState(false);
 
 	function handleApplyFilters(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -50,8 +54,15 @@ export function UsersManagementPage() {
 		internal_identifier: appliedInternalIdentifier || undefined,
 		type: profileFilter === "all" ? undefined : profileFilter,
 	});
+	const { createUserMutation } = useCreateUser();
 
 	const users = usersQuery.data?.data ?? [];
+
+	function handleCreateUser(form: CreateUserFormData) {
+		createUserMutation.mutate(buildCreateUserRequest(form), {
+			onSuccess: () => setIsCreateUserOpen(false),
+		});
+	}
 
 	return (
 		<Page
@@ -62,12 +73,20 @@ export function UsersManagementPage() {
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			<div className="lg:mx-auto lg:flex lg:w-full lg:max-w-[1400px] lg:flex-col lg:gap-6">
-				<div className="flex items-center gap-2.5">
+				<div className="flex items-center justify-between gap-2.5">
 					<FilterChips
 						options={PROFILE_FILTER_OPTIONS}
 						value={profileFilter}
 						onChange={setProfileFilter}
 					/>
+					<button
+						type="button"
+						onClick={() => setIsCreateUserOpen(true)}
+						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[#00458b] px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+					>
+						<Plus className="size-4" />
+						Novo usuário
+					</button>
 				</div>
 
 				<form
@@ -125,6 +144,18 @@ export function UsersManagementPage() {
 					)}
 				</div>
 			</div>
+
+			<CreateUserSheet
+				open={isCreateUserOpen}
+				onOpenChange={setIsCreateUserOpen}
+				onSubmit={handleCreateUser}
+				isPending={createUserMutation.isPending}
+				error={
+					createUserMutation.isError
+						? "Não foi possível criar o usuário. Tente novamente."
+						: undefined
+				}
+			/>
 		</Page>
 	);
 }

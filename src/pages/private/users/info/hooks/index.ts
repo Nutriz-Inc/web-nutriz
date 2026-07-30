@@ -35,9 +35,7 @@ export function useRemoveUser(id_user: string) {
 	return useMutation({
 		mutationFn: () => services.user.remove(id_user),
 		onSuccess: async () => {
-			await queryClient.invalidateQueries({
-				queryKey: ["admin-user-detail", id_user],
-			});
+			await queryClient.invalidateQueries({ queryKey: ["users"] });
 		},
 	});
 }

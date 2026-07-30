@@ -34,9 +34,10 @@ export const STEP_DISPLAY: Record<
 
 type StatusBadgeProps = {
 	step: EnumDonationStepName | null;
+	label?: string;
 };
 
-export function StatusBadge({ step }: StatusBadgeProps) {
+export function StatusBadge({ step, label }: StatusBadgeProps) {
 	const display = step ? STEP_DISPLAY[step] : null;
 
 	return (
@@ -50,7 +51,7 @@ export function StatusBadge({ step }: StatusBadgeProps) {
 			<span
 				className={cn("size-2 rounded-full", display?.dot ?? "bg-[#9ca3af]")}
 			/>
-			{display?.label ?? "Sem etapa"}
+			{label ?? display?.label ?? "Sem etapa"}
 		</span>
 	);
 }

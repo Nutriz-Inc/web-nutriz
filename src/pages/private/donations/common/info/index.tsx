@@ -48,6 +48,7 @@ export function DonationInfoPage() {
 			hasPermission={auth?.type === EnumUserType.Common}
 			loading={donationQuery.isLoading}
 			backTo="/minhas-doacoes"
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			<div className="flex flex-col pt-4 gap-5">
 				{donationQuery.data?.quantity_donated != null && (

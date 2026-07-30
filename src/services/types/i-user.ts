@@ -144,6 +144,7 @@ export interface IListUsersRequest extends IPaginationRequest {
 	name?: string;
 	type?: EnumUserType;
 	internal_identifier?: string;
+	cpf?: string;
 }
 export interface IListUsersResponse extends IPaginationResponse {
 	data: User[];
@@ -162,7 +163,8 @@ export type IRemoveUserResponse = IDeleteResponse;
 export interface IUser {
 	// user
 	list(data: IListUsersRequest): Promise<IListUsersResponse>;
-	create(data: ICreateUserRequest): Promise<ICreateUserResponse>;
+	createCommon(data: ICreateUserRequest): Promise<ICreateUserResponse>;
+	createAdminAndNurse(data: ICreateUserRequest): Promise<ICreateUserResponse>;
 	update(
 		id_user: string,
 		data: IUpdateUserRequest,

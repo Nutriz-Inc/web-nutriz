@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { PasswordToggle } from "@/components/full/PasswordToggle";
 import type {
 	RegisterFieldName,
 	RegisterFormData,
 	RegisterFormErrors,
 } from "../validation";
-import { PasswordToggle } from "./PasswordToggle";
 import { WizardField } from "./WizardField";
 
 type PasswordStepProps = {

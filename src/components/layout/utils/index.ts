@@ -4,10 +4,12 @@ import {
 	ClipboardList,
 	Droplets,
 	Home,
+	LayoutDashboard,
 	type LucideProps,
 	MapPin,
 	MessageCircle,
 	User,
+	Users,
 } from "lucide-react";
 import type { ForwardRefExoticComponent, RefAttributes } from "react";
 import { EnumUserType } from "@/services/types/i-user";
@@ -42,9 +44,21 @@ const navItemsUserCommon: NavItem[] = [
 
 const navItemsUserAdmin: NavItem[] = [
 	{
+		label: "Dashboard",
+		icon: LayoutDashboard,
+		to: "/dashboard",
+		adminOnly: true,
+	},
+	{
 		label: "Gestão de Doações",
 		icon: ClipboardList,
 		to: "/gestao-doacoes",
+		adminOnly: true,
+	},
+	{
+		label: "Usuários",
+		icon: Users,
+		to: "/usuarios",
 		adminOnly: true,
 	},
 	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
@@ -53,7 +67,7 @@ const navItemsUserAdmin: NavItem[] = [
 
 const navItemsUserNurse: NavItem[] = [
 	{ label: "Meus Agendamentos", icon: CalendarCheck, to: "/agendamentos" },
-	{ label: "Perfil", icon: User, to: "/perfil" }
+	{ label: "Perfil", icon: User, to: "/perfil" },
 ];
 
 export function getUserMenu(userType: EnumUserType) {

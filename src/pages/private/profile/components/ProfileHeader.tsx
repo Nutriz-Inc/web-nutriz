@@ -1,7 +1,7 @@
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import { EnumUserType } from "@/services/types/i-user";
-import { USER_TYPE_BADGE_CLASSNAME, USER_TYPE_LABEL } from "../utils";
+import { USER_TYPE_BADGE_CLASSNAME, USER_TYPE_LABEL } from "@/utils/constants";
 
 type ProfileHeaderProps = {
 	name: string;

@@ -1,7 +1,7 @@
 import { Star } from "lucide-react";
 import type { FeedbackScoreCount } from "@/services/types/i-dashboard";
-import { DashboardCardHeader } from "./DashboardCardHeader";
 import { SCORE_OPACITY } from "../constants";
+import { DashboardCardHeader } from "./DashboardCardHeader";
 
 type SatisfactionCardProps = {
 	feedbackByScore: FeedbackScoreCount[];

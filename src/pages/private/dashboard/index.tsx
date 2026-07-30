@@ -3,12 +3,13 @@ import { useState } from "react";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
+import { ActiveDonationsByStepCard } from "./components/ActiveDonationsByStepCard";
 import { MilkCollectedCard } from "./components/MilkCollectedCard";
 import { PeriodFilter } from "./components/PeriodFilter";
 import { RecurrenceCard } from "./components/RecurrenceCard";
 import { SatisfactionCard } from "./components/SatisfactionCard";
 import { StatCard } from "./components/StatCard";
-import { type PeriodPreset } from "./constants";
+import type { PeriodPreset } from "./constants";
 import { useQueryAdmDashboard } from "./hooks";
 import { getPeriodPresetRange } from "./utils";
 
@@ -68,11 +69,14 @@ export function AdmDashboardPage() {
 				/>
 
 				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+					<ActiveDonationsByStepCard
+						activeDonationsByStep={data?.active_donations_by_step ?? []}
+					/>
 					<SatisfactionCard feedbackByScore={data?.feedback_by_score ?? []} />
-					<RecurrenceCard rate={data?.donor_recurrence_rate ?? 0} />
 				</div>
 
 				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+					<RecurrenceCard rate={data?.donor_recurrence_rate ?? 0} />
 					<StatCard
 						icon={<Clock className="size-4 text-[#00458b]" />}
 						iconBg="bg-[#e1f1fb]"
@@ -85,16 +89,17 @@ export function AdmDashboardPage() {
 						}
 						footnote="Média de horas até o primeiro agendamento"
 					/>
-					<StatCard
-						icon={<AlertTriangle className="size-4 text-[#f2579f]" />}
-						iconBg="bg-[#fdebf3]"
-						title="Doações com Erro"
-						subtitle="Ocorrências no período selecionado"
-						value={String(data?.donations_with_error ?? 0)}
-						valueColor="text-[#f2579f]"
-						footnote="Doações que não puderem ser concluídas"
-					/>
 				</div>
+
+				<StatCard
+					icon={<AlertTriangle className="size-4 text-[#f2579f]" />}
+					iconBg="bg-[#fdebf3]"
+					title="Doações com Erro"
+					subtitle="Ocorrências no período selecionado"
+					value={String(data?.donations_with_error ?? 0)}
+					valueColor="text-[#f2579f]"
+					footnote="Doações que não puderem ser concluídas"
+				/>
 			</div>
 		</Page>
 	);

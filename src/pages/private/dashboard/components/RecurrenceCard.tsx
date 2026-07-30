@@ -1,6 +1,6 @@
 import { RefreshCcw } from "lucide-react";
-import { DashboardCardHeader } from "./DashboardCardHeader";
 import { toPercent } from "../utils";
+import { DashboardCardHeader } from "./DashboardCardHeader";
 
 type RecurrenceCardProps = {
 	rate: number;

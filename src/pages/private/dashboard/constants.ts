@@ -18,3 +18,9 @@ export const SCORE_OPACITY: Record<number, string> = {
 	1: "bg-[#f25ca2]/35",
 };
 
+export const BAR_SHADES = [
+	"bg-[#00458b]",
+	"bg-[#00458b]/80",
+	"bg-[#00458b]/60",
+	"bg-[#00458b]/40",
+];

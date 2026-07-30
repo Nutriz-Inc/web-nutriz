@@ -40,6 +40,6 @@ export function getPeriodPresetRange(preset: Exclude<PeriodPreset, "custom">): {
 }
 
 export function toPercent(rate: number): number {
-    const percent = rate > 1 ? rate : rate * 100;
-    return Math.max(0, Math.min(100, Math.round(percent)));
+	const percent = rate > 1 ? rate : rate * 100;
+	return Math.max(0, Math.min(100, Math.round(percent)));
 }

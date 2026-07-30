@@ -32,6 +32,10 @@ export function HomePage() {
 		navigate("/nova-doacao");
 	}
 
+	function goToDonationDetails() {
+		navigate(`/doacao/${currentStepDonation?.id_donation}`);
+	}
+
 	const metrics = [
 		{
 			iconBg: "bg-[#e6f1fb]",
@@ -122,7 +126,7 @@ export function HomePage() {
 							<NextDonationStep
 								datetime={currentStepDonation.set_date}
 								status={currentStepDonation.status}
-								onConsult={() => {}}
+								onConsult={goToDonationDetails}
 								stepName={currentStepDonation.name}
 								className="lg:w-[360px] lg:shrink-0"
 							/>

@@ -1,5 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import services from "@/services";
+import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
+
+export function useLatestStepJob(id_step?: string) {
+	const jobQuery = useQuery({
+		queryKey: ["donation-step-job", id_step],
+		queryFn: () =>
+			services.job.list({
+				page: 1,
+				page_size: DEFAULT_PAGE_SIZE,
+				id_step: id_step as string,
+			}),
+		enabled: Boolean(id_step),
+	});
+
+	const latestJob = [...(jobQuery.data?.data ?? [])].sort((a, b) =>
+		b.created_at.localeCompare(a.created_at),
+	)[0];
+
+	return { latestJob, isLoading: jobQuery.isLoading };
+}
 
 export function useStepAddress(id_address?: string) {
 	const addressQuery = useQuery({

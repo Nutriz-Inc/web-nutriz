@@ -1,5 +1,6 @@
 import { CalendarClock, Mail, MapPin, Navigation, Phone } from "lucide-react";
 import { useState } from "react";
+import { DetailRow } from "@/components/full/DetailRow";
 import {
 	Sheet,
 	SheetContent,
@@ -7,7 +8,6 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { DetailRow } from "@/components/full/DetailRow";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { formatCep, formatPhoneNumber } from "@/utils/formatter";
 import { CollectionType } from "./CollectionType";

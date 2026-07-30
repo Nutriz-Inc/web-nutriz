@@ -5,16 +5,16 @@ import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
+import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { formatCpf } from "@/utils/formatter";
 import { DonationManagementCard } from "./components/DonationManagementCard";
-import { useAdminDonationsList } from "./hooks";
 import {
 	ACTIVE_FILTER_OPTIONS,
-	STEP_FILTER_OPTIONS,
 	type ActiveFilter,
+	STEP_FILTER_OPTIONS,
 	type StepFilter,
 } from "./constants";
-import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
+import { useAdminDonationsList } from "./hooks";
 
 export function DonationsManagementPage() {
 	const { auth } = useAuth();

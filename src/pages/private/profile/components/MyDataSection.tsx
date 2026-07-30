@@ -1,5 +1,6 @@
 import { MapPin, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { EnumUserType } from "@/services/types/i-user";
 import {
 	formatCep,
 	formatCpf,
@@ -9,7 +10,6 @@ import {
 import { Field } from "../../../../components/full/Field";
 import { PasswordField } from "./PasswordField";
 import { SectionCard } from "./SectionCard";
-import { EnumUserType } from "@/services/types/i-user";
 
 export type MyDataFormValues = {
 	name: string;

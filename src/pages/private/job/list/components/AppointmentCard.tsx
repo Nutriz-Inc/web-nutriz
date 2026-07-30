@@ -12,9 +12,9 @@ import { EnumJobStatus } from "@/services/types/i-job";
 import { formatCreatedAt } from "@/utils/formatter";
 import { AppointmentInfoRow } from "../../../../../components/full/AppointmentInfoRow";
 import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
+import { findStepDefinition } from "../../detail/utils";
 import type { Appointment } from "../../types";
 import { getReportHint } from "../utils";
-import { findStepDefinition } from "../../detail/utils";
 
 type AppointmentCardProps = {
 	appointment: Appointment;

@@ -1,5 +1,5 @@
-import { onlyDigits } from "@/utils/formatter";
 import { cpf } from "cpf-cnpj-validator";
+import { onlyDigits } from "@/utils/formatter";
 
 export type BabyFormData = {
 	id: string;

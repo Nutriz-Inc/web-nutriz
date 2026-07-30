@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/images/hero-mother-baby.png";
+import { HeroBackground } from "@/components/full/HeroBackground";
 import {
 	fadeScale,
 	fadeUp,
@@ -9,7 +10,6 @@ import {
 } from "../animations/variants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
 import { ActivityBadge } from "./ActivityBadge";
-import { HeroBackground } from "./HeroBackground";
 import { SlideButton } from "./SlideButton";
 
 export function HeroSection() {

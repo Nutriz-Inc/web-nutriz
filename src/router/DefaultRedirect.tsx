@@ -9,7 +9,7 @@ export function DefaultRedirect() {
 
 	switch (auth?.type) {
 		case EnumUserType.Admin:
-			target = "/gestao-doacoes";
+			target = "/dashboard";
 			break;
 		case EnumUserType.Nurse:
 			target = "/agendamentos";

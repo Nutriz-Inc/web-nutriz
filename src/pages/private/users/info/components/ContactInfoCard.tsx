@@ -19,7 +19,7 @@ export function ContactInfoCard({ user }: ContactInfoCardProps) {
 					value={formatPhoneNumber(user.phone_number)}
 				/>
 				<InfoField label="CPF" value={formatCpf(user.cpf)} />
-				{ user.type === EnumUserType.Common && (
+				{user.type === EnumUserType.Common && (
 					<InfoField
 						label="Data de nascimento"
 						value={user.birth_date ? formatDateBR(user.birth_date) : "—"}

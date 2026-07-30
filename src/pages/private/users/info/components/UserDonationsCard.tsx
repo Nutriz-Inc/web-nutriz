@@ -74,9 +74,7 @@ export function UserDonationsCard({
 					{sorted.map((donation, index) => (
 						<Fragment key={donation.id_donation}>
 							{index > 0 && <div className="h-px bg-[#eef1f5]" />}
-							<UserDonationRow
-								donation={donation}
-							/>
+							<UserDonationRow donation={donation} />
 						</Fragment>
 					))}
 				</div>

@@ -3,16 +3,19 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import NutrizLogo from "@/assets/images/nutriz-log-alternative.svg";
 import { AppDrawer } from "./AppDrawer";
+import { getHome } from "@/utils/routes";
+import { useAuth } from "@/hooks/use-auth";
 
 export function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
+	const { auth } = useAuth();
 
 	return (
 		<>
 			<header className="bg-[#00458b] sticky top-0 z-10 p-3">
 				<div className="relative flex items-center justify-end max-w-[1440px] mx-auto pl-5 pr-4 py-6 lg:pl-20 lg:pr-9">
 					<Link
-						to="/home"
+						to={getHome(auth?.type)}
 						className="absolute left-1/2 -translate-x-1/2"
 						aria-label="Ir para a página inicial"
 					>

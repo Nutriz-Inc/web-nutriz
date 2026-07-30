@@ -49,7 +49,6 @@ export function AdmDashboardPage() {
 			description="Indicadores consolidados de todas as doadoras · atualizado em tempo real"
 			loading={dashboardQuery.isLoading}
 			hasPermission={auth?.type === EnumUserType.Admin}
-			backTo="/gestao-doacoes"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			<div className="flex flex-col gap-6 lg:mx-auto lg:w-full lg:max-w-[1400px]">

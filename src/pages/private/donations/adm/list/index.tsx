@@ -1,8 +1,6 @@
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { type FormEvent, Fragment, useState } from "react";
-import {
-	FilterChips,
-} from "@/components/full/FilterChips";
+import { FilterChips } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -10,7 +8,12 @@ import { EnumUserType } from "@/services/types/i-user";
 import { formatCpf } from "@/utils/formatter";
 import { DonationManagementCard } from "./components/DonationManagementCard";
 import { useAdminDonationsList } from "./hooks";
-import { ACTIVE_FILTER_OPTIONS, STEP_FILTER_OPTIONS, type ActiveFilter, type StepFilter } from "./constants";
+import {
+	ACTIVE_FILTER_OPTIONS,
+	STEP_FILTER_OPTIONS,
+	type ActiveFilter,
+	type StepFilter,
+} from "./constants";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 
 export function DonationsManagementPage() {

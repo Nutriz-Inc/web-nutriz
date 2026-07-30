@@ -55,11 +55,10 @@ export function UsersManagementPage() {
 
 	return (
 		<Page
-			title="Usuários da Plataforma"
-			description="Gerencie os acessos da equipe Lactare"
+			title="Usuários"
+			description="Gerencie os acessos do Nutriz"
 			loading={usersQuery.isLoading}
 			hasPermission={auth?.type === EnumUserType.Admin}
-			backTo="/gestao-doacoes"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			<div className="lg:mx-auto lg:flex lg:w-full lg:max-w-[1400px] lg:flex-col lg:gap-6">

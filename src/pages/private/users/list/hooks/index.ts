@@ -20,7 +20,8 @@ export function useCreateUser() {
 	const queryClient = useQueryClient();
 
 	const createUserMutation = useMutation({
-		mutationFn: (data: ICreateUserRequest) => services.user.createAdminAndNurse(data),
+		mutationFn: (data: ICreateUserRequest) =>
+			services.user.createAdminAndNurse(data),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: ["users"] });
 		},

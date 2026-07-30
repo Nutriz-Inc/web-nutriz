@@ -42,7 +42,9 @@ export class User implements IUser {
 		return data;
 	}
 
-	async createAdminAndNurse(body: ICreateUserRequest): Promise<ICreateUserResponse> {
+	async createAdminAndNurse(
+		body: ICreateUserRequest,
+	): Promise<ICreateUserResponse> {
 		const { data } = await this.httpClient.post("/internal/user", body);
 
 		return data;

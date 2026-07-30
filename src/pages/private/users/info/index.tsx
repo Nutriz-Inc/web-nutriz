@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumJobStatus } from "@/services/types/i-job";
@@ -24,6 +24,7 @@ import { formatML, formatShortDateTime } from "./utils";
 export function UserManagementDetailPage() {
 	const { id_user = "" } = useParams();
 	const location = useLocation();
+	const navigate = useNavigate();
 	const backTo = location.state?.backTo ?? "/usuarios";
 	const { auth } = useAuth();
 	const [deactivateOpen, setDeactivateOpen] = useState(false);
@@ -36,7 +37,10 @@ export function UserManagementDetailPage() {
 
 	function handleConfirmDeactivate() {
 		removeUserMutation.mutate(undefined, {
-			onSuccess: () => setDeactivateOpen(false),
+			onSuccess: () => {
+				setDeactivateOpen(false);
+				navigate("/usuarios");
+			},
 		});
 	}
 

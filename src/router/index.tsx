@@ -44,6 +44,11 @@ export function routerPrivate() {
 			element: <Layout />,
 			children: [
 				{
+					id: "private-index",
+					index: true,
+					element: <DefaultRedirect />,
+				},
+				{
 					id: "private-pontos-de-coleta",
 					path: "/pontos-de-coleta",
 					element: <DonationPointsPage />,

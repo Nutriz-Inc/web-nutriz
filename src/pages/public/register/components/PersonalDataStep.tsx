@@ -1,4 +1,4 @@
-import { formatCpf, maskDate, formatPhoneNumber } from "@/utils/formatter";
+import { formatCpf, formatPhoneNumber, maskDate } from "@/utils/formatter";
 import type {
 	RegisterFieldName,
 	RegisterFormData,

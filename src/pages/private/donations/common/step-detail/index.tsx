@@ -10,8 +10,9 @@ import { useDonation } from "../info/hooks/use-donation";
 import { StepAboutCard } from "./components/StepAboutCard";
 import { StepHeroCard } from "./components/StepHeroCard";
 import { StepInfoRow } from "./components/StepInfoRow";
+import { StepNurseCard } from "./components/StepNurseCard";
 import { StepTimelineSheet } from "./components/StepTimelineSheet";
-import { useStepAddress } from "./hooks";
+import { useLatestStepJob, useStepAddress } from "./hooks";
 
 export function DonationStepDetailPage() {
 	const { id_donation = "", id_donation_step = "" } = useParams();
@@ -25,6 +26,8 @@ export function DonationStepDetailPage() {
 
 	const { addressQuery } = useStepAddress(step?.id_address);
 	const address = addressQuery.data;
+
+	const { latestJob } = useLatestStepJob(step?.id_donation_step);
 	const addressText = address
 		? `${address.street}, ${address.number ?? "s/n"}${address.complement ? `, ${address.complement}` : ""} - ${address.neighborhood}, ${address.city} - ${address.state}, ${formatCep(address.zipcode)}`
 		: undefined;
@@ -88,6 +91,13 @@ export function DonationStepDetailPage() {
 										/>
 									)}
 								</div>
+							)}
+
+							{latestJob?.user_nurse_name && (
+								<StepNurseCard
+									nurseName={latestJob.user_nurse_name}
+									status={latestJob.status}
+								/>
 							)}
 
 							<StepAboutCard text={step.description} />

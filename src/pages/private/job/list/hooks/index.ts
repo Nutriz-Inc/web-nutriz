@@ -4,8 +4,8 @@ import services from "@/services";
 import type { EnumJobStatus, IJobResponse } from "@/services/types/i-job";
 import type { Address } from "@/services/types/i-user";
 import { EnumUserType } from "@/services/types/i-user";
-import type { Appointment } from "../../types";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
+import type { Appointment } from "../../types";
 
 type UseAppointmentsListParams = {
 	status: EnumJobStatus;

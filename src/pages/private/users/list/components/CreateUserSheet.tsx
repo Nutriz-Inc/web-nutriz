@@ -21,13 +21,13 @@ import {
 import { cn } from "@/lib/utils";
 import { USER_TYPE_LABEL } from "@/utils/constants";
 import { formatCpf, formatPhoneNumber } from "@/utils/formatter";
+import { EMPTY_FORM, PROFILE_TYPE_OPTIONS } from "../constants";
 import {
 	type CreateUserFormData,
 	type CreateUserFormErrors,
 	validateCreateUserForm,
 } from "../validation";
 import { CreateUserField } from "./CreateUserField";
-import { EMPTY_FORM, PROFILE_TYPE_OPTIONS } from "../constants";
 
 type CreateUserSheetProps = {
 	open: boolean;

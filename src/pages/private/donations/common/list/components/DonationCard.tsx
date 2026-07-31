@@ -65,7 +65,12 @@ export function DonationCard({
 					/>
 				</span>
 				<div className="flex min-w-0 flex-1 flex-col gap-2 lg:gap-3">
-					<div className="flex items-center justify-between gap-2">
+					<div
+						className={cn(
+							"flex items-center justify-between gap-2",
+							!isClickable && "pr-8 lg:pr-9",
+						)}
+					>
 						<div className="flex min-w-0 flex-1 items-center justify-between gap-2">
 							<p className="truncate text-[16px] font-bold text-[#0e2a45] lg:text-[22px]">
 								Doação #{number}

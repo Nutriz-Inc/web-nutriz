@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import type { User } from "@/services/types/i-user";
-import { formatCpf } from "@/utils/formatter";
 import { USER_TYPE_BADGE_CLASSNAME, USER_TYPE_LABEL } from "@/utils/constants";
+import { formatCpf } from "@/utils/formatter";
 
 type Props = {
 	user: User;

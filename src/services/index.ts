@@ -1,10 +1,10 @@
 import axios from "axios";
 import { env } from "../config/env";
 import { Auth } from "./auth";
+import { Dashboard } from "./dashboard";
 import { Donation } from "./donation";
 import { Job } from "./job";
 import { User } from "./user";
-import { Dashboard } from "./dashboard";
 
 export const baseURL = env?.VITE_API_URL;
 

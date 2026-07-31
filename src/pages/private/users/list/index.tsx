@@ -73,16 +73,18 @@ export function UsersManagementPage() {
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			<div className="lg:mx-auto lg:flex lg:w-full lg:max-w-[1400px] lg:flex-col lg:gap-6">
-				<div className="flex items-center justify-between gap-2.5">
-					<FilterChips
-						options={PROFILE_FILTER_OPTIONS}
-						value={profileFilter}
-						onChange={setProfileFilter}
-					/>
+				<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+					<div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:px-0 sm:pb-0">
+						<FilterChips
+							options={PROFILE_FILTER_OPTIONS}
+							value={profileFilter}
+							onChange={setProfileFilter}
+						/>
+					</div>
 					<button
 						type="button"
 						onClick={() => setIsCreateUserOpen(true)}
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[#00458b] px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+						className="flex h-[43px] w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#00458b] px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] sm:w-auto"
 					>
 						<Plus className="size-4" />
 						Novo usuário
@@ -110,21 +112,23 @@ export function UsersManagementPage() {
 							placeholder="Buscar por identificador interno..."
 						/>
 					</div>
-					<button
-						type="submit"
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[#00458b] px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-					>
-						<Search className="size-4" />
-						Aplicar filtro
-					</button>
-					<button
-						type="button"
-						onClick={handleClearFilters}
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-xl border border-[#e5e7eb] bg-white px-5 text-[14px] font-semibold text-[#6b7280] transition-transform active:scale-[0.98]"
-					>
-						<X className="size-4" />
-						Limpar filtro
-					</button>
+					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0">
+						<button
+							type="submit"
+							className="flex h-[43px] items-center justify-center gap-2 rounded-xl bg-[#00458b] px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+						>
+							<Search className="size-4" />
+							Aplicar filtro
+						</button>
+						<button
+							type="button"
+							onClick={handleClearFilters}
+							className="flex h-[43px] items-center justify-center gap-2 rounded-xl border border-[#e5e7eb] bg-white px-5 text-[14px] font-semibold text-[#6b7280] transition-transform active:scale-[0.98]"
+						>
+							<X className="size-4" />
+							Limpar filtro
+						</button>
+					</div>
 				</form>
 
 				<div className="overflow-hidden rounded-2xl border border-[#eef1f5] bg-white">

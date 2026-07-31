@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { AlertTriangle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
 	type DonationStep,
 	EnumDonationStepStatus,
@@ -73,19 +74,33 @@ export function AdminStepCard({
 	const [errorDescription, setErrorDescription] = useState("");
 	const [quantityDonated, setQuantityDonated] = useState("");
 
-	const [addressMode, setAddressMode] = useState<"existing" | "new">(() =>
-		donorAddresses.length > 0 ? "existing" : "new",
-	);
-	const [selectedAddressId, setSelectedAddressId] = useState(
-		() => step?.id_address ?? donorAddresses[0]?.id_address ?? "",
-	);
+	const [addressMode, setAddressMode] = useState<"existing" | "new">("new");
+	const [selectedAddressId, setSelectedAddressId] = useState("");
 	const [zipCode, setZipCode] = useState("");
 	const [number, setNumber] = useState("");
 	const [complement, setComplement] = useState("");
 
+	const addressTouchedRef = useRef(false);
+
 	const { addressQuery } = useStepAddress(step?.id_address);
 	const address = addressQuery.data;
 	const addressText = address ? formatAddressLine(address) : undefined;
+
+	const pickerAddresses = useMemo(() => {
+		if (!address) return donorAddresses;
+		if (donorAddresses.some((item) => item.id_address === address.id_address)) {
+			return donorAddresses;
+		}
+		return [...donorAddresses, address];
+	}, [donorAddresses, address]);
+
+	useEffect(() => {
+		if (addressTouchedRef.current) return;
+		if (pickerAddresses.length === 0) return;
+
+		setAddressMode("existing");
+		setSelectedAddressId(step?.id_address ?? pickerAddresses[0].id_address);
+	}, [pickerAddresses, step?.id_address]);
 
 	const nursesQuery = useNurses();
 	const nurses = nursesQuery.data ?? [];
@@ -220,16 +235,23 @@ export function AdminStepCard({
 	const statusChanged = Boolean(step) && selectedStatus !== step?.status;
 
 	const addressPickerProps = {
-		donorAddresses,
+		donorAddresses: pickerAddresses,
 		addressMode,
 		selectedAddressId,
 		onSelectExisting: (id: string) => {
+			addressTouchedRef.current = true;
 			setAddressMode("existing");
 			setSelectedAddressId(id);
 		},
-		onSelectNew: () => setAddressMode("new"),
+		onSelectNew: () => {
+			addressTouchedRef.current = true;
+			setAddressMode("new");
+		},
 		zipCode,
-		onZipCodeChange: setZipCode,
+		onZipCodeChange: (value: string) => {
+			addressTouchedRef.current = true;
+			setZipCode(value);
+		},
 		number,
 		onNumberChange: setNumber,
 		complement,

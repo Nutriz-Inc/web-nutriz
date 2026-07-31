@@ -7,6 +7,7 @@ import {
 	MAX_RECONNECT_ATTEMPTS,
 	TERMINAL_CLOSE_REASONS,
 } from "../constants";
+import { getPrivateSession, savePrivateSession } from "../eva-session-store";
 import type {
 	ChatMessage,
 	EvaBlockedReason,
@@ -65,7 +66,12 @@ function splitParagraphs(text: string) {
 export function useEvaChat(initialMessage?: string) {
 	const { auth, isAuthenticated } = useAuth();
 
-	const [messages, setMessages] = useState<ChatMessage[]>([]);
+	// Modo logado: reidrata a conversa preservada em memoria (fechar/reabrir o
+	// widget nao perde as mensagens; reseta no reload). Anonimo sempre comeca
+	// do zero.
+	const [messages, setMessages] = useState<ChatMessage[]>(() =>
+		isAuthenticated ? getPrivateSession().messages : [],
+	);
 	const [isTyping, setIsTyping] = useState(false);
 	const [isSending, setIsSending] = useState(false);
 	const [status, setStatus] = useState<EvaChatStatus>("connecting");
@@ -76,7 +82,9 @@ export function useEvaChat(initialMessage?: string) {
 	const disposedRef = useRef(false);
 	const attemptsRef = useRef(0);
 	const reconnectTimerRef = useRef<number | null>(null);
-	const conversationIdRef = useRef<string | null>(null);
+	const conversationIdRef = useRef<string | null>(
+		isAuthenticated ? getPrivateSession().conversationId : null,
+	);
 	const streamTextRef = useRef("");
 	const streamIdRef = useRef<string | null>(null);
 	const sendingRef = useRef(false);
@@ -90,6 +98,14 @@ export function useEvaChat(initialMessage?: string) {
 
 	tokenRef.current = auth?.token;
 	isAnonymousRef.current = !isAuthenticated;
+
+	// Modo logado: espelha a conversa no store em memoria a cada mudanca das
+	// mensagens (para sobreviver ao fechar/reabrir o widget).
+	useEffect(() => {
+		if (isAuthenticated) {
+			savePrivateSession(messages, conversationIdRef.current);
+		}
+	}, [messages, isAuthenticated]);
 
 	const nextId = useCallback(() => {
 		nextIdRef.current += 1;
@@ -187,6 +203,12 @@ export function useEvaChat(initialMessage?: string) {
 			}
 
 			wsUrl = `${env.VITE_EVA_WS_URL}/ws/chat?token=${encodeURIComponent(token)}`;
+			// Retoma a mesma conversa ao reabrir o widget (o backend reusa a
+			// conversation e recarrega o historico para o contexto do LLM).
+			const resumeId = conversationIdRef.current;
+			if (resumeId) {
+				wsUrl += `&conversation_id=${encodeURIComponent(resumeId)}`;
+			}
 		}
 
 		setStatus(attemptsRef.current > 0 ? "reconnecting" : "connecting");
@@ -220,6 +242,14 @@ export function useEvaChat(initialMessage?: string) {
 			switch (frame.type) {
 				case "conversation": {
 					conversationIdRef.current = frame.conversation_id ?? null;
+					// Guarda o id junto das mensagens atuais para retomar a mesma
+					// conversa ao reabrir (modo logado).
+					if (!isAnonymousRef.current) {
+						savePrivateSession(
+							getPrivateSession().messages,
+							conversationIdRef.current,
+						);
+					}
 					break;
 				}
 				case "chunk": {

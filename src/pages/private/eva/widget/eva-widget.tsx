@@ -1,3 +1,4 @@
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Dialog } from "radix-ui";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
@@ -78,6 +79,7 @@ export function EvaWidget() {
 		getAppPathname,
 		getAppPathname,
 	);
+	const reduce = useReducedMotion();
 
 	const [open, setOpen] = useState(false);
 	const [view, setView] = useState<WidgetView>("welcome");
@@ -138,6 +140,29 @@ export function EvaWidget() {
 		return null;
 	}
 
+	// Animacao de abrir/fechar tipo "balao inflando": escala com mola na
+	// entrada, deflada rapida na saida, com origem no canto do FAB.
+	const modalMotion = reduce
+		? {
+				initial: { opacity: 0 },
+				animate: { opacity: 1 },
+				exit: { opacity: 0 },
+				transition: { duration: 0.15 },
+			}
+		: {
+				initial: { opacity: 0, scale: 0.8 },
+				animate: {
+					opacity: 1,
+					scale: 1,
+					transition: { type: "spring" as const, stiffness: 260, damping: 18 },
+				},
+				exit: {
+					opacity: 0,
+					scale: 0.85,
+					transition: { duration: 0.18, ease: "easeIn" as const },
+				},
+			};
+
 	return (
 		<Dialog.Root open={open} onOpenChange={handleOpenChange}>
 			<Dialog.Trigger asChild>
@@ -145,66 +170,66 @@ export function EvaWidget() {
 					type="button"
 					className="eva-fab"
 					aria-label="Abrir chat com a EVA"
-				>
-					<svg
-						width="26"
-						height="26"
-						viewBox="0 0 24 24"
-						fill="none"
-						role="img"
-						aria-hidden="true"
-					>
-						<title>EVA</title>
-						<path
-							d="M12 3c-4.97 0-9 3.58-9 8 0 2.35 1.16 4.46 3 5.9V21l3.3-1.8c.86.2 1.76.3 2.7.3 4.97 0 9-3.58 9-8s-4.03-8-9-8Z"
-							fill="currentColor"
-						/>
-					</svg>
-				</button>
+				/>
 			</Dialog.Trigger>
 
-			<Dialog.Portal>
-				<Dialog.Overlay className="eva-widget-overlay" />
-				<Dialog.Content
-					className="eva-widget-modal"
-					aria-describedby={undefined}
-				>
-					{view === "welcome" ? (
-						<div className="eva-widget-header eva-widget-header--welcome">
-							<CloseButton />
-							<Dialog.Title className="eva-widget-header-title">
-								Assistente EVA
-							</Dialog.Title>
-							<span className="eva-widget-header-spacer" aria-hidden />
-						</div>
-					) : (
-						<div className="eva-widget-header eva-widget-header--chat">
-							<div className="eva-widget-header-id">
-								<AvatarEva size={38} />
-								<div className="eva-widget-header-info">
-									<Dialog.Title className="eva-widget-header-title">
-										EVA
-									</Dialog.Title>
-									<span className="eva-widget-header-status">
-										<span className="eva-widget-status-dot" aria-hidden />
-										online
-									</span>
-								</div>
-							</div>
-							<CloseButton />
-						</div>
-					)}
+			<AnimatePresence>
+				{open ? (
+					<Dialog.Portal forceMount key="eva-portal">
+						<Dialog.Overlay asChild forceMount>
+							<motion.div
+								className="eva-widget-overlay"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0.2 }}
+							/>
+						</Dialog.Overlay>
+						<Dialog.Content asChild forceMount aria-describedby={undefined}>
+							<motion.div
+								className="eva-widget-modal"
+								style={{ transformOrigin: "bottom right" }}
+								{...modalMotion}
+							>
+								{view === "welcome" ? (
+									<div className="eva-widget-header eva-widget-header--welcome">
+										<CloseButton />
+										<Dialog.Title className="eva-widget-header-title">
+											Assistente EVA
+										</Dialog.Title>
+										<span className="eva-widget-header-spacer" aria-hidden />
+									</div>
+								) : (
+									<div className="eva-widget-header eva-widget-header--chat">
+										<div className="eva-widget-header-id">
+											<AvatarEva size={38} />
+											<div className="eva-widget-header-info">
+												<Dialog.Title className="eva-widget-header-title">
+													EVA
+												</Dialog.Title>
+												<span className="eva-widget-header-status">
+													<span className="eva-widget-status-dot" aria-hidden />
+													online
+												</span>
+											</div>
+										</div>
+										<CloseButton />
+									</div>
+								)}
 
-					{view === "welcome" ? (
-						<EvaWelcomePanel mode={mode} onStart={startChat} />
-					) : (
-						<EvaChatPanel
-							initialMessage={initialMessage}
-							onClose={() => setOpen(false)}
-						/>
-					)}
-				</Dialog.Content>
-			</Dialog.Portal>
+								{view === "welcome" ? (
+									<EvaWelcomePanel mode={mode} onStart={startChat} />
+								) : (
+									<EvaChatPanel
+										initialMessage={initialMessage}
+										onClose={() => setOpen(false)}
+									/>
+								)}
+							</motion.div>
+						</Dialog.Content>
+					</Dialog.Portal>
+				) : null}
+			</AnimatePresence>
 		</Dialog.Root>
 	);
 }

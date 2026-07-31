@@ -100,7 +100,7 @@ export function CollectionPointsSection() {
 	return (
 		<section
 			id="pontos-de-coleta"
-			className="scroll-mt-20 bg-white py-12 lg:py-16"
+			className="scroll-mt-20 bg-white pt-12 lg:pt-16 pb-6 lg:pb-8"
 		>
 			<div className="mx-auto w-full max-w-[1200px] px-5 lg:px-8">
 				<motion.div

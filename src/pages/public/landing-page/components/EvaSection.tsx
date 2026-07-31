@@ -29,10 +29,13 @@ export function EvaSection() {
 			} as const);
 
 	return (
-		<section id="a-eva" className="scroll-mt-20 bg-white py-12 lg:py-16">
+		<section
+			id="a-eva"
+			className="scroll-mt-20 bg-white pt-4 lg:pt-6 pb-12 lg:pb-16"
+		>
 			<div
 				aria-hidden
-				className="mx-auto mb-8 h-1.5 w-16 rounded-full bg-[#e3e8f0] lg:mb-12"
+				className="mx-auto mb-6 h-1.5 w-16 rounded-full bg-[#e3e8f0] lg:mb-8"
 			/>
 
 			<motion.div
@@ -97,8 +100,8 @@ export function EvaSection() {
 										label="Falar com a EVA"
 										onClick={() => openEva()}
 										className="relative"
-										pillClassName="bg-gradient-to-r from-[#f2a878] via-[#ec7ba6] to-[#a878d0] text-[#1c1b1f]"
-										circleClassName="bg-white text-[#b8531f]"
+										pillClassName="bg-white text-[#1c1b1f] shadow-[0_6px_20px_rgba(93,63,110,0.18)]"
+										circleClassName="bg-[#c25e86] text-white"
 									/>
 								</div>
 

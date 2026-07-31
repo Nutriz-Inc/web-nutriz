@@ -216,7 +216,7 @@ export function ProfilePage() {
 		<Page
 			loading={isLoading}
 			title="Perfil"
-			description="Gerencie suas informações pessoais e de seu bebê."
+			description={`Gerencie suas informações pessoais${isCommon ? " e de seu bebê" : ""}.`}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col bg-[#f7f9fb] lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:px-8 lg:py-8">
@@ -234,7 +234,7 @@ export function ProfilePage() {
 					)}
 				</div>
 
-				<div className="flex-1 px-3 py-4 lg:flex-none lg:px-0 lg:py-0">
+				<div className="flex-1 px-4 py-4 lg:flex-none lg:px-0 lg:py-0">
 					{!isCommon || tab === "dados" ? (
 						<MyDataSection
 							values={values}

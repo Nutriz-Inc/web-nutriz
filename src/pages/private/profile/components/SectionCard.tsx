@@ -19,7 +19,7 @@ export function SectionCard({
 	return (
 		<div
 			className={cn(
-				"overflow-hidden rounded-2xl border bg-white/10",
+				"overflow-hidden rounded-2xl border bg-white",
 				variant === "new"
 					? "border-[1.5px] border-[#f25ca2]/35"
 					: "border-[#387ccd]/20",

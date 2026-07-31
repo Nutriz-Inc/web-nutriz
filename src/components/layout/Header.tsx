@@ -1,10 +1,10 @@
 import { Menu } from "lucide-react";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import NutrizLogo from "@/assets/images/nutriz-log-alternative.svg";
-import { AppDrawer } from "./AppDrawer";
-import { getHome } from "@/utils/routes";
 import { useAuth } from "@/hooks/use-auth";
+import { getHome } from "@/utils/routes";
+import { AppDrawer } from "./AppDrawer";
 
 export function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);

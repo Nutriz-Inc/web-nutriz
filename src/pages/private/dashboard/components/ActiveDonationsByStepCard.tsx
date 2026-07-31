@@ -2,8 +2,8 @@ import { ListChecks } from "lucide-react";
 import { STEP_DISPLAY } from "@/pages/private/donations/adm/list/components/StatusBadge";
 import type { ActiveDonationsByStep } from "@/services/types/i-dashboard";
 import { STEP_NUMBER } from "@/utils/constants";
-import { DashboardCardHeader } from "./DashboardCardHeader";
 import { BAR_SHADES } from "../constants";
+import { DashboardCardHeader } from "./DashboardCardHeader";
 
 type ActiveDonationsByStepCardProps = {
 	activeDonationsByStep: ActiveDonationsByStep[];

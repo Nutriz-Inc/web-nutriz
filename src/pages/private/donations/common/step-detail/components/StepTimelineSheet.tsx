@@ -30,21 +30,21 @@ export function StepTimelineSheet({
 		<Sheet open={open} onOpenChange={onOpenChange}>
 			<SheetContent
 				side="bottom"
-				className="rounded-t-2xl border-none lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:data-[side=bottom]:inset-x-auto lg:data-[side=bottom]:left-auto lg:data-[side=bottom]:right-8 lg:data-[side=bottom]:bottom-8 lg:data-[side=bottom]:w-[420px] lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-[#e0e0e0] lg:data-[side=bottom]:shadow-2xl p-2"
+				className="rounded-t-2xl border-none lg:max-h-[85vh] lg:overflow-y-auto lg:data-[side=bottom]:inset-0 lg:data-[side=bottom]:m-auto lg:data-[side=bottom]:h-fit lg:data-[side=bottom]:w-[600px] lg:data-[side=bottom]:max-w-[90vw] lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-[#e0e0e0] lg:data-[side=bottom]:shadow-2xl p-2"
 			>
 				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-[#e0e0e0] lg:hidden" />
 
-				<SheetHeader className="gap-1 px-5 pb-0 pt-3 text-left">
-					<SheetTitle className="text-[14px] font-bold text-[#1a1a1a]">
+				<SheetHeader className="gap-1 px-5 pb-0 pt-3 text-left lg:px-8 lg:pt-6">
+					<SheetTitle className="text-[14px] font-bold text-[#1a1a1a] lg:text-[18px]">
 						Linha do tempo{stepOrder ? ` — Etapa ${stepOrder}` : ""}
 						{stepTitle ? `: ${stepTitle}` : ""}
 					</SheetTitle>
-					<SheetDescription className="text-[11px] text-[#888]">
+					<SheetDescription className="text-[11px] text-[#888] lg:text-[13px]">
 						Histórico de atualizações desta etapa.
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="flex max-h-[60vh] flex-col overflow-y-auto px-5 pb-6 pt-4">
+				<div className="flex max-h-[60vh] flex-col overflow-y-auto px-5 pb-6 pt-4 lg:max-h-[60vh] lg:px-8 lg:pb-8">
 					{timelinesQuery.isLoading ? (
 						<div className="flex flex-col gap-3">
 							{[0, 1, 2].map((index) => (

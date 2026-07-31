@@ -5,6 +5,7 @@ import NutrizLogo from "@/assets/images/nutriz-log-alternative.svg";
 import { AppDrawer } from "@/components/layout/AppDrawer";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
+import { HeroBackground } from "@/components/full/HeroBackground";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { BABY_ML_PER_DAY } from "@/utils/constants";
@@ -72,8 +73,10 @@ export function HomePage() {
 	return (
 		<Page loading={loading} hasPermission={auth?.type === EnumUserType.Common}>
 			<div className="bg-[#f6f8fd] flex flex-col min-h-screen">
-				<div className="bg-[#00458b] sticky top-0 z-10">
-					<div className="flex items-center justify-between max-w-[1440px] mx-auto pl-5 pr-4 py-[18px] lg:pl-20 lg:pr-9">
+				<div className="relative isolate overflow-hidden bg-[#0a3a87]">
+					<HeroBackground />
+
+					<div className="relative z-10 flex items-center justify-between max-w-[1440px] mx-auto pl-5 pr-4 py-[18px] lg:pl-20 lg:pr-9">
 						<img
 							src={NutrizLogo}
 							alt="Nutriz"
@@ -88,10 +91,8 @@ export function HomePage() {
 							<Menu className="size-6" />
 						</button>
 					</div>
-				</div>
 
-				<div className="bg-[#00458b]">
-					<div className="flex flex-col gap-[18px] items-start max-w-[1440px] mx-auto pb-10 pt-7 px-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:pb-16 lg:pt-14 lg:px-20">
+					<div className="relative z-10 flex flex-col gap-[18px] items-start max-w-[1440px] mx-auto pb-10 pt-7 px-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:pb-16 lg:pt-14 lg:px-20">
 						<div className="flex flex-col gap-[18px] items-start w-full lg:w-[620px] lg:shrink-0">
 							<p className="font-extrabold leading-[44px] text-[40px] text-white lg:text-[52px] lg:leading-[56px]">
 								Olá, {firstName}!

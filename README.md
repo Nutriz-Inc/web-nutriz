@@ -87,13 +87,18 @@ O gate fica em `use-eva-access.ts`, construído sobre `useAuth()` + `EnumUserTyp
 Em `.env.development`:
 
 ```
-VITE_EVA_WS_URL=ws://localhost:8000
 VITE_EVA_API_URL=http://localhost:8000
 VITE_EVA_DEV_TOKEN=
 ```
 
-- `VITE_EVA_WS_URL`: URL do WebSocket do IA service (`/ws/chat` e `/ws/chat-public`).
-- `VITE_EVA_API_URL`: URL HTTP do IA service (usada no `POST /session/anonymous`).
+- `VITE_EVA_API_URL`: **única** URL necessária — a base HTTP do IA service (usada
+  no `POST /session/anonymous`). A URL do WebSocket (`/ws/chat` e
+  `/ws/chat-public`) é **derivada dela** no código (`http`→`ws`, `https`→`wss`),
+  então em produção basta `https://...onrender.com`. Barra final é normalizada
+  (com ou sem `/` no fim funciona — foi o bug do `//session/anonymous` → 404).
+- `VITE_EVA_WS_URL` (opcional, retrocompatível): sobrepõe a URL do WebSocket.
+  Só defina se o WS ficar em host/porta diferente do HTTP; caso contrário **não é
+  necessária** (fica derivada de `VITE_EVA_API_URL`).
 - `VITE_EVA_DEV_TOKEN`: somente desenvolvimento. Quando preenchido, substitui o
   token da sessão logada na conexão do chat. Deixe vazio em qualquer outro cenário.
 

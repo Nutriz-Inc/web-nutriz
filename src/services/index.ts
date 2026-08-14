@@ -1,6 +1,7 @@
 import axios from "axios";
 import { env } from "../config/env";
 import { Auth } from "./auth";
+import { Dashboard } from "./dashboard";
 import { Donation } from "./donation";
 import { Job } from "./job";
 import { User } from "./user";
@@ -47,4 +48,5 @@ export default {
 	donation: new Donation(httpClient),
 	job: new Job(httpClient),
 	user: new User(httpClient),
+	dashboard: new Dashboard(httpClient),
 };

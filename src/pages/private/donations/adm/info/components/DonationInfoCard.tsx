@@ -1,5 +1,6 @@
-import { Calendar, IdCardLanyard } from "lucide-react";
+import { Calendar, IdCardLanyard, Milk } from "lucide-react";
 import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
+import { StarRating } from "@/components/full/StarRating";
 import {
 	EnumDonationStepStatus,
 	type IGetDonationResponse,
@@ -45,6 +46,32 @@ export function DonationInfoCard({ donation }: Props) {
 				label="Data de criação da doação"
 				value={formatDateBR(donation.created_at)}
 			/>
+
+			{donation.quantity_donated != null && (
+				<DonorInfoRow
+					icon={Milk}
+					label="Quantidade doada"
+					value={`${donation.quantity_donated} ml`}
+				/>
+			)}
+
+			{(donation.user_feedback || donation.score_feedback != null) && (
+				<div className="flex flex-col gap-1.5">
+					<span className="text-[12px] font-semibold text-[#6b7280]">
+						Feedback da doadora
+					</span>
+					<div className="flex flex-col gap-2 rounded-[10px] border border-[#e7eaef] bg-white px-3.5 py-3">
+						{donation.score_feedback != null && (
+							<StarRating value={donation.score_feedback} size="sm" />
+						)}
+						{donation.user_feedback && (
+							<p className="text-[14px] text-[#1f2a37]">
+								{donation.user_feedback}
+							</p>
+						)}
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

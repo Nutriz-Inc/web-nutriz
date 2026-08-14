@@ -1,18 +1,17 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import type { EnumJobStatus, Job } from "@/services/types/i-job";
+import type { Job } from "@/services/types/i-job";
 import type { User } from "@/services/types/i-user";
 import { StepJobCard } from "./StepJobCard";
 
-type CreateParams = { id_user: string; description: string };
-type UpdateParams = CreateParams & { status: EnumJobStatus };
+type JobParams = { id_user: string; description: string };
 
 type Props = {
 	jobs: Job[];
 	nurses: User[];
 	disabled: boolean;
-	onCreate: (data: CreateParams) => void;
-	onUpdate: (id_job: string, data: UpdateParams) => void;
+	onCreate: (data: JobParams) => void;
+	onUpdate: (id_job: string, data: JobParams) => void;
 	onRemove: (id_job: string) => void;
 };
 

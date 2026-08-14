@@ -39,6 +39,7 @@ export function DonationsPage() {
 			title="Minhas doações"
 			description="Acompanhe as suas doações"
 			hasPermission={auth?.type === EnumUserType.Common}
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={
 				<button
 					type="button"

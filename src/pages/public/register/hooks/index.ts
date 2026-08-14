@@ -89,7 +89,9 @@ export function useRegister({
 	const registerMutation = useMutation({
 		mutationFn: async (form: RegisterFormData) => {
 			const ipAddress = await resolveClientIp();
-			return services.user.create(buildCreateUserRequest(form, ipAddress));
+			return services.user.createCommon(
+				buildCreateUserRequest(form, ipAddress),
+			);
 		},
 		onSuccess,
 		onError: (error: unknown) => {

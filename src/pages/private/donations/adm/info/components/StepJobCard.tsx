@@ -2,7 +2,7 @@ import { Calendar, Pencil, Trash2, User as UserIcon } from "lucide-react";
 import { useState } from "react";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
-import { EnumJobStatus, type Job } from "@/services/types/i-job";
+import type { Job } from "@/services/types/i-job";
 import type { User } from "@/services/types/i-user";
 import { formatCreatedAt } from "@/utils/formatter";
 import { JOB_STATUS_BADGE_CLASSNAME, JOB_STATUS_LABEL } from "../constants";
@@ -10,7 +10,6 @@ import { JOB_STATUS_BADGE_CLASSNAME, JOB_STATUS_LABEL } from "../constants";
 type SaveParams = {
 	id_user: string;
 	description: string;
-	status: EnumJobStatus;
 };
 
 type Props = {
@@ -30,7 +29,6 @@ export function StepJobCard({
 }: Props) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [nurseId, setNurseId] = useState(job.id_user);
-	const [status, setStatus] = useState(job.status);
 	const [description, setDescription] = useState(job.description);
 
 	const nurseName =
@@ -38,13 +36,12 @@ export function StepJobCard({
 
 	function handleStartEdit() {
 		setNurseId(job.id_user);
-		setStatus(job.status);
 		setDescription(job.description);
 		setIsEditing(true);
 	}
 
 	function handleSave() {
-		onSave({ id_user: nurseId, status, description });
+		onSave({ id_user: nurseId, description });
 		setIsEditing(false);
 	}
 
@@ -115,32 +112,17 @@ export function StepJobCard({
 
 	return (
 		<div className="flex flex-col gap-2.5 rounded-[14px] border border-[#54b2e3] bg-white p-4 shadow-[0px_4px_10px_rgba(15,26,51,0.05)]">
-			<div className="flex flex-col gap-2.5 lg:flex-row">
-				<div className="flex flex-1 items-center gap-2">
-					<UserIcon className="size-4 shrink-0 text-[#9ca3af]" />
-					<select
-						value={nurseId}
-						onChange={(event) => setNurseId(event.target.value)}
-						disabled={disabled}
-						className="w-full rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3 py-2 text-[13px] text-[#1f2a37] outline-none disabled:opacity-60"
-					>
-						{nurses.map((nurse) => (
-							<option key={nurse.id_user} value={nurse.id_user}>
-								{nurse.name}
-							</option>
-						))}
-					</select>
-				</div>
-
+			<div className="flex items-center gap-2">
+				<UserIcon className="size-4 shrink-0 text-[#9ca3af]" />
 				<select
-					value={status}
-					onChange={(event) => setStatus(event.target.value as EnumJobStatus)}
+					value={nurseId}
+					onChange={(event) => setNurseId(event.target.value)}
 					disabled={disabled}
-					className="rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3 py-2 text-[13px] text-[#1f2a37] outline-none disabled:opacity-60"
+					className="w-full rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3 py-2 text-[13px] text-[#1f2a37] outline-none disabled:opacity-60"
 				>
-					{Object.values(EnumJobStatus).map((value) => (
-						<option key={value} value={value}>
-							{JOB_STATUS_LABEL[value]}
+					{nurses.map((nurse) => (
+						<option key={nurse.id_user} value={nurse.id_user}>
+							{nurse.name}
 						</option>
 					))}
 				</select>

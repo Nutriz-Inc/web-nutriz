@@ -1,6 +1,6 @@
 import { Calendar, Clock } from "lucide-react";
 import type { EnumDonationStepStatus } from "@/services/types/i-donation";
-import type { EnumJobStatus, Job } from "@/services/types/i-job";
+import type { Job } from "@/services/types/i-job";
 import type { Address, User } from "@/services/types/i-user";
 import { ADMIN_STEP_STATUS_LABEL, EDITABLE_STATUSES } from "../constants";
 import { StepAddressPicker } from "./StepAddressPicker";
@@ -36,7 +36,7 @@ type Props = {
 	onCreateJob: (data: { id_user: string; description: string }) => void;
 	onUpdateJob: (
 		id_job: string,
-		data: { id_user: string; description: string; status: EnumJobStatus },
+		data: { id_user: string; description: string },
 	) => void;
 	onRemoveJob: (id_job: string) => void;
 };

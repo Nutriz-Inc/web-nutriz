@@ -1,49 +1,20 @@
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { type FormEvent, Fragment, useState } from "react";
-import {
-	type FilterChipOption,
-	FilterChips,
-} from "@/components/full/FilterChips";
+import { FilterChips } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
-import { EnumDonationStepName } from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";
+import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { formatCpf } from "@/utils/formatter";
 import { DonationManagementCard } from "./components/DonationManagementCard";
-import { STEP_DISPLAY } from "./components/StatusBadge";
+import {
+	ACTIVE_FILTER_OPTIONS,
+	type ActiveFilter,
+	STEP_FILTER_OPTIONS,
+	type StepFilter,
+} from "./constants";
 import { useAdminDonationsList } from "./hooks";
-
-type StepFilter = "all" | EnumDonationStepName;
-type ActiveFilter = "all" | "active" | "inactive";
-
-const STEP_FILTER_OPTIONS: FilterChipOption<StepFilter>[] = [
-	{ key: "all", label: "Todas" },
-	{
-		key: EnumDonationStepName.BloodTest,
-		label: STEP_DISPLAY[EnumDonationStepName.BloodTest].label,
-	},
-	{
-		key: EnumDonationStepName.CollectMilk,
-		label: STEP_DISPLAY[EnumDonationStepName.CollectMilk].label,
-	},
-	{
-		key: EnumDonationStepName.DeliverMilkingKit,
-		label: STEP_DISPLAY[EnumDonationStepName.DeliverMilkingKit].label,
-	},
-	{
-		key: EnumDonationStepName.MilkAnalysis,
-		label: STEP_DISPLAY[EnumDonationStepName.MilkAnalysis].label,
-	},
-];
-
-const ACTIVE_FILTER_OPTIONS: FilterChipOption<ActiveFilter>[] = [
-	{ key: "all", label: "Todas" },
-	{ key: "active", label: "Em andamento" },
-	{ key: "inactive", label: "Concluídas" },
-];
-
-const PAGE_SIZE = 20;
 
 export function DonationsManagementPage() {
 	const { auth } = useAuth();
@@ -86,7 +57,7 @@ export function DonationsManagementPage() {
 
 	const { data, isLoading } = useAdminDonationsList({
 		page,
-		page_size: PAGE_SIZE,
+		page_size: DEFAULT_PAGE_SIZE,
 		user_name: appliedName || undefined,
 		user_document: appliedCpf.replace(/\D/g, "") || undefined,
 		current_step: filter === "all" ? undefined : filter,
@@ -95,7 +66,7 @@ export function DonationsManagementPage() {
 
 	const donations = data?.data ?? [];
 	const total = data?.total ?? 0;
-	const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+	const totalPages = Math.max(1, Math.ceil(total / DEFAULT_PAGE_SIZE));
 
 	return (
 		<Page

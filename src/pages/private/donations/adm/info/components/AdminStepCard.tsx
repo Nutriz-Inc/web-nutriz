@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { AlertTriangle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
 	type DonationStep,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
-import type { EnumJobStatus, Job } from "@/services/types/i-job";
+import type { Job } from "@/services/types/i-job";
 import type { Address } from "@/services/types/i-user";
 import type { StepDefinition } from "../../../common/info/constants";
 import { StepTimelineSheet } from "../../../common/step-detail/components/StepTimelineSheet";
@@ -14,6 +15,7 @@ import {
 	useCreateStepJob,
 	useNurses,
 	useRemoveStepJob,
+	useUpdateDonation,
 	useUpdateDonationStep,
 	useUpdateStepJob,
 } from "../hooks";
@@ -43,6 +45,7 @@ type Props = {
 	donationEnded?: boolean;
 	jobs: Job[];
 	jobsLoading: boolean;
+	isLastStep?: boolean;
 };
 
 export function AdminStepCard({
@@ -56,6 +59,7 @@ export function AdminStepCard({
 	donationEnded,
 	jobs,
 	jobsLoading,
+	isLastStep,
 }: Props) {
 	const [timelineOpen, setTimelineOpen] = useState(false);
 	const [date, setDate] = useState(() => toDateInputValue(step?.set_date));
@@ -68,20 +72,35 @@ export function AdminStepCard({
 	);
 	const [finalizeDescription, setFinalizeDescription] = useState("");
 	const [errorDescription, setErrorDescription] = useState("");
+	const [quantityDonated, setQuantityDonated] = useState("");
 
-	const [addressMode, setAddressMode] = useState<"existing" | "new">(() =>
-		donorAddresses.length > 0 ? "existing" : "new",
-	);
-	const [selectedAddressId, setSelectedAddressId] = useState(
-		() => step?.id_address ?? donorAddresses[0]?.id_address ?? "",
-	);
+	const [addressMode, setAddressMode] = useState<"existing" | "new">("new");
+	const [selectedAddressId, setSelectedAddressId] = useState("");
 	const [zipCode, setZipCode] = useState("");
 	const [number, setNumber] = useState("");
 	const [complement, setComplement] = useState("");
 
+	const addressTouchedRef = useRef(false);
+
 	const { addressQuery } = useStepAddress(step?.id_address);
 	const address = addressQuery.data;
 	const addressText = address ? formatAddressLine(address) : undefined;
+
+	const pickerAddresses = useMemo(() => {
+		if (!address) return donorAddresses;
+		if (donorAddresses.some((item) => item.id_address === address.id_address)) {
+			return donorAddresses;
+		}
+		return [...donorAddresses, address];
+	}, [donorAddresses, address]);
+
+	useEffect(() => {
+		if (addressTouchedRef.current) return;
+		if (pickerAddresses.length === 0) return;
+
+		setAddressMode("existing");
+		setSelectedAddressId(step?.id_address ?? pickerAddresses[0].id_address);
+	}, [pickerAddresses, step?.id_address]);
 
 	const nursesQuery = useNurses();
 	const nurses = nursesQuery.data ?? [];
@@ -91,6 +110,7 @@ export function AdminStepCard({
 		.join(", ");
 
 	const updateStepMutation = useUpdateDonationStep(idDonation);
+	const updateDonationMutation = useUpdateDonation(idDonation);
 	const createStepMutation = useCreateDonationStep(idDonation);
 	const createJobMutation = useCreateStepJob(idUserCommon);
 	const updateJobMutation = useUpdateStepJob(idUserCommon);
@@ -143,7 +163,16 @@ export function AdminStepCard({
 					description: finalizeDescription,
 				},
 			},
-			{ onSuccess: () => onFinalized?.() },
+			{
+				onSuccess: () => {
+					if (isLastStep && quantityDonated) {
+						updateDonationMutation.mutate({
+							quantity_donated: Number(quantityDonated),
+						});
+					}
+					onFinalized?.();
+				},
+			},
 		);
 	}
 
@@ -181,7 +210,7 @@ export function AdminStepCard({
 
 	function handleUpdateJob(
 		id_job: string,
-		data: { id_user: string; description: string; status: EnumJobStatus },
+		data: { id_user: string; description: string },
 	) {
 		updateJobMutation.mutate({
 			id_job,
@@ -206,16 +235,23 @@ export function AdminStepCard({
 	const statusChanged = Boolean(step) && selectedStatus !== step?.status;
 
 	const addressPickerProps = {
-		donorAddresses,
+		donorAddresses: pickerAddresses,
 		addressMode,
 		selectedAddressId,
 		onSelectExisting: (id: string) => {
+			addressTouchedRef.current = true;
 			setAddressMode("existing");
 			setSelectedAddressId(id);
 		},
-		onSelectNew: () => setAddressMode("new"),
+		onSelectNew: () => {
+			addressTouchedRef.current = true;
+			setAddressMode("new");
+		},
 		zipCode,
-		onZipCodeChange: setZipCode,
+		onZipCodeChange: (value: string) => {
+			addressTouchedRef.current = true;
+			setZipCode(value);
+		},
 		number,
 		onNumberChange: setNumber,
 		complement,
@@ -311,7 +347,9 @@ export function AdminStepCard({
 					) : (
 						<StepActionsFooter
 							definitionLabel={definition.name}
-							isPending={updateStepMutation.isPending}
+							isPending={
+								updateStepMutation.isPending || updateDonationMutation.isPending
+							}
 							stepDescription={stepDescription}
 							finalizeDescription={finalizeDescription}
 							onFinalizeDescriptionChange={setFinalizeDescription}
@@ -319,6 +357,9 @@ export function AdminStepCard({
 							errorDescription={errorDescription}
 							onErrorDescriptionChange={setErrorDescription}
 							onMarkAsError={handleMarkAsError}
+							isLastStep={isLastStep}
+							quantityDonated={quantityDonated}
+							onQuantityDonatedChange={setQuantityDonated}
 						/>
 					)}
 				</>

@@ -1,5 +1,5 @@
 import { Calendar, Clock } from "lucide-react";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Status } from "@/components/full/Status";
 import { cn } from "@/lib/utils";
 import {
@@ -16,8 +16,6 @@ const DOT_CLASSNAME: Record<EnumDonationStepStatus, string> = {
 	[EnumDonationStepStatus.Failed]: "bg-[#a32d2d]",
 };
 
-const DESCRIPTION_TRUNCATE_LENGTH = 110;
-
 type Props = {
 	entry: DonationStepTimeline;
 	isLast: boolean;
@@ -25,7 +23,27 @@ type Props = {
 
 export function TimelineEntry({ entry, isLast }: Props) {
 	const [expanded, setExpanded] = useState(false);
-	const isLong = entry.description.length > DESCRIPTION_TRUNCATE_LENGTH;
+	const [isTruncated, setIsTruncated] = useState(false);
+	const descriptionRef = useRef<HTMLParagraphElement>(null);
+
+	useLayoutEffect(() => {
+		if (expanded) return;
+
+		const element = descriptionRef.current;
+		if (!element) return;
+
+		function measure() {
+			if (!element) return;
+			setIsTruncated(element.scrollHeight > element.clientHeight + 1);
+		}
+
+		measure();
+
+		const observer = new ResizeObserver(measure);
+		observer.observe(element);
+
+		return () => observer.disconnect();
+	}, [entry.description, expanded]);
 
 	return (
 		<div className="flex gap-3">
@@ -43,15 +61,16 @@ export function TimelineEntry({ entry, isLast }: Props) {
 				<Status status={entry.status} />
 
 				<p
+					ref={descriptionRef}
 					className={cn(
 						"mt-1.5 text-[12px] leading-[18px] text-[#5a7690]",
-						!expanded && isLong && "line-clamp-2",
+						!expanded && "line-clamp-2",
 					)}
 				>
 					{entry.description}
 				</p>
 
-				{isLong && (
+				{isTruncated && (
 					<button
 						type="button"
 						onClick={() => setExpanded((current) => !current)}

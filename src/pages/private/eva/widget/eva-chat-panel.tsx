@@ -11,6 +11,7 @@ import {
 import "../eva.css";
 import { useEvaChat } from "../hooks/use-eva-chat";
 import type { ChatMessage, EvaMessageAction } from "../types";
+import { env } from "@/config/env";
 import { EvaActionButton } from "./eva-action-button";
 
 const GREETING: ChatMessage = {
@@ -18,6 +19,20 @@ const GREETING: ChatMessage = {
 	role: "eva",
 	paragraphs: [EVA_GREETING_TEXT],
 };
+
+// Nao ha endpoint de aceite de consent (o backend Go grava no cadastro). Quando
+// o chat e bloqueado por consent (4003), oferecemos suporte via WhatsApp em vez
+// de deixar a nutriz sem saida. Retorna null se o numero nao estiver configurado.
+function buildConsentSupportHref(): string | null {
+	const number = env.VITE_LACTARE_WHATSAPP_NUMBER?.trim();
+	if (!number) {
+		return null;
+	}
+	const text = encodeURIComponent(
+		"Olá! Ao tentar usar a EVA aparece que preciso aceitar os termos de uso, mas não encontro onde. Podem me ajudar?",
+	);
+	return `https://wa.me/${number}?text=${text}`;
+}
 
 // Margem (px) do fim da area de mensagens dentro da qual o usuario ainda e
 // considerado "acompanhando" o streaming - so entao o auto-scroll atua.
@@ -117,9 +132,29 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 	const blocked = blockedReason !== null;
 	const inputDisabled = blocked || status === "failed";
 	const canQuickAct = status === "open" && !blocked && !isSending;
+	const consentSupportHref =
+		blockedReason === "consent" ? buildConsentSupportHref() : null;
 
 	const statusNotice = blocked ? (
-		<p className="eva-widget-notice">{BLOCKED_MESSAGES[blockedReason]}</p>
+		blockedReason === "consent" ? (
+			<div className="eva-widget-notice-group">
+				<p className="eva-widget-notice">{BLOCKED_MESSAGES.consent}</p>
+				{/* TODO: quando existir a pagina de Termos de Uso, adicionar aqui um
+				    link/rota interna para ela ao lado do suporte. */}
+				{consentSupportHref && (
+					<a
+						href={consentSupportHref}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="eva-outline-btn"
+					>
+						Falar com o suporte
+					</a>
+				)}
+			</div>
+		) : (
+			<p className="eva-widget-notice">{BLOCKED_MESSAGES[blockedReason]}</p>
+		)
 	) : status === "reconnecting" || status === "connecting" ? (
 		<p className="eva-widget-notice">
 			{status === "reconnecting" ? "Reconectando..." : "Conectando..."}

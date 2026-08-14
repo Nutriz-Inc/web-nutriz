@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { HeroBackground } from "@/components/full/HeroBackground";
 import { useAuth } from "@/hooks/use-auth";
+import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EnumUserType } from "@/services/types/i-user";
 import { BABY_ML_PER_DAY } from "@/utils/constants";
 import { DonationStatusCard } from "./components/DonationStatusCard";
@@ -113,12 +114,12 @@ export function HomePage() {
 								</button>
 								<button
 									type="button"
+									onClick={() => openEva()}
 									className="border-[1.5px] border-white flex items-center justify-center py-4 rounded-full w-full active:scale-[0.98] transition-transform lg:w-auto lg:px-7"
 								>
 									<p className="font-semibold text-white text-[16px]">
 										Falar com a EVA
 									</p>
-									{/* To do:Implementar redirect */}
 								</button>
 							</div>
 						</div>

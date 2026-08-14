@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { env } from "../../../../config/env";
+import { env, evaApiUrl, evaWsUrl } from "../../../../config/env";
 import { useAuth } from "../../../../hooks/use-auth";
 import {
 	CONNECTION_ERROR_MESSAGE,
@@ -32,7 +32,7 @@ function getEvaToken(authToken?: string) {
 
 async function fetchAnonymousToken(): Promise<string | null> {
 	try {
-		const response = await fetch(`${env.VITE_EVA_API_URL}/session/anonymous`, {
+		const response = await fetch(`${evaApiUrl}/session/anonymous`, {
 			method: "POST",
 		});
 
@@ -192,7 +192,7 @@ export function useEvaChat(initialMessage?: string) {
 				return;
 			}
 
-			wsUrl = `${env.VITE_EVA_WS_URL}/ws/chat-public?token=${encodeURIComponent(anonToken)}`;
+			wsUrl = `${evaWsUrl}/ws/chat-public?token=${encodeURIComponent(anonToken)}`;
 		} else {
 			const token = getEvaToken(tokenRef.current);
 
@@ -202,7 +202,7 @@ export function useEvaChat(initialMessage?: string) {
 				return;
 			}
 
-			wsUrl = `${env.VITE_EVA_WS_URL}/ws/chat?token=${encodeURIComponent(token)}`;
+			wsUrl = `${evaWsUrl}/ws/chat?token=${encodeURIComponent(token)}`;
 			// Retoma a mesma conversa ao reabrir o widget (o backend reusa a
 			// conversation e recarrega o historico para o contexto do LLM).
 			const resumeId = conversationIdRef.current;

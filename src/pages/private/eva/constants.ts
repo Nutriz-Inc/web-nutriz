@@ -29,7 +29,7 @@ export const BLOCKED_MESSAGES: Record<
 	string
 > = {
 	session: "Sessão expirada. Recarregue a página para conversar novamente.",
-	consent: "É necessário aceitar os termos de uso para conversar com a EVA.",
+	consent: "Para conversar com a EVA, seu cadastro precisa ter o aceite dos termos de uso. Se você já aceitou e ainda vê isto, fale com o suporte que a gente resolve.",
 	forbidden: "O chat da EVA é exclusivo para nutrizes doadoras.",
 	rate_limit:
 		"Você atingiu o limite deste chat público. Cadastre-se na Nutriz para um atendimento sem limites.",

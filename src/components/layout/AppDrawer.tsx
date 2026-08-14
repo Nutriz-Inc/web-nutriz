@@ -56,10 +56,29 @@ export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 						)
 						.map((item) => {
 							const Icon = item.icon;
+
+							if (item.action) {
+								const { action } = item;
+								return (
+									<button
+										key={item.label}
+										type="button"
+										onClick={() => {
+											onOpenChange(false);
+											action();
+										}}
+										className="flex w-full items-center gap-4 px-5 py-4 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 border-l-4 border-transparent"
+									>
+										<Icon className="h-5 w-5 shrink-0" />
+										{item.label}
+									</button>
+								);
+							}
+
 							return (
 								<NavLink
 									key={item.label}
-									to={item.to}
+									to={item.to ?? "/home"}
 									onClick={() => onOpenChange(false)}
 									className={({ isActive }) =>
 										cn(

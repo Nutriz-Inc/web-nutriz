@@ -9,15 +9,12 @@ import {
 	Quote,
 	Users,
 } from "lucide-react";
-import { ClockIcon } from "../../../assets/icons/ClockIcon";
 import { DonateIcon } from "../../../assets/icons/DonateIcon";
 import { ExamIcon } from "../../../assets/icons/ExamIcon";
 import { FacebookIcon } from "../../../assets/icons/FacebookIcon";
-import { HeartIcon } from "../../../assets/icons/HeartIcon";
 import { InstagramIcon } from "../../../assets/icons/InstagramIcon";
 import { LinkedinIcon } from "../../../assets/icons/LinkedinIcon";
 import { RegisterIcon } from "../../../assets/icons/RegisterIcon";
-import { ShieldIcon } from "../../../assets/icons/ShieldIcon";
 import { YoutubeIcon } from "../../../assets/icons/YoutubeIcon";
 
 export type NavLink = {
@@ -114,26 +111,12 @@ export const METRICS: Metric[] = [
 	},
 ];
 
-export const EVA_FEATURES = [
-	{
-		title: "Resposta em segundos",
-		desc: "Sem fila e sem espera. A EVA responde na hora, dia e noite.",
-		Icon: ClockIcon,
-	},
-	{
-		title: "Acolhimento de verdade",
-		desc: "Linguagem calma e humana, pensada para o pós-parto.",
-		Icon: HeartIcon,
-	},
-	{
-		title: "Suas conversas protegidas",
-		desc: "Privacidade garantida. A EVA não substitui avaliação médica.",
-		Icon: ShieldIcon,
-	},
-];
-
-export const EVA_CARD_BG =
-	"radial-gradient(130% 90% at 15% 8%, #f8bbd0 0%, rgba(248,187,208,0) 58%), radial-gradient(110% 85% at 88% 18%, #ce93d8 0%, rgba(206,147,216,0) 62%), radial-gradient(140% 110% at 55% 105%, #b39ddb 0%, rgba(179,157,219,0) 60%), #fdf4f8";
+// Fundo do bloco da EVA na landing: gradiente pastel da marca (pessego ->
+// rosa -> lilas), como na referencia. O contraste vem do TEXTO ESCURO sobre o
+// pastel (ver EvaSection) - no ponto mais claro do gradiente (#fbdcc4) o texto
+// #1c1b1f fica em ~13:1, bem acima do minimo WCAG AA (4.5:1).
+export const EVA_LANDING_BG =
+	"linear-gradient(120deg, #fbdcc4 0%, #f6bdd2 48%, #ccb4e8 100%)";
 
 export type FooterLink = {
 	label: string;

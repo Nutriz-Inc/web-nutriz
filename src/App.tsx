@@ -5,10 +5,12 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { useAuth } from "./hooks/use-auth";
+import { registerAppRouter } from "./lib/app-navigation";
+import { EvaWidget } from "./pages/private/eva/widget/eva-widget";
 import { publicRouter, routerPrivate } from "./router";
 
 function getErrorMessage(error: unknown): string {
@@ -44,12 +46,19 @@ function App() {
 		return isAuthenticated ? routerPrivate() : publicRouter();
 	}, [isAuthenticated]);
 
+	// Expoe o router ativo para o widget da EVA (fora do RouterProvider)
+	// navegar e observar a rota atual.
+	useEffect(() => {
+		registerAppRouter(routes);
+	}, [routes]);
+
 	return (
 		<QueryClientProvider client={queryClient}>
 			<RouterProvider
 				key={isAuthenticated ? "private" : "public"}
 				router={routes}
 			/>
+			<EvaWidget />
 			<Toaster position="bottom-right" richColors />
 		</QueryClientProvider>
 	);

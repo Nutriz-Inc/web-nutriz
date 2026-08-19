@@ -16,9 +16,9 @@ export function FinalCtaSection() {
 			<div className="mx-auto w-full max-w-[1200px] px-5 lg:px-8">
 				<motion.div
 					{...reveal}
-					className="rounded-[34px] bg-white p-2 shadow-xl shadow-[#0a3a87]/10"
+					className="rounded-[14px] bg-white p-2 shadow-xl shadow-[#0a3a87]/10"
 				>
-					<div className="relative isolate overflow-hidden rounded-[26px]">
+					<div className="relative isolate overflow-hidden rounded-[16px]">
 						<HeroBackground />
 
 						<div className="relative z-10 flex flex-col gap-8 p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:p-14">

@@ -18,7 +18,7 @@ export function ActiveDonationsByStepCard({
 	const total = sorted.reduce((sum, item) => sum + item.count, 0);
 
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-[18px] border border-[#e5e7eb] bg-white p-5 lg:p-[26px]">
+		<div className="flex w-full flex-col gap-[22px] rounded-[14px] border border-[#e5e7eb] bg-white p-5 lg:p-[26px]">
 			<DashboardCardHeader
 				icon={<ListChecks className="size-4 text-[#00458b]" />}
 				iconBg="bg-[#eaf4fc]"

@@ -33,7 +33,7 @@ export function NextDonationStep({
 	return (
 		<div
 			className={cn(
-				"rounded-organic-sm flex w-full flex-col gap-5 bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
+				"rounded-card-sm flex w-full flex-col gap-5 bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
 				className,
 			)}
 		>

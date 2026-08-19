@@ -62,14 +62,27 @@ Padrão de rótulo de seção:
 
 ## Radius
 
-O `--radius` do shadcn (`0.625rem`) segue intacto. Os cantos assimétricos do
-design são utilitários próprios, já responsivos (valores menores no mobile
-para não estourar em 390px):
+O `--radius` base do shadcn (`0.625rem`) segue intacto — botões, inputs e
+sheets não mudaram. O que foi reduzido foi a **escala de card**, porque o
+arredondamento anterior era exagerado e descaracterizava o produto:
+
+| Utilitário | Antes | Agora |
+|---|---|---|
+| `rounded-xl` | 14px | **12px** |
+| `rounded-2xl` | 18px | **14px** |
+| `rounded-3xl` | 22px | **16px** |
+| `rounded-4xl` | 26px | **18px** |
+
+Os cards do novo design usam dois utilitários próprios, responsivos:
 
 | Utilitário | Mobile | ≥640px | Uso |
 |---|---|---|---|
-| `rounded-organic` | `1.75rem 2rem …` | `2.75rem 3.25rem …` | Cards grandes: hero, mural de histórias |
-| `rounded-organic-sm` | `1.5rem 1.75rem …` | `2rem 2.25rem …` | Cards de conteúdo: estatística, status |
+| `rounded-card` | `0.875rem` | `1.125rem` | Cards grandes: hero, mural de histórias |
+| `rounded-card-sm` | `0.75rem` | `0.875rem` | Cards de conteúdo: estatística, status |
+
+> O design original do Lovable trazia cantos assimétricos de até `3.25rem`
+> (`rounded-[2.75rem_3.25rem…]`). Foram abandonados a pedido do time: o
+> excesso de arredondamento deixava a tela com aparência genérica.
 
 ---
 

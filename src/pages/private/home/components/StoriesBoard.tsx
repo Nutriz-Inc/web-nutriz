@@ -5,7 +5,7 @@ export function StoriesBoard() {
 	return (
 		<section
 			aria-labelledby="home-stories"
-			className="rounded-organic relative overflow-hidden bg-card p-6 shadow-soft sm:p-8 lg:p-10"
+			className="rounded-card relative overflow-hidden bg-card p-6 shadow-soft sm:p-8 lg:p-10"
 		>
 			<span
 				aria-hidden="true"

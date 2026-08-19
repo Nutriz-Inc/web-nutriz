@@ -24,7 +24,7 @@ export function GreetingHero({
 	return (
 		<section
 			aria-labelledby="home-greeting"
-			className="rounded-organic gradient-blue relative overflow-hidden p-6 shadow-lift sm:p-9 lg:p-11"
+			className="rounded-card gradient-blue relative overflow-hidden p-6 shadow-lift sm:p-9 lg:p-11"
 		>
 			<span
 				aria-hidden="true"

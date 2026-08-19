@@ -33,7 +33,7 @@ export function ImpactCard({
 	return (
 		<article
 			className={cn(
-				"rounded-organic-sm flex h-full flex-col justify-between bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
+				"rounded-card-sm flex h-full flex-col justify-between bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
 				featured && "lg:p-8",
 			)}
 		>

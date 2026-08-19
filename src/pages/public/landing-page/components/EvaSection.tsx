@@ -44,7 +44,7 @@ export function EvaSection() {
 				className="mx-auto max-w-[1200px] px-5 lg:px-8"
 			>
 				<div
-					className="relative overflow-hidden rounded-[28px] px-7 py-10 lg:rounded-[36px] lg:px-14 lg:py-16"
+					className="relative overflow-hidden rounded-[16px] px-7 py-10 lg:rounded-[14px] lg:px-14 lg:py-16"
 					style={{ background: EVA_LANDING_BG }}
 				>
 					<div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
@@ -114,7 +114,7 @@ export function EvaSection() {
 						<motion.div
 							variants={item}
 							aria-hidden
-							className="w-full max-w-[380px] flex-none rounded-[22px] bg-white p-5 shadow-[0_24px_60px_rgba(60,30,70,0.28)] lg:w-[380px]"
+							className="w-full max-w-[380px] flex-none rounded-[14px] bg-white p-5 shadow-[0_24px_60px_rgba(60,30,70,0.28)] lg:w-[380px]"
 						>
 							<div className="flex items-center gap-2.5">
 								<span className="size-8 rounded-full bg-gradient-to-br from-[#f7cca0] via-[#f0a0be] to-[#b79ce0]" />

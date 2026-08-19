@@ -12,7 +12,7 @@ export function MilkCollectedCard({ total, byMonth }: MilkCollectedCardProps) {
 	const currentMonth = byMonth.at(-1)?.month;
 
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-[18px] border border-[#e5e7eb] bg-white px-5 pb-6 pt-6 lg:px-7">
+		<div className="flex w-full flex-col gap-[22px] rounded-[14px] border border-[#e5e7eb] bg-white px-5 pb-6 pt-6 lg:px-7">
 			<div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
 				<DashboardCardHeader
 					icon={<Droplet className="size-4 text-[#00458b]" />}

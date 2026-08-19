@@ -39,7 +39,7 @@ export function NextDonationStep({
 		>
 			<div className="flex items-start justify-between gap-3">
 				<div className="flex min-w-0 flex-col gap-1">
-					<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.12em] text-blue-bright">
+					<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-blue-bright">
 						Etapa atual
 					</p>
 					<p className="text-sm text-ink-2">{stepName}</p>
@@ -66,7 +66,7 @@ export function NextDonationStep({
 						style={{ width: `${progress}%` }}
 					/>
 				</div>
-				<span className="font-display text-xs font-bold tabular-nums text-blue-deep">
+				<span className="font-sans text-xs font-bold tabular-nums text-blue-deep">
 					{stepNumber} / {NUMBER_OF_DONATION_STEPS}
 				</span>
 			</div>

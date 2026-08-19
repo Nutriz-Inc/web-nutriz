@@ -38,7 +38,7 @@ export function ImpactCard({
 			)}
 		>
 			<div className="flex items-start justify-between gap-3">
-				<h3 className="min-w-0 font-display text-[0.8125rem] font-bold uppercase leading-snug tracking-[0.12em] text-ink-2 sm:text-sm">
+				<h3 className="min-w-0 font-display text-[0.8125rem] font-bold uppercase leading-snug tracking-[0.06em] text-ink-2 sm:text-sm">
 					{label}
 				</h3>
 				<span

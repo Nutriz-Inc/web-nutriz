@@ -45,32 +45,32 @@ Definida em `oklch` no `:root` e exposta ao Tailwind via `@theme inline`.
 
 ## Tipografia
 
-**IBM Plex Sans** é a família única do sistema, via `@fontsource-variable/ibm-plex-sans`.
-Não há pareamento de fontes: display e corpo são a mesma família, diferenciados
-por peso e tamanho.
+Duas famílias, com papéis distintos:
 
-| Token | Aponta para | Uso |
+| Token | Família | Uso |
 |---|---|---|
-| `font-sans` | IBM Plex Sans Variable | Fonte global do app |
-| `font-display` | `var(--font-sans)` | Títulos, números grandes, rótulos em caixa alta |
-| `font-body` | `var(--font-sans)` | Corpo de texto |
+| `font-sans` / `font-body` | **IBM Plex Sans** (variable, 100–700) | Fonte global do app: corpo, formulários, tabelas, números pequenos |
+| `font-display` | **Fraunces** (variable, 100–900) | Títulos, números grandes, rótulos de seção, citações |
 
-> O design original usava Bricolage Grotesque + Inter Tight. Foram trocados a
-> pedido do time: o pareamento deixava os micro-títulos com aparência genérica.
-> As dependências antigas (`bricolage-grotesque`, `inter-tight`, `geist`,
-> `archivo`) foram removidas do projeto.
->
-> ⚠️ O eixo de peso do IBM Plex Sans vai de **100 a 700** — não existe 800.
-> Use `font-bold` no lugar de `font-extrabold`: o 800 é truncado para 700
-> silenciosamente, então o código fica dizendo uma coisa e renderizando outra.
->
-> O widget da EVA fixa a própria família (`Plus Jakarta Sans` em
-> `eva.css`) e não é afetado por mudanças no tema.
+Fraunces é uma serifada de display com caráter próprio — foi escolhida
+justamente para os títulos **não** parecerem a grotesca neutra que qualquer
+template usa. Ela não deve descer para texto corrido, campo de formulário nem
+numeração pequena (os números dentro dos círculos da trilha de etapas e o
+contador de progresso ficam em `font-sans`, com `tabular-nums`).
 
 Padrão de rótulo de seção:
-`font-display text-xs font-bold uppercase tracking-[0.12em]`.
-O `tracking` foi reduzido de `0.22em` para `0.12em` — o espaçamento exagerado
-era parte do que deixava os micro-títulos com cara de template.
+`font-display text-xs font-bold uppercase tracking-[0.06em]`.
+
+> ⚠️ **Sobre `letter-spacing`:** a versão original vinha com `tracking-[0.22em]`
+> nos rótulos em caixa alta. Aquele espaçamento exagerado, e não a fonte, era o
+> que dava aparência de template. Ficou em `0.06em` — não volte a aumentar.
+>
+> ⚠️ O eixo de peso do IBM Plex Sans vai de **100 a 700** — não existe 800.
+> Use `font-bold` no lugar de `font-extrabold` em texto que use a sans: o 800 é
+> truncado para 700 silenciosamente.
+>
+> O widget da EVA fixa a própria família (`Plus Jakarta Sans` em `eva.css`) e
+> não é afetado por mudanças no tema.
 
 ---
 

@@ -42,7 +42,7 @@ export function SectionHeading({
 			<div className="min-w-0">
 				<p
 					className={cn(
-						"font-display text-[0.7rem] font-bold uppercase tracking-[0.12em]",
+						"font-display text-[0.7rem] font-bold uppercase tracking-[0.06em]",
 						LABEL_TONE[tone],
 					)}
 				>

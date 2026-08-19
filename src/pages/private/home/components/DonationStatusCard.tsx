@@ -34,7 +34,7 @@ export function DonationStatusCard({ steps, className }: Props) {
 				className,
 			)}
 		>
-			<p className="font-display text-xs font-bold uppercase tracking-[0.12em] text-blue-bright lg:text-center">
+			<p className="font-display text-xs font-bold uppercase tracking-[0.06em] text-blue-bright lg:text-center">
 				Status da sua doação atual
 			</p>
 
@@ -68,7 +68,7 @@ export function DonationStatusCard({ steps, className }: Props) {
 							<span
 								aria-hidden="true"
 								className={cn(
-									"relative flex size-9 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold lg:size-10 lg:text-base",
+									"relative flex size-9 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold tabular-nums lg:size-10 lg:text-base",
 									isDone && "bg-blue-deep text-white",
 									isCurrent && "bg-eva text-white shadow-soft",
 									!isDone && !isCurrent && "bg-surface-3 text-ink-2",

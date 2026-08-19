@@ -116,8 +116,34 @@ export function HomePage() {
 								milkDonatedLabel={liters === null ? EMPTY : `${liters} L`}
 								onNewDonation={goToCreation}
 								onOpenEva={() => openEva()}
+								asideSlot={
+									currentStepDonation && (
+										<NextDonationStep
+											datetime={currentStepDonation.set_date}
+											status={currentStepDonation.status}
+											onConsult={goToDonationDetails}
+											stepName={currentStepDonation.name}
+											className="shadow-lift"
+										/>
+									)
+								}
 							/>
 						</div>
+
+						{hasDonationInProgress && (
+							<section aria-labelledby="home-status" className="mt-14">
+								<SectionHeading
+									id="home-status"
+									label="Status"
+									title="Acompanhe sua doação"
+								/>
+								<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
+
+								<Reveal className="mt-6 block">
+									<DonationStatusCard steps={donationSteps} />
+								</Reveal>
+							</section>
+						)}
 
 						<section aria-labelledby="home-impact" className="mt-14">
 							<SectionHeading
@@ -139,37 +165,6 @@ export function HomePage() {
 								))}
 							</div>
 						</section>
-
-						{hasDonationInProgress && (
-							<section aria-labelledby="home-status" className="mt-14">
-								<SectionHeading
-									id="home-status"
-									label="Status"
-									title="Acompanhe sua doação"
-								/>
-								<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
-
-								<div className="mt-6 grid gap-4 lg:grid-cols-2">
-									<Reveal>
-										<DonationStatusCard
-											steps={donationSteps}
-											className="rounded-organic-sm h-full border-0 shadow-soft"
-										/>
-									</Reveal>
-									{currentStepDonation && (
-										<Reveal delay={0.06}>
-											<NextDonationStep
-												datetime={currentStepDonation.set_date}
-												status={currentStepDonation.status}
-												onConsult={goToDonationDetails}
-												stepName={currentStepDonation.name}
-												className="rounded-organic-sm h-full shadow-soft"
-											/>
-										</Reveal>
-									)}
-								</div>
-							</section>
-						)}
 
 						<Reveal className="mt-14 block">
 							<StoriesBoard />

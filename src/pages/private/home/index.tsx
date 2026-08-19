@@ -105,7 +105,7 @@ export function HomePage() {
 					className="ink-blob -right-40 top-[28rem] h-[26rem] w-[26rem] bg-eva-tint/80 blur-3xl"
 				/>
 
-				<div className="relative mx-auto w-full max-w-[1400px] grow px-5 pb-20 sm:px-6 lg:px-10">
+				<div className="relative mx-auto w-full max-w-[1400px] grow px-4 pb-16 sm:px-6 sm:pb-20 lg:px-10">
 					<HomeHeader onOpenMenu={() => setDrawerOpen(true)} />
 
 					<main>
@@ -131,7 +131,7 @@ export function HomePage() {
 						</div>
 
 						{hasDonationInProgress && (
-							<section aria-labelledby="home-status" className="mt-14">
+							<section aria-labelledby="home-status" className="mt-10 sm:mt-14">
 								<SectionHeading
 									id="home-status"
 									label="Status"
@@ -145,7 +145,7 @@ export function HomePage() {
 							</section>
 						)}
 
-						<section aria-labelledby="home-impact" className="mt-14">
+						<section aria-labelledby="home-impact" className="mt-10 sm:mt-14">
 							<SectionHeading
 								id="home-impact"
 								label="Seu impacto"
@@ -153,7 +153,7 @@ export function HomePage() {
 							/>
 							<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
 
-							<div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+							<div className="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
 								{impactMetrics.map((metric, index) => (
 									<Reveal
 										key={metric.label}
@@ -166,7 +166,7 @@ export function HomePage() {
 							</div>
 						</section>
 
-						<Reveal className="mt-14 block">
+						<Reveal className="mt-10 block sm:mt-14">
 							<StoriesBoard />
 						</Reveal>
 					</main>

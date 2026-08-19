@@ -5,7 +5,7 @@ export function StoriesBoard() {
 	return (
 		<section
 			aria-labelledby="home-stories"
-			className="rounded-organic relative overflow-hidden bg-card p-6 shadow-soft sm:p-10"
+			className="rounded-organic relative overflow-hidden bg-card p-6 shadow-soft sm:p-8 lg:p-10"
 		>
 			<span
 				aria-hidden="true"
@@ -26,7 +26,7 @@ export function StoriesBoard() {
 				{INSTITUTIONAL_STORIES.map((story) => (
 					<blockquote
 						key={story.author}
-						className="grid gap-3 py-7 sm:grid-cols-[6rem_1fr]"
+						className="grid gap-3 py-6 sm:grid-cols-[5rem_1fr] sm:gap-4 sm:py-7 lg:grid-cols-[6rem_1fr]"
 					>
 						<span className="inline-flex h-fit w-fit items-center rounded-full bg-blue-tint px-3 py-1 font-display text-xs font-bold tracking-wider text-blue-deep">
 							{story.tag}

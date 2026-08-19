@@ -22,7 +22,7 @@ export function HomeHeader({ onOpenMenu }: HomeHeaderProps) {
 				<img
 					src={NutrizLogo}
 					alt="Nutriz"
-					className="h-9 w-auto select-none sm:h-10"
+					className="h-6 w-auto select-none sm:h-7"
 				/>
 			</Link>
 

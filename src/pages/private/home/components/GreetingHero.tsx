@@ -24,7 +24,7 @@ export function GreetingHero({
 	return (
 		<section
 			aria-labelledby="home-greeting"
-			className="rounded-organic gradient-blue relative overflow-hidden p-7 shadow-lift sm:p-11"
+			className="rounded-organic gradient-blue relative overflow-hidden p-6 shadow-lift sm:p-9 lg:p-11"
 		>
 			<span
 				aria-hidden="true"
@@ -43,7 +43,7 @@ export function GreetingHero({
 
 					<h1
 						id="home-greeting"
-						className="mt-5 font-display text-[2rem] font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl"
+						className="mt-5 font-display text-[1.75rem] font-extrabold leading-[1.08] tracking-tight text-white sm:text-4xl lg:text-5xl"
 					>
 						Olá{firstName ? `, ${firstName}` : ""}.
 						<br />
@@ -52,12 +52,12 @@ export function GreetingHero({
 						</span>
 					</h1>
 
-					<div className="mt-8 flex flex-wrap gap-3">
+					<div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
 						<Button
 							type="button"
 							size="pill"
 							onClick={onNewDonation}
-							className="bg-surface font-semibold text-blue-deep shadow-soft hover:bg-blue-tint"
+							className="w-full bg-surface font-semibold text-blue-deep shadow-soft hover:bg-blue-tint sm:w-auto"
 						>
 							Nova doação
 							<Plus />
@@ -67,7 +67,7 @@ export function GreetingHero({
 							size="pill"
 							variant="ghost"
 							onClick={onOpenEva}
-							className="border border-blue-tint-2/50 font-semibold text-white hover:bg-white/10 hover:text-white"
+							className="w-full border border-blue-tint-2/50 font-semibold text-white hover:bg-white/10 hover:text-white sm:w-auto"
 						>
 							<MessageCircle />
 							Falar com a EVA
@@ -98,7 +98,9 @@ export function GreetingHero({
 				</div>
 
 				{asideSlot && (
-					<div className="w-full shrink-0 lg:w-[22rem]">{asideSlot}</div>
+					<div className="w-full shrink-0 sm:max-w-md lg:w-[22rem] lg:max-w-none">
+						{asideSlot}
+					</div>
 				)}
 			</div>
 		</section>

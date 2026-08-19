@@ -30,16 +30,19 @@ export function DonationStatusCard({ steps, className }: Props) {
 	return (
 		<div
 			className={cn(
-				"rounded-organic-sm flex w-full flex-col gap-6 bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-8",
+				"rounded-organic-sm flex w-full flex-col gap-6 bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:gap-7 sm:p-8 lg:p-10",
 				className,
 			)}
 		>
-			<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.22em] text-blue-bright">
+			<p className="font-display text-xs font-bold uppercase tracking-[0.22em] text-blue-bright lg:text-center">
 				Status da sua doação atual
 			</p>
 
-			{/* Lista vertical no mobile; trilha horizontal a partir de lg. */}
-			<ol className="grid gap-5 lg:grid-cols-4 lg:gap-0">
+			{/*
+			 * Mobile: lista vertical. sm: duas colunas. lg: trilha horizontal
+			 * centralizada, com conectores ligando o centro de um passo ao proximo.
+			 */}
+			<ol className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-0">
 				{STEP_DEFINITIONS.map((definition) => {
 					const step = steps.find((s) => s.name === definition.name);
 					const isDone = step?.status === EnumDonationStepStatus.Done;
@@ -50,13 +53,13 @@ export function DonationStatusCard({ steps, className }: Props) {
 						<li
 							key={definition.name}
 							aria-current={isCurrent ? "step" : undefined}
-							className="relative flex items-center gap-3.5 lg:flex-col lg:items-start lg:gap-3"
+							className="relative flex items-center gap-4 lg:flex-col lg:items-center lg:gap-3.5 lg:text-center"
 						>
 							{!isLast && (
 								<span
 									aria-hidden="true"
 									className={cn(
-										"hidden lg:absolute lg:left-10 lg:right-3 lg:top-4 lg:block lg:h-0.5 lg:-translate-y-1/2 lg:rounded-full",
+										"hidden lg:absolute lg:left-[calc(50%+1.875rem)] lg:right-[calc(-50%+1.875rem)] lg:top-5 lg:block lg:h-0.5 lg:-translate-y-1/2 lg:rounded-full",
 										isDone ? "bg-blue-deep" : "bg-blue-tint-2",
 									)}
 								/>
@@ -65,18 +68,22 @@ export function DonationStatusCard({ steps, className }: Props) {
 							<span
 								aria-hidden="true"
 								className={cn(
-									"relative flex size-8 shrink-0 items-center justify-center rounded-full font-display text-[0.8125rem] font-bold",
+									"relative flex size-9 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold lg:size-10 lg:text-base",
 									isDone && "bg-blue-deep text-white",
 									isCurrent && "bg-eva text-white shadow-soft",
 									!isDone && !isCurrent && "bg-surface-3 text-ink-2",
 								)}
 							>
-								{isDone ? <Check className="size-4" /> : definition.order}
+								{isDone ? (
+									<Check className="size-4 lg:size-[1.125rem]" />
+								) : (
+									definition.order
+								)}
 							</span>
 
 							<p
 								className={cn(
-									"font-display text-[0.9375rem] lg:pr-4 lg:text-sm",
+									"font-display text-base leading-snug lg:text-[1.0625rem]",
 									isDone || isCurrent
 										? "font-bold text-blue-deep"
 										: "font-medium text-ink-2",
@@ -93,7 +100,7 @@ export function DonationStatusCard({ steps, className }: Props) {
 
 			<hr className="border-0 border-t border-blue-tint-2/60" />
 
-			<p className="text-[0.8125rem] leading-relaxed text-ink-2">
+			<p className="text-sm leading-relaxed text-ink-2 lg:text-center lg:text-[0.9375rem]">
 				{currentStep?.description ??
 					"Acompanhe por aqui as atualizações da sua doação."}
 			</p>

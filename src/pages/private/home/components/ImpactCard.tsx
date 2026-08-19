@@ -33,12 +33,12 @@ export function ImpactCard({
 	return (
 		<article
 			className={cn(
-				"rounded-organic-sm flex h-full flex-col justify-between bg-card p-6 shadow-soft transition-shadow hover:shadow-lift",
-				featured && "sm:p-8",
+				"rounded-organic-sm flex h-full flex-col justify-between bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
+				featured && "lg:p-8",
 			)}
 		>
 			<div className="flex items-start justify-between gap-3">
-				<h3 className="min-w-0 font-display text-sm font-bold uppercase tracking-[0.12em] text-ink-2">
+				<h3 className="min-w-0 font-display text-[0.8125rem] font-bold uppercase leading-snug tracking-[0.12em] text-ink-2 sm:text-sm">
 					{label}
 				</h3>
 				<span
@@ -56,7 +56,7 @@ export function ImpactCard({
 				<p
 					className={cn(
 						"font-display font-extrabold leading-none tracking-tight tabular-nums",
-						featured ? "text-5xl sm:text-6xl" : "text-4xl sm:text-5xl",
+						featured ? "text-5xl lg:text-6xl" : "text-4xl lg:text-5xl",
 						toneClasses.value,
 					)}
 				>

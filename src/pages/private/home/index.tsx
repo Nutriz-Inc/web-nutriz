@@ -1,20 +1,30 @@
-import { Droplet, Gift, Menu, Plus } from "lucide-react";
+import { Droplet, Gift, Heart } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NutrizLogo from "@/assets/images/nutriz-log-alternative.svg";
+import { Reveal } from "@/components/full/Reveal";
+import { SectionHeading } from "@/components/full/SectionHeading";
 import { AppDrawer } from "@/components/layout/AppDrawer";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
-import { HeroBackground } from "@/components/full/HeroBackground";
 import { useAuth } from "@/hooks/use-auth";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EnumUserType } from "@/services/types/i-user";
 import { BABY_ML_PER_DAY } from "@/utils/constants";
 import { DonationStatusCard } from "./components/DonationStatusCard";
-import { MetricCard } from "./components/MetricCard";
+import { GreetingHero } from "./components/GreetingHero";
+import { HomeHeader } from "./components/HomeHeader";
+import { ImpactCard } from "./components/ImpactCard";
 import { NextDonationStep } from "./components/NextDonationStep";
-import { StoriesCard } from "./components/StoriesCard";
+import { StoriesBoard } from "./components/StoriesBoard";
 import { useQueryUserInfo } from "./hooks";
+
+const monthYearFormatter = new Intl.DateTimeFormat("pt-BR", {
+	month: "long",
+	year: "numeric",
+});
+
+/** "—" quando o dado nao veio da API: nunca exibir numero inventado. */
+const EMPTY = "—";
 
 export function HomePage() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
@@ -25,10 +35,22 @@ export function HomePage() {
 
 	const firstName = auth?.name?.split(" ")[0];
 	const currentStepDonation = data?.current_donation?.steps?.at(-1);
-	const dateForSubLabel = new Intl.DateTimeFormat("pt-BR", {
-		month: "long",
-		year: "numeric",
-	}).format(new Date(data?.created_at || new Date()));
+
+	const donorSince = data?.created_at
+		? monthYearFormatter.format(new Date(data.created_at))
+		: null;
+
+	const donationsCompleted = data?.donations_completed ?? null;
+	const milkDonatedMl = data?.milk_donated ?? null;
+	const liters =
+		milkDonatedMl === null
+			? null
+			: (milkDonatedMl / 1000).toLocaleString("pt-BR", {
+					maximumFractionDigits: 1,
+				});
+	// Estimativa rBLH: bebes-dia alimentados pelo volume doado.
+	const babiesFed =
+		milkDonatedMl === null ? null : Math.floor(milkDonatedMl / BABY_ML_PER_DAY);
 
 	function goToCreation() {
 		navigate("/nova-doacao");
@@ -38,170 +60,121 @@ export function HomePage() {
 		navigate(`/doacao/${currentStepDonation?.id_donation}`);
 	}
 
-	const metrics = [
+	const impactMetrics = [
 		{
-			iconBg: "bg-[#e6f1fb]",
-			icon: <Gift className="size-6 text-[#00458b]" />,
-			value: String(data?.donations_completed || 0),
-			valueColor: "text-[#00458b]",
+			icon: Gift,
+			tone: "blue" as const,
+			featured: true,
+			value: donationsCompleted === null ? EMPTY : String(donationsCompleted),
 			label: "Doações realizadas",
-			sublabel: `Desde ${dateForSubLabel}`,
+			hint: donorSince ? `Desde ${donorSince}` : "Sem doações ainda",
 		},
 		{
-			iconBg: "bg-[#e1f5ee]",
-			icon: <Droplet className="size-6 text-[#0e9e94]" />,
-			value: `${data?.milk_donated ? data?.milk_donated / 1000 : 0} L`,
-			valueColor: "text-[#0e9e94]",
+			icon: Droplet,
+			tone: "bright" as const,
+			featured: false,
+			value: liters === null ? EMPTY : `${liters} L`,
 			label: "Leite doado",
-			sublabel: `${data?.milk_donated || 0} ml no total`,
+			hint:
+				milkDonatedMl === null
+					? "Sem registro"
+					: `${milkDonatedMl} ml no total`,
 		},
 		{
-			iconBg: "bg-[#fbeaf0]",
-			icon: (
-				<span className="font-bold text-[#f2579f] text-[26px] leading-none">
-					♥
-				</span>
-			),
-			value: String(
-				data?.milk_donated ? data?.milk_donated / BABY_ML_PER_DAY : 0,
-			),
-			valueColor: "text-[#f2579f]",
+			icon: Heart,
+			tone: "eva" as const,
+			featured: false,
+			value: babiesFed === null ? EMPTY : String(babiesFed),
 			label: "Bebês alimentados",
-			sublabel: "Estimativa rBLH (~200 ml/bebê·dia)",
+			hint: "Estimativa rBLH (~200 ml/bebê·dia)",
 		},
 	];
 
+	const donationSteps = data?.current_donation?.steps;
+	const hasDonationInProgress = !!donationSteps && donationSteps.length > 0;
+
 	return (
 		<Page loading={loading} hasPermission={auth?.type === EnumUserType.Common}>
-			<div className="bg-[#f6f8fd] flex flex-col min-h-screen">
-				<div className="relative isolate overflow-hidden bg-[#0a3a87]">
-					<HeroBackground />
+			<div className="relative isolate flex min-h-screen flex-col overflow-hidden bg-canvas font-body">
+				<span
+					aria-hidden="true"
+					className="ink-blob -left-40 -top-48 h-[30rem] w-[30rem] bg-blue-tint-2/50 blur-3xl"
+				/>
+				<span
+					aria-hidden="true"
+					className="ink-blob -right-40 top-[28rem] h-[26rem] w-[26rem] bg-eva-tint/80 blur-3xl"
+				/>
 
-					<div className="relative z-10 flex items-center justify-between max-w-[1440px] mx-auto pl-5 pr-4 py-[18px] lg:pl-20 lg:pr-9">
-						<img
-							src={NutrizLogo}
-							alt="Nutriz"
-							className="h-14 w-auto select-none"
-						/>
-						<button
-							type="button"
-							onClick={() => setDrawerOpen(true)}
-							aria-label="Abrir menu"
-							className="text-white hover:text-white/80 transition-colors"
-						>
-							<Menu className="size-6" />
-						</button>
-					</div>
+				<div className="relative mx-auto w-full max-w-[1400px] grow px-5 pb-20 sm:px-6 lg:px-10">
+					<HomeHeader onOpenMenu={() => setDrawerOpen(true)} />
 
-					<div className="relative z-10 flex flex-col gap-[18px] items-start max-w-[1440px] mx-auto pb-10 pt-7 px-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:pb-16 lg:pt-14 lg:px-20">
-						<div className="flex flex-col gap-[18px] items-start w-full lg:w-[620px] lg:shrink-0">
-							<p className="font-extrabold leading-[44px] text-[40px] text-white lg:text-[52px] lg:leading-[56px]">
-								Olá, {firstName}!
-							</p>
-
-							<div className="flex flex-col gap-3 pt-2 w-full lg:flex-row lg:w-auto lg:gap-4">
-								<button
-									type="button"
-									onClick={goToCreation}
-									className="bg-[#72f2eb] flex items-center justify-center py-4 rounded-full w-full active:scale-[0.98] transition-transform lg:w-auto lg:px-7"
-								>
-									<div className="flex gap-2 items-center">
-										<p className="font-semibold text-[#00458b] text-[16px]">
-											Nova Doação
-										</p>
-										<Plus className="size-4 text-[#00458b]" />
-									</div>
-								</button>
-								<button
-									type="button"
-									onClick={() => openEva()}
-									className="border-[1.5px] border-white flex items-center justify-center py-4 rounded-full w-full active:scale-[0.98] transition-transform lg:w-auto lg:px-7"
-								>
-									<p className="font-semibold text-white text-[16px]">
-										Falar com a EVA
-									</p>
-								</button>
-							</div>
-						</div>
-
-						{currentStepDonation && (
-							<NextDonationStep
-								datetime={currentStepDonation.set_date}
-								status={currentStepDonation.status}
-								onConsult={goToDonationDetails}
-								stepName={currentStepDonation.name}
-								className="lg:w-[360px] lg:shrink-0"
+					<main>
+						<div className="mt-4 sm:mt-6">
+							<GreetingHero
+								firstName={firstName}
+								donorSince={donorSince}
+								milkDonatedLabel={liters === null ? EMPTY : `${liters} L`}
+								onNewDonation={goToCreation}
+								onOpenEva={() => openEva()}
 							/>
-						)}
-					</div>
-				</div>
-
-				<div className="bg-[#f6f8fd]">
-					<div className="flex flex-col gap-6 items-start max-w-[1440px] mx-auto pb-10 pt-9 px-5 lg:gap-8 lg:pb-[106px] lg:pt-14 lg:px-20">
-						<div className="flex flex-col gap-2 w-full lg:max-w-[620px]">
-							<p className="font-semibold text-[#0e9e94] text-[13px] tracking-[1.12px] uppercase">
-								Seu Impacto
-							</p>
-							<p className="font-extrabold leading-[34px] text-[#0e2a45] text-[22px] lg:text-[34px] lg:leading-[40px]">
-								O que você já realizou
-							</p>
-							<p className="font-normal leading-6 text-gray-800 text-[16px]">
-								Veja o impacto da sua generosidade. Cada doação sua transforma a
-								vida de um bebê prematuro.
-							</p>
 						</div>
 
-						<div className="flex flex-col gap-4 w-full lg:flex-row lg:gap-6">
-							{metrics.map((metric) => (
-								<MetricCard
-									key={metric.label}
-									iconBg={metric.iconBg}
-									icon={metric.icon}
-									value={metric.value}
-									valueColor={metric.valueColor}
-									label={metric.label}
-									sublabel={metric.sublabel}
-								/>
-							))}
-						</div>
-					</div>
-				</div>
+						<section aria-labelledby="home-impact" className="mt-14">
+							<SectionHeading
+								id="home-impact"
+								label="Seu impacto"
+								title="O que você já realizou"
+							/>
+							<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
 
-				{data?.current_donation?.steps &&
-					data.current_donation.steps.length > 0 && (
-						<div className="bg-[#f6f8fd]">
-							<div className="flex flex-col gap-6 items-start max-w-[1440px] mx-auto px-5 pb-10 lg:gap-8 lg:px-20 lg:pb-[106px]">
-								<div className="flex flex-col gap-2 w-full lg:max-w-[620px]">
-									<p className="font-semibold text-[#0e9e94] text-[13px] tracking-[1.12px] uppercase">
-										Status
-									</p>
-									<p className="font-extrabold leading-[34px] text-[#0e2a45] text-[22px] lg:text-[34px] lg:leading-[40px]">
-										Acompanhe sua doação
-									</p>
-								</div>
-
-								<div className="w-full lg:max-w-[620px]">
-									<DonationStatusCard steps={data.current_donation.steps} />
-								</div>
+							<div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+								{impactMetrics.map((metric, index) => (
+									<Reveal
+										key={metric.label}
+										delay={index * 0.06}
+										className={metric.featured ? "lg:col-span-2" : undefined}
+									>
+										<ImpactCard {...metric} />
+									</Reveal>
+								))}
 							</div>
-						</div>
-					)}
+						</section>
 
-				<div className="bg-[#f6f8fd]">
-					<div className="flex flex-col gap-6 items-start max-w-[1440px] mx-auto px-5 pb-10 lg:gap-8 lg:px-20 lg:pb-[106px]">
-						<div className="flex flex-col gap-2 w-full lg:max-w-[620px]">
-							<p className="font-semibold text-[#0e9e94] text-[13px] tracking-[1.12px] uppercase">
-								Rede de apoio
-							</p>
-							<p className="font-extrabold leading-[34px] text-[#0e2a45] text-[22px] lg:text-[34px] lg:leading-[40px]">
-								Histórias que o seu leite escreve
-							</p>
-						</div>
+						{hasDonationInProgress && (
+							<section aria-labelledby="home-status" className="mt-14">
+								<SectionHeading
+									id="home-status"
+									label="Status"
+									title="Acompanhe sua doação"
+								/>
+								<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
 
-						<div className="w-full lg:max-w-[620px]">
-							<StoriesCard />
-						</div>
-					</div>
+								<div className="mt-6 grid gap-4 lg:grid-cols-2">
+									<Reveal>
+										<DonationStatusCard
+											steps={donationSteps}
+											className="rounded-organic-sm h-full border-0 shadow-soft"
+										/>
+									</Reveal>
+									{currentStepDonation && (
+										<Reveal delay={0.06}>
+											<NextDonationStep
+												datetime={currentStepDonation.set_date}
+												status={currentStepDonation.status}
+												onConsult={goToDonationDetails}
+												stepName={currentStepDonation.name}
+												className="rounded-organic-sm h-full shadow-soft"
+											/>
+										</Reveal>
+									)}
+								</div>
+							</section>
+						)}
+
+						<Reveal className="mt-14 block">
+							<StoriesBoard />
+						</Reveal>
+					</main>
 				</div>
 
 				<Footer />

@@ -8,9 +8,10 @@ import {
 
 type Props = {
 	steps: DonationStep[];
+	className?: string;
 };
 
-export function DonationStatusCard({ steps }: Props) {
+export function DonationStatusCard({ steps, className }: Props) {
 	const firstPendingOrder = STEP_DEFINITIONS.find((definition) => {
 		const step = steps.find((s) => s.name === definition.name);
 		return step?.status !== EnumDonationStepStatus.Done;
@@ -25,7 +26,12 @@ export function DonationStatusCard({ steps }: Props) {
 	);
 
 	return (
-		<div className="bg-white flex flex-col gap-4 p-5 rounded-[20px] w-full shadow-[0px_10px_14px_rgba(10,38,77,0.05)] border border-[#e5ebf3] lg:gap-5 lg:rounded-3xl lg:p-7">
+		<div
+			className={cn(
+				"bg-white flex flex-col gap-4 p-5 rounded-[20px] w-full shadow-[0px_10px_14px_rgba(10,38,77,0.05)] border border-[#e5ebf3] lg:gap-5 lg:rounded-3xl lg:p-7",
+				className,
+			)}
+		>
 			<p className="text-[13px] text-[#6b8faa] lg:text-[14px]">
 				Status da sua doação atual
 			</p>

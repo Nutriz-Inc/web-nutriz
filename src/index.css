@@ -1,14 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/archivo";
+@import "@fontsource-variable/ibm-plex-sans";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
 	--font-heading: var(--font-sans);
 	/* Familia unica do sistema (ver docs/design-system.md). */
-	--font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+	--font-sans: "IBM Plex Sans Variable", ui-sans-serif, system-ui, sans-serif;
 	--font-display: var(--font-sans);
 	--font-body: var(--font-sans);
 	--color-sidebar-ring: var(--sidebar-ring);

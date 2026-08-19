@@ -55,7 +55,7 @@ export function ImpactCard({
 			<div className="mt-8">
 				<p
 					className={cn(
-						"font-display font-extrabold leading-none tracking-tight tabular-nums",
+						"font-display font-bold leading-none tracking-tight tabular-nums",
 						featured ? "text-5xl lg:text-6xl" : "text-4xl lg:text-5xl",
 						toneClasses.value,
 					)}

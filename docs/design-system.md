@@ -45,20 +45,24 @@ Definida em `oklch` no `:root` e exposta ao Tailwind via `@theme inline`.
 
 ## Tipografia
 
-**Archivo Variable** é a família única do sistema, via `@fontsource-variable/archivo`.
+**IBM Plex Sans** é a família única do sistema, via `@fontsource-variable/ibm-plex-sans`.
 Não há pareamento de fontes: display e corpo são a mesma família, diferenciados
 por peso e tamanho.
 
 | Token | Aponta para | Uso |
 |---|---|---|
-| `font-sans` | Archivo Variable | Fonte global do app |
+| `font-sans` | IBM Plex Sans Variable | Fonte global do app |
 | `font-display` | `var(--font-sans)` | Títulos, números grandes, rótulos em caixa alta |
 | `font-body` | `var(--font-sans)` | Corpo de texto |
 
 > O design original usava Bricolage Grotesque + Inter Tight. Foram trocados a
 > pedido do time: o pareamento deixava os micro-títulos com aparência genérica.
-> As três dependências antigas (`bricolage-grotesque`, `inter-tight`, `geist`)
-> foram removidas do projeto.
+> As dependências antigas (`bricolage-grotesque`, `inter-tight`, `geist`,
+> `archivo`) foram removidas do projeto.
+>
+> ⚠️ O eixo de peso do IBM Plex Sans vai de **100 a 700** — não existe 800.
+> Use `font-bold` no lugar de `font-extrabold`: o 800 é truncado para 700
+> silenciosamente, então o código fica dizendo uma coisa e renderizando outra.
 >
 > O widget da EVA fixa a própria família (`Plus Jakarta Sans` em
 > `eva.css`) e não é afetado por mudanças no tema.

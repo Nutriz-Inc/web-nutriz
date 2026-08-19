@@ -23,7 +23,7 @@ export function MetricCard({
 				{icon}
 			</div>
 			<p
-				className={`font-extrabold text-[40px] leading-none lg:text-[46px] ${valueColor}`}
+				className={`font-bold text-[40px] leading-none lg:text-[46px] ${valueColor}`}
 			>
 				{value}
 			</p>

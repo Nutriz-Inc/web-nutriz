@@ -2,12 +2,18 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/inter-tight";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
 	--font-heading: var(--font-sans);
 	--font-sans: "Geist Variable", sans-serif;
+	/* Design system Nutriz (ver docs/design-system.md) */
+	--font-display:
+		"Bricolage Grotesque Variable", "Inter Tight Variable", sans-serif;
+	--font-body: "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -126,5 +132,113 @@
 	}
 	html {
 		@apply font-sans overscroll-y-none;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+ * Design system Nutriz — camada ADITIVA.
+ * Nada aqui redefine os tokens do shadcn (--primary, --background, --radius...),
+ * para nao alterar landing, artigos, central de conteudos, cadastro e login.
+ * Documentacao: docs/design-system.md
+ * ------------------------------------------------------------------------- */
+
+:root {
+	/* Paleta */
+	--blue-deep: oklch(0.313 0.089 250.4);
+	--blue: oklch(0.447 0.139 253.2);
+	--blue-bright: oklch(0.6 0.14 253.2);
+	--blue-tint: oklch(0.952 0.015 251.2);
+	--blue-tint-2: oklch(0.9 0.034 253.7);
+	--eva: oklch(0.626 0.15 9.4);
+	--eva-bright: oklch(0.763 0.118 4.8);
+	--eva-tint: oklch(0.966 0.015 356.6);
+	--surface: oklch(1 0 0);
+	--surface-2: oklch(0.981 0.005 258.3);
+	--surface-3: oklch(0.96 0.009 258.3);
+	--ink: oklch(0.244 0.061 261.8);
+	--ink-2: oklch(0.431 0.048 263.2);
+	--ink-3: oklch(0.674 0.035 262.6);
+	--canvas: oklch(0.962 0.011 256.7);
+
+	/* Camada organica: gradientes e sombras */
+	--nz-gradient-blue: linear-gradient(
+		150deg,
+		var(--blue-deep) 0%,
+		var(--blue) 55%,
+		var(--blue-bright) 100%
+	);
+	--nz-gradient-milk: linear-gradient(
+		180deg,
+		var(--surface) 0%,
+		var(--blue-tint) 100%
+	);
+	--nz-gradient-eva: linear-gradient(
+		140deg,
+		var(--eva-tint) 0%,
+		var(--eva-bright) 120%
+	);
+	--nz-shadow-soft:
+		0 1px 2px oklch(0.313 0.089 250.4 / 0.04),
+		0 12px 28px -18px oklch(0.313 0.089 250.4 / 0.22);
+	--nz-shadow-lift:
+		0 2px 4px oklch(0.313 0.089 250.4 / 0.05),
+		0 28px 56px -28px oklch(0.313 0.089 250.4 / 0.3);
+}
+
+@theme inline {
+	--color-blue-deep: var(--blue-deep);
+	--color-blue: var(--blue);
+	--color-blue-bright: var(--blue-bright);
+	--color-blue-tint: var(--blue-tint);
+	--color-blue-tint-2: var(--blue-tint-2);
+	--color-eva: var(--eva);
+	--color-eva-bright: var(--eva-bright);
+	--color-eva-tint: var(--eva-tint);
+	--color-surface: var(--surface);
+	--color-surface-2: var(--surface-2);
+	--color-surface-3: var(--surface-3);
+	--color-ink: var(--ink);
+	--color-ink-2: var(--ink-2);
+	--color-ink-3: var(--ink-3);
+	--color-canvas: var(--canvas);
+
+	--shadow-soft: var(--nz-shadow-soft);
+	--shadow-lift: var(--nz-shadow-lift);
+}
+
+/* Blob decorativo de fundo. Sempre com aria-hidden. */
+@utility ink-blob {
+	position: absolute;
+	border-radius: 48% 52% 43% 57% / 52% 44% 56% 48%;
+	filter: blur(0.5px);
+	pointer-events: none;
+}
+
+@utility gradient-blue {
+	background-image: var(--nz-gradient-blue);
+}
+
+@utility gradient-milk {
+	background-image: var(--nz-gradient-milk);
+}
+
+@utility gradient-eva {
+	background-image: var(--nz-gradient-eva);
+}
+
+/* Cantos assimetricos do design. Valores reduzidos no mobile para nao estourar. */
+@utility rounded-organic {
+	border-radius: 1.75rem 2rem 1.75rem 2rem;
+
+	@media (width >= 40rem) {
+		border-radius: 2.75rem 3.25rem 2.75rem 3.25rem;
+	}
+}
+
+@utility rounded-organic-sm {
+	border-radius: 1.5rem 1.75rem 1.5rem 1.75rem;
+
+	@media (width >= 40rem) {
+		border-radius: 2rem 2.25rem 2rem 2.25rem;
 	}
 }

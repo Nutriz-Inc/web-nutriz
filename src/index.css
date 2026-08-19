@@ -1,19 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
-@import "@fontsource-variable/bricolage-grotesque";
-@import "@fontsource-variable/inter-tight";
+@import "@fontsource-variable/archivo";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
 	--font-heading: var(--font-sans);
-	--font-sans: "Geist Variable", sans-serif;
-	/* Design system Nutriz (ver docs/design-system.md) */
-	--font-display:
-		"Bricolage Grotesque Variable", "Inter Tight Variable", sans-serif;
-	--font-body: "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;
+	/* Familia unica do sistema (ver docs/design-system.md). */
+	--font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+	--font-display: var(--font-sans);
+	--font-body: var(--font-sans);
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

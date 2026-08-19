@@ -34,7 +34,7 @@ export function DonationStatusCard({ steps, className }: Props) {
 				className,
 			)}
 		>
-			<p className="font-display text-xs font-bold uppercase tracking-[0.22em] text-blue-bright lg:text-center">
+			<p className="font-display text-xs font-bold uppercase tracking-[0.12em] text-blue-bright lg:text-center">
 				Status da sua doação atual
 			</p>
 

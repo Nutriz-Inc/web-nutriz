@@ -37,7 +37,7 @@ export function GreetingHero({
 
 			<div className="relative flex flex-col gap-9 lg:flex-row lg:items-center lg:gap-12">
 				<div className="min-w-0 flex-1">
-					<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.22em] text-blue-tint">
+					<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.12em] text-blue-tint">
 						Painel da doadora
 					</p>
 
@@ -78,7 +78,7 @@ export function GreetingHero({
 
 					<dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3 text-white">
 						<div>
-							<dt className="text-[0.7rem] uppercase tracking-[0.16em] text-blue-tint">
+							<dt className="text-[0.7rem] uppercase tracking-[0.1em] text-blue-tint">
 								Doadora desde
 							</dt>
 							{/* TODO: API — sem `created_at` nao ha como datar a entrada da doadora. */}
@@ -87,7 +87,7 @@ export function GreetingHero({
 							</dd>
 						</div>
 						<div>
-							<dt className="text-[0.7rem] uppercase tracking-[0.16em] text-blue-tint">
+							<dt className="text-[0.7rem] uppercase tracking-[0.1em] text-blue-tint">
 								Leite doado
 							</dt>
 							<dd className="mt-1 font-display text-base font-bold tabular-nums">

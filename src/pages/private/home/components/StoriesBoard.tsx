@@ -35,7 +35,7 @@ export function StoriesBoard() {
 							<p className="font-display text-base leading-relaxed text-blue-deep sm:text-lg">
 								“{story.quote}”
 							</p>
-							<footer className="mt-3 text-xs uppercase tracking-[0.14em] text-ink-2">
+							<footer className="mt-3 text-xs uppercase tracking-[0.08em] text-ink-2">
 								{story.author}
 							</footer>
 						</div>

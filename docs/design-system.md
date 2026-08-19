@@ -45,18 +45,28 @@ Definida em `oklch` no `:root` e exposta ao Tailwind via `@theme inline`.
 
 ## Tipografia
 
-| Token | Família | Uso |
-|---|---|---|
-| `font-display` | Bricolage Grotesque Variable | Títulos, números grandes, rótulos em caixa alta |
-| `font-body` | Inter Tight Variable | Corpo de texto das telas do novo design |
-| `font-sans` | Geist Variable | **Fonte global do app — inalterada** |
+**Archivo Variable** é a família única do sistema, via `@fontsource-variable/archivo`.
+Não há pareamento de fontes: display e corpo são a mesma família, diferenciados
+por peso e tamanho.
 
-A home aplica `font-body` no wrapper raiz e `font-display` ponto a ponto.
-Telas novas devem fazer o mesmo; não troque a `--font-sans` global enquanto as
-telas antigas não forem migradas.
+| Token | Aponta para | Uso |
+|---|---|---|
+| `font-sans` | Archivo Variable | Fonte global do app |
+| `font-display` | `var(--font-sans)` | Títulos, números grandes, rótulos em caixa alta |
+| `font-body` | `var(--font-sans)` | Corpo de texto |
+
+> O design original usava Bricolage Grotesque + Inter Tight. Foram trocados a
+> pedido do time: o pareamento deixava os micro-títulos com aparência genérica.
+> As três dependências antigas (`bricolage-grotesque`, `inter-tight`, `geist`)
+> foram removidas do projeto.
+>
+> O widget da EVA fixa a própria família (`Plus Jakarta Sans` em
+> `eva.css`) e não é afetado por mudanças no tema.
 
 Padrão de rótulo de seção:
-`font-display text-[0.7rem] font-bold uppercase tracking-[0.22em]`.
+`font-display text-xs font-bold uppercase tracking-[0.12em]`.
+O `tracking` foi reduzido de `0.22em` para `0.12em` — o espaçamento exagerado
+era parte do que deixava os micro-títulos com cara de template.
 
 ---
 

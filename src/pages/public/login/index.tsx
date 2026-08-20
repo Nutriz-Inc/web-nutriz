@@ -2,6 +2,7 @@ import { ArrowLeft, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import cenarioCidade from "@/assets/illustrations/cenario-cadastro-direita.svg";
 import cenarioLogin from "@/assets/illustrations/cenario-login.svg";
 import NutrizLogo from "@/assets/images/nutriz-logo.svg";
 import { FormField } from "@/components/full/FormField";
@@ -59,10 +60,17 @@ export function LoginScreen() {
 	return (
 		<div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-white via-canvas to-blue-tint font-body">
 			<img
+				src={cenarioCidade}
+				alt=""
+				aria-hidden="true"
+				className="pointer-events-none absolute right-0 bottom-0 z-0 hidden w-[52%] max-w-[620px] select-none opacity-40 sm:block"
+			/>
+
+			<img
 				src={cenarioLogin}
 				alt=""
 				aria-hidden
-				className="pointer-events-none absolute inset-x-0 bottom-0 z-0 mx-auto w-[170%] max-w-none -translate-x-[20%] select-none opacity-50 sm:w-full sm:max-w-[1100px] sm:translate-x-0"
+				className="pointer-events-none absolute bottom-0 left-0 z-0 w-[170%] max-w-none -translate-x-[20%] select-none opacity-50 sm:w-[72%] sm:max-w-[820px] sm:translate-x-0"
 			/>
 
 			<div

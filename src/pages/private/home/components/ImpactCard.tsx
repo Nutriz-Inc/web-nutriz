@@ -53,7 +53,9 @@ export function ImpactCard({
 			className={cn(
 				"relative isolate flex h-full flex-col overflow-hidden rounded-card-sm border bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
 				toneClasses.borda,
-				featured && "lg:p-8",
+				// Destacado ocupa duas colunas: em telas largas o conteudo deita,
+				// senao sobra um vazio na metade direita do cartao.
+				featured && "lg:flex-row lg:items-center lg:gap-10 lg:p-8",
 			)}
 		>
 			{/* Mancha do tom no canto: da cor ao card sem competir com o numero. */}
@@ -68,32 +70,42 @@ export function ImpactCard({
 			<span
 				aria-hidden="true"
 				className={cn(
-					"inline-flex size-10 shrink-0 items-center justify-center rounded-full",
+					"inline-flex shrink-0 items-center justify-center rounded-full",
+					featured ? "size-10 lg:size-16" : "size-10",
 					toneClasses.chip,
 				)}
 			>
-				<Icon className="size-[1.125rem]" />
+				<Icon
+					className={featured ? "size-[1.125rem] lg:size-7" : "size-[1.125rem]"}
+				/>
 			</span>
 
 			{/*
 			 * Valor antes do rotulo: e sempre uma linha so, entao os numeros dos
 			 * tres cards ficam na mesma altura mesmo quando um rotulo quebra.
 			 */}
-			<p
-				className={cn(
-					"mt-5 font-display font-extrabold leading-none tracking-tight tabular-nums",
-					featured ? "text-5xl lg:text-6xl" : "text-4xl lg:text-5xl",
-					toneClasses.value,
-				)}
-			>
-				{value}
-			</p>
+			<div className={cn("flex flex-col", featured && "lg:mt-0")}>
+				<p
+					className={cn(
+						"mt-5 font-display font-extrabold leading-none tracking-tight tabular-nums",
+						featured ? "text-5xl lg:mt-0 lg:text-7xl" : "text-4xl lg:text-5xl",
+						toneClasses.value,
+					)}
+				>
+					{value}
+				</p>
 
-			<h3 className="mt-2 font-display text-[0.9375rem] font-bold leading-snug text-ink">
-				{label}
-			</h3>
+				<h3
+					className={cn(
+						"mt-2 font-display font-bold leading-snug text-ink",
+						featured ? "text-[0.9375rem] lg:text-lg" : "text-[0.9375rem]",
+					)}
+				>
+					{label}
+				</h3>
 
-			<p className="mt-1 text-xs leading-relaxed text-ink-2">{hint}</p>
+				<p className="mt-1 text-xs leading-relaxed text-ink-2">{hint}</p>
+			</div>
 		</article>
 	);
 }

@@ -80,7 +80,7 @@ export function DonationStatusCard({ steps, className }: Props) {
 							>
 								{isCurrent && (
 									<>
-										<span className="absolute inset-0 -m-0.5 rounded-full bg-eva/20 motion-safe:pulso-etapa" />
+										<span className="absolute inset-0 -m-1 rounded-full bg-eva/30 motion-safe:pulso-etapa" />
 										<span className="absolute inset-0 -m-0.5 rounded-full bg-eva/10" />
 									</>
 								)}

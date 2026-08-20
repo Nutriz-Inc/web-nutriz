@@ -121,7 +121,7 @@ export function DonationCard({
 				<>
 					<div className="h-px bg-blue-tint" />
 
-					<div className="flex flex-col gap-2.5 rounded-xl bg-surface-3 p-3.5 lg:gap-3 lg:rounded-2xl lg:p-5">
+					<div className="flex flex-col gap-2.5 rounded-xl bg-surface-3 p-3.5 transition-[transform,background-color] duration-200 group-hover:-translate-y-0.5 group-hover:bg-blue-tint/60 lg:gap-3 lg:rounded-2xl lg:p-5">
 						<div className="flex items-center justify-between gap-2">
 							<span className="text-[10px] font-bold uppercase tracking-wider text-ink-2 lg:text-[11px]">
 								Etapa atual

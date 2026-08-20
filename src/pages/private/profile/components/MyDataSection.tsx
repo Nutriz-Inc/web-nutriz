@@ -1,4 +1,4 @@
-import enderecoIcone from "@/assets/illustrations/pontos-topo.svg";
+import { MapPin } from "lucide-react";
 import { getInitials } from "@/components/layout/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useAuth } from "@/hooks/use-auth";
@@ -118,20 +118,7 @@ export function MyDataSection({
 			</SectionCard>
 
 			{showAddress && (
-				<SectionCard
-					iconVariant="bare"
-					icon={
-						<img
-							src={enderecoIcone}
-							alt=""
-							aria-hidden="true"
-							width={34}
-							height={34}
-							className="size-[30px] select-none"
-						/>
-					}
-					title="Endereço"
-				>
+				<SectionCard icon={<MapPin className="size-[18px]" />} title="Endereço">
 					<Field
 						label="CEP"
 						value={values.zip_code}

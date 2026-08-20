@@ -1,6 +1,7 @@
 import { LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import buscaPontosVazia from "@/assets/illustrations/busca-pontos-vazia.svg";
+import pontosTopo from "@/assets/illustrations/pontos-topo.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import {
 	type FilterChipOption,
@@ -101,6 +102,16 @@ export function DonationPointsPage() {
 			title="Pontos de Coleta"
 			description="Encontre o ponto de coleta mais próximo de você."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			actionSlot={
+				<img
+					src={pontosTopo}
+					alt=""
+					aria-hidden="true"
+					width={220}
+					height={160}
+					className="hidden h-16 w-auto shrink-0 select-none sm:block lg:h-20"
+				/>
+			}
 		>
 			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-surface-2 lg:mx-auto lg:grid lg:h-[calc(100vh-69px)] lg:max-w-[1400px] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden">
 				<div className="flex flex-col gap-3 px-4 pt-4 lg:col-start-1 lg:row-start-1 lg:border-r lg:border-line lg:bg-surface-2 lg:px-5 lg:pb-4 lg:pt-5">

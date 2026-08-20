@@ -1,14 +1,21 @@
 import { LocateFixed } from "lucide-react";
 
+/**
+ * Acao de trocar o endereco da busca. Ficava como icone flutuante no canto do
+ * mapa, sem rotulo - ninguem achava. Agora e um botao com texto, acima do mapa.
+ */
 export function LocateButton({ onClick }: { onClick: () => void }) {
 	return (
 		<button
 			type="button"
 			onClick={onClick}
-			aria-label="Trocar endereço de busca"
-			className="absolute bottom-3 right-3 z-[1000] flex size-9 items-center justify-center rounded-full border border-line bg-white shadow-soft"
+			className="flex h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full border border-line bg-white px-5 text-[14px] font-semibold text-blue-deep shadow-soft outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50 sm:w-auto sm:self-end"
 		>
-			<LocateFixed className="size-5 text-blue-bright" />
+			<LocateFixed
+				className="size-4 shrink-0 text-blue-bright"
+				aria-hidden="true"
+			/>
+			Buscar por CEP ou usar minha localização
 		</button>
 	);
 }

@@ -85,7 +85,7 @@ export function ChangeLocationSheet({
 		>
 			<SheetContent
 				side="bottom"
-				className="rounded-t-2xl border-none lg:data-[side=bottom]:inset-x-auto lg:data-[side=bottom]:left-auto lg:data-[side=bottom]:right-8 lg:data-[side=bottom]:bottom-8 lg:data-[side=bottom]:w-[420px] lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-line lg:data-[side=bottom]:shadow-lift p-2"
+				className="rounded-t-2xl border-none p-2 lg:data-[side=bottom]:inset-x-auto lg:data-[side=bottom]:top-1/2 lg:data-[side=bottom]:bottom-auto lg:data-[side=bottom]:left-1/2 lg:data-[side=bottom]:w-[440px] lg:data-[side=bottom]:-translate-x-1/2 lg:data-[side=bottom]:-translate-y-1/2 lg:data-[side=bottom]:rounded-card lg:data-[side=bottom]:border lg:data-[side=bottom]:border-line lg:data-[side=bottom]:shadow-lift"
 			>
 				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 

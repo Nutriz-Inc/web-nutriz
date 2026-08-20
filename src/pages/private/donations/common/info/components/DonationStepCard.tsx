@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import { Calendar, Check, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +35,21 @@ export function DonationStepCard({
 	const hasCompletedInfo = Boolean(completedAt);
 	const isClickable = Boolean(onClick);
 
+	const reduzirMovimento = useReducedMotion();
+	const animar = isClickable && !reduzirMovimento;
+
+	// Mesma pausa do card da lista: o card responde antes de a rota trocar.
+	function handleClick() {
+		if (!onClick) {
+			return;
+		}
+		if (!animar) {
+			onClick();
+			return;
+		}
+		window.setTimeout(onClick, 140);
+	}
+
 	return (
 		<div className="flex gap-4">
 			<div className="flex flex-col items-center">
@@ -59,19 +75,26 @@ export function DonationStepCard({
 				)}
 			</div>
 
-			<button
+			<motion.button
 				type="button"
-				onClick={onClick}
+				onClick={handleClick}
 				disabled={!isClickable}
+				whileHover={animar ? { x: 6 } : undefined}
+				whileTap={animar ? { x: 2 } : undefined}
+				transition={{ type: "spring", stiffness: 260, damping: 30 }}
 				className={cn(
-					"flex-1 rounded-2xl bg-white text-left transition-shadow disabled:cursor-default",
+					"group relative flex-1 overflow-hidden rounded-2xl bg-white text-left shadow-soft transition-[border-radius] disabled:cursor-default",
 					isCurrent ? "mb-6 p-5" : "mb-4 p-3.5",
-					isCurrent ? "shadow-soft" : "shadow-soft",
-					isClickable &&
-						(isCurrent ? "hover:shadow-lift" : "hover:shadow-soft"),
+					isClickable && "hover:rounded-l-none focus-visible:rounded-l-none",
 					!isCurrent && !isDone && "bg-surface-2",
 				)}
 			>
+				{isClickable && (
+					<span
+						aria-hidden="true"
+						className="absolute inset-y-0 left-0 w-1.5 origin-left scale-x-0 bg-blue-deep transition-transform duration-200 group-hover:scale-x-100 group-focus-visible:scale-x-100"
+					/>
+				)}
 				<div className="flex items-start gap-3">
 					<div
 						className={cn(
@@ -164,7 +187,7 @@ export function DonationStepCard({
 						</div>
 					</>
 				)}
-			</button>
+			</motion.button>
 		</div>
 	);
 }

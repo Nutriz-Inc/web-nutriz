@@ -1,6 +1,8 @@
 import { Check, Droplet, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import novaDoacao from "@/assets/illustrations/nova-doacao.svg";
 import WhatsAppIcon from "@/assets/images/whatsapp-icon.svg";
+import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
@@ -37,12 +39,13 @@ export function NewDonationPage() {
 
 	return (
 		<Page hasPermission={auth?.type === EnumUserType.Common}>
-			<div className="lg:flex lg:min-h-[calc(100vh-69px)] lg:items-center lg:justify-center">
-				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-white lg:m-0 lg:mx-auto lg:grid lg:w-full lg:max-w-[1100px] lg:grid-cols-[500px_1fr] lg:gap-8 lg:bg-transparent lg:pt-1 lg:pb-8">
-					<div className="flex flex-col lg:col-start-1 lg:row-start-1 lg:overflow-hidden lg:rounded-3xl lg:bg-white lg:shadow-lift">
+			{/* sem centralizar na altura da tela: o cartao comeca logo abaixo da trilha */}
+			<div className="lg:flex lg:items-start lg:justify-center lg:pt-6">
+				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-white lg:m-0 lg:mx-auto lg:grid lg:w-full lg:max-w-[1100px] lg:grid-cols-[500px_1fr] lg:gap-8 lg:bg-transparent lg:pt-0 lg:pb-8">
+					<div className="flex flex-col lg:col-start-1 lg:row-start-1 lg:min-h-[520px] lg:overflow-hidden lg:rounded-3xl lg:bg-white lg:shadow-lift">
 						<HeroIllustration />
 
-						<div className="hidden flex-col gap-2.5 px-9 pb-9 lg:flex mt-25">
+						<div className="mt-auto hidden flex-col gap-2.5 px-9 pt-2 pb-9 lg:flex">
 							<button
 								type="button"
 								onClick={handleConfirm}
@@ -67,9 +70,20 @@ export function NewDonationPage() {
 
 					<div className="flex flex-col gap-6 bg-surface-2 px-5 pb-6 pt-6 lg:col-start-2 lg:row-start-1 lg:rounded-3xl lg:bg-white lg:p-8 lg:shadow-lift">
 						<div className="rounded-2xl bg-white p-5 shadow-soft lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none">
-							<p className="text-[18px] font-bold text-ink lg:text-[26px]">
-								O que vai acontecer
-							</p>
+							<div className="flex items-center justify-between gap-4">
+								<p className="text-[18px] font-bold text-ink lg:text-[26px]">
+									O que vai acontecer
+								</p>
+
+								<img
+									src={novaDoacao}
+									alt=""
+									aria-hidden="true"
+									width={220}
+									height={200}
+									className="hidden h-20 w-auto shrink-0 select-none lg:block"
+								/>
+							</div>
 
 							<div className="my-4 h-px bg-blue-tint lg:hidden" />
 
@@ -148,6 +162,11 @@ export function NewDonationPage() {
 						</button>
 					</div>
 				</div>
+			</div>
+
+			{/* mesmo rodape da home; sangra as gutters do Layout como o resto da tela */}
+			<div className="-mx-4 mt-10 sm:-mx-6 lg:-mx-10">
+				<Footer />
 			</div>
 		</Page>
 	);

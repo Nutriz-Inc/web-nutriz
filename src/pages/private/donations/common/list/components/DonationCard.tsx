@@ -52,13 +52,13 @@ export function DonationCard({
 			type="button"
 			onClick={handleClick}
 			disabled={!isClickable}
-			whileHover={animar ? { x: 3, scale: 1.004 } : undefined}
-			whileTap={animar ? { scale: 0.993 } : undefined}
+			whileHover={animar ? { x: 6 } : undefined}
+			whileTap={animar ? { x: 2 } : undefined}
 			transition={{ type: "spring", stiffness: 260, damping: 30 }}
 			className={cn(
 				"group relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl bg-white p-4 text-left shadow-soft transition-[box-shadow,border-radius] lg:gap-5 lg:rounded-3xl lg:p-8",
 				isClickable
-					? "hover:rounded-l-none hover:shadow-lift focus-visible:rounded-l-none"
+					? "hover:rounded-l-none focus-visible:rounded-l-none"
 					: "cursor-default",
 				className,
 			)}

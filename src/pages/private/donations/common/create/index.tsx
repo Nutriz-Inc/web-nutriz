@@ -1,99 +1,47 @@
-import { Baby, Droplets, HeartHandshake, MessageCircle } from "lucide-react";
+import { Droplet, Heart, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import novaDoacao from "@/assets/illustrations/nova-doacao.svg";
 import WhatsAppIcon from "@/assets/images/whatsapp-icon.svg";
 import { Reveal } from "@/components/full/Reveal";
-import { SectionHeading } from "@/components/full/SectionHeading";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
-import { BABY_ML_PER_DAY } from "@/utils/constants";
 import {
 	buildLactareWhatsAppLink,
 	EnumWhatsAppLinkContext,
 } from "@/utils/whatsapp-link";
-import { STEP_DEFINITIONS } from "../info/constants";
 import { AttentionNotice } from "./components/AttentionNotice";
-import { ChecklistItem } from "./components/ChecklistItem";
-import { ConfirmActions } from "./components/ConfirmActions";
-import { DonationStageCard } from "./components/DonationStageCard";
-import { FlowStepCard } from "./components/FlowStepCard";
-import { ImpactFact } from "./components/ImpactFact";
-import { NewDonationHero } from "./components/NewDonationHero";
+import { StepRow } from "./components/StepRow";
 import { useCreateDonation } from "./hooks/use-create-donation";
 
-/** Bebes alimentados por um dia com 1 litro, na mesma conta que a home usa. */
-const BEBES_POR_LITRO = Math.floor(1000 / BABY_ML_PER_DAY);
-
-const FLUXO = [
+const ETAPAS = [
 	{
-		title: "Você confirma",
-		description:
-			"A doação entra no seu histórico com o status inicial, pronta para ser acompanhada aqui.",
-		icon: <HeartHandshake className="size-5 text-eva" />,
-		iconClassName: "bg-eva-tint",
+		title: "Confirmação",
+		description: "Você confirma o interesse em fazer uma nova doação.",
+		icon: <Heart className="size-5 fill-eva text-eva" />,
+		iconBg: "bg-eva-tint",
 	},
 	{
-		title: "Conversa no WhatsApp",
-		description:
-			"Abrimos o WhatsApp da equipe Lactare com a mensagem já escrita — é só enviar.",
+		title: "Redirecionamento",
+		description: "Você é levada ao WhatsApp da equipe Lactare.",
 		icon: (
 			<img src={WhatsAppIcon} alt="" aria-hidden="true" className="size-5" />
 		),
-		iconClassName: "bg-[#25d366]",
+		iconBg: "bg-[#25d366]",
 	},
 	{
 		title: "Triagem e agendamento",
-		description:
-			"A equipe confirma alguns dados de saúde e combina com você a data da primeira visita.",
+		description: "A equipe faz a triagem inicial e agenda a coleta.",
 		icon: <MessageCircle className="size-5 text-blue-deep" />,
-		iconClassName: "bg-blue-tint",
-	},
-];
-
-const CHECKLIST = [
-	{
-		title: "Documento e cartão do pré-natal por perto",
-		description:
-			"A equipe pode pedir esses dados durante a triagem pelo WhatsApp.",
+		iconBg: "bg-blue-tint",
 	},
 	{
-		title: "Você não usa medicamento incompatível",
-		description:
-			"Alguns remédios impedem a doação. Na dúvida, a triagem esclarece — e a EVA também.",
-	},
-	{
-		title: "Um lugar limpo para a ordenha",
-		description:
-			"O kit de ordenha esterilizado é entregue por nós; você só precisa de uma bancada limpa.",
-	},
-	{
-		title: "Endereço atualizado no perfil",
-		description:
-			"As visitas de coleta são feitas no endereço cadastrado na sua conta.",
-	},
-];
-
-const IMPACTO = [
-	{
-		icon: Baby,
-		value: `${BEBES_POR_LITRO} bebês`,
-		label: `Alimentados por um dia com 1 litro de leite (${BABY_ML_PER_DAY} ml por bebê).`,
-		toneClassName: "bg-eva-tint text-eva",
-	},
-	{
-		icon: Droplets,
-		value: "1 ml conta",
-		label:
-			"Prematuros mamam pouquíssimo por vez: cada mililitro doado vira uma refeição.",
-		toneClassName: "bg-blue-tint text-blue-deep",
-	},
-	{
-		icon: HeartHandshake,
-		value: "Em casa",
-		label:
-			"Exames, entrega do kit e coleta acontecem no seu endereço, sem fila e sem custo.",
-		toneClassName: "bg-teal-tint text-teal",
+		title: "Acompanhamento",
+		description: "A doação fica registrada aqui para você acompanhar.",
+		icon: <Droplet className="size-5 text-eva" />,
+		iconBg: "bg-eva-tint",
 	},
 ];
 
@@ -123,111 +71,99 @@ export function NewDonationPage() {
 
 	return (
 		<Page hasPermission={auth?.type === EnumUserType.Common}>
-			<div className="flex flex-col gap-10 sm:gap-14">
-				<NewDonationHero
-					firstName={auth?.name?.split(" ")[0]}
-					isPending={isPending}
-					onConfirm={handleConfirm}
-					onCancel={handleCancel}
-				/>
+			{/*
+			 * Ponto de confirmacao, nao tela de conteudo: um bloco so, deitado em
+			 * duas colunas no desktop (ilustracao a esquerda, fluxo e acoes a
+			 * direita). No mobile as duas colunas viram uma pilha.
+			 */}
+			<Reveal className="mx-auto w-full max-w-[1000px]">
+				<section className="rounded-card overflow-hidden border border-line bg-surface shadow-soft lg:grid lg:grid-cols-[minmax(0,42%)_1fr] lg:items-stretch">
+					{/*
+					 * Painel claro (gradient-milk) e nao o gradiente azul: a
+					 * ilustracao da unDraw e escura (#0f1f3d) e sumia sobre o azul.
+					 */}
+					<div className="gradient-milk relative flex flex-col items-center justify-center overflow-hidden border-b border-line px-6 py-8 text-center lg:border-b-0 lg:border-r lg:px-8 lg:py-12">
+						<span
+							aria-hidden="true"
+							className="ink-blob -right-12 -top-14 h-40 w-40 bg-blue-tint-2/60 blur-2xl"
+						/>
+						<span
+							aria-hidden="true"
+							className="ink-blob -bottom-16 -left-8 h-36 w-44 bg-eva-tint/70 blur-3xl"
+						/>
 
-				<section aria-labelledby="nova-doacao-fluxo">
-					<SectionHeading
-						id="nova-doacao-fluxo"
-						label="Passo a passo"
-						title="O que acontece quando você confirma"
-					/>
-					<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
+						<img
+							src={novaDoacao}
+							alt=""
+							aria-hidden="true"
+							width={304}
+							height={525}
+							className="relative h-32 w-auto select-none sm:h-40 lg:h-56"
+						/>
 
-					<div className="mt-6 grid gap-4 lg:grid-cols-3">
-						{FLUXO.map((passo, indice) => (
-							<Reveal
-								key={passo.title}
-								delay={indice * 0.06}
-								className="h-full"
-							>
-								<FlowStepCard order={indice + 1} {...passo} />
-							</Reveal>
-						))}
+						<h1 className="relative mt-5 font-display text-[22px] font-extrabold tracking-tight text-ink sm:text-[26px] lg:mt-7 lg:text-[28px]">
+							Iniciar nova doação
+						</h1>
+						<p className="relative mx-auto mt-2 max-w-[340px] text-[14px] leading-[20px] text-ink-2 lg:text-[15px] lg:leading-[21px]">
+							Você está a um passo de ajudar um bebê que precisa de você.
+						</p>
 					</div>
-				</section>
 
-				<section aria-labelledby="nova-doacao-etapas">
-					<SectionHeading
-						id="nova-doacao-etapas"
-						label="Sua doação"
-						title="As quatro etapas que você vai acompanhar"
-					/>
-					<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
+					<div className="flex flex-col gap-5 px-5 py-6 sm:px-7 lg:justify-center lg:px-9 lg:py-10">
+						<div>
+							<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-blue-bright">
+								Como funciona
+							</p>
 
-					<div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-						{STEP_DEFINITIONS.map((etapa, indice) => (
-							<Reveal key={etapa.name} delay={indice * 0.06} className="h-full">
-								<DonationStageCard step={etapa} />
-							</Reveal>
-						))}
-					</div>
-				</section>
-
-				<section aria-labelledby="nova-doacao-impacto">
-					<SectionHeading
-						id="nova-doacao-impacto"
-						label="Por que importa"
-						tone="eva"
-						title="O tamanho de uma doação"
-					/>
-					<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
-
-					<div className="mt-6 grid gap-4 lg:grid-cols-3">
-						{IMPACTO.map((fato, indice) => (
-							<Reveal key={fato.value} delay={indice * 0.06} className="h-full">
-								<ImpactFact {...fato} />
-							</Reveal>
-						))}
-					</div>
-				</section>
-
-				<section aria-labelledby="nova-doacao-checklist">
-					<SectionHeading
-						id="nova-doacao-checklist"
-						label="Antes de começar"
-						title="Uma conferida rápida"
-					/>
-					<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
-
-					<div className="mt-6 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-start lg:gap-6">
-						<Reveal>
-							<ul className="rounded-card flex flex-col gap-4 border border-line bg-surface p-5 shadow-soft sm:p-6">
-								{CHECKLIST.map((item) => (
-									<ChecklistItem key={item.title} {...item} />
+							<ol className="mt-4 flex flex-col">
+								{ETAPAS.map((etapa, indice) => (
+									<StepRow
+										key={etapa.title}
+										{...etapa}
+										isLast={indice === ETAPAS.length - 1}
+									/>
 								))}
-							</ul>
-						</Reveal>
+							</ol>
+						</div>
 
-						<Reveal delay={0.06} className="lg:w-[360px]">
-							<AttentionNotice />
-						</Reveal>
+						<AttentionNotice />
+
+						{createDonationMutation.isError && (
+							<p
+								role="alert"
+								className="rounded-card-sm bg-danger-tint px-4 py-3 text-center text-[13px] font-medium text-danger"
+							>
+								Não foi possível iniciar a doação. Tente novamente.
+							</p>
+						)}
+
+						<div className="pb-safe flex flex-col gap-2.5 sm:flex-row-reverse">
+							<Button
+								type="button"
+								size="pill"
+								onClick={handleConfirm}
+								disabled={isPending}
+								className="w-full bg-blue-deep font-semibold text-white shadow-soft hover:bg-blue sm:flex-1"
+							>
+								{isPending ? "Confirmando..." : "Confirmar"}
+							</Button>
+
+							<Button
+								type="button"
+								size="pill"
+								variant="ghost"
+								onClick={handleCancel}
+								disabled={isPending}
+								className="w-full border border-line font-semibold text-ink-2 hover:bg-blue-tint hover:text-blue-deep sm:flex-1"
+							>
+								Cancelar
+							</Button>
+						</div>
 					</div>
 				</section>
+			</Reveal>
 
-				{createDonationMutation.isError && (
-					<p
-						role="alert"
-						className="rounded-card border border-danger/20 bg-danger-tint px-4 py-3 text-center text-[14px] font-medium text-danger"
-					>
-						Não foi possível iniciar a doação. Tente novamente.
-					</p>
-				)}
-
-				<ConfirmActions
-					isPending={isPending}
-					onConfirm={handleConfirm}
-					onCancel={handleCancel}
-					className="pb-safe"
-				/>
-			</div>
-
-			{/* mesmo rodape da home; sangra as gutters do Layout como o resto da tela */}
+			{/* mesmo rodape das outras telas; sangra as gutters do Layout */}
 			<div className="-mx-4 -mb-16 mt-12 sm:-mx-6 lg:-mx-10">
 				<Footer />
 			</div>

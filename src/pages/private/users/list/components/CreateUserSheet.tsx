@@ -82,7 +82,7 @@ export function CreateUserSheet({
 		<Sheet open={open} onOpenChange={handleOpenChange}>
 			<SheetContent
 				side="bottom"
-				className="gap-6 rounded-t-2xl border-none p-5 lg:data-[side=bottom]:inset-x-0 lg:data-[side=bottom]:top-1/2 lg:data-[side=bottom]:bottom-auto lg:data-[side=bottom]:left-1/2 lg:data-[side=bottom]:h-auto lg:data-[side=bottom]:w-[560px] lg:data-[side=bottom]:-translate-x-1/2 lg:data-[side=bottom]:-translate-y-1/2 lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-line lg:data-[side=bottom]:p-8 lg:data-[side=bottom]:shadow-lift"
+				className="flex max-h-[92vh] flex-col gap-5 rounded-t-2xl border-none p-5 lg:data-[side=bottom]:inset-x-0 lg:data-[side=bottom]:top-1/2 lg:data-[side=bottom]:bottom-auto lg:data-[side=bottom]:left-1/2 lg:data-[side=bottom]:h-auto lg:data-[side=bottom]:max-h-[min(88vh,46rem)] lg:data-[side=bottom]:w-[680px] lg:data-[side=bottom]:-translate-x-1/2 lg:data-[side=bottom]:-translate-y-1/2 lg:data-[side=bottom]:rounded-card lg:data-[side=bottom]:border lg:data-[side=bottom]:border-line lg:data-[side=bottom]:p-8 lg:data-[side=bottom]:shadow-lift"
 			>
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
@@ -95,9 +95,10 @@ export function CreateUserSheet({
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="flex max-h-[65vh] flex-col gap-5 overflow-y-auto lg:max-h-none">
+				<div className="grid min-h-0 flex-1 gap-x-4 gap-y-5 overflow-y-auto pr-0.5 sm:grid-cols-2">
 					<CreateUserField
 						id="create-user-name"
+						className="sm:col-span-2"
 						label="Nome completo"
 						icon={UserIcon}
 						value={form.name}
@@ -119,7 +120,22 @@ export function CreateUserSheet({
 					/>
 
 					<CreateUserField
+						id="create-user-phone"
+						label="Telefone"
+						icon={Phone}
+						value={form.phone_number}
+						onChange={(value) =>
+							handleChange("phone_number", formatPhoneNumber(value))
+						}
+						placeholder="(11) 90000-0000"
+						inputMode="tel"
+						maxLength={15}
+						error={errors.phone_number}
+					/>
+
+					<CreateUserField
 						id="create-user-email"
+						className="sm:col-span-2"
 						label="E-mail corporativo"
 						icon={Mail}
 						value={form.email}
@@ -168,21 +184,8 @@ export function CreateUserSheet({
 					/>
 
 					<CreateUserField
-						id="create-user-phone"
-						label="Telefone"
-						icon={Phone}
-						value={form.phone_number}
-						onChange={(value) =>
-							handleChange("phone_number", formatPhoneNumber(value))
-						}
-						placeholder="(11) 90000-0000"
-						inputMode="tel"
-						maxLength={15}
-						error={errors.phone_number}
-					/>
-
-					<CreateUserField
 						id="create-user-identifier"
+						className="sm:col-span-2"
 						label="Identificador interno"
 						icon={Fingerprint}
 						value={form.identifier}
@@ -192,7 +195,7 @@ export function CreateUserSheet({
 						error={errors.identifier}
 					/>
 
-					<div className="flex flex-col gap-3">
+					<div className="flex flex-col gap-3 sm:col-span-2">
 						<div className="flex items-center gap-1.5">
 							<ShieldCheck className="size-3.5 text-ink" />
 							<p className="text-[13px] font-semibold text-ink">
@@ -209,7 +212,7 @@ export function CreateUserSheet({
 										type="button"
 										onClick={() => handleChange("type", type)}
 										className={cn(
-											"rounded-xl px-4 py-2.5 text-[13px] font-semibold transition-colors",
+											"rounded-full px-5 py-2 text-[13px] font-semibold transition-colors",
 											active
 												? "bg-blue-deep text-white"
 												: "border border-line bg-white text-ink",
@@ -223,14 +226,14 @@ export function CreateUserSheet({
 					</div>
 				</div>
 
-				{error && <p className="text-[12px] text-red-500">{error}</p>}
+				{error && <p className="text-[12px] text-danger">{error}</p>}
 
-				<div className="flex items-center justify-between gap-3">
+				<div className="flex shrink-0 items-center justify-between gap-3">
 					<button
 						type="button"
 						onClick={() => handleOpenChange(false)}
 						disabled={isPending}
-						className="flex h-[43px] w-full items-center justify-center rounded-card-sm border border-line bg-white text-[14px] font-bold text-ink transition-opacity disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center rounded-full border border-line bg-white text-[14px] font-semibold text-ink transition-colors hover:bg-surface-3 disabled:opacity-60"
 					>
 						Cancelar
 					</button>
@@ -238,7 +241,7 @@ export function CreateUserSheet({
 						type="button"
 						onClick={handleSubmit}
 						disabled={isPending}
-						className="flex h-[44px] w-full items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue text-[14px] font-bold text-white transition-opacity disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep text-[14px] font-semibold text-white transition-colors hover:bg-blue disabled:opacity-60"
 					>
 						{isPending ? (
 							<LoaderCircle className="size-[18px] animate-spin" />

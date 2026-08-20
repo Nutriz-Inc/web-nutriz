@@ -298,3 +298,23 @@ html {
 body {
 	background-color: var(--canvas);
 }
+
+/*
+ * Pulso da etapa atual: discreto de proposito. O animate-ping do Tailwind vai
+ * ate o dobro do tamanho; aqui cresce 20% e desaparece em quase 3 segundos.
+ */
+@keyframes pulso-etapa {
+	0% {
+		transform: scale(1);
+		opacity: 0.3;
+	}
+	70%,
+	100% {
+		transform: scale(1.2);
+		opacity: 0;
+	}
+}
+
+@utility pulso-etapa {
+	animation: pulso-etapa 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}

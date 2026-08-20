@@ -47,6 +47,8 @@ type MapPreviewProps = {
 	userLocation: Coordinates | null;
 	userLocationReady: boolean;
 	refitVersion: number;
+	/** Lado do botao de trocar endereco. A landing usa "start". */
+	locateAlign?: "start" | "end";
 	selectedId: string | null;
 	onSelectPoint?: (id: string) => void;
 	onRequestChangeLocation: () => void;
@@ -58,6 +60,7 @@ export function MapPreview({
 	userLocation,
 	userLocationReady,
 	refitVersion,
+	locateAlign = "end",
 	selectedId,
 	onSelectPoint,
 	onRequestChangeLocation,
@@ -70,7 +73,10 @@ export function MapPreview({
 
 	return (
 		<div className="flex h-full w-full flex-col gap-3 lg:mx-auto lg:max-w-[1200px]">
-			<LocateButton onClick={onRequestChangeLocation} />
+			<LocateButton
+				onClick={onRequestChangeLocation}
+				className={locateAlign === "start" ? "sm:self-start" : undefined}
+			/>
 
 			<div className="relative isolate h-[225px] w-full overflow-hidden rounded-xl lg:h-full lg:max-h-[900px] lg:rounded-2xl">
 				<MapContainer center={center} zoom={13} className="size-full">
@@ -81,7 +87,7 @@ export function MapPreview({
 					 */}
 					<TileLayer
 						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-						url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+						url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
 						subdomains="abcd"
 						maxZoom={19}
 					/>
@@ -113,6 +119,16 @@ export function MapPreview({
 						/>
 					))}
 				</MapContainer>
+
+				{/*
+				 * Tinta azul da paleta sobre os tiles: fica entre o mapa e os pins
+				 * (z abaixo do markerPane do Leaflet), entao os marcadores seguem
+				 * clicaveis e na cor cheia.
+				 */}
+				<span
+					aria-hidden="true"
+					className="pointer-events-none absolute inset-0 z-[400] bg-blue-tint-2/35 mix-blend-multiply"
+				/>
 			</div>
 		</div>
 	);

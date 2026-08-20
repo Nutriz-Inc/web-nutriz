@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { InteractiveCard } from "@/components/full/InteractiveCard";
 import { Badge } from "@/components/ui/badge";
 import type { Article } from "@/pages/public/articles/data";
 import { ArticleCover } from "./ArticleCover";
@@ -12,11 +12,9 @@ export function FeaturedMediumCard({ article }: FeaturedMediumCardProps) {
 	const navigate = useNavigate();
 
 	return (
-		<motion.article
-			whileHover={{ y: -4 }}
-			transition={{ type: "spring", stiffness: 300, damping: 22 }}
+		<InteractiveCard
 			onClick={() => navigate(`/artigos?a=${article.id}`)}
-			className="flex cursor-pointer flex-col overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
+			className="flex flex-col overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
 		>
 			<ArticleCover article={article} className="h-[100px]" />
 
@@ -41,6 +39,6 @@ export function FeaturedMediumCard({ article }: FeaturedMediumCardProps) {
 					{article.readTimeMinutes} min de leitura
 				</span>
 			</div>
-		</motion.article>
+		</InteractiveCard>
 	);
 }

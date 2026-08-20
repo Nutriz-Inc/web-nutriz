@@ -1,5 +1,6 @@
-import { CalendarX } from "lucide-react";
 import { useState } from "react";
+import agendaVazia from "@/assets/illustrations/agenda-vazia.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumJobStatus } from "@/services/types/i-job";
@@ -48,14 +49,12 @@ export function AppointmentsPage() {
 				<DateFilter value={dateFilter} onChange={setDateFilter} />
 
 				{appointments.length === 0 ? (
-					<div className="flex flex-col items-center gap-2 rounded-card-sm border border-line bg-white p-10 text-center">
-						<CalendarX className="size-8 text-blue-tint-2" />
-						<p className="text-[15px] font-semibold text-ink">
-							Nenhum agendamento encontrado
-						</p>
-						<p className="text-[13px] text-ink-3">
-							Ajuste o período ou a aba selecionada.
-						</p>
+					<div className="rounded-card-sm border border-line bg-white">
+						<EmptyState
+							illustration={agendaVazia}
+							title="Nenhum agendamento encontrado"
+							description="Ajuste o período ou a aba selecionada."
+						/>
 					</div>
 				) : (
 					<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">

@@ -1,5 +1,7 @@
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { type FormEvent, Fragment, useState } from "react";
+import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
@@ -127,13 +129,12 @@ export function DonationsManagementPage() {
 				</div>
 
 				{donations.length === 0 ? (
-					<div className="flex flex-col items-center gap-2 rounded-2xl bg-white p-8 text-center">
-						<p className="text-[15px] font-semibold text-ink">
-							Nenhuma doação encontrada
-						</p>
-						<p className="text-[13px] text-ink-3">
-							Ajuste a busca ou o filtro selecionado.
-						</p>
+					<div className="rounded-card-sm bg-white">
+						<EmptyState
+							illustration={buscaSemResultado}
+							title="Nenhuma doação encontrada"
+							description="Ajuste a busca ou o filtro selecionado."
+						/>
 					</div>
 				) : (
 					<>

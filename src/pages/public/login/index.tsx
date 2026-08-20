@@ -1,8 +1,8 @@
-import { Eye, EyeOff, LoaderCircle } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import LoginBg from "@/assets/images/login-bg.svg";
+import cenarioLogin from "@/assets/illustrations/cenario-login.svg";
 import NutrizLogo from "@/assets/images/nutriz-logo.svg";
 import { FormField } from "@/components/full/FormField";
 import { Button } from "@/components/ui/button";
@@ -59,10 +59,10 @@ export function LoginScreen() {
 	return (
 		<div className="relative min-h-screen w-full overflow-hidden bg-white font-body">
 			<img
-				src={LoginBg}
+				src={cenarioLogin}
 				alt=""
 				aria-hidden
-				className="pointer-events-none absolute inset-x-0 bottom-0 z-0 w-full select-none"
+				className="pointer-events-none absolute inset-x-0 bottom-0 z-0 w-full max-w-[1100px] select-none opacity-90 mx-auto"
 			/>
 
 			<div
@@ -167,6 +167,16 @@ export function LoginScreen() {
 				<div className="mt-6 border-t border-line" />
 
 				<p className="mt-5 text-center text-[14px] text-ink-2">
+					<Link
+						to="/"
+						className="inline-flex items-center gap-1 font-semibold text-blue underline-offset-2 hover:underline"
+					>
+						<ArrowLeft className="size-4" aria-hidden="true" />
+						Voltar para a página inicial
+					</Link>
+				</p>
+
+				<p className="mt-2 text-center text-[14px] text-ink-2">
 					Ainda não tem uma conta?{" "}
 					<Link
 						to="/registro"

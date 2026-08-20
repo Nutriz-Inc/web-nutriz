@@ -1,5 +1,7 @@
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import doacaoVazia from "@/assets/illustrations/doacao-vazia.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { NUMBER_OF_DONATION_STEPS } from "@/services/types/i-donation";
@@ -77,13 +79,12 @@ export function DonationsPage() {
 							</button>
 						</div>
 					) : donations.length === 0 ? (
-						<div className="flex flex-col items-center gap-2 rounded-2xl bg-white p-8 text-center shadow-soft">
-							<p className="text-[15px] font-semibold text-ink">
-								Você ainda não tem doações
-							</p>
-							<p className="text-[13px] text-ink-2">
-								Comece a sua jornada criando a sua primeira doação.
-							</p>
+						<div className="rounded-card-sm bg-white shadow-soft">
+							<EmptyState
+								illustration={doacaoVazia}
+								title="Você ainda não tem doações"
+								description="Comece a sua jornada criando a sua primeira doação."
+							/>
 						</div>
 					) : (
 						<div className="flex flex-col gap-3 lg:gap-4">

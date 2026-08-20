@@ -38,7 +38,7 @@ export function NewDonationPage() {
 	return (
 		<Page hasPermission={auth?.type === EnumUserType.Common}>
 			<div className="lg:flex lg:min-h-[calc(100vh-69px)] lg:items-center lg:justify-center">
-				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-white lg:m-0 lg:mx-auto lg:grid lg:w-full lg:max-w-[1100px] lg:grid-cols-[500px_1fr] lg:gap-8 lg:bg-transparent lg:py-8">
+				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-white lg:m-0 lg:mx-auto lg:grid lg:w-full lg:max-w-[1100px] lg:grid-cols-[500px_1fr] lg:gap-8 lg:bg-transparent lg:pt-1 lg:pb-8">
 					<div className="flex flex-col lg:col-start-1 lg:row-start-1 lg:overflow-hidden lg:rounded-3xl lg:bg-white lg:shadow-lift">
 						<HeroIllustration />
 

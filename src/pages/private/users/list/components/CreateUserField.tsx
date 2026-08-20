@@ -16,6 +16,7 @@ type CreateUserFieldProps = {
 	maxLength?: number;
 	optional?: boolean;
 	trailing?: ReactNode;
+	className?: string;
 };
 
 export function CreateUserField({
@@ -32,9 +33,10 @@ export function CreateUserField({
 	maxLength,
 	optional = false,
 	trailing,
+	className,
 }: CreateUserFieldProps) {
 	return (
-		<div className="flex w-full flex-col gap-1.5">
+		<div className={cn("flex w-full flex-col gap-1.5", className)}>
 			<label htmlFor={id} className="text-[13px] font-semibold text-ink">
 				{label}
 				{optional && (
@@ -44,7 +46,7 @@ export function CreateUserField({
 			<div
 				className={cn(
 					"flex w-full items-center gap-2.5 rounded-xl bg-canvas px-3.5 py-[13px]",
-					error && "ring-1 ring-red-400",
+					error && "ring-1 ring-danger/40",
 				)}
 			>
 				<Icon className="size-4 shrink-0 text-ink-3" />
@@ -64,7 +66,7 @@ export function CreateUserField({
 				{trailing}
 			</div>
 			{error && (
-				<p id={`${id}-error`} className="text-[12px] text-red-500">
+				<p id={`${id}-error`} className="text-[12px] text-danger">
 					{error}
 				</p>
 			)}

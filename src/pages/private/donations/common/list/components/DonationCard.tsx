@@ -52,19 +52,21 @@ export function DonationCard({
 			type="button"
 			onClick={handleClick}
 			disabled={!isClickable}
-			whileHover={animar ? { x: 6, scale: 1.01 } : undefined}
-			whileTap={animar ? { scale: 0.975 } : undefined}
-			transition={{ type: "spring", stiffness: 340, damping: 26 }}
+			whileHover={animar ? { x: 3, scale: 1.004 } : undefined}
+			whileTap={animar ? { scale: 0.993 } : undefined}
+			transition={{ type: "spring", stiffness: 260, damping: 30 }}
 			className={cn(
-				"group relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl bg-white p-4 text-left shadow-soft transition-shadow lg:gap-5 lg:rounded-3xl lg:p-8",
-				isClickable ? "hover:shadow-lift" : "cursor-default",
+				"group relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl bg-white p-4 text-left shadow-soft transition-[box-shadow,border-radius] lg:gap-5 lg:rounded-3xl lg:p-8",
+				isClickable
+					? "hover:rounded-l-none hover:shadow-lift focus-visible:rounded-l-none"
+					: "cursor-default",
 				className,
 			)}
 		>
 			{isClickable && (
 				<span
 					aria-hidden="true"
-					className="absolute inset-y-3 left-0 w-1 origin-center scale-y-0 rounded-full bg-blue-deep opacity-0 transition-[opacity,transform] duration-200 group-hover:scale-y-100 group-hover:opacity-100 group-focus-visible:scale-y-100 group-focus-visible:opacity-100"
+					className="absolute inset-y-0 left-0 w-1.5 origin-left scale-x-0 bg-blue-deep transition-transform duration-200 group-hover:scale-x-100 group-focus-visible:scale-x-100"
 				/>
 			)}
 			{!isClickable && (

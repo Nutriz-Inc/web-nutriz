@@ -34,8 +34,10 @@ export function UserMenu() {
 				<button
 					type="button"
 					aria-label={`Abrir menu da conta de ${auth.name}`}
-					className="flex size-11 shrink-0 items-center justify-center rounded-full outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+					className="flex h-11 shrink-0 items-center gap-2 rounded-full border border-line bg-white/70 py-1.5 pr-1.5 pl-4 text-[14px] font-medium text-ink-2 outline-none backdrop-blur-sm transition-colors hover:bg-blue-tint/60 hover:text-blue-deep focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 				>
+					<span className="hidden sm:inline">Perfil</span>
+
 					<Avatar className="size-9 border border-line">
 						<AvatarFallback className={cn(cor.bg, cor.text)}>
 							{getInitials(auth.name)}

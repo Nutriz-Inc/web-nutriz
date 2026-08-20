@@ -1,6 +1,8 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ChevronLeft } from "lucide-react";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { AppHeader } from "@/components/layout/AppHeader";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { fadeUp, staggerContainer } from "@/lib/motion";
@@ -46,9 +48,19 @@ export function ArticlesScreen() {
 	const sidebarItem = shouldReduceMotion ? undefined : fadeUp;
 
 	return (
-		<div className="min-h-screen bg-surface-3 [&_button]:cursor-pointer">
+		<div className="min-h-screen bg-canvas font-body [&_button]:cursor-pointer">
+			<AppHeader />
+
 			<div className="mx-auto w-full max-w-[1100px] px-5 py-6 lg:px-8 lg:py-8">
-				<Page backTo={isAuthenticated ? "/conteudo-educativo" : "/"}>
+				<Page>
+					<Link
+						to={isAuthenticated ? "/conteudo-educativo" : "/"}
+						className="mb-4 inline-flex h-11 w-fit items-center gap-1.5 rounded-full border border-line bg-white px-5 text-[14px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+					>
+						<ChevronLeft className="size-4" aria-hidden="true" />
+						{isAuthenticated ? "Voltar para conteúdos" : "Voltar para o início"}
+					</Link>
+
 					<main className="flex flex-col gap-6 lg:grid lg:grid-cols-[1fr_320px] lg:items-start">
 						<article>
 							<AnimatePresence mode="wait">

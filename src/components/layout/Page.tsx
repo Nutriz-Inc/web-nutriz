@@ -3,6 +3,7 @@ import type React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Breadcrumb } from "@/components/full/Breadcrumb";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { getBreadcrumb } from "@/utils/breadcrumb";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
@@ -34,7 +35,8 @@ export function Page({
 	// Trilha derivada da rota: toda tela interna ganha uma sem precisar
 	// declarar nada. Quando ha trilha, ela substitui o botao "Voltar" - os
 	// dois no topo seriam a mesma navegacao duas vezes.
-	const trilha = getBreadcrumb(pathname);
+	const { isAuthenticated } = useAuth();
+	const trilha = isAuthenticated ? getBreadcrumb(pathname) : [];
 	const temTrilha = trilha.length >= 2;
 
 	const backButton = backTo && !temTrilha && (

@@ -1,9 +1,8 @@
 import { Check, ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import cadastroTopo from "@/assets/illustrations/cadastro-topo.svg";
-import cenarioCadastro from "@/assets/illustrations/cenario-cadastro.svg";
 import cenarioCadastroDireita from "@/assets/illustrations/cenario-cadastro-direita.svg";
+import cenarioLogin from "@/assets/illustrations/cenario-login.svg";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
@@ -156,26 +155,17 @@ export function RegisterScreen() {
 			 */}
 			<div className="relative flex-1">
 				<img
-					src={cenarioCadastro}
+					src={cenarioLogin}
 					alt=""
 					aria-hidden="true"
-					className="pointer-events-none absolute bottom-0 left-0 z-0 w-[38%] max-w-[420px] select-none opacity-50"
+					className="pointer-events-none absolute bottom-0 left-0 z-0 w-[62%] max-w-[720px] select-none opacity-50"
 				/>
 
 				<img
 					src={cenarioCadastroDireita}
 					alt=""
 					aria-hidden="true"
-					className="pointer-events-none absolute right-0 bottom-0 z-0 hidden w-[38%] max-w-[460px] select-none opacity-45 sm:block"
-				/>
-
-				<img
-					src={cadastroTopo}
-					alt=""
-					aria-hidden="true"
-					width={220}
-					height={220}
-					className="pointer-events-none absolute top-6 right-[8%] z-0 hidden h-32 w-auto select-none xl:block"
+					className="pointer-events-none absolute right-0 bottom-0 z-0 hidden w-[62%] max-w-[760px] select-none opacity-45 sm:block"
 				/>
 
 				<main className="relative mx-auto w-full max-w-[640px] px-4 pb-16 pt-4 sm:px-6 sm:pt-6">

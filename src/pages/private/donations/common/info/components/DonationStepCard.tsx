@@ -64,7 +64,7 @@ export function DonationStepCard({
 							{/* pulso continuo marcando a etapa em que a nutriz esta */}
 							<span
 								aria-hidden="true"
-								className="absolute inset-0 -m-0.5 rounded-full bg-eva/20 motion-safe:pulso-etapa"
+								className="absolute inset-0 -m-1 rounded-full bg-eva/30 motion-safe:pulso-etapa"
 							/>
 							<span
 								aria-hidden="true"

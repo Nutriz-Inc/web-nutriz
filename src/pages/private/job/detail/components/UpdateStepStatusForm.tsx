@@ -35,16 +35,16 @@ export function UpdateStepStatusForm({
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="flex flex-col gap-5 rounded-2xl border border-[#e7ecf2] bg-white p-5"
+			className="flex flex-col gap-5 rounded-card-sm border border-line bg-white p-5"
 		>
 			<div className="flex flex-col gap-1">
 				<div className="flex items-center gap-2">
-					<ClipboardEdit className="size-4 text-[#94a3b8]" />
-					<span className="text-[12px] font-bold uppercase tracking-wide text-[#6b7280]">
+					<ClipboardEdit className="size-4 text-ink-3" />
+					<span className="text-[12px] font-bold uppercase tracking-wide text-ink-2">
 						Atualizar status da etapa
 					</span>
 				</div>
-				<p className="text-[13px] text-[#9ca3af]">
+				<p className="text-[13px] text-ink-3">
 					Selecione o novo status e registre o relatório desta etapa
 					{stepName ? ` (${stepName})` : ""}.
 				</p>
@@ -67,7 +67,7 @@ export function UpdateStepStatusForm({
 			<div className="flex flex-col gap-2">
 				<label
 					htmlFor="step-report"
-					className="text-[14px] font-semibold text-[#374151]"
+					className="text-[14px] font-semibold text-ink-2"
 				>
 					Relatório de etapa
 				</label>
@@ -80,23 +80,23 @@ export function UpdateStepStatusForm({
 					}}
 					rows={4}
 					placeholder="Descreva o resultado desta etapa e os próximos passos..."
-					className="w-full resize-y rounded-xl border border-[#e2e8f0] bg-white px-3.5 py-3 text-[14px] text-[#1f2a37] outline-none transition-colors placeholder:text-[#c0c7d1] focus:border-[#387ccd]"
+					className="w-full resize-y rounded-xl border border-blue-tint bg-white px-3.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-blue-tint-2 focus:border-blue-bright"
 				/>
 			</div>
 
 			{isSuccess && (
-				<div className="flex items-center gap-2 rounded-xl border border-[#c7e9db] bg-[#e9f6f0] px-4 py-3">
-					<CheckCircle2 className="size-4 shrink-0 text-[#0f6e56]" />
-					<p className="text-[13px] font-semibold text-[#0f6e56]">
+				<div className="flex items-center gap-2 rounded-xl border border-teal-tint bg-success-tint px-4 py-3">
+					<CheckCircle2 className="size-4 shrink-0 text-success" />
+					<p className="text-[13px] font-semibold text-success">
 						Status atualizado com sucesso.
 					</p>
 				</div>
 			)}
 
 			{isError && (
-				<div className="flex items-center gap-2 rounded-xl border border-[#f5c9c9] bg-[#fdecec] px-4 py-3">
-					<AlertCircle className="size-4 shrink-0 text-[#cf3030]" />
-					<p className="text-[13px] font-semibold text-[#cf3030]">
+				<div className="flex items-center gap-2 rounded-xl border border-danger-tint bg-danger-tint px-4 py-3">
+					<AlertCircle className="size-4 shrink-0 text-danger" />
+					<p className="text-[13px] font-semibold text-danger">
 						Não foi possível salvar. Tente novamente.
 					</p>
 				</div>
@@ -105,7 +105,7 @@ export function UpdateStepStatusForm({
 			<button
 				type="submit"
 				disabled={isPending}
-				className="flex h-[46px] w-fit items-center justify-center gap-2 rounded-xl bg-[#00458b] px-6 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="flex h-[46px] w-fit items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-6 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				{isPending ? (
 					<Loader2 className="size-4 animate-spin" />

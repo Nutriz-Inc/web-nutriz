@@ -1,17 +1,21 @@
 # Design system Nutriz
 
-Tokens e padrões visuais introduzidos no redesign da **home da doadora**
-(`src/pages/private/home`). Esta tela é a âncora visual do sistema — as
-próximas telas devem seguir o que está aqui, em vez de repetir hex soltos.
+Tokens e padrões visuais nascidos no redesign da **home da doadora**
+(`src/pages/private/home`). Essa tela é a âncora visual do sistema, e **todas
+as demais telas foram migradas para ela** — home, doações, pontos de coleta,
+conteúdo educativo, perfil, agendamentos, gestão, usuários, dashboard, login,
+cadastro e landing.
 
 Tudo vive em `src/index.css`, no bloco final marcado como
 _"Design system Nutriz — camada ADITIVA"_.
 
-> ⚠️ **A camada é aditiva de propósito.** Nenhum token do shadcn
-> (`--primary`, `--background`, `--radius`, `--font-sans`) foi redefinido,
-> porque o restante do app (landing, artigos, central de conteúdos, cadastro,
-> login) usa hex hardcoded e a escala de radius antiga. Ao evoluir o tema,
-> mantenha essa regra: **adicione, não substitua.**
+> **Regra: nada de hex solto em classe.** Toda cor de UI sai de um token
+> (`text-ink-2`, `bg-surface-3`, `border-line`...). Restam de propósito só o
+> verde do WhatsApp (`#25d366`, marca de terceiro) e o acento ciano da landing.
+> Se faltar um papel de cor, **adicione um token** — não volte a escrever hex.
+
+> ⚠️ A camada continua **aditiva** em relação ao shadcn: nenhum token dele
+> (`--primary`, `--background`, `--radius`) foi redefinido.
 
 ---
 
@@ -31,6 +35,14 @@ Definida em `oklch` no `:root` e exposta ao Tailwind via `@theme inline`.
 | `--surface` … `--surface-3` | `bg-surface` | Superfícies brancas / cinzas de card |
 | `--ink` / `--ink-2` / `--ink-3` | `text-ink` `text-ink-2` | Texto sobre fundo claro |
 | `--canvas` | `bg-canvas` | Fundo da página |
+| `--line` / `--line-strong` | `border-line` | **Toda** borda e separador do app |
+| `--success` / `--success-tint` | `text-success` `bg-success-tint` | Concluído, confirmação |
+| `--danger` / `--danger-tint` | `text-danger` `bg-danger-tint` | Erro, falha, validação de formulário |
+| `--warning` / `--warning-tint` | `text-warning` `bg-warning-tint` | Pendente, atenção |
+| `--teal` / `--teal-tint` | `text-teal` `bg-teal-tint` | Coleta domiciliar, entrega de kit |
+| `--purple` / `--purple-tint` | `text-purple` | Perfil de enfermagem |
+| `--magenta` / `--magenta-tint` | `text-magenta` | Etapa de análise do leite |
+| `--amber` / `--amber-tint` | `text-amber` | Estrelas de avaliação |
 
 ### Regra de contraste (WCAG AA)
 
@@ -45,18 +57,33 @@ Definida em `oklch` no `:root` e exposta ao Tailwind via `@theme inline`.
 
 ## Tipografia
 
-Duas famílias, com papéis distintos:
+Uma família só, **Geist Variable**, com dois apelidos semânticos:
 
 | Token | Família | Uso |
 |---|---|---|
-| `font-sans` / `font-body` | **IBM Plex Sans** (variable, 100–700) | Fonte global do app: corpo, formulários, tabelas, números pequenos |
-| `font-display` | **Fraunces** (variable, 100–900) | Títulos, números grandes, rótulos de seção, citações |
+| `font-sans` / `font-body` | **Geist Variable** | Corpo, formulários, tabelas, números |
+| `font-display` | **Geist Variable** (alias) | Títulos, números grandes, rótulos de seção |
 
-Fraunces é uma serifada de display com caráter próprio — foi escolhida
-justamente para os títulos **não** parecerem a grotesca neutra que qualquer
-template usa. Ela não deve descer para texto corrido, campo de formulário nem
-numeração pequena (os números dentro dos círculos da trilha de etapas e o
-contador de progresso ficam em `font-sans`, com `tabular-nums`).
+`font-display` existe como apelido para os títulos poderem trocar de família
+no futuro sem varrer o app inteiro. Enquanto for alias de `font-sans`, o que
+diferencia título de corpo é **peso e tamanho**, não a família.
+
+> Histórico: o redesign da home passou por IBM Plex Sans + Fraunces antes de
+> fechar em Geist. Se voltar a ter duas famílias, é aqui que se troca.
+
+### Escala de corpo
+
+Oito degraus, em px, e nada fora deles (havia 20 tamanhos, incluindo 10,5px e
+14,5px):
+
+| Tamanho | Uso |
+|---|---|
+| `text-[10px]` / `text-[11px]` | Rótulos em caixa alta, legendas |
+| `text-[12px]` | Texto auxiliar, badges |
+| `text-[13px]` | Corpo padrão de listas e cards |
+| `text-[14px]` | Corpo, formulários, botões |
+| `text-[15px]` / `text-[16px]` | Destaque em card, título pequeno |
+| `text-[18px]` + | Títulos; acima de 20px, sempre `font-display` |
 
 Padrão de rótulo de seção:
 `font-display text-xs font-bold uppercase tracking-[0.06em]`.
@@ -125,10 +152,33 @@ combinada com `blur-2xl`/`blur-3xl` e uma cor de tint em baixa opacidade.
 
 ---
 
+## Receitas
+
+**Cartão** — uma só forma em todo o app:
+
+```
+rounded-card-sm border border-line bg-white shadow-soft
+```
+
+**CTA primário** — 44px de alvo de toque, pílula, 14px:
+
+```
+h-11 rounded-full bg-blue-deep hover:bg-blue text-white text-[14px] font-semibold
+```
+
+Prefira `<Button size="pill">`; os botões que ainda são `<button>` cru seguem
+a mesma receita.
+
+---
+
 ## Componentes compartilhados
 
 | Componente | Caminho | Uso |
 |---|---|---|
+| `AppHeader` | `src/components/layout/AppHeader.tsx` | Barra de topo de todas as telas do app: logo a esquerda, menu circular a direita, fundo transparente sobre o canvas (`showMenu`, `containerClassName`) |
+| `Segmented` | `src/components/ui/segmented.tsx` | Controle segmentado: abas do perfil, filtro de status dos agendamentos |
+| `FormField` | `src/components/full/FormField.tsx` | Campo de formulário (rótulo + input + erro) do login e do cadastro |
+| `Badge` | `src/components/ui/badge.tsx` | Pilula de status, tipo e categoria. `tone` (10 tons em `BADGE_TONES`), `size` (sm/md/lg), `dot`, `caps`, `bordered`. Quem precisa so da bolinha le `BADGE_TONES[tone].dot` |
 | `SectionHeading` | `src/components/full/SectionHeading.tsx` | Rótulo em caixa alta + título de seção (`tone="blue" \| "eva"`, `actionSlot`) |
 | `Reveal` | `src/components/full/Reveal.tsx` | Reveal on-scroll sutil; respeita `prefers-reduced-motion` |
 | `ImpactCard` | `src/pages/private/home/components/ImpactCard.tsx` | Card de estatística (`tone`, `featured`) |

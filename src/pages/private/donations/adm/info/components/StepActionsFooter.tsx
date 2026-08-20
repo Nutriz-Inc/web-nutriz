@@ -42,12 +42,12 @@ export function StepActionsFooter({
 }: Props) {
 	return (
 		<div className="flex flex-col gap-3 lg:flex-row">
-			<div className="flex flex-1 flex-col gap-3 rounded-xl border border-[#00458b]/20 bg-[#eef3f8] p-4 lg:flex-row lg:items-center lg:justify-between">
+			<div className="flex flex-1 flex-col gap-3 rounded-xl border border-blue-deep/20 bg-blue-tint p-4 lg:flex-row lg:items-center lg:justify-between">
 				<div className="flex flex-col gap-0.5">
-					<p className="text-[13px] font-bold text-[#00458b]">
+					<p className="text-[13px] font-bold text-blue-deep">
 						Finalizar etapa
 					</p>
-					<p className="text-[12px] text-[#6b7280]">
+					<p className="text-[12px] text-ink-2">
 						A próxima etapa é liberada automaticamente.
 					</p>
 				</div>
@@ -58,7 +58,7 @@ export function StepActionsFooter({
 							type="button"
 							onClick={() => onFinalizeDescriptionChange(stepDescription)}
 							disabled={isPending}
-							className="flex shrink-0 items-center justify-center gap-2 rounded-[10px] bg-[#00458b] px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+							className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 						>
 							<Check className="size-4" />
 							Finalizar etapa
@@ -66,8 +66,8 @@ export function StepActionsFooter({
 					</AlertDialogTrigger>
 					<AlertDialogContent>
 						<AlertDialogHeader>
-							<div className="flex size-12 items-center justify-center rounded-full bg-[#e1f1fb]">
-								<Check className="size-5 text-[#00458b]" />
+							<div className="flex size-12 items-center justify-center rounded-full bg-blue-tint">
+								<Check className="size-5 text-blue-deep" />
 							</div>
 							<AlertDialogTitle>Finalizar {definitionLabel}?</AlertDialogTitle>
 							<AlertDialogDescription>
@@ -79,7 +79,7 @@ export function StepActionsFooter({
 						<div className="flex flex-col gap-1.5 text-left">
 							<label
 								htmlFor="finalize-description"
-								className="text-[12px] font-semibold text-[#6b7280]"
+								className="text-[12px] font-semibold text-ink-2"
 							>
 								Descrição a ser registrada
 							</label>
@@ -91,7 +91,7 @@ export function StepActionsFooter({
 								}
 								rows={3}
 								placeholder="Descreva o resultado desta etapa"
-								className="rounded-[10px] border border-[#e1e7ee] bg-white px-3 py-2 text-[13px] text-[#1a1a1a] outline-none placeholder:text-[#9ca3af]"
+								className="rounded-card-sm border border-line bg-white px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
 							/>
 						</div>
 
@@ -99,7 +99,7 @@ export function StepActionsFooter({
 							<div className="flex flex-col gap-1.5 text-left">
 								<label
 									htmlFor="quantity-donated"
-									className="text-[12px] font-semibold text-[#6b7280]"
+									className="text-[12px] font-semibold text-ink-2"
 								>
 									Quantidade doada (ml)
 								</label>
@@ -112,7 +112,7 @@ export function StepActionsFooter({
 										onQuantityDonatedChange?.(event.target.value)
 									}
 									placeholder="Ex: 250"
-									className="rounded-[10px] border border-[#e1e7ee] bg-white px-3 py-2 text-[13px] text-[#1a1a1a] outline-none placeholder:text-[#9ca3af]"
+									className="rounded-card-sm border border-line bg-white px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
 								/>
 							</div>
 						)}
@@ -123,7 +123,7 @@ export function StepActionsFooter({
 								disabled={
 									!finalizeDescription || (isLastStep && !quantityDonated)
 								}
-								className="bg-[#00458b] hover:bg-[#00335f]"
+								className="bg-blue-deep hover:bg-blue-deep"
 							>
 								Finalizar etapa
 							</AlertDialogAction>
@@ -133,12 +133,10 @@ export function StepActionsFooter({
 				</AlertDialog>
 			</div>
 
-			<div className="flex flex-1 flex-col gap-3 rounded-xl border border-[#f3caca] bg-[#fcebeb] p-4 lg:flex-row lg:items-center lg:justify-between">
+			<div className="flex flex-1 flex-col gap-3 rounded-xl border border-danger-tint bg-danger-tint p-4 lg:flex-row lg:items-center lg:justify-between">
 				<div className="flex flex-col gap-0.5">
-					<p className="text-[13px] font-bold text-[#a32d2d]">
-						Marcar como erro
-					</p>
-					<p className="text-[12px] text-[#a32d2d]">
+					<p className="text-[13px] font-bold text-danger">Marcar como erro</p>
+					<p className="text-[12px] text-danger">
 						Encerra a doação — não pode ser desfeito.
 					</p>
 				</div>
@@ -149,7 +147,7 @@ export function StepActionsFooter({
 							type="button"
 							onClick={() => onErrorDescriptionChange(stepDescription)}
 							disabled={isPending}
-							className="flex shrink-0 items-center justify-center gap-2 rounded-[10px] bg-[#a32d2d] px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+							className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-danger px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 						>
 							<AlertTriangle className="size-4" />
 							Marcar como erro
@@ -157,8 +155,8 @@ export function StepActionsFooter({
 					</AlertDialogTrigger>
 					<AlertDialogContent>
 						<AlertDialogHeader>
-							<div className="flex size-12 items-center justify-center rounded-full bg-[#fcebeb]">
-								<AlertTriangle className="size-5 text-[#a32d2d]" />
+							<div className="flex size-12 items-center justify-center rounded-full bg-danger-tint">
+								<AlertTriangle className="size-5 text-danger" />
 							</div>
 							<AlertDialogTitle>
 								Marcar {definitionLabel} como erro?
@@ -172,7 +170,7 @@ export function StepActionsFooter({
 						<div className="flex flex-col gap-1.5 text-left">
 							<label
 								htmlFor="error-description"
-								className="text-[12px] font-semibold text-[#6b7280]"
+								className="text-[12px] font-semibold text-ink-2"
 							>
 								Descreva o erro ocorrido
 							</label>
@@ -184,7 +182,7 @@ export function StepActionsFooter({
 								}
 								rows={3}
 								placeholder="Explique o motivo do encerramento"
-								className="rounded-[10px] border border-[#e1e7ee] bg-white px-3 py-2 text-[13px] text-[#1a1a1a] outline-none placeholder:text-[#9ca3af]"
+								className="rounded-card-sm border border-line bg-white px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
 							/>
 						</div>
 
@@ -192,7 +190,7 @@ export function StepActionsFooter({
 							<AlertDialogAction
 								onClick={onMarkAsError}
 								disabled={!errorDescription}
-								className="bg-[#a32d2d] hover:bg-[#8a2424]"
+								className="bg-danger hover:bg-danger"
 							>
 								Marcar como erro
 							</AlertDialogAction>

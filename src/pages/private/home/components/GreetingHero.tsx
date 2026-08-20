@@ -43,7 +43,7 @@ export function GreetingHero({
 
 					<h1
 						id="home-greeting"
-						className="mt-5 font-display text-[1.75rem] font-bold leading-[1.08] tracking-tight text-white sm:text-4xl lg:text-5xl"
+						className="mt-5 font-display text-[1.75rem] font-extrabold leading-[1.08] tracking-tight text-white sm:text-4xl lg:text-5xl"
 					>
 						Olá{firstName ? `, ${firstName}` : ""}.
 						<br />

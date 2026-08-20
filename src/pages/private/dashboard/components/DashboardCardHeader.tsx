@@ -22,11 +22,11 @@ export function DashboardCardHeader({
 					{icon}
 				</div>
 				<div className="flex flex-col gap-0.5">
-					<p className="text-[15px] font-semibold text-[#1f2a37]">{title}</p>
-					<p className="text-[12px] text-[#6b7280]">{subtitle}</p>
+					<p className="text-[15px] font-semibold text-ink">{title}</p>
+					<p className="text-[12px] text-ink-2">{subtitle}</p>
 				</div>
 			</div>
-			<div className="h-px w-full bg-[#e5e7eb]" />
+			<div className="h-px w-full bg-blue-tint" />
 		</div>
 	);
 }

@@ -30,16 +30,16 @@ export function StepTimelineSheet({
 		<Sheet open={open} onOpenChange={onOpenChange}>
 			<SheetContent
 				side="bottom"
-				className="rounded-t-2xl border-none lg:max-h-[85vh] lg:overflow-y-auto lg:data-[side=bottom]:inset-0 lg:data-[side=bottom]:m-auto lg:data-[side=bottom]:h-fit lg:data-[side=bottom]:w-[600px] lg:data-[side=bottom]:max-w-[90vw] lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-[#e0e0e0] lg:data-[side=bottom]:shadow-2xl p-2"
+				className="rounded-t-2xl border-none lg:max-h-[85vh] lg:overflow-y-auto lg:data-[side=bottom]:inset-0 lg:data-[side=bottom]:m-auto lg:data-[side=bottom]:h-fit lg:data-[side=bottom]:w-[600px] lg:data-[side=bottom]:max-w-[90vw] lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-line lg:data-[side=bottom]:shadow-lift p-2"
 			>
-				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-[#e0e0e0] lg:hidden" />
+				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 px-5 pb-0 pt-3 text-left lg:px-8 lg:pt-6">
-					<SheetTitle className="text-[14px] font-bold text-[#1a1a1a] lg:text-[18px]">
+					<SheetTitle className="text-[14px] font-bold text-ink lg:text-[18px]">
 						Linha do tempo{stepOrder ? ` — Etapa ${stepOrder}` : ""}
 						{stepTitle ? `: ${stepTitle}` : ""}
 					</SheetTitle>
-					<SheetDescription className="text-[11px] text-[#888] lg:text-[13px]">
+					<SheetDescription className="text-[11px] text-ink-3 lg:text-[13px]">
 						Histórico de atualizações desta etapa.
 					</SheetDescription>
 				</SheetHeader>
@@ -50,12 +50,12 @@ export function StepTimelineSheet({
 							{[0, 1, 2].map((index) => (
 								<div
 									key={index}
-									className="h-14 w-full animate-pulse rounded-xl bg-[#f4f7fb]"
+									className="h-14 w-full animate-pulse rounded-xl bg-surface-3"
 								/>
 							))}
 						</div>
 					) : timelines.length === 0 ? (
-						<p className="py-4 text-center text-[13px] text-[#888]">
+						<p className="py-4 text-center text-[13px] text-ink-3">
 							Nenhum registro encontrado para esta etapa ainda.
 						</p>
 					) : (

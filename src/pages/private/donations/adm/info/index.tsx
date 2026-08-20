@@ -80,7 +80,7 @@ export function DonationManagementDetailPage() {
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			{donation && (
-				<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-[#f4f7fb] p-4 lg:m-0 lg:min-h-0 lg:mx-auto lg:max-w-[1400px] lg:flex-row lg:items-start lg:gap-6 lg:bg-transparent lg:p-0">
+				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-surface-3 p-4 lg:m-0 lg:min-h-0 lg:mx-auto lg:max-w-[1400px] lg:flex-row lg:items-start lg:gap-6 lg:bg-transparent lg:p-0">
 					<div className="flex flex-col gap-5 lg:w-[340px] lg:shrink-0">
 						<DonationInfoCard donation={donation} />
 						<DonorInfoCard donor={donorQuery.data} />
@@ -92,19 +92,17 @@ export function DonationManagementDetailPage() {
 
 					<div className="flex min-w-0 flex-1 flex-col gap-4">
 						<div className="flex flex-col gap-1">
-							<p className="text-[20px] font-bold text-[#1f2a37]">
-								Etapas da doação
-							</p>
-							<p className="text-[14px] text-[#6b7280]">
+							<p className="text-[20px] font-bold text-ink">Etapas da doação</p>
+							<p className="text-[14px] text-ink-2">
 								Gerencie o agendamento e o status de cada etapa. Finalize para
 								liberar a próxima.
 							</p>
 						</div>
 
 						{hasFailedStep && (
-							<div className="flex items-center gap-2.5 rounded-xl border border-[#f3caca] bg-[#fcebeb] px-4 py-3">
-								<AlertTriangle className="size-4 shrink-0 text-[#a32d2d]" />
-								<p className="text-[13px] font-semibold text-[#a32d2d]">
+							<div className="flex items-center gap-2.5 rounded-xl border border-danger-tint bg-danger-tint px-4 py-3">
+								<AlertTriangle className="size-4 shrink-0 text-danger" />
+								<p className="text-[13px] font-semibold text-danger">
 									Esta doação foi encerrada — uma das etapas foi marcada como
 									erro.
 								</p>
@@ -112,9 +110,9 @@ export function DonationManagementDetailPage() {
 						)}
 
 						{isFullyCompleted && (
-							<div className="flex items-center gap-2.5 rounded-xl border border-[#bfe3d3] bg-[#e1f5ee] px-4 py-3">
-								<CheckCircle2 className="size-4 shrink-0 text-[#0f6e56]" />
-								<p className="text-[13px] font-semibold text-[#0f6e56]">
+							<div className="flex items-center gap-2.5 rounded-xl border border-teal-tint bg-success-tint px-4 py-3">
+								<CheckCircle2 className="size-4 shrink-0 text-success" />
+								<p className="text-[13px] font-semibold text-success">
 									Esta doação foi concluída com sucesso — todas as etapas foram
 									finalizadas.
 								</p>

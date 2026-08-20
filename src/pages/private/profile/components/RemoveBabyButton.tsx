@@ -26,7 +26,7 @@ export function RemoveBabyButton({
 				<button
 					type="button"
 					disabled={loading}
-					className="flex items-center gap-1.5 rounded-full border border-[#df5a7a]/30 bg-[#fbe8ec] px-3 py-1.5 text-[12px] font-semibold text-[#df5a7a] disabled:opacity-60"
+					className="flex items-center gap-1.5 rounded-full border border-eva/30 bg-eva-tint px-3 py-1.5 text-[12px] font-semibold text-eva disabled:opacity-60"
 				>
 					Remover
 					<Trash2 className="size-3.5" />
@@ -34,8 +34,8 @@ export function RemoveBabyButton({
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<div className="flex size-12 items-center justify-center rounded-full bg-[#fbe8ec]">
-						<Trash2 className="size-5 text-[#df5a7a]" />
+					<div className="flex size-12 items-center justify-center rounded-full bg-eva-tint">
+						<Trash2 className="size-5 text-eva" />
 					</div>
 					<AlertDialogTitle>Remover bebê</AlertDialogTitle>
 					<AlertDialogDescription>

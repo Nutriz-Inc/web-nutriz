@@ -1,4 +1,5 @@
 import { Plus, X } from "lucide-react";
+import { FormField } from "@/components/full/FormField";
 import { maskDate } from "@/utils/formatter";
 import type {
 	RegisterFieldName,
@@ -6,7 +7,6 @@ import type {
 	RegisterFormErrors,
 } from "../validation";
 import { RoundCheckbox } from "./RoundCheckbox";
-import { WizardField } from "./WizardField";
 
 type BabyConsentStepProps = {
 	form: RegisterFormData;
@@ -32,7 +32,7 @@ export function BabyConsentStep({
 }: BabyConsentStepProps) {
 	return (
 		<fieldset className="flex flex-col gap-6">
-			<legend className="mb-6 text-[13px] font-bold uppercase tracking-wide text-[#0d3b6e]">
+			<legend className="mb-6 text-[13px] font-bold uppercase tracking-wide text-blue-deep">
 				Bebê e consentimento
 			</legend>
 
@@ -43,11 +43,11 @@ export function BabyConsentStep({
 					onChange={(checked) => onToggle("hasBaby", checked)}
 					accent="pink"
 				>
-					<span className="text-sm font-semibold text-[#09090b]">
+					<span className="text-sm font-semibold text-ink">
 						Já quero cadastrar meu bebê
 					</span>
 				</RoundCheckbox>
-				<p className="pl-[30px] text-[13px] text-[#71717a]">
+				<p className="pl-[30px] text-[13px] text-ink-2">
 					Você pode adicionar os dados do seu bebê agora ou depois no seu
 					perfil.
 				</p>
@@ -58,17 +58,17 @@ export function BabyConsentStep({
 					{form.babies.map((baby, index) => (
 						<div
 							key={baby.id}
-							className="rounded-[10px] border border-[#fadbe7] bg-[#fdf1f5] p-[18px]"
+							className="rounded-xl border border-danger-tint bg-eva-tint p-[18px]"
 						>
 							<div className="mb-4 flex items-center justify-between">
-								<p className="text-xs font-bold uppercase tracking-[0.08em] text-[#e0457a]">
+								<p className="text-xs font-bold uppercase tracking-[0.08em] text-eva">
 									Bebê {index + 1}
 								</p>
 								{form.babies.length > 1 && (
 									<button
 										type="button"
 										onClick={() => onRemoveBaby(index)}
-										className="flex min-h-11 items-center gap-1 rounded-md px-2 text-[13px] font-semibold text-[#e0457a] transition-colors hover:text-[#c2325f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e0457a]"
+										className="flex min-h-11 items-center gap-1 rounded-md px-2 text-[13px] font-semibold text-eva transition-colors hover:text-eva focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
 									>
 										<X className="size-3.5" aria-hidden />
 										Remover
@@ -76,7 +76,7 @@ export function BabyConsentStep({
 								)}
 							</div>
 							<div className="grid gap-4 sm:grid-cols-2">
-								<WizardField
+								<FormField
 									id={`register-baby-${index}-name`}
 									label="Nome do bebê"
 									value={baby.name}
@@ -85,7 +85,7 @@ export function BabyConsentStep({
 									error={errors[`baby-${index}-name`]}
 									optional
 								/>
-								<WizardField
+								<FormField
 									id={`register-baby-${index}-birth-date`}
 									label="Data de nascimento do bebê"
 									value={baby.birthDate}
@@ -104,7 +104,7 @@ export function BabyConsentStep({
 					<button
 						type="button"
 						onClick={onAddBaby}
-						className="flex min-h-11 w-fit items-center gap-2 rounded-md border border-dashed border-[#e0457a] px-4 text-sm font-semibold text-[#e0457a] transition-colors hover:bg-[#fdf1f5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e0457a]"
+						className="flex min-h-11 w-fit items-center gap-2 rounded-md border border-dashed border-eva px-4 text-sm font-semibold text-eva transition-colors hover:bg-eva-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
 					>
 						<Plus className="size-4" aria-hidden />
 						Adicionar outro bebê
@@ -112,7 +112,7 @@ export function BabyConsentStep({
 				</div>
 			)}
 
-			<hr className="border-[#e4e4e7]" />
+			<hr className="border-line" />
 
 			<div className="flex flex-col gap-1.5">
 				{/* To do: criar as paginas de termos de uso e politica de privacidade */}
@@ -126,13 +126,13 @@ export function BabyConsentStep({
 					}
 					invalid={!!errors.acceptedTerms}
 				>
-					<span className="text-sm leading-relaxed text-[#09090b]">
+					<span className="text-sm leading-relaxed text-ink">
 						Li e aceito os{" "}
 						<a
 							href="/termos-de-uso"
 							target="_blank"
 							rel="noreferrer"
-							className="font-semibold text-[#0d3b6e] underline underline-offset-2"
+							className="font-semibold text-blue-deep underline underline-offset-2"
 						>
 							Termos de Uso
 						</a>{" "}
@@ -141,7 +141,7 @@ export function BabyConsentStep({
 							href="/politica-de-privacidade"
 							target="_blank"
 							rel="noreferrer"
-							className="font-semibold text-[#0d3b6e] underline underline-offset-2"
+							className="font-semibold text-blue-deep underline underline-offset-2"
 						>
 							Política de Privacidade
 						</a>
@@ -151,7 +151,7 @@ export function BabyConsentStep({
 				{errors.acceptedTerms && (
 					<p
 						id="register-consent-error"
-						className="pl-[30px] text-xs text-[#dc2626]"
+						className="pl-[30px] text-xs text-danger"
 					>
 						{errors.acceptedTerms}
 					</p>

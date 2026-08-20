@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
-type WizardFieldProps = {
+type FormFieldProps = {
 	id: string;
 	label: string;
 	value: string;
@@ -19,7 +19,11 @@ type WizardFieldProps = {
 	className?: string;
 };
 
-export function WizardField({
+/**
+ * Campo de formulario do app: rotulo, input e mensagem de erro em um so
+ * desenho. Usado no cadastro e no login. Ver docs/design-system.md.
+ */
+export function FormField({
 	id,
 	label,
 	value,
@@ -33,13 +37,13 @@ export function WizardField({
 	optional = false,
 	trailing,
 	className,
-}: WizardFieldProps) {
+}: FormFieldProps) {
 	return (
 		<div className={cn("flex flex-col gap-1.5", className)}>
-			<Label htmlFor={id} className="text-sm font-medium text-[#09090b]">
+			<Label htmlFor={id} className="text-sm font-medium text-ink">
 				{label}
 				{optional && (
-					<span className="font-normal text-[#71717a]"> (opcional)</span>
+					<span className="font-normal text-ink-2"> (opcional)</span>
 				)}
 			</Label>
 			<div className="relative">
@@ -56,7 +60,7 @@ export function WizardField({
 					aria-describedby={error ? `${id}-error` : undefined}
 					className={cn(
 						"h-[38px] rounded-md bg-white text-sm",
-						"focus-visible:border-[#0d3b6e] focus-visible:ring-[#0d3b6e]/10",
+						"focus-visible:border-blue-deep focus-visible:ring-blue-deep/10",
 						trailing && "pr-11",
 					)}
 				/>
@@ -67,7 +71,7 @@ export function WizardField({
 				)}
 			</div>
 			{error && (
-				<p id={`${id}-error`} className="text-xs text-[#dc2626]">
+				<p id={`${id}-error`} className="text-xs text-danger">
 					{error}
 				</p>
 			)}

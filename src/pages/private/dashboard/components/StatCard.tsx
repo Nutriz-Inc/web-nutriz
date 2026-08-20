@@ -17,11 +17,11 @@ export function StatCard({
 	title,
 	subtitle,
 	value,
-	valueColor = "text-[#1f2a37]",
+	valueColor = "text-ink",
 	footnote,
 }: StatCardProps) {
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-[14px] border border-[#e5e7eb] bg-white p-5 lg:p-[26px]">
+		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-white p-5 lg:p-[26px]">
 			<DashboardCardHeader
 				icon={icon}
 				iconBg={iconBg}
@@ -33,7 +33,7 @@ export function StatCard({
 				<p className={`text-[36px] font-bold leading-none ${valueColor}`}>
 					{value}
 				</p>
-				<p className="text-[12px] text-[#9ca3af]">{footnote}</p>
+				<p className="text-[12px] text-ink-3">{footnote}</p>
 			</div>
 		</div>
 	);

@@ -38,8 +38,8 @@ export function NewDonationPage() {
 	return (
 		<Page hasPermission={auth?.type === EnumUserType.Common}>
 			<div className="lg:flex lg:min-h-[calc(100vh-69px)] lg:items-center lg:justify-center">
-				<div className="-m-5 flex flex-col bg-white lg:m-0 lg:mx-auto lg:grid lg:w-full lg:max-w-[1100px] lg:grid-cols-[500px_1fr] lg:gap-8 lg:bg-transparent lg:py-8">
-					<div className="flex flex-col lg:col-start-1 lg:row-start-1 lg:overflow-hidden lg:rounded-3xl lg:bg-white lg:shadow-[0px_16px_40px_rgba(10,41,87,0.07)]">
+				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-white lg:m-0 lg:mx-auto lg:grid lg:w-full lg:max-w-[1100px] lg:grid-cols-[500px_1fr] lg:gap-8 lg:bg-transparent lg:py-8">
+					<div className="flex flex-col lg:col-start-1 lg:row-start-1 lg:overflow-hidden lg:rounded-3xl lg:bg-white lg:shadow-lift">
 						<HeroIllustration />
 
 						<div className="hidden flex-col gap-2.5 px-9 pb-9 lg:flex mt-25">
@@ -47,7 +47,7 @@ export function NewDonationPage() {
 								type="button"
 								onClick={handleConfirm}
 								disabled={createDonationMutation.isPending}
-								className="flex h-14 w-full items-center justify-center rounded-2xl bg-[#00458b] text-[16px] font-semibold text-white shadow-[0px_6px_9px_rgba(10,41,87,0.2)] transition-transform active:scale-[0.98] disabled:opacity-60"
+								className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep hover:bg-blue text-[16px] font-semibold text-white shadow-soft transition-transform active:scale-[0.98] disabled:opacity-60"
 							>
 								{createDonationMutation.isPending
 									? "Confirmando..."
@@ -58,28 +58,28 @@ export function NewDonationPage() {
 								type="button"
 								onClick={handleCancel}
 								disabled={createDonationMutation.isPending}
-								className="flex h-12 w-full items-center justify-center rounded-2xl text-[15px] font-medium text-[#9aa8bc] transition-transform active:scale-[0.98] disabled:opacity-60"
+								className="flex h-12 w-full items-center justify-center rounded-2xl text-[15px] font-medium text-ink-3 transition-transform active:scale-[0.98] disabled:opacity-60"
 							>
 								Cancelar
 							</button>
 						</div>
 					</div>
 
-					<div className="flex flex-col gap-6 bg-[#f6f8fd] px-5 pb-6 pt-6 lg:col-start-2 lg:row-start-1 lg:rounded-3xl lg:bg-white lg:p-8 lg:shadow-[0px_16px_40px_rgba(10,41,87,0.07)]">
-						<div className="rounded-2xl bg-white p-5 shadow-[0px_14px_18px_rgba(10,38,77,0.08)] lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none">
-							<p className="text-[18px] font-bold text-[#0e2a45] lg:text-[26px]">
+					<div className="flex flex-col gap-6 bg-surface-2 px-5 pb-6 pt-6 lg:col-start-2 lg:row-start-1 lg:rounded-3xl lg:bg-white lg:p-8 lg:shadow-lift">
+						<div className="rounded-2xl bg-white p-5 shadow-soft lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none">
+							<p className="text-[18px] font-bold text-ink lg:text-[26px]">
 								O que vai acontecer
 							</p>
 
-							<div className="my-4 h-px bg-[#e5ebf3] lg:hidden" />
+							<div className="my-4 h-px bg-blue-tint lg:hidden" />
 
 							<div className="flex flex-col lg:pt-4">
 								<StepItem
 									title="Confirmação"
 									icon={
-										<Heart className="size-5 fill-[#f2579f] text-[#f2579f] lg:size-6" />
+										<Heart className="size-5 fill-eva text-eva lg:size-6" />
 									}
-									iconBg="bg-[#fbeaf0]"
+									iconBg="bg-eva-tint"
 								>
 									Você confirma o interesse em fazer uma nova doação
 								</StepItem>
@@ -100,16 +100,16 @@ export function NewDonationPage() {
 
 								<StepItem
 									title="Triagem e agendamento"
-									icon={<Check className="size-5 text-[#00458b] lg:size-6" />}
-									iconBg="bg-[#dbe7f6]"
+									icon={<Check className="size-5 text-blue-deep lg:size-6" />}
+									iconBg="bg-blue-tint"
 								>
 									A equipe realiza a triagem inicial e agenda a coleta
 								</StepItem>
 
 								<StepItem
 									title="Acompanhamento"
-									icon={<Droplet className="size-5 text-[#f2579f] lg:size-6" />}
-									iconBg="bg-[#fbeaf0]"
+									icon={<Droplet className="size-5 text-eva lg:size-6" />}
+									iconBg="bg-eva-tint"
 									isLast
 								>
 									Sua doação é registrada e acompanhada aqui no sistema
@@ -126,12 +126,12 @@ export function NewDonationPage() {
 						)}
 					</div>
 
-					<div className="sticky bottom-0 flex flex-col gap-3 border-t border-[#e5ebf3] bg-white px-5 pb-6 pt-4 lg:hidden">
+					<div className="sticky bottom-0 flex flex-col gap-3 border-t border-line bg-white px-5 pb-6 pt-4 lg:hidden">
 						<button
 							type="button"
 							onClick={handleConfirm}
 							disabled={createDonationMutation.isPending}
-							className="flex h-14 w-full items-center justify-center rounded-full bg-[#00458b] text-[16px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60"
+							className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep hover:bg-blue text-[16px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60"
 						>
 							{createDonationMutation.isPending
 								? "Confirmando..."
@@ -142,7 +142,7 @@ export function NewDonationPage() {
 							type="button"
 							onClick={handleCancel}
 							disabled={createDonationMutation.isPending}
-							className="flex h-14 w-full items-center justify-center rounded-full border-[1.5px] border-[#e5ebf3] text-[16px] font-semibold text-[#6b8faa] active:scale-[0.98] transition-transform disabled:opacity-60"
+							className="flex h-14 w-full items-center justify-center rounded-full border-[1.5px] border-line text-[16px] font-semibold text-ink-2 active:scale-[0.98] transition-transform disabled:opacity-60"
 						>
 							Cancelar
 						</button>

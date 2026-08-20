@@ -76,7 +76,7 @@ export function DonationsManagementPage() {
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-[#f4f7fb] px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
+			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-surface-3 px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
 				<form
 					onSubmit={handleApplyFilters}
 					className="flex flex-col gap-2.5 lg:flex-row lg:items-center"
@@ -97,7 +97,7 @@ export function DonationsManagementPage() {
 					</div>
 					<button
 						type="submit"
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[#00458b] px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
 					>
 						<Search className="size-4" />
 						Aplicar filtro
@@ -105,7 +105,7 @@ export function DonationsManagementPage() {
 					<button
 						type="button"
 						onClick={handleClearFilters}
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-xl border border-[#e5e7eb] bg-white px-5 text-[14px] font-semibold text-[#6b7280] transition-transform active:scale-[0.98]"
+						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-white px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
 					>
 						<X className="size-4" />
 						Limpar filtro
@@ -118,7 +118,7 @@ export function DonationsManagementPage() {
 						value={activeFilter}
 						onChange={handleActiveFilterChange}
 					/>
-					<div className="h-6 w-px shrink-0 bg-[#e5e7eb]" />
+					<div className="h-6 w-px shrink-0 bg-blue-tint" />
 					<FilterChips
 						options={STEP_FILTER_OPTIONS}
 						value={filter}
@@ -128,19 +128,19 @@ export function DonationsManagementPage() {
 
 				{donations.length === 0 ? (
 					<div className="flex flex-col items-center gap-2 rounded-2xl bg-white p-8 text-center">
-						<p className="text-[15px] font-semibold text-[#1f2a37]">
+						<p className="text-[15px] font-semibold text-ink">
 							Nenhuma doação encontrada
 						</p>
-						<p className="text-[13px] text-[#9ca3af]">
+						<p className="text-[13px] text-ink-3">
 							Ajuste a busca ou o filtro selecionado.
 						</p>
 					</div>
 				) : (
 					<>
-						<div className="overflow-hidden rounded-2xl border border-[#e5e7eb] bg-[#f4f7fb]">
+						<div className="overflow-hidden rounded-2xl border border-line bg-surface-3">
 							{donations.map((donation, index) => (
 								<Fragment key={donation.id_donation}>
-									{index > 0 && <div className="h-2 bg-[#f4f7fb]" />}
+									{index > 0 && <div className="h-2 bg-surface-3" />}
 									<DonationManagementCard donation={donation} />
 								</Fragment>
 							))}
@@ -153,11 +153,11 @@ export function DonationsManagementPage() {
 									onClick={() => setPage((current) => Math.max(1, current - 1))}
 									disabled={page === 1}
 									aria-label="Página anterior"
-									className="flex size-9 items-center justify-center rounded-lg border border-[#e5e7eb] bg-white text-[#6b7280] transition-colors hover:bg-[#f4f7fb] disabled:opacity-40"
+									className="flex size-9 items-center justify-center rounded-lg border border-line bg-white text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
 								>
 									<ChevronLeft className="size-4" />
 								</button>
-								<span className="text-[13px] font-semibold text-[#1f2a37]">
+								<span className="text-[13px] font-semibold text-ink">
 									Página {page} de {totalPages}
 								</span>
 								<button
@@ -167,7 +167,7 @@ export function DonationsManagementPage() {
 									}
 									disabled={page === totalPages}
 									aria-label="Próxima página"
-									className="flex size-9 items-center justify-center rounded-lg border border-[#e5e7eb] bg-white text-[#6b7280] transition-colors hover:bg-[#f4f7fb] disabled:opacity-40"
+									className="flex size-9 items-center justify-center rounded-lg border border-line bg-white text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
 								>
 									<ChevronRight className="size-4" />
 								</button>

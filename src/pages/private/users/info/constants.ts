@@ -1,4 +1,6 @@
+import type { BadgeTone } from "@/components/ui/badge";
 import { EnumUserType } from "@/services/types/i-user";
+import { USER_TYPE_TONE } from "@/utils/constants";
 
 export const DONATIONS_GRID_COLS =
 	"lg:grid-cols-[repeat(5,minmax(0,1fr))_32px]";
@@ -8,24 +10,22 @@ export const APPOINTMENTS_GRID_COLS =
 
 export type UserTypeDisplay = {
 	label: string;
-	bg: string;
-	text: string;
+	tone: BadgeTone;
 };
 
+// O tom vem do mapa global para o mesmo perfil nao aparecer com cores
+// diferentes aqui e na lista/perfil; so o rotulo e local.
 export const USER_TYPE_DISPLAY: Record<EnumUserType, UserTypeDisplay> = {
 	[EnumUserType.Admin]: {
 		label: "Administrador",
-		bg: "bg-[#e1f1fb]",
-		text: "text-[#00458b]",
+		tone: USER_TYPE_TONE[EnumUserType.Admin],
 	},
 	[EnumUserType.Nurse]: {
 		label: "Enfermeiro(a)",
-		bg: "bg-[#e1f1fb]",
-		text: "text-[#00458b]",
+		tone: USER_TYPE_TONE[EnumUserType.Nurse],
 	},
 	[EnumUserType.Common]: {
 		label: "Doadora",
-		bg: "bg-[#fce4f0]",
-		text: "text-[#f2579f]",
+		tone: USER_TYPE_TONE[EnumUserType.Common],
 	},
 };

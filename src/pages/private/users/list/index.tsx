@@ -74,7 +74,7 @@ export function UsersManagementPage() {
 		>
 			<div className="lg:mx-auto lg:flex lg:w-full lg:max-w-[1400px] lg:flex-col lg:gap-6">
 				<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-					<div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:px-0 sm:pb-0">
+					<div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0 sm:pb-0">
 						<FilterChips
 							options={PROFILE_FILTER_OPTIONS}
 							value={profileFilter}
@@ -84,7 +84,7 @@ export function UsersManagementPage() {
 					<button
 						type="button"
 						onClick={() => setIsCreateUserOpen(true)}
-						className="flex h-[43px] w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#00458b] px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] sm:w-auto"
+						className="flex h-[43px] w-full shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] sm:w-auto"
 					>
 						<Plus className="size-4" />
 						Novo usuário
@@ -115,7 +115,7 @@ export function UsersManagementPage() {
 					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0">
 						<button
 							type="submit"
-							className="flex h-[43px] items-center justify-center gap-2 rounded-xl bg-[#00458b] px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+							className="flex h-[43px] items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
 						>
 							<Search className="size-4" />
 							Aplicar filtro
@@ -123,7 +123,7 @@ export function UsersManagementPage() {
 						<button
 							type="button"
 							onClick={handleClearFilters}
-							className="flex h-[43px] items-center justify-center gap-2 rounded-xl border border-[#e5e7eb] bg-white px-5 text-[14px] font-semibold text-[#6b7280] transition-transform active:scale-[0.98]"
+							className="flex h-[43px] items-center justify-center gap-2 rounded-card-sm border border-line bg-white px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
 						>
 							<X className="size-4" />
 							Limpar filtro
@@ -131,15 +131,15 @@ export function UsersManagementPage() {
 					</div>
 				</form>
 
-				<div className="overflow-hidden rounded-2xl border border-[#eef1f5] bg-white">
+				<div className="overflow-hidden rounded-2xl border border-surface-3 bg-white">
 					<UsersTableHeader />
 
 					{users.length === 0 ? (
 						<div className="flex flex-col items-center gap-2 px-6 py-12 text-center">
-							<p className="text-[15px] font-semibold text-[#1f2a37]">
+							<p className="text-[15px] font-semibold text-ink">
 								Nenhum usuário encontrado
 							</p>
-							<p className="text-[13px] text-[#9ca3af]">
+							<p className="text-[13px] text-ink-3">
 								Ajuste a busca ou o filtro selecionado.
 							</p>
 						</div>

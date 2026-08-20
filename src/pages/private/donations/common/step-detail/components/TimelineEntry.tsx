@@ -9,11 +9,11 @@ import {
 import { formatCreatedAt } from "@/utils/formatter";
 
 const DOT_CLASSNAME: Record<EnumDonationStepStatus, string> = {
-	[EnumDonationStepStatus.Pending]: "bg-[#854f0b]",
-	[EnumDonationStepStatus.Review]: "bg-[#0f6e56]",
-	[EnumDonationStepStatus.Done]: "bg-[#0f6e56]",
-	[EnumDonationStepStatus.Warn]: "bg-[#a32d2d]",
-	[EnumDonationStepStatus.Failed]: "bg-[#a32d2d]",
+	[EnumDonationStepStatus.Pending]: "bg-warning",
+	[EnumDonationStepStatus.Review]: "bg-success",
+	[EnumDonationStepStatus.Done]: "bg-success",
+	[EnumDonationStepStatus.Warn]: "bg-danger",
+	[EnumDonationStepStatus.Failed]: "bg-danger",
 };
 
 type Props = {
@@ -54,7 +54,7 @@ export function TimelineEntry({ entry, isLast }: Props) {
 						DOT_CLASSNAME[entry.status],
 					)}
 				/>
-				{!isLast && <div className="mt-1 w-px flex-1 bg-[#e0e0e0]" />}
+				{!isLast && <div className="mt-1 w-px flex-1 bg-blue-tint-2" />}
 			</div>
 
 			<div className={cn("min-w-0 flex-1", !isLast && "pb-4")}>
@@ -63,7 +63,7 @@ export function TimelineEntry({ entry, isLast }: Props) {
 				<p
 					ref={descriptionRef}
 					className={cn(
-						"mt-1.5 text-[12px] leading-[18px] text-[#5a7690]",
+						"mt-1.5 text-[12px] leading-[18px] text-ink-2",
 						!expanded && "line-clamp-2",
 					)}
 				>
@@ -74,13 +74,13 @@ export function TimelineEntry({ entry, isLast }: Props) {
 					<button
 						type="button"
 						onClick={() => setExpanded((current) => !current)}
-						className="mt-0.5 text-[12px] font-semibold text-[#387ccd]"
+						className="mt-0.5 text-[12px] font-semibold text-blue-bright"
 					>
 						{expanded ? "Ver menos" : "Ver mais"}
 					</button>
 				)}
 
-				<div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[#9aa3b8]">
+				<div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-ink-3">
 					{entry.set_date && (
 						<span className="flex items-center gap-1">
 							<Calendar className="size-3.5" />

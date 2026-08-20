@@ -18,7 +18,7 @@ export function HowItWorksSection() {
 	return (
 		<section
 			id="como-funciona"
-			className="scroll-mt-20 bg-[#f5f7fb] py-20 lg:py-24"
+			className="scroll-mt-20 bg-surface-2 py-20 lg:py-24"
 		>
 			<div className="mx-auto w-full max-w-[1200px] px-5 lg:px-8">
 				<motion.div
@@ -27,11 +27,11 @@ export function HowItWorksSection() {
 				>
 					<div>
 						<SectionLabel color="#0f9d8c">COMO FUNCIONA</SectionLabel>
-						<h2 className="mt-3 max-w-md text-[30px] font-extrabold tracking-tight text-[#12294d] lg:text-[38px]">
+						<h2 className="mt-3 max-w-md text-[30px] font-extrabold tracking-tight text-ink lg:text-[38px]">
 							Três passos para salvar uma vida
 						</h2>
 					</div>
-					<p className="max-w-sm text-[15px] leading-relaxed text-[#64748b] md:text-right">
+					<p className="max-w-sm text-[15px] leading-relaxed text-ink-2 md:text-right">
 						Do cadastro à doação, cuidamos de cada etapa com você — simples,
 						seguro e acolhedor.
 					</p>
@@ -72,7 +72,7 @@ export function HowItWorksSection() {
 								variants={fadeUp}
 								whileHover={{ y: -4 }}
 								transition={{ type: "spring", stiffness: 300, damping: 22 }}
-								className="flex flex-col justify-between rounded-3xl border border-[#e6ecf5] bg-white p-6 shadow-sm sm:col-span-2 lg:col-span-2"
+								className="flex flex-col justify-between rounded-3xl border border-blue-tint bg-white p-6 shadow-soft sm:col-span-2 lg:col-span-2"
 							>
 								<div className="flex items-start justify-between">
 									<span
@@ -86,10 +86,10 @@ export function HowItWorksSection() {
 									</span>
 								</div>
 								<div className="mt-5">
-									<h3 className="text-[18px] font-bold text-[#12294d]">
+									<h3 className="text-[18px] font-bold text-ink">
 										{step.title}
 									</h3>
-									<p className="mt-2 text-[14px] leading-relaxed text-[#64748b]">
+									<p className="mt-2 text-[14px] leading-relaxed text-ink-2">
 										{step.description}
 									</p>
 								</div>
@@ -99,7 +99,7 @@ export function HowItWorksSection() {
 
 					<motion.div
 						variants={fadeUp}
-						className="relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#d7f0de] bg-[#f2fbf4] p-6 shadow-sm sm:col-span-2 lg:col-span-2 lg:col-start-1 lg:row-start-3"
+						className="relative flex flex-col justify-between overflow-hidden rounded-3xl border border-success-tint bg-success-tint p-6 shadow-soft sm:col-span-2 lg:col-span-2 lg:col-start-1 lg:row-start-3"
 					>
 						<span
 							aria-hidden
@@ -107,10 +107,10 @@ export function HowItWorksSection() {
 						/>
 						<div className="relative">
 							<img src={whatsappLogo} alt="WhatsApp" className="h-6 w-auto" />
-							<h3 className="mt-3 text-[17px] font-bold leading-snug text-[#12294d]">
+							<h3 className="mt-3 text-[16px] font-bold leading-snug text-ink">
 								Fale com a nossa equipe
 							</h3>
-							<p className="mt-1 text-[13px] text-[#64748b]">
+							<p className="mt-1 text-[13px] text-ink-2">
 								Tire dúvidas e comece a sua triagem.
 							</p>
 						</div>
@@ -125,7 +125,7 @@ export function HowItWorksSection() {
 									)
 								}
 								pillClassName="bg-[#25d366] text-white"
-								circleClassName="bg-white text-[#1a8f47]"
+								circleClassName="bg-white text-success"
 							/>
 						</div>
 					</motion.div>

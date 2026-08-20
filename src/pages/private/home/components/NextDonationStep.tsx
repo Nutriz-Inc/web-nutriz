@@ -43,7 +43,7 @@ export function NextDonationStep({
 						Etapa atual
 					</p>
 					<p className="text-sm text-ink-2">{stepName}</p>
-					<p className="mt-1 font-display text-xl font-bold tracking-tight text-blue-deep">
+					<p className="mt-1 font-display text-xl font-extrabold tracking-tight text-blue-deep">
 						{formattedDate}
 					</p>
 				</div>

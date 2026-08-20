@@ -1,17 +1,19 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/ibm-plex-sans";
-@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/geist";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
 	--font-heading: var(--font-sans);
-	/* Ver docs/design-system.md. */
-	--font-sans: "IBM Plex Sans Variable", ui-sans-serif, system-ui, sans-serif;
-	/* Serifada de display: titulos, numeros grandes e rotulos de secao. */
-	--font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+	--font-sans: "Geist Variable", sans-serif;
+	/*
+	 * O sistema usa uma familia so. font-display e font-body existem como
+	 * apelidos semanticos (titulo x corpo) para nao espalhar font-sans pelos
+	 * componentes e para permitir trocar so os titulos no futuro.
+	 */
+	--font-display: var(--font-sans);
 	--font-body: var(--font-sans);
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
@@ -160,6 +162,28 @@
 	--ink-3: oklch(0.674 0.035 262.6);
 	--canvas: oklch(0.962 0.011 256.7);
 
+	/* Linhas: bordas e separadores. A camada aditiva usava blue-tint-2/60
+	 * solto nas telas; virou token para o app inteiro compartilhar. */
+	--line: oklch(0.9 0.034 253.7 / 0.6);
+	--line-strong: oklch(0.9 0.034 253.7);
+
+	/* Semanticos. Mesmos valores dos badges, para status, formularios e
+	 * icones falarem a mesma lingua. Ver components/ui/badge.tsx. */
+	--amber: oklch(0.811 0.166 85);
+	--amber-tint: oklch(0.964 0.039 91.2);
+	--purple: oklch(0.491 0.241 292.6);
+	--purple-tint: oklch(0.943 0.028 294.6);
+	--magenta: oklch(0.449 0.217 319);
+	--magenta-tint: oklch(0.908 0.066 315.7);
+	--teal: oklch(0.596 0.101 186.2);
+	--teal-tint: oklch(0.949 0.041 184.5);
+	--success: oklch(0.481 0.091 170.1);
+	--success-tint: oklch(0.953 0.023 172.9);
+	--danger: oklch(0.48 0.154 25.1);
+	--danger-tint: oklch(0.954 0.019 17.5);
+	--warning: oklch(0.48 0.104 64.4);
+	--warning-tint: oklch(0.953 0.029 80.7);
+
 	/* Camada organica: gradientes e sombras */
 	--nz-gradient-blue: linear-gradient(
 		150deg,
@@ -201,6 +225,22 @@
 	--color-ink-2: var(--ink-2);
 	--color-ink-3: var(--ink-3);
 	--color-canvas: var(--canvas);
+	--color-line: var(--line);
+	--color-line-strong: var(--line-strong);
+	--color-amber: var(--amber);
+	--color-amber-tint: var(--amber-tint);
+	--color-purple: var(--purple);
+	--color-purple-tint: var(--purple-tint);
+	--color-magenta: var(--magenta);
+	--color-magenta-tint: var(--magenta-tint);
+	--color-teal: var(--teal);
+	--color-teal-tint: var(--teal-tint);
+	--color-success: var(--success);
+	--color-success-tint: var(--success-tint);
+	--color-danger: var(--danger);
+	--color-danger-tint: var(--danger-tint);
+	--color-warning: var(--warning);
+	--color-warning-tint: var(--warning-tint);
 
 	--shadow-soft: var(--nz-shadow-soft);
 	--shadow-lift: var(--nz-shadow-lift);

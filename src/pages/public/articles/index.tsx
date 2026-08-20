@@ -46,7 +46,7 @@ export function ArticlesScreen() {
 	const sidebarItem = shouldReduceMotion ? undefined : fadeUp;
 
 	return (
-		<div className="min-h-screen bg-[#eef2f7] [&_button]:cursor-pointer">
+		<div className="min-h-screen bg-surface-3 [&_button]:cursor-pointer">
 			<div className="mx-auto w-full max-w-[1100px] px-5 py-6 lg:px-8 lg:py-8">
 				<Page backTo={isAuthenticated ? "/conteudo-educativo" : "/"}>
 					<main className="flex flex-col gap-6 lg:grid lg:grid-cols-[1fr_320px] lg:items-start">

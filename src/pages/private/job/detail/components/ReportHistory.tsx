@@ -8,18 +8,18 @@ type ReportHistoryProps = {
 
 export function ReportHistory({ reports }: ReportHistoryProps) {
 	return (
-		<div className="flex flex-col gap-4 rounded-2xl border border-[#e7ecf2] bg-white p-5">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-5">
 			<div className="flex flex-col gap-1">
 				<div className="flex items-center gap-2">
-					<FileText className="size-4 text-[#94a3b8]" />
-					<span className="text-[12px] font-bold uppercase tracking-wide text-[#6b7280]">
+					<FileText className="size-4 text-ink-3" />
+					<span className="text-[12px] font-bold uppercase tracking-wide text-ink-2">
 						Histórico de relatórios
 					</span>
 				</div>
 			</div>
 
 			{reports.length === 0 ? (
-				<p className="rounded-xl border border-[#eef1f5] bg-[#f9fafc] p-4 text-[13px] text-[#9ca3af]">
+				<p className="rounded-xl border border-surface-3 bg-surface-2 p-4 text-[13px] text-ink-3">
 					Nenhum relatório registrado ainda.
 				</p>
 			) : (

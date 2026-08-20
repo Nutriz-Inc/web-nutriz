@@ -23,16 +23,16 @@ export function SatisfactionCard({ feedbackByScore }: SatisfactionCardProps) {
 		: 0;
 
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-[14px] border border-[#e5e7eb] bg-white p-5 lg:p-[26px]">
+		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-white p-5 lg:p-[26px]">
 			<DashboardCardHeader
-				icon={<Star className="size-4 text-[#f2579f]" />}
-				iconBg="bg-[#fdebf3]"
+				icon={<Star className="size-4 text-eva" />}
+				iconBg="bg-danger-tint"
 				title="Nível de Satisfação"
 				subtitle="Distribuição de avaliações por estrela"
 			/>
 
 			{totalCount === 0 ? (
-				<p className="py-8 text-center text-[13px] text-[#9ca3af]">
+				<p className="py-8 text-center text-[13px] text-ink-3">
 					Nenhuma avaliação no período selecionado.
 				</p>
 			) : (
@@ -46,16 +46,16 @@ export function SatisfactionCard({ feedbackByScore }: SatisfactionCardProps) {
 
 							return (
 								<div key={item.score} className="flex items-center gap-2.5">
-									<p className="w-[70px] shrink-0 text-[13px] text-[#4b5563]">
+									<p className="w-[70px] shrink-0 text-[13px] text-ink-2">
 										{item.score} estrela{item.score > 1 ? "s" : ""}
 									</p>
-									<div className="h-5 flex-1 overflow-hidden rounded-[4px] bg-[#f4f4f5]">
+									<div className="h-5 flex-1 overflow-hidden rounded-sm bg-surface-2">
 										<div
-											className={`h-full rounded-[4px] ${SCORE_OPACITY[item.score] ?? "bg-[#f25ca2]"}`}
+											className={`h-full rounded-sm ${SCORE_OPACITY[item.score] ?? "bg-eva"}`}
 											style={{ width: `${widthPercent}%` }}
 										/>
 									</div>
-									<p className="w-[70px] shrink-0 text-right text-[12px] text-[#9ca3af]">
+									<p className="w-[70px] shrink-0 text-right text-[12px] text-ink-3">
 										{item.count} ({percentOfTotal}%)
 									</p>
 								</div>
@@ -63,29 +63,23 @@ export function SatisfactionCard({ feedbackByScore }: SatisfactionCardProps) {
 						})}
 					</div>
 
-					<div className="h-px w-full bg-[#e5e7eb]" />
+					<div className="h-px w-full bg-blue-tint" />
 
 					<div className="flex gap-8">
 						<div className="flex flex-col gap-0.5">
-							<p className="text-[11px] text-[#9ca3af]">
-								Avaliações no período
-							</p>
-							<p className="text-[16px] font-bold text-[#1f2a37]">
-								{totalCount}
-							</p>
+							<p className="text-[11px] text-ink-3">Avaliações no período</p>
+							<p className="text-[16px] font-bold text-ink">{totalCount}</p>
 						</div>
 						<div className="flex flex-col gap-0.5">
-							<p className="text-[11px] text-[#9ca3af]">Nota Média</p>
-							<p className="text-[16px] font-bold text-[#f25ca2]">
+							<p className="text-[11px] text-ink-3">Nota Média</p>
+							<p className="text-[16px] font-bold text-eva">
 								{averageScore.toFixed(1)}{" "}
 								<span className="text-[11px] font-normal">/ 5</span>
 							</p>
 						</div>
 						<div className="flex flex-col gap-0.5">
-							<p className="text-[11px] text-[#9ca3af]">4 ou 5 Estrelas</p>
-							<p className="text-[16px] font-bold text-[#1f2a37]">
-								{positiveRate}%
-							</p>
+							<p className="text-[11px] text-ink-3">4 ou 5 Estrelas</p>
+							<p className="text-[16px] font-bold text-ink">{positiveRate}%</p>
 						</div>
 					</div>
 				</>

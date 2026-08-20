@@ -11,13 +11,13 @@ export function RemovedByField({ idUser }: RemovedByFieldProps) {
 
 	return (
 		<div className="flex flex-col gap-1">
-			<p className="text-[11px] font-semibold uppercase tracking-wide text-[#9ca3af]">
+			<p className="text-[11px] font-semibold uppercase tracking-wide text-ink-3">
 				Removido por
 			</p>
 			<Link
 				to={`/usuarios/${idUser}`}
 				state={{ backTo: location.pathname }}
-				className="w-fit text-[14px] font-medium text-[#00458b] underline underline-offset-2 transition-colors hover:text-[#387ccd]"
+				className="w-fit text-[14px] font-medium text-blue-deep underline underline-offset-2 transition-colors hover:text-blue-bright"
 			>
 				{removedByQuery.data?.name ?? idUser}
 			</Link>

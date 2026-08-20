@@ -6,20 +6,20 @@ export function SuccessCard() {
 	const navigate = useNavigate();
 
 	return (
-		<div className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4 rounded-xl border border-[#e4e4e7] bg-white p-8 text-center shadow-sm">
-			<span className="grid size-16 place-items-center rounded-full bg-[#e8f0fb]">
-				<Check className="size-8 text-[#0d3b6e]" aria-hidden />
+		<div className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4 rounded-card-sm border border-line bg-white p-8 text-center shadow-soft">
+			<span className="grid size-16 place-items-center rounded-full bg-blue-tint">
+				<Check className="size-8 text-blue-deep" aria-hidden />
 			</span>
-			<h2 className="text-xl font-bold text-[#0d3b6e]">
+			<h2 className="text-xl font-bold text-blue-deep">
 				Conta criada com sucesso!
 			</h2>
-			<p className="text-sm leading-relaxed text-[#71717a]">
+			<p className="text-sm leading-relaxed text-ink-2">
 				Seu cadastro foi concluído. Faça login para acessar a sua conta e
 				começar a doar.
 			</p>
 			<Button
 				onClick={() => navigate("/login")}
-				className="mt-2 h-11 w-full rounded-md bg-[#0d3b6e] text-sm font-semibold text-white hover:bg-[#0a2e56]"
+				className="mt-2 h-11 w-full rounded-md bg-blue-deep text-sm font-semibold text-white hover:bg-blue"
 			>
 				Voltar ao início
 			</Button>

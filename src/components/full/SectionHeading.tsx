@@ -50,7 +50,7 @@ export function SectionHeading({
 				</p>
 				<Heading
 					id={id}
-					className="mt-2 font-display text-[1.375rem] font-bold tracking-tight text-blue-deep sm:text-2xl lg:text-3xl"
+					className="mt-2 font-display text-[1.375rem] font-extrabold tracking-tight text-blue-deep sm:text-2xl lg:text-3xl"
 				>
 					{title}
 				</Heading>

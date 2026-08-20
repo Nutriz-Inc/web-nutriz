@@ -33,27 +33,27 @@ export function AppointmentsPage() {
 			description="Toque ou clique em um card para ver os detalhes e o relatório da consulta."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={
-				<span className="shrink-0 rounded-full bg-[#e8f1fb] px-3 py-1.5 text-[13px] font-semibold text-[#387ccd]">
+				<span className="shrink-0 rounded-full bg-blue-tint px-3 py-1.5 text-[13px] font-semibold text-blue-bright">
 					{appointments.length}
 					{hasNextPage ? "+" : ""} <span className="lg:hidden">agend.</span>
 					<span className="hidden lg:inline">agendamentos</span>
 				</span>
 			}
 		>
-			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-[#f4f7fb] px-4 pb-24 pt-5 lg:m-0 lg:mx-auto lg:min-h-0 lg:w-full lg:max-w-[1200px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
+			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-surface-3 px-4 pb-24 pt-5 lg:m-0 lg:mx-auto lg:min-h-0 lg:w-full lg:max-w-[1200px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
 				<StatusTabs value={status} onChange={setStatus} />
 
-				<div className="h-px bg-[#e5eaf0]" />
+				<div className="h-px bg-blue-tint" />
 
 				<DateFilter value={dateFilter} onChange={setDateFilter} />
 
 				{appointments.length === 0 ? (
-					<div className="flex flex-col items-center gap-2 rounded-2xl border border-[#e7ecf2] bg-white p-10 text-center">
-						<CalendarX className="size-8 text-[#c0c7d1]" />
-						<p className="text-[15px] font-semibold text-[#1f2a37]">
+					<div className="flex flex-col items-center gap-2 rounded-card-sm border border-line bg-white p-10 text-center">
+						<CalendarX className="size-8 text-blue-tint-2" />
+						<p className="text-[15px] font-semibold text-ink">
 							Nenhum agendamento encontrado
 						</p>
-						<p className="text-[13px] text-[#9ca3af]">
+						<p className="text-[13px] text-ink-3">
 							Ajuste o período ou a aba selecionada.
 						</p>
 					</div>

@@ -15,26 +15,26 @@ export function EndedNotice({ status }: EndedNoticeProps) {
 			className={cn(
 				"flex items-start gap-3 rounded-2xl border px-4 py-3.5",
 				isFailed
-					? "border-[#f5c9c9] bg-[#fdecec]"
-					: "border-[#c7e9db] bg-[#e9f6f0]",
+					? "border-danger-tint bg-danger-tint"
+					: "border-teal-tint bg-success-tint",
 			)}
 		>
 			<Lock
 				className={cn(
 					"mt-0.5 size-[18px] shrink-0",
-					isFailed ? "text-[#cf3030]" : "text-[#0f6e56]",
+					isFailed ? "text-danger" : "text-success",
 				)}
 			/>
 			<div className="flex flex-col gap-0.5">
 				<p
 					className={cn(
 						"text-[14px] font-bold",
-						isFailed ? "text-[#cf3030]" : "text-[#0f6e56]",
+						isFailed ? "text-danger" : "text-success",
 					)}
 				>
 					Tarefa encerrada
 				</p>
-				<p className="text-[13px] text-[#6b7280]">
+				<p className="text-[13px] text-ink-2">
 					Esta tarefa foi finalizada e o status não pode mais ser alterado.
 				</p>
 			</div>

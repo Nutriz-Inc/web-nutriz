@@ -53,7 +53,7 @@ function AlertDialogContent({
 			<AlertDialogPrimitive.Content
 				data-slot="alert-dialog-content"
 				className={cn(
-					"fixed left-1/2 top-1/2 z-50 w-[calc(100%-2.5rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white p-6 shadow-2xl duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+					"fixed left-1/2 top-1/2 z-50 w-[calc(100%-2.5rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white p-6 shadow-lift duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
 					className,
 				)}
 				{...props}
@@ -95,7 +95,7 @@ function AlertDialogTitle({
 	return (
 		<AlertDialogPrimitive.Title
 			data-slot="alert-dialog-title"
-			className={cn("text-[16px] font-bold text-[#1a1a1a]", className)}
+			className={cn("text-[16px] font-bold text-ink", className)}
 			{...props}
 		/>
 	);
@@ -108,7 +108,7 @@ function AlertDialogDescription({
 	return (
 		<AlertDialogPrimitive.Description
 			data-slot="alert-dialog-description"
-			className={cn("text-[13px] leading-relaxed text-[#888]", className)}
+			className={cn("text-[13px] leading-relaxed text-ink-3", className)}
 			{...props}
 		/>
 	);
@@ -123,7 +123,7 @@ function AlertDialogAction({
 			data-slot="alert-dialog-action"
 			className={cn(
 				buttonVariants({ variant: "default" }),
-				"h-12 w-full rounded-2xl bg-[#df5a7a] text-[14px] font-semibold text-white hover:bg-[#c94a68]",
+				"h-12 w-full rounded-2xl bg-eva text-[14px] font-semibold text-white hover:bg-eva",
 				className,
 			)}
 			{...props}
@@ -140,7 +140,7 @@ function AlertDialogCancel({
 			data-slot="alert-dialog-cancel"
 			className={cn(
 				buttonVariants({ variant: "outline" }),
-				"h-11 w-full rounded-2xl border-[#e1e7ee] text-[14px] font-medium text-[#888]",
+				"h-11 w-full rounded-2xl border-line text-[14px] font-medium text-ink-3",
 				className,
 			)}
 			{...props}

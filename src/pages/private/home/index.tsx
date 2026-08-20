@@ -1,9 +1,8 @@
 import { Droplet, Gift, Heart } from "lucide-react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Reveal } from "@/components/full/Reveal";
 import { SectionHeading } from "@/components/full/SectionHeading";
-import { AppDrawer } from "@/components/layout/AppDrawer";
+import { AppHeader } from "@/components/layout/AppHeader";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -12,7 +11,6 @@ import { EnumUserType } from "@/services/types/i-user";
 import { BABY_ML_PER_DAY } from "@/utils/constants";
 import { DonationStatusCard } from "./components/DonationStatusCard";
 import { GreetingHero } from "./components/GreetingHero";
-import { HomeHeader } from "./components/HomeHeader";
 import { ImpactCard } from "./components/ImpactCard";
 import { NextDonationStep } from "./components/NextDonationStep";
 import { StoriesBoard } from "./components/StoriesBoard";
@@ -27,7 +25,6 @@ const monthYearFormatter = new Intl.DateTimeFormat("pt-BR", {
 const EMPTY = "—";
 
 export function HomePage() {
-	const [drawerOpen, setDrawerOpen] = useState(false);
 	const navigate = useNavigate();
 	const { auth } = useAuth();
 
@@ -105,9 +102,9 @@ export function HomePage() {
 					className="ink-blob -right-40 top-[28rem] h-[26rem] w-[26rem] bg-eva-tint/80 blur-3xl"
 				/>
 
-				<div className="relative mx-auto w-full max-w-[1400px] grow px-4 pb-16 sm:px-6 sm:pb-20 lg:px-10">
-					<HomeHeader onOpenMenu={() => setDrawerOpen(true)} />
+				<AppHeader />
 
+				<div className="relative mx-auto w-full max-w-[1400px] grow px-4 pb-16 sm:px-6 sm:pb-20 lg:px-10">
 					<main>
 						<div className="mt-4 sm:mt-6">
 							<GreetingHero
@@ -173,8 +170,6 @@ export function HomePage() {
 				</div>
 
 				<Footer />
-
-				<AppDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
 			</div>
 		</Page>
 	);

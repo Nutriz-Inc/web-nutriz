@@ -27,14 +27,14 @@ export function StepItem({
 				>
 					{icon}
 				</div>
-				{!isLast && <div className="w-px flex-1 bg-[#e5ebf3] lg:hidden" />}
+				{!isLast && <div className="w-px flex-1 bg-blue-tint lg:hidden" />}
 			</div>
 
 			<div className="pb-8 pt-2 lg:pb-8 lg:pt-1.5">
-				<p className="hidden text-[17px] font-bold text-[#0e2a45] lg:block">
+				<p className="hidden text-[16px] font-bold text-ink lg:block">
 					{title}
 				</p>
-				<p className="text-[16px] leading-[22px] text-[#0e2a45] lg:mt-1 lg:text-[15px] lg:leading-[21px] lg:text-[#5a7690]">
+				<p className="text-[16px] leading-[22px] text-ink lg:mt-1 lg:text-[15px] lg:leading-[21px] lg:text-ink-2">
 					{children}
 				</p>
 			</div>

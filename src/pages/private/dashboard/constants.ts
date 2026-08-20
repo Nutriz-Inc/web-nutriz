@@ -11,16 +11,16 @@ export const PERIOD_PRESET_OPTIONS: FilterChipOption<PeriodPreset>[] = [
 ];
 
 export const SCORE_OPACITY: Record<number, string> = {
-	5: "bg-[#f25ca2]",
-	4: "bg-[#f25ca2]/80",
-	3: "bg-[#f25ca2]/70",
-	2: "bg-[#f25ca2]/50",
-	1: "bg-[#f25ca2]/35",
+	5: "bg-eva",
+	4: "bg-eva/80",
+	3: "bg-eva/70",
+	2: "bg-eva/50",
+	1: "bg-eva/35",
 };
 
 export const BAR_SHADES = [
-	"bg-[#00458b]",
-	"bg-[#00458b]/80",
-	"bg-[#00458b]/60",
-	"bg-[#00458b]/40",
+	"bg-blue-deep",
+	"bg-blue-deep/80",
+	"bg-blue-deep/60",
+	"bg-blue-deep/40",
 ];

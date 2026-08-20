@@ -1,3 +1,4 @@
+import type { BadgeTone } from "@/components/ui/badge";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
 import { EnumJobStatus } from "@/services/types/i-job";
 
@@ -17,10 +18,10 @@ export const JOB_STATUS_LABEL: Record<EnumJobStatus, string> = {
 	[EnumJobStatus.Failed]: "Falhou",
 };
 
-export const JOB_STATUS_BADGE_CLASSNAME: Record<EnumJobStatus, string> = {
-	[EnumJobStatus.Pending]: "bg-[#faeeda] text-[#854f0b]",
-	[EnumJobStatus.Done]: "bg-[#e1f5ee] text-[#0f6e56]",
-	[EnumJobStatus.Failed]: "bg-[#fcebeb] text-[#a32d2d]",
+export const JOB_STATUS_TONE: Record<EnumJobStatus, BadgeTone> = {
+	[EnumJobStatus.Pending]: "warning",
+	[EnumJobStatus.Done]: "success",
+	[EnumJobStatus.Failed]: "error",
 };
 
 export const EDITABLE_STATUSES = Object.values(EnumDonationStepStatus).filter(

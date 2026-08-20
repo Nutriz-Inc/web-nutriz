@@ -1,4 +1,5 @@
 import { LoaderCircle, MapPin } from "lucide-react";
+import { FormField } from "@/components/full/FormField";
 import { formatZipCode } from "@/utils/formatter";
 import { useCepLookup } from "../hooks/use-cep-lookup";
 import type {
@@ -6,7 +7,6 @@ import type {
 	RegisterFormData,
 	RegisterFormErrors,
 } from "../validation";
-import { WizardField } from "./WizardField";
 
 type AddressStepProps = {
 	form: RegisterFormData;
@@ -19,12 +19,12 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 
 	return (
 		<fieldset className="flex flex-col gap-5">
-			<legend className="mb-5 text-[13px] font-bold uppercase tracking-wide text-[#0d3b6e]">
+			<legend className="mb-5 text-[13px] font-bold uppercase tracking-wide text-blue-deep">
 				Endereço
 			</legend>
 
 			<div className="grid gap-5 sm:grid-cols-2">
-				<WizardField
+				<FormField
 					id="register-cep"
 					label="CEP"
 					value={form.cep}
@@ -35,7 +35,7 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 					maxLength={9}
 					autoComplete="postal-code"
 				/>
-				<WizardField
+				<FormField
 					id="register-number"
 					label="Número"
 					value={form.number}
@@ -48,19 +48,19 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 			</div>
 
 			{status === "loading" && (
-				<p className="flex items-center gap-2 text-sm text-[#71717a]">
+				<p className="flex items-center gap-2 text-sm text-ink-2">
 					<LoaderCircle className="size-4 animate-spin" aria-hidden />
 					Buscando endereço...
 				</p>
 			)}
 
 			{status === "found" && address && (
-				<div className="flex items-start gap-3 rounded-md border border-[#dbe7f6] bg-[#eef4fb] px-4 py-3">
+				<div className="flex items-start gap-3 rounded-md border border-blue-tint-2 bg-canvas px-4 py-3">
 					<MapPin
-						className="mt-0.5 size-4 shrink-0 text-[#0d3b6e]"
+						className="mt-0.5 size-4 shrink-0 text-blue-deep"
 						aria-hidden
 					/>
-					<p className="text-sm leading-relaxed text-[#0d3b6e]">
+					<p className="text-sm leading-relaxed text-blue-deep">
 						<span className="font-semibold">
 							{[address.street, address.neighborhood]
 								.filter(Boolean)
@@ -73,12 +73,12 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 			)}
 
 			{status === "not_found" && (
-				<p className="text-sm text-[#dc2626]">
+				<p className="text-sm text-danger">
 					CEP não encontrado. Confira o número digitado.
 				</p>
 			)}
 
-			<WizardField
+			<FormField
 				id="register-complement"
 				label="Complemento"
 				value={form.complement}
@@ -89,7 +89,7 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 				optional
 			/>
 
-			<p className="text-xs text-[#71717a]">
+			<p className="text-xs text-ink-2">
 				Rua, bairro e cidade são preenchidos automaticamente pelo CEP.
 			</p>
 		</fieldset>

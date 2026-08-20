@@ -18,16 +18,16 @@ export function ActiveDonationsByStepCard({
 	const total = sorted.reduce((sum, item) => sum + item.count, 0);
 
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-[14px] border border-[#e5e7eb] bg-white p-5 lg:p-[26px]">
+		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-white p-5 lg:p-[26px]">
 			<DashboardCardHeader
-				icon={<ListChecks className="size-4 text-[#00458b]" />}
-				iconBg="bg-[#eaf4fc]"
+				icon={<ListChecks className="size-4 text-blue-deep" />}
+				iconBg="bg-canvas"
 				title="Doações Ativas por Etapa"
 				subtitle="Distribuição das doações em andamento no período"
 			/>
 
 			{total === 0 ? (
-				<p className="py-8 text-center text-[13px] text-[#9ca3af]">
+				<p className="py-8 text-center text-[13px] text-ink-3">
 					Nenhuma doação ativa no período selecionado.
 				</p>
 			) : (
@@ -42,35 +42,29 @@ export function ActiveDonationsByStepCard({
 
 							return (
 								<div key={item.step} className="flex items-center gap-3">
-									<p className="w-10 shrink-0 text-right text-[13px] font-bold text-[#6b7280]">
+									<p className="w-10 shrink-0 text-right text-[13px] font-bold text-ink-2">
 										{percentage}%
 									</p>
-									<div className="h-6 flex-1 overflow-hidden rounded-[6px] bg-[#eef2f7]">
+									<div className="h-6 flex-1 overflow-hidden rounded-md bg-surface-3">
 										<div
-											className={`h-full rounded-[6px] ${BAR_SHADES[index % BAR_SHADES.length]}`}
+											className={`h-full rounded-md ${BAR_SHADES[index % BAR_SHADES.length]}`}
 											style={{ width: `${percentage}%` }}
 										/>
 									</div>
 									<p className="flex w-[160px] shrink-0 items-baseline gap-1 text-[12px]">
-										<span className="truncate text-[#1f2a37]">
-											{display.label}
-										</span>
-										<span className="shrink-0 text-[#9ca3af]">
-											({item.count})
-										</span>
+										<span className="truncate text-ink">{display.label}</span>
+										<span className="shrink-0 text-ink-3">({item.count})</span>
 									</p>
 								</div>
 							);
 						})}
 					</div>
 
-					<div className="h-px w-full bg-[#e5e7eb]" />
+					<div className="h-px w-full bg-blue-tint" />
 
 					<div className="flex flex-col gap-0.5">
-						<p className="text-[11px] text-[#9ca3af]">
-							Total de doações ativas
-						</p>
-						<p className="text-[16px] font-bold text-[#1f2a37]">{total}</p>
+						<p className="text-[11px] text-ink-3">Total de doações ativas</p>
+						<p className="text-[16px] font-bold text-ink">{total}</p>
 					</div>
 				</>
 			)}

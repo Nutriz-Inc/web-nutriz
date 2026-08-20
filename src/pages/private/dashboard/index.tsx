@@ -77,8 +77,8 @@ export function AdmDashboardPage() {
 				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 					<RecurrenceCard rate={data?.donor_recurrence_rate ?? 0} />
 					<StatCard
-						icon={<Clock className="size-4 text-[#00458b]" />}
-						iconBg="bg-[#e1f1fb]"
+						icon={<Clock className="size-4 text-blue-deep" />}
+						iconBg="bg-blue-tint"
 						title="Tempo Médio de Resposta"
 						subtitle="Triagem até a 1ª coleta agendada"
 						value={
@@ -91,12 +91,12 @@ export function AdmDashboardPage() {
 				</div>
 
 				<StatCard
-					icon={<AlertTriangle className="size-4 text-[#f2579f]" />}
-					iconBg="bg-[#fdebf3]"
+					icon={<AlertTriangle className="size-4 text-eva" />}
+					iconBg="bg-danger-tint"
 					title="Doações com Erro"
 					subtitle="Ocorrências no período selecionado"
 					value={String(data?.donations_with_error ?? 0)}
-					valueColor="text-[#f2579f]"
+					valueColor="text-eva"
 					footnote="Doações que não puderem ser concluídas"
 				/>
 			</div>

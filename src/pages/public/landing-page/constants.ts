@@ -13,7 +13,6 @@ import { DonateIcon } from "../../../assets/icons/DonateIcon";
 import { ExamIcon } from "../../../assets/icons/ExamIcon";
 import { FacebookIcon } from "../../../assets/icons/FacebookIcon";
 import { InstagramIcon } from "../../../assets/icons/InstagramIcon";
-import { LinkedinIcon } from "../../../assets/icons/LinkedinIcon";
 import { RegisterIcon } from "../../../assets/icons/RegisterIcon";
 import { YoutubeIcon } from "../../../assets/icons/YoutubeIcon";
 
@@ -84,28 +83,28 @@ export type Metric = {
 export const METRICS: Metric[] = [
 	{
 		Icon: Users,
-		iconClassName: "size-6 text-[#00458b]",
-		iconBg: "bg-[#e6f1fb]",
+		iconClassName: "size-6 text-blue-deep",
+		iconBg: "bg-blue-tint",
 		value: "4.200+",
-		valueColor: "text-[#00458b]",
+		valueColor: "text-blue-deep",
 		label: "Doadoras ativas",
 		sublabel: "Em todo o Brasil",
 	},
 	{
 		Icon: Droplet,
-		iconClassName: "size-6 text-[#0e9e94]",
-		iconBg: "bg-[#e1f5ee]",
+		iconClassName: "size-6 text-teal",
+		iconBg: "bg-success-tint",
 		value: "12 mil L",
-		valueColor: "text-[#0e9e94]",
+		valueColor: "text-teal",
 		label: "Leite coletado",
 		sublabel: "Doados aos bancos de leite",
 	},
 	{
 		Icon: Heart,
-		iconClassName: "size-6 fill-[#f2579f] text-[#f2579f]",
-		iconBg: "bg-[#fbeaf0]",
+		iconClassName: "size-6 fill-eva text-eva",
+		iconBg: "bg-eva-tint",
 		value: "98%",
-		valueColor: "text-[#f2579f]",
+		valueColor: "text-eva",
 		label: "Satisfação",
 		sublabel: "Das nossas doadoras",
 	},
@@ -147,7 +146,6 @@ export const FOOTER_SOCIALS = [
 	{ label: "Instagram", Icon: InstagramIcon },
 	{ label: "Facebook", Icon: FacebookIcon },
 	{ label: "YouTube", Icon: YoutubeIcon },
-	{ label: "LinkedIn", Icon: LinkedinIcon },
 ];
 
 export const CTA_AVATARS = ["#f2579f", "#2fd9c5", "#387ccd", "#72f2eb"];

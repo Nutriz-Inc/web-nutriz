@@ -18,25 +18,25 @@ export function UserDetailHeaderCard({
 	const isDonor = user.type === EnumUserType.Common;
 
 	return (
-		<div className="flex flex-col gap-5 rounded-2xl border border-[#e7eaef] bg-white p-6 lg:flex-row lg:items-center lg:justify-between">
+		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-white p-6 lg:flex-row lg:items-center lg:justify-between">
 			<div className="flex items-center gap-4">
 				<div
 					className={cn(
 						"flex size-[56px] shrink-0 items-center justify-center rounded-full",
-						isDonor ? "bg-[#fce4f0]" : "bg-[#e1f1fb]",
+						isDonor ? "bg-eva-tint" : "bg-blue-tint",
 					)}
 				>
 					<span
 						className={cn(
 							"text-[18px] font-bold",
-							isDonor ? "text-[#f2579f]" : "text-[#00458b]",
+							isDonor ? "text-eva" : "text-blue-deep",
 						)}
 					>
 						{getInitials(user.name)}
 					</span>
 				</div>
 				<div className="flex min-w-0 flex-col gap-1.5">
-					<p className="truncate text-[22px] font-extrabold text-[#1f2a37]">
+					<p className="truncate text-[22px] font-extrabold text-ink">
 						{user.name}
 					</p>
 					<div className="flex flex-wrap items-center gap-2">
@@ -47,7 +47,7 @@ export function UserDetailHeaderCard({
 			</div>
 
 			{stats && (
-				<div className="flex flex-wrap items-center divide-x divide-[#eef1f5]">
+				<div className="flex flex-wrap items-center divide-x divide-surface-3">
 					{stats}
 				</div>
 			)}

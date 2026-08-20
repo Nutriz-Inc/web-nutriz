@@ -108,12 +108,12 @@ export function CollectionPointsSection() {
 					className="flex flex-col items-center gap-3 text-center"
 				>
 					<SectionLabel color="#387ccd">PONTOS DE COLETA</SectionLabel>
-					<h2 className="max-w-2xl text-[30px] font-extrabold tracking-tight text-[#12294d] lg:text-[38px]">
+					<h2 className="max-w-2xl text-[30px] font-extrabold tracking-tight text-ink lg:text-[38px]">
 						Encontre um banco de leite perto de você
 					</h2>
 				</motion.div>
 
-				<div className="mt-8 overflow-hidden rounded-3xl border border-[#e5ebf3] bg-[#f7f7fa] shadow-[0px_10px_14px_rgba(10,38,77,0.05)] lg:mt-10">
+				<div className="mt-8 overflow-hidden rounded-3xl border border-line bg-surface-2 shadow-soft lg:mt-10">
 					<div className="flex flex-col gap-3 p-4 lg:p-5">
 						<SearchBar
 							value={search}
@@ -146,13 +146,13 @@ export function CollectionPointsSection() {
 							/>
 						</div>
 
-						<div className="flex max-h-[380px] flex-col gap-3 overflow-y-auto px-4 pb-4 lg:h-full lg:max-h-none lg:border-l lg:border-[#e0e0e0] lg:p-4">
+						<div className="flex max-h-[380px] flex-col gap-3 overflow-y-auto px-4 pb-4 lg:h-full lg:max-h-none lg:border-l lg:border-line lg:p-4">
 							{isLoading ? (
 								<div className="flex justify-center py-8">
-									<LoaderCircle className="size-5 animate-spin text-[#387ccd]" />
+									<LoaderCircle className="size-5 animate-spin text-blue-bright" />
 								</div>
 							) : points.length === 0 ? (
-								<p className="px-4 py-8 text-center text-sm text-[#888]">
+								<p className="px-4 py-8 text-center text-sm text-ink-3">
 									Nenhum ponto de coleta encontrado.
 								</p>
 							) : (

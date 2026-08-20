@@ -19,7 +19,12 @@ import { useQueryDonationPoints } from "./hooks";
 
 type LocationOverride =
 	| ({ kind: "coordinates" } & Coordinates)
-	| { kind: "zipcode"; zipcode: string };
+	| {
+			kind: "zipcode";
+			zipcode: string;
+			/** CEP resolvido em coordenadas, so para posicionar o mapa. */
+			coordinates: Coordinates | null;
+	  };
 
 type FilterKey = "all" | "home";
 
@@ -46,12 +51,16 @@ export function DonationPointsPage() {
 		return () => clearTimeout(timeout);
 	}, [search]);
 
-	const zipCodeOverride =
-		locationOverride?.kind === "zipcode" ? locationOverride.zipcode : undefined;
+	const zipCodeSearch =
+		locationOverride?.kind === "zipcode" ? locationOverride : null;
+	const zipCodeOverride = zipCodeSearch?.zipcode;
 	const coordinatesOverride =
 		locationOverride?.kind === "coordinates" ? locationOverride : null;
-	const effectiveCoordinates = zipCodeOverride
-		? null
+	// Quando a busca e por CEP, o pino de "voce esta aqui" e o centro do mapa
+	// vem do CEP geocodificado no navegador (utils/geocode.ts). A requisicao da
+	// API segue mandando so o `zipcode`, exatamente como antes.
+	const effectiveCoordinates = zipCodeSearch
+		? zipCodeSearch.coordinates
 		: (coordinatesOverride ?? coordinates);
 
 	const { data, isLoading } = useQueryDonationPoints({
@@ -84,8 +93,8 @@ export function DonationPointsPage() {
 		return closestId;
 	}, null);
 
-	function handleApplyZipCode(zipcode: string) {
-		setLocationOverride({ kind: "zipcode", zipcode });
+	function handleApplyZipCode(zipcode: string, coords: Coordinates | null) {
+		setLocationOverride({ kind: "zipcode", zipcode, coordinates: coords });
 		setRefitVersion((version) => version + 1);
 		setIsLocationSheetOpen(false);
 	}

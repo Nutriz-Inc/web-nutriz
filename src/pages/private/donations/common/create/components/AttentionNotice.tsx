@@ -1,22 +1,20 @@
-import { Info, TriangleAlert } from "lucide-react";
+import { Info } from "lucide-react";
 
+/** Aviso de que o proximo passo abre o WhatsApp da Lactare em outra aba. */
 export function AttentionNotice() {
 	return (
-		<div className="flex gap-3 rounded-2xl bg-blue-tint p-4 lg:gap-4 lg:p-5">
-			<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-tint-2 lg:size-10">
-				<TriangleAlert className="size-5 text-blue-deep lg:hidden" />
-				<Info className="hidden size-5 text-blue-deep lg:block" />
-			</div>
+		<div className="rounded-card-sm flex gap-3 bg-blue-tint p-4">
+			<span
+				aria-hidden="true"
+				className="flex size-8 shrink-0 items-center justify-center rounded-full bg-blue-tint-2 text-blue-deep"
+			>
+				<Info className="size-4" />
+			</span>
 
-			<div className="flex flex-col gap-1">
-				<p className="text-[15px] font-bold text-blue-deep lg:text-[16px]">
-					Atenção
-				</p>
-				<p className="text-[14px] leading-[20px] text-ink-2 lg:text-[15px] lg:leading-[22px]">
-					Ao confirmar, você será redirecionada para o WhatsApp da equipe
-					Lactare para dar início ao processo de triagem.
-				</p>
-			</div>
+			<p className="min-w-0 text-[13px] leading-[19px] text-ink-2">
+				Ao confirmar, a doação é registrada no seu histórico e o WhatsApp da
+				equipe Lactare abre em uma nova aba para começar a triagem.
+			</p>
 		</div>
 	);
 }

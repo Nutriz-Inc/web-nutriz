@@ -1,10 +1,11 @@
 import { EnumUserType, type ICreateUserRequest } from "@/services/types/i-user";
 import { dateBrToIso, onlyDigits, phoneToE164 } from "@/utils/formatter";
+import { randomId } from "@/utils/random-id";
 import { TERMS_VERSION } from "./constants";
 import type { BabyFormData, RegisterFormData } from "./validation";
 
 export function makeEmptyBaby(): BabyFormData {
-	return { id: crypto.randomUUID(), name: "", birthDate: "" };
+	return { id: randomId(), name: "", birthDate: "" };
 }
 
 export const EMPTY_REGISTER_FORM: RegisterFormData = {

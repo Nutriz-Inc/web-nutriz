@@ -145,11 +145,14 @@ export function EvaWidget() {
 		});
 	}, [mode, userId]);
 
-	// menuOpen: com o drawer aberto o FAB ficava por cima do menu e sem
-	// resposta ao clique (o Sheet do Radix bloqueia cliques fora dele).
-	if (!allowed || menuOpen || HIDDEN_ROUTES.has(pathname)) {
+	if (!allowed || HIDDEN_ROUTES.has(pathname)) {
 		return null;
 	}
+
+	// Algo aberto por cima do canto do FAB (menu lateral, bottom sheet,
+	// dialogo). Ele some enquanto durar — ver eva-widget-bus.ts. So vale com a
+	// EVA fechada: com ela aberta, quem esta por cima e o proprio modal.
+	const fabObstruido = !open && menuOpen;
 
 	// Animacao de abrir/fechar tipo "balao inflando": escala com mola na
 	// entrada, deflada rapida na saida, com origem no canto do FAB.
@@ -179,7 +182,7 @@ export function EvaWidget() {
 			<Dialog.Trigger asChild>
 				<button
 					type="button"
-					className="eva-fab"
+					className={fabObstruido ? "eva-fab eva-fab--oculto" : "eva-fab"}
 					aria-label="Abrir chat com a EVA"
 				/>
 			</Dialog.Trigger>

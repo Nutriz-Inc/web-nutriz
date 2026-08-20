@@ -287,16 +287,66 @@
 	}
 }
 
-/*
- * A safe area do iPhone (topo, sob a ilha dinamica) mostra o fundo do
- * documento. Sem cor aqui, ela ficava branca e cortava a landing.
- */
+/* ---------------------------------------------------------------------------
+ * Tela cheia no celular (iPhone com ilha dinamica)
+ *
+ * O `viewport-fit=cover` do index.html faz o documento ocupar a tela inteira,
+ * safe areas inclusive. Duas coisas faltavam:
+ *
+ * 1. A faixa da safe area mostra o fundo do documento. Ele estava fixo no azul
+ *    da marca, entao virava um degrau escuro acima de toda tela clara. Agora o
+ *    documento e claro como o resto do app e a landing pinta o proprio azul
+ *    (o hero comeca no topo do documento e sobe ate a faixa).
+ * 2. Altura: 100dvh acompanha a barra do Safari aparecendo/sumindo, coisa que
+ *    100vh nao faz — sem isso sobrava um corte no rodape.
+ * ------------------------------------------------------------------------- */
 html {
-	background-color: var(--blue-deep);
+	/*
+	 * Valor inicial, ate o React montar. Depois `use-theme-color.ts` troca esta
+	 * cor conforme a rota — a landing pinta de azul, o resto do app de claro —
+	 * porque e ela que aparece na faixa da safe area e no rubber band do iOS.
+	 */
+	background-color: var(--canvas);
+	/* iOS: sem isso o texto cresce sozinho ao girar o aparelho. */
+	-webkit-text-size-adjust: 100%;
 }
 
 body {
 	background-color: var(--canvas);
+	min-height: 100dvh;
+}
+
+/*
+ * Espacamentos da safe area. Usados nos cabecalhos (para o conteudo nao ficar
+ * sob a ilha dinamica) e nas barras fixas de rodape (barra de gestos).
+ */
+@utility pt-safe {
+	padding-top: env(safe-area-inset-top, 0px);
+}
+
+@utility pb-safe {
+	padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ---------------------------------------------------------------------------
+ * Zoom ao focar um campo (iOS)
+ *
+ * O Safari do iPhone da zoom automatico quando o campo focado tem fonte menor
+ * que 16px — e o app usa 13/14px em quase todo formulario. Bloquear o zoom no
+ * viewport resolveria, mas tira o pinch-to-zoom da pessoa (acessibilidade);
+ * a correcao correta e garantir 16px nos campos, e so no toque.
+ *
+ * A regra fica FORA de @layer de proposito: CSS sem camada vence as utilities
+ * do Tailwind, entao ela sobrepoe os `text-[13px]` sem precisar de !important.
+ * ------------------------------------------------------------------------- */
+@media (hover: none) and (pointer: coarse) {
+	input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
+		[type="color"]
+	):not([type="file"]),
+	select,
+	textarea {
+		font-size: 16px;
+	}
 }
 
 /*

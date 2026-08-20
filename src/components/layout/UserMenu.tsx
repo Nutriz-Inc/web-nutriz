@@ -34,7 +34,7 @@ export function UserMenu() {
 				<button
 					type="button"
 					aria-label={`Abrir menu da conta de ${auth.name}`}
-					className="flex h-11 shrink-0 items-center gap-2 rounded-full border border-line bg-white/70 py-1.5 pr-1.5 pl-4 text-[14px] font-medium text-ink-2 outline-none backdrop-blur-sm transition-colors hover:bg-blue-tint/60 hover:text-blue-deep focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+					className="flex h-11 shrink-0 items-center gap-2 rounded-full text-[14px] font-medium text-ink-2 outline-none transition-colors hover:bg-blue-tint/60 hover:text-blue-deep focus-visible:ring-3 focus-visible:ring-blue-bright/50 sm:border sm:border-line sm:bg-white/70 sm:py-1.5 sm:pr-1.5 sm:pl-4 sm:backdrop-blur-sm"
 				>
 					<span className="hidden sm:inline">Perfil</span>
 

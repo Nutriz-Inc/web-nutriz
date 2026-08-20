@@ -57,23 +57,23 @@ export function LoginScreen() {
 	const isPending = loginMutation.isPending;
 
 	return (
-		<div className="relative min-h-screen w-full overflow-hidden bg-white font-body">
+		<div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-white via-canvas to-blue-tint font-body">
 			<img
 				src={cenarioLogin}
 				alt=""
 				aria-hidden
-				className="pointer-events-none absolute inset-x-0 bottom-0 z-0 w-full max-w-[1100px] select-none opacity-90 mx-auto"
+				className="pointer-events-none absolute inset-x-0 bottom-0 z-0 mx-auto w-[170%] max-w-none -translate-x-[20%] select-none opacity-50 sm:w-full sm:max-w-[1100px] sm:translate-x-0"
 			/>
 
 			<div
 				aria-hidden
-				className="pointer-events-none absolute inset-x-0 top-0 z-0 h-64 overflow-hidden"
+				className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
 			>
-				<div className="absolute -left-16 -top-12 h-44 w-44 rounded-full bg-blue-tint-2" />
-				<div className="absolute left-7 top-16 h-16 w-16 rounded-full bg-eva-tint" />
-				<div className="absolute -right-12 -top-14 h-52 w-52 rounded-full bg-blue-tint" />
-				<div className="absolute right-5 top-24 h-20 w-20 rounded-full bg-eva-tint" />
-				<div className="absolute right-24 top-4 h-12 w-12 rounded-full bg-blue-tint-2" />
+				<div className="absolute top-[18%] -left-12 h-64 w-64 rounded-full bg-blue-tint-2" />
+				<div className="absolute top-[34%] left-[22%] h-32 w-32 rounded-full bg-eva-tint" />
+				<div className="absolute top-[12%] -right-10 h-72 w-72 rounded-full bg-blue-tint" />
+				<div className="absolute top-[42%] right-[20%] h-40 w-40 rounded-full bg-eva-tint" />
+				<div className="absolute top-[8%] right-[32%] h-24 w-24 rounded-full bg-blue-tint-2" />
 			</div>
 
 			<main className="relative z-10 mx-auto flex min-h-screen w-full max-w-sm flex-col px-6 pb-52 pt-24">

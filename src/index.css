@@ -286,3 +286,15 @@
 		border-radius: 0.875rem;
 	}
 }
+
+/*
+ * A safe area do iPhone (topo, sob a ilha dinamica) mostra o fundo do
+ * documento. Sem cor aqui, ela ficava branca e cortava a landing.
+ */
+html {
+	background-color: var(--blue-deep);
+}
+
+body {
+	background-color: var(--canvas);
+}

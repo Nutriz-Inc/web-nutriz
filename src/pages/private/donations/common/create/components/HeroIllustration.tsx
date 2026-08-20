@@ -2,7 +2,7 @@ import { Heart } from "lucide-react";
 
 export function HeroIllustration() {
 	return (
-		<div className="relative flex flex-col items-center overflow-hidden pt-6 pb-10 lg:pt-14 lg:pb-14">
+		<div className="relative flex flex-col items-center justify-center overflow-hidden pt-6 pb-10 lg:flex-1 lg:pt-12 lg:pb-12">
 			<div className="pointer-events-none absolute inset-0">
 				<div className="absolute -left-16 top-6 size-52 rounded-full bg-blue-tint lg:-left-10 lg:top-0 lg:size-44" />
 				<div className="absolute left-8 -top-2 size-28 rounded-full bg-blue-tint-2 lg:hidden" />

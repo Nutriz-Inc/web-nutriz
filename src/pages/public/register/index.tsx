@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import cadastroTopo from "@/assets/illustrations/cadastro-topo.svg";
 import cenarioCadastro from "@/assets/illustrations/cenario-cadastro.svg";
+import cenarioCadastroDireita from "@/assets/illustrations/cenario-cadastro-direita.svg";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
@@ -150,7 +151,23 @@ export function RegisterScreen() {
 				src={cenarioCadastro}
 				alt=""
 				aria-hidden="true"
-				className="pointer-events-none absolute inset-x-0 bottom-0 z-0 mx-auto w-full max-w-[900px] select-none opacity-70"
+				className="pointer-events-none absolute bottom-0 left-0 z-0 w-[46%] max-w-[520px] select-none opacity-60"
+			/>
+
+			<img
+				src={cenarioCadastroDireita}
+				alt=""
+				aria-hidden="true"
+				className="pointer-events-none absolute right-0 bottom-0 z-0 hidden w-[46%] max-w-[560px] select-none opacity-55 sm:block"
+			/>
+
+			<img
+				src={cadastroTopo}
+				alt=""
+				aria-hidden="true"
+				width={220}
+				height={220}
+				className="pointer-events-none absolute top-24 right-6 z-0 hidden h-32 w-auto select-none lg:block xl:right-16 xl:h-36"
 			/>
 
 			<AppHeader showMenu={false} />
@@ -158,18 +175,6 @@ export function RegisterScreen() {
 			<main className="relative mx-auto w-full max-w-[640px] flex-1 px-4 pb-16 pt-4 sm:px-6 sm:pt-6">
 				<Page
 					backTo="/"
-					actionSlot={
-						success ? undefined : (
-							<img
-								src={cadastroTopo}
-								alt=""
-								aria-hidden="true"
-								width={220}
-								height={220}
-								className="hidden h-32 w-auto shrink-0 select-none sm:block lg:h-36"
-							/>
-						)
-					}
 					title={success ? undefined : "Criação de usuário"}
 					description={
 						success

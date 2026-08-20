@@ -225,6 +225,7 @@ export function ProfilePage() {
 						name={data?.name ?? ""}
 						email={data?.email ?? ""}
 						userType={auth?.type}
+						idUser={auth?.id_user}
 					/>
 
 					{isCommon && (

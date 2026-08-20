@@ -11,6 +11,8 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/use-auth";
+import { useAvatarColor } from "@/hooks/use-avatar-color";
+import { cn } from "@/lib/utils";
 import { USER_TYPE_LABEL } from "@/utils/constants";
 import { getInitials } from "./utils";
 
@@ -20,6 +22,7 @@ import { getInitials } from "./utils";
  */
 export function UserMenu() {
 	const { auth, handleLogout } = useAuth();
+	const { cor } = useAvatarColor(auth?.id_user);
 
 	if (!auth) {
 		return null;
@@ -34,7 +37,9 @@ export function UserMenu() {
 					className="flex size-11 shrink-0 items-center justify-center rounded-full outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 				>
 					<Avatar className="size-9 border border-line">
-						<AvatarFallback>{getInitials(auth.name)}</AvatarFallback>
+						<AvatarFallback className={cn(cor.bg, cor.text)}>
+							{getInitials(auth.name)}
+						</AvatarFallback>
 					</Avatar>
 				</button>
 			</DropdownMenuTrigger>

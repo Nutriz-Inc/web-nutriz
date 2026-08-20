@@ -26,6 +26,18 @@ function resolveTarget(slug: string, isAnonymous: boolean): Target | null {
 			return { kind: "route", to: "/login" };
 		case "articles":
 			return { kind: "route", to: "/artigos" };
+		// Telas internas: nao existem no router publico, entao para visitante
+		// anonimo o botao simplesmente nao aparece.
+		case "home":
+			return isAnonymous ? null : { kind: "route", to: "/home" };
+		case "my_donations":
+			return isAnonymous ? null : { kind: "route", to: "/minhas-doacoes" };
+		case "new_donation":
+			return isAnonymous ? null : { kind: "route", to: "/nova-doacao" };
+		case "content_hub":
+			return isAnonymous ? null : { kind: "route", to: "/conteudo-educativo" };
+		case "profile":
+			return isAnonymous ? null : { kind: "route", to: "/perfil" };
 		case "collection_points":
 			return isAnonymous
 				? { kind: "route", to: "/", scrollTo: "pontos-de-coleta" }

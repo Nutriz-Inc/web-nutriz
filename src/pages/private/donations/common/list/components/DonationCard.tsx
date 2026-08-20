@@ -75,7 +75,8 @@ export function DonationCard({
 				</span>
 			)}
 
-			<div className="flex items-start gap-3 lg:gap-4">
+			{/* itens-center: o titulo alinha no meio do circulo do coracao */}
+			<div className="flex items-center gap-3 lg:gap-4">
 				<span
 					className={cn(
 						"flex size-10 shrink-0 items-center justify-center rounded-full lg:size-14",
@@ -121,7 +122,16 @@ export function DonationCard({
 				<>
 					<div className="h-px bg-blue-tint" />
 
-					<div className="flex flex-col gap-2.5 rounded-xl bg-surface-3 p-3.5 transition-[transform,background-color] duration-200 group-hover:-translate-y-0.5 group-hover:bg-blue-tint/60 lg:gap-3 lg:rounded-2xl lg:p-5">
+					{/*
+					 * Grupo proprio: o bloco so reage ao mouse em cima dele, e nao
+					 * junto com o cartao inteiro.
+					 */}
+					<div className="group/etapa relative flex flex-col gap-2.5 overflow-hidden rounded-xl bg-surface-3 p-3.5 transition-[transform,border-radius,background-color] duration-200 hover:translate-x-2 hover:rounded-l-none hover:bg-blue-tint/60 lg:gap-3 lg:rounded-2xl lg:p-5">
+						<span
+							aria-hidden="true"
+							className="absolute inset-y-0 left-0 w-1 origin-left scale-x-0 bg-blue-bright transition-transform duration-200 group-hover/etapa:scale-x-100"
+						/>
+
 						<div className="flex items-center justify-between gap-2">
 							<span className="text-[10px] font-bold uppercase tracking-wider text-ink-2 lg:text-[11px]">
 								Etapa atual

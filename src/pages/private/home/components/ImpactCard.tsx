@@ -16,25 +16,38 @@ type ImpactCardProps = {
 
 const TONE_MAP: Record<
 	ImpactTone,
-	{ chip: string; value: string; blob: string; borda: string }
+	{
+		fundo: string;
+		borda: string;
+		rotulo: string;
+		valor: string;
+		marca: string;
+		chip: string;
+	}
 > = {
 	blue: {
-		chip: "bg-blue-tint text-blue-deep",
-		value: "text-blue-deep",
-		blob: "bg-blue-tint-2/45",
+		fundo: "bg-gradient-to-br from-blue-tint via-white to-white",
 		borda: "border-blue-tint-2/70",
+		rotulo: "text-blue-bright",
+		valor: "text-blue-deep",
+		marca: "text-blue-tint-2/60",
+		chip: "bg-blue-tint text-blue-deep",
 	},
 	bright: {
+		fundo: "bg-gradient-to-br from-blue-tint-2/45 via-white to-white",
+		borda: "border-blue-tint-2/60",
+		rotulo: "text-blue",
+		valor: "text-blue",
+		marca: "text-blue-tint-2/60",
 		chip: "bg-blue-tint-2/60 text-blue",
-		value: "text-blue",
-		blob: "bg-blue-tint-2/35",
-		borda: "border-blue-tint-2/50",
 	},
 	eva: {
-		chip: "bg-eva-tint text-eva",
-		value: "text-eva",
-		blob: "bg-eva-tint",
+		fundo: "bg-gradient-to-br from-eva-tint via-white to-white",
 		borda: "border-eva-tint",
+		rotulo: "text-eva",
+		valor: "text-eva",
+		marca: "text-eva-tint",
+		chip: "bg-eva-tint text-eva",
 	},
 };
 
@@ -46,66 +59,63 @@ export function ImpactCard({
 	tone = "blue",
 	featured = false,
 }: ImpactCardProps) {
-	const toneClasses = TONE_MAP[tone];
+	const t = TONE_MAP[tone];
 
 	return (
 		<article
 			className={cn(
-				"relative isolate flex h-full flex-col overflow-hidden rounded-card-sm border bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
-				toneClasses.borda,
-				// Destacado ocupa duas colunas: em telas largas o conteudo deita,
-				// senao sobra um vazio na metade direita do cartao.
-				featured && "lg:flex-row lg:items-center lg:gap-10 lg:p-8",
+				"relative isolate flex h-full flex-col overflow-hidden rounded-card-sm border p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
+				t.fundo,
+				t.borda,
+				featured && "lg:p-8",
 			)}
 		>
-			{/* Mancha do tom no canto: da cor ao card sem competir com o numero. */}
-			<span
+			{/*
+			 * Icone grande e apagado no canto: da identidade ao cartao sem
+			 * disputar espaco com o numero, que e o dado que importa.
+			 */}
+			<Icon
 				aria-hidden="true"
 				className={cn(
-					"ink-blob -top-10 -right-8 size-32 blur-2xl",
-					toneClasses.blob,
+					"pointer-events-none absolute -right-3 -bottom-3 -z-10",
+					featured ? "size-32 lg:size-40" : "size-28",
+					t.marca,
 				)}
+				strokeWidth={1.25}
 			/>
 
-			<span
-				aria-hidden="true"
-				className={cn(
-					"inline-flex shrink-0 items-center justify-center rounded-full",
-					featured ? "size-10 lg:size-16" : "size-10",
-					toneClasses.chip,
-				)}
-			>
-				<Icon
-					className={featured ? "size-[1.125rem] lg:size-7" : "size-[1.125rem]"}
-				/>
-			</span>
-
-			{/*
-			 * Valor antes do rotulo: e sempre uma linha so, entao os numeros dos
-			 * tres cards ficam na mesma altura mesmo quando um rotulo quebra.
-			 */}
-			<div className={cn("flex flex-col", featured && "lg:mt-0")}>
-				<p
+			<div className="flex items-center gap-2.5">
+				<span
+					aria-hidden="true"
 					className={cn(
-						"mt-5 font-display font-extrabold leading-none tracking-tight tabular-nums",
-						featured ? "text-5xl lg:mt-0 lg:text-7xl" : "text-4xl lg:text-5xl",
-						toneClasses.value,
+						"inline-flex size-8 shrink-0 items-center justify-center rounded-full",
+						t.chip,
 					)}
 				>
-					{value}
-				</p>
+					<Icon className="size-4" />
+				</span>
 
 				<h3
 					className={cn(
-						"mt-2 font-display font-bold leading-snug text-ink",
-						featured ? "text-[0.9375rem] lg:text-lg" : "text-[0.9375rem]",
+						"font-display text-[0.6875rem] font-bold uppercase tracking-[0.08em]",
+						t.rotulo,
 					)}
 				>
 					{label}
 				</h3>
-
-				<p className="mt-1 text-xs leading-relaxed text-ink-2">{hint}</p>
 			</div>
+
+			<p
+				className={cn(
+					"mt-auto pt-8 font-display font-extrabold leading-none tracking-tight tabular-nums",
+					featured ? "text-6xl lg:text-7xl" : "text-5xl",
+					t.valor,
+				)}
+			>
+				{value}
+			</p>
+
+			<p className="mt-2 text-xs leading-relaxed text-ink-2">{hint}</p>
 		</article>
 	);
 }

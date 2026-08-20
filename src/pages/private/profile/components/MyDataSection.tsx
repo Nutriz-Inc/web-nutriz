@@ -1,4 +1,8 @@
-import { MapPin, User } from "lucide-react";
+import enderecoIcone from "@/assets/illustrations/pontos-topo.svg";
+import { getInitials } from "@/components/layout/utils";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth } from "@/hooks/use-auth";
+import { useAvatarColor } from "@/hooks/use-avatar-color";
 import { cn } from "@/lib/utils";
 import { EnumUserType } from "@/services/types/i-user";
 import {
@@ -40,6 +44,9 @@ export function MyDataSection({
 	showAddress = true,
 	userType = EnumUserType.Common,
 }: MyDataSectionProps) {
+	const { auth } = useAuth();
+	const { cor } = useAvatarColor(auth?.id_user);
+
 	function setField<K extends keyof MyDataFormValues>(
 		key: K,
 		value: MyDataFormValues[K],
@@ -54,7 +61,17 @@ export function MyDataSection({
 				showAddress ? "lg:grid lg:grid-cols-2 lg:items-start" : "lg:max-w-xl",
 			)}
 		>
-			<SectionCard icon={<User className="size-[18px]" />} title="Perfil">
+			<SectionCard
+				iconVariant="bare"
+				icon={
+					<Avatar className="size-[34px] border border-line">
+						<AvatarFallback className={cn("text-[12px]", cor.bg, cor.text)}>
+							{getInitials(values.name || auth?.name)}
+						</AvatarFallback>
+					</Avatar>
+				}
+				title="Perfil"
+			>
 				<Field
 					label="Nome Completo"
 					value={values.name}
@@ -101,7 +118,20 @@ export function MyDataSection({
 			</SectionCard>
 
 			{showAddress && (
-				<SectionCard icon={<MapPin className="size-[18px]" />} title="Endereço">
+				<SectionCard
+					iconVariant="bare"
+					icon={
+						<img
+							src={enderecoIcone}
+							alt=""
+							aria-hidden="true"
+							width={34}
+							height={34}
+							className="size-[30px] select-none"
+						/>
+					}
+					title="Endereço"
+				>
 					<Field
 						label="CEP"
 						value={values.zip_code}

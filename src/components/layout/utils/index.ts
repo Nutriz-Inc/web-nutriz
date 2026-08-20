@@ -68,6 +68,10 @@ const navItemsUserAdmin: NavItem[] = [
 
 const navItemsUserNurse: NavItem[] = [
 	{ label: "Meus Agendamentos", icon: CalendarCheck, to: "/agendamentos" },
+	// A tela de pontos de coleta e a mesma da nutriz e do adm (rota publica na
+	// API, sem gate de permissao): a enfermeira precisa dela para localizar o
+	// banco de leite de uma visita.
+	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
 	{ label: "Perfil", icon: User, to: "/perfil" },
 ];
 

@@ -1,9 +1,11 @@
-import { Check, Droplet, Heart } from "lucide-react";
+import { Droplet, Heart, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import novaDoacao from "@/assets/illustrations/nova-doacao.svg";
 import WhatsAppIcon from "@/assets/images/whatsapp-icon.svg";
+import { Reveal } from "@/components/full/Reveal";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import {
@@ -11,9 +13,37 @@ import {
 	EnumWhatsAppLinkContext,
 } from "@/utils/whatsapp-link";
 import { AttentionNotice } from "./components/AttentionNotice";
-import { HeroIllustration } from "./components/HeroIllustration";
-import { StepItem } from "./components/StepItem";
+import { StepRow } from "./components/StepRow";
 import { useCreateDonation } from "./hooks/use-create-donation";
+
+const ETAPAS = [
+	{
+		title: "Confirmação",
+		description: "Você confirma o interesse em fazer uma nova doação.",
+		icon: <Heart className="size-5 fill-eva text-eva" />,
+		iconBg: "bg-eva-tint",
+	},
+	{
+		title: "Redirecionamento",
+		description: "Você é levada ao WhatsApp da equipe Lactare.",
+		icon: (
+			<img src={WhatsAppIcon} alt="" aria-hidden="true" className="size-5" />
+		),
+		iconBg: "bg-[#25d366]",
+	},
+	{
+		title: "Triagem e agendamento",
+		description: "A equipe faz a triagem inicial e agenda a coleta.",
+		icon: <MessageCircle className="size-5 text-blue-deep" />,
+		iconBg: "bg-blue-tint",
+	},
+	{
+		title: "Acompanhamento",
+		description: "A doação fica registrada aqui para você acompanhar.",
+		icon: <Droplet className="size-5 text-eva" />,
+		iconBg: "bg-eva-tint",
+	},
+];
 
 export function NewDonationPage() {
 	const navigate = useNavigate();
@@ -37,135 +67,112 @@ export function NewDonationPage() {
 		navigate("/minhas-doacoes");
 	}
 
+	const isPending = createDonationMutation.isPending;
+
 	return (
 		<Page hasPermission={auth?.type === EnumUserType.Common}>
-			{/* sem centralizar na altura da tela: o cartao comeca logo abaixo da trilha */}
-			<div className="lg:flex lg:items-start lg:justify-center lg:pt-6">
-				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-white lg:m-0 lg:mx-auto lg:grid lg:w-full lg:max-w-[1100px] lg:grid-cols-[500px_1fr] lg:gap-8 lg:bg-transparent lg:pt-0 lg:pb-8">
-					<div className="flex flex-col lg:col-start-1 lg:row-start-1 lg:min-h-[520px] lg:overflow-hidden lg:rounded-3xl lg:bg-white lg:shadow-lift">
-						<HeroIllustration />
+			{/*
+			 * Ponto de confirmacao, nao tela de conteudo: um bloco so, deitado em
+			 * duas colunas no desktop (ilustracao a esquerda, fluxo e acoes a
+			 * direita). No mobile as duas colunas viram uma pilha.
+			 */}
+			<Reveal className="mx-auto w-full max-w-[1000px]">
+				<section className="rounded-card overflow-hidden border border-line bg-surface shadow-soft lg:grid lg:grid-cols-[minmax(0,42%)_1fr] lg:items-stretch">
+					{/*
+					 * Painel claro (gradient-milk) e nao o gradiente azul: a
+					 * ilustracao da unDraw e escura (#0f1f3d) e sumia sobre o azul.
+					 */}
+					<div className="gradient-milk relative flex flex-col items-center justify-center overflow-hidden border-b border-line px-6 py-8 text-center lg:border-b-0 lg:border-r lg:px-8 lg:py-12">
+						{/*
+						 * Bolinhas de fundo que vinham com a ilustracao antiga. Em
+						 * opacidade baixa elas so dao textura — a menina com o coracao
+						 * continua sendo o unico elemento em foco.
+						 */}
+						<span
+							aria-hidden="true"
+							className="pointer-events-none absolute inset-0 overflow-hidden"
+						>
+							<span className="absolute -left-14 top-4 size-44 rounded-full bg-blue-tint-2/35 lg:-left-10 lg:top-2 lg:size-40" />
+							<span className="absolute left-10 -top-6 size-24 rounded-full bg-blue-tint-2/25" />
+							<span className="absolute -right-16 top-14 size-48 rounded-full bg-blue-tint-2/30 lg:-right-12 lg:top-6 lg:size-40" />
+							<span className="absolute right-8 top-40 size-16 rounded-full bg-eva-tint/45 lg:top-52" />
+							<span className="absolute -bottom-8 left-6 size-24 rounded-full bg-purple-tint/30" />
+							<span className="absolute -bottom-10 right-10 size-20 rounded-full bg-teal-tint/30" />
+						</span>
 
-						<div className="mt-auto hidden flex-col gap-2.5 px-9 pt-2 pb-9 lg:flex">
-							<button
-								type="button"
-								onClick={handleConfirm}
-								disabled={createDonationMutation.isPending}
-								className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep hover:bg-blue text-[16px] font-semibold text-white shadow-soft transition-transform active:scale-[0.98] disabled:opacity-60"
-							>
-								{createDonationMutation.isPending
-									? "Confirmando..."
-									: "Confirmar"}
-							</button>
+						<img
+							src={novaDoacao}
+							alt=""
+							aria-hidden="true"
+							width={304}
+							height={525}
+							className="relative h-32 w-auto select-none sm:h-40 lg:h-56"
+						/>
 
-							<button
-								type="button"
-								onClick={handleCancel}
-								disabled={createDonationMutation.isPending}
-								className="flex h-12 w-full items-center justify-center rounded-2xl text-[15px] font-medium text-ink-3 transition-transform active:scale-[0.98] disabled:opacity-60"
-							>
-								Cancelar
-							</button>
-						</div>
+						<h1 className="relative mt-5 font-display text-[22px] font-extrabold tracking-tight text-ink sm:text-[26px] lg:mt-7 lg:text-[28px]">
+							Iniciar nova doação
+						</h1>
+						<p className="relative mx-auto mt-2 max-w-[340px] text-[14px] leading-[20px] text-ink-2 lg:text-[15px] lg:leading-[21px]">
+							Você está a um passo de ajudar um bebê que precisa de você.
+						</p>
 					</div>
 
-					<div className="flex flex-col gap-6 bg-surface-2 px-5 pb-6 pt-6 lg:col-start-2 lg:row-start-1 lg:rounded-3xl lg:bg-white lg:p-8 lg:shadow-lift">
-						<div className="rounded-2xl bg-white p-5 shadow-soft lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none">
-							<div className="flex items-center justify-between gap-4">
-								<p className="text-[18px] font-bold text-ink lg:text-[26px]">
-									O que vai acontecer
-								</p>
+					<div className="flex flex-col gap-5 px-5 py-6 sm:px-7 lg:justify-center lg:px-9 lg:py-10">
+						<div>
+							<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-blue-bright">
+								Como funciona
+							</p>
 
-								<img
-									src={novaDoacao}
-									alt=""
-									aria-hidden="true"
-									width={220}
-									height={200}
-									className="hidden h-20 w-auto shrink-0 select-none lg:block"
-								/>
-							</div>
-
-							<div className="my-4 h-px bg-blue-tint lg:hidden" />
-
-							<div className="flex flex-col lg:pt-4">
-								<StepItem
-									title="Confirmação"
-									icon={
-										<Heart className="size-5 fill-eva text-eva lg:size-6" />
-									}
-									iconBg="bg-eva-tint"
-								>
-									Você confirma o interesse em fazer uma nova doação
-								</StepItem>
-
-								<StepItem
-									title="Redirecionamento"
-									icon={
-										<img
-											src={WhatsAppIcon}
-											alt="WhatsApp"
-											className="size-5 lg:size-6"
-										/>
-									}
-									iconBg="bg-[#25d366]"
-								>
-									Você é redirecionada para o WhatsApp da equipe Lactare
-								</StepItem>
-
-								<StepItem
-									title="Triagem e agendamento"
-									icon={<Check className="size-5 text-blue-deep lg:size-6" />}
-									iconBg="bg-blue-tint"
-								>
-									A equipe realiza a triagem inicial e agenda a coleta
-								</StepItem>
-
-								<StepItem
-									title="Acompanhamento"
-									icon={<Droplet className="size-5 text-eva lg:size-6" />}
-									iconBg="bg-eva-tint"
-									isLast
-								>
-									Sua doação é registrada e acompanhada aqui no sistema
-								</StepItem>
-							</div>
+							<ol className="mt-4 flex flex-col">
+								{ETAPAS.map((etapa, indice) => (
+									<StepRow
+										key={etapa.title}
+										{...etapa}
+										isLast={indice === ETAPAS.length - 1}
+									/>
+								))}
+							</ol>
 						</div>
 
 						<AttentionNotice />
 
 						{createDonationMutation.isError && (
-							<p className="text-center text-[13px] font-medium text-destructive">
+							<p
+								role="alert"
+								className="rounded-card-sm bg-danger-tint px-4 py-3 text-center text-[13px] font-medium text-danger"
+							>
 								Não foi possível iniciar a doação. Tente novamente.
 							</p>
 						)}
+
+						<div className="pb-safe flex flex-col gap-2.5 sm:flex-row-reverse">
+							<Button
+								type="button"
+								size="pill"
+								onClick={handleConfirm}
+								disabled={isPending}
+								className="w-full bg-blue-deep font-semibold text-white shadow-soft hover:bg-blue sm:flex-1"
+							>
+								{isPending ? "Confirmando..." : "Confirmar"}
+							</Button>
+
+							<Button
+								type="button"
+								size="pill"
+								variant="ghost"
+								onClick={handleCancel}
+								disabled={isPending}
+								className="w-full border border-line font-semibold text-ink-2 hover:bg-blue-tint hover:text-blue-deep sm:flex-1"
+							>
+								Cancelar
+							</Button>
+						</div>
 					</div>
+				</section>
+			</Reveal>
 
-					<div className="sticky bottom-0 flex flex-col gap-3 border-t border-line bg-white px-5 pb-6 pt-4 lg:hidden">
-						<button
-							type="button"
-							onClick={handleConfirm}
-							disabled={createDonationMutation.isPending}
-							className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep hover:bg-blue text-[16px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60"
-						>
-							{createDonationMutation.isPending
-								? "Confirmando..."
-								: "Confirmar"}
-						</button>
-
-						<button
-							type="button"
-							onClick={handleCancel}
-							disabled={createDonationMutation.isPending}
-							className="flex h-14 w-full items-center justify-center rounded-full border-[1.5px] border-line text-[16px] font-semibold text-ink-2 active:scale-[0.98] transition-transform disabled:opacity-60"
-						>
-							Cancelar
-						</button>
-					</div>
-				</div>
-			</div>
-
-			{/* mesmo rodape da home; sangra as gutters do Layout como o resto da tela */}
-			<div className="-mx-4 mt-10 sm:-mx-6 lg:-mx-10">
+			{/* mesmo rodape das outras telas; sangra as gutters do Layout */}
+			<div className="-mx-4 -mb-16 mt-12 sm:-mx-6 lg:-mx-10">
 				<Footer />
 			</div>
 		</Page>

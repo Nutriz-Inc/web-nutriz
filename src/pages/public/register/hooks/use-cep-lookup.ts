@@ -11,6 +11,75 @@ export type CepAddress = {
 
 export type CepLookupStatus = "idle" | "loading" | "found" | "not_found";
 
+type BrasilApiCep = {
+	street?: string;
+	neighborhood?: string;
+	city?: string;
+	state?: string;
+};
+
+type ViaCepCep = {
+	erro?: boolean | string;
+	logradouro?: string;
+	bairro?: string;
+	localidade?: string;
+	uf?: string;
+};
+
+/**
+ * A BrasilAPI consulta varios provedores e, quando todos falham ao mesmo
+ * tempo (acontece), ela responde erro para CEPs perfeitamente validos e o
+ * cadastro ficava sem preencher o endereco. O ViaCEP entra como segunda
+ * tentativa para o formulario nao depender de um servico so.
+ */
+async function buscaCep(
+	digits: string,
+	signal: AbortSignal,
+): Promise<CepAddress | null> {
+	try {
+		const response = await fetch(
+			`https://brasilapi.com.br/api/cep/v2/${digits}`,
+			{ signal },
+		);
+
+		if (response.ok) {
+			const data = (await response.json()) as BrasilApiCep;
+
+			return {
+				street: data.street ?? "",
+				neighborhood: data.neighborhood ?? "",
+				city: data.city ?? "",
+				state: data.state ?? "",
+			};
+		}
+	} catch (error) {
+		if (signal.aborted) throw error;
+	}
+
+	try {
+		const response = await fetch(`https://viacep.com.br/ws/${digits}/json/`, {
+			signal,
+		});
+
+		if (!response.ok) return null;
+
+		const data = (await response.json()) as ViaCepCep;
+
+		if (data.erro) return null;
+
+		return {
+			street: data.logradouro ?? "",
+			neighborhood: data.bairro ?? "",
+			city: data.localidade ?? "",
+			state: data.uf ?? "",
+		};
+	} catch (error) {
+		if (signal.aborted) throw error;
+	}
+
+	return null;
+}
+
 export function useCepLookup(cep: string) {
 	const [status, setStatus] = useState<CepLookupStatus>("idle");
 	const [address, setAddress] = useState<CepAddress | null>(null);
@@ -27,20 +96,17 @@ export function useCepLookup(cep: string) {
 		const controller = new AbortController();
 		setStatus("loading");
 
-		fetch(`https://brasilapi.com.br/api/cep/v2/${digits}`, {
-			signal: controller.signal,
-		})
-			.then((response) => {
-				if (!response.ok) throw new Error("cep_not_found");
-				return response.json();
-			})
-			.then((data) => {
-				setAddress({
-					street: data.street ?? "",
-					neighborhood: data.neighborhood ?? "",
-					city: data.city ?? "",
-					state: data.state ?? "",
-				});
+		buscaCep(digits, controller.signal)
+			.then((found) => {
+				if (controller.signal.aborted) return;
+
+				if (!found) {
+					setStatus("not_found");
+					setAddress(null);
+					return;
+				}
+
+				setAddress(found);
 				setStatus("found");
 			})
 			.catch(() => {

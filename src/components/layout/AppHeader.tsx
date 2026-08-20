@@ -54,7 +54,9 @@ export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
 
 	return (
 		<>
-			<header className={cn("relative border-b border-line", className)}>
+			<header
+				className={cn("pt-safe relative border-b border-line", className)}
+			>
 				<div className="mx-auto flex h-20 w-full max-w-[1400px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
 					<Link
 						to={logoHref}

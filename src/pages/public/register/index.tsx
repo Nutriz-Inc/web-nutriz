@@ -136,7 +136,7 @@ export function RegisterScreen() {
 	}
 
 	return (
-		<div className="relative isolate flex min-h-screen flex-col overflow-hidden bg-canvas font-body">
+		<div className="relative isolate flex min-h-dvh flex-col overflow-hidden bg-canvas font-body">
 			<span
 				aria-hidden="true"
 				className="ink-blob -left-40 -top-48 h-[30rem] w-[30rem] bg-blue-tint-2/50 blur-3xl"

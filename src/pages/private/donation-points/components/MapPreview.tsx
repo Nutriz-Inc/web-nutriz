@@ -65,10 +65,20 @@ export function MapPreview({
 	onSelectPoint,
 	onRequestChangeLocation,
 }: MapPreviewProps) {
+	// Ponto com coordenada de verdade: a API pode devolver endereco sem
+	// lat/long, e um NaN no centro deixa o mapa cinza.
+	const primeiroComCoordenada = points.find(
+		(point) =>
+			point.address.latitude != null && point.address.longitude != null,
+	);
+
 	const center: [number, number] = userLocation
 		? [userLocation.latitude, userLocation.longitude]
-		: points[0]
-			? [points[0].address.latitude!, points[0].address.longitude!]
+		: primeiroComCoordenada
+			? [
+					primeiroComCoordenada.address.latitude!,
+					primeiroComCoordenada.address.longitude!,
+				]
 			: DEFAULT_CENTER;
 
 	return (
@@ -108,16 +118,22 @@ export function MapPreview({
 						/>
 					)}
 
-					{points.map((point) => (
-						<Marker
-							key={point.id_donation_point}
-							position={[point.address.latitude!, point.address.longitude!]}
-							icon={pointIcon(point.id_donation_point === selectedId)}
-							eventHandlers={{
-								click: () => onSelectPoint?.(point.id_donation_point),
-							}}
-						/>
-					))}
+					{points
+						.filter(
+							(point) =>
+								point.address.latitude != null &&
+								point.address.longitude != null,
+						)
+						.map((point) => (
+							<Marker
+								key={point.id_donation_point}
+								position={[point.address.latitude!, point.address.longitude!]}
+								icon={pointIcon(point.id_donation_point === selectedId)}
+								eventHandlers={{
+									click: () => onSelectPoint?.(point.id_donation_point),
+								}}
+							/>
+						))}
 				</MapContainer>
 
 				{/*

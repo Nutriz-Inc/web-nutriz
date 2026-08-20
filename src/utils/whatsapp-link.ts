@@ -24,5 +24,12 @@ export function buildLactareWhatsAppLink(context: EnumWhatsAppLinkContext) {
 			break;
 	}
 
-	return `https://wa.me/${env?.LACTARE_WHATSAPP_NUMBER}?text=${message}`;
+	// A env se chama VITE_LACTARE_WHATSAPP_NUMBER (e a mesma que o widget da
+	// EVA usa). Sem o prefixo VITE_ o valor vinha `undefined` e o link abria em
+	// wa.me/undefined — o botao de nova doacao caia numa pagina de erro.
+	const number = env.VITE_LACTARE_WHATSAPP_NUMBER?.trim();
+
+	return number
+		? `https://wa.me/${number}?text=${message}`
+		: `https://wa.me/?text=${message}`;
 }

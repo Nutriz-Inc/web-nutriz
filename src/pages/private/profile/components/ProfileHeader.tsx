@@ -23,8 +23,8 @@ export function ProfileHeader({
 
 	return (
 		<div className="flex items-center gap-3 bg-surface-2 px-4 py-3 lg:bg-transparent lg:px-0 lg:py-0">
-			<div className="relative shrink-0">
-				<div
+			<AvatarColorPicker idUser={idUser} className="shrink-0">
+				<span
 					className={cn(
 						"flex size-[73px] items-center justify-center rounded-full text-[22px] font-bold",
 						cor.bg,
@@ -32,8 +32,8 @@ export function ProfileHeader({
 					)}
 				>
 					{getInitials(name)}
-				</div>
-			</div>
+				</span>
+			</AvatarColorPicker>
 
 			<div className="flex min-w-0 flex-col gap-1">
 				<div className="flex items-center gap-2">
@@ -45,8 +45,6 @@ export function ProfileHeader({
 					)}
 				</div>
 				<p className="truncate text-[12px] text-ink-3">{email}</p>
-
-				<AvatarColorPicker idUser={idUser} className="mt-1" />
 			</div>
 		</div>
 	);

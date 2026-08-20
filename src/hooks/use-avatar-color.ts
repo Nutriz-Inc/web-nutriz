@@ -16,6 +16,7 @@ export const AVATAR_COLORS = [
 	{ key: "lilas", label: "Lilás", bg: "bg-purple-tint", text: "text-purple" },
 	{ key: "uva", label: "Uva", bg: "bg-magenta-tint", text: "text-magenta" },
 	{ key: "areia", label: "Areia", bg: "bg-warning-tint", text: "text-warning" },
+	{ key: "ceu", label: "Céu", bg: "bg-blue-tint-2", text: "text-blue-deep" },
 ] as const;
 
 export type AvatarColorKey = (typeof AVATAR_COLORS)[number]["key"];

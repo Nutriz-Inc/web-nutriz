@@ -1,5 +1,11 @@
-import { Check } from "lucide-react";
+import { Pencil } from "lucide-react";
+import type { ReactNode } from "react";
 
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
 	AVATAR_COLORS,
 	type AvatarColorKey,
@@ -9,62 +15,83 @@ import { cn } from "@/lib/utils";
 
 type AvatarColorPickerProps = {
 	idUser: string | undefined;
+	/** A bolinha de iniciais: ela inteira e o gatilho. */
+	children: ReactNode;
 	className?: string;
 };
 
 /**
- * Paleta para a nutriz escolher a cor da bolinha de iniciais. Sao os tints do
- * design system, entao a bolinha nunca sai da paleta do produto.
+ * Abre a paleta de cores da bolinha de iniciais. O gatilho e o proprio avatar,
+ * com um lapis no cantinho indicando que da para trocar. As cores sao os tints
+ * do design system, entao o avatar nunca sai da paleta do produto.
  */
 export function AvatarColorPicker({
 	idUser,
+	children,
 	className,
 }: AvatarColorPickerProps) {
 	const { key, setKey } = useAvatarColor(idUser);
 
 	return (
-		<div className={cn("flex flex-col gap-2", className)}>
-			<p className="text-[12px] font-semibold text-ink-2">Cor do seu avatar</p>
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<button
+					type="button"
+					aria-label="Alterar a cor do avatar"
+					className={cn(
+						"group relative rounded-full outline-none focus-visible:ring-3 focus-visible:ring-blue-bright/50",
+						className,
+					)}
+				>
+					{children}
 
-			<div
-				role="radiogroup"
-				aria-label="Cor de fundo do avatar"
-				className="flex flex-wrap items-center gap-2"
-			>
-				{AVATAR_COLORS.map((cor) => {
-					const ativa = cor.key === key;
+					<span
+						aria-hidden="true"
+						className="absolute right-0 bottom-0 flex size-7 items-center justify-center rounded-full border border-line bg-white text-ink-2 shadow-soft transition-colors group-hover:bg-blue-tint group-hover:text-blue-deep"
+					>
+						<Pencil className="size-3.5" />
+					</span>
+				</button>
+			</DropdownMenuTrigger>
 
-					return (
-						<button
-							key={cor.key}
-							type="button"
-							role="radio"
-							aria-checked={ativa}
-							aria-label={cor.label}
-							title={cor.label}
-							onClick={() => setKey(cor.key as AvatarColorKey)}
-							className="flex size-11 items-center justify-center rounded-full outline-none focus-visible:ring-3 focus-visible:ring-blue-bright/50"
-						>
-							<span
-								className={cn(
-									"flex size-8 items-center justify-center rounded-full border transition-transform",
-									cor.bg,
-									ativa
-										? "scale-110 border-blue-deep"
-										: "border-line hover:scale-105",
-								)}
+			<DropdownMenuContent align="start" className="min-w-0 p-2">
+				<p className="px-1 pb-2 text-[12px] font-semibold text-ink-2">
+					Cor do avatar
+				</p>
+
+				<div
+					role="radiogroup"
+					aria-label="Cor de fundo do avatar"
+					className="grid grid-cols-4 gap-1"
+				>
+					{AVATAR_COLORS.map((cor) => {
+						const ativa = cor.key === key;
+
+						return (
+							<button
+								key={cor.key}
+								type="button"
+								role="radio"
+								aria-checked={ativa}
+								aria-label={cor.label}
+								title={cor.label}
+								onClick={() => setKey(cor.key as AvatarColorKey)}
+								className="flex size-11 items-center justify-center rounded-full outline-none focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 							>
-								{ativa && (
-									<Check
-										className={cn("size-4", cor.text)}
-										aria-hidden="true"
-									/>
-								)}
-							</span>
-						</button>
-					);
-				})}
-			</div>
-		</div>
+								<span
+									className={cn(
+										"size-8 rounded-full border-2 transition-transform",
+										cor.bg,
+										ativa
+											? "scale-110 border-blue-deep"
+											: "border-transparent hover:scale-105",
+									)}
+								/>
+							</button>
+						);
+					})}
+				</div>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 }

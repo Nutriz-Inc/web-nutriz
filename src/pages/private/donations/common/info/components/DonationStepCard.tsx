@@ -53,23 +53,49 @@ export function DonationStepCard({
 	return (
 		<div className="flex gap-4">
 			<div className="flex flex-col items-center">
-				<div
-					className={cn(
-						"flex shrink-0 items-center justify-center rounded-full font-bold transition-all",
-						isCurrent
-							? "size-9 bg-eva text-[14px] text-white"
-							: isDone
-								? "size-7 bg-eva text-white"
-								: "size-7 border-[1.5px] border-magenta-tint bg-white text-[12px] text-ink-3",
+				{/*
+				 * Tres estados legiveis de relance: concluida (cheia, com visto),
+				 * atual (halo em volta, para puxar o olho) e futura (contorno
+				 * tracejado, sinalizando que ainda nao aconteceu).
+				 */}
+				<div className="relative flex shrink-0 items-center justify-center">
+					{isCurrent && (
+						<>
+							{/* pulso continuo marcando a etapa em que a nutriz esta */}
+							<span
+								aria-hidden="true"
+								className="absolute inset-0 -m-0.5 rounded-full bg-eva/20 motion-safe:pulso-etapa"
+							/>
+							<span
+								aria-hidden="true"
+								className="absolute inset-0 -m-0.5 rounded-full bg-eva/10"
+							/>
+						</>
 					)}
-				>
-					{isDone ? <Check className="size-3.5" /> : order}
+
+					<div
+						className={cn(
+							"relative flex shrink-0 items-center justify-center rounded-full font-bold tabular-nums transition-all",
+							isCurrent
+								? "size-9 bg-eva text-[14px] text-white shadow-soft ring-2 ring-eva/30"
+								: isDone
+									? "size-7 bg-eva text-white shadow-soft"
+									: "size-7 border-[1.5px] border-dashed border-blue-tint-2 bg-white text-[12px] text-ink-3",
+						)}
+					>
+						{isDone ? <Check className="size-3.5" strokeWidth={3} /> : order}
+					</div>
 				</div>
+
 				{!isLast && (
 					<div
 						className={cn(
-							"w-px flex-1",
-							isCurrent || isDone ? "bg-eva" : "bg-blue-tint",
+							"w-0.5 flex-1 rounded-full",
+							isDone
+								? "bg-eva"
+								: isCurrent
+									? "bg-gradient-to-b from-eva to-blue-tint"
+									: "bg-blue-tint",
 						)}
 					/>
 				)}

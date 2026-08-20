@@ -143,6 +143,7 @@ export function CollectionPointsSection() {
 								selectedId={selectedId}
 								onSelectPoint={(id) => setSelectedId(id)}
 								onRequestChangeLocation={() => setIsLocationSheetOpen(true)}
+								locateAlign="start"
 							/>
 						</div>
 

@@ -60,25 +60,51 @@ export function DonationStatusCard({ steps, className }: Props) {
 									aria-hidden="true"
 									className={cn(
 										"hidden lg:absolute lg:left-[calc(50%+1.875rem)] lg:right-[calc(-50%+1.875rem)] lg:top-5 lg:block lg:h-0.5 lg:-translate-y-1/2 lg:rounded-full",
-										isDone ? "bg-blue-deep" : "bg-blue-tint-2",
+										isDone
+											? "bg-blue-deep"
+											: isCurrent
+												? "bg-gradient-to-r from-eva to-blue-tint-2"
+												: "bg-blue-tint-2",
 									)}
 								/>
 							)}
 
+							{/*
+							 * Mesma identidade da trilha dentro da doacao: concluida
+							 * cheia com visto, atual com halo pulsando e futura com
+							 * contorno tracejado. Ver DonationStepCard.
+							 */}
 							<span
 								aria-hidden="true"
-								className={cn(
-									"relative flex size-9 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold tabular-nums lg:size-10 lg:text-base",
-									isDone && "bg-blue-deep text-white",
-									isCurrent && "bg-eva text-white shadow-soft",
-									!isDone && !isCurrent && "bg-surface-3 text-ink-2",
-								)}
+								className="relative flex shrink-0 items-center justify-center"
 							>
-								{isDone ? (
-									<Check className="size-4 lg:size-[1.125rem]" />
-								) : (
-									definition.order
+								{isCurrent && (
+									<>
+										<span className="absolute inset-0 -m-0.5 rounded-full bg-eva/20 motion-safe:pulso-etapa" />
+										<span className="absolute inset-0 -m-0.5 rounded-full bg-eva/10" />
+									</>
 								)}
+
+								<span
+									className={cn(
+										"relative flex size-9 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold tabular-nums lg:size-10 lg:text-base",
+										isDone && "bg-blue-deep text-white shadow-soft",
+										isCurrent &&
+											"bg-eva text-white shadow-soft ring-2 ring-eva/30",
+										!isDone &&
+											!isCurrent &&
+											"border-[1.5px] border-dashed border-blue-tint-2 bg-white text-ink-3",
+									)}
+								>
+									{isDone ? (
+										<Check
+											className="size-4 lg:size-[1.125rem]"
+											strokeWidth={3}
+										/>
+									) : (
+										definition.order
+									)}
+								</span>
 							</span>
 
 							<p

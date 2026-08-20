@@ -147,164 +147,171 @@ export function RegisterScreen() {
 				className="ink-blob -right-40 top-[30rem] h-[26rem] w-[26rem] bg-eva-tint/80 blur-3xl"
 			/>
 
-			<img
-				src={cenarioCadastro}
-				alt=""
-				aria-hidden="true"
-				className="pointer-events-none absolute bottom-0 left-0 z-0 w-[46%] max-w-[520px] select-none opacity-60"
-			/>
-
-			<img
-				src={cenarioCadastroDireita}
-				alt=""
-				aria-hidden="true"
-				className="pointer-events-none absolute right-0 bottom-0 z-0 hidden w-[46%] max-w-[560px] select-none opacity-55 sm:block"
-			/>
-
-			<img
-				src={cadastroTopo}
-				alt=""
-				aria-hidden="true"
-				width={220}
-				height={220}
-				className="pointer-events-none absolute top-24 right-6 z-0 hidden h-32 w-auto select-none lg:block xl:right-16 xl:h-36"
-			/>
-
 			<AppHeader showMenu={false} />
 
-			<main className="relative mx-auto w-full max-w-[640px] flex-1 px-4 pb-16 pt-4 sm:px-6 sm:pt-6">
-				<Page
-					backTo="/"
-					title={success ? undefined : "Criação de usuário"}
-					description={
-						success
-							? undefined
-							: "Preencha seus dados para começar a doar. Leva menos de 2 minutos."
-					}
-				>
-					{success ? (
-						<SuccessCard />
-					) : (
-						<>
-							<div className="mt-6">
-								<Stepper
-									steps={WIZARD_STEPS}
-									current={step}
-									maxVisited={maxStep}
-									onStepClick={handleStepClick}
-								/>
-							</div>
+			{/*
+			 * Faixa que ocupa a largura da tela e vai ate o rodape: e nela que os
+			 * cenarios se ancoram. Dentro dela o formulario segue na coluna
+			 * estreita de sempre.
+			 */}
+			<div className="relative flex-1">
+				<img
+					src={cenarioCadastro}
+					alt=""
+					aria-hidden="true"
+					className="pointer-events-none absolute bottom-0 left-0 z-0 w-[38%] max-w-[420px] select-none opacity-50"
+				/>
 
-							<form
-								noValidate
-								onSubmit={handleContinue}
-								className="mt-6 overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
-							>
-								<div className="p-7">
-									{step === 0 && (
-										<PersonalDataStep
-											form={form}
-											errors={errors}
-											onChange={handleChange}
-										/>
-									)}
-									{step === 1 && (
-										<AddressStep
-											form={form}
-											errors={errors}
-											onChange={handleChange}
-										/>
-									)}
-									{step === 2 && (
-										<PasswordStep
-											form={form}
-											errors={errors}
-											onChange={handleChange}
-										/>
-									)}
-									{step === 3 && (
-										<>
-											<ReviewSummary form={form} onEdit={goToStep} />
-											<BabyConsentStep
+				<img
+					src={cenarioCadastroDireita}
+					alt=""
+					aria-hidden="true"
+					className="pointer-events-none absolute right-0 bottom-0 z-0 hidden w-[38%] max-w-[460px] select-none opacity-45 sm:block"
+				/>
+
+				<img
+					src={cadastroTopo}
+					alt=""
+					aria-hidden="true"
+					width={220}
+					height={220}
+					className="pointer-events-none absolute top-6 right-[8%] z-0 hidden h-32 w-auto select-none xl:block"
+				/>
+
+				<main className="relative mx-auto w-full max-w-[640px] px-4 pb-16 pt-4 sm:px-6 sm:pt-6">
+					<Page
+						backTo="/"
+						title={success ? undefined : "Criação de usuário"}
+						description={
+							success
+								? undefined
+								: "Preencha seus dados para começar a doar. Leva menos de 2 minutos."
+						}
+					>
+						{success ? (
+							<SuccessCard />
+						) : (
+							<>
+								<div className="mt-6">
+									<Stepper
+										steps={WIZARD_STEPS}
+										current={step}
+										maxVisited={maxStep}
+										onStepClick={handleStepClick}
+									/>
+								</div>
+
+								<form
+									noValidate
+									onSubmit={handleContinue}
+									className="mt-6 overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
+								>
+									<div className="p-7">
+										{step === 0 && (
+											<PersonalDataStep
 												form={form}
 												errors={errors}
 												onChange={handleChange}
-												onToggle={handleToggle}
-												onBabyChange={handleBabyChange}
-												onAddBaby={handleAddBaby}
-												onRemoveBaby={handleRemoveBaby}
 											/>
-										</>
-									)}
-
-									{errors.general && (
-										<div
-											role="alert"
-											className="mt-5 flex flex-col items-center gap-3 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-center"
-										>
-											<p className="text-sm text-danger">{errors.general}</p>
-											{alreadyRegistered && (
-												<Button
-													type="button"
-													onClick={() => navigate("/login")}
-													className="h-11 rounded-md bg-blue-deep px-5 text-sm font-semibold text-white hover:bg-blue"
-												>
-													Fazer login
-												</Button>
-											)}
-										</div>
-									)}
-								</div>
-
-								<div className="flex items-center justify-between border-t border-line bg-surface-2 px-7 py-5">
-									{step === 0 ? (
-										<button
-											type="button"
-											onClick={() => navigate("/")}
-											className="min-h-11 rounded-md px-2 text-sm font-medium text-ink-2 transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep"
-										>
-											Cancelar
-										</button>
-									) : (
-										<Button
-											type="button"
-											onClick={() => goToStep(step - 1)}
-											disabled={isPending}
-											className="h-11 rounded-md border border-line bg-white px-4 text-sm font-medium text-ink hover:bg-surface-2"
-										>
-											<ChevronLeft className="size-4" aria-hidden />
-											Voltar
-										</Button>
-									)}
-
-									<Button
-										type="submit"
-										disabled={isPending}
-										className="h-11 rounded-md bg-blue-deep px-5 text-sm font-semibold text-white hover:bg-blue disabled:opacity-60"
-									>
-										{isPending ? (
-											<span className="flex items-center gap-2">
-												<LoaderCircle className="size-4 animate-spin" />
-												Criando conta...
-											</span>
-										) : isLastStep ? (
-											<span className="flex items-center gap-2">
-												<Check className="size-4" aria-hidden />
-												Criar conta
-											</span>
-										) : (
-											<span className="flex items-center gap-2">
-												Continuar
-												<ChevronRight className="size-4" aria-hidden />
-											</span>
 										)}
-									</Button>
-								</div>
-							</form>
-						</>
-					)}
-				</Page>
-			</main>
+										{step === 1 && (
+											<AddressStep
+												form={form}
+												errors={errors}
+												onChange={handleChange}
+											/>
+										)}
+										{step === 2 && (
+											<PasswordStep
+												form={form}
+												errors={errors}
+												onChange={handleChange}
+											/>
+										)}
+										{step === 3 && (
+											<>
+												<ReviewSummary form={form} onEdit={goToStep} />
+												<BabyConsentStep
+													form={form}
+													errors={errors}
+													onChange={handleChange}
+													onToggle={handleToggle}
+													onBabyChange={handleBabyChange}
+													onAddBaby={handleAddBaby}
+													onRemoveBaby={handleRemoveBaby}
+												/>
+											</>
+										)}
+
+										{errors.general && (
+											<div
+												role="alert"
+												className="mt-5 flex flex-col items-center gap-3 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-center"
+											>
+												<p className="text-sm text-danger">{errors.general}</p>
+												{alreadyRegistered && (
+													<Button
+														type="button"
+														onClick={() => navigate("/login")}
+														className="h-11 rounded-md bg-blue-deep px-5 text-sm font-semibold text-white hover:bg-blue"
+													>
+														Fazer login
+													</Button>
+												)}
+											</div>
+										)}
+									</div>
+
+									<div className="flex items-center justify-between border-t border-line bg-surface-2 px-7 py-5">
+										{step === 0 ? (
+											<button
+												type="button"
+												onClick={() => navigate("/")}
+												className="min-h-11 rounded-md px-2 text-sm font-medium text-ink-2 transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep"
+											>
+												Cancelar
+											</button>
+										) : (
+											<Button
+												type="button"
+												onClick={() => goToStep(step - 1)}
+												disabled={isPending}
+												className="h-11 rounded-md border border-line bg-white px-4 text-sm font-medium text-ink hover:bg-surface-2"
+											>
+												<ChevronLeft className="size-4" aria-hidden />
+												Voltar
+											</Button>
+										)}
+
+										<Button
+											type="submit"
+											disabled={isPending}
+											className="h-11 rounded-md bg-blue-deep px-5 text-sm font-semibold text-white hover:bg-blue disabled:opacity-60"
+										>
+											{isPending ? (
+												<span className="flex items-center gap-2">
+													<LoaderCircle className="size-4 animate-spin" />
+													Criando conta...
+												</span>
+											) : isLastStep ? (
+												<span className="flex items-center gap-2">
+													<Check className="size-4" aria-hidden />
+													Criar conta
+												</span>
+											) : (
+												<span className="flex items-center gap-2">
+													Continuar
+													<ChevronRight className="size-4" aria-hidden />
+												</span>
+											)}
+										</Button>
+									</div>
+								</form>
+							</>
+						)}
+					</Page>
+				</main>
+			</div>
 
 			{/* opaco para o cenario passar por tras, e nao por cima do rodape */}
 			<div className="relative z-10 bg-canvas">

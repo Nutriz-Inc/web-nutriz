@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { InteractiveCard } from "@/components/full/InteractiveCard";
 import { Badge } from "@/components/ui/badge";
 import type { Article } from "@/pages/public/articles/data";
 import { getArticleSummary } from "../utils";
@@ -13,11 +13,9 @@ export function ArticleGridCard({ article }: ArticleGridCardProps) {
 	const navigate = useNavigate();
 
 	return (
-		<motion.article
-			whileHover={{ y: -3 }}
-			transition={{ type: "spring", stiffness: 300, damping: 22 }}
+		<InteractiveCard
 			onClick={() => navigate(`/artigos?a=${article.id}`)}
-			className="flex cursor-pointer gap-4 rounded-card-sm border border-line bg-white p-4 shadow-soft"
+			className="flex gap-4 rounded-card-sm border border-line bg-white p-4 shadow-soft"
 		>
 			<ArticleCover
 				article={article}
@@ -49,6 +47,6 @@ export function ArticleGridCard({ article }: ArticleGridCardProps) {
 					{article.readTimeMinutes} min de leitura
 				</span>
 			</div>
-		</motion.article>
+		</InteractiveCard>
 	);
 }

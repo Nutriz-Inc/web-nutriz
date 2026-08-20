@@ -1,7 +1,7 @@
 import { Check, ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NutrizLogo from "@/assets/images/nutriz-log-alternative.svg";
+import { AppHeader } from "@/components/layout/AppHeader";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { AddressStep } from "./components/AddressStep";
@@ -133,18 +133,19 @@ export function RegisterScreen() {
 	}
 
 	return (
-		<div className="flex min-h-screen flex-col bg-[#eef2f7]">
-			<header className="bg-[#00458b] sticky top-0 z-10 p-0">
-				<div className="relative flex items-center justify-center max-w-[1440px] mx-auto pl-5 pr-4 py-5 lg:pl-20 lg:pr-9">
-					<img
-						src={NutrizLogo}
-						alt="Nutriz"
-						className="h-14 w-auto select-none"
-					/>
-				</div>
-			</header>
+		<div className="relative isolate flex min-h-screen flex-col overflow-hidden bg-canvas font-body">
+			<span
+				aria-hidden="true"
+				className="ink-blob -left-40 -top-48 h-[30rem] w-[30rem] bg-blue-tint-2/50 blur-3xl"
+			/>
+			<span
+				aria-hidden="true"
+				className="ink-blob -right-40 top-[30rem] h-[26rem] w-[26rem] bg-eva-tint/80 blur-3xl"
+			/>
 
-			<main className="mx-auto w-full max-w-[640px] flex-1 px-4 pt-8 pb-12">
+			<AppHeader showMenu={false} />
+
+			<main className="relative mx-auto w-full max-w-[640px] flex-1 px-4 pb-16 pt-4 sm:px-6 sm:pt-6">
 				<Page
 					backTo="/"
 					title={success ? undefined : "Criação de usuário"}
@@ -170,7 +171,7 @@ export function RegisterScreen() {
 							<form
 								noValidate
 								onSubmit={handleContinue}
-								className="mt-6 overflow-hidden rounded-xl border border-[#e4e4e7] bg-white shadow-sm"
+								className="mt-6 overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
 							>
 								<div className="p-7">
 									{step === 0 && (
@@ -214,12 +215,12 @@ export function RegisterScreen() {
 											role="alert"
 											className="mt-5 flex flex-col items-center gap-3 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-center"
 										>
-											<p className="text-sm text-[#dc2626]">{errors.general}</p>
+											<p className="text-sm text-danger">{errors.general}</p>
 											{alreadyRegistered && (
 												<Button
 													type="button"
 													onClick={() => navigate("/login")}
-													className="h-10 rounded-md bg-[#0d3b6e] px-5 text-sm font-semibold text-white hover:bg-[#0a2e56]"
+													className="h-11 rounded-md bg-blue-deep px-5 text-sm font-semibold text-white hover:bg-blue"
 												>
 													Fazer login
 												</Button>
@@ -228,12 +229,12 @@ export function RegisterScreen() {
 									)}
 								</div>
 
-								<div className="flex items-center justify-between border-t border-[#e4e4e7] bg-[#fafafa] px-7 py-5">
+								<div className="flex items-center justify-between border-t border-line bg-surface-2 px-7 py-5">
 									{step === 0 ? (
 										<button
 											type="button"
 											onClick={() => navigate("/")}
-											className="min-h-11 rounded-md px-2 text-sm font-medium text-[#71717a] transition-colors hover:text-[#09090b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d3b6e]"
+											className="min-h-11 rounded-md px-2 text-sm font-medium text-ink-2 transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep"
 										>
 											Cancelar
 										</button>
@@ -242,7 +243,7 @@ export function RegisterScreen() {
 											type="button"
 											onClick={() => goToStep(step - 1)}
 											disabled={isPending}
-											className="h-11 rounded-md border border-[#e4e4e7] bg-white px-4 text-sm font-medium text-[#09090b] hover:bg-[#f4f4f5]"
+											className="h-11 rounded-md border border-line bg-white px-4 text-sm font-medium text-ink hover:bg-surface-2"
 										>
 											<ChevronLeft className="size-4" aria-hidden />
 											Voltar
@@ -252,7 +253,7 @@ export function RegisterScreen() {
 									<Button
 										type="submit"
 										disabled={isPending}
-										className="h-11 rounded-md bg-[#0d3b6e] px-5 text-sm font-semibold text-white hover:bg-[#0a2e56] disabled:opacity-60"
+										className="h-11 rounded-md bg-blue-deep px-5 text-sm font-semibold text-white hover:bg-blue disabled:opacity-60"
 									>
 										{isPending ? (
 											<span className="flex items-center gap-2">

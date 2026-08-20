@@ -49,7 +49,7 @@ export function LandingHeader() {
 			className={cn(
 				"fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300",
 				scrolled
-					? "border-white/10 bg-[#0a3a87]"
+					? "border-white/10 bg-blue-deep"
 					: "border-transparent bg-transparent",
 			)}
 		>
@@ -72,7 +72,7 @@ export function LandingHeader() {
 							key={link.targetId}
 							type="button"
 							onClick={() => handleNavClick(link.targetId)}
-							className="rounded-full px-4 py-2 text-[14px] font-medium text-[#c7d6f0] transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5]"
+							className="rounded-full px-4 py-2 text-[14px] font-medium text-blue-tint-2 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5]"
 						>
 							{link.label}
 						</button>
@@ -89,7 +89,7 @@ export function LandingHeader() {
 					</button>
 					<Button
 						onClick={() => navigate("/registro")}
-						className="h-11 rounded-full bg-white px-6 text-[14px] font-semibold text-[#0a3a87] hover:bg-[#eaf0f8]"
+						className="h-11 rounded-full bg-white px-6 text-[14px] font-semibold text-blue-deep hover:bg-blue-tint"
 					>
 						Cadastrar-se
 					</Button>
@@ -111,7 +111,7 @@ export function LandingHeader() {
 						showCloseButton={false}
 						className="flex w-[300px] flex-col gap-0 bg-white p-0"
 					>
-						<SheetHeader className="relative bg-[#1B4FBB] px-5 pt-10 pb-6 text-white">
+						<SheetHeader className="relative bg-blue px-5 pt-10 pb-6 text-white">
 							<SheetClose className="absolute top-4 right-4 text-white/80 transition hover:text-white">
 								<X className="h-5 w-5" />
 							</SheetClose>
@@ -147,7 +147,7 @@ export function LandingHeader() {
 							<SheetClose asChild>
 								<Button
 									onClick={() => navigate("/login")}
-									className="h-11 w-full cursor-pointer rounded-full border border-[#d0d9e8] bg-white text-[15px] font-semibold text-[#1B4FBB] hover:bg-slate-50"
+									className="h-11 w-full cursor-pointer rounded-full border border-line bg-white text-[15px] font-semibold text-blue hover:bg-slate-50"
 								>
 									Login
 								</Button>
@@ -155,7 +155,7 @@ export function LandingHeader() {
 							<SheetClose asChild>
 								<Button
 									onClick={() => navigate("/registro")}
-									className="h-11 w-full cursor-pointer rounded-full bg-[#1B4FBB] text-[15px] font-semibold text-white hover:bg-[#1745a3]"
+									className="h-11 w-full cursor-pointer rounded-full bg-blue text-[15px] font-semibold text-white hover:bg-blue"
 								>
 									Cadastrar-se
 								</Button>

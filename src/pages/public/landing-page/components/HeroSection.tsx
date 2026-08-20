@@ -27,7 +27,7 @@ export function HeroSection() {
 	return (
 		<section
 			id="topo"
-			className="relative isolate overflow-hidden bg-[#0a3a87]"
+			className="relative isolate overflow-hidden bg-blue-deep"
 		>
 			<HeroBackground />
 
@@ -48,7 +48,7 @@ export function HeroSection() {
 
 					<motion.p
 						variants={fadeUp}
-						className="mt-4 max-w-md text-[15px] leading-relaxed text-[#c7d6f0] sm:text-[16px]"
+						className="mt-4 max-w-md text-[15px] leading-relaxed text-blue-tint-2 sm:text-[16px]"
 					>
 						Uma gota do seu leite pode ser tudo que um bebê prematuro precisa
 						para sobreviver.

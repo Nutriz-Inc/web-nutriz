@@ -14,12 +14,12 @@ export function InfoCard({
 	children,
 }: InfoCardProps) {
 	return (
-		<div className="flex flex-col gap-5 rounded-2xl border border-[#e7eaef] bg-white p-6">
+		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-white p-6">
 			<div className="flex flex-wrap items-center justify-between gap-3">
 				<div className="flex flex-col gap-1">
-					<p className="text-[16px] font-bold text-[#1f2a37]">{title}</p>
+					<p className="text-[16px] font-bold text-ink">{title}</p>
 					{description && (
-						<p className="text-[12px] text-[#9ca3af]">{description}</p>
+						<p className="text-[12px] text-ink-3">{description}</p>
 					)}
 				</div>
 				{actionSlot}

@@ -16,16 +16,16 @@ export function LandingFooter() {
 	};
 
 	return (
-		<footer className="bg-[#082f6e] text-[#c7d6f0]">
+		<footer className="bg-blue-deep text-blue-tint-2">
 			<div className="mx-auto w-full max-w-[1200px] px-5 py-14 lg:px-8">
 				<div className="flex flex-col gap-10 md:flex-row md:justify-between">
 					<div className="max-w-sm">
 						<div className="flex items-center gap-2">
 							<Wordmark className="h-6" />
-							<span className="text-[11px] text-[#9fb6dc]">por Lactare</span>
+							<span className="text-[11px] text-blue-tint-2">por Lactare</span>
 						</div>
 
-						<p className="mt-4 text-[14px] leading-relaxed text-[#9fb6dc]">
+						<p className="mt-4 text-[14px] leading-relaxed text-blue-tint-2">
 							Conectamos doadoras de leite humano aos bancos de leite para dar a
 							bebês prematuros a chance de crescer com saúde.
 						</p>
@@ -59,7 +59,7 @@ export function LandingFooter() {
 										key={link.label}
 										type="button"
 										onClick={() => handleLink(link)}
-										className="w-fit text-left text-[14px] text-[#9fb6dc] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5]"
+										className="w-fit text-left text-[14px] text-blue-tint-2 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5]"
 									>
 										{link.label}
 									</button>
@@ -69,7 +69,7 @@ export function LandingFooter() {
 					</div>
 				</div>
 
-				<div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-[13px] text-[#9fb6dc] sm:flex-row sm:items-center sm:justify-between">
+				<div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-[13px] text-blue-tint-2 sm:flex-row sm:items-center sm:justify-between">
 					<span>© 2026 Nutriz por Lactare</span>
 					<span>Conteúdo educativo validado por rBLH e Fiocruz</span>
 				</div>

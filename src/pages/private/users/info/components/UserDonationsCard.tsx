@@ -51,21 +51,21 @@ export function UserDonationsCard({
 		>
 			{loading ? (
 				<div className="flex w-full justify-center py-6">
-					<LoaderCircle className="animate-spin text-[#9ca3af]" />
+					<LoaderCircle className="animate-spin text-ink-3" />
 				</div>
 			) : sorted.length === 0 ? (
-				<p className="text-[13px] text-[#9ca3af]">
+				<p className="text-[13px] text-ink-3">
 					Nenhuma doação encontrada para o filtro selecionado.
 				</p>
 			) : (
-				<div className="overflow-hidden rounded-xl border border-[#eef1f5]">
+				<div className="overflow-hidden rounded-xl border border-surface-3">
 					<div
-						className={`hidden bg-[#f8fafc] px-4 py-3 lg:grid ${DONATIONS_GRID_COLS} lg:gap-3`}
+						className={`hidden bg-surface-2 px-4 py-3 lg:grid ${DONATIONS_GRID_COLS} lg:gap-3`}
 					>
 						{COLUMN_LABELS.map((label) => (
 							<span
 								key={label || "actions"}
-								className="text-[11px] font-semibold uppercase tracking-wide text-[#9ca3af]"
+								className="text-[11px] font-semibold uppercase tracking-wide text-ink-3"
 							>
 								{label}
 							</span>
@@ -73,7 +73,7 @@ export function UserDonationsCard({
 					</div>
 					{sorted.map((donation, index) => (
 						<Fragment key={donation.id_donation}>
-							{index > 0 && <div className="h-px bg-[#eef1f5]" />}
+							{index > 0 && <div className="h-px bg-surface-3" />}
 							<UserDonationRow donation={donation} />
 						</Fragment>
 					))}

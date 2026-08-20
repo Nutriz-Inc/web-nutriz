@@ -21,27 +21,25 @@ export function DonationFeedbackCard({
 
 	if (feedback) {
 		return (
-			<div className="flex flex-col gap-2 rounded-2xl bg-white p-4 shadow-[0px_6px_10px_rgba(10,38,77,0.04)]">
+			<div className="flex flex-col gap-2 rounded-2xl bg-white p-4 shadow-soft">
 				<div className="flex items-center gap-2">
-					<span className="text-[13px] font-bold text-[#0e2a45]">
-						Seu feedback
-					</span>
+					<span className="text-[13px] font-bold text-ink">Seu feedback</span>
 				</div>
 				{scoreFeedback != null && (
 					<StarRating value={scoreFeedback} size="sm" />
 				)}
-				<p className="text-[14px] leading-6 text-[#33536f]">{feedback}</p>
+				<p className="text-[14px] leading-6 text-ink-2">{feedback}</p>
 			</div>
 		);
 	}
 
 	return (
-		<div className="flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-[0px_6px_10px_rgba(10,38,77,0.04)]">
+		<div className="flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-soft">
 			<div className="flex flex-col gap-1">
-				<p className="text-[15px] font-bold text-[#0e2a45]">
+				<p className="text-[15px] font-bold text-ink">
 					{hasError ? "Sua doação foi encerrada" : "Sua doação foi concluída"}
 				</p>
-				<p className="text-[13px] text-[#6b8faa]">
+				<p className="text-[13px] text-ink-2">
 					Conte pra gente como foi a sua experiência.
 				</p>
 			</div>
@@ -53,14 +51,14 @@ export function DonationFeedbackCard({
 				onChange={(event) => setValue(event.target.value)}
 				rows={3}
 				placeholder="Escreva aqui o seu feedback"
-				className="rounded-[10px] border border-[#e5ebf3] bg-[#f6f8fd] px-3 py-2 text-[14px] text-[#0e2a45] outline-none placeholder:text-[#9aa3b8]"
+				className="rounded-xl border border-line bg-surface-2 px-3 py-2 text-[14px] text-ink outline-none placeholder:text-ink-3"
 			/>
 
 			<button
 				type="button"
 				onClick={() => onSubmit(value, score)}
 				disabled={!value || !score || isPending}
-				className="self-end rounded-full bg-[#00458b] px-5 py-2.5 text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="self-end rounded-full bg-blue-deep hover:bg-blue px-5 py-2.5 text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				Enviar feedback
 			</button>

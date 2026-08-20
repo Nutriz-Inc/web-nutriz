@@ -28,8 +28,8 @@ export function StarRating({ value, onChange, size = "lg" }: Props) {
 						className={cn(
 							size === "lg" ? "size-6" : "size-4",
 							star <= value
-								? "fill-[#f2b705] text-[#f2b705]"
-								: "fill-transparent text-[#d7dee8]",
+								? "fill-amber text-amber"
+								: "fill-transparent text-blue-tint-2",
 						)}
 					/>
 				</button>

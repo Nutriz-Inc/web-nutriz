@@ -21,13 +21,13 @@ export function CopyableId({ id, className }: CopyableIdProps) {
 			type="button"
 			onClick={handleCopy}
 			className={cn(
-				"flex min-w-0 items-center gap-1.5 text-[13px] text-[#9ca3af] transition-colors active:text-[#6b7280]",
+				"flex min-w-0 items-center gap-1.5 text-[13px] text-ink-3 transition-colors active:text-ink-2",
 				className,
 			)}
 		>
 			<span className="truncate font-mono">{id}</span>
 			{copied ? (
-				<Check className="size-3.5 shrink-0 text-[#0e9e94]" />
+				<Check className="size-3.5 shrink-0 text-teal" />
 			) : (
 				<Copy className="size-3.5 shrink-0" />
 			)}

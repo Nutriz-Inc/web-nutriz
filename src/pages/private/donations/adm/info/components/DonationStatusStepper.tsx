@@ -21,10 +21,10 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 	);
 
 	return (
-		<div className="flex flex-col gap-4 rounded-2xl border border-[#e7eaef] bg-white p-6">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-6">
 			<div className="flex flex-col gap-1">
-				<p className="text-[17px] font-bold text-[#1f2a37]">Status da doação</p>
-				<p className="text-[12px] text-[#6b7280]">
+				<p className="text-[16px] font-bold text-ink">Status da doação</p>
+				<p className="text-[12px] text-ink-2">
 					Etapa só inicia após a anterior ser concluída
 				</p>
 			</div>
@@ -53,12 +53,12 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 								className={cn(
 									"flex size-7 shrink-0 items-center justify-center rounded-full text-[12px] font-bold",
 									isFailed
-										? "bg-[#a32d2d] text-white"
+										? "bg-danger text-white"
 										: isDone
-											? "bg-[#1b7f79] text-white"
+											? "bg-success text-white"
 											: isCurrent
-												? "bg-[#e0f5fb] text-[#0e7490]"
-												: "bg-[#eef2f7] text-[#9ca3af]",
+												? "bg-blue-tint text-teal"
+												: "bg-surface-3 text-ink-3",
 								)}
 							>
 								{isFailed ? (
@@ -75,10 +75,10 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 									className={cn(
 										"text-[14px]",
 										isFailed
-											? "font-bold text-[#a32d2d]"
+											? "font-bold text-danger"
 											: isCurrent
-												? "font-bold text-[#1f2a37]"
-												: "font-semibold text-[#6b7280]",
+												? "font-bold text-ink"
+												: "font-semibold text-ink-2",
 									)}
 								>
 									{definition.name}
@@ -86,7 +86,7 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 								<p
 									className={cn(
 										"text-[11px]",
-										isFailed ? "text-[#a32d2d]" : "text-[#9ca3af]",
+										isFailed ? "text-danger" : "text-ink-3",
 									)}
 								>
 									{subLabel}
@@ -94,7 +94,7 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 							</div>
 
 							{isCurrent && !isFailed && (
-								<span className="shrink-0 rounded-full bg-[#e0f5fb] px-2.5 py-1 text-[11px] font-semibold text-[#0e7490]">
+								<span className="shrink-0 rounded-full bg-blue-tint px-2.5 py-1 text-[11px] font-semibold text-teal">
 									Atual
 								</span>
 							)}

@@ -16,7 +16,7 @@ export function TestimonialsSection() {
 	const go = (next: number) => setIndex((next + total) % total);
 
 	const arrowClass =
-		"inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-[#e6ecf5] bg-white text-[#387ccd] shadow-sm transition-colors hover:bg-[#f1f5fb] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#387ccd]";
+		"inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-blue-tint bg-white text-blue-bright shadow-soft transition-colors hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-bright";
 
 	return (
 		<section id="depoimentos" className="scroll-mt-20 bg-white py-20 lg:py-24">
@@ -26,7 +26,7 @@ export function TestimonialsSection() {
 					className="flex flex-col items-center gap-3 text-center"
 				>
 					<SectionLabel color="#387ccd">DEPOIMENTOS</SectionLabel>
-					<h2 className="text-[30px] font-extrabold tracking-tight text-[#12294d] lg:text-[38px]">
+					<h2 className="text-[30px] font-extrabold tracking-tight text-ink lg:text-[38px]">
 						Quem já doou conta
 					</h2>
 				</motion.div>
@@ -79,8 +79,8 @@ export function TestimonialsSection() {
 							className={cn(
 								"h-2 cursor-pointer rounded-full transition-all",
 								dotIndex === index
-									? "w-6 bg-[#387ccd]"
-									: "w-2 bg-[#cdd8ea] hover:bg-[#a9bce0]",
+									? "w-6 bg-blue-bright"
+									: "w-2 bg-blue-tint-2 hover:bg-blue-tint-2",
 							)}
 						/>
 					))}

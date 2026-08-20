@@ -259,7 +259,7 @@ export function AdminStepCard({
 	};
 
 	return (
-		<div className="flex flex-col gap-5 rounded-2xl border border-[#e7eaef] bg-white p-6">
+		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-white p-6">
 			<StepCardHeader
 				icon={definition.icon}
 				label={definition.name}
@@ -269,7 +269,7 @@ export function AdminStepCard({
 				onViewTimeline={() => setTimelineOpen(true)}
 			/>
 
-			<div className="h-px bg-[#e7eaef]" />
+			<div className="h-px bg-blue-tint" />
 
 			{!step ? (
 				<StepCreateForm
@@ -286,9 +286,9 @@ export function AdminStepCard({
 			) : (
 				<>
 					{isFailed && (
-						<div className="flex items-center gap-2.5 rounded-xl border border-[#f3caca] bg-[#fcebeb] px-4 py-3">
-							<AlertTriangle className="size-4 shrink-0 text-[#a32d2d]" />
-							<p className="text-[13px] font-semibold text-[#a32d2d]">
+						<div className="flex items-center gap-2.5 rounded-xl border border-danger-tint bg-danger-tint px-4 py-3">
+							<AlertTriangle className="size-4 shrink-0 text-danger" />
+							<p className="text-[13px] font-semibold text-danger">
 								Etapa marcada como erro — a doação foi encerrada.
 							</p>
 						</div>
@@ -296,7 +296,7 @@ export function AdminStepCard({
 
 					<div className="flex flex-col gap-3.5">
 						{!isLocked && (
-							<p className="text-[11px] font-bold tracking-[0.6px] text-[#00458b]">
+							<p className="text-[11px] font-bold tracking-[0.6px] text-blue-deep">
 								DADOS DO AGENDAMENTO · EDITÁVEL
 							</p>
 						)}
@@ -338,7 +338,7 @@ export function AdminStepCard({
 						)}
 					</div>
 
-					<div className="h-px bg-[#e7eaef]" />
+					<div className="h-px bg-blue-tint" />
 
 					{isDone ? (
 						<StepDoneFooter step={step} />

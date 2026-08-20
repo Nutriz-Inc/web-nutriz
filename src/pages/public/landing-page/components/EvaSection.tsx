@@ -35,7 +35,7 @@ export function EvaSection() {
 		>
 			<div
 				aria-hidden
-				className="mx-auto mb-6 h-1.5 w-16 rounded-full bg-[#e3e8f0] lg:mb-8"
+				className="mx-auto mb-6 h-1.5 w-16 rounded-full bg-blue-tint lg:mb-8"
 			/>
 
 			<motion.div
@@ -44,14 +44,14 @@ export function EvaSection() {
 				className="mx-auto max-w-[1200px] px-5 lg:px-8"
 			>
 				<div
-					className="relative overflow-hidden rounded-[28px] px-7 py-10 lg:rounded-[36px] lg:px-14 lg:py-16"
+					className="relative overflow-hidden rounded-3xl px-7 py-10 lg:rounded-2xl lg:px-14 lg:py-16"
 					style={{ background: EVA_LANDING_BG }}
 				>
 					<div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
 						<div className="min-w-0 lg:max-w-[460px]">
 							<motion.span
 								variants={item}
-								className="inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-[13px] font-bold tracking-[0.12em] text-[#a52d5e]"
+								className="inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-[13px] font-bold tracking-[0.12em] text-danger"
 							>
 								<span
 									aria-hidden
@@ -63,14 +63,14 @@ export function EvaSection() {
 							<motion.h2
 								variants={item}
 								id="eva-section-title"
-								className="mt-6 text-[34px] font-extrabold leading-[1.08] tracking-[-0.02em] text-[#1c1b1f] lg:text-[48px]"
+								className="mt-6 text-[34px] font-extrabold leading-[1.08] tracking-[-0.02em] text-ink lg:text-[48px]"
 							>
 								Como você está hoje?
 							</motion.h2>
 
 							<motion.p
 								variants={item}
-								className="mt-5 max-w-[440px] text-[15px] leading-relaxed text-[#3d3543] lg:text-[17px]"
+								className="mt-5 max-w-[440px] text-[15px] leading-relaxed text-ink lg:text-[16px]"
 							>
 								A EVA acolhe você a qualquer hora — doação de leite, ordenha,
 								armazenamento e amamentação. Sem fila, sem espera.
@@ -100,12 +100,12 @@ export function EvaSection() {
 										label="Falar com a EVA"
 										onClick={() => openEva()}
 										className="relative"
-										pillClassName="bg-white text-[#1c1b1f] shadow-[0_6px_20px_rgba(93,63,110,0.18)]"
-										circleClassName="bg-[#c25e86] text-white"
+										pillClassName="bg-white text-ink shadow-soft"
+										circleClassName="bg-eva text-white"
 									/>
 								</div>
 
-								<span className="max-w-[150px] text-[14px] leading-snug text-[#3d3543]">
+								<span className="max-w-[150px] text-[14px] leading-snug text-ink">
 									Atendimento acolhedor, a qualquer hora
 								</span>
 							</motion.div>
@@ -114,32 +114,30 @@ export function EvaSection() {
 						<motion.div
 							variants={item}
 							aria-hidden
-							className="w-full max-w-[380px] flex-none rounded-[22px] bg-white p-5 shadow-[0_24px_60px_rgba(60,30,70,0.28)] lg:w-[380px]"
+							className="w-full max-w-[380px] flex-none rounded-2xl bg-white p-5 shadow-lift lg:w-[380px]"
 						>
 							<div className="flex items-center gap-2.5">
-								<span className="size-8 rounded-full bg-gradient-to-br from-[#f7cca0] via-[#f0a0be] to-[#b79ce0]" />
-								<span className="text-[15px] font-bold text-[#1c1b1f]">
-									EVA
-								</span>
-								<span className="ml-1 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#227a52]">
+								<span className="size-8 rounded-full bg-gradient-to-br from-warning-tint via-eva-bright to-purple" />
+								<span className="text-[15px] font-bold text-ink">EVA</span>
+								<span className="ml-1 inline-flex items-center gap-1.5 text-[13px] font-semibold text-success">
 									<span className="size-1.5 rounded-full bg-[#2ea36a]" />
 									online
 								</span>
 							</div>
 
-							<p className="mt-4 ml-auto max-w-[84%] rounded-[16px_16px_6px_16px] bg-gradient-to-br from-[#fce0c6] via-[#f6c4d4] to-[#f2bccf] px-3.5 py-2.5 text-[14px] leading-snug text-[#1c1b1f]">
+							<p className="mt-4 ml-auto max-w-[84%] rounded-[16px_16px_6px_16px] bg-gradient-to-br from-warning-tint via-eva-tint to-eva-tint px-3.5 py-2.5 text-[14px] leading-snug text-ink">
 								Meu bebê tem 4 meses, ainda posso doar?
 							</p>
 
-							<p className="mt-3 mr-auto max-w-[88%] rounded-[16px_16px_16px_6px] bg-[#f1f0f4] px-3.5 py-2.5 text-[14px] leading-snug text-[#1c1b1f]">
+							<p className="mt-3 mr-auto max-w-[88%] rounded-[16px_16px_16px_6px] bg-surface-3 px-3.5 py-2.5 text-[14px] leading-snug text-ink">
 								Pode sim! Enquanto você amamenta e tem leite de sobra, sua
 								doação é muito bem-vinda.
 							</p>
 
-							<div className="mt-3 inline-flex items-center gap-1.5 rounded-[16px_16px_16px_6px] bg-[#f1f0f4] px-4 py-3">
-								<span className="size-1.5 rounded-full bg-[#8e8a96]" />
-								<span className="size-1.5 rounded-full bg-[#8e8a96]" />
-								<span className="size-1.5 rounded-full bg-[#8e8a96]" />
+							<div className="mt-3 inline-flex items-center gap-1.5 rounded-[16px_16px_16px_6px] bg-surface-3 px-4 py-3">
+								<span className="size-1.5 rounded-full bg-ink-3" />
+								<span className="size-1.5 rounded-full bg-ink-3" />
+								<span className="size-1.5 rounded-full bg-ink-3" />
 							</div>
 						</motion.div>
 					</div>
@@ -149,7 +147,7 @@ export function EvaSection() {
 					variants={item}
 					className="mt-7 flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center"
 				>
-					<span className="text-[15px] font-bold text-[#1c1b1f]">
+					<span className="text-[15px] font-bold text-ink">
 						Comece por aqui:
 					</span>
 					<div className="flex flex-wrap gap-2.5">
@@ -158,7 +156,7 @@ export function EvaSection() {
 								key={suggestion}
 								type="button"
 								onClick={() => openEva(suggestion)}
-								className="min-h-[44px] cursor-pointer rounded-full bg-[#fce7ef] px-[18px] text-[14px] font-semibold text-[#b8386a] transition-[filter] hover:brightness-[0.97] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[#b8386a]"
+								className="min-h-[44px] cursor-pointer rounded-full bg-danger-tint px-[18px] text-[14px] font-semibold text-eva transition-[filter] hover:brightness-[0.97] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-eva"
 							>
 								{suggestion}
 							</button>

@@ -16,7 +16,7 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 							key={blockKey(block)}
 							id={headingId(block.h)}
 							tabIndex={-1}
-							className="mb-2 mt-[22px] scroll-mt-20 text-[17px] font-bold text-[#09090b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0d3b6e]"
+							className="mb-2 mt-[22px] scroll-mt-20 text-[16px] font-bold text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-deep"
 						>
 							{block.h}
 						</h2>
@@ -27,7 +27,7 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 					return (
 						<p
 							key={blockKey(block)}
-							className="mt-2 text-[14.5px] leading-[1.7] text-[#3f3f46]"
+							className="mt-2 text-[14px] leading-[1.7] text-ink-2"
 						>
 							{block.p}
 						</p>
@@ -38,7 +38,7 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 					return (
 						<ul
 							key={blockKey(block)}
-							className="mt-3 flex list-disc flex-col gap-1.5 pl-5 text-[14.5px] leading-[1.7] text-[#3f3f46]"
+							className="mt-3 flex list-disc flex-col gap-1.5 pl-5 text-[14px] leading-[1.7] text-ink-2"
 						>
 							{block.list.map((item) => (
 								<li key={item}>{item}</li>
@@ -50,7 +50,7 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 				return (
 					<div
 						key={blockKey(block)}
-						className="mt-4 flex items-start gap-2.5 rounded-[10px] border p-4"
+						className="mt-4 flex items-start gap-2.5 rounded-xl border p-4"
 						style={{
 							backgroundColor: article.soft,
 							borderColor: article.softBorder,
@@ -61,7 +61,7 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 							style={{ color: article.accent }}
 							aria-hidden
 						/>
-						<p className="text-[13.5px] leading-[1.6] text-[#3f3f46]">
+						<p className="text-[13px] leading-[1.6] text-ink-2">
 							{block.callout}
 						</p>
 					</div>

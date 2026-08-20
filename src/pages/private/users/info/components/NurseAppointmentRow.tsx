@@ -31,39 +31,39 @@ export function NurseAppointmentRow({ job }: NurseAppointmentRowProps) {
 			type="button"
 			onClick={handleClick}
 			disabled={!job.id_donation}
-			className={`flex w-full flex-col gap-2.5 p-4 text-left transition-colors enabled:hover:bg-[#f8fafc] lg:grid ${APPOINTMENTS_GRID_COLS} lg:items-center lg:gap-3 lg:px-4 lg:py-3`}
+			className={`flex w-full flex-col gap-2.5 p-4 text-left transition-colors enabled:hover:bg-surface-2 lg:grid ${APPOINTMENTS_GRID_COLS} lg:items-center lg:gap-3 lg:px-4 lg:py-3`}
 		>
 			<div className="flex items-center justify-between lg:contents">
 				<div className="flex items-center gap-3">
-					<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#e1f1fb]">
-						<span className="text-[12px] font-bold text-[#00458b]">
+					<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-tint">
+						<span className="text-[12px] font-bold text-blue-deep">
 							{getInitials(donorName)}
 						</span>
 					</div>
-					<span className="min-w-0 truncate text-[14px] font-semibold text-[#1f2a37]">
+					<span className="min-w-0 truncate text-[14px] font-semibold text-ink">
 						{donorName}
 					</span>
 				</div>
 				{job.id_donation && (
-					<ChevronRight className="size-4 text-[#9ca3af] lg:hidden" />
+					<ChevronRight className="size-4 text-ink-3 lg:hidden" />
 				)}
 			</div>
 			<StatusBadge step={stepName} label={stepName ?? job.name} />
-			<span className="text-[14px] text-[#6b7280]">
+			<span className="text-[14px] text-ink-2">
 				<span className="lg:hidden">Data: </span>
 				{job.date_set ? formatDateBR(job.date_set) : "—"}
 			</span>
-			<span className="text-[14px] text-[#6b7280]">
+			<span className="text-[14px] text-ink-2">
 				<span className="lg:hidden">Horário: </span>
 				{job.date_set ? formatTimeHM(job.date_set) : "—"}
 			</span>
-			<span className="min-w-0 text-[14px] text-[#6b7280] lg:truncate">
+			<span className="min-w-0 text-[14px] text-ink-2 lg:truncate">
 				<span className="lg:hidden">Local: </span>
 				{formatJobLocation(job.address)}
 			</span>
 			<AppointmentStatusBadge status={job.status} />
 			{job.id_donation ? (
-				<ChevronRight className="hidden size-4 text-[#9ca3af] lg:block" />
+				<ChevronRight className="hidden size-4 text-ink-3 lg:block" />
 			) : (
 				<span className="hidden lg:block" />
 			)}

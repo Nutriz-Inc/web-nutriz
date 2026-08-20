@@ -23,17 +23,17 @@ export function PasswordField({ value, onChange }: PasswordFieldProps) {
 				className="flex w-full items-center justify-between gap-3 px-3 py-3 text-left"
 			>
 				<div className="flex flex-col gap-1">
-					<p className="text-[12px] font-bold text-[#1e4976]">Senha</p>
-					<p className="text-[12px] tracking-widest text-[#5a7a9a]">••••••••</p>
+					<p className="text-[12px] font-bold text-blue-deep">Senha</p>
+					<p className="text-[12px] tracking-widest text-ink-2">••••••••</p>
 				</div>
-				<Pencil className="size-3.5 shrink-0 text-[#387ccd]" />
+				<Pencil className="size-3.5 shrink-0 text-blue-bright" />
 			</button>
 		);
 	}
 
 	return (
 		<div className="flex flex-col gap-1.5 px-3 py-3">
-			<p className="text-[12px] font-bold text-[#1e4976]">Senha</p>
+			<p className="text-[12px] font-bold text-blue-deep">Senha</p>
 			<div className="relative">
 				<input
 					ref={inputRef}
@@ -44,13 +44,13 @@ export function PasswordField({ value, onChange }: PasswordFieldProps) {
 						if (!value) setIsEditing(false);
 					}}
 					placeholder="Nova senha"
-					className="h-[30px] w-full rounded-lg border-[1.5px] border-[#387ccd]/80 bg-white pl-3 pr-8 text-[12px] text-[#1a1d23] outline-none placeholder:text-[#888]/60"
+					className="h-[30px] w-full rounded-lg border-[1.5px] border-blue-bright/80 bg-white pl-3 pr-8 text-[12px] text-ink outline-none placeholder:text-ink-3/60"
 				/>
 				<button
 					type="button"
 					onClick={() => setVisible((prev) => !prev)}
 					aria-label={visible ? "Ocultar senha" : "Mostrar senha"}
-					className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#387ccd]"
+					className="absolute right-2.5 top-1/2 -translate-y-1/2 text-blue-bright"
 				>
 					{visible ? (
 						<EyeOff className="size-3.5" />

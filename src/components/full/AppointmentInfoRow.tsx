@@ -15,10 +15,8 @@ export function AppointmentInfoRow({
 		<div className="flex items-start gap-2.5">
 			<span className="mt-0.5">{icon}</span>
 			<div className="flex min-w-0 flex-col">
-				<span className="text-[12px] text-[#9ca3af]">{label}</span>
-				<span className="text-[14px] font-semibold text-[#374151]">
-					{value}
-				</span>
+				<span className="text-[12px] text-ink-3">{label}</span>
+				<span className="text-[14px] font-semibold text-ink-2">{value}</span>
 			</div>
 		</div>
 	);

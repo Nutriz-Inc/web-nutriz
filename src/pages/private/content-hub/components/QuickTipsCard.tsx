@@ -3,9 +3,9 @@ import { QUICK_TIPS } from "../constants";
 
 export function QuickTipsCard() {
 	return (
-		<section className="rounded-xl border border-[#e4e4e7] bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
-			<h2 className="flex items-center gap-2 text-[15px] font-bold text-[#09090b]">
-				<Sparkles className="size-4 text-[#f2579f]" aria-hidden />
+		<section className="rounded-card-sm border border-line bg-white p-5 shadow-soft">
+			<h2 className="flex items-center gap-2 text-[15px] font-bold text-ink">
+				<Sparkles className="size-4 text-eva" aria-hidden />
 				Dicas rápidas
 			</h2>
 
@@ -14,15 +14,13 @@ export function QuickTipsCard() {
 					<li key={tip.title} className="flex items-start gap-3">
 						<span
 							aria-hidden
-							className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#fdf1f5] text-[12px] font-bold text-[#e0457a]"
+							className="flex size-6 shrink-0 items-center justify-center rounded-full bg-eva-tint text-[12px] font-bold text-eva"
 						>
 							{index + 1}
 						</span>
 						<div>
-							<p className="text-[14px] font-semibold text-[#09090b]">
-								{tip.title}
-							</p>
-							<p className="mt-0.5 text-[13px] leading-relaxed text-[#71717a]">
+							<p className="text-[14px] font-semibold text-ink">{tip.title}</p>
+							<p className="mt-0.5 text-[13px] leading-relaxed text-ink-2">
 								{tip.description}
 							</p>
 						</div>

@@ -38,12 +38,12 @@ export function StepJobsSection({
 
 	return (
 		<div className="flex flex-col gap-2.5">
-			<span className="text-[12px] font-semibold text-[#6b7280]">
+			<span className="text-[12px] font-semibold text-ink-2">
 				Agendamentos com enfermeiros
 			</span>
 
 			{jobs.length === 0 && !showNewForm && (
-				<p className="text-[13px] text-[#9ca3af]">
+				<p className="text-[13px] text-ink-3">
 					Nenhum agendamento com enfermeiro para esta etapa.
 				</p>
 			)}
@@ -60,11 +60,11 @@ export function StepJobsSection({
 			))}
 
 			{showNewForm ? (
-				<div className="flex flex-col gap-2.5 rounded-[12px] border border-[#54b2e3] bg-white p-3.5">
+				<div className="flex flex-col gap-2.5 rounded-xl border border-blue-bright bg-white p-3.5">
 					<select
 						value={nurseId}
 						onChange={(event) => setNurseId(event.target.value)}
-						className="rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3 py-2 text-[13px] text-[#1f2a37] outline-none"
+						className="rounded-xl border-[1.5px] border-blue-bright bg-white px-3 py-2 text-[13px] text-ink outline-none"
 					>
 						<option value="">Selecione um enfermeiro</option>
 						{nurses.map((nurse) => (
@@ -79,7 +79,7 @@ export function StepJobsSection({
 						onChange={(event) => setDescription(event.target.value)}
 						rows={2}
 						placeholder="Descrição do atendimento"
-						className="rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3 py-2 text-[13px] text-[#1f2a37] outline-none placeholder:text-[#9ca3af]"
+						className="rounded-xl border-[1.5px] border-blue-bright bg-white px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
 					/>
 
 					<div className="flex gap-2">
@@ -87,14 +87,14 @@ export function StepJobsSection({
 							type="button"
 							onClick={handleCreate}
 							disabled={disabled || !nurseId || !description}
-							className="rounded-lg bg-[#00458b] px-3 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60"
+							className="rounded-full bg-blue-deep hover:bg-blue px-3 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60"
 						>
 							Adicionar agendamento
 						</button>
 						<button
 							type="button"
 							onClick={() => setShowNewForm(false)}
-							className="rounded-lg px-3 py-1.5 text-[12px] font-semibold text-[#6b7280]"
+							className="rounded-lg px-3 py-1.5 text-[12px] font-semibold text-ink-2"
 						>
 							Cancelar
 						</button>
@@ -105,7 +105,7 @@ export function StepJobsSection({
 					type="button"
 					onClick={() => setShowNewForm(true)}
 					disabled={disabled || nurses.length === 0}
-					className="flex items-center gap-1.5 self-start rounded-lg border border-dashed border-[#54b2e3] px-3 py-1.5 text-[12px] font-semibold text-[#00458b] disabled:opacity-60"
+					className="flex items-center gap-1.5 self-start rounded-lg border border-dashed border-blue-bright px-3 py-1.5 text-[12px] font-semibold text-blue-deep disabled:opacity-60"
 				>
 					<Plus className="size-3.5" />
 					Adicionar agendamento

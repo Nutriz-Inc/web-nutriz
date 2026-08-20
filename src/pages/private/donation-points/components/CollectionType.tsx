@@ -9,12 +9,12 @@ export function CollectionType({
 }: CollectionTypeProps) {
 	const label = hasHome ? "Coleta domiciliar" : "Coleta no ponto";
 	const colorClassName = hasHome
-		? "bg-[#e8fcf9] text-[#0f6e56]"
-		: "bg-[#edf3ff] text-[#387ccd]";
+		? "bg-success-tint text-success"
+		: "bg-canvas text-blue-bright";
 
 	if (variant === "detail") {
-		const borderClassName = hasHome ? "border-[#a8e6da]" : "border-[#c7def5]";
-		const dotClassName = hasHome ? "bg-[#0f6e56]" : "bg-[#387ccd]";
+		const borderClassName = hasHome ? "border-teal-tint" : "border-blue-tint-2";
+		const dotClassName = hasHome ? "bg-success" : "bg-blue-bright";
 
 		return (
 			<span

@@ -12,13 +12,13 @@ export function FinalCtaSection() {
 	const reveal = useReveal();
 
 	return (
-		<section className="bg-[#f5f7fb] py-20 lg:py-24">
+		<section className="bg-surface-2 py-20 lg:py-24">
 			<div className="mx-auto w-full max-w-[1200px] px-5 lg:px-8">
 				<motion.div
 					{...reveal}
-					className="rounded-[34px] bg-white p-2 shadow-xl shadow-[#0a3a87]/10"
+					className="rounded-2xl bg-white p-2 shadow-lift shadow-[#0a3a87]/10"
 				>
-					<div className="relative isolate overflow-hidden rounded-[26px]">
+					<div className="relative isolate overflow-hidden rounded-3xl">
 						<HeroBackground />
 
 						<div className="relative z-10 flex flex-col gap-8 p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:p-14">
@@ -29,7 +29,7 @@ export function FinalCtaSection() {
 									Pronta para fazer a diferença?
 								</h2>
 
-								<p className="mt-3 max-w-md text-[15px] leading-relaxed text-[#c7d6f0] sm:text-[16px]">
+								<p className="mt-3 max-w-md text-[15px] leading-relaxed text-blue-tint-2 sm:text-[16px]">
 									Cadastre-se agora e comece sua jornada de doação.
 								</p>
 							</div>
@@ -59,7 +59,7 @@ export function FinalCtaSection() {
 											/>
 										))}
 									</div>
-									<span className="text-[13px] text-[#c7d6f0]">
+									<span className="text-[13px] text-blue-tint-2">
 										<span className="font-bold text-white">4.200+</span>{" "}
 										doadoras já fazem parte
 									</span>

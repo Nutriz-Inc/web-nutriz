@@ -21,7 +21,7 @@ export function DonationManagementCard({
 			type="button"
 			onClick={() => navigate(`/gestao-doacoes/${donation.id_donation}`)}
 			className={cn(
-				"flex w-full flex-col gap-3.5 bg-white p-[18px] text-left transition-colors hover:bg-[#f4f7fb]",
+				"flex w-full flex-col gap-3.5 bg-white p-[18px] text-left transition-colors hover:bg-surface-3",
 				"lg:flex-row lg:items-center lg:gap-6 lg:px-6 lg:py-4",
 				!donation.isActive && "opacity-70",
 			)}
@@ -30,23 +30,23 @@ export function DonationManagementCard({
 				<div
 					className={cn(
 						"flex size-[46px] shrink-0 items-center justify-center rounded-full",
-						donation.isActive ? "bg-[#e1f1fb]" : "bg-[#fce4f0]",
+						donation.isActive ? "bg-blue-tint" : "bg-eva-tint",
 					)}
 				>
 					<span
 						className={cn(
 							"text-[16px] font-bold",
-							donation.isActive ? "text-[#00458b]" : "text-[#f2579f]",
+							donation.isActive ? "text-blue-deep" : "text-eva",
 						)}
 					>
 						{getInitials(donation.userName)}
 					</span>
 				</div>
 				<div className="flex min-w-0 flex-col gap-0.5">
-					<p className="truncate text-[18px] font-bold text-[#1f2a37]">
+					<p className="truncate text-[18px] font-bold text-ink">
 						{donation.userName}
 					</p>
-					<span className="truncate font-mono text-[13px] text-[#9ca3af]">
+					<span className="truncate font-mono text-[13px] text-ink-3">
 						{donation.id_donation}
 					</span>
 				</div>
@@ -60,20 +60,20 @@ export function DonationManagementCard({
 				<StatusBadge step={donation.currentStepName} />
 			</div>
 
-			<div className="h-px bg-[#e5e7eb] lg:hidden" />
+			<div className="h-px bg-blue-tint lg:hidden" />
 
 			<div className="flex flex-col gap-2.5 lg:flex-1 lg:flex-row lg:items-center lg:justify-end lg:gap-6">
 				<div className="flex items-center gap-2.5">
-					<CreditCard className="size-[18px] shrink-0 text-[#9ca3af]" />
-					<span className="text-[14px] text-[#6b7280]">CPF:</span>
-					<span className="text-[15px] font-semibold text-[#1f2a37]">
+					<CreditCard className="size-[18px] shrink-0 text-ink-3" />
+					<span className="text-[14px] text-ink-2">CPF:</span>
+					<span className="text-[15px] font-semibold text-ink">
 						{donation.userCpf ? formatCpf(donation.userCpf) : "—"}
 					</span>
 				</div>
 				<div className="flex items-center gap-2.5">
-					<Calendar className="size-[18px] shrink-0 text-[#9ca3af]" />
-					<span className="text-[14px] text-[#6b7280]">Criada em:</span>
-					<span className="text-[15px] font-semibold text-[#1f2a37]">
+					<Calendar className="size-[18px] shrink-0 text-ink-3" />
+					<span className="text-[14px] text-ink-2">Criada em:</span>
+					<span className="text-[15px] font-semibold text-ink">
 						{formatDateBR(donation.createdAt)}
 					</span>
 				</div>

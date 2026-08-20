@@ -26,22 +26,22 @@ export function StepCardHeader({
 					className={cn(
 						"flex size-11 shrink-0 items-center justify-center rounded-xl",
 						isFailed
-							? "bg-[#fcebeb] text-[#a32d2d]"
+							? "bg-danger-tint text-danger"
 							: isDone
-								? "bg-[#d9f7f4] text-[#0e9e94]"
-								: "bg-[#e1f1fb] text-[#00458b]",
+								? "bg-teal-tint text-teal"
+								: "bg-blue-tint text-blue-deep",
 					)}
 				>
 					<Icon className="size-[18px]" />
 				</div>
-				<p className="truncate text-[17px] font-bold text-[#1f2a37]">{label}</p>
+				<p className="truncate text-[16px] font-bold text-ink">{label}</p>
 			</div>
 
 			{hasStep && (
 				<button
 					type="button"
 					onClick={onViewTimeline}
-					className="flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-[#00458b] hover:bg-[#eef3f8]"
+					className="flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-2 text-[13px] font-semibold text-blue-deep hover:bg-blue-tint"
 				>
 					<History className="size-4" />
 					Ver timeline

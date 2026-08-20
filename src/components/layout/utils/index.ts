@@ -7,12 +7,10 @@ import {
 	LayoutDashboard,
 	type LucideProps,
 	MapPin,
-	MessageCircle,
 	User,
 	Users,
 } from "lucide-react";
 import type { ForwardRefExoticComponent, RefAttributes } from "react";
-import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EnumUserType } from "@/services/types/i-user";
 
 export function getInitials(name: string | undefined): string {
@@ -30,8 +28,8 @@ export type NavItem = {
 	icon: ForwardRefExoticComponent<
 		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
 	>;
-	// Item de rota (to) OU de acao (action) - a EVA e um widget global, nao
-	// uma pagina, entao o item dela dispara openEva() em vez de navegar.
+	// Item de rota (to) OU de acao (action), para um item que dispara um widget
+	// global em vez de navegar. Hoje nenhum item usa `action`.
 	to?: string;
 	action?: () => void;
 	adminOnly?: boolean;
@@ -43,7 +41,6 @@ const navItemsUserCommon: NavItem[] = [
 	{ label: "Minhas doações", icon: Droplets, to: "/minhas-doacoes" },
 	{ label: "Conteúdo educativo", icon: BookOpen, to: "/conteudo-educativo" },
 	{ label: "Perfil", icon: User, to: "/perfil" },
-	{ label: "EVA — Assistente Virtual", icon: MessageCircle, action: openEva },
 ];
 
 const navItemsUserAdmin: NavItem[] = [

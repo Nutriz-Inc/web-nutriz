@@ -25,7 +25,7 @@ export function ContentHubPage() {
 	);
 
 	return (
-		<div className="mx-auto w-full max-w-[1200px]">
+		<div className="w-full">
 			<Page
 				title="Conteúdo educativo"
 				description="Artigos, vídeos e guias práticos para acompanhar você em cada etapa da doação de leite materno."

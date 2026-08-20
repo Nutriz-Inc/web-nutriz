@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { FormField } from "@/components/full/FormField";
 import { PasswordToggle } from "@/components/full/PasswordToggle";
 import type {
 	RegisterFieldName,
 	RegisterFormData,
 	RegisterFormErrors,
 } from "../validation";
-import { WizardField } from "./WizardField";
 
 type PasswordStepProps = {
 	form: RegisterFormData;
@@ -19,11 +19,11 @@ export function PasswordStep({ form, errors, onChange }: PasswordStepProps) {
 
 	return (
 		<fieldset className="flex max-w-[340px] flex-col gap-5">
-			<legend className="mb-5 text-[13px] font-bold uppercase tracking-wide text-[#0d3b6e]">
+			<legend className="mb-5 text-[13px] font-bold uppercase tracking-wide text-blue-deep">
 				Senha de acesso
 			</legend>
 
-			<WizardField
+			<FormField
 				id="register-password"
 				label="Senha"
 				value={form.password}
@@ -40,7 +40,7 @@ export function PasswordStep({ form, errors, onChange }: PasswordStepProps) {
 				}
 			/>
 
-			<WizardField
+			<FormField
 				id="register-confirm-password"
 				label="Confirmar senha"
 				value={form.confirmPassword}

@@ -115,7 +115,7 @@ export function MyDataSection({
 						onChange={() => {}}
 					/>
 					<div className="flex">
-						<div className="flex-1 border-r border-[#387ccd]/10">
+						<div className="flex-1 border-r border-blue-bright/10">
 							<Field
 								label="Número"
 								value={values.number}

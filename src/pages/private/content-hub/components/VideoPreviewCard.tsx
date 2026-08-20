@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 import type { Article } from "@/pages/public/articles/data";
 
 type VideoPreviewCardProps = {
@@ -18,7 +19,7 @@ export function VideoPreviewCard({ article }: VideoPreviewCardProps) {
 		<motion.div
 			whileHover={{ y: -3 }}
 			transition={{ type: "spring", stiffness: 300, damping: 22 }}
-			className="flex flex-col overflow-hidden rounded-xl border border-[#e4e4e7] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
+			className="flex flex-col overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
 		>
 			<button
 				type="button"
@@ -44,8 +45,9 @@ export function VideoPreviewCard({ article }: VideoPreviewCardProps) {
 			</button>
 
 			<div className="flex flex-col gap-1 p-4">
-				<span
-					className="w-fit rounded-full border px-2 py-0.5 text-[10.5px] font-semibold"
+				<Badge
+					size="sm"
+					bordered
 					style={{
 						backgroundColor: article.soft,
 						borderColor: article.softBorder,
@@ -53,11 +55,11 @@ export function VideoPreviewCard({ article }: VideoPreviewCardProps) {
 					}}
 				>
 					{article.category}
-				</span>
+				</Badge>
 				<button
 					type="button"
 					onClick={goToArticle}
-					className="text-left text-[14px] font-bold leading-snug text-[#09090b]"
+					className="text-left text-[14px] font-bold leading-snug text-ink"
 				>
 					{article.videoTitle}
 				</button>

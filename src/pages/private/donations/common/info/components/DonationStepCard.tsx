@@ -1,12 +1,9 @@
 import type { LucideIcon } from "lucide-react";
 import { Calendar, Check, ChevronRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
-import {
-	BADGE_CLASSNAME,
-	BADGE_LABEL,
-	type StepVisualStatus,
-} from "../constants";
+import { BADGE_LABEL, BADGE_TONE, type StepVisualStatus } from "../constants";
 
 interface Props {
 	order: number;
@@ -44,10 +41,10 @@ export function DonationStepCard({
 					className={cn(
 						"flex shrink-0 items-center justify-center rounded-full font-bold transition-all",
 						isCurrent
-							? "size-9 bg-[#f2579f] text-[14px] text-white"
+							? "size-9 bg-eva text-[14px] text-white"
 							: isDone
-								? "size-7 bg-[#f2579f] text-white"
-								: "size-7 border-[1.5px] border-[#dcd0d7] bg-white text-[12px] text-[#c3b6c0]",
+								? "size-7 bg-eva text-white"
+								: "size-7 border-[1.5px] border-magenta-tint bg-white text-[12px] text-ink-3",
 					)}
 				>
 					{isDone ? <Check className="size-3.5" /> : order}
@@ -56,7 +53,7 @@ export function DonationStepCard({
 					<div
 						className={cn(
 							"w-px flex-1",
-							isCurrent || isDone ? "bg-[#f2579f]" : "bg-[#e5e5ea]",
+							isCurrent || isDone ? "bg-eva" : "bg-blue-tint",
 						)}
 					/>
 				)}
@@ -69,14 +66,10 @@ export function DonationStepCard({
 				className={cn(
 					"flex-1 rounded-2xl bg-white text-left transition-shadow disabled:cursor-default",
 					isCurrent ? "mb-6 p-5" : "mb-4 p-3.5",
-					isCurrent
-						? "shadow-[0px_14px_18px_rgba(10,38,77,0.08)]"
-						: "shadow-[0px_6px_10px_rgba(10,38,77,0.04)]",
+					isCurrent ? "shadow-soft" : "shadow-soft",
 					isClickable &&
-						(isCurrent
-							? "hover:shadow-[0px_18px_24px_rgba(10,38,77,0.14)]"
-							: "hover:shadow-[0px_8px_14px_rgba(10,38,77,0.08)]"),
-					!isCurrent && !isDone && "bg-[#fafbfc]",
+						(isCurrent ? "hover:shadow-lift" : "hover:shadow-soft"),
+					!isCurrent && !isDone && "bg-surface-2",
 				)}
 			>
 				<div className="flex items-start gap-3">
@@ -84,10 +77,10 @@ export function DonationStepCard({
 						className={cn(
 							"flex shrink-0 items-center justify-center rounded-full transition-all",
 							isCurrent
-								? "size-11 bg-[#dbe7f6] text-[#00458b]"
+								? "size-11 bg-blue-tint text-blue-deep"
 								: isDone
-									? "size-8 bg-[#e1f5ee] text-[#0f6e56]"
-									: "size-8 bg-[#eef0f4] text-[#b7bcc7]",
+									? "size-8 bg-success-tint text-success"
+									: "size-8 bg-surface-3 text-ink-3",
 						)}
 					>
 						<Icon className={isCurrent ? "size-5" : "size-4"} />
@@ -97,10 +90,10 @@ export function DonationStepCard({
 						className={cn(
 							"min-w-0 flex-1 break-words font-bold",
 							isCurrent
-								? "text-[16px] text-[#0e2a45]"
+								? "text-[16px] text-ink"
 								: isDone
-									? "text-[14px] text-[#0e2a45]/80"
-									: "text-[14px] text-[#b7bcc7]",
+									? "text-[14px] text-ink/80"
+									: "text-[14px] text-ink-3",
 						)}
 					>
 						{title}
@@ -109,7 +102,7 @@ export function DonationStepCard({
 					<ChevronRight
 						className={cn(
 							"mt-0.5 shrink-0",
-							isCurrent ? "size-5 text-[#93a9bd]" : "size-4 text-[#c3c8d1]",
+							isCurrent ? "size-5 text-ink-3" : "size-4 text-blue-tint-2",
 						)}
 					/>
 				</div>
@@ -120,21 +113,19 @@ export function DonationStepCard({
 						isCurrent ? "pl-14" : "pl-11",
 					)}
 				>
-					<span
-						className={cn(
-							"inline-flex w-fit items-center rounded-full font-semibold",
-							isCurrent ? "px-2.5 py-1 text-[11px]" : "px-2 py-0.5 text-[10px]",
-							BADGE_CLASSNAME[visualStatus],
-						)}
+					<Badge
+						tone={BADGE_TONE[visualStatus]}
+						size="sm"
+						className={isCurrent ? undefined : "px-2 py-0.5 text-[10px]"}
 					>
 						{BADGE_LABEL[visualStatus]}
-					</span>
+					</Badge>
 
 					<p
 						className={
 							isCurrent || isDone
-								? "text-[13px] text-[#6b8faa]"
-								: "text-[12px] text-[#c3c8d1]"
+								? "text-[13px] text-ink-2"
+								: "text-[12px] text-blue-tint-2"
 						}
 					>
 						{description}
@@ -144,14 +135,14 @@ export function DonationStepCard({
 				{(hasCurrentDetails || hasCompletedInfo) && (
 					<>
 						<div
-							className={cn("h-px bg-[#e5ebf3]", isCurrent ? "my-4" : "my-3")}
+							className={cn("h-px bg-blue-tint", isCurrent ? "my-4" : "my-3")}
 						/>
 
 						<div className="flex flex-col gap-2">
 							{isCurrent && setDate && (
 								<div className="flex items-start gap-2">
-									<Calendar className="mt-0.5 size-4 shrink-0 text-[#93a9bd]" />
-									<p className="text-[14px] leading-[20px] text-[#5a7690]">
+									<Calendar className="mt-0.5 size-4 shrink-0 text-ink-3" />
+									<p className="text-[14px] leading-[20px] text-ink-2">
 										{formatCreatedAt(setDate)}
 									</p>
 								</div>
@@ -159,10 +150,10 @@ export function DonationStepCard({
 
 							{completedAt && (
 								<div className="flex items-start gap-2">
-									<Check className="mt-0.5 size-3.5 shrink-0 text-[#00458b]" />
+									<Check className="mt-0.5 size-3.5 shrink-0 text-blue-deep" />
 									<p
 										className={cn(
-											"leading-[18px] text-[#00458b]",
+											"leading-[18px] text-blue-deep",
 											isCurrent ? "text-[13px]" : "text-[12px]",
 										)}
 									>

@@ -12,11 +12,9 @@ export function FeaturedVideosSection({ videos }: FeaturedVideosSectionProps) {
 	return (
 		<section className="flex flex-col gap-4">
 			<div className="flex items-center gap-2">
-				<Play className="size-4 fill-[#0d3b6e] text-[#0d3b6e]" aria-hidden />
-				<h2 className="text-[15px] font-bold text-[#09090b]">
-					Vídeos em destaque
-				</h2>
-				<span className="hidden text-[13px] text-[#71717a] sm:inline">
+				<Play className="size-4 fill-blue-deep text-blue-deep" aria-hidden />
+				<h2 className="text-[15px] font-bold text-ink">Vídeos em destaque</h2>
+				<span className="hidden text-[13px] text-ink-2 sm:inline">
 					Demonstrações práticas passo a passo
 				</span>
 			</div>

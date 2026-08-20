@@ -55,22 +55,22 @@ export function DonationPointDetailSheet({
 		<Sheet open={open} onOpenChange={onOpenChange}>
 			<SheetContent
 				side="bottom"
-				className="rounded-t-2xl border-none lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:data-[side=bottom]:inset-x-auto lg:data-[side=bottom]:left-auto lg:data-[side=bottom]:right-8 lg:data-[side=bottom]:bottom-8 lg:data-[side=bottom]:w-[420px] lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-[#e0e0e0] lg:data-[side=bottom]:shadow-2xl p-2"
+				className="rounded-t-2xl border-none lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:data-[side=bottom]:inset-x-auto lg:data-[side=bottom]:left-auto lg:data-[side=bottom]:right-8 lg:data-[side=bottom]:bottom-8 lg:data-[side=bottom]:w-[420px] lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-line lg:data-[side=bottom]:shadow-lift p-2"
 			>
-				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-[#e0e0e0] lg:hidden" />
+				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 pb-0 pl-5 pr-12 pt-2 text-left">
 					<div className="flex min-w-0 items-start justify-between gap-2">
-						<SheetTitle className="min-w-0 flex-1 break-words text-[16px] font-bold text-[#1a1a1a]">
+						<SheetTitle className="min-w-0 flex-1 break-words text-[16px] font-bold text-ink">
 							{displayPoint.name}
 						</SheetTitle>
 						{isClosest && (
-							<span className="shrink-0 rounded-full bg-[#edf3ff] px-2.5 py-1 text-[9.5px] font-bold text-[#387ccd]">
+							<span className="shrink-0 rounded-full bg-canvas px-2.5 py-1 text-[10px] font-bold text-blue-bright">
 								Mais próximo
 							</span>
 						)}
 					</div>
-					<SheetDescription className="text-[11px] text-[#888]">
+					<SheetDescription className="text-[11px] text-ink-3">
 						{displayPoint.description ?? "Ponto de coleta"}
 						{displayPoint.distance_from_you != null &&
 							` · ${displayPoint.distance_from_you.toFixed(1).replace(".", ",")} km de você`}
@@ -80,21 +80,21 @@ export function DonationPointDetailSheet({
 				<div className="flex flex-col gap-4 px-5 pb-6 pt-3">
 					<CollectionType hasHome={displayPoint.has_home} variant="detail" />
 
-					<div className="h-px bg-[#e0e0e0]" />
+					<div className="h-px bg-blue-tint-2" />
 
 					<div className="flex flex-col gap-4">
 						<DetailRow
-							icon={<MapPin className="size-[18px] text-[#387ccd]" />}
+							icon={<MapPin className="size-[18px] text-blue-bright" />}
 							label="Endereço"
 							value={address}
 						/>
 						<DetailRow
-							icon={<CalendarClock className="size-[18px] text-[#387ccd]" />}
+							icon={<CalendarClock className="size-[18px] text-blue-bright" />}
 							label="Horário"
 							value={displayPoint.opening_hours ?? "Não informado"}
 						/>
 						<DetailRow
-							icon={<Phone className="size-[18px] text-[#387ccd]" />}
+							icon={<Phone className="size-[18px] text-blue-bright" />}
 							label="Telefone"
 							value={
 								displayPoint.phone_number
@@ -103,18 +103,18 @@ export function DonationPointDetailSheet({
 							}
 						/>
 						<DetailRow
-							icon={<Mail className="size-[18px] text-[#387ccd]" />}
+							icon={<Mail className="size-[18px] text-blue-bright" />}
 							label="Email"
 							value={displayPoint.email || "Não informado"}
 						/>
 					</div>
 
-					<div className="h-px bg-[#e0e0e0]" />
+					<div className="h-px bg-blue-tint-2" />
 
 					<button
 						type="button"
 						onClick={handleTraceRoute}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#387ccd] text-[12px] font-bold text-white"
+						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-bright text-[12px] font-bold text-white"
 					>
 						<Navigation className="size-4" />
 						Traçar Rota

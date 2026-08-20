@@ -16,7 +16,7 @@ export function MetricCard({
 	sublabel,
 }: MetricCardProps) {
 	return (
-		<div className="bg-white border border-[#e5ebf3] flex flex-col gap-2 items-start p-6 rounded-[20px] w-full shadow-[0px_10px_14px_rgba(10,38,77,0.05)] lg:flex-1 lg:gap-3.5 lg:p-7">
+		<div className="bg-white border border-line flex flex-col gap-2 items-start p-6 rounded-card-sm w-full shadow-soft lg:flex-1 lg:gap-3.5 lg:p-7">
 			<div
 				className={`${iconBg} flex items-center justify-center rounded-2xl size-14 shrink-0`}
 			>
@@ -28,8 +28,8 @@ export function MetricCard({
 				{value}
 			</p>
 			<div className="flex flex-col gap-1">
-				<p className="font-semibold text-[#0e2a45] text-[18px]">{label}</p>
-				<p className="font-normal text-[#33536f] text-[13px]">{sublabel}</p>
+				<p className="font-semibold text-ink text-[18px]">{label}</p>
+				<p className="font-normal text-ink-2 text-[13px]">{sublabel}</p>
 			</div>
 		</div>
 	);

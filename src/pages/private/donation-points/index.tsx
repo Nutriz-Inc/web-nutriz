@@ -100,8 +100,8 @@ export function DonationPointsPage() {
 			description="Encontre o ponto de coleta mais próximo de você."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-m-5 flex flex-col bg-[#f7f7fa] lg:mx-auto lg:grid lg:h-[calc(100vh-69px)] lg:max-w-[1400px] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden">
-				<div className="flex flex-col gap-3 px-4 pt-4 lg:col-start-1 lg:row-start-1 lg:border-r lg:border-[#e0e0e0] lg:bg-[#f7f7fa] lg:px-5 lg:pb-4 lg:pt-5">
+			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-surface-2 lg:mx-auto lg:grid lg:h-[calc(100vh-69px)] lg:max-w-[1400px] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden">
+				<div className="flex flex-col gap-3 px-4 pt-4 lg:col-start-1 lg:row-start-1 lg:border-r lg:border-line lg:bg-surface-2 lg:px-5 lg:pb-4 lg:pt-5">
 					<SearchBar
 						value={search}
 						onChange={setSearch}
@@ -132,15 +132,15 @@ export function DonationPointsPage() {
 					/>
 				</div>
 
-				<div className="relative mt-4 flex-1 rounded-t-2xl border-t border-[#e0e0e0] bg-[#f7f7fa] pb-6 pt-3 lg:col-start-1 lg:row-start-2 lg:mt-0 lg:min-h-0 lg:overflow-y-auto lg:rounded-none lg:border-r lg:border-t-0 lg:pt-4">
-					<div className="mx-auto mb-3 h-1 w-9 rounded-full bg-[#e0e0e0] lg:hidden" />
+				<div className="relative mt-4 flex-1 rounded-t-2xl border-t border-line bg-surface-2 pb-6 pt-3 lg:col-start-1 lg:row-start-2 lg:mt-0 lg:min-h-0 lg:overflow-y-auto lg:rounded-none lg:border-r lg:border-t-0 lg:pt-4">
+					<div className="mx-auto mb-3 h-1 w-9 rounded-full bg-blue-tint-2 lg:hidden" />
 
 					{isLoading ? (
 						<div className="flex justify-center py-8">
-							<LoaderCircle className="size-5 animate-spin text-[#387ccd]" />
+							<LoaderCircle className="size-5 animate-spin text-blue-bright" />
 						</div>
 					) : points.length === 0 ? (
-						<p className="px-4 py-8 text-center text-sm text-[#888] lg:px-5">
+						<p className="px-4 py-8 text-center text-sm text-ink-3 lg:px-5">
 							Nenhum ponto de coleta encontrado.
 						</p>
 					) : (

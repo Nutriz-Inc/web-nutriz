@@ -35,19 +35,19 @@ export function CreateUserField({
 }: CreateUserFieldProps) {
 	return (
 		<div className="flex w-full flex-col gap-1.5">
-			<label htmlFor={id} className="text-[13px] font-semibold text-[#1f2937]">
+			<label htmlFor={id} className="text-[13px] font-semibold text-ink">
 				{label}
 				{optional && (
-					<span className="font-normal text-[#9ca3af]"> (opcional)</span>
+					<span className="font-normal text-ink-3"> (opcional)</span>
 				)}
 			</label>
 			<div
 				className={cn(
-					"flex w-full items-center gap-2.5 rounded-[10px] bg-[#f3f4f6] px-3.5 py-[13px]",
+					"flex w-full items-center gap-2.5 rounded-xl bg-canvas px-3.5 py-[13px]",
 					error && "ring-1 ring-red-400",
 				)}
 			>
-				<Icon className="size-4 shrink-0 text-[#9ca3af]" />
+				<Icon className="size-4 shrink-0 text-ink-3" />
 				<input
 					id={id}
 					value={value}
@@ -59,7 +59,7 @@ export function CreateUserField({
 					maxLength={maxLength}
 					aria-invalid={!!error}
 					aria-describedby={error ? `${id}-error` : undefined}
-					className="w-full bg-transparent text-[14px] text-[#1f2937] outline-none placeholder:text-[#9ca3af]"
+					className="w-full bg-transparent text-[14px] text-ink outline-none placeholder:text-ink-3"
 				/>
 				{trailing}
 			</div>

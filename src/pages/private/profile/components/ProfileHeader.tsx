@@ -1,7 +1,7 @@
 import { getInitials } from "@/components/layout/utils";
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 import type { EnumUserType } from "@/services/types/i-user";
-import { USER_TYPE_BADGE_CLASSNAME, USER_TYPE_LABEL } from "@/utils/constants";
+import { USER_TYPE_LABEL, USER_TYPE_TONE } from "@/utils/constants";
 
 type ProfileHeaderProps = {
 	name: string;
@@ -11,30 +11,23 @@ type ProfileHeaderProps = {
 
 export function ProfileHeader({ name, email, userType }: ProfileHeaderProps) {
 	return (
-		<div className="flex items-center gap-3 bg-[#f7f9fb] px-4 py-3 lg:bg-transparent lg:px-0 lg:py-0">
+		<div className="flex items-center gap-3 bg-surface-2 px-4 py-3 lg:bg-transparent lg:px-0 lg:py-0">
 			<div className="relative shrink-0">
-				<div className="flex size-[73px] items-center justify-center rounded-full bg-[#387ccd]/18 text-[22px] font-bold text-[#00458b]">
+				<div className="flex size-[73px] items-center justify-center rounded-full bg-blue-bright/18 text-[22px] font-bold text-blue-deep">
 					{getInitials(name)}
 				</div>
 			</div>
 
 			<div className="flex min-w-0 flex-col gap-1">
 				<div className="flex items-center gap-2">
-					<p className="truncate text-[16px] font-semibold text-[#1a1d23]">
-						{name}
-					</p>
+					<p className="truncate text-[16px] font-semibold text-ink">{name}</p>
 					{userType && (
-						<span
-							className={cn(
-								"w-fit shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-bold",
-								USER_TYPE_BADGE_CLASSNAME[userType],
-							)}
-						>
+						<Badge tone={USER_TYPE_TONE[userType]} size="sm">
 							{USER_TYPE_LABEL[userType]}
-						</span>
+						</Badge>
 					)}
 				</div>
-				<p className="truncate text-[12px] text-[#888]">{email}</p>
+				<p className="truncate text-[12px] text-ink-3">{email}</p>
 			</div>
 		</div>
 	);

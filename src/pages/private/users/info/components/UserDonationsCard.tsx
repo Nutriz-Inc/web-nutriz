@@ -1,5 +1,7 @@
 import { LoaderCircle } from "lucide-react";
 import { Fragment } from "react";
+import semRegistro from "@/assets/illustrations/sem-registro.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import {
 	type FilterChipOption,
 	FilterChips,
@@ -54,9 +56,12 @@ export function UserDonationsCard({
 					<LoaderCircle className="animate-spin text-ink-3" />
 				</div>
 			) : sorted.length === 0 ? (
-				<p className="text-[13px] text-ink-3">
-					Nenhuma doação encontrada para o filtro selecionado.
-				</p>
+				<EmptyState
+					size="sm"
+					illustration={semRegistro}
+					title="Nenhuma doação encontrada"
+					description="Ajuste o filtro selecionado."
+				/>
 			) : (
 				<div className="overflow-hidden rounded-xl border border-surface-3">
 					<div

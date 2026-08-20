@@ -1,5 +1,7 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import semEnfermeiro from "@/assets/illustrations/sem-enfermeiro.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import type { Job } from "@/services/types/i-job";
 import type { User } from "@/services/types/i-user";
 import { StepJobCard } from "./StepJobCard";
@@ -43,9 +45,12 @@ export function StepJobsSection({
 			</span>
 
 			{jobs.length === 0 && !showNewForm && (
-				<p className="text-[13px] text-ink-3">
-					Nenhum agendamento com enfermeiro para esta etapa.
-				</p>
+				<EmptyState
+					size="sm"
+					illustration={semEnfermeiro}
+					title="Nenhum agendamento com enfermeiro"
+					description="Esta etapa ainda não tem visita marcada."
+				/>
 			)}
 
 			{jobs.map((job) => (

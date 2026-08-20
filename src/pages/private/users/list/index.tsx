@@ -1,5 +1,7 @@
 import { Plus, Search, X } from "lucide-react";
 import { type FormEvent, useState } from "react";
+import usuariosVazio from "@/assets/illustrations/usuarios-vazio.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
@@ -135,14 +137,11 @@ export function UsersManagementPage() {
 					<UsersTableHeader />
 
 					{users.length === 0 ? (
-						<div className="flex flex-col items-center gap-2 px-6 py-12 text-center">
-							<p className="text-[15px] font-semibold text-ink">
-								Nenhum usuário encontrado
-							</p>
-							<p className="text-[13px] text-ink-3">
-								Ajuste a busca ou o filtro selecionado.
-							</p>
-						</div>
+						<EmptyState
+							illustration={usuariosVazio}
+							title="Nenhum usuário encontrado"
+							description="Ajuste a busca ou o filtro selecionado."
+						/>
 					) : (
 						users.map((user) => <UserRow key={user.id_user} user={user} />)
 					)}

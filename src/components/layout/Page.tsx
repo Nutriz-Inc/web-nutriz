@@ -1,8 +1,10 @@
 import { AlertCircle, ChevronLeft, LoaderCircle } from "lucide-react";
 import type React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
+import { Breadcrumb } from "@/components/full/Breadcrumb";
 import { cn } from "@/lib/utils";
+import { getBreadcrumb } from "@/utils/breadcrumb";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 export type IPage = {
@@ -27,8 +29,15 @@ export function Page({
 	backTo,
 }: IPage) {
 	const navigate = useNavigate();
+	const { pathname } = useLocation();
 
-	const backButton = backTo && (
+	// Trilha derivada da rota: toda tela interna ganha uma sem precisar
+	// declarar nada. Quando ha trilha, ela substitui o botao "Voltar" - os
+	// dois no topo seriam a mesma navegacao duas vezes.
+	const trilha = getBreadcrumb(pathname);
+	const temTrilha = trilha.length >= 2;
+
+	const backButton = backTo && !temTrilha && (
 		<button
 			type="button"
 			onClick={() => navigate(backTo)}
@@ -56,6 +65,7 @@ export function Page({
 
 	return (
 		<>
+			{temTrilha && <Breadcrumb items={trilha} />}
 			{backButton}
 
 			{title && (

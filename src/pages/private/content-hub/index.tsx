@@ -1,3 +1,4 @@
+import conteudoTopo from "@/assets/illustrations/conteudo-topo.svg";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { ARTICLES, getArticleById } from "@/pages/public/articles/data";
@@ -31,6 +32,16 @@ export function ContentHubPage() {
 				description="Artigos, vídeos e guias práticos para acompanhar você em cada etapa da doação de leite materno."
 				hasPermission={auth?.type === EnumUserType.Common}
 				titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+				actionSlot={
+					<img
+						src={conteudoTopo}
+						alt=""
+						aria-hidden="true"
+						width={320}
+						height={200}
+						className="hidden h-32 w-auto shrink-0 select-none lg:block xl:h-36"
+					/>
+				}
 			>
 				<div className="flex flex-col gap-10">
 					<FeaturedSection

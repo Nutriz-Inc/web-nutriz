@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { Calendar, ChevronRight, Heart, Lock } from "lucide-react";
 import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
 import { cn } from "@/lib/utils";
@@ -30,20 +31,42 @@ export function DonationCard({
 	className,
 }: DonationCardProps) {
 	const formattedDate = formatCreatedAt(createdAt);
+	const reduzirMovimento = useReducedMotion();
+	const animar = isClickable && !reduzirMovimento;
+
+	// O clique afunda o card e ele volta antes de a rota trocar: sem a pausa,
+	// a navegacao come a animacao e o toque parece nao ter resposta.
+	function handleClick() {
+		if (!onClick) {
+			return;
+		}
+		if (!animar) {
+			onClick();
+			return;
+		}
+		window.setTimeout(onClick, 140);
+	}
 
 	return (
-		<button
+		<motion.button
 			type="button"
-			onClick={onClick}
+			onClick={handleClick}
 			disabled={!isClickable}
+			whileHover={animar ? { x: 6, scale: 1.01 } : undefined}
+			whileTap={animar ? { scale: 0.975 } : undefined}
+			transition={{ type: "spring", stiffness: 340, damping: 26 }}
 			className={cn(
-				"relative flex w-full flex-col gap-3 rounded-2xl bg-white p-4 text-left shadow-soft transition-[transform,box-shadow] lg:gap-5 lg:rounded-3xl lg:p-8",
-				isClickable
-					? "active:scale-[0.99] hover:-translate-y-0.5 hover:shadow-soft"
-					: "cursor-default",
+				"group relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl bg-white p-4 text-left shadow-soft transition-shadow lg:gap-5 lg:rounded-3xl lg:p-8",
+				isClickable ? "hover:shadow-lift" : "cursor-default",
 				className,
 			)}
 		>
+			{isClickable && (
+				<span
+					aria-hidden="true"
+					className="absolute inset-y-3 left-0 w-1 origin-center scale-y-0 rounded-full bg-blue-deep opacity-0 transition-[opacity,transform] duration-200 group-hover:scale-y-100 group-hover:opacity-100 group-focus-visible:scale-y-100 group-focus-visible:opacity-100"
+				/>
+			)}
 			{!isClickable && (
 				<span className="absolute right-3 top-3 flex size-6 items-center justify-center rounded-full bg-surface-3 text-ink-3 lg:right-4 lg:top-4 lg:size-7">
 					<Lock className="size-3.5 lg:size-4" />
@@ -114,6 +137,6 @@ export function DonationCard({
 					</div>
 				</>
 			)}
-		</button>
+		</motion.button>
 	);
 }

@@ -1,5 +1,5 @@
-import { Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import cadastroConcluido from "@/assets/illustrations/cadastro-concluido.svg";
 import { Button } from "@/components/ui/button";
 
 export function SuccessCard() {
@@ -7,9 +7,14 @@ export function SuccessCard() {
 
 	return (
 		<div className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4 rounded-card-sm border border-line bg-white p-8 text-center shadow-soft">
-			<span className="grid size-16 place-items-center rounded-full bg-blue-tint">
-				<Check className="size-8 text-blue-deep" aria-hidden />
-			</span>
+			<img
+				src={cadastroConcluido}
+				alt=""
+				aria-hidden="true"
+				width={320}
+				height={200}
+				className="h-32 w-auto max-w-full select-none sm:h-40"
+			/>
 			<h2 className="text-xl font-bold text-blue-deep">
 				Conta criada com sucesso!
 			</h2>

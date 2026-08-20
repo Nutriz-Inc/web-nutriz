@@ -68,6 +68,10 @@ export function AvatarColorPicker({
 						const ativa = cor.key === key;
 
 						return (
+							// biome-ignore lint/a11y/useSemanticElements: o alvo e um
+							// circulo de cor com anel de foco proprio; input[type=radio]
+							// nativo nao renderiza isso sem appearance-none e hack de
+							// pseudo-elemento. A semantica de radiogroup fica pelo ARIA.
 							<button
 								key={cor.key}
 								type="button"

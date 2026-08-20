@@ -1,5 +1,7 @@
 import { LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import buscaPontosVazia from "@/assets/illustrations/busca-pontos-vazia.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import {
 	type FilterChipOption,
 	FilterChips,
@@ -140,9 +142,12 @@ export function DonationPointsPage() {
 							<LoaderCircle className="size-5 animate-spin text-blue-bright" />
 						</div>
 					) : points.length === 0 ? (
-						<p className="px-4 py-8 text-center text-sm text-ink-3 lg:px-5">
-							Nenhum ponto de coleta encontrado.
-						</p>
+						<EmptyState
+							size="sm"
+							illustration={buscaPontosVazia}
+							title="Nenhum ponto de coleta encontrado"
+							description="Tente outro endereço ou amplie a busca."
+						/>
 					) : (
 						<div className="flex flex-col gap-3 px-4 lg:px-5">
 							{points.map((point) => (

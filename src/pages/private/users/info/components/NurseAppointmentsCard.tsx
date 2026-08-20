@@ -1,4 +1,6 @@
 import { Fragment, useState } from "react";
+import nadaPorAqui from "@/assets/illustrations/nada-por-aqui.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import {
 	type FilterChipOption,
 	FilterChips,
@@ -55,9 +57,12 @@ export function NurseAppointmentsCard({ jobs }: NurseAppointmentsCardProps) {
 			}
 		>
 			{filtered.length === 0 ? (
-				<p className="text-[13px] text-ink-3">
-					Nenhum agendamento encontrado para o filtro selecionado.
-				</p>
+				<EmptyState
+					size="sm"
+					illustration={nadaPorAqui}
+					title="Nenhum agendamento encontrado"
+					description="Ajuste o filtro selecionado."
+				/>
 			) : (
 				<div className="overflow-hidden rounded-xl border border-surface-3">
 					<div

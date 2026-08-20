@@ -1,7 +1,10 @@
 import { Check, ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import cadastroTopo from "@/assets/illustrations/cadastro-topo.svg";
+import cenarioCadastro from "@/assets/illustrations/cenario-cadastro.svg";
 import { AppHeader } from "@/components/layout/AppHeader";
+import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { AddressStep } from "./components/AddressStep";
@@ -143,11 +146,30 @@ export function RegisterScreen() {
 				className="ink-blob -right-40 top-[30rem] h-[26rem] w-[26rem] bg-eva-tint/80 blur-3xl"
 			/>
 
+			<img
+				src={cenarioCadastro}
+				alt=""
+				aria-hidden="true"
+				className="pointer-events-none absolute inset-x-0 bottom-0 z-0 mx-auto w-full max-w-[900px] select-none opacity-70"
+			/>
+
 			<AppHeader showMenu={false} />
 
 			<main className="relative mx-auto w-full max-w-[640px] flex-1 px-4 pb-16 pt-4 sm:px-6 sm:pt-6">
 				<Page
 					backTo="/"
+					actionSlot={
+						success ? undefined : (
+							<img
+								src={cadastroTopo}
+								alt=""
+								aria-hidden="true"
+								width={220}
+								height={220}
+								className="hidden h-32 w-auto shrink-0 select-none sm:block lg:h-36"
+							/>
+						)
+					}
 					title={success ? undefined : "Criação de usuário"}
 					description={
 						success
@@ -278,6 +300,11 @@ export function RegisterScreen() {
 					)}
 				</Page>
 			</main>
+
+			{/* opaco para o cenario passar por tras, e nao por cima do rodape */}
+			<div className="relative z-10 bg-canvas">
+				<Footer />
+			</div>
 		</div>
 	);
 }

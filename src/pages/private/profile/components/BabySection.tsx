@@ -1,4 +1,6 @@
 import { Baby } from "lucide-react";
+import bebeNaoCadastrado from "@/assets/illustrations/bebe-nao-cadastrado.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import type { UserBaby } from "@/services/types/i-user";
 import { formatDateBR } from "@/utils/formatter";
 import { Field } from "../../../../components/full/Field";
@@ -45,9 +47,12 @@ export function BabySection({
 			<div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:items-start lg:gap-5">
 				{babies.length === 0 ? (
 					<SectionCard icon={<Baby className="size-[18px]" />} title="Bebê">
-						<p className="px-3 py-4 text-center text-[12px] text-ink-3">
-							Nenhum bebê cadastrado ainda.
-						</p>
+						<EmptyState
+							size="sm"
+							illustration={bebeNaoCadastrado}
+							title="Nenhum bebê cadastrado ainda"
+							description="Cadastre para a EVA personalizar as orientações."
+						/>
 					</SectionCard>
 				) : (
 					babies.map((baby) => {

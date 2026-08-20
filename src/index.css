@@ -301,6 +301,11 @@
  *    100vh nao faz — sem isso sobrava um corte no rodape.
  * ------------------------------------------------------------------------- */
 html {
+	/*
+	 * Valor inicial, ate o React montar. Depois `use-theme-color.ts` troca esta
+	 * cor conforme a rota — a landing pinta de azul, o resto do app de claro —
+	 * porque e ela que aparece na faixa da safe area e no rubber band do iOS.
+	 */
 	background-color: var(--canvas);
 	/* iOS: sem isso o texto cresce sozinho ao girar o aparelho. */
 	-webkit-text-size-adjust: 100%;

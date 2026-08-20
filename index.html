@@ -22,13 +22,12 @@
       execucao — ver src/hooks/use-theme-color.ts.
     -->
     <meta name="theme-color" content="#00325c" />
-    <!-- Adicionado a tela de inicio: abre sem a barra do Safari, ocupando tudo. -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
+    <!--
+      Nome do atalho quando a pessoa adiciona a Nutriz a tela de inicio.
+      Sem `apple-mobile-web-app-capable`: o modo standalone forcaria a barra de
+      status a um estilo unico, e o app tem telas de topo claro e de topo
+      escuro — em um dos dois o texto da barra ficaria ilegivel.
+    -->
     <meta name="apple-mobile-web-app-title" content="Nutriz" />
     <title>Nutriz</title>
   </head>

@@ -2,12 +2,10 @@ import { ArrowLeft, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import cenarioCidade from "@/assets/illustrations/cenario-cadastro-direita.svg";
-import cenarioLogin from "@/assets/illustrations/cenario-login.svg";
-import NutrizLogo from "@/assets/images/nutriz-logo.svg";
 import { FormField } from "@/components/full/FormField";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
+import { BrandPanel } from "./components/BrandPanel";
 import { useLogin } from "./hooks";
 
 export type FormErrors = {
@@ -58,53 +56,26 @@ export function LoginScreen() {
 	const isPending = loginMutation.isPending;
 
 	return (
-		<div className="relative min-h-dvh w-full overflow-hidden bg-gradient-to-b from-white via-canvas to-blue-tint font-body">
-			<img
-				src={cenarioCidade}
-				alt=""
-				aria-hidden="true"
-				className="pointer-events-none absolute right-0 bottom-0 z-0 hidden w-[52%] max-w-[620px] select-none opacity-40 sm:block"
-			/>
+		/*
+		 * Duas colunas deitadas no desktop (marca a esquerda, formulario a
+		 * direita) e uma pilha no mobile: faixa da marca em cima, formulario
+		 * embaixo. O formulario nunca divide espaco com ilustracao no celular,
+		 * entao o teclado nao empurra nada para fora da tela.
+		 */
+		<div className="flex min-h-dvh flex-col bg-canvas font-body lg:flex-row">
+			<BrandPanel />
 
-			<img
-				src={cenarioLogin}
-				alt=""
-				aria-hidden
-				className="pointer-events-none absolute bottom-0 left-0 z-0 w-[170%] max-w-none -translate-x-[20%] select-none opacity-50 sm:w-[72%] sm:max-w-[820px] sm:translate-x-0"
-			/>
+			<main className="flex flex-1 items-center justify-center px-5 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-9 sm:px-8 lg:px-10 lg:py-12">
+				<div className="w-full max-w-[400px]">
+					<h2 className="font-display text-[24px] font-extrabold tracking-tight text-ink lg:text-[28px]">
+						Bem-vinda(o) de volta
+					</h2>
+					<p className="mt-1.5 text-[14px] text-ink-2">
+						Use o e-mail e a senha do seu cadastro.
+					</p>
 
-			<div
-				aria-hidden
-				className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
-			>
-				<div className="absolute top-[18%] -left-12 h-64 w-64 rounded-full bg-blue-tint-2" />
-				<div className="absolute top-[34%] left-[22%] h-32 w-32 rounded-full bg-eva-tint" />
-				<div className="absolute top-[12%] -right-10 h-72 w-72 rounded-full bg-blue-tint" />
-				<div className="absolute top-[42%] right-[20%] h-40 w-40 rounded-full bg-eva-tint" />
-				<div className="absolute top-[8%] right-[32%] h-24 w-24 rounded-full bg-blue-tint-2" />
-			</div>
-
-			<main className="relative z-10 mx-auto flex min-h-dvh w-full max-w-sm flex-col px-6 pb-52 pt-[calc(6rem+env(safe-area-inset-top))]">
-				<div className="mb-5 flex justify-center">
-					<img
-						src={NutrizLogo}
-						alt="Nutriz"
-						className="h-14 w-auto select-none"
-					/>
-				</div>
-
-				<h1 className="text-center font-display text-[26px] font-bold text-blue-deep">
-					Bem-vinda(o) de volta!
-				</h1>
-				<p className="mt-1 text-center text-[14px] text-ink-2">
-					Faça login para acessar sua conta
-				</p>
-
-				<div className="mt-6 border-t border-line" />
-
-				<div className="mt-6 rounded-card border border-white/60 bg-white/60 p-6 shadow-soft backdrop-blur-md">
 					<form
-						className="flex flex-col gap-5"
+						className="mt-7 flex flex-col gap-5"
 						onSubmit={handleSubmit}
 						noValidate
 					>
@@ -148,7 +119,7 @@ export function LoginScreen() {
 						{errors.general && (
 							<p
 								role="alert"
-								className="rounded-xl border border-danger/20 bg-danger-tint px-4 py-2 text-center text-[13px] text-danger"
+								className="rounded-card-sm border border-danger/20 bg-danger-tint px-4 py-2.5 text-center text-[13px] text-danger"
 							>
 								{errors.general}
 							</p>
@@ -158,41 +129,37 @@ export function LoginScreen() {
 							type="submit"
 							size="pill"
 							disabled={isPending}
-							className="w-full bg-blue-deep text-white hover:bg-blue disabled:opacity-60"
+							className="mt-1 w-full bg-blue-deep font-semibold text-white shadow-soft hover:bg-blue disabled:opacity-60"
 						>
 							{isPending ? (
-								<span className="flex items-center gap-2">
-									<LoaderCircle className="size-4 animate-spin" />
+								<>
+									<LoaderCircle className="animate-spin" />
 									Entrando...
-								</span>
+								</>
 							) : (
 								"Entrar"
 							)}
 						</Button>
 					</form>
-				</div>
 
-				<div className="mt-6 border-t border-line" />
+					<div className="mt-8 rounded-card border border-line bg-surface p-4 text-center shadow-soft">
+						<p className="text-[14px] text-ink-2">Ainda não tem uma conta?</p>
+						<Link
+							to="/registro"
+							className="mt-2 inline-flex h-11 w-full items-center justify-center rounded-full border border-line bg-blue-tint text-[15px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint-2/60 focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+						>
+							Criar conta
+						</Link>
+					</div>
 
-				<p className="mt-5 text-center text-[14px] text-ink-2">
 					<Link
 						to="/"
-						className="inline-flex items-center gap-1 font-semibold text-blue underline-offset-2 hover:underline"
+						className="mx-auto mt-6 flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-[14px] font-semibold text-ink-3 outline-none transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 					>
 						<ArrowLeft className="size-4" aria-hidden="true" />
 						Voltar para a página inicial
 					</Link>
-				</p>
-
-				<p className="mt-2 text-center text-[14px] text-ink-2">
-					Ainda não tem uma conta?{" "}
-					<Link
-						to="/registro"
-						className="font-semibold text-blue underline-offset-2 hover:underline"
-					>
-						Criar conta
-					</Link>
-				</p>
+				</div>
 			</main>
 		</div>
 	);

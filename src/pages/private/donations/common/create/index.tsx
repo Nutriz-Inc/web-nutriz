@@ -83,14 +83,22 @@ export function NewDonationPage() {
 					 * ilustracao da unDraw e escura (#0f1f3d) e sumia sobre o azul.
 					 */}
 					<div className="gradient-milk relative flex flex-col items-center justify-center overflow-hidden border-b border-line px-6 py-8 text-center lg:border-b-0 lg:border-r lg:px-8 lg:py-12">
+						{/*
+						 * Bolinhas de fundo que vinham com a ilustracao antiga. Em
+						 * opacidade baixa elas so dao textura — a menina com o coracao
+						 * continua sendo o unico elemento em foco.
+						 */}
 						<span
 							aria-hidden="true"
-							className="ink-blob -right-12 -top-14 h-40 w-40 bg-blue-tint-2/60 blur-2xl"
-						/>
-						<span
-							aria-hidden="true"
-							className="ink-blob -bottom-16 -left-8 h-36 w-44 bg-eva-tint/70 blur-3xl"
-						/>
+							className="pointer-events-none absolute inset-0 overflow-hidden"
+						>
+							<span className="absolute -left-14 top-4 size-44 rounded-full bg-blue-tint-2/35 lg:-left-10 lg:top-2 lg:size-40" />
+							<span className="absolute left-10 -top-6 size-24 rounded-full bg-blue-tint-2/25" />
+							<span className="absolute -right-16 top-14 size-48 rounded-full bg-blue-tint-2/30 lg:-right-12 lg:top-6 lg:size-40" />
+							<span className="absolute right-8 top-40 size-16 rounded-full bg-eva-tint/45 lg:top-52" />
+							<span className="absolute -bottom-8 left-6 size-24 rounded-full bg-purple-tint/30" />
+							<span className="absolute -bottom-10 right-10 size-20 rounded-full bg-teal-tint/30" />
+						</span>
 
 						<img
 							src={novaDoacao}

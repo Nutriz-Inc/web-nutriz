@@ -20,6 +20,11 @@
 		box-shadow 0.15s ease;
 }
 
+/* Escondido enquanto algo cobre o canto dele. Ver eva-widget-bus.ts. */
+.eva-fab--oculto {
+	display: none;
+}
+
 .eva-fab:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 12px 30px rgba(180, 107, 217, 0.5);
@@ -342,6 +347,11 @@
 @media (prefers-reduced-motion: reduce) {
 	.eva-fab {
 		transition: none;
+	}
+
+	/* Escondido enquanto algo cobre o canto dele. Ver eva-widget-bus.ts. */
+	.eva-fab--oculto {
+		display: none;
 	}
 
 	.eva-fab:hover {

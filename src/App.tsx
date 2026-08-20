@@ -9,6 +9,7 @@ import { useEffect, useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { useAuth } from "./hooks/use-auth";
+import { useThemeColor } from "./hooks/use-theme-color";
 import { registerAppRouter } from "./lib/app-navigation";
 import { EvaWidget } from "./pages/private/eva/widget/eva-widget";
 import { publicRouter, routerPrivate } from "./router";
@@ -51,6 +52,9 @@ function App() {
 	useEffect(() => {
 		registerAppRouter(routes);
 	}, [routes]);
+
+	// Barra de status do celular acompanhando o fundo da tela atual.
+	useThemeColor(isAuthenticated);
 
 	return (
 		<QueryClientProvider client={queryClient}>

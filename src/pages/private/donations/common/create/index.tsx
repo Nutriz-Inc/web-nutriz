@@ -1,19 +1,101 @@
-import { Check, Droplet, Heart } from "lucide-react";
+import { Baby, Droplets, HeartHandshake, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import novaDoacao from "@/assets/illustrations/nova-doacao.svg";
 import WhatsAppIcon from "@/assets/images/whatsapp-icon.svg";
+import { Reveal } from "@/components/full/Reveal";
+import { SectionHeading } from "@/components/full/SectionHeading";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
+import { BABY_ML_PER_DAY } from "@/utils/constants";
 import {
 	buildLactareWhatsAppLink,
 	EnumWhatsAppLinkContext,
 } from "@/utils/whatsapp-link";
+import { STEP_DEFINITIONS } from "../info/constants";
 import { AttentionNotice } from "./components/AttentionNotice";
-import { HeroIllustration } from "./components/HeroIllustration";
-import { StepItem } from "./components/StepItem";
+import { ChecklistItem } from "./components/ChecklistItem";
+import { ConfirmActions } from "./components/ConfirmActions";
+import { DonationStageCard } from "./components/DonationStageCard";
+import { FlowStepCard } from "./components/FlowStepCard";
+import { ImpactFact } from "./components/ImpactFact";
+import { NewDonationHero } from "./components/NewDonationHero";
 import { useCreateDonation } from "./hooks/use-create-donation";
+
+/** Bebes alimentados por um dia com 1 litro, na mesma conta que a home usa. */
+const BEBES_POR_LITRO = Math.floor(1000 / BABY_ML_PER_DAY);
+
+const FLUXO = [
+	{
+		title: "Você confirma",
+		description:
+			"A doação entra no seu histórico com o status inicial, pronta para ser acompanhada aqui.",
+		icon: <HeartHandshake className="size-5 text-eva" />,
+		iconClassName: "bg-eva-tint",
+	},
+	{
+		title: "Conversa no WhatsApp",
+		description:
+			"Abrimos o WhatsApp da equipe Lactare com a mensagem já escrita — é só enviar.",
+		icon: (
+			<img src={WhatsAppIcon} alt="" aria-hidden="true" className="size-5" />
+		),
+		iconClassName: "bg-[#25d366]",
+	},
+	{
+		title: "Triagem e agendamento",
+		description:
+			"A equipe confirma alguns dados de saúde e combina com você a data da primeira visita.",
+		icon: <MessageCircle className="size-5 text-blue-deep" />,
+		iconClassName: "bg-blue-tint",
+	},
+];
+
+const CHECKLIST = [
+	{
+		title: "Documento e cartão do pré-natal por perto",
+		description:
+			"A equipe pode pedir esses dados durante a triagem pelo WhatsApp.",
+	},
+	{
+		title: "Você não usa medicamento incompatível",
+		description:
+			"Alguns remédios impedem a doação. Na dúvida, a triagem esclarece — e a EVA também.",
+	},
+	{
+		title: "Um lugar limpo para a ordenha",
+		description:
+			"O kit de ordenha esterilizado é entregue por nós; você só precisa de uma bancada limpa.",
+	},
+	{
+		title: "Endereço atualizado no perfil",
+		description:
+			"As visitas de coleta são feitas no endereço cadastrado na sua conta.",
+	},
+];
+
+const IMPACTO = [
+	{
+		icon: Baby,
+		value: `${BEBES_POR_LITRO} bebês`,
+		label: `Alimentados por um dia com 1 litro de leite (${BABY_ML_PER_DAY} ml por bebê).`,
+		toneClassName: "bg-eva-tint text-eva",
+	},
+	{
+		icon: Droplets,
+		value: "1 ml conta",
+		label:
+			"Prematuros mamam pouquíssimo por vez: cada mililitro doado vira uma refeição.",
+		toneClassName: "bg-blue-tint text-blue-deep",
+	},
+	{
+		icon: HeartHandshake,
+		value: "Em casa",
+		label:
+			"Exames, entrega do kit e coleta acontecem no seu endereço, sem fila e sem custo.",
+		toneClassName: "bg-teal-tint text-teal",
+	},
+];
 
 export function NewDonationPage() {
 	const navigate = useNavigate();
@@ -37,135 +119,116 @@ export function NewDonationPage() {
 		navigate("/minhas-doacoes");
 	}
 
+	const isPending = createDonationMutation.isPending;
+
 	return (
 		<Page hasPermission={auth?.type === EnumUserType.Common}>
-			{/* sem centralizar na altura da tela: o cartao comeca logo abaixo da trilha */}
-			<div className="lg:flex lg:items-start lg:justify-center lg:pt-6">
-				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-white lg:m-0 lg:mx-auto lg:grid lg:w-full lg:max-w-[1100px] lg:grid-cols-[500px_1fr] lg:gap-8 lg:bg-transparent lg:pt-0 lg:pb-8">
-					<div className="flex flex-col lg:col-start-1 lg:row-start-1 lg:min-h-[520px] lg:overflow-hidden lg:rounded-3xl lg:bg-white lg:shadow-lift">
-						<HeroIllustration />
+			<div className="flex flex-col gap-10 sm:gap-14">
+				<NewDonationHero
+					firstName={auth?.name?.split(" ")[0]}
+					isPending={isPending}
+					onConfirm={handleConfirm}
+					onCancel={handleCancel}
+				/>
 
-						<div className="mt-auto hidden flex-col gap-2.5 px-9 pt-2 pb-9 lg:flex">
-							<button
-								type="button"
-								onClick={handleConfirm}
-								disabled={createDonationMutation.isPending}
-								className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep hover:bg-blue text-[16px] font-semibold text-white shadow-soft transition-transform active:scale-[0.98] disabled:opacity-60"
+				<section aria-labelledby="nova-doacao-fluxo">
+					<SectionHeading
+						id="nova-doacao-fluxo"
+						label="Passo a passo"
+						title="O que acontece quando você confirma"
+					/>
+					<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
+
+					<div className="mt-6 grid gap-4 lg:grid-cols-3">
+						{FLUXO.map((passo, indice) => (
+							<Reveal
+								key={passo.title}
+								delay={indice * 0.06}
+								className="h-full"
 							>
-								{createDonationMutation.isPending
-									? "Confirmando..."
-									: "Confirmar"}
-							</button>
-
-							<button
-								type="button"
-								onClick={handleCancel}
-								disabled={createDonationMutation.isPending}
-								className="flex h-12 w-full items-center justify-center rounded-2xl text-[15px] font-medium text-ink-3 transition-transform active:scale-[0.98] disabled:opacity-60"
-							>
-								Cancelar
-							</button>
-						</div>
+								<FlowStepCard order={indice + 1} {...passo} />
+							</Reveal>
+						))}
 					</div>
+				</section>
 
-					<div className="flex flex-col gap-6 bg-surface-2 px-5 pb-6 pt-6 lg:col-start-2 lg:row-start-1 lg:rounded-3xl lg:bg-white lg:p-8 lg:shadow-lift">
-						<div className="rounded-2xl bg-white p-5 shadow-soft lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none">
-							<div className="flex items-center justify-between gap-4">
-								<p className="text-[18px] font-bold text-ink lg:text-[26px]">
-									O que vai acontecer
-								</p>
+				<section aria-labelledby="nova-doacao-etapas">
+					<SectionHeading
+						id="nova-doacao-etapas"
+						label="Sua doação"
+						title="As quatro etapas que você vai acompanhar"
+					/>
+					<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
 
-								<img
-									src={novaDoacao}
-									alt=""
-									aria-hidden="true"
-									width={220}
-									height={200}
-									className="hidden h-20 w-auto shrink-0 select-none lg:block"
-								/>
-							</div>
-
-							<div className="my-4 h-px bg-blue-tint lg:hidden" />
-
-							<div className="flex flex-col lg:pt-4">
-								<StepItem
-									title="Confirmação"
-									icon={
-										<Heart className="size-5 fill-eva text-eva lg:size-6" />
-									}
-									iconBg="bg-eva-tint"
-								>
-									Você confirma o interesse em fazer uma nova doação
-								</StepItem>
-
-								<StepItem
-									title="Redirecionamento"
-									icon={
-										<img
-											src={WhatsAppIcon}
-											alt="WhatsApp"
-											className="size-5 lg:size-6"
-										/>
-									}
-									iconBg="bg-[#25d366]"
-								>
-									Você é redirecionada para o WhatsApp da equipe Lactare
-								</StepItem>
-
-								<StepItem
-									title="Triagem e agendamento"
-									icon={<Check className="size-5 text-blue-deep lg:size-6" />}
-									iconBg="bg-blue-tint"
-								>
-									A equipe realiza a triagem inicial e agenda a coleta
-								</StepItem>
-
-								<StepItem
-									title="Acompanhamento"
-									icon={<Droplet className="size-5 text-eva lg:size-6" />}
-									iconBg="bg-eva-tint"
-									isLast
-								>
-									Sua doação é registrada e acompanhada aqui no sistema
-								</StepItem>
-							</div>
-						</div>
-
-						<AttentionNotice />
-
-						{createDonationMutation.isError && (
-							<p className="text-center text-[13px] font-medium text-destructive">
-								Não foi possível iniciar a doação. Tente novamente.
-							</p>
-						)}
+					<div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+						{STEP_DEFINITIONS.map((etapa, indice) => (
+							<Reveal key={etapa.name} delay={indice * 0.06} className="h-full">
+								<DonationStageCard step={etapa} />
+							</Reveal>
+						))}
 					</div>
+				</section>
 
-					<div className="sticky bottom-0 flex flex-col gap-3 border-t border-line bg-white px-5 pb-6 pt-4 lg:hidden">
-						<button
-							type="button"
-							onClick={handleConfirm}
-							disabled={createDonationMutation.isPending}
-							className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep hover:bg-blue text-[16px] font-semibold text-white active:scale-[0.98] transition-transform disabled:opacity-60"
-						>
-							{createDonationMutation.isPending
-								? "Confirmando..."
-								: "Confirmar"}
-						</button>
+				<section aria-labelledby="nova-doacao-impacto">
+					<SectionHeading
+						id="nova-doacao-impacto"
+						label="Por que importa"
+						tone="eva"
+						title="O tamanho de uma doação"
+					/>
+					<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
 
-						<button
-							type="button"
-							onClick={handleCancel}
-							disabled={createDonationMutation.isPending}
-							className="flex h-14 w-full items-center justify-center rounded-full border-[1.5px] border-line text-[16px] font-semibold text-ink-2 active:scale-[0.98] transition-transform disabled:opacity-60"
-						>
-							Cancelar
-						</button>
+					<div className="mt-6 grid gap-4 lg:grid-cols-3">
+						{IMPACTO.map((fato, indice) => (
+							<Reveal key={fato.value} delay={indice * 0.06} className="h-full">
+								<ImpactFact {...fato} />
+							</Reveal>
+						))}
 					</div>
-				</div>
+				</section>
+
+				<section aria-labelledby="nova-doacao-checklist">
+					<SectionHeading
+						id="nova-doacao-checklist"
+						label="Antes de começar"
+						title="Uma conferida rápida"
+					/>
+					<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
+
+					<div className="mt-6 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-start lg:gap-6">
+						<Reveal>
+							<ul className="rounded-card flex flex-col gap-4 border border-line bg-surface p-5 shadow-soft sm:p-6">
+								{CHECKLIST.map((item) => (
+									<ChecklistItem key={item.title} {...item} />
+								))}
+							</ul>
+						</Reveal>
+
+						<Reveal delay={0.06} className="lg:w-[360px]">
+							<AttentionNotice />
+						</Reveal>
+					</div>
+				</section>
+
+				{createDonationMutation.isError && (
+					<p
+						role="alert"
+						className="rounded-card border border-danger/20 bg-danger-tint px-4 py-3 text-center text-[14px] font-medium text-danger"
+					>
+						Não foi possível iniciar a doação. Tente novamente.
+					</p>
+				)}
+
+				<ConfirmActions
+					isPending={isPending}
+					onConfirm={handleConfirm}
+					onCancel={handleCancel}
+					className="pb-safe"
+				/>
 			</div>
 
 			{/* mesmo rodape da home; sangra as gutters do Layout como o resto da tela */}
-			<div className="-mx-4 mt-10 sm:-mx-6 lg:-mx-10">
+			<div className="-mx-4 -mb-16 mt-12 sm:-mx-6 lg:-mx-10">
 				<Footer />
 			</div>
 		</Page>

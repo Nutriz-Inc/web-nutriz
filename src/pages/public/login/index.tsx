@@ -58,7 +58,7 @@ export function LoginScreen() {
 	const isPending = loginMutation.isPending;
 
 	return (
-		<div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-white via-canvas to-blue-tint font-body">
+		<div className="relative min-h-dvh w-full overflow-hidden bg-gradient-to-b from-white via-canvas to-blue-tint font-body">
 			<img
 				src={cenarioCidade}
 				alt=""
@@ -84,7 +84,7 @@ export function LoginScreen() {
 				<div className="absolute top-[8%] right-[32%] h-24 w-24 rounded-full bg-blue-tint-2" />
 			</div>
 
-			<main className="relative z-10 mx-auto flex min-h-screen w-full max-w-sm flex-col px-6 pb-52 pt-24">
+			<main className="relative z-10 mx-auto flex min-h-dvh w-full max-w-sm flex-col px-6 pb-52 pt-[calc(6rem+env(safe-area-inset-top))]">
 				<div className="mb-5 flex justify-center">
 					<img
 						src={NutrizLogo}

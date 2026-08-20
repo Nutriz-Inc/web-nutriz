@@ -4,16 +4,32 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico?v=4" sizes="16x16 32x32 48x48" />
     <link rel="icon" type="image/png" href="/favicon.png?v=4" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/favicon.png?v=4" />
+    <!--
+      viewport-fit=cover faz o documento ocupar a tela inteira do iPhone,
+      inclusive a faixa da ilha dinamica; quem afasta o conteudo de la e o
+      env(safe-area-inset-*) aplicado nos cabecalhos (ver src/index.css).
+      Sem maximum-scale/user-scalable: bloquear zoom quebra acessibilidade —
+      o zoom ao focar um campo e resolvido com fonte de 16px nos inputs.
+    -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <!--
-      No iPhone a area da ilha dinamica era pintada de branco porque o
-      documento nao declarava cor. Com o azul da marca ela vira continuacao
-      do topo da landing. lang tambem corrigido para pt-BR.
+      Cor da barra de status. Comeca no azul da marca (a landing abre com o
+      hero azul) e passa a acompanhar o fundo de cada tela em tempo de
+      execucao — ver src/hooks/use-theme-color.ts.
     -->
     <meta name="theme-color" content="#00325c" />
+    <!-- Adicionado a tela de inicio: abre sem a barra do Safari, ocupando tudo. -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Nutriz" />
     <title>Nutriz</title>
   </head>
   <body>

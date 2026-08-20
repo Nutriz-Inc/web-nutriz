@@ -1,7 +1,8 @@
 .eva-fab {
 	position: fixed;
 	right: 20px;
-	bottom: 20px;
+	/* Acima da barra de gestos do iPhone. */
+	bottom: calc(20px + env(safe-area-inset-bottom, 0px));
 	z-index: 60;
 	width: 60px;
 	height: 60px;
@@ -62,6 +63,10 @@
 		height: 100dvh;
 		max-height: 100dvh;
 		border-radius: 0;
+		/* Em tela cheia o modal encosta nas safe areas: o cabecalho ficava sob
+		 * a ilha dinamica e o campo de escrever, sob a barra de gestos. */
+		padding-top: env(safe-area-inset-top, 0px);
+		padding-bottom: env(safe-area-inset-bottom, 0px);
 	}
 }
 

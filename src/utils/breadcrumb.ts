@@ -1,10 +1,11 @@
+import type { EnumUserType } from "@/services/types/i-user";
+import { getHome } from "@/utils/routes";
+
 export type BreadcrumbItem = {
 	label: string;
 	/** Sem `to`, o item e o atual (nao clicavel). */
 	to?: string;
 };
-
-const RAIZ: BreadcrumbItem = { label: "Início", to: "/home" };
 
 // Telas de primeiro nivel: rota exata -> rotulo.
 const TELAS: Record<string, string> = {
@@ -19,6 +20,17 @@ const TELAS: Record<string, string> = {
 	"/usuarios": "Usuários",
 	"/dashboard": "Dashboard",
 };
+
+/**
+ * Primeiro degrau da trilha. Nao existe uma home unica no app: `/home` so
+ * existe para a nutriz, entao adm e enfermeira caiam num link quebrado. Cada
+ * perfil comeca a trilha pela propria tela inicial (a mesma de `getHome`).
+ */
+function getRaiz(userType?: EnumUserType): BreadcrumbItem {
+	const to = getHome(userType);
+
+	return { label: TELAS[to] ?? "Início", to };
+}
 
 // Telas de detalhe: primeiro segmento -> trilha ate ela. O ultimo item ganha
 // o rotulo generico porque o id da rota nao e legivel para a nutriz.
@@ -44,19 +56,23 @@ const DETALHES: Record<string, BreadcrumbItem[]> = {
 
 /**
  * Trilha da rota atual. Retorna lista vazia quando nao ha o que mostrar:
- * a propria home (a trilha seria so "Início") e rotas desconhecidas, como as
- * telas publicas, que seguem com o botao "Voltar".
+ * a propria tela inicial do perfil (a trilha seria so um item) e rotas
+ * desconhecidas, como as telas publicas, que seguem com o botao "Voltar".
  */
-export function getBreadcrumb(pathname: string): BreadcrumbItem[] {
+export function getBreadcrumb(
+	pathname: string,
+	userType?: EnumUserType,
+): BreadcrumbItem[] {
 	const limpo = pathname.replace(/\/+$/, "") || "/";
+	const raiz = getRaiz(userType);
 
-	if (limpo === "/home") {
+	if (limpo === raiz.to) {
 		return [];
 	}
 
 	const rotuloDireto = TELAS[limpo];
 	if (rotuloDireto) {
-		return [RAIZ, { label: rotuloDireto }];
+		return [raiz, { label: rotuloDireto }];
 	}
 
 	const segmentos = limpo.split("/").filter(Boolean);
@@ -65,12 +81,16 @@ export function getBreadcrumb(pathname: string): BreadcrumbItem[] {
 		return [];
 	}
 
+	// A trilha de detalhe ja pode comecar na propria raiz do perfil (adm
+	// entrando em /gestao-doacoes/:id): nesse caso o degrau nao se repete.
+	const degraus =
+		trilha[0]?.to === raiz.to ? [raiz, ...trilha.slice(1)] : [raiz, ...trilha];
+
 	// /doacao/:id/etapa/:id ganha mais um degrau.
 	if (segmentos.includes("etapa")) {
 		return [
-			RAIZ,
-			...trilha.map((item, i) =>
-				i === trilha.length - 1
+			...degraus.map((item, i) =>
+				i === degraus.length - 1
 					? { ...item, to: `/doacao/${segmentos[1]}` }
 					: item,
 			),
@@ -78,5 +98,5 @@ export function getBreadcrumb(pathname: string): BreadcrumbItem[] {
 		];
 	}
 
-	return [RAIZ, ...trilha];
+	return degraus;
 }

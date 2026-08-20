@@ -8,16 +8,19 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { formatZipCode } from "@/utils/formatter";
+import { type GeoCoordinates, geocodeZipCode } from "@/utils/geocode";
 
-type Coordinates = {
-	latitude: number;
-	longitude: number;
-};
+type Coordinates = GeoCoordinates;
 
 type ChangeLocationSheetProps = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
-	onApplyZipCode: (zipCode: string) => void;
+	/**
+	 * `coordinates` e o CEP ja resolvido em latitude/longitude, usado para
+	 * posicionar o mapa. Vem `null` quando nenhum servico soube localizar o
+	 * CEP — a busca na API continua valendo, so o mapa nao se move.
+	 */
+	onApplyZipCode: (zipCode: string, coordinates: Coordinates | null) => void;
 	onApplyCurrentLocation: (coordinates: Coordinates) => void;
 };
 
@@ -29,6 +32,7 @@ export function ChangeLocationSheet({
 }: ChangeLocationSheetProps) {
 	const [zipCode, setZipCode] = useState("");
 	const [isLocating, setIsLocating] = useState(false);
+	const [isSearching, setIsSearching] = useState(false);
 	const [locationError, setLocationError] = useState("");
 
 	const zipCodeDigits = zipCode.replace(/\D/g, "");
@@ -36,13 +40,22 @@ export function ChangeLocationSheet({
 	function reset() {
 		setZipCode("");
 		setIsLocating(false);
+		setIsSearching(false);
 		setLocationError("");
 	}
 
-	function handleSearch() {
-		if (zipCodeDigits.length !== 8) return;
+	async function handleSearch() {
+		if (zipCodeDigits.length !== 8 || isSearching) return;
 
-		onApplyZipCode(zipCodeDigits);
+		setIsSearching(true);
+
+		// O CEP vira coordenada aqui, no navegador: sem isso o mapa nao sabia
+		// para onde ir e ficava parado, dando a impressao de que a busca por
+		// CEP nao funcionava. Ver utils/geocode.ts.
+		const coordinates = await geocodeZipCode(zipCodeDigits);
+
+		setIsSearching(false);
+		onApplyZipCode(zipCodeDigits, coordinates);
 		reset();
 	}
 
@@ -105,7 +118,9 @@ export function ChangeLocationSheet({
 							inputMode="numeric"
 							value={formatZipCode(zipCode)}
 							onChange={(e) => setZipCode(formatZipCode(e.target.value))}
-							onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") handleSearch();
+							}}
 							placeholder="00000-000"
 							className="h-11 w-full rounded-xl border border-line bg-surface-2 pl-10 pr-4 text-[13px] text-ink outline-none placeholder:text-ink-3/65"
 						/>
@@ -141,16 +156,17 @@ export function ChangeLocationSheet({
 					</button>
 
 					{locationError && (
-						<p className="text-[11px] text-red-500">{locationError}</p>
+						<p className="text-[11px] text-danger">{locationError}</p>
 					)}
 
 					<button
 						type="button"
 						onClick={handleSearch}
-						disabled={zipCodeDigits.length !== 8}
-						className="flex h-11 w-full items-center justify-center rounded-xl bg-blue-bright text-[12px] font-bold text-white transition-opacity disabled:opacity-60"
+						disabled={zipCodeDigits.length !== 8 || isSearching}
+						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-bright text-[12px] font-bold text-white transition-opacity disabled:opacity-60"
 					>
-						Buscar
+						{isSearching && <LoaderCircle className="size-4 animate-spin" />}
+						{isSearching ? "Buscando..." : "Buscar"}
 					</button>
 				</div>
 			</SheetContent>

@@ -48,7 +48,7 @@ export function ArticlesScreen() {
 	const sidebarItem = shouldReduceMotion ? undefined : fadeUp;
 
 	return (
-		<div className="min-h-screen bg-canvas font-body [&_button]:cursor-pointer">
+		<div className="min-h-dvh bg-canvas font-body [&_button]:cursor-pointer">
 			<AppHeader />
 
 			<div className="mx-auto w-full max-w-[1100px] px-5 py-6 lg:px-8 lg:py-8">

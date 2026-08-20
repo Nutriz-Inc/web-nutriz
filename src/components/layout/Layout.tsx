@@ -3,7 +3,7 @@ import { AppHeader } from "./AppHeader";
 
 export function Layout() {
 	return (
-		<div className="mx-auto flex min-h-screen flex-col bg-canvas font-body text-ink">
+		<div className="mx-auto flex min-h-dvh flex-col bg-canvas font-body text-ink">
 			<AppHeader />
 			{/*
 			 * Mesmo container da home (max-w-[1400px] + gutters 16/24/40) para o

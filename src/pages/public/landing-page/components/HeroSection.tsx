@@ -31,7 +31,7 @@ export function HeroSection() {
 		>
 			<HeroBackground />
 
-			<div className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-12 px-5 pt-28 pb-16 lg:grid-cols-2 lg:gap-10 lg:px-8 lg:pt-36 lg:pb-24">
+			<div className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-12 px-5 pt-[calc(7rem+env(safe-area-inset-top))] pb-16 lg:grid-cols-2 lg:gap-10 lg:px-8 lg:pt-36 lg:pb-24">
 				<motion.div {...contentReveal} className="flex flex-col items-start">
 					<motion.span variants={fadeScale} className="inline-flex">
 						<ActivityBadge label="Faça sua doação" dotColor="#72f2eb" />

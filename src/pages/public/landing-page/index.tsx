@@ -15,7 +15,7 @@ export function LandingPageScreen() {
 			<LandingHeader />
 			<main>
 				<HeroSection />
-				<div className="flex flex-col bg-[#f5f7fb]">
+				<div className="flex flex-col bg-surface-2">
 					<StatsBar />
 					<HowItWorksSection />
 				</div>

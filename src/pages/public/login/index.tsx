@@ -1,11 +1,11 @@
-import { Eye, EyeOff, LoaderCircle, Mail } from "lucide-react";
+import { Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 import LoginBg from "@/assets/images/login-bg.svg";
 import NutrizLogo from "@/assets/images/nutriz-logo.svg";
-
+import { FormField } from "@/components/full/FormField";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-auth";
 import { useLogin } from "./hooks";
 
@@ -57,7 +57,7 @@ export function LoginScreen() {
 	const isPending = loginMutation.isPending;
 
 	return (
-		<div className="relative min-h-screen w-full overflow-hidden bg-white">
+		<div className="relative min-h-screen w-full overflow-hidden bg-white font-body">
 			<img
 				src={LoginBg}
 				alt=""
@@ -69,14 +69,14 @@ export function LoginScreen() {
 				aria-hidden
 				className="pointer-events-none absolute inset-x-0 top-0 z-0 h-64 overflow-hidden"
 			>
-				<div className="absolute -left-16 -top-12 h-44 w-44 rounded-full bg-[#cfe0f8]" />
-				<div className="absolute left-7 top-16 h-16 w-16 rounded-full bg-[#f6d4dc]" />
-				<div className="absolute -right-12 -top-14 h-52 w-52 rounded-full bg-[#dbe7fb]" />
-				<div className="absolute right-5 top-24 h-20 w-20 rounded-full bg-[#f6d4dc]" />
-				<div className="absolute right-24 top-4 h-12 w-12 rounded-full bg-[#cfe0f8]" />
+				<div className="absolute -left-16 -top-12 h-44 w-44 rounded-full bg-blue-tint-2" />
+				<div className="absolute left-7 top-16 h-16 w-16 rounded-full bg-eva-tint" />
+				<div className="absolute -right-12 -top-14 h-52 w-52 rounded-full bg-blue-tint" />
+				<div className="absolute right-5 top-24 h-20 w-20 rounded-full bg-eva-tint" />
+				<div className="absolute right-24 top-4 h-12 w-12 rounded-full bg-blue-tint-2" />
 			</div>
 
-			<div className="relative z-10 mx-auto flex min-h-screen w-full max-w-sm flex-col px-6 pb-52 pt-24">
+			<main className="relative z-10 mx-auto flex min-h-screen w-full max-w-sm flex-col px-6 pb-52 pt-24">
 				<div className="mb-5 flex justify-center">
 					<img
 						src={NutrizLogo}
@@ -85,106 +85,62 @@ export function LoginScreen() {
 					/>
 				</div>
 
-				<h1 className="text-center text-2xl font-bold text-[#16224a]">
+				<h1 className="text-center font-display text-[26px] font-bold text-blue-deep">
 					Bem-vinda(o) de volta!
 				</h1>
-				<p className="mt-1 text-center text-sm text-[#54648a]">
+				<p className="mt-1 text-center text-[14px] text-ink-2">
 					Faça login para acessar sua conta
 				</p>
 
-				<div className="mt-6 border-t border-[#e2e7f1]" />
+				<div className="mt-6 border-t border-line" />
 
-				<div className="mt-6 rounded-2xl border border-white/60 bg-white/60 backdrop-blur-md shadow-lg shadow-[#0B57B8]/8 px-5 py-6">
+				<div className="mt-6 rounded-card border border-white/60 bg-white/60 p-6 shadow-soft backdrop-blur-md">
 					<form
 						className="flex flex-col gap-5"
 						onSubmit={handleSubmit}
 						noValidate
 					>
-						<div className="flex flex-col gap-2">
-							<Label
-								htmlFor="email"
-								className="text-xs font-semibold text-[#2e3c5e]"
-							>
-								E-mail
-							</Label>
-							<div className="relative">
-								<input
-									id="email"
-									type="email"
-									autoComplete="email"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									placeholder="Digite seu e-mail"
-									aria-invalid={!!errors.email}
-									aria-describedby={errors.email ? "email-error" : undefined}
-									className="w-full h-11 rounded-full border border-[#e2e7f1] bg-white pl-4 pr-11 text-sm text-[#16224a] placeholder:text-[#9aa3b8] outline-none transition-all focus:border-[#0B57B8] focus:ring-2 focus:ring-[#0B57B8]/15 aria-invalid:border-red-400 aria-invalid:ring-2 aria-invalid:ring-red-200"
-								/>
-								<Mail
-									className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#9aa3b8]"
-									aria-hidden
-								/>
-							</div>
-							{errors.email && (
-								<p id="email-error" className="text-xs text-red-500 pl-1">
-									{errors.email}
-								</p>
-							)}
-						</div>
+						<FormField
+							id="email"
+							label="E-mail"
+							type="email"
+							inputMode="email"
+							autoComplete="email"
+							value={email}
+							onChange={setEmail}
+							placeholder="Digite seu e-mail"
+							error={errors.email}
+						/>
 
-						<div className="flex flex-col gap-2">
-							<Label
-								htmlFor="password"
-								className="text-xs font-semibold text-[#2e3c5e]"
-							>
-								Senha
-							</Label>
-							<div className="relative">
-								<input
-									id="password"
-									type={showPassword ? "text" : "password"}
-									autoComplete="current-password"
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									placeholder="Digite sua senha"
-									aria-invalid={!!errors.password}
-									aria-describedby={
-										errors.password ? "password-error" : undefined
-									}
-									className="w-full h-11 rounded-full border border-[#e2e7f1] bg-white pl-4 pr-11 text-sm text-[#16224a] placeholder:text-[#9aa3b8] outline-none transition-all focus:border-[#0B57B8] focus:ring-2 focus:ring-[#0B57B8]/15 aria-invalid:border-red-400 aria-invalid:ring-2 aria-invalid:ring-red-200"
-								/>
+						<FormField
+							id="password"
+							label="Senha"
+							type={showPassword ? "text" : "password"}
+							autoComplete="current-password"
+							value={password}
+							onChange={setPassword}
+							placeholder="Digite sua senha"
+							error={errors.password}
+							trailing={
 								<button
 									type="button"
 									onClick={() => setShowPassword((v) => !v)}
 									aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-									className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9aa3b8] transition-colors hover:text-[#54648a]"
+									className="text-ink-3 transition-colors hover:text-ink-2"
 								>
 									{showPassword ? (
-										<EyeOff className="h-5 w-5" />
+										<EyeOff className="size-5" />
 									) : (
-										<Eye className="h-5 w-5" />
+										<Eye className="size-5" />
 									)}
 								</button>
-							</div>
-							{errors.password && (
-								<p id="password-error" className="text-xs text-red-500 pl-1">
-									{errors.password}
-								</p>
-							)}
-						</div>
-
-						{/* <div className="flex justify-center">
-						<Link
-							to="/forgot-password"
-							className="text-xs font-semibold text-[#1c5fd0] hover:underline underline-offset-2"
-						>
-							Esqueci minha senha
-						</Link>
-					</div> */}
+							}
+						/>
 
 						{errors.general && (
 							<p
 								role="alert"
-								className="text-sm text-red-500 text-center bg-red-50 border border-red-200 rounded-xl py-2 px-4"
+								className="rounded-xl border border-danger/20 bg-danger-tint px-4 py-2 text-center text-[13px] text-danger"
 							>
 								{errors.general}
 							</p>
@@ -192,8 +148,9 @@ export function LoginScreen() {
 
 						<Button
 							type="submit"
+							size="pill"
 							disabled={isPending}
-							className="h-12 w-full rounded-full bg-[#0B57B8] text-sm font-medium text-white shadow-[0px_8px_18px_0px_rgba(11,87,184,0.3)] hover:bg-[#0a4ea4] active:scale-[0.98] disabled:opacity-60 transition-all"
+							className="w-full bg-blue-deep text-white hover:bg-blue disabled:opacity-60"
 						>
 							{isPending ? (
 								<span className="flex items-center gap-2">
@@ -207,18 +164,18 @@ export function LoginScreen() {
 					</form>
 				</div>
 
-				<div className="mt-6 border-t border-[#e2e7f1]" />
+				<div className="mt-6 border-t border-line" />
 
-				<p className="mt-5 text-center text-sm text-[#54648a]">
+				<p className="mt-5 text-center text-[14px] text-ink-2">
 					Ainda não tem uma conta?{" "}
 					<Link
 						to="/registro"
-						className="font-semibold text-[#1c5fd0] hover:underline underline-offset-2"
+						className="font-semibold text-blue underline-offset-2 hover:underline"
 					>
 						Criar conta
 					</Link>
 				</p>
-			</div>
+			</main>
 		</div>
 	);
 }

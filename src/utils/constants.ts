@@ -1,3 +1,4 @@
+import type { BadgeTone } from "@/components/ui/badge";
 import { EnumDonationStepName } from "@/services/types/i-donation";
 
 import { EnumUserType } from "@/services/types/i-user";
@@ -19,8 +20,8 @@ export const USER_TYPE_LABEL: Record<EnumUserType, string> = {
 	[EnumUserType.Admin]: "Administrador(a)",
 };
 
-export const USER_TYPE_BADGE_CLASSNAME: Record<EnumUserType, string> = {
-	[EnumUserType.Admin]: "bg-[#e8f0fe] text-[#00458b]",
-	[EnumUserType.Nurse]: "bg-[#ede9fe] text-[#6d28d9]",
-	[EnumUserType.Common]: "bg-[#d5f3ea] text-[#0f766e]",
+export const USER_TYPE_TONE: Record<EnumUserType, BadgeTone> = {
+	[EnumUserType.Admin]: "brand",
+	[EnumUserType.Nurse]: "purple",
+	[EnumUserType.Common]: "success",
 };

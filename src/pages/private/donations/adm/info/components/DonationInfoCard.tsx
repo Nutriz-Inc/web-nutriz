@@ -18,18 +18,16 @@ export function DonationInfoCard({ donation }: Props) {
 	);
 
 	return (
-		<div className="flex flex-col gap-4 rounded-2xl border border-[#e7eaef] bg-white p-6">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-6">
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center justify-between gap-2">
-					<p className="text-[17px] font-bold text-[#1f2a37]">
-						Dados da doação
-					</p>
+					<p className="text-[16px] font-bold text-ink">Dados da doação</p>
 					<DonationStatusBadge
 						isActive={donation.is_active}
 						hasError={hasError}
 					/>
 				</div>
-				<p className="text-[12px] text-[#6b7280]">
+				<p className="text-[12px] text-ink-2">
 					Informações de cadastro — somente leitura
 				</p>
 			</div>
@@ -57,17 +55,15 @@ export function DonationInfoCard({ donation }: Props) {
 
 			{(donation.user_feedback || donation.score_feedback != null) && (
 				<div className="flex flex-col gap-1.5">
-					<span className="text-[12px] font-semibold text-[#6b7280]">
+					<span className="text-[12px] font-semibold text-ink-2">
 						Feedback da doadora
 					</span>
-					<div className="flex flex-col gap-2 rounded-[10px] border border-[#e7eaef] bg-white px-3.5 py-3">
+					<div className="flex flex-col gap-2 rounded-card-sm border border-line bg-white px-3.5 py-3">
 						{donation.score_feedback != null && (
 							<StarRating value={donation.score_feedback} size="sm" />
 						)}
 						{donation.user_feedback && (
-							<p className="text-[14px] text-[#1f2a37]">
-								{donation.user_feedback}
-							</p>
+							<p className="text-[14px] text-ink">{donation.user_feedback}</p>
 						)}
 					</div>
 				</div>

@@ -27,17 +27,17 @@ export function AppointmentDetailPage() {
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			{!appointment ? (
-				<div className="flex flex-col items-center gap-2 rounded-2xl border border-[#e7ecf2] bg-white p-10 text-center">
-					<CalendarX className="size-8 text-[#c0c7d1]" />
-					<p className="text-[15px] font-semibold text-[#1f2a37]">
+				<div className="flex flex-col items-center gap-2 rounded-card-sm border border-line bg-white p-10 text-center">
+					<CalendarX className="size-8 text-blue-tint-2" />
+					<p className="text-[15px] font-semibold text-ink">
 						Agendamento não encontrado
 					</p>
-					<p className="text-[13px] text-[#9ca3af]">
+					<p className="text-[13px] text-ink-3">
 						Ele pode ter sido removido ou o endereço está incorreto.
 					</p>
 				</div>
 			) : (
-				<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-[#f4f7fb] p-4 pb-24 lg:m-0 lg:mx-auto lg:min-h-0 lg:max-w-[1200px] lg:bg-transparent lg:p-0 lg:pb-8">
+				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-surface-3 p-4 pb-24 lg:m-0 lg:mx-auto lg:min-h-0 lg:max-w-[1200px] lg:bg-transparent lg:p-0 lg:pb-8">
 					{appointment.ended && (
 						<div className="lg:hidden">
 							<EndedNotice status={appointment.status} />

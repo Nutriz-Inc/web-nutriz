@@ -219,8 +219,8 @@ export function ProfilePage() {
 			description={`Gerencie suas informações pessoais${isCommon ? " e de seu bebê" : ""}.`}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-m-5 flex min-h-[calc(100vh-69px)] flex-col bg-[#f7f9fb] lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:px-8 lg:py-8">
-				<div className="lg:mb-5 lg:flex lg:items-center lg:justify-between lg:gap-6 lg:rounded-2xl lg:border lg:border-[#e3eaf2] lg:bg-white lg:p-6">
+			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col bg-surface-2 lg:m-0 lg:min-h-0 lg:bg-transparent lg:mx-auto lg:w-full lg:max-w-[1400px] lg:px-0 lg:py-8">
+				<div className="lg:mb-5 lg:flex lg:items-center lg:justify-between lg:gap-6 lg:rounded-card-sm lg:border lg:border-line lg:bg-white lg:p-6">
 					<ProfileHeader
 						name={data?.name ?? ""}
 						email={data?.email ?? ""}
@@ -228,7 +228,7 @@ export function ProfilePage() {
 					/>
 
 					{isCommon && (
-						<div className="border-b border-[#888]/12 px-4 py-3 lg:shrink-0 lg:border-none lg:p-0">
+						<div className="border-b border-ink-3/12 px-4 py-3 lg:shrink-0 lg:border-none lg:p-0">
 							<ProfileTabs value={tab} onChange={setTab} />
 						</div>
 					)}

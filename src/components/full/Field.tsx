@@ -35,11 +35,11 @@ export function Field({
 		return (
 			<div className="flex items-center justify-between gap-3 px-3 py-3">
 				<div className="flex flex-col gap-1">
-					<p className="text-[12px] font-bold text-[#1e4976]">{label}</p>
-					<p className="text-[12px] text-[#5a7a9a]">{shownValue || "—"}</p>
+					<p className="text-[12px] font-bold text-blue-deep">{label}</p>
+					<p className="text-[12px] text-ink-2">{shownValue || "—"}</p>
 				</div>
-				<div className="flex size-4 shrink-0 items-center justify-center rounded-[4px] bg-[#387ccd]/15">
-					<Lock className="size-[9px] text-[#387ccd]" />
+				<div className="flex size-4 shrink-0 items-center justify-center rounded-sm bg-blue-bright/15">
+					<Lock className="size-[9px] text-blue-bright" />
 				</div>
 			</div>
 		);
@@ -48,7 +48,7 @@ export function Field({
 	if (isEditing) {
 		return (
 			<div className="flex flex-col gap-1.5 px-3 py-3">
-				<p className="text-[12px] font-bold text-[#1e4976]">{label}</p>
+				<p className="text-[12px] font-bold text-blue-deep">{label}</p>
 				<input
 					ref={inputRef}
 					type={type}
@@ -58,7 +58,7 @@ export function Field({
 					onKeyDown={(e) => e.key === "Enter" && setIsEditing(false)}
 					placeholder={placeholder}
 					inputMode={inputMode}
-					className="h-[30px] w-full rounded-lg border-[1.5px] border-[#387ccd]/80 bg-white px-3 text-[12px] text-[#1a1d23] outline-none placeholder:text-[#888]/60"
+					className="h-[30px] w-full rounded-lg border-[1.5px] border-blue-bright/80 bg-white px-3 text-[12px] text-ink outline-none placeholder:text-ink-3/60"
 				/>
 			</div>
 		);
@@ -71,12 +71,12 @@ export function Field({
 			className="flex w-full items-center justify-between gap-3 px-3 py-3 text-left"
 		>
 			<div className="flex flex-col gap-1">
-				<p className="text-[12px] font-bold text-[#1e4976]">{label}</p>
-				<p className="text-[12px] text-[#1a1d23]">
+				<p className="text-[12px] font-bold text-blue-deep">{label}</p>
+				<p className="text-[12px] text-ink">
 					{shownValue || placeholder || "—"}
 				</p>
 			</div>
-			<Pencil className="size-3.5 shrink-0 text-[#387ccd]" />
+			<Pencil className="size-3.5 shrink-0 text-blue-bright" />
 		</button>
 	);
 }

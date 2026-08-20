@@ -13,8 +13,8 @@ export function SlideButton({
 	label,
 	onClick,
 	className,
-	pillClassName = "bg-white text-[#0a3a87] shadow-lg shadow-[#061f4a]/30",
-	circleClassName = "bg-[#0a3a87] text-white",
+	pillClassName = "bg-white text-blue-deep shadow-lift shadow-[#061f4a]/30",
+	circleClassName = "bg-blue-deep text-white",
 }: SlideButtonProps) {
 	return (
 		<button

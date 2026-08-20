@@ -10,28 +10,26 @@ type TestimonialCardProps = {
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
 	return (
-		<figure className="flex h-full w-full flex-col gap-4 rounded-2xl border border-[#e6ecf5] bg-[#f8fafc] p-7 sm:p-8">
+		<figure className="flex h-full w-full flex-col gap-4 rounded-2xl border border-blue-tint bg-surface-2 p-7 sm:p-8">
 			<figcaption className="flex items-center gap-3">
-				<span className="flex size-11 items-center justify-center rounded-full bg-[#387ccd]/15 text-[14px] font-bold text-[#387ccd]">
+				<span className="flex size-11 items-center justify-center rounded-full bg-blue-bright/15 text-[14px] font-bold text-blue-bright">
 					{getInitials(testimonial.name)}
 				</span>
 				<span className="flex flex-col">
-					<span className="text-[15px] font-bold text-[#12294d]">
+					<span className="text-[15px] font-bold text-ink">
 						{testimonial.name}
 					</span>
-					<span className="text-[12px] text-[#94a3b8]">
-						{testimonial.since}
-					</span>
+					<span className="text-[12px] text-ink-3">{testimonial.since}</span>
 				</span>
 			</figcaption>
 
 			<div className="flex gap-0.5" role="img" aria-label="5 de 5 estrelas">
 				{STARS.map((star) => (
-					<Star key={star} className="size-4 fill-[#f5b642] text-[#f5b642]" />
+					<Star key={star} className="size-4 fill-amber text-amber" />
 				))}
 			</div>
 
-			<blockquote className="text-[15px] leading-relaxed text-[#475569]">
+			<blockquote className="text-[15px] leading-relaxed text-ink-2">
 				“{testimonial.text}”
 			</blockquote>
 		</figure>

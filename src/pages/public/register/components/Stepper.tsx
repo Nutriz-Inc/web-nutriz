@@ -33,7 +33,7 @@ export function Stepper({
 								aria-hidden
 								className={cn(
 									"mx-2 mt-4 h-0.5 flex-1 rounded-full sm:mx-3",
-									done || active ? "bg-[#0d3b6e]" : "bg-[#e4e4e7]",
+									done || active ? "bg-blue-deep" : "bg-blue-tint",
 								)}
 							/>
 						)}
@@ -53,14 +53,14 @@ export function Stepper({
 							<span
 								className={cn(
 									"grid size-8 shrink-0 place-items-center rounded-full text-[13px] font-semibold transition-colors",
-									done && "bg-[#0d3b6e] text-white",
+									done && "bg-blue-deep text-white",
 									active &&
-										"border-2 border-[#0d3b6e] bg-white text-[#0d3b6e] ring-4 ring-[#0d3b6e]/12",
+										"border-2 border-blue-deep bg-white text-blue-deep ring-4 ring-blue-deep/12",
 									!done &&
 										!active &&
 										(visited
-											? "border-2 border-[#0d3b6e]/40 bg-white text-[#0d3b6e]"
-											: "border border-[#e4e4e7] bg-white text-[#a1a1aa]"),
+											? "border-2 border-blue-deep/40 bg-white text-blue-deep"
+											: "border border-line bg-white text-ink-3"),
 								)}
 							>
 								{done ? <Check className="size-4" aria-hidden /> : index + 1}
@@ -68,11 +68,11 @@ export function Stepper({
 							<span
 								className={cn(
 									"hidden whitespace-nowrap text-[12px] sm:block",
-									active && "font-semibold text-[#0d3b6e]",
-									done && "font-medium text-[#09090b]",
+									active && "font-semibold text-blue-deep",
+									done && "font-medium text-ink",
 									!done &&
 										!active &&
-										(visited ? "text-[#0d3b6e]/70" : "text-[#a1a1aa]"),
+										(visited ? "text-blue-deep/70" : "text-ink-3"),
 								)}
 							>
 								{label}

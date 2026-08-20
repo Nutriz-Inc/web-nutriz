@@ -41,11 +41,11 @@ export function DonationStepDetailPage() {
 			backTo={`/doacao/${id_donation}`}
 		>
 			{!donationQuery.isLoading && !step ? (
-				<div className="flex flex-col items-center gap-2 rounded-2xl bg-white p-8 text-center shadow-[0px_8px_16px_rgba(10,38,77,0.06)] lg:mx-auto lg:w-full lg:max-w-[640px]">
-					<p className="text-[15px] font-semibold text-[#0e2a45]">
+				<div className="flex flex-col items-center gap-2 rounded-2xl bg-white p-8 text-center shadow-soft lg:mx-auto lg:w-full lg:max-w-[640px]">
+					<p className="text-[15px] font-semibold text-ink">
 						Etapa ainda não iniciada
 					</p>
-					<p className="text-[13px] text-[#6b8faa]">
+					<p className="text-[13px] text-ink-2">
 						Assim que esta etapa começar, os detalhes aparecerão aqui.
 					</p>
 				</div>
@@ -66,8 +66,8 @@ export function DonationStepDetailPage() {
 							/>
 
 							{(step.set_date || addressText) && (
-								<div className="flex flex-col gap-4 rounded-2xl border border-[#e3eaf2] bg-white px-[18px] py-5 shadow-[0px_6px_10px_rgba(15,26,51,0.06)]">
-									<p className="text-[14px] font-bold text-[#1b2a41]">
+								<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white px-[18px] py-5 shadow-soft">
+									<p className="text-[14px] font-bold text-ink">
 										Informações da etapa
 									</p>
 
@@ -80,7 +80,7 @@ export function DonationStepDetailPage() {
 									)}
 
 									{step.set_date && addressText && (
-										<div className="h-px bg-[#e3eaf2]" />
+										<div className="h-px bg-blue-tint" />
 									)}
 
 									{addressText && (

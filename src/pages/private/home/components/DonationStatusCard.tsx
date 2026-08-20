@@ -8,9 +8,10 @@ import {
 
 type Props = {
 	steps: DonationStep[];
+	className?: string;
 };
 
-export function DonationStatusCard({ steps }: Props) {
+export function DonationStatusCard({ steps, className }: Props) {
 	const firstPendingOrder = STEP_DEFINITIONS.find((definition) => {
 		const step = steps.find((s) => s.name === definition.name);
 		return step?.status !== EnumDonationStepStatus.Done;
@@ -24,57 +25,82 @@ export function DonationStatusCard({ steps }: Props) {
 			)?.name,
 	);
 
+	const lastOrder = STEP_DEFINITIONS.length;
+
 	return (
-		<div className="bg-white flex flex-col gap-4 p-5 rounded-[20px] w-full shadow-[0px_10px_14px_rgba(10,38,77,0.05)] border border-[#e5ebf3] lg:gap-5 lg:rounded-3xl lg:p-7">
-			<p className="text-[13px] text-[#6b8faa] lg:text-[14px]">
+		<div
+			className={cn(
+				"rounded-card-sm flex w-full flex-col gap-6 bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:gap-7 sm:p-8 lg:p-10",
+				className,
+			)}
+		>
+			<p className="font-display text-xs font-bold uppercase tracking-[0.06em] text-blue-bright lg:text-center">
 				Status da sua doação atual
 			</p>
 
-			<div className="flex flex-col gap-3.5 lg:gap-4">
+			{/*
+			 * Mobile: lista vertical. sm: duas colunas. lg: trilha horizontal
+			 * centralizada, com conectores ligando o centro de um passo ao proximo.
+			 */}
+			<ol className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-0">
 				{STEP_DEFINITIONS.map((definition) => {
 					const step = steps.find((s) => s.name === definition.name);
 					const isDone = step?.status === EnumDonationStepStatus.Done;
 					const isCurrent = !isDone && definition.order === firstPendingOrder;
+					const isLast = definition.order === lastOrder;
 
 					return (
-						<div
+						<li
 							key={definition.name}
-							className="flex items-center gap-3 lg:gap-4"
+							aria-current={isCurrent ? "step" : undefined}
+							className="relative flex items-center gap-4 lg:flex-col lg:items-center lg:gap-3.5 lg:text-center"
 						>
+							{!isLast && (
+								<span
+									aria-hidden="true"
+									className={cn(
+										"hidden lg:absolute lg:left-[calc(50%+1.875rem)] lg:right-[calc(-50%+1.875rem)] lg:top-5 lg:block lg:h-0.5 lg:-translate-y-1/2 lg:rounded-full",
+										isDone ? "bg-blue-deep" : "bg-blue-tint-2",
+									)}
+								/>
+							)}
+
 							<span
+								aria-hidden="true"
 								className={cn(
-									"flex size-7 shrink-0 items-center justify-center rounded-full text-[12px] font-bold lg:size-8 lg:text-[13px]",
-									isDone
-										? "bg-[#00458b] text-white"
-										: isCurrent
-											? "bg-[#0e9e94] text-white"
-											: "bg-[#eef0f4] text-[#9aa3b8]",
+									"relative flex size-9 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold tabular-nums lg:size-10 lg:text-base",
+									isDone && "bg-blue-deep text-white",
+									isCurrent && "bg-eva text-white shadow-soft",
+									!isDone && !isCurrent && "bg-surface-3 text-ink-2",
 								)}
 							>
 								{isDone ? (
-									<Check className="size-3.5 lg:size-4" />
+									<Check className="size-4 lg:size-[1.125rem]" />
 								) : (
 									definition.order
 								)}
 							</span>
+
 							<p
 								className={cn(
-									"text-[15px] lg:text-[17px]",
+									"font-display text-base leading-snug lg:text-[1.0625rem]",
 									isDone || isCurrent
-										? "font-semibold text-[#0e2a45]"
-										: "text-[#9aa3b8]",
+										? "font-bold text-blue-deep"
+										: "font-medium text-ink-2",
 								)}
 							>
 								{definition.name}
+								{isDone && <span className="sr-only"> — concluída</span>}
+								{isCurrent && <span className="sr-only"> — etapa atual</span>}
 							</p>
-						</div>
+						</li>
 					);
 				})}
-			</div>
+			</ol>
 
-			<div className="h-px bg-[#e5ebf3]" />
+			<hr className="border-0 border-t border-blue-tint-2/60" />
 
-			<p className="text-[13px] text-[#6b8faa] lg:text-[14px]">
+			<p className="text-sm leading-relaxed text-ink-2 lg:text-center lg:text-[0.9375rem]">
 				{currentStep?.description ??
 					"Acompanhe por aqui as atualizações da sua doação."}
 			</p>

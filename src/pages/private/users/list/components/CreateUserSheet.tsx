@@ -82,15 +82,15 @@ export function CreateUserSheet({
 		<Sheet open={open} onOpenChange={handleOpenChange}>
 			<SheetContent
 				side="bottom"
-				className="gap-6 rounded-t-2xl border-none p-5 lg:data-[side=bottom]:inset-x-0 lg:data-[side=bottom]:top-1/2 lg:data-[side=bottom]:bottom-auto lg:data-[side=bottom]:left-1/2 lg:data-[side=bottom]:h-auto lg:data-[side=bottom]:w-[560px] lg:data-[side=bottom]:-translate-x-1/2 lg:data-[side=bottom]:-translate-y-1/2 lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-[#e5e7eb] lg:data-[side=bottom]:p-8 lg:data-[side=bottom]:shadow-2xl"
+				className="gap-6 rounded-t-2xl border-none p-5 lg:data-[side=bottom]:inset-x-0 lg:data-[side=bottom]:top-1/2 lg:data-[side=bottom]:bottom-auto lg:data-[side=bottom]:left-1/2 lg:data-[side=bottom]:h-auto lg:data-[side=bottom]:w-[560px] lg:data-[side=bottom]:-translate-x-1/2 lg:data-[side=bottom]:-translate-y-1/2 lg:data-[side=bottom]:rounded-2xl lg:data-[side=bottom]:border lg:data-[side=bottom]:border-line lg:data-[side=bottom]:p-8 lg:data-[side=bottom]:shadow-lift"
 			>
-				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-[#e0e0e0] lg:hidden" />
+				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[24px] font-bold text-[#1f2937]">
+					<SheetTitle className="text-[24px] font-bold text-ink">
 						Cadastrar novo usuário
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-[#6b7280]">
+					<SheetDescription className="text-[13px] text-ink-2">
 						Crie um novo acesso para a equipe Lactare
 					</SheetDescription>
 				</SheetHeader>
@@ -194,8 +194,8 @@ export function CreateUserSheet({
 
 					<div className="flex flex-col gap-3">
 						<div className="flex items-center gap-1.5">
-							<ShieldCheck className="size-3.5 text-[#1f2937]" />
-							<p className="text-[13px] font-semibold text-[#1f2937]">
+							<ShieldCheck className="size-3.5 text-ink" />
+							<p className="text-[13px] font-semibold text-ink">
 								Perfil de acesso
 							</p>
 						</div>
@@ -209,10 +209,10 @@ export function CreateUserSheet({
 										type="button"
 										onClick={() => handleChange("type", type)}
 										className={cn(
-											"rounded-[10px] px-4 py-2.5 text-[13px] font-semibold transition-colors",
+											"rounded-xl px-4 py-2.5 text-[13px] font-semibold transition-colors",
 											active
-												? "bg-[#00458b] text-white"
-												: "border border-[#e5e7eb] bg-white text-[#1f2937]",
+												? "bg-blue-deep text-white"
+												: "border border-line bg-white text-ink",
 										)}
 									>
 										{USER_TYPE_LABEL[type]}
@@ -230,7 +230,7 @@ export function CreateUserSheet({
 						type="button"
 						onClick={() => handleOpenChange(false)}
 						disabled={isPending}
-						className="flex h-[43px] w-full items-center justify-center rounded-xl border border-[#e5e7eb] bg-white text-[14px] font-bold text-[#1f2937] transition-opacity disabled:opacity-60"
+						className="flex h-[43px] w-full items-center justify-center rounded-card-sm border border-line bg-white text-[14px] font-bold text-ink transition-opacity disabled:opacity-60"
 					>
 						Cancelar
 					</button>
@@ -238,7 +238,7 @@ export function CreateUserSheet({
 						type="button"
 						onClick={handleSubmit}
 						disabled={isPending}
-						className="flex h-[44px] w-full items-center justify-center gap-2 rounded-xl bg-[#00458b] text-[14px] font-bold text-white transition-opacity disabled:opacity-60"
+						className="flex h-[44px] w-full items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue text-[14px] font-bold text-white transition-opacity disabled:opacity-60"
 					>
 						{isPending ? (
 							<LoaderCircle className="size-[18px] animate-spin" />

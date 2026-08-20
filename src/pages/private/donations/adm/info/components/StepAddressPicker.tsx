@@ -31,7 +31,7 @@ export function StepAddressPicker({
 }: Props) {
 	return (
 		<div className="flex flex-col gap-2">
-			<span className="text-[12px] font-semibold text-[#6b7280]">Endereço</span>
+			<span className="text-[12px] font-semibold text-ink-2">Endereço</span>
 
 			{addresses.length > 0 && (
 				<select
@@ -43,7 +43,7 @@ export function StepAddressPicker({
 							onSelectExisting(event.target.value);
 						}
 					}}
-					className="w-full rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3.5 py-3 text-[14px] text-[#1f2a37] outline-none"
+					className="w-full rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none"
 				>
 					{addresses.map((address) => (
 						<option key={address.id_address} value={address.id_address}>
@@ -63,19 +63,19 @@ export function StepAddressPicker({
 						}
 						placeholder="CEP"
 						inputMode="numeric"
-						className="flex-1 rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3.5 py-3 text-[14px] text-[#1f2a37] outline-none placeholder:text-[#9ca3af]"
+						className="flex-1 rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
 					/>
 					<input
 						value={number}
 						onChange={(event) => onNumberChange(event.target.value)}
 						placeholder="Número"
-						className="rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3.5 py-3 text-[14px] text-[#1f2a37] outline-none placeholder:text-[#9ca3af] lg:w-32"
+						className="rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3 lg:w-32"
 					/>
 					<input
 						value={complement}
 						onChange={(event) => onComplementChange(event.target.value)}
 						placeholder="Complemento"
-						className="flex-1 rounded-[10px] border-[1.5px] border-[#54b2e3] bg-white px-3.5 py-3 text-[14px] text-[#1f2a37] outline-none placeholder:text-[#9ca3af]"
+						className="flex-1 rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
 					/>
 				</div>
 			)}

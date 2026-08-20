@@ -5,7 +5,11 @@ import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
 import { AvatarEva } from "../components/avatar-eva";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
-import { subscribeEvaOpen } from "./eva-widget-bus";
+import {
+	getAppMenuOpen,
+	subscribeAppMenuOpen,
+	subscribeEvaOpen,
+} from "./eva-widget-bus";
 import "./eva-widget.css";
 import { useEvaAccess } from "./use-eva-access";
 
@@ -79,6 +83,11 @@ export function EvaWidget() {
 		getAppPathname,
 		getAppPathname,
 	);
+	const menuOpen = useSyncExternalStore(
+		subscribeAppMenuOpen,
+		getAppMenuOpen,
+		getAppMenuOpen,
+	);
 	const reduce = useReducedMotion();
 
 	const [open, setOpen] = useState(false);
@@ -136,7 +145,9 @@ export function EvaWidget() {
 		});
 	}, [mode, userId]);
 
-	if (!allowed || HIDDEN_ROUTES.has(pathname)) {
+	// menuOpen: com o drawer aberto o FAB ficava por cima do menu e sem
+	// resposta ao clique (o Sheet do Radix bloqueia cliques fora dele).
+	if (!allowed || menuOpen || HIDDEN_ROUTES.has(pathname)) {
 		return null;
 	}
 

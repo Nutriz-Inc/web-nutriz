@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 import { fadeUp, staggerContainer } from "../animations/variants";
 import { useReveal } from "../hooks/use-reveal";
 import { ARTICLES } from "../mock";
@@ -14,7 +15,7 @@ export function ArticlesSection() {
 	return (
 		<section
 			id="artigos"
-			className="relative scroll-mt-20 overflow-hidden bg-[#0a3a87] py-20 lg:py-24"
+			className="relative scroll-mt-20 overflow-hidden bg-blue-deep py-20 lg:py-24"
 		>
 			<span
 				aria-hidden
@@ -22,7 +23,7 @@ export function ArticlesSection() {
 			/>
 			<span
 				aria-hidden
-				className="pointer-events-none absolute -bottom-24 right-[6%] h-72 w-[55%] rounded-full bg-[#4f8ff0]/18 blur-[130px]"
+				className="pointer-events-none absolute -bottom-24 right-[6%] h-72 w-[55%] rounded-full bg-blue-bright/18 blur-[130px]"
 			/>
 			<div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 lg:px-8">
 				<motion.div
@@ -33,7 +34,7 @@ export function ArticlesSection() {
 					<h2 className="max-w-2xl text-[30px] font-extrabold tracking-tight text-white lg:text-[38px]">
 						Artigos para te apoiar em cada fase
 					</h2>
-					<span className="inline-flex items-center gap-1.5 rounded-full bg-[#e5f6ee] px-3.5 py-1.5 text-[12px] font-semibold text-[#12a35f]">
+					<span className="inline-flex items-center gap-1.5 rounded-full bg-success-tint px-3.5 py-1.5 text-[12px] font-semibold text-teal">
 						<BadgeCheck className="size-4" />
 						Conteúdo validado por rBLH e Fiocruz
 					</span>
@@ -50,7 +51,7 @@ export function ArticlesSection() {
 							whileHover={{ y: -6 }}
 							transition={{ type: "spring", stiffness: 300, damping: 22 }}
 							onClick={() => navigate(`/artigos?a=${article.id}`)}
-							className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#e6ecf5] bg-white shadow-sm"
+							className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-blue-tint bg-white shadow-soft"
 						>
 							<img
 								src={article.coverImage}
@@ -61,22 +62,22 @@ export function ArticlesSection() {
 							/>
 
 							<div className="flex flex-1 flex-col gap-3 p-5">
-								<span
-									className="w-fit rounded-full px-2.5 py-0.5 text-[11px] font-semibold"
+								<Badge
+									size="sm"
 									style={{
 										backgroundColor: `${article.accent}`,
 										color: article.categoryColor,
 									}}
 								>
 									{article.category}
-								</span>
+								</Badge>
 
-								<h3 className="flex-1 text-[15px] font-bold leading-snug text-[#12294d]">
+								<h3 className="flex-1 text-[15px] font-bold leading-snug text-ink">
 									{article.title}
 								</h3>
 
 								<div className="flex items-center justify-between">
-									<span className="text-[12px] text-[#94a3b8]">
+									<span className="text-[12px] text-ink-3">
 										{article.readTime}
 									</span>
 									<button

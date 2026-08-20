@@ -33,7 +33,7 @@ export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 				showCloseButton={false}
 				className="w-[300px] p-0 flex flex-col gap-0"
 			>
-				<SheetHeader className="bg-[#1B4FBB] text-white px-5 pt-10 pb-6 relative">
+				<SheetHeader className="bg-blue text-white px-5 pt-10 pb-6 relative">
 					<SheetClose className="absolute top-4 right-4 text-white/80 hover:text-white transition">
 						<X className="h-5 w-5" />
 					</SheetClose>
@@ -84,7 +84,7 @@ export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 										cn(
 											"flex items-center gap-4 px-5 py-4 text-sm text-slate-700 transition hover:bg-slate-50 border-l-4",
 											isActive
-												? "border-[#1B4FBB] text-[#1B4FBB] bg-blue-50/60 font-medium"
+												? "border-blue text-blue bg-blue-50/60 font-medium"
 												: "border-transparent hover:bg-slate-100 hover:text-slate-900",
 										)
 									}

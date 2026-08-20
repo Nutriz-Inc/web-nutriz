@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
 	isActive: boolean;
@@ -7,29 +7,11 @@ type Props = {
 
 export function DonationStatusBadge({ isActive, hasError }: Props) {
 	const label = hasError ? "Com erro" : isActive ? "Em andamento" : "Concluída";
+	const tone = hasError ? "error" : isActive ? "info" : "success";
 
 	return (
-		<span
-			className={cn(
-				"flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-semibold",
-				hasError
-					? "bg-[#fcebeb] text-[#a32d2d]"
-					: isActive
-						? "bg-[#e8f1fb] text-[#387ccd]"
-						: "bg-[#e1f5ee] text-[#0f6e56]",
-			)}
-		>
-			<span
-				className={cn(
-					"size-2 rounded-full",
-					hasError
-						? "bg-[#a32d2d]"
-						: isActive
-							? "bg-[#387ccd]"
-							: "bg-[#0f6e56]",
-				)}
-			/>
+		<Badge tone={tone} dot size="lg">
 			{label}
-		</span>
+		</Badge>
 	);
 }

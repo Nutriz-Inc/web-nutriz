@@ -1,4 +1,5 @@
 import { Status } from "@/components/full/Status";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
 	type EnumDonationStepName,
@@ -23,7 +24,8 @@ export function NextDonationStep({
 	onConsult,
 	className,
 }: Props) {
-	const progress = (STEP_NUMBER[stepName] / NUMBER_OF_DONATION_STEPS) * 100;
+	const stepNumber = STEP_NUMBER[stepName];
+	const progress = (stepNumber / NUMBER_OF_DONATION_STEPS) * 100;
 	const formattedDate = datetime
 		? formatCreatedAt(datetime)
 		: "Sem data marcada";
@@ -31,17 +33,17 @@ export function NextDonationStep({
 	return (
 		<div
 			className={cn(
-				"bg-white flex flex-col gap-4 p-5 rounded-[20px] w-full shadow-[0px_14px_18px_rgba(10,38,77,0.18)]",
+				"rounded-card-sm flex w-full flex-col gap-5 bg-card p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
 				className,
 			)}
 		>
-			<div className="flex gap-3 items-start">
-				<div className="flex flex-col gap-0.5 flex-1 min-w-0">
-					<p className="text-[11px] font-medium text-[#6b8faa] uppercase tracking-wide">
+			<div className="flex items-start justify-between gap-3">
+				<div className="flex min-w-0 flex-col gap-1">
+					<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-blue-bright">
 						Etapa atual
 					</p>
-					<p className="text-[14px] font-semibold text-[#0e2a45]">{stepName}</p>
-					<p className="text-[18px] font-bold text-[#0e2a45]">
+					<p className="text-sm text-ink-2">{stepName}</p>
+					<p className="mt-1 font-display text-xl font-extrabold tracking-tight text-blue-deep">
 						{formattedDate}
 					</p>
 				</div>
@@ -49,32 +51,35 @@ export function NextDonationStep({
 				<Status status={status} />
 			</div>
 
-			<div className="h-px bg-[#e5ebf3]" />
-
-			<div className="flex items-center gap-2">
-				<span className="text-[12px] text-[#6b8faa] font-medium">
-					Progresso
-				</span>
-				<div className="flex-1 h-[5px] bg-[#e5ebf3] rounded-full overflow-hidden">
+			<div className="flex items-center gap-3">
+				<span className="text-xs font-medium text-ink-2">Progresso</span>
+				<div
+					role="progressbar"
+					aria-label="Progresso da doação"
+					aria-valuenow={stepNumber}
+					aria-valuemin={0}
+					aria-valuemax={NUMBER_OF_DONATION_STEPS}
+					className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-3"
+				>
 					<div
-						className="h-full bg-blue-500 rounded-full transition-all"
+						className="h-full rounded-full bg-blue-bright transition-all"
 						style={{ width: `${progress}%` }}
 					/>
 				</div>
-				<span className="text-[12px] font-semibold text-[#33536f]">
-					{STEP_NUMBER[stepName]} / {NUMBER_OF_DONATION_STEPS}
+				<span className="font-sans text-xs font-bold tabular-nums text-blue-deep">
+					{stepNumber} / {NUMBER_OF_DONATION_STEPS}
 				</span>
 			</div>
 
-			<div className="flex items-center justify-between">
-				<button
-					type="button"
-					onClick={onConsult}
-					className="border-[#e5ebf3] border-[1.5px] px-5 py-2 rounded-full text-[13px] font-semibold text-[#00458b] active:scale-[0.97] transition-transform"
-				>
-					Consultar
-				</button>
-			</div>
+			<Button
+				type="button"
+				variant="outline"
+				size="pill"
+				onClick={onConsult}
+				className="w-fit border-blue-tint-2 font-semibold text-blue-deep hover:bg-blue-tint hover:text-blue-deep"
+			>
+				Consultar
+			</Button>
 		</div>
 	);
 }

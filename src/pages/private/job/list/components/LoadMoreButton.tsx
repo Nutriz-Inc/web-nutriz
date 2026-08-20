@@ -16,7 +16,7 @@ export function LoadMoreButton({
 			type="button"
 			onClick={onClick}
 			disabled={loading}
-			className="mx-auto flex h-[46px] w-full items-center justify-center gap-2 rounded-xl border border-[#cbdcf0] bg-white px-6 text-[14px] font-semibold text-[#00458b] transition-transform active:scale-[0.98] disabled:opacity-60 lg:w-fit"
+			className="mx-auto flex h-[46px] w-full items-center justify-center gap-2 rounded-xl border border-blue-tint-2 bg-white px-6 text-[14px] font-semibold text-blue-deep transition-transform active:scale-[0.98] disabled:opacity-60 lg:w-fit"
 		>
 			{loading ? (
 				<>

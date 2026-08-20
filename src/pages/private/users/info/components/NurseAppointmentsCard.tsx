@@ -55,18 +55,18 @@ export function NurseAppointmentsCard({ jobs }: NurseAppointmentsCardProps) {
 			}
 		>
 			{filtered.length === 0 ? (
-				<p className="text-[13px] text-[#9ca3af]">
+				<p className="text-[13px] text-ink-3">
 					Nenhum agendamento encontrado para o filtro selecionado.
 				</p>
 			) : (
-				<div className="overflow-hidden rounded-xl border border-[#eef1f5]">
+				<div className="overflow-hidden rounded-xl border border-surface-3">
 					<div
-						className={`hidden bg-[#f8fafc] px-4 py-3 lg:grid ${APPOINTMENTS_GRID_COLS} lg:gap-3`}
+						className={`hidden bg-surface-2 px-4 py-3 lg:grid ${APPOINTMENTS_GRID_COLS} lg:gap-3`}
 					>
 						{COLUMN_LABELS.map((label) => (
 							<span
 								key={label || "actions"}
-								className="text-[11px] font-semibold uppercase tracking-wide text-[#9ca3af]"
+								className="text-[11px] font-semibold uppercase tracking-wide text-ink-3"
 							>
 								{label}
 							</span>
@@ -74,7 +74,7 @@ export function NurseAppointmentsCard({ jobs }: NurseAppointmentsCardProps) {
 					</div>
 					{filtered.map((job, index) => (
 						<Fragment key={job.id_job}>
-							{index > 0 && <div className="h-px bg-[#eef1f5]" />}
+							{index > 0 && <div className="h-px bg-surface-3" />}
 							<NurseAppointmentRow job={job} />
 						</Fragment>
 					))}

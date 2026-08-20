@@ -8,6 +8,13 @@
 @theme inline {
 	--font-heading: var(--font-sans);
 	--font-sans: "Geist Variable", sans-serif;
+	/*
+	 * O sistema usa uma familia so. font-display e font-body existem como
+	 * apelidos semanticos (titulo x corpo) para nao espalhar font-sans pelos
+	 * componentes e para permitir trocar so os titulos no futuro.
+	 */
+	--font-display: var(--font-sans);
+	--font-body: var(--font-sans);
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -42,10 +49,11 @@
 	--radius-sm: calc(var(--radius) * 0.6);
 	--radius-md: calc(var(--radius) * 0.8);
 	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) * 1.4);
-	--radius-2xl: calc(var(--radius) * 1.8);
-	--radius-3xl: calc(var(--radius) * 2.2);
-	--radius-4xl: calc(var(--radius) * 2.6);
+	/* Escala reduzida: cantos de card mais sobrios (12/14/16/18px). */
+	--radius-xl: calc(var(--radius) * 1.2);
+	--radius-2xl: calc(var(--radius) * 1.4);
+	--radius-3xl: calc(var(--radius) * 1.6);
+	--radius-4xl: calc(var(--radius) * 1.8);
 }
 
 :root {
@@ -126,5 +134,155 @@
 	}
 	html {
 		@apply font-sans overscroll-y-none;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+ * Design system Nutriz — camada ADITIVA.
+ * Nada aqui redefine os tokens do shadcn (--primary, --background, --radius...),
+ * para nao alterar landing, artigos, central de conteudos, cadastro e login.
+ * Documentacao: docs/design-system.md
+ * ------------------------------------------------------------------------- */
+
+:root {
+	/* Paleta */
+	--blue-deep: oklch(0.313 0.089 250.4);
+	--blue: oklch(0.447 0.139 253.2);
+	--blue-bright: oklch(0.6 0.14 253.2);
+	--blue-tint: oklch(0.952 0.015 251.2);
+	--blue-tint-2: oklch(0.9 0.034 253.7);
+	--eva: oklch(0.626 0.15 9.4);
+	--eva-bright: oklch(0.763 0.118 4.8);
+	--eva-tint: oklch(0.966 0.015 356.6);
+	--surface: oklch(1 0 0);
+	--surface-2: oklch(0.981 0.005 258.3);
+	--surface-3: oklch(0.96 0.009 258.3);
+	--ink: oklch(0.244 0.061 261.8);
+	--ink-2: oklch(0.431 0.048 263.2);
+	--ink-3: oklch(0.674 0.035 262.6);
+	--canvas: oklch(0.962 0.011 256.7);
+
+	/* Linhas: bordas e separadores. A camada aditiva usava blue-tint-2/60
+	 * solto nas telas; virou token para o app inteiro compartilhar. */
+	--line: oklch(0.9 0.034 253.7 / 0.6);
+	--line-strong: oklch(0.9 0.034 253.7);
+
+	/* Semanticos. Mesmos valores dos badges, para status, formularios e
+	 * icones falarem a mesma lingua. Ver components/ui/badge.tsx. */
+	--amber: oklch(0.811 0.166 85);
+	--amber-tint: oklch(0.964 0.039 91.2);
+	--purple: oklch(0.491 0.241 292.6);
+	--purple-tint: oklch(0.943 0.028 294.6);
+	--magenta: oklch(0.449 0.217 319);
+	--magenta-tint: oklch(0.908 0.066 315.7);
+	--teal: oklch(0.596 0.101 186.2);
+	--teal-tint: oklch(0.949 0.041 184.5);
+	--success: oklch(0.481 0.091 170.1);
+	--success-tint: oklch(0.953 0.023 172.9);
+	--danger: oklch(0.48 0.154 25.1);
+	--danger-tint: oklch(0.954 0.019 17.5);
+	--warning: oklch(0.48 0.104 64.4);
+	--warning-tint: oklch(0.953 0.029 80.7);
+
+	/* Camada organica: gradientes e sombras */
+	--nz-gradient-blue: linear-gradient(
+		150deg,
+		var(--blue-deep) 0%,
+		var(--blue) 55%,
+		var(--blue-bright) 100%
+	);
+	--nz-gradient-milk: linear-gradient(
+		180deg,
+		var(--surface) 0%,
+		var(--blue-tint) 100%
+	);
+	--nz-gradient-eva: linear-gradient(
+		140deg,
+		var(--eva-tint) 0%,
+		var(--eva-bright) 120%
+	);
+	--nz-shadow-soft:
+		0 1px 2px oklch(0.313 0.089 250.4 / 0.04),
+		0 12px 28px -18px oklch(0.313 0.089 250.4 / 0.22);
+	--nz-shadow-lift:
+		0 2px 4px oklch(0.313 0.089 250.4 / 0.05),
+		0 28px 56px -28px oklch(0.313 0.089 250.4 / 0.3);
+}
+
+@theme inline {
+	--color-blue-deep: var(--blue-deep);
+	--color-blue: var(--blue);
+	--color-blue-bright: var(--blue-bright);
+	--color-blue-tint: var(--blue-tint);
+	--color-blue-tint-2: var(--blue-tint-2);
+	--color-eva: var(--eva);
+	--color-eva-bright: var(--eva-bright);
+	--color-eva-tint: var(--eva-tint);
+	--color-surface: var(--surface);
+	--color-surface-2: var(--surface-2);
+	--color-surface-3: var(--surface-3);
+	--color-ink: var(--ink);
+	--color-ink-2: var(--ink-2);
+	--color-ink-3: var(--ink-3);
+	--color-canvas: var(--canvas);
+	--color-line: var(--line);
+	--color-line-strong: var(--line-strong);
+	--color-amber: var(--amber);
+	--color-amber-tint: var(--amber-tint);
+	--color-purple: var(--purple);
+	--color-purple-tint: var(--purple-tint);
+	--color-magenta: var(--magenta);
+	--color-magenta-tint: var(--magenta-tint);
+	--color-teal: var(--teal);
+	--color-teal-tint: var(--teal-tint);
+	--color-success: var(--success);
+	--color-success-tint: var(--success-tint);
+	--color-danger: var(--danger);
+	--color-danger-tint: var(--danger-tint);
+	--color-warning: var(--warning);
+	--color-warning-tint: var(--warning-tint);
+
+	--shadow-soft: var(--nz-shadow-soft);
+	--shadow-lift: var(--nz-shadow-lift);
+}
+
+/* Blob decorativo de fundo. Sempre com aria-hidden. */
+@utility ink-blob {
+	position: absolute;
+	border-radius: 48% 52% 43% 57% / 52% 44% 56% 48%;
+	filter: blur(0.5px);
+	pointer-events: none;
+}
+
+@utility gradient-blue {
+	background-image: var(--nz-gradient-blue);
+}
+
+@utility gradient-milk {
+	background-image: var(--nz-gradient-milk);
+}
+
+@utility gradient-eva {
+	background-image: var(--nz-gradient-eva);
+}
+
+/*
+ * Cantos dos cards do novo design. O design original usava raios muito
+ * grandes e assimetricos (ate 3,25rem); foram reduzidos a pedido do time,
+ * porque o excesso de arredondamento descaracterizava o produto.
+ */
+@utility rounded-card {
+	border-radius: 0.875rem;
+
+	@media (width >= 40rem) {
+		border-radius: 1.125rem;
+	}
+}
+
+@utility rounded-card-sm {
+	border-radius: 0.75rem;
+
+	@media (width >= 40rem) {
+		border-radius: 0.875rem;
 	}
 }

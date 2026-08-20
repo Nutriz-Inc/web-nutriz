@@ -35,20 +35,20 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 		<button
 			type="button"
 			onClick={() => navigate(`/agendamentos/${appointment.id}`)}
-			className="flex w-full flex-col gap-4 rounded-2xl border border-[#e7ecf2] bg-white p-5 text-left transition-transform duration-200 hover:scale-[1.02] hover:shadow-[0_4px_16px_rgba(15,42,80,0.08)]"
+			className="flex w-full flex-col gap-4 rounded-card-sm border border-line bg-white p-5 text-left transition-transform duration-200 hover:scale-[1.02] hover:shadow-soft"
 		>
 			<div className="flex items-start justify-between gap-3">
 				<div className="flex min-w-0 items-center gap-3">
-					<div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#e1f1fb]">
-						<span className="text-[15px] font-bold text-[#4a77b0]">
+					<div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-tint">
+						<span className="text-[15px] font-bold text-blue-bright">
 							{getInitials(appointment.donorName)}
 						</span>
 					</div>
 					<div className="flex min-w-0 flex-col">
-						<p className="truncate text-[16px] font-bold text-[#1f2a37]">
+						<p className="truncate text-[16px] font-bold text-ink">
 							{appointment.donorName}
 						</p>
-						<span className="text-[13px] text-[#9ca3af]">Doadora</span>
+						<span className="text-[13px] text-ink-3">Doadora</span>
 					</div>
 				</div>
 				<AppointmentStatusBadge
@@ -59,29 +59,29 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 
 			<div className="flex flex-col gap-3">
 				<AppointmentInfoRow
-					icon={<Calendar className="size-[18px] shrink-0 text-[#94a3b8]" />}
+					icon={<Calendar className="size-[18px] shrink-0 text-ink-3" />}
 					label="Data do agendamento"
 					value={
 						appointment.dateSet ? formatCreatedAt(appointment.dateSet) : "—"
 					}
 				/>
 				<AppointmentInfoRow
-					icon={<MapPin className="size-[18px] shrink-0 text-[#94a3b8]" />}
+					icon={<MapPin className="size-[18px] shrink-0 text-ink-3" />}
 					label="Local do agendamento"
 					value={appointment.locationName}
 				/>
 				<AppointmentInfoRow
-					icon={<StepIcon className="size-[18px] shrink-0 text-[#94a3b8]" />}
+					icon={<StepIcon className="size-[18px] shrink-0 text-ink-3" />}
 					label={stepLabel}
 					value={appointment.stepName}
 				/>
 			</div>
 
-			<div className="border-t border-[#eef1f5] pt-3.5">
+			<div className="border-t border-surface-3 pt-3.5">
 				<span
 					className={cn(
 						"flex items-center gap-2 text-[13px] font-semibold",
-						reportHint.highlighted ? "text-[#387ccd]" : "text-[#9ca3af]",
+						reportHint.highlighted ? "text-blue-bright" : "text-ink-3",
 					)}
 				>
 					<FileText className="size-4 shrink-0" />

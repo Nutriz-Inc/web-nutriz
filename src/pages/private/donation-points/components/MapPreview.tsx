@@ -15,8 +15,8 @@ const pointIcon = (selected: boolean) =>
 		className: "",
 		iconSize: [selected ? 24 : 18, selected ? 24 : 18],
 		iconAnchor: [selected ? 12 : 9, selected ? 12 : 9],
-		html: `<span class="block rounded-full border-2 border-white shadow-md ${
-			selected ? "bg-[#f2579f]" : "bg-[#0e9e94]"
+		html: `<span class="block rounded-full border-2 border-white shadow-soft ${
+			selected ? "bg-eva" : "bg-teal"
 		}" style="width:100%;height:100%"></span>`,
 	});
 
@@ -26,8 +26,8 @@ const userIcon = divIcon({
 	iconAnchor: [9, 9],
 	html: `
 		<span class="relative flex size-[18px]">
-			<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#387ccd] opacity-60"></span>
-			<span class="relative inline-flex size-[18px] rounded-full border-2 border-white bg-[#387ccd]"></span>
+			<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-bright opacity-60"></span>
+			<span class="relative inline-flex size-[18px] rounded-full border-2 border-white bg-blue-bright"></span>
 		</span>
 	`,
 });

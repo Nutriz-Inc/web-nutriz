@@ -9,9 +9,9 @@ import {
 	EVA_QUICK_ACTIONS,
 } from "../constants";
 import "../eva.css";
+import { env } from "@/config/env";
 import { useEvaChat } from "../hooks/use-eva-chat";
 import type { ChatMessage, EvaMessageAction } from "../types";
-import { env } from "@/config/env";
 import { EvaActionButton } from "./eva-action-button";
 
 const GREETING: ChatMessage = {

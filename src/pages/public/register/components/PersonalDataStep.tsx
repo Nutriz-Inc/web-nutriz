@@ -1,10 +1,10 @@
+import { FormField } from "@/components/full/FormField";
 import { formatCpf, formatPhoneNumber, maskDate } from "@/utils/formatter";
 import type {
 	RegisterFieldName,
 	RegisterFormData,
 	RegisterFormErrors,
 } from "../validation";
-import { WizardField } from "./WizardField";
 
 type PersonalDataStepProps = {
 	form: RegisterFormData;
@@ -19,11 +19,11 @@ export function PersonalDataStep({
 }: PersonalDataStepProps) {
 	return (
 		<fieldset className="flex flex-col gap-5">
-			<legend className="mb-5 text-[13px] font-bold uppercase tracking-wide text-[#0d3b6e]">
+			<legend className="mb-5 text-[13px] font-bold uppercase tracking-wide text-blue-deep">
 				Dados pessoais
 			</legend>
 
-			<WizardField
+			<FormField
 				id="register-name"
 				label="Nome completo"
 				value={form.name}
@@ -34,7 +34,7 @@ export function PersonalDataStep({
 			/>
 
 			<div className="grid gap-5 sm:grid-cols-2">
-				<WizardField
+				<FormField
 					id="register-cpf"
 					label="CPF"
 					value={form.cpf}
@@ -44,7 +44,7 @@ export function PersonalDataStep({
 					inputMode="numeric"
 					maxLength={14}
 				/>
-				<WizardField
+				<FormField
 					id="register-birth-date"
 					label="Data de nascimento"
 					value={form.birthDate}
@@ -55,7 +55,7 @@ export function PersonalDataStep({
 					maxLength={10}
 					autoComplete="bday"
 				/>
-				<WizardField
+				<FormField
 					id="register-phone"
 					label="Telefone"
 					value={form.phone}
@@ -66,7 +66,7 @@ export function PersonalDataStep({
 					maxLength={15}
 					autoComplete="tel-national"
 				/>
-				<WizardField
+				<FormField
 					id="register-email"
 					label="Email"
 					value={form.email}

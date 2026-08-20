@@ -10,10 +10,10 @@ type AppointmentStepperProps = {
 
 export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 	return (
-		<div className="flex flex-col gap-4 rounded-2xl border border-[#e7ecf2] bg-white p-5">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-5">
 			<div className="flex items-center gap-2">
-				<Bookmark className="size-4 text-[#94a3b8]" />
-				<span className="text-[12px] font-bold uppercase tracking-wide text-[#6b7280]">
+				<Bookmark className="size-4 text-ink-3" />
+				<span className="text-[12px] font-bold uppercase tracking-wide text-ink-2">
 					Etapas da doação
 				</span>
 			</div>
@@ -30,12 +30,12 @@ export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 								className={cn(
 									"flex size-7 shrink-0 items-center justify-center rounded-full text-[12px] font-bold",
 									isFailed
-										? "bg-[#e5484d] text-white"
+										? "bg-danger text-white"
 										: isDone
-											? "bg-[#12a877] text-white"
+											? "bg-teal text-white"
 											: isCurrent
-												? "border-2 border-[#387ccd] bg-white"
-												: "bg-[#eef2f7] text-[#9ca3af]",
+												? "border-2 border-blue-bright bg-white"
+												: "bg-surface-3 text-ink-3",
 								)}
 							>
 								{isFailed ? (
@@ -43,7 +43,7 @@ export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 								) : isDone ? (
 									<Check className="size-3.5" />
 								) : isCurrent ? (
-									<span className="size-2 rounded-full bg-[#387ccd]" />
+									<span className="size-2 rounded-full bg-blue-bright" />
 								) : (
 									index + 1
 								)}
@@ -54,12 +54,12 @@ export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 									className={cn(
 										"text-[14px]",
 										isFailed
-											? "font-bold text-[#cf3030]"
+											? "font-bold text-danger"
 											: isCurrent
-												? "font-bold text-[#1f2a37]"
+												? "font-bold text-ink"
 												: isDone
-													? "font-semibold text-[#1f2a37]"
-													: "font-semibold text-[#9ca3af]",
+													? "font-semibold text-ink"
+													: "font-semibold text-ink-3",
 									)}
 								>
 									{step.name}
@@ -67,7 +67,7 @@ export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 								<p
 									className={cn(
 										"text-[11px]",
-										isFailed ? "text-[#cf3030]" : "text-[#9ca3af]",
+										isFailed ? "text-danger" : "text-ink-3",
 									)}
 								>
 									{getSubLabel(step, ended)}
@@ -78,9 +78,9 @@ export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 				})}
 			</div>
 
-			<div className="flex items-center gap-2 border-t border-[#eef1f5] pt-3.5">
-				<Lock className="size-3.5 shrink-0 text-[#b0b8c4]" />
-				<p className="text-[12px] text-[#9ca3af]">
+			<div className="flex items-center gap-2 border-t border-surface-3 pt-3.5">
+				<Lock className="size-3.5 shrink-0 text-ink-3" />
+				<p className="text-[12px] text-ink-3">
 					{ended
 						? "Trilha encerrada — somente leitura."
 						: "A próxima etapa só é liberada após a conclusão desta."}

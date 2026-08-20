@@ -9,16 +9,14 @@ type Props = {
 
 export function StepNurseCard({ nurseName, status }: Props) {
 	return (
-		<div className="flex items-center justify-between gap-3 rounded-2xl border border-[#e3eaf2] bg-white px-[18px] py-5 shadow-[0px_6px_10px_rgba(15,26,51,0.06)]">
+		<div className="flex items-center justify-between gap-3 rounded-card-sm border border-line bg-white px-[18px] py-5 shadow-soft">
 			<div className="flex min-w-0 items-center gap-3">
-				<div className="flex size-[38px] shrink-0 items-center justify-center rounded-[10px] bg-[#eaf3fc]">
-					<UserRound className="size-[18px] text-[#00458b]" />
+				<div className="flex size-[38px] shrink-0 items-center justify-center rounded-xl bg-canvas">
+					<UserRound className="size-[18px] text-blue-deep" />
 				</div>
 				<div className="flex min-w-0 flex-col gap-0.5">
-					<span className="text-[11px] text-[#7a8aa0]">
-						Enfermeiro responsável
-					</span>
-					<span className="truncate text-[14px] font-semibold text-[#1b2a41]">
+					<span className="text-[11px] text-ink-3">Enfermeiro responsável</span>
+					<span className="truncate text-[14px] font-semibold text-ink">
 						{nurseName}
 					</span>
 				</div>

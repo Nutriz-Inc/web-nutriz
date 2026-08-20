@@ -38,14 +38,14 @@ export function BabySection({
 	return (
 		<div className="flex flex-col gap-4">
 			<div className="flex items-center justify-between px-1">
-				<p className="text-[13px] font-bold uppercase text-[#00458b]">Bebês</p>
+				<p className="text-[13px] font-bold uppercase text-blue-deep">Bebês</p>
 				<AddBabyButton onClick={onAddDraft} />
 			</div>
 
 			<div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:items-start lg:gap-5">
 				{babies.length === 0 ? (
 					<SectionCard icon={<Baby className="size-[18px]" />} title="Bebê">
-						<p className="px-3 py-4 text-center text-[12px] text-[#888]">
+						<p className="px-3 py-4 text-center text-[12px] text-ink-3">
 							Nenhum bebê cadastrado ainda.
 						</p>
 					</SectionCard>

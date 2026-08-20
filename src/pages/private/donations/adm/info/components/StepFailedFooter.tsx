@@ -9,13 +9,13 @@ export function StepFailedFooter({ step }: Props) {
 	return (
 		<div className="flex flex-col gap-1.5">
 			<div className="flex items-center gap-2">
-				<span className="text-[13px] font-semibold text-[#6b7280]">
+				<span className="text-[13px] font-semibold text-ink-2">
 					Status da etapa:
 				</span>
 				<Status status={step.status} dot />
 			</div>
 			{step.description && (
-				<p className="text-[13px] text-[#6b7280]">Motivo: {step.description}</p>
+				<p className="text-[13px] text-ink-2">Motivo: {step.description}</p>
 			)}
 		</div>
 	);

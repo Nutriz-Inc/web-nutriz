@@ -36,25 +36,25 @@ export function ReviewSummary({ form, onEdit }: ReviewSummaryProps) {
 	return (
 		<section
 			aria-label="Confira seus dados"
-			className="mb-6 overflow-hidden rounded-[10px] border border-[#e4e4e7] bg-[#fafafa]"
+			className="mb-6 overflow-hidden rounded-xl border border-line bg-surface-2"
 		>
-			<h3 className="border-b border-[#e4e4e7] px-4 py-3 text-[13px] font-bold uppercase tracking-wide text-[#0d3b6e]">
+			<h3 className="border-b border-line px-4 py-3 text-[13px] font-bold uppercase tracking-wide text-blue-deep">
 				Confira seus dados
 			</h3>
-			<ul className="divide-y divide-[#e4e4e7]">
+			<ul className="divide-y divide-line">
 				{sections.map((section) => (
 					<li
 						key={section.title}
 						className="flex items-start justify-between gap-3 px-4 py-3"
 					>
 						<div className="min-w-0">
-							<p className="text-[13px] font-semibold text-[#09090b]">
+							<p className="text-[13px] font-semibold text-ink">
 								{section.title}
 							</p>
 							{section.lines.map((line) => (
 								<p
 									key={line}
-									className="truncate text-[13px] leading-relaxed text-[#71717a]"
+									className="truncate text-[13px] leading-relaxed text-ink-2"
 								>
 									{line}
 								</p>
@@ -64,7 +64,7 @@ export function ReviewSummary({ form, onEdit }: ReviewSummaryProps) {
 							type="button"
 							onClick={() => onEdit(section.step)}
 							aria-label={`Editar ${section.title.toLowerCase()}`}
-							className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-md px-2 text-[13px] font-semibold text-[#0d3b6e] transition-colors hover:text-[#0a2e56] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d3b6e]"
+							className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-md px-2 text-[13px] font-semibold text-blue-deep transition-colors hover:text-blue-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep"
 						>
 							<Pencil className="size-3.5" aria-hidden />
 							Editar

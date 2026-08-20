@@ -8,13 +8,13 @@ type VideoSectionProps = {
 export function VideoSection({ article }: VideoSectionProps) {
 	return (
 		<section className="mt-8">
-			<h2 className="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wide text-[#0d3b6e]">
-				<Play className="size-3.5 fill-[#0d3b6e]" aria-hidden />
+			<h2 className="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wide text-blue-deep">
+				<Play className="size-3.5 fill-blue-deep" aria-hidden />
 				Assista e aprenda
 			</h2>
 
 			{article.videoUrl ? (
-				<div className="mt-3 aspect-video overflow-hidden rounded-[10px]">
+				<div className="mt-3 aspect-video overflow-hidden rounded-xl">
 					<iframe
 						src={article.videoUrl}
 						title={article.videoTitle}
@@ -24,7 +24,7 @@ export function VideoSection({ article }: VideoSectionProps) {
 					/>
 				</div>
 			) : (
-				<div className="relative mt-3 flex h-[280px] items-center justify-center overflow-hidden rounded-[10px]">
+				<div className="relative mt-3 flex h-[280px] items-center justify-center overflow-hidden rounded-xl">
 					<img
 						src={article.coverImage}
 						alt=""
@@ -38,12 +38,10 @@ export function VideoSection({ article }: VideoSectionProps) {
 					</span>
 
 					<div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10">
-						<p className="text-[13.5px] font-semibold text-white">
+						<p className="text-[13px] font-semibold text-white">
 							{article.videoTitle}
 						</p>
-						<p className="text-[11.5px] text-white/80">
-							{article.videoDuration}
-						</p>
+						<p className="text-[11px] text-white/80">{article.videoDuration}</p>
 					</div>
 				</div>
 			)}

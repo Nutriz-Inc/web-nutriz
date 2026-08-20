@@ -27,10 +27,10 @@ export function FilterChips<T extends string>({
 						type="button"
 						onClick={() => onChange(option.key)}
 						className={cn(
-							"shrink-0 whitespace-nowrap rounded-full px-[18px] py-2.5 text-[14px] font-semibold transition-colors",
+							"shrink-0 whitespace-nowrap rounded-full px-5 py-2 text-[13px] font-semibold transition-colors",
 							active
-								? "bg-[#00458b] text-white"
-								: "border border-[#e5e7eb] bg-white text-[#6b7280]",
+								? "bg-blue-deep text-white"
+								: "border border-line bg-white text-ink-2",
 						)}
 					>
 						{option.label}

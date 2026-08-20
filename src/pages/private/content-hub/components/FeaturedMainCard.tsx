@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 import type { Article } from "@/pages/public/articles/data";
 import { getArticleSummary } from "../utils";
 import { ArticleCover } from "./ArticleCover";
@@ -20,13 +21,14 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 			whileHover={{ y: -4 }}
 			transition={{ type: "spring", stiffness: 300, damping: 22 }}
 			onClick={goToArticle}
-			className="flex cursor-pointer flex-col overflow-hidden rounded-xl border border-[#e4e4e7] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
+			className="flex cursor-pointer flex-col overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
 		>
 			<ArticleCover article={article} className="h-[220px]" />
 
 			<div className="flex flex-1 flex-col gap-3 p-6">
-				<span
-					className="w-fit rounded-full border px-2.5 py-0.5 text-[11px] font-semibold"
+				<Badge
+					size="sm"
+					bordered
 					style={{
 						backgroundColor: article.soft,
 						borderColor: article.softBorder,
@@ -34,18 +36,18 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 					}}
 				>
 					{article.category}
-				</span>
+				</Badge>
 
-				<h2 className="text-[22px] font-bold leading-snug text-[#09090b]">
+				<h2 className="text-[22px] font-bold leading-snug text-ink">
 					{article.title}
 				</h2>
 
-				<p className="line-clamp-2 text-[14px] leading-relaxed text-[#71717a]">
+				<p className="line-clamp-2 text-[14px] leading-relaxed text-ink-2">
 					{getArticleSummary(article)}
 				</p>
 
 				<div className="mt-1 flex items-center justify-between">
-					<span className="flex items-center gap-2 text-[13px] text-[#71717a]">
+					<span className="flex items-center gap-2 text-[13px] text-ink-2">
 						<span
 							aria-hidden
 							className="flex size-[26px] items-center justify-center rounded-full text-[10px] font-bold"
@@ -53,9 +55,7 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 						>
 							{article.authorInitials}
 						</span>
-						<span className="font-semibold text-[#3f3f46]">
-							{article.author}
-						</span>
+						<span className="font-semibold text-ink-2">{article.author}</span>
 					</span>
 
 					<button
@@ -64,7 +64,7 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 							e.stopPropagation();
 							goToArticle();
 						}}
-						className="text-[13.5px] font-semibold"
+						className="text-[13px] font-semibold"
 						style={{ color: article.accent }}
 					>
 						Ler artigo →

@@ -13,7 +13,7 @@ export function SlideButton({
 	label,
 	onClick,
 	className,
-	pillClassName = "bg-white text-blue-deep shadow-lift shadow-[#061f4a]/30",
+	pillClassName = "bg-surface text-blue-deep shadow-lift",
 	circleClassName = "bg-blue-deep text-white",
 }: SlideButtonProps) {
 	return (
@@ -21,7 +21,7 @@ export function SlideButton({
 			type="button"
 			onClick={onClick}
 			className={cn(
-				"group inline-flex h-12 cursor-pointer items-center justify-between gap-3 whitespace-nowrap rounded-full py-1.5 pr-1.5 pl-6 text-[15px] font-semibold transition-colors",
+				"group inline-flex h-12 cursor-pointer items-center justify-between gap-3 whitespace-nowrap rounded-full py-1.5 pr-1.5 pl-6 text-[15px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
 				pillClassName,
 				className,
 			)}

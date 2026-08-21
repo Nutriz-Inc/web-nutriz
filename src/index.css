@@ -154,6 +154,17 @@
 	--eva: oklch(0.626 0.15 9.4);
 	--eva-bright: oklch(0.763 0.118 4.8);
 	--eva-tint: oklch(0.966 0.015 356.6);
+	/* Rosa saturado da EVA. Existe porque o --eva puro da 3,84:1 com texto
+	 * branco em cima — reprova AA. Este da 5,10:1, e e o inicio do degrade
+	 * rosa -> roxo usado no botao, na bolinha e no bloco do avatar. */
+	--eva-deep: oklch(0.56 0.17 8);
+
+	/* Acento da landing: verde-agua claro sobre o azul profundo. Era o unico
+	 * hex que sobrava solto no app (#2fd9c5 / #72f2eb, repetido em 8 lugares
+	 * como cor de foco, rotulo e bolinha). Nao substitui o --teal, que e
+	 * escuro e existe para texto sobre fundo claro. */
+	--mint: oklch(0.799 0.134 182.7);
+	--mint-bright: oklch(0.887 0.114 190.5);
 	--surface: oklch(1 0 0);
 	--surface-2: oklch(0.981 0.005 258.3);
 	--surface-3: oklch(0.96 0.009 258.3);
@@ -218,6 +229,9 @@
 	--color-eva: var(--eva);
 	--color-eva-bright: var(--eva-bright);
 	--color-eva-tint: var(--eva-tint);
+	--color-eva-deep: var(--eva-deep);
+	--color-mint: var(--mint);
+	--color-mint-bright: var(--mint-bright);
 	--color-surface: var(--surface);
 	--color-surface-2: var(--surface-2);
 	--color-surface-3: var(--surface-3);

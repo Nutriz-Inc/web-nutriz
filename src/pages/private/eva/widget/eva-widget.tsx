@@ -1,8 +1,8 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Dialog } from "radix-ui";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import lotus from "@/assets/images/eva-lotus.png";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
-import { AvatarEva } from "../components/avatar-eva";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
 import {
@@ -184,7 +184,10 @@ export function EvaWidget() {
 					type="button"
 					className={fabObstruido ? "eva-fab eva-fab--oculto" : "eva-fab"}
 					aria-label="Abrir chat com a EVA"
-				/>
+				>
+					{/* A bolinha era um circulo vazio, sem simbolo nenhum. */}
+					<img src={lotus} alt="" className="eva-fab-mark" />
+				</button>
 			</Dialog.Trigger>
 
 			<AnimatePresence>
@@ -206,27 +209,24 @@ export function EvaWidget() {
 								{...modalMotion}
 							>
 								{view === "welcome" ? (
-									<div className="eva-widget-header eva-widget-header--welcome">
+									// So o X. O nome aparece ao lado do quadrado da marca,
+									// dentro do painel; aqui ele fica apenas para leitores de
+									// tela, porque o Radix exige um titulo no dialogo.
+									<div className="eva-widget-header eva-widget-header--bare">
 										<CloseButton />
-										<Dialog.Title className="eva-widget-header-title">
+										<Dialog.Title className="sr-only">
 											Assistente EVA
 										</Dialog.Title>
-										<span className="eva-widget-header-spacer" aria-hidden />
 									</div>
 								) : (
+									// Nome ao centro e fechar a direita, como na abertura. O
+									// selo de "online" saiu — ele prometia presenca humana que
+									// a EVA nao tem.
 									<div className="eva-widget-header eva-widget-header--chat">
-										<div className="eva-widget-header-id">
-											<AvatarEva size={38} />
-											<div className="eva-widget-header-info">
-												<Dialog.Title className="eva-widget-header-title">
-													EVA
-												</Dialog.Title>
-												<span className="eva-widget-header-status">
-													<span className="eva-widget-status-dot" aria-hidden />
-													online
-												</span>
-											</div>
-										</div>
+										<span className="eva-widget-header-spacer" aria-hidden />
+										<Dialog.Title className="eva-widget-header-title">
+											EVA
+										</Dialog.Title>
 										<CloseButton />
 									</div>
 								)}

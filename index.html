@@ -43,13 +43,13 @@
     <script>
       (() => {
         try {
-          var logado = !!localStorage.getItem("data");
-          var naRaiz = location.pathname === "/" || location.pathname === "";
-          var cor = !logado && naRaiz ? "#00325c" : "#eef3fa";
+          const logado = !!localStorage.getItem("data");
+          const naRaiz = location.pathname === "/" || location.pathname === "";
+          const cor = !logado && naRaiz ? "#00325c" : "#eef3fa";
           document.documentElement.style.backgroundColor = cor;
-          var meta = document.querySelector('meta[name="theme-color"]');
+          const meta = document.querySelector('meta[name="theme-color"]');
           if (meta) meta.content = cor;
-        } catch (erro) {
+        } catch {
           /* localStorage bloqueado: fica a cor declarada na meta acima. */
         }
       })();

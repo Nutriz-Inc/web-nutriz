@@ -36,7 +36,7 @@ export function LandingFooter() {
 									key={label}
 									type="button"
 									aria-label={`Nutriz no ${label}`}
-									className="inline-flex size-9 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5]"
+									className="inline-flex size-9 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
 								>
 									<Icon className="size-[18px]" />
 								</button>
@@ -59,7 +59,7 @@ export function LandingFooter() {
 										key={link.label}
 										type="button"
 										onClick={() => handleLink(link)}
-										className="w-fit text-left text-[14px] text-blue-tint-2 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5]"
+										className="w-fit text-left text-[14px] text-blue-tint-2 transition-colors hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
 									>
 										{link.label}
 									</button>

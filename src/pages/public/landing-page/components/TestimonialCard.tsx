@@ -10,13 +10,13 @@ type TestimonialCardProps = {
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
 	return (
-		<figure className="flex h-full w-full flex-col gap-4 rounded-2xl border border-blue-tint bg-surface-2 p-7 sm:p-8">
+		<figure className="rounded-card flex h-full w-full flex-col gap-4 border border-line bg-surface-2 p-7 sm:p-8">
 			<figcaption className="flex items-center gap-3">
 				<span className="flex size-11 items-center justify-center rounded-full bg-blue-bright/15 text-[14px] font-bold text-blue-bright">
 					{getInitials(testimonial.name)}
 				</span>
 				<span className="flex flex-col">
-					<span className="text-[15px] font-bold text-ink">
+					<span className="font-display text-[15px] font-bold text-ink">
 						{testimonial.name}
 					</span>
 					<span className="text-[12px] text-ink-3">{testimonial.since}</span>

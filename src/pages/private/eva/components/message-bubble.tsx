@@ -30,7 +30,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 					{message.paragraphs.join("\n\n")}
 				</div>
 				{message.time && (
-					<span style={{ fontSize: 13, color: "#6B6B76", paddingRight: 4 }}>
+					<span className="eva-msg-time" style={{ paddingRight: 6 }}>
 						{message.time}
 					</span>
 				)}
@@ -80,7 +80,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 					))}
 				</div>
 				{message.time && (
-					<span style={{ fontSize: 13, color: "#6B6B76", paddingLeft: 4 }}>
+					<span className="eva-msg-time" style={{ paddingLeft: 6 }}>
 						{message.time}
 					</span>
 				)}

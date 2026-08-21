@@ -97,21 +97,26 @@ export function DonationsManagementPage() {
 							placeholder="Buscar por CPF..."
 						/>
 					</div>
-					<button
-						type="submit"
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-					>
-						<Search className="size-4" />
-						Aplicar filtro
-					</button>
-					<button
-						type="button"
-						onClick={handleClearFilters}
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-white px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
-					>
-						<X className="size-4" />
-						Limpar filtro
-					</button>
+					{/* Os dois botoes dividem uma linha no celular: empilhados em
+					    largura cheia, o formulario ocupava quatro linhas antes de
+					    aparecer a primeira doacao. */}
+					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0 lg:gap-2.5">
+						<button
+							type="submit"
+							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+						>
+							<Search className="size-4" />
+							Aplicar filtro
+						</button>
+						<button
+							type="button"
+							onClick={handleClearFilters}
+							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-white px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
+						>
+							<X className="size-4" />
+							Limpar filtro
+						</button>
+					</div>
 				</form>
 
 				<div className="flex items-center gap-2.5 overflow-x-auto pb-1">

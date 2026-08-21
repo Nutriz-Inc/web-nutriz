@@ -47,8 +47,11 @@ type MapPreviewProps = {
 	userLocation: Coordinates | null;
 	userLocationReady: boolean;
 	refitVersion: number;
-	/** Lado do botao de trocar endereco. A landing usa "start". */
-	locateAlign?: "start" | "end";
+	/**
+	 * Mostra o botao de trocar endereco acima do mapa. A landing desliga: la
+	 * ele vive na linha dos filtros, alinhado ao topo da lista.
+	 */
+	showLocateButton?: boolean;
 	selectedId: string | null;
 	onSelectPoint?: (id: string) => void;
 	onRequestChangeLocation: () => void;
@@ -60,7 +63,7 @@ export function MapPreview({
 	userLocation,
 	userLocationReady,
 	refitVersion,
-	locateAlign = "end",
+	showLocateButton = true,
 	selectedId,
 	onSelectPoint,
 	onRequestChangeLocation,
@@ -83,10 +86,7 @@ export function MapPreview({
 
 	return (
 		<div className="flex h-full w-full flex-col gap-3 lg:mx-auto lg:max-w-[1200px]">
-			<LocateButton
-				onClick={onRequestChangeLocation}
-				className={locateAlign === "start" ? "sm:self-start" : undefined}
-			/>
+			{showLocateButton && <LocateButton onClick={onRequestChangeLocation} />}
 
 			<div className="relative isolate h-[225px] w-full overflow-hidden rounded-xl lg:h-full lg:max-h-[900px] lg:rounded-2xl">
 				<MapContainer center={center} zoom={13} className="size-full">

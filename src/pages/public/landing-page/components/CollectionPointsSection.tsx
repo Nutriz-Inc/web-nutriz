@@ -9,6 +9,7 @@ import { SearchBar } from "@/components/full/SearchBar";
 import { ChangeLocationSheet } from "@/pages/private/donation-points/components/ChangeLocationSheet";
 import { DonationPointCard } from "@/pages/private/donation-points/components/DonationPointCard";
 import { DonationPointDetailSheet } from "@/pages/private/donation-points/components/DonationPointDetailSheet";
+import { LocateButton } from "@/pages/private/donation-points/components/LocateButton";
 import { MapPreview } from "@/pages/private/donation-points/components/MapPreview";
 import {
 	type DonationPointsFilter,
@@ -55,24 +56,43 @@ export function CollectionPointsSection() {
 			surfaceClassName="bg-surface"
 		>
 			<div className="rounded-card overflow-hidden border border-line bg-surface-2 shadow-soft">
-				<div className="flex flex-col gap-3 p-4 lg:p-5">
+				<div className="flex flex-col gap-3 p-4">
 					<SearchBar
 						value={search}
 						onChange={setSearch}
 						placeholder="Buscar ponto de coleta"
 					/>
 
-					<div className="flex gap-2 overflow-x-auto pb-1">
-						<FilterChips
-							options={FILTER_OPTIONS}
-							value={filter}
-							onChange={setFilter}
+					{/*
+					 * Filtros a esquerda e a acao de trocar endereco a direita, na
+					 * mesma linha: assim ela fica no topo da coluna da lista, e nao
+					 * roubando altura do mapa. No celular volta a empilhar.
+					 */}
+					<div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+						<div className="flex gap-2 overflow-x-auto pb-1">
+							<FilterChips
+								options={FILTER_OPTIONS}
+								value={filter}
+								onChange={setFilter}
+							/>
+						</div>
+
+						{/*
+						 * 368px = a coluna da lista (400px do
+						 * `lg:grid-cols-[1fr_400px]`) menos o `p-4` dos dois lados.
+						 * Assim o botao fica exatamente sobre os cartoes da lista.
+						 */}
+						<LocateButton
+							onClick={() => setIsLocationSheetOpen(true)}
+							className="sm:self-stretch lg:w-[368px] lg:shrink-0 lg:self-auto"
 						/>
 					</div>
 				</div>
 
 				<div className="grid lg:h-[520px] lg:grid-cols-[1fr_400px]">
-					<div className="px-4 pb-4 lg:h-full lg:p-6 lg:pt-0">
+					{/* Mesmo padding da coluna da lista: os dois blocos comecam e
+					    terminam na mesma linha. */}
+					<div className="px-4 pb-4 lg:h-full lg:p-4">
 						<MapPreview
 							points={points}
 							pointsReady={!isLoading}
@@ -82,7 +102,7 @@ export function CollectionPointsSection() {
 							selectedId={selectedId}
 							onSelectPoint={(id) => setSelectedId(id)}
 							onRequestChangeLocation={() => setIsLocationSheetOpen(true)}
-							locateAlign="start"
+							showLocateButton={false}
 						/>
 					</div>
 

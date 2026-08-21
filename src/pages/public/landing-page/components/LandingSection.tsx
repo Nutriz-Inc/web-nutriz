@@ -49,7 +49,7 @@ export function LandingSection({
 			id={id}
 			aria-labelledby={id ? `${id}-titulo` : undefined}
 			className={cn(
-				"scroll-mt-20 py-16 sm:py-20 lg:py-24",
+				"scroll-mt-20 py-12 sm:py-16 lg:py-20",
 				surfaceClassName,
 				className,
 			)}

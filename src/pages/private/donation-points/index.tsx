@@ -1,5 +1,4 @@
 import { LoaderCircle } from "lucide-react";
-import { useEffect, useState } from "react";
 import buscaPontosVazia from "@/assets/illustrations/busca-pontos-vazia.svg";
 import pontosTopo from "@/assets/illustrations/pontos-topo.svg";
 import { EmptyState } from "@/components/full/EmptyState";
@@ -9,101 +8,40 @@ import {
 } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
-import { useGeolocation } from "@/hooks/use-geolocation";
 import { ChangeLocationSheet } from "./components/ChangeLocationSheet";
 import { DonationPointCard } from "./components/DonationPointCard";
 import { DonationPointDetailSheet } from "./components/DonationPointDetailSheet";
-import type { Coordinates } from "./components/FitMapView";
 import { MapPreview } from "./components/MapPreview";
-import { useQueryDonationPoints } from "./hooks";
+import {
+	type DonationPointsFilter,
+	useDonationPointsSearch,
+} from "./hooks/use-donation-points-search";
 
-type LocationOverride =
-	| ({ kind: "coordinates" } & Coordinates)
-	| {
-			kind: "zipcode";
-			zipcode: string;
-			/** CEP resolvido em coordenadas, so para posicionar o mapa. */
-			coordinates: Coordinates | null;
-	  };
-
-type FilterKey = "all" | "home";
-
-const FILTER_OPTIONS: FilterChipOption<FilterKey>[] = [
+const FILTER_OPTIONS: FilterChipOption<DonationPointsFilter>[] = [
 	{ key: "all", label: "Todos" },
 	{ key: "home", label: "Coleta Domiciliar" },
 ];
 
 export function DonationPointsPage() {
-	const [search, setSearch] = useState("");
-	const [debouncedSearch, setDebouncedSearch] = useState("");
-	const [filter, setFilter] = useState<FilterKey>("all");
-	const [selectedId, setSelectedId] = useState<string | null>(null);
-	const [locationOverride, setLocationOverride] =
-		useState<LocationOverride | null>(null);
-	const [refitVersion, setRefitVersion] = useState(0);
-	const [isLocationSheetOpen, setIsLocationSheetOpen] = useState(false);
-
-	const { coordinates, isResolved: isGeolocationResolved } = useGeolocation();
-
-	useEffect(() => {
-		const timeout = setTimeout(() => setDebouncedSearch(search), 400);
-
-		return () => clearTimeout(timeout);
-	}, [search]);
-
-	const zipCodeSearch =
-		locationOverride?.kind === "zipcode" ? locationOverride : null;
-	const zipCodeOverride = zipCodeSearch?.zipcode;
-	const coordinatesOverride =
-		locationOverride?.kind === "coordinates" ? locationOverride : null;
-	// Quando a busca e por CEP, o pino de "voce esta aqui" e o centro do mapa
-	// vem do CEP geocodificado no navegador (utils/geocode.ts). A requisicao da
-	// API segue mandando so o `zipcode`, exatamente como antes.
-	const effectiveCoordinates = zipCodeSearch
-		? zipCodeSearch.coordinates
-		: (coordinatesOverride ?? coordinates);
-
-	const { data, isLoading } = useQueryDonationPoints({
-		name: debouncedSearch || undefined,
-		has_home: filter === "home" ? true : undefined,
-		zipcode: zipCodeOverride,
-		latitude: zipCodeOverride ? undefined : effectiveCoordinates?.latitude,
-		longitude: zipCodeOverride ? undefined : effectiveCoordinates?.longitude,
-	});
-
-	const points = data?.data ?? [];
-
-	const selectedPoint =
-		points.find((point) => point.id_donation_point === selectedId) ?? null;
-
-	const closestPointId = points.reduce<string | null>((closestId, point) => {
-		if (point.distance_from_you == null) return closestId;
-
-		const closestPoint = points.find(
-			(candidate) => candidate.id_donation_point === closestId,
-		);
-
-		if (
-			!closestPoint ||
-			point.distance_from_you < (closestPoint.distance_from_you ?? Infinity)
-		) {
-			return point.id_donation_point;
-		}
-
-		return closestId;
-	}, null);
-
-	function handleApplyZipCode(zipcode: string, coords: Coordinates | null) {
-		setLocationOverride({ kind: "zipcode", zipcode, coordinates: coords });
-		setRefitVersion((version) => version + 1);
-		setIsLocationSheetOpen(false);
-	}
-
-	function handleApplyCurrentLocation(coords: Coordinates) {
-		setLocationOverride({ kind: "coordinates", ...coords });
-		setRefitVersion((version) => version + 1);
-		setIsLocationSheetOpen(false);
-	}
+	const {
+		search,
+		setSearch,
+		filter,
+		setFilter,
+		selectedId,
+		setSelectedId,
+		selectedPoint,
+		closestPointId,
+		points,
+		isLoading,
+		effectiveCoordinates,
+		isLocationReady,
+		refitVersion,
+		isLocationSheetOpen,
+		setIsLocationSheetOpen,
+		applyZipCode,
+		applyCurrentLocation,
+	} = useDonationPointsSearch();
 
 	return (
 		<Page
@@ -134,9 +72,7 @@ export function DonationPointsPage() {
 						points={points}
 						pointsReady={!isLoading}
 						userLocation={effectiveCoordinates}
-						userLocationReady={
-							locationOverride !== null || isGeolocationResolved
-						}
+						userLocationReady={isLocationReady}
 						refitVersion={refitVersion}
 						selectedId={selectedId}
 						onSelectPoint={(id) => setSelectedId(id)}
@@ -189,14 +125,15 @@ export function DonationPointsPage() {
 				<ChangeLocationSheet
 					open={isLocationSheetOpen}
 					onOpenChange={setIsLocationSheetOpen}
-					onApplyZipCode={handleApplyZipCode}
-					onApplyCurrentLocation={handleApplyCurrentLocation}
+					onApplyZipCode={applyZipCode}
+					onApplyCurrentLocation={applyCurrentLocation}
 				/>
 
 				<DonationPointDetailSheet
 					point={selectedPoint}
 					open={selectedId !== null}
 					isClosest={selectedId !== null && selectedId === closestPointId}
+					origin={effectiveCoordinates}
 					onOpenChange={(open) => !open && setSelectedId(null)}
 				/>
 			</div>

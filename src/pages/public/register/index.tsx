@@ -146,8 +146,13 @@ export function RegisterScreen() {
 				onStepClick={handleStepClick}
 			/>
 
-			<main className="w-full flex-1 px-4 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-7 sm:px-6 lg:px-10 lg:py-12">
-				<div className="mx-auto w-full max-w-[620px]">
+			{/*
+			 * `m-auto` no filho, e nao `items-center` no pai: centraliza na vertical
+			 * sem cortar o topo quando a etapa e alta (a de revisao, com bebes e
+			 * termos, passa da altura da tela).
+			 */}
+			<main className="flex w-full flex-1 px-4 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-7 sm:px-6 lg:min-h-dvh lg:px-10 lg:py-12">
+				<div className="m-auto w-full max-w-[620px]">
 					<Page>
 						{success ? (
 							<SuccessCard />

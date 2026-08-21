@@ -17,6 +17,8 @@ type FormFieldProps = {
 	optional?: boolean;
 	trailing?: ReactNode;
 	className?: string;
+	/** Ajuste fino do input (altura, raio). O login usa campos mais altos. */
+	inputClassName?: string;
 };
 
 /**
@@ -37,6 +39,7 @@ export function FormField({
 	optional = false,
 	trailing,
 	className,
+	inputClassName,
 }: FormFieldProps) {
 	return (
 		<div className={cn("flex flex-col gap-1.5", className)}>
@@ -62,6 +65,7 @@ export function FormField({
 						"h-[38px] rounded-md bg-white text-sm",
 						"focus-visible:border-blue-deep focus-visible:ring-blue-deep/10",
 						trailing && "pr-11",
+						inputClassName,
 					)}
 				/>
 				{trailing && (

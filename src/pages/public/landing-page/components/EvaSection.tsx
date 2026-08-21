@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
 	CalendarCheck,
 	Droplet,
@@ -20,33 +20,23 @@ import evaMensagem from "@/assets/illustrations/eva-mensagem.svg";
 import evaNuvens from "@/assets/illustrations/eva-nuvens.svg";
 import evaRua from "@/assets/illustrations/eva-rua.svg";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
+import { fadeUp, staggerContainer } from "../animations/variants";
+import { useReveal } from "../hooks/use-reveal";
 import { EvaPreview } from "./EvaPreview";
 import { LandingSection } from "./LandingSection";
 import { SlideButton } from "./SlideButton";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-const container: Variants = {
-	hidden: {},
-	show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-};
-
-const item: Variants = {
-	hidden: { opacity: 0, y: 18 },
-	show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
-};
-
 export function EvaSection() {
 	const reduce = useReducedMotion();
 
-	const reveal = reduce
-		? {}
-		: ({
-				variants: container,
-				initial: "hidden",
-				whileInView: "show",
-				viewport: { once: true, amount: 0.3 },
-			} as const);
+	/*
+	 * Mesmo reveal do resto da landing (`useReveal` + `viewportOnce`). Esta
+	 * secao tinha variantes proprias com `amount: 0.3`, o que exigia 30% de um
+	 * bloco de ~800px visivel para o conteudo aparecer; o padrao compartilhado
+	 * dispara com `margin: "-80px"`, bem mais cedo, e ja trata
+	 * prefers-reduced-motion.
+	 */
+	const reveal = useReveal(staggerContainer);
 
 	return (
 		<LandingSection
@@ -69,29 +59,40 @@ export function EvaSection() {
 					 * Tudo decorativo (`aria-hidden`) e em opacidade baixa, para nao
 					 * competir com o texto nem com o CTA.
 					 */}
-					{/* Nuvem da esquerda: maior e mais alta, saindo por cima do cartao. */}
+					{/*
+					 * Nuvem da esquerda: maior e mais alta, saindo por cima do cartao.
+					 * So existe de `lg` para cima: abaixo disso o titulo da secao fica
+					 * na mesma faixa horizontal e a nuvem passava por cima do texto.
+					 */}
 					<img
 						src={evaNuvens}
 						alt=""
 						aria-hidden="true"
-						className="pointer-events-none absolute -top-20 left-[-4%] -z-10 w-[46%] max-w-[420px] select-none opacity-45"
-					/>
-					<img
-						src={evaNuvens}
-						alt=""
-						aria-hidden="true"
-						className="pointer-events-none absolute -top-12 right-[-2%] -z-10 w-[34%] max-w-[300px] select-none opacity-45"
+						className="pointer-events-none absolute -top-20 left-[-4%] -z-10 hidden w-[46%] max-w-[420px] select-none opacity-45 lg:block"
 					/>
 					{/*
-					 * A rua fica contida no cartao rosa e se estende ate encostar no
-					 * cartao do chat — a largura foi medida no DOM (a borda esquerda do
-					 * chat cai em ~64% da largura interna do cartao).
+					 * Nuvem da direita. No celular ela sobe so 24px acima do cartao
+					 * (proporcao 811x311, entao 42% de largura da ~56px de altura): fica
+					 * entre a divisoria da secao e o selo "Assistente 24 horas", sem
+					 * encostar em nenhum dos dois.
+					 */}
+					<img
+						src={evaNuvens}
+						alt=""
+						aria-hidden="true"
+						className="pointer-events-none absolute -top-6 right-0 -z-10 w-[42%] max-w-[300px] select-none opacity-45 md:-top-12 md:right-[-2%] md:w-[34%]"
+					/>
+					{/*
+					 * A rua fica contida no cartao rosa, colada no canto de baixo. No
+					 * celular ela ocupa a largura inteira do cartao (o chat fica
+					 * empilhado, nao ao lado); a partir de `lg` a largura foi medida no
+					 * DOM para parar exatamente na borda esquerda do cartao do chat.
 					 */}
 					<img
 						src={evaRua}
 						alt=""
 						aria-hidden="true"
-						className="pointer-events-none absolute bottom-0 left-0 -z-10 w-[66%] max-w-[700px] select-none opacity-40"
+						className="pointer-events-none absolute bottom-0 left-0 -z-10 w-full max-w-none select-none opacity-40 lg:w-[66%] lg:max-w-[700px]"
 					/>
 					{/*
 					 * A nutriz com o chat, espelhada (`-scale-x-100`) para ficar virada
@@ -103,13 +104,13 @@ export function EvaSection() {
 						aria-hidden="true"
 						width={588}
 						height={631}
-						className="pointer-events-none absolute -bottom-8 right-[2%] z-10 hidden h-48 w-auto -scale-x-100 select-none md:block lg:h-60"
+						className="pointer-events-none absolute -bottom-6 right-0 z-10 h-44 w-auto -scale-x-100 select-none md:-bottom-8 md:right-[2%] md:h-48 lg:h-60"
 					/>
 
 					<div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
 						<div className="min-w-0 lg:max-w-[460px]">
 							<motion.span
-								variants={item}
+								variants={fadeUp}
 								className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.06em] text-eva shadow-soft"
 							>
 								<span
@@ -120,7 +121,7 @@ export function EvaSection() {
 							</motion.span>
 
 							<motion.p
-								variants={item}
+								variants={fadeUp}
 								className="mt-6 max-w-[440px] text-[16px] font-semibold leading-relaxed text-ink lg:text-[18px]"
 							>
 								Pergunte o que quiser. Ela responde na hora, com conteúdo
@@ -128,7 +129,7 @@ export function EvaSection() {
 							</motion.p>
 
 							<motion.div
-								variants={item}
+								variants={fadeUp}
 								className="mt-7 flex flex-wrap items-center gap-4"
 							>
 								<div className="relative inline-flex">
@@ -156,13 +157,13 @@ export function EvaSection() {
 									/>
 								</div>
 
-								<span className="max-w-[150px] text-[14px] leading-snug text-ink">
+								<span className="text-[14px] leading-snug text-ink lg:max-w-[150px]">
 									Atendimento acolhedor, a qualquer hora
 								</span>
 							</motion.div>
 						</div>
 
-						<motion.div variants={item}>
+						<motion.div variants={fadeUp}>
 							<EvaPreview />
 						</motion.div>
 					</div>
@@ -171,7 +172,7 @@ export function EvaSection() {
 
 			<motion.div
 				{...reveal}
-				className="mt-16 flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center"
+				className="mt-10 flex flex-col gap-3 lg:mt-16 lg:flex-row lg:flex-wrap lg:items-center"
 			>
 				<span className="text-[15px] font-bold text-ink">Comece por aqui:</span>
 				{/* `eva-scope` para as pilulas usarem o estilo real do widget. */}

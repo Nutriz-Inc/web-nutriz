@@ -1,3 +1,12 @@
+/* ---------------------------------------------------------------------------
+ * Widget global da EVA — bolinha, janela e estados
+ *
+ * Desenho seguindo a referencia entregue pelo time (eva.jpeg): cartao branco
+ * de canto muito arredondado, sombra difusa e sem contraste, cromo em cinza
+ * bem claro e o pastel (lavanda -> rosa) so no avatar, no titulo e nos
+ * pontinhos. Ver tambem eva.css.
+ * ------------------------------------------------------------------------- */
+
 .eva-fab {
 	position: fixed;
 	right: 20px;
@@ -8,16 +17,30 @@
 	height: 60px;
 	border: none;
 	border-radius: 50%;
-	background: linear-gradient(135deg, #f0a0be, #b79ce0);
+	/* Pastel claro, escrito com os tokens globais porque o FAB fica fora de
+	 * `.eva-scope`. */
+	background: linear-gradient(
+		145deg,
+		var(--purple-tint) 0%,
+		var(--eva-tint) 55%,
+		color-mix(in oklch, var(--eva-bright) 45%, white) 100%
+	);
 	color: #ffffff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	display: grid;
+	place-items: center;
 	cursor: pointer;
-	box-shadow: 0 8px 24px rgba(180, 107, 217, 0.4);
+	box-shadow: 0 12px 30px -12px color-mix(in oklch, var(--ink) 45%, transparent);
 	transition:
-		transform 0.15s ease,
-		box-shadow 0.15s ease;
+		transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1),
+		box-shadow 0.22s ease;
+}
+
+/* A arte da flor vem preta; aqui ela vira branca. */
+.eva-fab-mark {
+	width: 28px;
+	height: 28px;
+	filter: brightness(0) invert(1);
+	user-select: none;
 }
 
 /* Escondido enquanto algo cobre o canto dele. Ver eva-widget-bus.ts. */
@@ -26,34 +49,46 @@
 }
 
 .eva-fab:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 12px 30px rgba(180, 107, 217, 0.5);
+	transform: translateY(-2px) scale(1.05);
+	box-shadow: 0 18px 40px -14px color-mix(in oklch, var(--ink) 50%, transparent);
+}
+
+.eva-fab:active {
+	transform: scale(0.95);
 }
 
 .eva-fab:focus-visible {
-	outline: 3px solid #b46bd9;
-	outline-offset: 3px;
+	outline: none;
+	box-shadow:
+		0 12px 30px -12px color-mix(in oklch, var(--ink) 45%, transparent),
+		0 0 0 4px color-mix(in oklch, var(--eva) 40%, transparent);
 }
 
 .eva-widget-overlay {
 	position: fixed;
 	inset: 0;
 	z-index: 65;
-	background: rgba(0, 0, 0, 0.28);
+	background: color-mix(in oklch, var(--ink) 22%, transparent);
 }
 
+/*
+ * Cartao: canto de 36px e sombra larga e clara, como na referencia — nada de
+ * borda dura nem sombra escura.
+ */
 .eva-widget-modal {
 	position: fixed;
 	z-index: 70;
 	right: 20px;
 	bottom: 20px;
-	width: 400px;
+	width: 372px;
 	max-width: calc(100vw - 40px);
-	height: 620px;
+	height: 524px;
 	max-height: calc(100dvh - 40px);
-	background: #ffffff;
-	border-radius: 24px;
-	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+	background: var(--surface);
+	border-radius: 2.25rem;
+	box-shadow:
+		0 40px 90px -30px color-mix(in oklch, var(--ink) 35%, transparent),
+		0 8px 24px -12px color-mix(in oklch, var(--ink) 20%, transparent);
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
@@ -75,21 +110,43 @@
 	}
 }
 
-/* Header — branco, muda conforme a view (boas-vindas x conversa) */
+/* ---------------------------------------------------------------------------
+ * Cabecalho: branco, botao circular cinza claro a esquerda e o titulo ao
+ * centro, recortado no degrade pastel.
+ * ------------------------------------------------------------------------- */
+
 .eva-widget-header {
 	display: flex;
 	align-items: center;
-	padding: 10px 12px;
-	background: #ffffff;
-	border-bottom: 1px solid #f0edf2;
+	padding: 12px 16px 0;
+	background: var(--surface);
 	flex-shrink: 0;
 }
 
 .eva-widget-header-title {
 	margin: 0;
-	font-size: 16px;
+	font-size: 19px;
 	font-weight: 700;
-	color: var(--eva-ink);
+	letter-spacing: -0.01em;
+	/*
+	 * Gradiente escrito com os tokens globais (:root), e nao com a variavel
+	 * de `.eva-scope`: o cabecalho fica FORA daquele escopo, entao a variavel
+	 * chegava vazia, o `background` nao valia e o texto — que e transparente
+	 * por causa do recorte — sumia.
+	 */
+	background: linear-gradient(
+		100deg,
+		var(--eva) 0%,
+		var(--purple) 50%,
+		var(--eva) 100%
+	);
+	background-size: 200% 100%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	/* Reserva, caso o recorte no texto nao seja suportado. */
+	color: var(--eva);
+	animation: eva-onda 6s linear infinite;
 }
 
 .eva-widget-header--welcome {
@@ -98,17 +155,40 @@
 	align-items: center;
 }
 
+/*
+ * Cabecalho da abertura: so o botao de fechar. Sai do fluxo para poder ficar
+ * na mesma linha do nome, em vez de empurrar o conteudo para baixo.
+ */
+.eva-widget-header--bare {
+	position: absolute;
+	/* Acompanha o padding-top da abertura: medido no DOM para o centro do X
+	 * bater com o centro do nome. */
+	top: 27px;
+	right: 16px;
+	z-index: 2;
+	padding: 0;
+	background: transparent;
+}
+
 .eva-widget-header--welcome .eva-widget-header-title {
 	text-align: center;
 }
 
+/* Espacador, titulo ao centro e o X a direita. */
 .eva-widget-header--chat {
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 40px 1fr 40px;
+	align-items: center;
+	padding: 14px 16px 6px;
+}
+
+.eva-widget-header--chat .eva-widget-header-title {
+	text-align: center;
 }
 
 .eva-widget-header-spacer {
-	width: 44px;
-	height: 44px;
+	width: 40px;
+	height: 40px;
 }
 
 .eva-widget-header-id {
@@ -127,95 +207,154 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
-	font-size: 13px;
-	font-weight: 600;
-	color: var(--eva-online);
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--ink-3);
 }
 
 .eva-widget-status-dot {
 	width: 7px;
 	height: 7px;
 	border-radius: 50%;
-	background: #2ea36a;
+	background: var(--success);
 }
 
+/* Botao circular de cromo, no cinza claro da referencia. */
 .eva-widget-close {
-	width: 44px;
-	height: 44px;
+	width: 40px;
+	height: 40px;
 	border: none;
 	border-radius: 50%;
-	background: transparent;
-	color: var(--eva-ink);
+	background: var(--surface-2);
+	color: var(--ink-2);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease;
 }
 
 .eva-widget-close:hover {
-	background: #f4f2f6;
+	background: var(--surface-3);
+	color: var(--ink);
 }
 
-.eva-widget-close:focus-visible {
-	outline: 2px solid #b46bd9;
-	outline-offset: 2px;
-}
+/* ---------------------------------------------------------------------------
+ * Abertura — uma tela so, sem rolagem.
+ * ------------------------------------------------------------------------- */
 
-/* Boas-vindas — compacta para caber na viewport sem scroll (ate 375x667) */
 .eva-widget-welcome {
 	flex: 1;
 	min-height: 0;
-	overflow-y: auto;
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
-	padding: 16px 20px 14px;
-	background: #ffffff;
+	gap: 16px;
+	/* Respiro no topo: o nome estava encostado na borda do cartao. */
+	padding: 30px 22px 18px;
+	background: var(--surface);
 }
 
-.eva-widget-welcome-top {
-	flex: 1;
+/* Identidade em linha: bloco pastel + nome e descricao. */
+/* Sem efeito no desktop; viram espacadores no mobile (fim do arquivo). */
+.eva-welcome-topo,
+.eva-welcome-meio {
+	display: none;
+}
+
+.eva-welcome-id {
 	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 12px;
+	align-items: center;
+	gap: 14px;
 }
 
-.eva-widget-welcome-title {
+.eva-welcome-id-text {
+	min-width: 0;
+	/* Espaco do botao de fechar, que flutua no canto. */
+	padding-right: 48px;
+}
+
+/*
+ * Nome ao lado do quadrado da marca, no mesmo degrade do resto. Escrito com
+ * os tokens globais porque `--eva-grad-title` vive em `.eva-scope` e o valor
+ * nao chega em todo lugar; e texto grande, entao o minimo e 3:1 — o ponto
+ * mais claro do degrade da 3,84:1.
+ */
+.eva-welcome-name {
 	margin: 0;
-	font-size: 24px;
-	font-weight: 800;
-	line-height: 1.1;
-	letter-spacing: -0.02em;
-	background: var(--eva-grad-title);
+	font-size: 19px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+	/*
+	 * Onda: as MESMAS duas cores (--eva e --purple), so que o degrade e o
+	 * dobro da largura do texto e desliza. Repetir `--eva` no fim faz a volta
+	 * emendar sem salto — com duas paradas apenas, o loop piscava.
+	 */
+	background: linear-gradient(
+		100deg,
+		var(--eva) 0%,
+		var(--purple) 50%,
+		var(--eva) 100%
+	);
+	background-size: 200% 100%;
 	-webkit-background-clip: text;
 	background-clip: text;
 	-webkit-text-fill-color: transparent;
-	color: #dc3f7e;
+	color: var(--eva);
+	animation: eva-onda 6s linear infinite;
 }
 
-.eva-widget-welcome-suggestions {
+/*
+ * Anima `background-position`, e nao transform: nao da para deslizar um
+ * degrade recortado no texto so com transform sem duplicar o elemento. E um
+ * titulo pequeno, entao o custo e desprezivel.
+ */
+@keyframes eva-onda {
+	to {
+		background-position: 200% 50%;
+	}
+}
+
+.eva-welcome-sub {
+	margin: 4px 0 0;
+	font-size: 13px;
+	line-height: 1.45;
+	color: var(--ink-3);
+}
+
+/* Pilulas empilhadas, cada uma do tamanho do proprio texto. */
+/*
+ * `flex: 1` com `min-height: 0` deixava a lista encolher abaixo do proprio
+ * conteudo quando o espaco apertava, e a ultima pilula invadia os pontinhos.
+ * Agora ela nunca fica menor que o conteudo e o vazio sobra depois dela.
+ */
+.eva-welcome-pills {
+	flex: 0 0 auto;
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 	gap: 8px;
-	width: 100%;
 }
 
-.eva-widget-welcome-label {
-	margin: 0;
-	font-size: 15px;
-	font-weight: 700;
-	color: var(--eva-ink);
+/*
+ * Vao entre as sugestoes e o campo. Os pontinhos vivem aqui, centrados: antes
+ * ficavam colados no campo e a folga toda sobrava acima deles.
+ */
+.eva-welcome-espaco {
+	flex: 1 1 auto;
+	min-height: 24px;
+	display: flex;
+	align-items: center;
+	padding-left: 6px;
 }
 
-.eva-widget-lgpd {
-	font-size: 12.5px;
-	line-height: 1.45;
-	color: var(--eva-ink-soft);
-	background: #faf5fb;
-	border: 1px solid rgba(180, 107, 217, 0.25);
-	border-radius: 12px;
-	padding: 10px 12px;
+.eva-welcome-dots {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding-left: 6px;
 }
 
 .eva-widget-start {
@@ -227,24 +366,35 @@
 .eva-widget-welcome-foot-wrap {
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 10px;
 }
 
 .eva-widget-welcome-foot {
 	margin: 0;
-	font-size: 11.5px;
+	font-size: 11px;
 	line-height: 1.45;
-	color: var(--eva-ink-soft);
+	color: var(--ink-3);
 	text-align: center;
 }
 
-/* Conversa */
+/* Rotulo da versao antiga; sem uso na abertura nova. */
+.eva-widget-welcome-label {
+	margin: 0;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--ink-3);
+}
+
+/* --- Conversa ------------------------------------------------------------- */
+
 .eva-widget-chat {
 	flex: 1;
 	min-height: 0;
 	display: flex;
 	flex-direction: column;
-	background: #f7f6fa;
+	background: var(--surface);
 }
 
 .eva-widget-scroll {
@@ -253,32 +403,16 @@
 	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
-	gap: 14px;
-	padding: 16px 14px 10px;
-}
-
-.eva-widget-notice {
-	margin: 0;
-	text-align: center;
-	font-size: 13px;
-	font-weight: 600;
-	color: var(--eva-ink-soft);
-}
-
-.eva-widget-notice-group {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 10px;
+	gap: 12px;
+	padding: 8px 16px 12px;
 }
 
 .eva-widget-input-area {
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
-	padding: 10px 14px 12px;
-	background: #ffffff;
-	border-top: 1px solid #eeecf1;
+	gap: 10px;
+	padding: 8px 16px 16px;
+	background: var(--surface);
 	flex-shrink: 0;
 }
 
@@ -296,11 +430,74 @@
 .eva-widget-input-foot {
 	margin: 0;
 	text-align: center;
-	font-size: 12px;
-	color: var(--eva-ink-soft);
+	font-size: 11px;
+	color: var(--ink-3);
 }
 
-/* Botao de acao contextual, abaixo da mensagem da EVA */
+/* ---------------------------------------------------------------------------
+ * Avisos de estado
+ *
+ * Um cartao por estado, com o tom semantico do app em vez de uma linha de
+ * texto cinza para tudo: da para distinguir de relance "estou reconectando"
+ * de "a sessao acabou". As variantes vem do `blockedReason`/`status` que o
+ * painel ja calcula — nenhuma regra nova.
+ * ------------------------------------------------------------------------- */
+
+.eva-widget-notice {
+	margin: 0;
+	display: block;
+	padding: 12px 14px;
+	border-radius: 1rem;
+	border: 1px solid color-mix(in oklch, var(--line-strong) 55%, transparent);
+	background: var(--surface-2);
+	text-align: left;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.5;
+	color: var(--ink-2);
+}
+
+.eva-widget-notice--info {
+	border-color: color-mix(in oklch, var(--blue-bright) 25%, transparent);
+	background: var(--blue-tint);
+	color: var(--blue-deep);
+}
+
+.eva-widget-notice--alerta {
+	border-color: color-mix(in oklch, var(--warning) 25%, transparent);
+	background: var(--warning-tint);
+	color: var(--warning);
+}
+
+.eva-widget-notice--erro {
+	border-color: color-mix(in oklch, var(--danger) 20%, transparent);
+	background: var(--danger-tint);
+	color: var(--danger);
+}
+
+.eva-widget-notice-group {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 10px;
+}
+
+.eva-widget-notice-group .eva-outline-btn {
+	align-self: center;
+}
+
+.eva-widget-lgpd {
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.45;
+	color: var(--ink-2);
+	background: var(--surface-2);
+	border-radius: 0.875rem;
+	padding: 10px 14px;
+}
+
+/* --- Acao contextual abaixo da mensagem da EVA ---------------------------- */
+
 .eva-msg-with-action {
 	display: flex;
 	flex-direction: column;
@@ -308,61 +505,140 @@
 	gap: 8px;
 }
 
+/*
+ * Mesmo desenho das pilulas de sugestao da abertura: superficie branca, borda
+ * leve, sombra suave e a sublinha crescendo no hover. Antes era um botao
+ * escuro chapado, que destoava.
+ */
 .eva-action-btn {
+	position: relative;
+	overflow: hidden;
 	display: inline-flex;
 	align-items: center;
-	gap: 8px;
+	gap: 10px;
 	min-height: 44px;
 	/* alinha sob a bolha da EVA, depois do avatar (28px + 8px de gap) */
 	margin-left: 36px;
-	padding: 0 16px;
-	border: none;
+	padding: 0 18px;
+	border: 1px solid color-mix(in oklch, var(--line-strong) 55%, transparent);
 	border-radius: 999px;
-	background: var(--eva-grad-brand);
-	color: var(--eva-ink);
+	background: var(--surface);
+	box-shadow: 0 6px 16px -10px color-mix(in oklch, var(--ink) 40%, transparent);
+	color: var(--ink);
 	font-family: inherit;
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: 500;
 	text-decoration: none;
 	cursor: pointer;
 	transition:
-		transform 0.15s ease,
-		filter 0.15s ease;
+		transform 0.2s ease,
+		background-color 0.2s ease,
+		box-shadow 0.2s ease;
+}
+
+.eva-action-btn::before {
+	content: "";
+	position: absolute;
+	left: 16px;
+	right: 16px;
+	bottom: 0;
+	height: 3px;
+	border-radius: 3px 3px 0 0;
+	background: linear-gradient(
+		145deg,
+		var(--purple-tint) 0%,
+		var(--eva-tint) 55%,
+		color-mix(in oklch, var(--eva-bright) 45%, white) 100%
+	);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.2s ease;
 }
 
 .eva-action-btn:hover {
-	transform: scale(1.03);
-	filter: brightness(0.98);
+	transform: translateX(6px);
+	background: color-mix(in oklch, var(--eva) 4%, var(--surface));
+	box-shadow: 0 10px 22px -12px color-mix(in oklch, var(--ink) 45%, transparent);
 }
 
-.eva-action-btn:focus-visible {
-	outline: 3px solid rgba(217, 107, 143, 0.7);
-	outline-offset: 2px;
+.eva-action-btn:hover::before {
+	transform: scaleX(1);
+}
+
+.eva-action-btn:active {
+	transform: translateX(2px);
 }
 
 .eva-action-btn-arrow {
 	font-size: 15px;
+	transition: transform 0.2s ease;
 }
 
+.eva-action-btn:hover .eva-action-btn-arrow {
+	transform: translateX(3px);
+}
+
+/* ---------------------------------------------------------------------------
+ * prefers-reduced-motion: sem movimento nenhum.
+ * ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-	.eva-fab {
+	.eva-welcome-name,
+	.eva-widget-header-title {
+		animation: none;
+	}
+
+	.eva-fab,
+	.eva-action-btn,
+	.eva-action-btn-arrow,
+	.eva-widget-close {
 		transition: none;
 	}
 
-	/* Escondido enquanto algo cobre o canto dele. Ver eva-widget-bus.ts. */
-	.eva-fab--oculto {
-		display: none;
-	}
-
-	.eva-fab:hover {
+	.eva-fab:hover,
+	.eva-fab:active,
+	.eva-action-btn:hover,
+	.eva-action-btn:active,
+	.eva-action-btn:hover .eva-action-btn-arrow {
 		transform: none;
 	}
+}
 
-	.eva-action-btn {
-		transition: none;
+/* ---------------------------------------------------------------------------
+ * Mobile — no fim do arquivo de proposito
+ *
+ * Estas regras precisam vir DEPOIS das regras base: media query nao aumenta
+ * especificidade, entao com o bloco la em cima o `.eva-welcome-espaco` base
+ * ganhava, continuava esticando e o `justify-content` nao surtia efeito.
+ * ------------------------------------------------------------------------- */
+@media (max-width: 520px) {
+	/*
+	 * Em tela cheia a sobra e dividida em dois vaos:
+	 *
+	 *   [vao de cima ~38%]
+	 *   identidade + aviso        <- um pouco acima do meio
+	 *   [vao do meio ~62%]
+	 *   sugestoes, pontinhos e campo   <- apoiados na base
+	 *
+	 * Antes havia um vao so, e as sugestoes subiam grudadas na apresentacao.
+	 */
+	.eva-welcome-topo {
+		display: block;
+		flex: 1 1 0;
 	}
 
-	.eva-action-btn:hover {
-		transform: none;
+	.eva-welcome-meio {
+		display: block;
+		flex: 1.6 1 0;
+	}
+
+	/* Os pontinhos voltam a ser so um respiro antes do campo. */
+	.eva-welcome-espaco {
+		flex: 0 0 auto;
+		min-height: 16px;
+	}
+
+	/* O aviso encostava na borda de baixo. */
+	.eva-widget-welcome {
+		padding-bottom: 28px;
 	}
 }

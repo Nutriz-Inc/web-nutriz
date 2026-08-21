@@ -1,84 +1,136 @@
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+	CalendarCheck,
+	Droplet,
+	type LucideIcon,
+	Snowflake,
+	Sparkles,
+} from "lucide-react";
 import { EVA_SUGGESTIONS } from "@/pages/private/eva/constants";
+
+/** Mesmos icones da abertura do widget, na mesma ordem. */
+const ICONES_SUGESTAO: LucideIcon[] = [
+	Droplet,
+	Sparkles,
+	Snowflake,
+	CalendarCheck,
+];
+
+import evaMensagem from "@/assets/illustrations/eva-mensagem.svg";
+import evaNuvens from "@/assets/illustrations/eva-nuvens.svg";
+import evaRua from "@/assets/illustrations/eva-rua.svg";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
-import { EVA_LANDING_BG } from "../constants";
+import { fadeUp, staggerContainer } from "../animations/variants";
+import { useReveal } from "../hooks/use-reveal";
+import { EvaPreview } from "./EvaPreview";
+import { LandingSection } from "./LandingSection";
 import { SlideButton } from "./SlideButton";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-const container: Variants = {
-	hidden: {},
-	show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-};
-
-const item: Variants = {
-	hidden: { opacity: 0, y: 18 },
-	show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
-};
 
 export function EvaSection() {
 	const reduce = useReducedMotion();
 
-	const reveal = reduce
-		? {}
-		: ({
-				variants: container,
-				initial: "hidden",
-				whileInView: "show",
-				viewport: { once: true, amount: 0.3 },
-			} as const);
+	/*
+	 * Mesmo reveal do resto da landing (`useReveal` + `viewportOnce`). Esta
+	 * secao tinha variantes proprias com `amount: 0.3`, o que exigia 30% de um
+	 * bloco de ~800px visivel para o conteudo aparecer; o padrao compartilhado
+	 * dispara com `margin: "-80px"`, bem mais cedo, e ja trata
+	 * prefers-reduced-motion.
+	 */
+	const reveal = useReveal(staggerContainer);
 
 	return (
-		<section
+		<LandingSection
 			id="a-eva"
-			className="scroll-mt-20 bg-white pt-4 lg:pt-6 pb-12 lg:pb-16"
+			label="Rede de apoio"
+			title="Como você está hoje?"
+			tone="eva"
+			description="A EVA acolhe você a qualquer hora — doação de leite, ordenha, armazenamento e amamentação. Sem fila, sem espera."
+			surfaceClassName="bg-surface"
 		>
-			<div
-				aria-hidden
-				className="mx-auto mb-6 h-1.5 w-16 rounded-full bg-blue-tint lg:mb-8"
-			/>
+			<motion.div {...reveal}>
+				<div className="rounded-card gradient-eva relative isolate border border-line px-7 pb-24 pt-10 sm:pb-28 lg:px-14 lg:pb-32 lg:pt-14">
+					{/*
+					 * Cena em tres planos, atravessando as bordas do cartao de
+					 * proposito: as nuvens saem por cima, a rua passa por baixo e pelos
+					 * dois lados, e a nutriz com o chat encosta no cartao da EVA. Por
+					 * isso o bloco NAO tem `overflow-hidden` — o recorte matava
+					 * justamente a sobreposicao.
+					 *
+					 * Tudo decorativo (`aria-hidden`) e em opacidade baixa, para nao
+					 * competir com o texto nem com o CTA.
+					 */}
+					{/*
+					 * Nuvem da esquerda: maior e mais alta, saindo por cima do cartao.
+					 * So existe de `lg` para cima: abaixo disso o titulo da secao fica
+					 * na mesma faixa horizontal e a nuvem passava por cima do texto.
+					 */}
+					<img
+						src={evaNuvens}
+						alt=""
+						aria-hidden="true"
+						className="pointer-events-none absolute -top-20 left-[-4%] -z-10 hidden w-[46%] max-w-[420px] select-none opacity-45 lg:block"
+					/>
+					{/*
+					 * Nuvem da direita. No celular ela sobe so 24px acima do cartao
+					 * (proporcao 811x311, entao 42% de largura da ~56px de altura): fica
+					 * entre a divisoria da secao e o selo "Assistente 24 horas", sem
+					 * encostar em nenhum dos dois.
+					 */}
+					<img
+						src={evaNuvens}
+						alt=""
+						aria-hidden="true"
+						className="pointer-events-none absolute -top-6 right-0 -z-10 w-[42%] max-w-[300px] select-none opacity-45 md:-top-12 md:right-[-2%] md:w-[34%]"
+					/>
+					{/*
+					 * A rua fica contida no cartao rosa, colada no canto de baixo. No
+					 * celular ela ocupa a largura inteira do cartao (o chat fica
+					 * empilhado, nao ao lado); a partir de `lg` a largura foi medida no
+					 * DOM para parar exatamente na borda esquerda do cartao do chat.
+					 */}
+					<img
+						src={evaRua}
+						alt=""
+						aria-hidden="true"
+						className="pointer-events-none absolute bottom-0 left-0 -z-10 w-full max-w-none select-none opacity-40 lg:w-[66%] lg:max-w-[700px]"
+					/>
+					{/*
+					 * A nutriz com o chat, espelhada (`-scale-x-100`) para ficar virada
+					 * para dentro da cena, encostando no cartao da EVA a direita.
+					 */}
+					<img
+						src={evaMensagem}
+						alt=""
+						aria-hidden="true"
+						width={588}
+						height={631}
+						className="pointer-events-none absolute -bottom-6 right-0 z-10 h-44 w-auto -scale-x-100 select-none md:-bottom-8 md:right-[2%] md:h-48 lg:h-60"
+					/>
 
-			<motion.div
-				{...reveal}
-				aria-labelledby="eva-section-title"
-				className="mx-auto max-w-[1200px] px-5 lg:px-8"
-			>
-				<div
-					className="relative overflow-hidden rounded-3xl px-7 py-10 lg:rounded-2xl lg:px-14 lg:py-16"
-					style={{ background: EVA_LANDING_BG }}
-				>
 					<div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
 						<div className="min-w-0 lg:max-w-[460px]">
 							<motion.span
-								variants={item}
-								className="inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-[13px] font-bold tracking-[0.12em] text-danger"
+								variants={fadeUp}
+								className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.06em] text-eva shadow-soft"
 							>
 								<span
 									aria-hidden
-									className="size-1.5 rounded-full bg-[#2ea36a]"
+									className="size-1.5 rounded-full bg-success"
 								/>
-								ASSISTENTE 24 HORAS
+								Assistente 24 horas
 							</motion.span>
 
-							<motion.h2
-								variants={item}
-								id="eva-section-title"
-								className="mt-6 text-[34px] font-extrabold leading-[1.08] tracking-[-0.02em] text-ink lg:text-[48px]"
-							>
-								Como você está hoje?
-							</motion.h2>
-
 							<motion.p
-								variants={item}
-								className="mt-5 max-w-[440px] text-[15px] leading-relaxed text-ink lg:text-[16px]"
+								variants={fadeUp}
+								className="mt-6 max-w-[440px] text-[16px] font-semibold leading-relaxed text-ink lg:text-[18px]"
 							>
-								A EVA acolhe você a qualquer hora — doação de leite, ordenha,
-								armazenamento e amamentação. Sem fila, sem espera.
+								Pergunte o que quiser. Ela responde na hora, com conteúdo
+								validado pela rBLH.
 							</motion.p>
 
 							<motion.div
-								variants={item}
-								className="mt-9 flex flex-wrap items-center gap-4"
+								variants={fadeUp}
+								className="mt-7 flex flex-wrap items-center gap-4"
 							>
 								<div className="relative inline-flex">
 									{!reduce && (
@@ -105,65 +157,43 @@ export function EvaSection() {
 									/>
 								</div>
 
-								<span className="max-w-[150px] text-[14px] leading-snug text-ink">
+								<span className="text-[14px] leading-snug text-ink lg:max-w-[150px]">
 									Atendimento acolhedor, a qualquer hora
 								</span>
 							</motion.div>
 						</div>
 
-						<motion.div
-							variants={item}
-							aria-hidden
-							className="w-full max-w-[380px] flex-none rounded-2xl bg-white p-5 shadow-lift lg:w-[380px]"
-						>
-							<div className="flex items-center gap-2.5">
-								<span className="size-8 rounded-full bg-gradient-to-br from-warning-tint via-eva-bright to-purple" />
-								<span className="text-[15px] font-bold text-ink">EVA</span>
-								<span className="ml-1 inline-flex items-center gap-1.5 text-[13px] font-semibold text-success">
-									<span className="size-1.5 rounded-full bg-[#2ea36a]" />
-									online
-								</span>
-							</div>
-
-							<p className="mt-4 ml-auto max-w-[84%] rounded-[16px_16px_6px_16px] bg-gradient-to-br from-warning-tint via-eva-tint to-eva-tint px-3.5 py-2.5 text-[14px] leading-snug text-ink">
-								Meu bebê tem 4 meses, ainda posso doar?
-							</p>
-
-							<p className="mt-3 mr-auto max-w-[88%] rounded-[16px_16px_16px_6px] bg-surface-3 px-3.5 py-2.5 text-[14px] leading-snug text-ink">
-								Pode sim! Enquanto você amamenta e tem leite de sobra, sua
-								doação é muito bem-vinda.
-							</p>
-
-							<div className="mt-3 inline-flex items-center gap-1.5 rounded-[16px_16px_16px_6px] bg-surface-3 px-4 py-3">
-								<span className="size-1.5 rounded-full bg-ink-3" />
-								<span className="size-1.5 rounded-full bg-ink-3" />
-								<span className="size-1.5 rounded-full bg-ink-3" />
-							</div>
+						<motion.div variants={fadeUp}>
+							<EvaPreview />
 						</motion.div>
 					</div>
 				</div>
+			</motion.div>
 
-				<motion.div
-					variants={item}
-					className="mt-7 flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center"
-				>
-					<span className="text-[15px] font-bold text-ink">
-						Comece por aqui:
-					</span>
-					<div className="flex flex-wrap gap-2.5">
-						{EVA_SUGGESTIONS.map((suggestion) => (
+			<motion.div
+				{...reveal}
+				className="mt-10 flex flex-col gap-3 lg:mt-16 lg:flex-row lg:flex-wrap lg:items-center"
+			>
+				<span className="text-[15px] font-bold text-ink">Comece por aqui:</span>
+				{/* `eva-scope` para as pilulas usarem o estilo real do widget. */}
+				<div className="eva-scope flex flex-wrap gap-2.5">
+					{EVA_SUGGESTIONS.map((suggestion, indice) => {
+						const Icone = ICONES_SUGESTAO[indice] ?? Sparkles;
+
+						return (
 							<button
 								key={suggestion}
 								type="button"
+								className="eva-pill"
 								onClick={() => openEva(suggestion)}
-								className="min-h-[44px] cursor-pointer rounded-full bg-danger-tint px-[18px] text-[14px] font-semibold text-eva transition-[filter] hover:brightness-[0.97] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-eva"
 							>
+								<Icone size={18} strokeWidth={1.6} aria-hidden="true" />
 								{suggestion}
 							</button>
-						))}
-					</div>
-				</motion.div>
+						);
+					})}
+				</div>
 			</motion.div>
-		</section>
+		</LandingSection>
 	);
 }

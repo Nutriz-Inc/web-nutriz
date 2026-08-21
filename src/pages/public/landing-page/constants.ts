@@ -41,7 +41,10 @@ export type Step = {
 	number: string;
 	title: string;
 	description: string;
-	color: string;
+	/** Fundo da bolha do numero. */
+	badge: string;
+	/** Cor do icone da etapa. */
+	accent: string;
 };
 
 export const STEPS: Step[] = [
@@ -50,21 +53,24 @@ export const STEPS: Step[] = [
 		title: "Cadastre-se e faça triagem",
 		description:
 			"Clique em Quero doar e nossa equipe entrará em contato via WhatsApp para a triagem inicial.",
-		color: "#00458b",
+		badge: "bg-blue",
+		accent: "text-blue",
 	},
 	{
 		number: "2",
 		title: "Realize os exames",
 		description:
 			"Exames simples de saúde para garantir a segurança do leite para os bebês receptores.",
-		color: "#0e9e94",
+		badge: "bg-teal",
+		accent: "text-teal",
 	},
 	{
 		number: "3",
 		title: "Doe e acompanhe",
 		description:
 			"Coletamos o leite e você acompanha cada etapa pela plataforma em tempo real.",
-		color: "#f2579f",
+		badge: "bg-eva",
+		accent: "text-eva",
 	},
 ];
 
@@ -110,13 +116,6 @@ export const METRICS: Metric[] = [
 	},
 ];
 
-// Fundo do bloco da EVA na landing: gradiente pastel da marca (pessego ->
-// rosa -> lilas), como na referencia. O contraste vem do TEXTO ESCURO sobre o
-// pastel (ver EvaSection) - no ponto mais claro do gradiente (#fbdcc4) o texto
-// #1c1b1f fica em ~13:1, bem acima do minimo WCAG AA (4.5:1).
-export const EVA_LANDING_BG =
-	"linear-gradient(120deg, #fbdcc4 0%, #f6bdd2 48%, #ccb4e8 100%)";
-
 export type FooterLink = {
 	label: string;
 	targetId?: string;
@@ -148,4 +147,10 @@ export const FOOTER_SOCIALS = [
 	{ label: "YouTube", Icon: YoutubeIcon },
 ];
 
-export const CTA_AVATARS = ["#f2579f", "#2fd9c5", "#387ccd", "#72f2eb"];
+/** Bolinhas decorativas do CTA final, em tokens da paleta. */
+export const CTA_AVATARS = [
+	"bg-eva",
+	"bg-mint",
+	"bg-blue-bright",
+	"bg-mint-bright",
+];

@@ -2,13 +2,11 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { useReveal } from "../hooks/use-reveal";
 import { TESTIMONIALS } from "../mock";
-import { SectionLabel } from "./SectionLabel";
+import { LandingSection } from "./LandingSection";
 import { TestimonialCard } from "./TestimonialCard";
 
 export function TestimonialsSection() {
-	const headerReveal = useReveal();
 	const shouldReduceMotion = useReducedMotion();
 	const [index, setIndex] = useState(0);
 
@@ -16,22 +14,19 @@ export function TestimonialsSection() {
 	const go = (next: number) => setIndex((next + total) % total);
 
 	const arrowClass =
-		"inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-blue-tint bg-white text-blue-bright shadow-soft transition-colors hover:bg-canvas focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-bright";
+		"inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-line bg-surface text-blue-bright shadow-soft outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50";
 
 	return (
-		<section id="depoimentos" className="scroll-mt-20 bg-white py-20 lg:py-24">
-			<div className="mx-auto w-full max-w-[760px] px-5 lg:px-8">
-				<motion.div
-					{...headerReveal}
-					className="flex flex-col items-center gap-3 text-center"
-				>
-					<SectionLabel color="#387ccd">DEPOIMENTOS</SectionLabel>
-					<h2 className="text-[30px] font-extrabold tracking-tight text-ink lg:text-[38px]">
-						Quem já doou conta
-					</h2>
-				</motion.div>
-
-				<div className="mt-12 flex items-center gap-3 sm:gap-4">
+		<LandingSection
+			id="depoimentos"
+			label="Depoimentos"
+			title="Quem já doou conta"
+			tone="blue"
+			align="center"
+			surfaceClassName="bg-surface"
+		>
+			<div className="mx-auto w-full max-w-[760px]">
+				<div className="flex items-center gap-3 sm:gap-4">
 					<button
 						type="button"
 						onClick={() => go(index - 1)}
@@ -86,6 +81,6 @@ export function TestimonialsSection() {
 					))}
 				</div>
 			</div>
-		</section>
+		</LandingSection>
 	);
 }

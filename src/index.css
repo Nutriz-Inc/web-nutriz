@@ -154,13 +154,6 @@
 	--eva: oklch(0.626 0.15 9.4);
 	--eva-bright: oklch(0.763 0.118 4.8);
 	--eva-tint: oklch(0.966 0.015 356.6);
-	/* Rosa pastel da EVA: e ELE que da a cara do widget (bolinha, bolhas,
-	 * chips). Claro o bastante para conviver com o azul da marca sem brigar. */
-	--eva-soft: oklch(0.905 0.055 2);
-	/* Rosa escuro, so para TEXTO e ICONE sobre o pastel. Existe porque o --eva
-	 * sozinho da 3,84:1 sobre branco — reprova AA. Este da 6,6:1 sobre branco
-	 * e 4,85:1 sobre o --eva-soft. */
-	--eva-deep: oklch(0.5 0.17 7);
 
 	/* Acento da landing: verde-agua claro sobre o azul profundo. Era o unico
 	 * hex que sobrava solto no app (#2fd9c5 / #72f2eb, repetido em 8 lugares
@@ -232,8 +225,6 @@
 	--color-eva: var(--eva);
 	--color-eva-bright: var(--eva-bright);
 	--color-eva-tint: var(--eva-tint);
-	--color-eva-deep: var(--eva-deep);
-	--color-eva-soft: var(--eva-soft);
 	--color-mint: var(--mint);
 	--color-mint-bright: var(--mint-bright);
 	--color-surface: var(--surface);

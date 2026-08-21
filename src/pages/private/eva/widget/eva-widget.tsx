@@ -3,7 +3,6 @@ import { Dialog } from "radix-ui";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
 import { AvatarEva } from "../components/avatar-eva";
-import { EvaIcon } from "../components/eva-icon";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
 import {
@@ -155,11 +154,8 @@ export function EvaWidget() {
 	// EVA fechada: com ela aberta, quem esta por cima e o proprio modal.
 	const fabObstruido = !open && menuOpen;
 
-	// Abrir/fechar: a janela nasce no canto do FAB e cresce em diagonal ate o
-	// lugar, com uma mola macia — nada de salto. Ao fechar ela recolhe na
-	// direcao de onde veio, mais rapido do que abriu, que e como um painel
-	// dispensado se comporta. Publico e nutriz no pos-parto, muitas vezes de
-	// madrugada: acolhedor, nao saltitante.
+	// Animacao de abrir/fechar tipo "balao inflando": escala com mola na
+	// entrada, deflada rapida na saida, com origem no canto do FAB.
 	const modalMotion = reduce
 		? {
 				initial: { opacity: 0 },
@@ -168,43 +164,16 @@ export function EvaWidget() {
 				transition: { duration: 0.15 },
 			}
 		: {
-				// A janela nasce no canto da bolinha e se desdobra ate o lugar:
-				// escala menor no eixo Y do que no X, para dar a sensacao de
-				// abrir e nao de crescer igual em tudo. A mola e macia (damping
-				// alto) — publico e nutriz no pos-parto, muitas vezes de
-				// madrugada: acolhedor, nao saltitante.
-				initial: {
-					opacity: 0,
-					scaleX: 0.7,
-					scaleY: 0.45,
-					y: 40,
-					x: 24,
-					filter: "blur(6px)",
-				},
+				initial: { opacity: 0, scale: 0.8 },
 				animate: {
 					opacity: 1,
-					scaleX: 1,
-					scaleY: 1,
-					y: 0,
-					x: 0,
-					filter: "blur(0px)",
-					transition: {
-						type: "spring" as const,
-						stiffness: 240,
-						damping: 26,
-						mass: 0.85,
-						filter: { duration: 0.24 },
-					},
+					scale: 1,
+					transition: { type: "spring" as const, stiffness: 260, damping: 18 },
 				},
 				exit: {
 					opacity: 0,
-					scaleX: 0.82,
-					scaleY: 0.6,
-					y: 28,
-					x: 16,
-					filter: "blur(4px)",
-					// Fechar e mais rapido que abrir: painel dispensado sai da frente.
-					transition: { duration: 0.22, ease: [0.4, 0, 1, 1] as const },
+					scale: 0.85,
+					transition: { duration: 0.18, ease: "easeIn" as const },
 				},
 			};
 
@@ -215,10 +184,7 @@ export function EvaWidget() {
 					type="button"
 					className={fabObstruido ? "eva-fab eva-fab--oculto" : "eva-fab"}
 					aria-label="Abrir chat com a EVA"
-				>
-					{/* O FAB era um circulo vazio: nao havia icone nenhum dentro. */}
-					<EvaIcon size={28} />
-				</button>
+				/>
 			</Dialog.Trigger>
 
 			<AnimatePresence>
@@ -236,9 +202,7 @@ export function EvaWidget() {
 						<Dialog.Content asChild forceMount aria-describedby={undefined}>
 							<motion.div
 								className="eva-widget-modal"
-								style={{
-									transformOrigin: "calc(100% - 30px) calc(100% - 30px)",
-								}}
+								style={{ transformOrigin: "bottom right" }}
 								{...modalMotion}
 							>
 								{view === "welcome" ? (

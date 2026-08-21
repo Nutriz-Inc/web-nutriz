@@ -1,276 +1,203 @@
-/* ---------------------------------------------------------------------------
- * EVA — camada de componentes
- *
- * Direcao: moderna e sobria. A base e o azul da marca (o mesmo do app), com o
- * rosa entrando so como brilho de acento — no halo do avatar, no ponto de
- * "online" e no foco. Nada de banho de rosa.
- *
- * Todas as cores saem dos tokens de src/index.css. A familia e a do app
- * (Geist); a EVA nao tem mais fonte propria.
- * ------------------------------------------------------------------------- */
+@import "@fontsource-variable/plus-jakarta-sans";
 
 .eva-scope {
-	--eva-ink: var(--ink);
-	--eva-ink-soft: var(--ink-2);
-
-	/* Bolhas: a da nutriz e a cor primaria do app; a da EVA e superficie. */
-	--eva-bubble-user: var(--blue-deep);
-	--eva-bubble-eva: var(--surface);
-
-	/* Halo do avatar: azul virando rosa. E o unico lugar onde o rosa aparece
-	 * em area, e ainda assim como luz. */
-	--eva-aurora: conic-gradient(
-		from 210deg,
-		var(--blue-bright) 0deg,
-		var(--eva) 140deg,
-		var(--blue) 280deg,
-		var(--blue-bright) 360deg
+	/* Tokens do visual da EVA — fonte unica de gradientes, cores e raios. */
+	--eva-grad-brand: linear-gradient(
+		135deg,
+		#f7cca0 0%,
+		#f0a0be 48%,
+		#b79ce0 100%
 	);
+	/* Gradiente do titulo: tom vivo/claro da referencia (laranja -> rosa ->
+	   lilas). Mais claro que a marca escura anterior; contraste sobre branco
+	   fica ~2.8:1 (abaixo de AA) - escolha estetica alinhada ao mock. */
+	--eva-grad-title: linear-gradient(
+		100deg,
+		#ee7d33 0%,
+		#dc3f7e 46%,
+		#9b46c2 100%
+	);
+	--eva-bubble-user: linear-gradient(
+		115deg,
+		#fce0c6 0%,
+		#f6c4d4 55%,
+		#f2bccf 100%
+	);
+	--eva-bubble-eva: #f1f0f4;
+	--eva-chip-bg: #fce7ef;
+	--eva-chip-text: #b8386a;
+	--eva-ink: #1c1b1f;
+	--eva-ink-soft: #52505a;
+	--eva-send-bg: #111111;
+	--eva-online: #227a52;
+	--eva-radius-card: 22px;
 
-	font-family: inherit;
+	font-family:
+		"Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Segoe UI", sans-serif;
 	color: var(--eva-ink);
 }
 
 .eva-scope :focus-visible {
-	outline: none;
-	box-shadow: 0 0 0 3px color-mix(in oklch, var(--blue-bright) 45%, transparent);
+	outline: 3px solid rgba(217, 107, 143, 0.6);
+	outline-offset: 2px;
 }
 
-/* --- Avatar: orbe com halo ------------------------------------------------ */
-
-.eva-avatar {
-	position: relative;
-	display: grid;
-	place-items: center;
-	color: #ffffff;
-	background: linear-gradient(150deg, var(--blue) 0%, var(--blue-deep) 100%);
-	box-shadow: 0 2px 10px -2px
-		color-mix(in oklch, var(--blue-deep) 45%, transparent);
+.eva-scope .eva-btn-primary:focus-visible,
+.eva-scope .eva-send-btn:focus-visible {
+	outline: 3px solid rgba(217, 107, 143, 0.7);
+	outline-offset: 3px;
 }
 
-/* Anel de luz girando devagar — da o ar de assistente sem virar enfeite. */
-.eva-avatar::before {
-	content: "";
-	position: absolute;
-	inset: -2px;
-	border-radius: 50%;
-	background: var(--eva-aurora);
-	z-index: -1;
-	opacity: 0.9;
-	animation: eva-orbe 9s linear infinite;
+.eva-scope .eva-link:focus-visible {
+	border-radius: 6px;
 }
 
-@keyframes eva-orbe {
-	to {
-		transform: rotate(1turn);
-	}
-}
-
-/* Pulso extra enquanto a EVA digita. */
-.eva-avatar--pulse::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	border-radius: 50%;
-	border: 2px solid color-mix(in oklch, var(--eva) 70%, transparent);
-	animation: eva-pulso 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-@keyframes eva-pulso {
-	0% {
-		transform: scale(1);
-		opacity: 0.6;
-	}
-	70%,
-	100% {
-		transform: scale(1.7);
-		opacity: 0;
-	}
-}
-
-/* --- Botoes --------------------------------------------------------------- */
-
-.eva-btn-primary {
-	position: relative;
-	overflow: hidden;
-	border: none;
-	background: linear-gradient(135deg, var(--blue) 0%, var(--blue-deep) 100%);
-	color: #ffffff;
-	min-height: 48px;
-	width: 100%;
-	padding: 0 20px;
-	border-radius: 999px;
-	font-family: inherit;
-	font-size: 15px;
-	font-weight: 600;
-	cursor: pointer;
-	box-shadow: 0 6px 18px -8px
-		color-mix(in oklch, var(--blue-deep) 70%, transparent);
-	transition:
-		transform 0.2s ease,
-		box-shadow 0.2s ease;
-}
-
-/* Brilho que atravessa o botao no hover. */
-.eva-btn-primary::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(
-		100deg,
-		transparent 35%,
-		color-mix(in oklch, var(--eva) 55%, transparent) 50%,
-		transparent 65%
-	);
-	transform: translateX(-120%);
-	transition: transform 0.6s ease;
-}
-
-.eva-btn-primary:hover {
-	transform: translateY(-1px);
-	box-shadow: 0 10px 24px -10px
-		color-mix(in oklch, var(--blue-deep) 80%, transparent);
-}
-
-.eva-btn-primary:hover::after {
-	transform: translateX(120%);
-}
-
-.eva-btn-primary:active {
-	transform: scale(0.985);
-}
-
-.eva-link {
-	color: var(--blue);
-	font-weight: 600;
-	text-decoration: underline;
-	text-underline-offset: 2px;
-}
-
-.eva-outline-btn {
-	display: inline-flex;
+.eva-chip {
+	min-height: 44px;
+	padding: 8px 12px;
+	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 40px;
-	padding: 0 16px;
-	border: 1px solid var(--line-strong);
-	background: var(--surface);
+	text-align: center;
+	border: none;
+	background: var(--eva-chip-bg);
 	border-radius: 999px;
 	font-family: inherit;
 	font-size: 13px;
 	font-weight: 600;
-	color: var(--blue-deep);
+	line-height: 1.25;
+	color: var(--eva-chip-text);
 	cursor: pointer;
-	text-decoration: none;
-	transition:
-		background-color 0.2s ease,
-		border-color 0.2s ease,
-		transform 0.2s ease;
+	transition: filter 0.15s ease;
 }
 
-.eva-outline-btn:hover {
-	background: var(--blue-tint);
-	border-color: var(--blue-bright);
-	transform: translateY(-1px);
+.eva-chip:hover {
+	filter: brightness(0.97);
 }
 
-.eva-outline-btn:active {
-	transform: scale(0.97);
+.eva-btn-primary {
+	border: none;
+	background: var(--eva-send-bg);
+	color: #ffffff;
+	border-radius: 999px;
+	font-family: inherit;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.eva-btn-primary:hover {
+	background: #2e2c31;
+}
+
+.eva-link {
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--eva-ink);
+	text-decoration: underline;
+	text-underline-offset: 3px;
 }
 
 .eva-send-btn {
-	display: grid;
-	place-items: center;
+	flex-shrink: 0;
 	border: none;
+	background: var(--eva-send-bg);
 	border-radius: 50%;
-	background: linear-gradient(135deg, var(--blue) 0%, var(--blue-deep) 100%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	cursor: pointer;
-	box-shadow: 0 4px 14px -6px
-		color-mix(in oklch, var(--blue-deep) 75%, transparent);
-	transition:
-		transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1),
-		box-shadow 0.2s ease;
 }
 
-.eva-send-btn:hover:not(:disabled) {
-	transform: scale(1.07);
-}
-
-.eva-send-btn:active:not(:disabled) {
-	transform: scale(0.9);
+.eva-send-btn:hover {
+	background: #2e2c31;
 }
 
 .eva-send-btn:disabled {
-	background: var(--surface-3);
-	box-shadow: none;
-	cursor: not-allowed;
+	opacity: 0.4;
+	cursor: default;
 }
 
-.eva-send-btn:disabled svg path {
-	stroke: var(--ink-3);
+.eva-send-btn:disabled:hover {
+	background: var(--eva-send-bg);
 }
-
-/* --- Campo de texto ------------------------------------------------------- */
 
 .eva-input {
 	flex: 1;
 	min-width: 0;
-	height: 48px;
-	padding: 0 18px;
-	border: 1px solid var(--line-strong);
+	height: 50px;
+	border: 1px solid #ece8ef;
+	background: #f6f4f8;
 	border-radius: 999px;
-	background: var(--surface-2);
+	padding: 0 20px;
 	font-family: inherit;
-	/* 16px: abaixo disso o Safari do iPhone da zoom ao focar. */
-	font-size: 16px;
+	font-size: 15px;
 	color: var(--eva-ink);
-	transition:
-		border-color 0.2s ease,
-		background-color 0.2s ease,
-		box-shadow 0.2s ease;
-}
-
-.eva-input:focus {
-	outline: none;
-	border-color: var(--blue-bright);
-	background: var(--surface);
-	box-shadow: 0 0 0 3px color-mix(in oklch, var(--blue-bright) 22%, transparent);
 }
 
 .eva-input::placeholder {
-	color: var(--ink-3);
+	color: #6b6b76;
 }
 
-.eva-input:disabled {
-	background: var(--surface-3);
-	color: var(--ink-3);
-	cursor: not-allowed;
+.eva-outline-btn {
+	min-height: 44px;
+	padding: 0 20px;
+	border: 1px solid #e5dee8;
+	background: #ffffff;
+	border-radius: 999px;
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--eva-ink);
+	cursor: pointer;
 }
 
-/* --- Indicador de digitacao ----------------------------------------------- */
+.eva-outline-btn:hover {
+	border-color: #d96b8f;
+}
+
+.eva-date-pill {
+	align-self: center;
+	font-size: 13px;
+	font-weight: 600;
+	color: #52505a;
+	background: #f1edf3;
+	border-radius: 999px;
+	padding: 4px 12px;
+}
+
+.eva-avatar {
+	background: var(--eva-grad-brand);
+}
 
 .eva-typing-dot {
-	width: 6px;
-	height: 6px;
+	width: 7px;
+	height: 7px;
 	border-radius: 50%;
-	background: var(--blue-bright);
-	animation: eva-digitando 1.3s ease-in-out infinite;
+	background: #8e8a96;
+	animation: evaDot 1.2s ease-in-out infinite;
 }
 
 .eva-typing-dot:nth-child(2) {
-	animation-delay: 0.18s;
+	animation-delay: 0.15s;
 }
 
 .eva-typing-dot:nth-child(3) {
-	animation-delay: 0.36s;
+	animation-delay: 0.3s;
 }
 
-@keyframes eva-digitando {
+.eva-avatar--pulse {
+	animation: evaPulse 2s ease-in-out infinite;
+}
+
+@keyframes evaDot {
 	0%,
 	60%,
 	100% {
 		transform: translateY(0);
-		opacity: 0.4;
+		opacity: 0.35;
 	}
 	30% {
 		transform: translateY(-4px);
@@ -278,72 +205,19 @@
 	}
 }
 
-/* --- Pilula de data ------------------------------------------------------- */
-
-.eva-date-pill {
-	align-self: center;
-	padding: 4px 12px;
-	border-radius: 999px;
-	background: var(--surface-3);
-	font-size: 12px;
-	font-weight: 600;
-	color: var(--ink-2);
+@keyframes evaPulse {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 rgba(206, 147, 216, 0.45);
+	}
+	50% {
+		box-shadow: 0 0 0 7px rgba(206, 147, 216, 0);
+	}
 }
 
-/* Chip legado da grade antiga — mantido por compatibilidade de estilo. */
-.eva-chip {
-	min-height: 44px;
-	padding: 8px 14px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	border: 1px solid var(--line-strong);
-	background: var(--surface);
-	border-radius: 999px;
-	font-family: inherit;
-	font-size: 13px;
-	font-weight: 600;
-	color: var(--blue-deep);
-	cursor: pointer;
-	transition: background-color 0.2s ease;
-}
-
-.eva-chip:hover {
-	background: var(--blue-tint);
-}
-
-/* ---------------------------------------------------------------------------
- * prefers-reduced-motion: desliga TODO movimento. Acessibilidade, nao
- * desempenho — o halo para de girar, os pontinhos param, nada de escala.
- * ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-	.eva-scope *,
-	.eva-scope *::before,
-	.eva-scope *::after {
-		animation-duration: 0.001ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.001ms !important;
-	}
-
-	.eva-avatar::before {
+	.eva-scope .eva-avatar,
+	.eva-scope .eva-typing-dot {
 		animation: none;
-	}
-
-	.eva-avatar--pulse::after {
-		display: none;
-	}
-
-	.eva-btn-primary:hover,
-	.eva-btn-primary:active,
-	.eva-outline-btn:hover,
-	.eva-outline-btn:active,
-	.eva-send-btn:hover:not(:disabled),
-	.eva-send-btn:active:not(:disabled) {
-		transform: none;
-	}
-
-	.eva-btn-primary::after {
-		display: none;
 	}
 }

@@ -119,7 +119,7 @@ export function DonationsManagementPage() {
 					</div>
 				</form>
 
-				<div className="flex items-center gap-2.5 overflow-x-auto pb-1">
+				<div className="sem-barra flex items-center gap-2.5 overflow-x-auto">
 					<FilterChips
 						options={ACTIVE_FILTER_OPTIONS}
 						value={activeFilter}

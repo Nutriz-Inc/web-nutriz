@@ -1,0 +1,47 @@
+import type { LucideIcon } from "lucide-react";
+
+type StepHeaderProps = {
+	icon: LucideIcon;
+	title: string;
+	description: string;
+	/** Posicao da etapa, ex.: 2 de 4. */
+	order: number;
+	total: number;
+};
+
+/**
+ * Cabecalho da etapa atual, no topo do cartao do formulario: icone, titulo,
+ * uma linha explicando para que servem aqueles campos e a posicao na trilha.
+ * Existe porque o formulario sozinho ficava seco demais — sem contexto entre
+ * um passo e o outro.
+ */
+export function StepHeader({
+	icon: Icon,
+	title,
+	description,
+	order,
+	total,
+}: StepHeaderProps) {
+	return (
+		<div className="flex items-start gap-4 border-b border-line bg-blue-tint/40 px-5 py-4 sm:px-7 sm:py-5">
+			<span
+				aria-hidden="true"
+				className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-deep text-white shadow-soft"
+			>
+				<Icon className="size-5" />
+			</span>
+
+			<div className="min-w-0 flex-1">
+				<p className="font-display text-[10px] font-bold uppercase tracking-[0.12em] text-blue-bright">
+					Etapa {order} de {total}
+				</p>
+				<h3 className="mt-0.5 font-display text-[17px] font-extrabold tracking-tight text-ink">
+					{title}
+				</h3>
+				<p className="mt-0.5 text-[13px] leading-[18px] text-ink-2">
+					{description}
+				</p>
+			</div>
+		</div>
+	);
+}

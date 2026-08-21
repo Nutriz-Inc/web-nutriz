@@ -1,4 +1,4 @@
-import { ArrowLeft, Eye, EyeOff, LoaderCircle } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, LoaderCircle, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -72,19 +72,15 @@ export function LoginScreen() {
 					 * da peso visual a coluna da direita e cria o par com o painel azul.
 					 */}
 					<div className="rounded-card border border-line bg-surface p-6 shadow-lift sm:p-8">
-						<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-blue-bright">
-							Acesso
-						</p>
-
-						<h2 className="mt-2 font-display text-[24px] font-extrabold tracking-tight text-ink lg:text-[26px]">
+						<h2 className="text-center font-display text-[24px] font-extrabold tracking-tight text-ink lg:text-[26px]">
 							Bem-vinda(o) de volta
 						</h2>
-						<p className="mt-1.5 text-[14px] text-ink-2">
+						<p className="mt-1.5 text-center text-[14px] text-ink-2">
 							Use o e-mail e a senha do seu cadastro.
 						</p>
 
 						<form
-							className="mt-7 flex flex-col gap-4"
+							className="mt-6 flex flex-col gap-4"
 							onSubmit={handleSubmit}
 							noValidate
 						>
@@ -98,7 +94,7 @@ export function LoginScreen() {
 								onChange={setEmail}
 								placeholder="Digite seu e-mail"
 								error={errors.email}
-								inputClassName="h-12 rounded-xl bg-surface-2 px-4 text-[15px]"
+								leading={<Mail />}
 							/>
 
 							<FormField
@@ -110,7 +106,7 @@ export function LoginScreen() {
 								onChange={setPassword}
 								placeholder="Digite sua senha"
 								error={errors.password}
-								inputClassName="h-12 rounded-xl bg-surface-2 px-4 text-[15px]"
+								leading={<Lock />}
 								trailing={
 									<button
 										type="button"

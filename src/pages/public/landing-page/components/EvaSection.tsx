@@ -1,6 +1,23 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import {
+	CalendarCheck,
+	Droplet,
+	type LucideIcon,
+	Snowflake,
+	Sparkles,
+} from "lucide-react";
 import { EVA_SUGGESTIONS } from "@/pages/private/eva/constants";
+
+/** Mesmos icones da abertura do widget, na mesma ordem. */
+const ICONES_SUGESTAO: LucideIcon[] = [
+	Droplet,
+	Sparkles,
+	Snowflake,
+	CalendarCheck,
+];
+
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
+import { EvaPreview } from "./EvaPreview";
 import { LandingSection } from "./LandingSection";
 import { SlideButton } from "./SlideButton";
 
@@ -95,34 +112,8 @@ export function EvaSection() {
 							</motion.div>
 						</div>
 
-						<motion.div
-							variants={item}
-							aria-hidden
-							className="rounded-card w-full max-w-[380px] flex-none border border-line bg-surface p-5 shadow-lift lg:w-[380px]"
-						>
-							<div className="flex items-center gap-2.5">
-								<span className="size-8 rounded-full bg-gradient-to-br from-warning-tint via-eva-bright to-purple" />
-								<span className="text-[15px] font-bold text-ink">EVA</span>
-								<span className="ml-1 inline-flex items-center gap-1.5 text-[13px] font-semibold text-success">
-									<span className="size-1.5 rounded-full bg-success" />
-									online
-								</span>
-							</div>
-
-							<p className="mt-4 ml-auto max-w-[84%] rounded-[16px_16px_6px_16px] bg-gradient-to-br from-warning-tint via-eva-tint to-eva-tint px-3.5 py-2.5 text-[14px] leading-snug text-ink">
-								Meu bebê tem 4 meses, ainda posso doar?
-							</p>
-
-							<p className="mt-3 mr-auto max-w-[88%] rounded-[16px_16px_16px_6px] bg-surface-3 px-3.5 py-2.5 text-[14px] leading-snug text-ink">
-								Pode sim! Enquanto você amamenta e tem leite de sobra, sua
-								doação é muito bem-vinda.
-							</p>
-
-							<div className="mt-3 inline-flex items-center gap-1.5 rounded-[16px_16px_16px_6px] bg-surface-3 px-4 py-3">
-								<span className="size-1.5 rounded-full bg-ink-3" />
-								<span className="size-1.5 rounded-full bg-ink-3" />
-								<span className="size-1.5 rounded-full bg-ink-3" />
-							</div>
+						<motion.div variants={item}>
+							<EvaPreview />
 						</motion.div>
 					</div>
 				</div>
@@ -133,17 +124,23 @@ export function EvaSection() {
 				className="mt-7 flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center"
 			>
 				<span className="text-[15px] font-bold text-ink">Comece por aqui:</span>
-				<div className="flex flex-wrap gap-2.5">
-					{EVA_SUGGESTIONS.map((suggestion) => (
-						<button
-							key={suggestion}
-							type="button"
-							onClick={() => openEva(suggestion)}
-							className="min-h-[44px] cursor-pointer rounded-full border border-line bg-eva-tint px-[18px] text-[14px] font-semibold text-eva outline-none transition-colors hover:bg-eva-tint/70 focus-visible:ring-3 focus-visible:ring-eva/40"
-						>
-							{suggestion}
-						</button>
-					))}
+				{/* `eva-scope` para as pilulas usarem o estilo real do widget. */}
+				<div className="eva-scope flex flex-wrap gap-2.5">
+					{EVA_SUGGESTIONS.map((suggestion, indice) => {
+						const Icone = ICONES_SUGESTAO[indice] ?? Sparkles;
+
+						return (
+							<button
+								key={suggestion}
+								type="button"
+								className="eva-pill"
+								onClick={() => openEva(suggestion)}
+							>
+								<Icone size={18} strokeWidth={1.6} aria-hidden="true" />
+								{suggestion}
+							</button>
+						);
+					})}
 				</div>
 			</motion.div>
 		</LandingSection>

@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import conteudoTopo from "@/assets/illustrations/conteudo-topo.svg";
 import { Badge } from "@/components/ui/badge";
 import { fadeUp, staggerContainer } from "../animations/variants";
 import { useReveal } from "../hooks/use-reveal";
@@ -31,15 +30,7 @@ export function ArticlesSection() {
 				className="pointer-events-none absolute -bottom-24 right-[6%] -z-10 h-72 w-[55%] rounded-full bg-blue-bright/18 blur-[130px]"
 			/>
 
-			<div className="mb-8 flex flex-col items-center gap-4">
-				<img
-					src={conteudoTopo}
-					alt=""
-					aria-hidden="true"
-					width={280}
-					height={180}
-					className="hidden h-24 w-auto select-none opacity-95 sm:block"
-				/>
+			<div className="mb-8 flex justify-center">
 				<span className="inline-flex items-center gap-1.5 rounded-full bg-success-tint px-3.5 py-1.5 text-[12px] font-semibold text-teal">
 					<BadgeCheck className="size-4" />
 					Conteúdo validado por rBLH e Fiocruz

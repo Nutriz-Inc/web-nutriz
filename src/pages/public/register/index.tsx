@@ -1,16 +1,13 @@
 import { Check, ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import cenarioCadastroDireita from "@/assets/illustrations/cenario-cadastro-direita.svg";
-import cenarioLogin from "@/assets/illustrations/cenario-login.svg";
-import { AppHeader } from "@/components/layout/AppHeader";
-import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { AddressStep } from "./components/AddressStep";
 import { BabyConsentStep } from "./components/BabyConsentStep";
 import { PasswordStep } from "./components/PasswordStep";
 import { PersonalDataStep } from "./components/PersonalDataStep";
+import { RegisterBrandPanel } from "./components/RegisterBrandPanel";
 import { ReviewSummary } from "./components/ReviewSummary";
 import { Stepper } from "./components/Stepper";
 import { SuccessCard } from "./components/SuccessCard";
@@ -136,53 +133,38 @@ export function RegisterScreen() {
 	}
 
 	return (
-		<div className="relative isolate flex min-h-dvh flex-col overflow-hidden bg-canvas font-body">
-			<span
-				aria-hidden="true"
-				className="ink-blob -left-40 -top-48 h-[30rem] w-[30rem] bg-blue-tint-2/50 blur-3xl"
+		/*
+		 * Mesmo molde da tela de login: marca a esquerda, conteudo a direita,
+		 * pilha no mobile. No desktop o painel fica fixo (`lg:sticky`) enquanto
+		 * o formulario rola, para a trilha de etapas estar sempre a vista.
+		 */
+		<div className="flex min-h-dvh flex-col bg-canvas font-body lg:flex-row lg:items-start">
+			<RegisterBrandPanel
+				step={step}
+				maxVisited={maxStep}
+				success={success}
+				onStepClick={handleStepClick}
 			/>
-			<span
-				aria-hidden="true"
-				className="ink-blob -right-40 top-[30rem] h-[26rem] w-[26rem] bg-eva-tint/80 blur-3xl"
-			/>
 
-			<AppHeader showMenu={false} />
-
-			{/*
-			 * Faixa que ocupa a largura da tela e vai ate o rodape: e nela que os
-			 * cenarios se ancoram. Dentro dela o formulario segue na coluna
-			 * estreita de sempre.
-			 */}
-			<div className="relative flex-1">
-				<img
-					src={cenarioLogin}
-					alt=""
-					aria-hidden="true"
-					className="pointer-events-none absolute bottom-0 left-0 z-0 w-[62%] max-w-[720px] select-none opacity-50"
-				/>
-
-				<img
-					src={cenarioCadastroDireita}
-					alt=""
-					aria-hidden="true"
-					className="pointer-events-none absolute right-0 bottom-0 z-0 hidden w-[62%] max-w-[760px] select-none opacity-45 sm:block"
-				/>
-
-				<main className="relative mx-auto w-full max-w-[640px] px-4 pb-16 pt-4 sm:px-6 sm:pt-6">
-					<Page
-						backTo="/"
-						title={success ? undefined : "Criação de usuário"}
-						description={
-							success
-								? undefined
-								: "Preencha seus dados para começar a doar. Leva menos de 2 minutos."
-						}
-					>
+			<main className="w-full flex-1 px-4 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-7 sm:px-6 lg:px-10 lg:py-12">
+				<div className="mx-auto w-full max-w-[620px]">
+					<Page>
 						{success ? (
 							<SuccessCard />
 						) : (
 							<>
-								<div className="mt-6">
+								<div>
+									<h2 className="font-display text-[24px] font-extrabold tracking-tight text-ink lg:text-[28px]">
+										Criar sua conta
+									</h2>
+									<p className="mt-1.5 text-[14px] text-ink-2">
+										Preencha seus dados para começar a doar. Leva menos de 2
+										minutos.
+									</p>
+								</div>
+
+								{/* Progresso do mobile: no desktop quem mostra e o painel. */}
+								<div className="mt-6 lg:hidden">
 									<Stepper
 										steps={WIZARD_STEPS}
 										current={step}
@@ -194,9 +176,9 @@ export function RegisterScreen() {
 								<form
 									noValidate
 									onSubmit={handleContinue}
-									className="mt-6 overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
+									className="rounded-card mt-6 overflow-hidden border border-line bg-surface shadow-soft"
 								>
-									<div className="p-7">
+									<div className="p-5 sm:p-7">
 										{step === 0 && (
 											<PersonalDataStep
 												form={form}
@@ -236,14 +218,14 @@ export function RegisterScreen() {
 										{errors.general && (
 											<div
 												role="alert"
-												className="mt-5 flex flex-col items-center gap-3 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-center"
+												className="rounded-card-sm mt-5 flex flex-col items-center gap-3 border border-danger/20 bg-danger-tint px-4 py-3 text-center"
 											>
 												<p className="text-sm text-danger">{errors.general}</p>
 												{alreadyRegistered && (
 													<Button
 														type="button"
 														onClick={() => navigate("/login")}
-														className="h-11 rounded-md bg-blue-deep px-5 text-sm font-semibold text-white hover:bg-blue"
+														className="h-11 rounded-full bg-blue-deep px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue"
 													>
 														Fazer login
 													</Button>
@@ -252,12 +234,12 @@ export function RegisterScreen() {
 										)}
 									</div>
 
-									<div className="flex items-center justify-between border-t border-line bg-surface-2 px-7 py-5">
+									<div className="flex items-center justify-between gap-3 border-t border-line bg-surface-2 px-5 py-4 sm:px-7 sm:py-5">
 										{step === 0 ? (
 											<button
 												type="button"
 												onClick={() => navigate("/")}
-												className="min-h-11 rounded-md px-2 text-sm font-medium text-ink-2 transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep"
+												className="min-h-11 rounded-full px-4 text-[14px] font-semibold text-ink-2 transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep"
 											>
 												Cancelar
 											</button>
@@ -266,7 +248,7 @@ export function RegisterScreen() {
 												type="button"
 												onClick={() => goToStep(step - 1)}
 												disabled={isPending}
-												className="h-11 rounded-md border border-line bg-white px-4 text-sm font-medium text-ink hover:bg-surface-2"
+												className="h-11 rounded-full border border-line bg-surface px-5 text-[14px] font-semibold text-ink-2 hover:bg-blue-tint hover:text-blue-deep"
 											>
 												<ChevronLeft className="size-4" aria-hidden />
 												Voltar
@@ -276,7 +258,7 @@ export function RegisterScreen() {
 										<Button
 											type="submit"
 											disabled={isPending}
-											className="h-11 rounded-md bg-blue-deep px-5 text-sm font-semibold text-white hover:bg-blue disabled:opacity-60"
+											className="h-11 rounded-full bg-blue-deep px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue disabled:opacity-60"
 										>
 											{isPending ? (
 												<span className="flex items-center gap-2">
@@ -300,13 +282,8 @@ export function RegisterScreen() {
 							</>
 						)}
 					</Page>
-				</main>
-			</div>
-
-			{/* opaco para o cenario passar por tras, e nao por cima do rodape */}
-			<div className="relative z-10 bg-canvas">
-				<Footer />
-			</div>
+				</div>
+			</main>
 		</div>
 	);
 }

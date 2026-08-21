@@ -126,12 +126,19 @@
 	 * chegava vazia, o `background` nao valia e o texto — que e transparente
 	 * por causa do recorte — sumia.
 	 */
-	background: linear-gradient(100deg, var(--eva) 0%, var(--purple) 100%);
+	background: linear-gradient(
+		100deg,
+		var(--eva) 0%,
+		var(--purple) 50%,
+		var(--eva) 100%
+	);
+	background-size: 200% 100%;
 	-webkit-background-clip: text;
 	background-clip: text;
 	-webkit-text-fill-color: transparent;
 	/* Reserva, caso o recorte no texto nao seja suportado. */
 	color: var(--eva);
+	animation: eva-onda 6s linear infinite;
 }
 
 .eva-widget-header--welcome {
@@ -258,11 +265,34 @@
 	font-size: 19px;
 	font-weight: 700;
 	letter-spacing: -0.01em;
-	background: linear-gradient(100deg, var(--eva) 0%, var(--purple) 100%);
+	/*
+	 * Onda: as MESMAS duas cores (--eva e --purple), so que o degrade e o
+	 * dobro da largura do texto e desliza. Repetir `--eva` no fim faz a volta
+	 * emendar sem salto — com duas paradas apenas, o loop piscava.
+	 */
+	background: linear-gradient(
+		100deg,
+		var(--eva) 0%,
+		var(--purple) 50%,
+		var(--eva) 100%
+	);
+	background-size: 200% 100%;
 	-webkit-background-clip: text;
 	background-clip: text;
 	-webkit-text-fill-color: transparent;
 	color: var(--eva);
+	animation: eva-onda 6s linear infinite;
+}
+
+/*
+ * Anima `background-position`, e nao transform: nao da para deslizar um
+ * degrade recortado no texto so com transform sem duplicar o elemento. E um
+ * titulo pequeno, entao o custo e desprezivel.
+ */
+@keyframes eva-onda {
+	to {
+		background-position: 200% 50%;
+	}
 }
 
 .eva-welcome-sub {
@@ -497,6 +527,11 @@
  * prefers-reduced-motion: sem movimento nenhum.
  * ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
+	.eva-welcome-name,
+	.eva-widget-header-title {
+		animation: none;
+	}
+
 	.eva-fab,
 	.eva-action-btn,
 	.eva-action-btn-arrow,

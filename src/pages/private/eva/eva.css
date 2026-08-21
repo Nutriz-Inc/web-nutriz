@@ -123,8 +123,7 @@
 		transform 0.2s ease,
 		background-color 0.2s ease,
 		box-shadow 0.2s ease,
-		border-radius 0.2s ease,
-		border-color 0.2s ease;
+		border-radius 0.2s ease;
 }
 
 .eva-pill::before {
@@ -133,7 +132,8 @@
 	inset-block: 0;
 	left: 0;
 	width: 5px;
-	background: var(--eva);
+	/* Mesmo pastel do botao, nao o rosa forte. */
+	background: var(--eva-marca);
 	transform: scaleX(0);
 	transform-origin: left;
 	transition: transform 0.2s ease;
@@ -150,9 +150,9 @@
 	transform: translateX(6px);
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
-	/* Rosa clarinho da marca. */
-	background: var(--eva-tint);
-	border-color: color-mix(in oklch, var(--eva) 40%, transparent);
+	/* Quem sinaliza o hover e a barra lateral. O fundo so recebe 4% do rosa —
+	 * o suficiente para acusar o alvo sem pintar a pilula. */
+	background: color-mix(in oklch, var(--eva) 4%, var(--surface));
 	box-shadow: 0 10px 22px -12px color-mix(in oklch, var(--ink) 45%, transparent);
 }
 

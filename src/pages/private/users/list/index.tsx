@@ -1,4 +1,4 @@
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { type FormEvent, useState } from "react";
 import usuariosVazio from "@/assets/illustrations/usuarios-vazio.svg";
 import { EmptyState } from "@/components/full/EmptyState";
@@ -9,6 +9,7 @@ import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { formatCpf } from "@/utils/formatter";
 import { CreateUserSheet } from "./components/CreateUserSheet";
+import { NewUserButton } from "./components/NewUserButton";
 import { UserRow } from "./components/UserRow";
 import { UserSearchField } from "./components/UserSearchField";
 import { UsersTableHeader } from "./components/UsersTableHeader";
@@ -84,24 +85,28 @@ export function UsersManagementPage() {
 			loading={usersQuery.isLoading}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			actionSlot={
+				<NewUserButton
+					onClick={() => setIsCreateUserOpen(true)}
+					className="lg:hidden"
+				/>
+			}
 		>
-			<div className="lg:mx-auto lg:flex lg:w-full lg:max-w-[1400px] lg:flex-col lg:gap-6">
-				<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-					<div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0 sm:pb-0">
+			{/* `gap-4` sem prefixo: o `lg:gap-6` de antes so valia no desktop, e no
+			    celular os filtros encostavam na lista. */}
+			<div className="flex flex-col gap-4 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6">
+				<div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+					<div className="sem-barra -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:px-0">
 						<FilterChips
 							options={PROFILE_FILTER_OPTIONS}
 							value={profileFilter}
 							onChange={setProfileFilter}
 						/>
 					</div>
-					<button
-						type="button"
+					<NewUserButton
 						onClick={() => setIsCreateUserOpen(true)}
-						className="flex h-[43px] w-full shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] sm:w-auto"
-					>
-						<Plus className="size-4" />
-						Novo usuário
-					</button>
+						className="hidden lg:flex"
+					/>
 				</div>
 
 				{/*

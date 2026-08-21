@@ -342,6 +342,23 @@ body {
 	padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/*
+ * Rolagem lateral sem a barra aparecendo.
+ *
+ * Nas faixas de chips e no grafico do dashboard a barra ocupava uma tira do
+ * layout e ficava por cima do conteudo no celular. Some a barra, mas o gesto
+ * de arrastar e a rolagem por teclado continuam funcionando — nao e
+ * `overflow: hidden`.
+ */
+@utility sem-barra {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
 /* ---------------------------------------------------------------------------
  * Zoom ao focar um campo (iOS)
  *

@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { LiveBadge } from "@/components/full/LiveBadge";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import {
@@ -15,7 +16,7 @@ import { useDonation, useUpdateDonation } from "./hooks/use-donation";
 export function DonationInfoPage() {
 	const { id_donation = "" } = useParams();
 	const navigate = useNavigate();
-	const { donationQuery } = useDonation(id_donation);
+	const { donationQuery, etapasDestacadas } = useDonation(id_donation);
 	const updateDonationMutation = useUpdateDonation(id_donation);
 	const { auth } = useAuth();
 
@@ -49,6 +50,7 @@ export function DonationInfoPage() {
 			loading={donationQuery.isLoading}
 			backTo="/minhas-doacoes"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			actionSlot={!isConcluded && <LiveBadge />}
 		>
 			<div className="flex flex-col pt-4 gap-5">
 				{donationQuery.data?.quantity_donated != null && (
@@ -95,6 +97,9 @@ export function DonationInfoPage() {
 							icon={definition.icon}
 							visualStatus={visualStatus}
 							isLast={index === STEP_DEFINITIONS.length - 1}
+							justChanged={
+								step ? etapasDestacadas.has(step.id_donation_step) : false
+							}
 							onClick={
 								step
 									? () =>

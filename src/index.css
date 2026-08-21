@@ -342,6 +342,23 @@ body {
 	padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/*
+ * Rolagem lateral sem a barra aparecendo.
+ *
+ * Nas faixas de chips e no grafico do dashboard a barra ocupava uma tira do
+ * layout e ficava por cima do conteudo no celular. Some a barra, mas o gesto
+ * de arrastar e a rolagem por teclado continuam funcionando — nao e
+ * `overflow: hidden`.
+ */
+@utility sem-barra {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
 /* ---------------------------------------------------------------------------
  * Zoom ao focar um campo (iOS)
  *
@@ -377,6 +394,27 @@ body {
 		transform: scale(1.5);
 		opacity: 0;
 	}
+}
+
+/*
+ * Destaque de uma etapa que ACABOU de mudar de estado, enquanto a nutriz olha
+ * a tela. Diferente do `pulso-etapa`, que marca a etapa atual o tempo todo,
+ * este roda tres vezes e para: e um aviso, nao um estado.
+ */
+@keyframes brilho-etapa {
+	0% {
+		box-shadow: 0 0 0 0 color-mix(in oklch, var(--eva) 60%, transparent);
+	}
+	70% {
+		box-shadow: 0 0 0 14px color-mix(in oklch, var(--eva) 0%, transparent);
+	}
+	100% {
+		box-shadow: 0 0 0 0 color-mix(in oklch, var(--eva) 0%, transparent);
+	}
+}
+
+@utility brilho-etapa {
+	animation: brilho-etapa 1.8s cubic-bezier(0, 0, 0.2, 1) 3;
 }
 
 @utility pulso-etapa {

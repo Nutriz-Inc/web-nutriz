@@ -29,7 +29,8 @@
 	--eva-grad-brand: var(--eva-marca);
 
 	--eva-bubble-user: var(--eva-tint);
-	--eva-bubble-eva: var(--surface-2);
+	/* Um degrau mais escuro que a superficie: a bolha se destacava de menos. */
+	--eva-bubble-eva: var(--surface-3);
 	--eva-chip-bg: var(--surface);
 	--eva-chip-text: var(--ink);
 	--eva-ink: var(--ink);
@@ -361,6 +362,14 @@
 		transform: translateY(-4px);
 		opacity: 1;
 	}
+}
+
+/* Horario abaixo da bolha, dos dois lados — como no WhatsApp. */
+.eva-msg-time {
+	font-size: 11px;
+	font-weight: 500;
+	color: var(--ink-3);
+	font-variant-numeric: tabular-nums;
 }
 
 /* --- Pilula de data ------------------------------------------------------- */

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Dialog } from "radix-ui";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import lotus from "@/assets/images/eva-lotus.png";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
@@ -183,7 +184,10 @@ export function EvaWidget() {
 					type="button"
 					className={fabObstruido ? "eva-fab eva-fab--oculto" : "eva-fab"}
 					aria-label="Abrir chat com a EVA"
-				/>
+				>
+					{/* A bolinha era um circulo vazio, sem simbolo nenhum. */}
+					<img src={lotus} alt="" className="eva-fab-mark" />
+				</button>
 			</Dialog.Trigger>
 
 			<AnimatePresence>

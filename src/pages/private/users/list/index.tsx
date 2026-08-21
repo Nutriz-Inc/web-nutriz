@@ -1,9 +1,8 @@
-import { Plus, Search, X } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { type FormEvent, useState } from "react";
 import usuariosVazio from "@/assets/illustrations/usuarios-vazio.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
-import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
@@ -11,8 +10,13 @@ import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { formatCpf } from "@/utils/formatter";
 import { CreateUserSheet } from "./components/CreateUserSheet";
 import { UserRow } from "./components/UserRow";
+import { UserSearchField } from "./components/UserSearchField";
 import { UsersTableHeader } from "./components/UsersTableHeader";
-import { PROFILE_FILTER_OPTIONS, type ProfileFilter } from "./constants";
+import {
+	PROFILE_FILTER_OPTIONS,
+	type ProfileFilter,
+	type UserSearchFieldKey,
+} from "./constants";
 import { useCreateUser, useUsersList } from "./hooks";
 import { buildCreateUserRequest } from "./utils";
 import type { CreateUserFormData } from "./validation";
@@ -20,40 +24,47 @@ import type { CreateUserFormData } from "./validation";
 export function UsersManagementPage() {
 	const { auth } = useAuth();
 
-	const [name, setName] = useState("");
-	const [appliedName, setAppliedName] = useState("");
-	const [cpf, setCpf] = useState("");
-	const [appliedCpf, setAppliedCpf] = useState("");
-	const [internalIdentifier, setInternalIdentifier] = useState("");
-	const [appliedInternalIdentifier, setAppliedInternalIdentifier] =
-		useState("");
+	const [searchField, setSearchField] = useState<UserSearchFieldKey>("name");
+	const [term, setTerm] = useState("");
+	// O termo so vira parametro da consulta quando a busca e disparada.
+	const [appliedTerm, setAppliedTerm] = useState("");
+	const [appliedField, setAppliedField] = useState<UserSearchFieldKey>("name");
 	const [profileFilter, setProfileFilter] = useState<ProfileFilter>("all");
 	const [isCreateUserOpen, setIsCreateUserOpen] = useState(false);
 
 	function handleApplyFilters(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 
-		setAppliedName(name);
-		setAppliedCpf(cpf.replace(/\D/g, ""));
-		setAppliedInternalIdentifier(internalIdentifier);
+		setAppliedField(searchField);
+		setAppliedTerm(term.trim());
 	}
 
-	function handleClearFilters() {
-		setName("");
-		setAppliedName("");
-		setCpf("");
-		setAppliedCpf("");
-		setInternalIdentifier("");
-		setAppliedInternalIdentifier("");
-		setProfileFilter("all");
+	function handleFieldChange(next: UserSearchFieldKey) {
+		// Trocar de campo zera o que estava escrito e o que estava valendo: um
+		// CPF digitado nao faz sentido como busca por nome, e deixar o filtro
+		// antigo ativo com a caixa vazia so confunde.
+		setSearchField(next);
+		setTerm("");
+		setAppliedField(next);
+		setAppliedTerm("");
 	}
+
+	function handleClearSearch() {
+		setTerm("");
+		setAppliedTerm("");
+	}
+
+	const onlyDigits = appliedTerm.replace(/\D/g, "");
 
 	const { usersQuery } = useUsersList({
 		page: 1,
 		page_size: DEFAULT_PAGE_SIZE,
-		name: appliedName || undefined,
-		cpf: appliedCpf || undefined,
-		internal_identifier: appliedInternalIdentifier || undefined,
+		name: appliedField === "name" ? appliedTerm || undefined : undefined,
+		cpf: appliedField === "cpf" ? onlyDigits || undefined : undefined,
+		internal_identifier:
+			appliedField === "internal_identifier"
+				? appliedTerm || undefined
+				: undefined,
 		type: profileFilter === "all" ? undefined : profileFilter,
 	});
 	const { createUserMutation } = useCreateUser();
@@ -93,44 +104,35 @@ export function UsersManagementPage() {
 					</button>
 				</div>
 
+				{/*
+				 * Uma caixa so no lugar das tres de antes. O "Limpar filtro"
+				 * tambem saiu: quem limpa a busca e o "x" dentro da propria
+				 * caixa, e o perfil volta ao normal pelo chip "Todos".
+				 */}
 				<form
 					onSubmit={handleApplyFilters}
-					className="flex flex-col gap-2.5 lg:flex-row lg:items-center"
+					className="flex items-center gap-2.5"
 				>
-					<div className="grid gap-3 sm:grid-cols-3 lg:flex-1">
-						<SearchBar
-							value={name}
-							onChange={setName}
-							placeholder="Buscar por nome..."
-						/>
-						<SearchBar
-							value={cpf}
-							onChange={(value) => setCpf(formatCpf(value))}
-							placeholder="Buscar por CPF..."
-						/>
-						<SearchBar
-							value={internalIdentifier}
-							onChange={setInternalIdentifier}
-							placeholder="Buscar por identificador interno..."
-						/>
-					</div>
-					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0">
-						<button
-							type="submit"
-							className="flex h-[43px] items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-						>
-							<Search className="size-4" />
-							Aplicar filtro
-						</button>
-						<button
-							type="button"
-							onClick={handleClearFilters}
-							className="flex h-[43px] items-center justify-center gap-2 rounded-card-sm border border-line bg-white px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
-						>
-							<X className="size-4" />
-							Limpar filtro
-						</button>
-					</div>
+					<UserSearchField
+						field={searchField}
+						onFieldChange={handleFieldChange}
+						value={term}
+						onValueChange={(value) =>
+							setTerm(searchField === "cpf" ? formatCpf(value) : value)
+						}
+						onClear={handleClearSearch}
+						className="flex-1"
+					/>
+					{/* No celular o botao e so a lupa: com rotulo ele virava mais uma
+					    linha de largura cheia. */}
+					<button
+						type="submit"
+						aria-label="Buscar"
+						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep px-4 text-[14px] font-semibold text-white transition-transform hover:bg-blue active:scale-[0.98] sm:px-5"
+					>
+						<Search className="size-4" />
+						<span className="hidden sm:inline">Buscar</span>
+					</button>
 				</form>
 
 				<div className="overflow-hidden rounded-2xl border border-surface-3 bg-white">

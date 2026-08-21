@@ -17,15 +17,15 @@
 	height: 60px;
 	border: none;
 	border-radius: 50%;
-	/* Idem: o FAB tambem esta fora de `.eva-scope`, entao o pastel e escrito
-	 * aqui com os tokens globais. */
+	/* Pastel claro, escrito com os tokens globais porque o FAB fica fora de
+	 * `.eva-scope`. */
 	background: linear-gradient(
 		145deg,
 		var(--purple-tint) 0%,
 		var(--eva-tint) 55%,
 		color-mix(in oklch, var(--eva-bright) 45%, white) 100%
 	);
-	color: var(--ink);
+	color: #ffffff;
 	display: grid;
 	place-items: center;
 	cursor: pointer;
@@ -140,6 +140,12 @@
 	align-items: center;
 }
 
+/* Cabecalho da abertura: so o botao de fechar, encostado a esquerda. */
+.eva-widget-header--bare {
+	justify-content: flex-start;
+	padding-bottom: 0;
+}
+
 .eva-widget-header--welcome .eva-widget-header-title {
 	text-align: center;
 }
@@ -221,22 +227,31 @@
 /* Identidade em linha: bloco pastel + nome e descricao. */
 .eva-welcome-id {
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	gap: 16px;
-	padding-top: 6px;
+	padding-top: 2px;
 }
 
 .eva-welcome-id-text {
 	min-width: 0;
-	padding-top: 2px;
 }
 
+/*
+ * Nome ao lado do quadrado da marca, no mesmo degrade do resto. Escrito com
+ * os tokens globais porque `--eva-grad-title` vive em `.eva-scope` e o valor
+ * nao chega em todo lugar; e texto grande, entao o minimo e 3:1 — o ponto
+ * mais claro do degrade da 3,84:1.
+ */
 .eva-welcome-name {
 	margin: 0;
-	font-size: 22px;
+	font-size: 21px;
 	font-weight: 700;
 	letter-spacing: -0.01em;
-	color: var(--ink);
+	background: linear-gradient(100deg, var(--eva) 0%, var(--purple) 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: var(--eva);
 }
 
 .eva-welcome-sub {
@@ -421,7 +436,7 @@
 	padding: 0 18px;
 	border: none;
 	border-radius: 999px;
-	background: var(--ink);
+	background: linear-gradient(145deg, var(--eva-deep) 0%, var(--purple) 100%);
 	color: #ffffff;
 	font-family: inherit;
 	font-size: 14px;

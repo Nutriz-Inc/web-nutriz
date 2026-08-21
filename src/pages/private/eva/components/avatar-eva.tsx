@@ -1,13 +1,21 @@
+import lotus from "@/assets/images/eva-lotus.png";
+
 type AvatarEvaProps = {
 	size: number;
 	pulse?: boolean;
-	/** Quadrado de cantos macios, como na abertura da referencia. */
+	/** Quadrado de cantos macios, como na abertura. */
 	squircle?: boolean;
 };
 
 /**
- * Avatar da EVA: bloco com o pastel da marca (lavanda -> rosa), redondo nas
- * bolhas do chat e quadrado de cantos macios na abertura. Ver eva.css.
+ * Marca da EVA: a flor de lotus em branco sobre o degrade rosa -> roxo.
+ *
+ * O degrade e a versao saturada do pastel. O pastel claro ficou so nas
+ * superficies: com ele atras, a flor branca dava 1,1:1 e sumia — abaixo dos
+ * 3:1 que um simbolo funcional precisa.
+ *
+ * A flor e um PNG preto; `brightness(0) invert(1)` a deixa branca sem precisar
+ * de uma segunda arte.
  */
 export function AvatarEva({ size, pulse, squircle }: AvatarEvaProps) {
 	const classes = ["eva-avatar"];
@@ -25,6 +33,13 @@ export function AvatarEva({ size, pulse, squircle }: AvatarEvaProps) {
 				flexShrink: 0,
 				borderRadius: "50%",
 			}}
-		/>
+		>
+			<img
+				src={lotus}
+				alt=""
+				className="eva-avatar-mark"
+				style={{ width: size * 0.52, height: size * 0.52 }}
+			/>
+		</div>
 	);
 }

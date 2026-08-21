@@ -58,7 +58,7 @@ export function ChatInput({
 				>
 					<path
 						d="M10 16V4M4.5 9.5 10 4l5.5 5.5"
-						stroke="#FFFFFF"
+						stroke="currentColor"
 						strokeWidth="1.8"
 						strokeLinecap="round"
 						strokeLinejoin="round"

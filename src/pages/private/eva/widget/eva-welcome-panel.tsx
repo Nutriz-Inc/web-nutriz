@@ -68,7 +68,7 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 				<AvatarEva size={76} squircle />
 
 				<div className="eva-welcome-id-text">
-					<p className="eva-welcome-name">EVA</p>
+					<p className="eva-welcome-name">Assistente EVA</p>
 					<p className="eva-welcome-sub">
 						Tire dúvidas sobre doação de leite, ordenha e amamentação.
 					</p>
@@ -77,7 +77,7 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 
 			{isAnonymous && (
 				<motion.p {...entrada(1)} className="eva-widget-lgpd" role="note">
-					Chat público: não compartilhe dados pessoais.{" "}
+					Chat público.{" "}
 					<a className="eva-link" href="/registro">
 						Cadastre-se
 					</a>{" "}

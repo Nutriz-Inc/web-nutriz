@@ -2,7 +2,6 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Dialog } from "radix-ui";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
-import { AvatarEva } from "../components/avatar-eva";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
 import {
@@ -206,28 +205,25 @@ export function EvaWidget() {
 								{...modalMotion}
 							>
 								{view === "welcome" ? (
+									// So o X. O nome aparece ao lado do quadrado da marca,
+									// dentro do painel; aqui ele fica apenas para leitores de
+									// tela, porque o Radix exige um titulo no dialogo.
+									<div className="eva-widget-header eva-widget-header--bare">
+										<CloseButton />
+										<Dialog.Title className="sr-only">
+											Assistente EVA
+										</Dialog.Title>
+									</div>
+								) : (
+									// Mesma grade da abertura: fechar a esquerda, nome ao
+									// centro. O selo de "online" saiu — ele prometia presenca
+									// humana que a EVA nao tem.
 									<div className="eva-widget-header eva-widget-header--welcome">
 										<CloseButton />
 										<Dialog.Title className="eva-widget-header-title">
-											Assistente EVA
+											EVA
 										</Dialog.Title>
 										<span className="eva-widget-header-spacer" aria-hidden />
-									</div>
-								) : (
-									<div className="eva-widget-header eva-widget-header--chat">
-										<div className="eva-widget-header-id">
-											<AvatarEva size={38} />
-											<div className="eva-widget-header-info">
-												<Dialog.Title className="eva-widget-header-title">
-													EVA
-												</Dialog.Title>
-												<span className="eva-widget-header-status">
-													<span className="eva-widget-status-dot" aria-hidden />
-													online
-												</span>
-											</div>
-										</div>
-										<CloseButton />
 									</div>
 								)}
 

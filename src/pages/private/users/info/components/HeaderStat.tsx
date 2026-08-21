@@ -8,10 +8,12 @@ type HeaderStatProps = {
 
 export function HeaderStat({ value, label, valueClassName }: HeaderStatProps) {
 	return (
-		<div className="flex flex-col gap-0.5 px-5 first:pl-0 last:pr-0 lg:items-end">
+		<div className="flex min-w-0 flex-col gap-0.5 lg:items-end lg:px-5 lg:first:pl-0 lg:last:pr-0">
 			<p
 				className={cn(
-					"text-[20px] font-extrabold text-blue-deep",
+					// 15px no celular: medido, "12/06/2025" ocupa 105px a 17px numa
+					// coluna de 97px, e estourava a grade.
+					"text-[15px] font-extrabold text-blue-deep lg:text-[20px]",
 					valueClassName,
 				)}
 			>

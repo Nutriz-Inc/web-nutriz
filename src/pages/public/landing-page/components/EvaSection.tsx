@@ -16,6 +16,9 @@ const ICONES_SUGESTAO: LucideIcon[] = [
 	CalendarCheck,
 ];
 
+import evaCenario from "@/assets/illustrations/eva-cenario.svg";
+import evaNutriz from "@/assets/illustrations/eva-nutriz.svg";
+import evaNuvens from "@/assets/illustrations/eva-nuvens.svg";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EvaPreview } from "./EvaPreview";
 import { LandingSection } from "./LandingSection";
@@ -55,7 +58,39 @@ export function EvaSection() {
 			surfaceClassName="bg-surface"
 		>
 			<motion.div {...reveal}>
-				<div className="rounded-card gradient-eva relative overflow-hidden border border-line px-7 py-10 lg:px-14 lg:py-14">
+				<div className="rounded-card gradient-eva relative isolate border border-line px-7 pb-24 pt-10 sm:pb-28 lg:px-14 lg:pb-32 lg:pt-14">
+					{/*
+					 * Cena em tres planos, atravessando as bordas do cartao de
+					 * proposito: as nuvens saem por cima, o cenario passa por baixo e
+					 * pelos lados, e a nutriz encosta no cartao do chat. Por isso o
+					 * bloco NAO tem `overflow-hidden` — o recorte matava justamente a
+					 * sobreposicao.
+					 *
+					 * Tudo decorativo (`aria-hidden`) e em opacidade baixa, para nao
+					 * competir com o texto nem com o CTA.
+					 */}
+					<img
+						src={evaNuvens}
+						alt=""
+						aria-hidden="true"
+						className="pointer-events-none absolute -top-12 right-[-2%] -z-10 w-[34%] max-w-[300px] select-none opacity-45"
+					/>
+					<img
+						src={evaCenario}
+						alt=""
+						aria-hidden="true"
+						className="pointer-events-none absolute -bottom-12 -left-10 -z-10 w-[58%] max-w-[560px] select-none opacity-55"
+					/>
+					{/* A nutriz fica apoiada no cenario, no canto de baixo a esquerda. */}
+					<img
+						src={evaNutriz}
+						alt=""
+						aria-hidden="true"
+						width={800}
+						height={714}
+						className="pointer-events-none absolute -bottom-4 left-[8%] z-10 hidden h-36 w-auto select-none md:block lg:left-[46%] lg:h-44"
+					/>
+
 					<div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
 						<div className="min-w-0 lg:max-w-[460px]">
 							<motion.span
@@ -121,7 +156,7 @@ export function EvaSection() {
 
 			<motion.div
 				{...reveal}
-				className="mt-7 flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center"
+				className="mt-16 flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center"
 			>
 				<span className="text-[15px] font-bold text-ink">Comece por aqui:</span>
 				{/* `eva-scope` para as pilulas usarem o estilo real do widget. */}

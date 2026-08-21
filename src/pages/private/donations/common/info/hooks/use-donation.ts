@@ -7,6 +7,7 @@ import {
 	type IUpdateDonationRequest,
 } from "@/services/types/i-donation";
 import { intervaloAoVivo } from "@/utils/live-query";
+import { STEP_DEFINITIONS } from "../constants";
 
 export function useDonation(id_donation: string) {
 	const donationQuery = useQuery({
@@ -19,15 +20,27 @@ export function useDonation(id_donation: string) {
 		 * propria consulta, entao o intervalo desliga assim que a doacao chega
 		 * ao fim — dai nao ha mais o que mudar.
 		 */
+		refetchIntervalInBackground: true,
 		refetchInterval: (consulta) => {
 			const etapas = consulta.state.data?.steps ?? [];
 
 			const temReprovada = etapas.some(
 				(etapa) => etapa.status === EnumDonationStepStatus.Failed,
 			);
-			const todasConcluidas =
-				etapas.length > 0 &&
-				etapas.every((etapa) => etapa.status === EnumDonationStepStatus.Done);
+
+			/*
+			 * Concluida e quando as QUATRO etapas do processo existem e estao
+			 * feitas — a mesma regra que a pagina usa para `isFullyCompleted`.
+			 *
+			 * Olhar so as etapas ja criadas estava errado e quebrava o caso mais
+			 * comum: doacao recem-aberta tem uma etapa so; o admin aprovava
+			 * aquela unica etapa, "todas as existentes" virava verdade, o ciclo
+			 * desligava de vez e a doadora nunca via a etapa seguinte abrir.
+			 */
+			const todasConcluidas = STEP_DEFINITIONS.every((definicao) => {
+				const etapa = etapas.find((item) => item.name === definicao.name);
+				return etapa?.status === EnumDonationStepStatus.Done;
+			});
 
 			return intervaloAoVivo(temReprovada || todasConcluidas);
 		},

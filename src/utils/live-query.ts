@@ -9,12 +9,13 @@
  * EVA, que vive em outro servico e fala outro protocolo. Entao a atualizacao
  * vem de recarga periodica do react-query, sem tocar em endpoint nenhum.
  *
- * Dois detalhes que fazem isso custar pouco:
- *
- * - `refetchIntervalInBackground` segue desligado (o padrao), entao o
- *   intervalo pausa sozinho quando a aba sai de primeiro plano;
- * - `refetchOnWindowFocus` tambem e o padrao, entao voltar para a aba ja
- *   dispara uma leitura na hora, sem esperar o proximo ciclo.
+ * `refetchIntervalInBackground: true` e deliberado, e nao o padrao. Sem ele o
+ * react-query pausa o ciclo quando `document.visibilityState` vira "hidden" —
+ * ou seja, sempre que a aba vai para tras de outra ou a janela e minimizada. E
+ * exatamente o caso de quem deixa a tela da doadora aberta num monitor e vai
+ * mexer em outra coisa: a tela parava de atualizar e so voltava a vida quando
+ * alguem clicava nela. `refetchOnWindowFocus` continua ligado (padrao), entao
+ * voltar para a aba tambem dispara uma leitura na hora.
  */
 
 /**
@@ -30,3 +31,9 @@ export const INTERVALO_AO_VIVO_MS = 4000;
 export function intervaloAoVivo(encerrada: boolean) {
 	return encerrada ? false : INTERVALO_AO_VIVO_MS;
 }
+
+/** Opcoes de consulta que se recarrega sozinha, mesmo com a aba atras. */
+export const OPCOES_AO_VIVO = {
+	refetchInterval: INTERVALO_AO_VIVO_MS,
+	refetchIntervalInBackground: true,
+} as const;

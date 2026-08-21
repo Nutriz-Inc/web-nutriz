@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import services from "@/services";
-import { INTERVALO_AO_VIVO_MS } from "@/utils/live-query";
+import { OPCOES_AO_VIVO } from "@/utils/live-query";
 
 export function useDonationsList() {
 	return useQuery({
@@ -9,6 +9,6 @@ export function useDonationsList() {
 		// ainda velho e a lista so mudava no ciclo seguinte.
 		staleTime: 0,
 		queryFn: () => services.donation.list({ page: 1, page_size: 50 }),
-		refetchInterval: INTERVALO_AO_VIVO_MS,
+		...OPCOES_AO_VIVO,
 	});
 }

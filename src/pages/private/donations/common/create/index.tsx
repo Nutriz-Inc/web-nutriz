@@ -12,8 +12,10 @@ import {
 	buildLactareWhatsAppLink,
 	EnumWhatsAppLinkContext,
 } from "@/utils/whatsapp-link";
+import { ActiveDonationNotice } from "./components/ActiveDonationNotice";
 import { AttentionNotice } from "./components/AttentionNotice";
 import { StepRow } from "./components/StepRow";
+import { useActiveDonation } from "./hooks/use-active-donation";
 import { useCreateDonation } from "./hooks/use-create-donation";
 
 const ETAPAS = [
@@ -49,6 +51,8 @@ export function NewDonationPage() {
 	const navigate = useNavigate();
 	const { auth } = useAuth();
 	const { createDonationMutation } = useCreateDonation();
+	const { activeDonation, isLoading, refetchActiveDonation } =
+		useActiveDonation();
 
 	function handleConfirm() {
 		createDonationMutation.mutate(undefined, {
@@ -60,6 +64,14 @@ export function NewDonationPage() {
 				);
 				navigate("/minhas-doacoes");
 			},
+			/*
+			 * Em vez de adivinhar pela mensagem do erro se a recusa foi por ja
+			 * existir uma doacao aberta, pergunta de novo: se vier uma ativa, o
+			 * aviso rosa toma o lugar da mensagem de falha sozinho.
+			 */
+			onError: () => {
+				refetchActiveDonation();
+			},
 		});
 	}
 
@@ -68,9 +80,17 @@ export function NewDonationPage() {
 	}
 
 	const isPending = createDonationMutation.isPending;
+	const temDoacaoAberta = Boolean(activeDonation);
+
+	function abrirDoacaoAtiva() {
+		navigate(`/doacao/${activeDonation?.id_donation}`);
+	}
 
 	return (
-		<Page hasPermission={auth?.type === EnumUserType.Common}>
+		<Page
+			hasPermission={auth?.type === EnumUserType.Common}
+			loading={isLoading}
+		>
 			{/*
 			 * Ponto de confirmacao, nao tela de conteudo: um bloco so, deitado em
 			 * duas colunas no desktop (ilustracao a esquerda, fluxo e acoes a
@@ -134,9 +154,11 @@ export function NewDonationPage() {
 							</ol>
 						</div>
 
-						<AttentionNotice />
+						{temDoacaoAberta ? <ActiveDonationNotice /> : <AttentionNotice />}
 
-						{createDonationMutation.isError && (
+						{/* Falha inesperada. Ja ter uma doacao aberta nao passa por
+						    aqui: vira o aviso rosa acima. */}
+						{createDonationMutation.isError && !temDoacaoAberta && (
 							<p
 								role="alert"
 								className="rounded-card-sm bg-danger-tint px-4 py-3 text-center text-[13px] font-medium text-danger"
@@ -146,14 +168,20 @@ export function NewDonationPage() {
 						)}
 
 						<div className="pb-safe flex flex-col gap-2.5 sm:flex-row-reverse">
+							{/* Com doacao aberta nao ha o que confirmar: o caminho e ir
+							    para a que ja existe. */}
 							<Button
 								type="button"
 								size="pill"
-								onClick={handleConfirm}
+								onClick={temDoacaoAberta ? abrirDoacaoAtiva : handleConfirm}
 								disabled={isPending}
 								className="w-full bg-blue-deep font-semibold text-white shadow-soft hover:bg-blue sm:flex-1"
 							>
-								{isPending ? "Confirmando..." : "Confirmar"}
+								{temDoacaoAberta
+									? "Ver doação em andamento"
+									: isPending
+										? "Confirmando..."
+										: "Confirmar"}
 							</Button>
 
 							<Button
@@ -164,7 +192,7 @@ export function NewDonationPage() {
 								disabled={isPending}
 								className="w-full border border-line font-semibold text-ink-2 hover:bg-blue-tint hover:text-blue-deep sm:flex-1"
 							>
-								Cancelar
+								{temDoacaoAberta ? "Voltar" : "Cancelar"}
 							</Button>
 						</div>
 					</div>

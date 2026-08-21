@@ -46,7 +46,7 @@ export function ChatInput({
 				type="submit"
 				aria-label="Enviar mensagem"
 				className="eva-send-btn"
-				style={{ width: 50, height: 50 }}
+				style={{ width: 46, height: 46 }}
 				disabled={disabled || sending || value.trim() === ""}
 			>
 				<svg

@@ -30,6 +30,30 @@
     -->
     <meta name="apple-mobile-web-app-title" content="Nutriz" />
     <title>Nutriz</title>
+    <!--
+      Pinta o topo ANTES do primeiro paint.
+
+      A faixa da ilha dinamica no iPhone mostra o fundo do documento, e o
+      Safari captura essa cor logo no comeco. Deixar isso para o React era
+      tarde demais: por alguns segundos o `html` ficava sem cor, o fundo claro
+      do `body` propagava, e a landing (que abre azul) ganhava uma tarja branca
+      em cima que nao saia mais. Depois de montado, use-theme-color.ts assume e
+      mantem a cor sincronizada com a rota.
+    -->
+    <script>
+      (() => {
+        try {
+          var logado = !!localStorage.getItem("data");
+          var naRaiz = location.pathname === "/" || location.pathname === "";
+          var cor = !logado && naRaiz ? "#00325c" : "#eef3fa";
+          document.documentElement.style.backgroundColor = cor;
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.content = cor;
+        } catch (erro) {
+          /* localStorage bloqueado: fica a cor declarada na meta acima. */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

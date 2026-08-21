@@ -1,4 +1,4 @@
-import { LoaderCircle, MapPin } from "lucide-react";
+import { Hash, LoaderCircle, MapPin, Signpost } from "lucide-react";
 import { FormField } from "@/components/full/FormField";
 import { formatZipCode } from "@/utils/formatter";
 import { useCepLookup } from "../hooks/use-cep-lookup";
@@ -19,13 +19,12 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 
 	return (
 		<fieldset className="flex flex-col gap-5">
-			<legend className="mb-5 text-[13px] font-bold uppercase tracking-wide text-blue-deep">
-				Endereço
-			</legend>
+			<legend className="sr-only">Endereço</legend>
 
 			<div className="grid gap-5 sm:grid-cols-2">
 				<FormField
 					id="register-cep"
+					leading={<MapPin />}
 					label="CEP"
 					value={form.cep}
 					onChange={(value) => onChange("cep", formatZipCode(value))}
@@ -37,6 +36,7 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 				/>
 				<FormField
 					id="register-number"
+					leading={<Hash />}
 					label="Número"
 					value={form.number}
 					onChange={(value) => onChange("number", value)}
@@ -80,6 +80,7 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 
 			<FormField
 				id="register-complement"
+				leading={<Signpost />}
 				label="Complemento"
 				value={form.complement}
 				onChange={(value) => onChange("complement", value)}

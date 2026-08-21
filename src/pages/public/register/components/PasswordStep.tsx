@@ -1,3 +1,4 @@
+import { Lock, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { FormField } from "@/components/full/FormField";
 import { PasswordToggle } from "@/components/full/PasswordToggle";
@@ -19,12 +20,11 @@ export function PasswordStep({ form, errors, onChange }: PasswordStepProps) {
 
 	return (
 		<fieldset className="flex max-w-[340px] flex-col gap-5">
-			<legend className="mb-5 text-[13px] font-bold uppercase tracking-wide text-blue-deep">
-				Senha de acesso
-			</legend>
+			<legend className="sr-only">Senha de acesso</legend>
 
 			<FormField
 				id="register-password"
+				leading={<Lock />}
 				label="Senha"
 				value={form.password}
 				onChange={(value) => onChange("password", value)}
@@ -42,6 +42,7 @@ export function PasswordStep({ form, errors, onChange }: PasswordStepProps) {
 
 			<FormField
 				id="register-confirm-password"
+				leading={<ShieldCheck />}
 				label="Confirmar senha"
 				value={form.confirmPassword}
 				onChange={(value) => onChange("confirmPassword", value)}

@@ -32,9 +32,7 @@ export function BabyConsentStep({
 }: BabyConsentStepProps) {
 	return (
 		<fieldset className="flex flex-col gap-6">
-			<legend className="mb-6 text-[13px] font-bold uppercase tracking-wide text-blue-deep">
-				Bebê e consentimento
-			</legend>
+			<legend className="sr-only">Bebê e consentimento</legend>
 
 			<div className="flex flex-col gap-1.5">
 				<RoundCheckbox

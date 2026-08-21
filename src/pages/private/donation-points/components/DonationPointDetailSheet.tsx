@@ -11,12 +11,19 @@ import {
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { formatCep, formatPhoneNumber } from "@/utils/formatter";
 import { CollectionType } from "./CollectionType";
+import type { Coordinates } from "./FitMapView";
 
 type DonationPointDetailSheetProps = {
 	point: IDonationPointResponse | null;
 	open: boolean;
 	isClosest: boolean;
 	onOpenChange: (open: boolean) => void;
+	/**
+	 * De onde a rota parte: o CEP buscado ou o GPS. Sem isso o Google Maps
+	 * assume a localizacao do aparelho — quem buscava um CEP de outro estado
+	 * recebia a rota saindo de onde estava, e nao do endereco que digitou.
+	 */
+	origin?: Coordinates | null;
 };
 
 export function DonationPointDetailSheet({
@@ -24,6 +31,7 @@ export function DonationPointDetailSheet({
 	open,
 	isClosest,
 	onOpenChange,
+	origin,
 }: DonationPointDetailSheetProps) {
 	const [lastPoint, setLastPoint] = useState(point);
 
@@ -44,8 +52,19 @@ export function DonationPointDetailSheet({
 
 		if (latitude == null || longitude == null) return;
 
+		const parametros = new URLSearchParams({
+			api: "1",
+			destination: `${latitude},${longitude}`,
+		});
+
+		// Sem `origin` o Google Maps parte da localizacao do aparelho. Com um CEP
+		// buscado, a origem certa e o CEP.
+		if (origin) {
+			parametros.set("origin", `${origin.latitude},${origin.longitude}`);
+		}
+
 		window.open(
-			`https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`,
+			`https://www.google.com/maps/dir/?${parametros.toString()}`,
 			"_blank",
 			"noopener,noreferrer",
 		);

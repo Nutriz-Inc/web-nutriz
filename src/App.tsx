@@ -47,7 +47,17 @@ const queryClient = new QueryClient({
 		onSuccess: () => {
 			toast.success("Ação realizada com sucesso.");
 		},
-		onError: (error) => {
+		onError: (error, _variables, _context, mutation) => {
+			/*
+			 * `meta.silenciarErro` desliga o toast vermelho de uma mutation
+			 * especifica, para a tela dar a noticia do proprio jeito. Usado em
+			 * "iniciar nova doacao": ja ter uma doacao aberta nao e erro, e um
+			 * aviso — e vira um cartao rosa na propria tela.
+			 */
+			if (mutation.meta?.silenciarErro) {
+				return;
+			}
+
 			toast.error(getErrorMessage(error));
 		},
 	}),
@@ -76,7 +86,11 @@ function App() {
 				router={routes}
 			/>
 			<EvaWidget />
-			<Toaster position="bottom-right" richColors />
+			{/*
+			 * Topo a direita: o botao flutuante da EVA mora no canto de baixo a
+			 * direita, e os avisos caiam em cima dele.
+			 */}
+			<Toaster position="top-right" richColors />
 		</QueryClientProvider>
 	);
 }

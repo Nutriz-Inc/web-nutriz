@@ -15,6 +15,8 @@ interface Props {
 	icon: LucideIcon;
 	visualStatus: StepVisualStatus;
 	isLast: boolean;
+	/** Etapa que acabou de mudar de estado enquanto a tela estava aberta. */
+	justChanged?: boolean;
 	onClick?: () => void;
 }
 
@@ -27,6 +29,7 @@ export function DonationStepCard({
 	icon: Icon,
 	visualStatus,
 	isLast,
+	justChanged = false,
 	onClick,
 }: Props) {
 	const isCurrent = visualStatus === "current";
@@ -113,6 +116,10 @@ export function DonationStepCard({
 					isCurrent ? "mb-6 p-5" : "mb-4 p-3.5",
 					isClickable && "hover:rounded-l-none focus-visible:rounded-l-none",
 					!isCurrent && !isDone && "bg-surface-2",
+					// Aviso momentaneo de que ESTA etapa acabou de mudar. Fica em
+					// `motion-safe` porque e enfeite: com movimento reduzido a
+					// mudanca ja chegou pelo texto, pelo estado e pelo toast.
+					justChanged && "motion-safe:brilho-etapa",
 				)}
 			>
 				{isClickable && (

@@ -26,7 +26,20 @@ function getErrorMessage(error: unknown): string {
 
 const queryClient = new QueryClient({
 	queryCache: new QueryCache({
-		onError: (error) => {
+		onError: (error, query) => {
+			/*
+			 * Recarga em segundo plano que falha nao vira alerta.
+			 *
+			 * As telas de doacao se recarregam sozinhas de poucos em poucos
+			 * segundos (ver `utils/live-query.ts`). Sem esta guarda, uma queda de
+			 * rede vira um toast de erro a cada ciclo, por cima de uma tela que
+			 * continua mostrando o ultimo dado bom. O alerta fica so para a
+			 * primeira carga, quando nao ha nada na tela para a pessoa ler.
+			 */
+			if (query.state.data !== undefined) {
+				return;
+			}
+
 			toast.error(getErrorMessage(error));
 		},
 	}),

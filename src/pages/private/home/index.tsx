@@ -1,11 +1,13 @@
 import { Droplet, Gift, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { LiveBadge } from "@/components/full/LiveBadge";
 import { Reveal } from "@/components/full/Reveal";
 import { SectionHeading } from "@/components/full/SectionHeading";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import { useStepAlerts } from "@/hooks/use-step-alerts";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EnumUserType } from "@/services/types/i-user";
 import { BABY_ML_PER_DAY } from "@/utils/constants";
@@ -32,6 +34,9 @@ export function HomePage() {
 
 	const firstName = auth?.name?.split(" ")[0];
 	const currentStepDonation = data?.current_donation?.steps?.at(-1);
+
+	// A home tambem reflete, sem recarregar, o que o admin faz do outro lado.
+	useStepAlerts(data?.current_donation?.steps);
 
 	const donorSince = data?.created_at
 		? monthYearFormatter.format(new Date(data.created_at))
@@ -133,6 +138,7 @@ export function HomePage() {
 									id="home-status"
 									label="Status"
 									title="Acompanhe sua doação"
+									actionSlot={<LiveBadge />}
 								/>
 								<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
 

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import bancoLeite from "@/assets/images/milk-bank.jpg";
+import whatsappIcone from "@/assets/images/whatsapp-icon.svg";
 import whatsappLogo from "@/assets/images/whatsapp-logo.png";
+import { StatefulButton } from "@/components/ui/stateful-button";
 import { cn } from "@/lib/utils";
 import {
 	buildLactareWhatsAppLink,
@@ -10,7 +12,6 @@ import { fadeUp, staggerContainer } from "../animations/variants";
 import { STEP_ICONS, STEPS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
 import { LandingSection } from "./LandingSection";
-import { SlideButton } from "./SlideButton";
 
 export function HowItWorksSection() {
 	const gridReveal = useReveal(staggerContainer);
@@ -104,18 +105,36 @@ export function HowItWorksSection() {
 						</p>
 					</div>
 					<div className="relative mt-4">
-						<SlideButton
-							label="Chamar no WhatsApp"
-							onClick={() =>
+						<StatefulButton
+							/*
+							 * Aqui vai so o simbolo (ja branco no proprio arquivo), nao
+							 * o `whatsapp-logo.png`: aquele e a marca com a palavra
+							 * "WhatsApp" escrita, e dentro do botao virava
+							 * "WhatsApp Chamar no WhatsApp", em verde escuro sobre
+							 * verde. A marca completa segue no topo do cartao.
+							 */
+							icon={
+								<img
+									src={whatsappIcone}
+									alt=""
+									aria-hidden="true"
+									className="size-5"
+								/>
+							}
+							onClick={() => {
 								window.open(
 									buildLactareWhatsAppLink(EnumWhatsAppLinkContext.NewDonor),
 									"_blank",
 									"noopener,noreferrer",
-								)
-							}
-							pillClassName="bg-[#25d366] text-white"
-							circleClassName="bg-white text-success"
-						/>
+								);
+								// A aba abre na hora; a espera existe so para o giro
+								// aparecer antes do certo.
+								return new Promise((resolver) => setTimeout(resolver, 700));
+							}}
+							className="bg-[#25d366] text-white shadow-soft"
+						>
+							Chamar no WhatsApp
+						</StatefulButton>
 					</div>
 				</motion.div>
 			</motion.div>

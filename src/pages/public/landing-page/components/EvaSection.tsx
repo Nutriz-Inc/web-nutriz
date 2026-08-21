@@ -16,9 +16,9 @@ const ICONES_SUGESTAO: LucideIcon[] = [
 	CalendarCheck,
 ];
 
-import evaCenario from "@/assets/illustrations/eva-cenario.svg";
-import evaNutriz from "@/assets/illustrations/eva-nutriz.svg";
+import evaMensagem from "@/assets/illustrations/eva-mensagem.svg";
 import evaNuvens from "@/assets/illustrations/eva-nuvens.svg";
+import evaRua from "@/assets/illustrations/eva-rua.svg";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EvaPreview } from "./EvaPreview";
 import { LandingSection } from "./LandingSection";
@@ -61,34 +61,49 @@ export function EvaSection() {
 				<div className="rounded-card gradient-eva relative isolate border border-line px-7 pb-24 pt-10 sm:pb-28 lg:px-14 lg:pb-32 lg:pt-14">
 					{/*
 					 * Cena em tres planos, atravessando as bordas do cartao de
-					 * proposito: as nuvens saem por cima, o cenario passa por baixo e
-					 * pelos lados, e a nutriz encosta no cartao do chat. Por isso o
-					 * bloco NAO tem `overflow-hidden` — o recorte matava justamente a
-					 * sobreposicao.
+					 * proposito: as nuvens saem por cima, a rua passa por baixo e pelos
+					 * dois lados, e a nutriz com o chat encosta no cartao da EVA. Por
+					 * isso o bloco NAO tem `overflow-hidden` — o recorte matava
+					 * justamente a sobreposicao.
 					 *
 					 * Tudo decorativo (`aria-hidden`) e em opacidade baixa, para nao
 					 * competir com o texto nem com o CTA.
 					 */}
+					{/* Nuvem da esquerda: maior e mais alta, saindo por cima do cartao. */}
+					<img
+						src={evaNuvens}
+						alt=""
+						aria-hidden="true"
+						className="pointer-events-none absolute -top-20 left-[-4%] -z-10 w-[46%] max-w-[420px] select-none opacity-45"
+					/>
 					<img
 						src={evaNuvens}
 						alt=""
 						aria-hidden="true"
 						className="pointer-events-none absolute -top-12 right-[-2%] -z-10 w-[34%] max-w-[300px] select-none opacity-45"
 					/>
+					{/*
+					 * A rua fica contida no cartao rosa e se estende ate encostar no
+					 * cartao do chat — a largura foi medida no DOM (a borda esquerda do
+					 * chat cai em ~64% da largura interna do cartao).
+					 */}
 					<img
-						src={evaCenario}
+						src={evaRua}
 						alt=""
 						aria-hidden="true"
-						className="pointer-events-none absolute -bottom-12 -left-10 -z-10 w-[58%] max-w-[560px] select-none opacity-55"
+						className="pointer-events-none absolute bottom-0 left-0 -z-10 w-[66%] max-w-[700px] select-none opacity-40"
 					/>
-					{/* A nutriz fica apoiada no cenario, no canto de baixo a esquerda. */}
+					{/*
+					 * A nutriz com o chat, espelhada (`-scale-x-100`) para ficar virada
+					 * para dentro da cena, encostando no cartao da EVA a direita.
+					 */}
 					<img
-						src={evaNutriz}
+						src={evaMensagem}
 						alt=""
 						aria-hidden="true"
-						width={800}
-						height={714}
-						className="pointer-events-none absolute -bottom-4 left-[8%] z-10 hidden h-36 w-auto select-none md:block lg:left-[46%] lg:h-44"
+						width={588}
+						height={631}
+						className="pointer-events-none absolute -bottom-8 right-[2%] z-10 hidden h-48 w-auto -scale-x-100 select-none md:block lg:h-60"
 					/>
 
 					<div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">

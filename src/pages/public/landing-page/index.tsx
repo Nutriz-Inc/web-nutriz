@@ -6,6 +6,7 @@ import { HeroSection } from "./components/HeroSection";
 import { HowItWorksSection } from "./components/HowItWorksSection";
 import { LandingFooter } from "./components/LandingFooter";
 import { LandingHeader } from "./components/LandingHeader";
+import { StatsBar } from "./components/StatsBar";
 import { TestimonialsSection } from "./components/TestimonialsSection";
 
 export function LandingPageScreen() {
@@ -14,7 +15,10 @@ export function LandingPageScreen() {
 			<LandingHeader />
 			<main>
 				<HeroSection />
-				<HowItWorksSection />
+				<div className="flex flex-col bg-surface-2">
+					<StatsBar />
+					<HowItWorksSection />
+				</div>
 				<CollectionPointsSection />
 				<EvaSection />
 				<ArticlesSection />

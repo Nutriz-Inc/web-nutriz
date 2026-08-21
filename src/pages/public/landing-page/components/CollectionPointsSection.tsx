@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { LoaderCircle } from "lucide-react";
+import buscaPontosVazia from "@/assets/illustrations/busca-pontos-vazia.svg";
+import { EmptyState } from "@/components/full/EmptyState";
 import {
 	type FilterChipOption,
 	FilterChips,
@@ -49,20 +51,20 @@ export function CollectionPointsSection() {
 	return (
 		<section
 			id="pontos-de-coleta"
-			className="scroll-mt-20 bg-white pt-12 lg:pt-16 pb-6 lg:pb-8"
+			className="scroll-mt-20 bg-surface py-20 lg:py-24"
 		>
-			<div className="mx-auto w-full max-w-[1200px] px-5 lg:px-8">
+			<div className="mx-auto w-full max-w-[1200px] px-5 sm:px-6 lg:px-8">
 				<motion.div
 					{...headerReveal}
 					className="flex flex-col items-center gap-3 text-center"
 				>
-					<SectionLabel color="#387ccd">PONTOS DE COLETA</SectionLabel>
-					<h2 className="max-w-2xl text-[30px] font-extrabold tracking-tight text-ink lg:text-[38px]">
+					<SectionLabel tone="blue">PONTOS DE COLETA</SectionLabel>
+					<h2 className="max-w-2xl font-display text-[30px] font-extrabold tracking-tight text-ink lg:text-[38px]">
 						Encontre um banco de leite perto de você
 					</h2>
 				</motion.div>
 
-				<div className="mt-8 overflow-hidden rounded-3xl border border-line bg-surface-2 shadow-soft lg:mt-10">
+				<div className="rounded-card mt-8 overflow-hidden border border-line bg-surface-2 shadow-soft lg:mt-10">
 					<div className="flex flex-col gap-3 p-4 lg:p-5">
 						<SearchBar
 							value={search}
@@ -100,9 +102,12 @@ export function CollectionPointsSection() {
 									<LoaderCircle className="size-5 animate-spin text-blue-bright" />
 								</div>
 							) : points.length === 0 ? (
-								<p className="px-4 py-8 text-center text-sm text-ink-3">
-									Nenhum ponto de coleta encontrado.
-								</p>
+								<EmptyState
+									size="sm"
+									illustration={buscaPontosVazia}
+									title="Nenhum ponto de coleta encontrado"
+									description="Tente outro endereço ou amplie a busca."
+								/>
 							) : (
 								points.map((point) => (
 									<DonationPointCard

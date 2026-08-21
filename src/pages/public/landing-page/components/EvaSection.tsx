@@ -31,7 +31,7 @@ export function EvaSection() {
 	return (
 		<section
 			id="a-eva"
-			className="scroll-mt-20 bg-white pt-4 lg:pt-6 pb-12 lg:pb-16"
+			className="scroll-mt-20 bg-surface pb-20 pt-2 lg:pb-24 lg:pt-4"
 		>
 			<div
 				aria-hidden
@@ -41,7 +41,7 @@ export function EvaSection() {
 			<motion.div
 				{...reveal}
 				aria-labelledby="eva-section-title"
-				className="mx-auto max-w-[1200px] px-5 lg:px-8"
+				className="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-8"
 			>
 				<div
 					className="relative overflow-hidden rounded-3xl px-7 py-10 lg:rounded-2xl lg:px-14 lg:py-16"
@@ -55,7 +55,7 @@ export function EvaSection() {
 							>
 								<span
 									aria-hidden
-									className="size-1.5 rounded-full bg-[#2ea36a]"
+									className="size-1.5 rounded-full bg-success"
 								/>
 								ASSISTENTE 24 HORAS
 							</motion.span>
@@ -120,7 +120,7 @@ export function EvaSection() {
 								<span className="size-8 rounded-full bg-gradient-to-br from-warning-tint via-eva-bright to-purple" />
 								<span className="text-[15px] font-bold text-ink">EVA</span>
 								<span className="ml-1 inline-flex items-center gap-1.5 text-[13px] font-semibold text-success">
-									<span className="size-1.5 rounded-full bg-[#2ea36a]" />
+									<span className="size-1.5 rounded-full bg-success" />
 									online
 								</span>
 							</div>

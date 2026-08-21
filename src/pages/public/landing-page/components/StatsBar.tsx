@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MetricCard } from "@/pages/private/home/components/MetricCard";
+import { MetricCard } from "@/components/full/MetricCard";
 import { METRICS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
 
@@ -7,7 +7,7 @@ export function StatsBar() {
 	const reveal = useReveal();
 
 	return (
-		<div className="relative z-10 mx-auto -mt-12 w-full max-w-[1100px] px-5 lg:-mt-16 lg:px-8">
+		<div className="relative z-10 mx-auto -mt-12 w-full max-w-[1100px] px-5 sm:px-6 lg:-mt-16 lg:px-8">
 			<motion.div
 				{...reveal}
 				className="flex flex-col gap-4 lg:flex-row lg:gap-6"

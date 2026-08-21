@@ -2,15 +2,14 @@ import { cn } from "@/lib/utils";
 
 type ActivityBadgeProps = {
 	label: string;
-	dotColor?: string;
 	className?: string;
 };
 
-export function ActivityBadge({
-	label,
-	dotColor = "#2fd9c5",
-	className,
-}: ActivityBadgeProps) {
+/**
+ * Pilula com bolinha pulsante sobre fundo escuro (hero e CTA final).
+ * A bolinha usa o token `--mint`; antes vinha por `style` com hex solto.
+ */
+export function ActivityBadge({ label, className }: ActivityBadgeProps) {
 	return (
 		<span
 			className={cn(
@@ -18,15 +17,9 @@ export function ActivityBadge({
 				className,
 			)}
 		>
-			<span className="relative flex size-2">
-				<span
-					className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 motion-reduce:animate-none"
-					style={{ backgroundColor: dotColor }}
-				/>
-				<span
-					className="relative inline-flex size-2 rounded-full"
-					style={{ backgroundColor: dotColor }}
-				/>
+			<span className="relative flex size-2" aria-hidden="true">
+				<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75 motion-reduce:animate-none" />
+				<span className="relative inline-flex size-2 rounded-full bg-mint" />
 			</span>
 			{label}
 		</span>

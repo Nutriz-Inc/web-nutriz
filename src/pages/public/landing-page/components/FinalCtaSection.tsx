@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { HeroBackground } from "@/components/full/HeroBackground";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { CTA_AVATARS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
 import { ActivityBadge } from "./ActivityBadge";
@@ -13,19 +14,19 @@ export function FinalCtaSection() {
 
 	return (
 		<section className="bg-surface-2 py-20 lg:py-24">
-			<div className="mx-auto w-full max-w-[1200px] px-5 lg:px-8">
+			<div className="mx-auto w-full max-w-[1200px] px-5 sm:px-6 lg:px-8">
 				<motion.div
 					{...reveal}
-					className="rounded-2xl bg-white p-2 shadow-lift shadow-[#0a3a87]/10"
+					className="rounded-card bg-surface p-2 shadow-lift"
 				>
-					<div className="relative isolate overflow-hidden rounded-3xl">
+					<div className="rounded-card relative isolate overflow-hidden">
 						<HeroBackground />
 
 						<div className="relative z-10 flex flex-col gap-8 p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:p-14">
 							<div className="max-w-lg">
-								<ActivityBadge label="Junte-se a nós" dotColor="#72f2eb" />
+								<ActivityBadge label="Junte-se a nós" />
 
-								<h2 className="mt-5 text-[28px] font-extrabold leading-tight tracking-tight text-white sm:text-[34px] lg:text-[40px]">
+								<h2 className="mt-5 font-display text-[28px] font-extrabold leading-tight tracking-tight text-white sm:text-[34px] lg:text-[40px]">
 									Pronta para fazer a diferença?
 								</h2>
 
@@ -51,11 +52,13 @@ export function FinalCtaSection() {
 
 								<div className="flex items-center gap-3">
 									<div className="flex -space-x-2" aria-hidden>
-										{CTA_AVATARS.map((color) => (
+										{CTA_AVATARS.map((cor) => (
 											<span
-												key={color}
-												className="size-8 rounded-full border-2 border-white"
-												style={{ backgroundColor: color }}
+												key={cor}
+												className={cn(
+													"size-8 rounded-full border-2 border-white",
+													cor,
+												)}
 											/>
 										))}
 									</div>

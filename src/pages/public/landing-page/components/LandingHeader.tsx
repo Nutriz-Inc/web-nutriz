@@ -56,11 +56,11 @@ export function LandingHeader() {
 					: "border-transparent bg-transparent",
 			)}
 		>
-			<div className="mx-auto flex h-20 w-full max-w-[1200px] items-center justify-between px-5 lg:px-8">
+			<div className="mx-auto flex h-20 w-full max-w-[1200px] items-center justify-between px-5 sm:px-6 lg:px-8">
 				<button
 					type="button"
 					onClick={() => scrollToSection("topo")}
-					className="rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5]"
+					className="rounded-2xl focus-visible:ring-3 focus-visible:ring-mint/60"
 					aria-label="Nutriz — início"
 				>
 					<Wordmark className="h-6" />
@@ -75,7 +75,7 @@ export function LandingHeader() {
 							key={link.targetId}
 							type="button"
 							onClick={() => handleNavClick(link.targetId)}
-							className="rounded-full px-4 py-2 text-[14px] font-medium text-blue-tint-2 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5]"
+							className="rounded-full px-4 py-2 text-[14px] font-medium text-blue-tint-2 transition-colors hover:bg-white/15 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
 						>
 							{link.label}
 						</button>
@@ -86,7 +86,7 @@ export function LandingHeader() {
 					<button
 						type="button"
 						onClick={() => navigate("/login")}
-						className="inline-flex h-11 items-center rounded-full border border-white/15 bg-white/10 px-5 text-[14px] font-semibold text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5]"
+						className="inline-flex h-11 items-center rounded-full border border-white/15 bg-white/10 px-5 text-[14px] font-semibold text-white transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
 					>
 						Login
 					</button>
@@ -103,7 +103,7 @@ export function LandingHeader() {
 					onClick={() => setMenuOpen(true)}
 					aria-label="Abrir menu"
 					aria-expanded={menuOpen}
-					className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2fd9c5] lg:hidden"
+					className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60 lg:hidden"
 				>
 					<Menu className="size-6" aria-hidden="true" />
 				</button>

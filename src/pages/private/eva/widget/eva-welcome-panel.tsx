@@ -64,6 +64,9 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 
 	return (
 		<div className="eva-scope eva-widget-welcome">
+			{/* So existe no mobile: empurra a identidade para pouco acima do meio. */}
+			<span className="eva-welcome-topo" aria-hidden="true" />
+
 			<motion.div {...entrada(0)} className="eva-welcome-id">
 				<AvatarEva size={76} squircle />
 
@@ -84,6 +87,9 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 					para um atendimento personalizado.
 				</motion.p>
 			)}
+
+			{/* So no mobile: separa a apresentacao do bloco de acao. */}
+			<span className="eva-welcome-meio" aria-hidden="true" />
 
 			<div className="eva-welcome-pills">
 				{EVA_SUGGESTIONS.map((suggestion, indice) => {

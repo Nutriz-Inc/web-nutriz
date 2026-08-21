@@ -174,13 +174,21 @@
 	text-align: center;
 }
 
+/* Espacador, titulo ao centro e o X a direita. */
 .eva-widget-header--chat {
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 40px 1fr 40px;
+	align-items: center;
+	padding: 14px 16px 6px;
+}
+
+.eva-widget-header--chat .eva-widget-header-title {
+	text-align: center;
 }
 
 .eva-widget-header-spacer {
-	width: 44px;
-	height: 44px;
+	width: 40px;
+	height: 40px;
 }
 
 .eva-widget-header-id {
@@ -250,6 +258,12 @@
 }
 
 /* Identidade em linha: bloco pastel + nome e descricao. */
+/* Sem efeito no desktop; viram espacadores no mobile (fim do arquivo). */
+.eva-welcome-topo,
+.eva-welcome-meio {
+	display: none;
+}
+
 .eva-welcome-id {
 	display: flex;
 	align-items: center;
@@ -598,17 +612,33 @@
  * ------------------------------------------------------------------------- */
 @media (max-width: 520px) {
 	/*
-	 * Em tela cheia sobra muita altura. Em vez de tudo grudado no alto e um
-	 * vazio enorme embaixo, o conteudo desce e se apoia na base — perto do
-	 * polegar e do teclado, que e de onde a pessoa vai agir.
+	 * Em tela cheia a sobra e dividida em dois vaos:
+	 *
+	 *   [vao de cima ~38%]
+	 *   identidade + aviso        <- um pouco acima do meio
+	 *   [vao do meio ~62%]
+	 *   sugestoes, pontinhos e campo   <- apoiados na base
+	 *
+	 * Antes havia um vao so, e as sugestoes subiam grudadas na apresentacao.
 	 */
-	.eva-widget-welcome {
-		justify-content: flex-end;
+	.eva-welcome-topo {
+		display: block;
+		flex: 1 1 0;
 	}
 
-	/* O vao deixa de esticar: quem empurra agora e o `justify-content`. */
+	.eva-welcome-meio {
+		display: block;
+		flex: 1.6 1 0;
+	}
+
+	/* Os pontinhos voltam a ser so um respiro antes do campo. */
 	.eva-welcome-espaco {
 		flex: 0 0 auto;
-		min-height: 18px;
+		min-height: 16px;
+	}
+
+	/* O aviso encostava na borda de baixo. */
+	.eva-widget-welcome {
+		padding-bottom: 28px;
 	}
 }

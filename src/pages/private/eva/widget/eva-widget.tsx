@@ -219,15 +219,15 @@ export function EvaWidget() {
 										</Dialog.Title>
 									</div>
 								) : (
-									// Mesma grade da abertura: fechar a esquerda, nome ao
-									// centro. O selo de "online" saiu — ele prometia presenca
-									// humana que a EVA nao tem.
-									<div className="eva-widget-header eva-widget-header--welcome">
-										<CloseButton />
+									// Nome ao centro e fechar a direita, como na abertura. O
+									// selo de "online" saiu — ele prometia presenca humana que
+									// a EVA nao tem.
+									<div className="eva-widget-header eva-widget-header--chat">
+										<span className="eva-widget-header-spacer" aria-hidden />
 										<Dialog.Title className="eva-widget-header-title">
 											EVA
 										</Dialog.Title>
-										<span className="eva-widget-header-spacer" aria-hidden />
+										<CloseButton />
 									</div>
 								)}
 

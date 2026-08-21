@@ -7,8 +7,8 @@ type AvatarEvaProps = {
 };
 
 /**
- * Avatar da EVA: disco rosa pastel com a marca dela dentro (ver eva-icon).
- * Era um circulo de gradiente vazio, sem simbolo nenhum.
+ * Avatar da EVA: orbe azul com a marca dela dentro e um halo que gira
+ * devagar (azul virando rosa). Ver .eva-avatar em eva.css.
  */
 export function AvatarEva({ size, pulse }: AvatarEvaProps) {
 	return (

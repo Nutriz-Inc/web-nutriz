@@ -7,8 +7,8 @@ type MessageBubbleProps = {
 };
 
 /**
- * Bolha de mensagem. A da EVA e rosa claro a esquerda; a da nutriz e rosa
- * escuro a direita, com texto branco (6,6:1 — ver eva.css).
+ * Bolha de mensagem. A da EVA e superficie clara a esquerda, com borda; a da
+ * nutriz e o azul primario do app a direita, com texto branco.
  *
  * A bolha entra subindo alguns pixels, com a origem no lado de quem falou.
  * Com `prefers-reduced-motion` ela simplesmente aparece.
@@ -48,7 +48,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 						padding: "12px 16px",
 						fontSize: 15,
 						lineHeight: 1.55,
-						color: "var(--eva-ink)",
+						color: "#ffffff",
 					}}
 				>
 					{message.paragraphs.join("\n\n")}
@@ -95,8 +95,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 				<div
 					style={{
 						background: "var(--eva-bubble-eva)",
-						border:
-							"1px solid color-mix(in oklch, var(--eva) 18%, transparent)",
+						border: "1px solid var(--line-strong)",
 						borderRadius: "18px 18px 18px 6px",
 						padding: "13px 16px",
 						fontSize: 15,

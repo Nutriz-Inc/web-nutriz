@@ -28,7 +28,7 @@ export function TypingIndicator() {
 				role="status"
 				style={{
 					background: "var(--eva-bubble-eva)",
-					border: "1px solid color-mix(in oklch, var(--eva) 18%, transparent)",
+					border: "1px solid var(--line-strong)",
 					borderRadius: "18px 18px 18px 6px",
 					padding: "15px 16px",
 					display: "flex",

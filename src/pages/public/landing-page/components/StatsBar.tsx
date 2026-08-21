@@ -1,29 +1,38 @@
 import { motion } from "framer-motion";
-import { MetricCard } from "@/components/full/MetricCard";
+import { fadeUp, staggerContainer } from "../animations/variants";
 import { METRICS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
+import { HeroStat } from "./HeroStat";
 
+/**
+ * Faixa de numeros do hero.
+ *
+ * Era um trio de cartoes brancos que subia por cima do hero com `-mt-12` e
+ * quebrava a faixa azul ao meio. Agora e uma unica peca de vidro dentro do
+ * proprio hero, com as tres estatisticas separadas por fios — o azul segue
+ * inteiro ate a proxima secao.
+ */
 export function StatsBar() {
-	const reveal = useReveal();
+	const reveal = useReveal(staggerContainer);
 
 	return (
-		<div className="relative z-10 mx-auto -mt-12 w-full max-w-[1100px] px-5 sm:px-6 lg:-mt-16 lg:px-8">
-			<motion.div
-				{...reveal}
-				className="flex flex-col gap-4 lg:flex-row lg:gap-6"
-			>
-				{METRICS.map(({ Icon, iconClassName, ...metric }) => (
-					<MetricCard
-						key={metric.label}
-						iconBg={metric.iconBg}
-						icon={<Icon className={iconClassName} />}
-						value={metric.value}
-						valueColor={metric.valueColor}
-						label={metric.label}
-						sublabel={metric.sublabel}
-					/>
+		<motion.div
+			{...reveal}
+			className="rounded-card mt-12 overflow-hidden border border-white/15 bg-white/8 backdrop-blur-md sm:mt-16"
+		>
+			<div className="grid divide-y divide-white/12 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+				{METRICS.map((metric) => (
+					<motion.div key={metric.label} variants={fadeUp}>
+						<HeroStat
+							Icon={metric.Icon}
+							accent={metric.accent}
+							value={metric.value}
+							label={metric.label}
+							sublabel={metric.sublabel}
+						/>
+					</motion.div>
 				))}
-			</motion.div>
-		</div>
+			</div>
+		</motion.div>
 	);
 }

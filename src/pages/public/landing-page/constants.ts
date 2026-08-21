@@ -78,10 +78,9 @@ export const STEP_ICONS = [RegisterIcon, ExamIcon, DonateIcon];
 
 export type Metric = {
 	Icon: LucideIcon;
-	iconClassName: string;
-	iconBg: string;
+	/** Cor do icone na faixa do hero (fundo escuro). */
+	accent: string;
 	value: string;
-	valueColor: string;
 	label: string;
 	sublabel: string;
 };
@@ -89,28 +88,22 @@ export type Metric = {
 export const METRICS: Metric[] = [
 	{
 		Icon: Users,
-		iconClassName: "size-6 text-blue-deep",
-		iconBg: "bg-blue-tint",
+		accent: "text-mint",
 		value: "4.200+",
-		valueColor: "text-blue-deep",
 		label: "Doadoras ativas",
 		sublabel: "Em todo o Brasil",
 	},
 	{
 		Icon: Droplet,
-		iconClassName: "size-6 text-teal",
-		iconBg: "bg-success-tint",
+		accent: "text-blue-tint-2",
 		value: "12 mil L",
-		valueColor: "text-teal",
 		label: "Leite coletado",
 		sublabel: "Doados aos bancos de leite",
 	},
 	{
 		Icon: Heart,
-		iconClassName: "size-6 fill-eva text-eva",
-		iconBg: "bg-eva-tint",
+		accent: "text-eva-bright",
 		value: "98%",
-		valueColor: "text-eva",
 		label: "Satisfação",
 		sublabel: "Das nossas doadoras",
 	},

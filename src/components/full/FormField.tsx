@@ -15,13 +15,21 @@ type FormFieldProps = {
 	autoComplete?: string;
 	maxLength?: number;
 	optional?: boolean;
+	/** Icone dentro do campo, a esquerda. Puramente visual. */
+	leading?: ReactNode;
+	/** Acao dentro do campo, a direita (ex.: mostrar/ocultar senha). */
 	trailing?: ReactNode;
 	className?: string;
 };
 
 /**
  * Campo de formulario do app: rotulo, input e mensagem de erro em um so
- * desenho. Usado no cadastro e no login. Ver docs/design-system.md.
+ * desenho. Usado no cadastro e no login.
+ *
+ * O campo tem 44px de altura (alvo de toque do design system), fundo
+ * `surface-2` para se destacar do cartao branco e anel azul no foco. Com
+ * `leading`, o icone fica dentro do campo e o texto recua para nao passar por
+ * baixo dele. Ver docs/design-system.md.
  */
 export function FormField({
 	id,
@@ -35,18 +43,29 @@ export function FormField({
 	autoComplete,
 	maxLength,
 	optional = false,
+	leading,
 	trailing,
 	className,
 }: FormFieldProps) {
 	return (
 		<div className={cn("flex flex-col gap-1.5", className)}>
-			<Label htmlFor={id} className="text-sm font-medium text-ink">
+			<Label htmlFor={id} className="text-[13px] font-semibold text-ink-2">
 				{label}
 				{optional && (
-					<span className="font-normal text-ink-2"> (opcional)</span>
+					<span className="font-normal text-ink-3"> (opcional)</span>
 				)}
 			</Label>
+
 			<div className="relative">
+				{leading && (
+					<span
+						aria-hidden="true"
+						className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-ink-3 [&_svg]:size-[18px]"
+					>
+						{leading}
+					</span>
+				)}
+
 				<Input
 					id={id}
 					type={type}
@@ -59,19 +78,24 @@ export function FormField({
 					aria-invalid={!!error}
 					aria-describedby={error ? `${id}-error` : undefined}
 					className={cn(
-						"h-[38px] rounded-md bg-white text-sm",
-						"focus-visible:border-blue-deep focus-visible:ring-blue-deep/10",
-						trailing && "pr-11",
+						"h-11 rounded-xl border-line bg-surface-2 px-4 text-[15px] text-ink shadow-none",
+						"placeholder:text-ink-3/70",
+						"focus-visible:border-blue-bright focus-visible:bg-surface focus-visible:ring-blue-bright/25",
+						"aria-invalid:border-danger/40 aria-invalid:bg-danger-tint/40 aria-invalid:ring-danger/15",
+						leading && "pl-11",
+						trailing && "pr-12",
 					)}
 				/>
+
 				{trailing && (
-					<span className="absolute inset-y-0 right-3 flex items-center">
+					<span className="absolute inset-y-0 right-2 flex items-center">
 						{trailing}
 					</span>
 				)}
 			</div>
+
 			{error && (
-				<p id={`${id}-error`} className="text-xs text-danger">
+				<p id={`${id}-error`} className="text-[12px] font-medium text-danger">
 					{error}
 				</p>
 			)}

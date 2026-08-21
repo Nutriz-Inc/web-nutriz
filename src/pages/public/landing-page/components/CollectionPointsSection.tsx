@@ -1,28 +1,22 @@
 import { motion } from "framer-motion";
 import { LoaderCircle } from "lucide-react";
-import { useEffect, useState } from "react";
 import {
 	type FilterChipOption,
 	FilterChips,
 } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
-import { useGeolocation } from "@/hooks/use-geolocation";
 import { ChangeLocationSheet } from "@/pages/private/donation-points/components/ChangeLocationSheet";
 import { DonationPointCard } from "@/pages/private/donation-points/components/DonationPointCard";
 import { DonationPointDetailSheet } from "@/pages/private/donation-points/components/DonationPointDetailSheet";
-import type { Coordinates } from "@/pages/private/donation-points/components/FitMapView";
 import { MapPreview } from "@/pages/private/donation-points/components/MapPreview";
-import { useQueryDonationPoints } from "@/pages/private/donation-points/hooks";
+import {
+	type DonationPointsFilter,
+	useDonationPointsSearch,
+} from "@/pages/private/donation-points/hooks/use-donation-points-search";
 import { useReveal } from "../hooks/use-reveal";
 import { SectionLabel } from "./SectionLabel";
 
-type LocationOverride =
-	| ({ kind: "coordinates" } & Coordinates)
-	| { kind: "zipcode"; zipcode: string };
-
-type FilterKey = "all" | "home";
-
-const FILTER_OPTIONS: FilterChipOption<FilterKey>[] = [
+const FILTER_OPTIONS: FilterChipOption<DonationPointsFilter>[] = [
 	{ key: "all", label: "Todos" },
 	{ key: "home", label: "Coleta Domiciliar" },
 ];
@@ -30,72 +24,27 @@ const FILTER_OPTIONS: FilterChipOption<FilterKey>[] = [
 export function CollectionPointsSection() {
 	const headerReveal = useReveal();
 
-	const [search, setSearch] = useState("");
-	const [debouncedSearch, setDebouncedSearch] = useState("");
-	const [filter, setFilter] = useState<FilterKey>("all");
-	const [selectedId, setSelectedId] = useState<string | null>(null);
-	const [locationOverride, setLocationOverride] =
-		useState<LocationOverride | null>(null);
-	const [refitVersion, setRefitVersion] = useState(0);
-	const [isLocationSheetOpen, setIsLocationSheetOpen] = useState(false);
-
-	const { coordinates, isResolved: isGeolocationResolved } = useGeolocation();
-
-	useEffect(() => {
-		const timeout = setTimeout(() => setDebouncedSearch(search), 400);
-
-		return () => clearTimeout(timeout);
-	}, [search]);
-
-	const zipCodeOverride =
-		locationOverride?.kind === "zipcode" ? locationOverride.zipcode : undefined;
-	const coordinatesOverride =
-		locationOverride?.kind === "coordinates" ? locationOverride : null;
-	const effectiveCoordinates = zipCodeOverride
-		? null
-		: (coordinatesOverride ?? coordinates);
-
-	const { data, isLoading } = useQueryDonationPoints({
-		name: debouncedSearch || undefined,
-		has_home: filter === "home" ? true : undefined,
-		zipcode: zipCodeOverride,
-		latitude: zipCodeOverride ? undefined : effectiveCoordinates?.latitude,
-		longitude: zipCodeOverride ? undefined : effectiveCoordinates?.longitude,
-	});
-
-	const points = data?.data ?? [];
-
-	const selectedPoint =
-		points.find((point) => point.id_donation_point === selectedId) ?? null;
-
-	const closestPointId = points.reduce<string | null>((closestId, point) => {
-		if (point.distance_from_you == null) return closestId;
-
-		const closestPoint = points.find(
-			(candidate) => candidate.id_donation_point === closestId,
-		);
-
-		if (
-			!closestPoint ||
-			point.distance_from_you < (closestPoint.distance_from_you ?? Infinity)
-		) {
-			return point.id_donation_point;
-		}
-
-		return closestId;
-	}, null);
-
-	function handleApplyZipCode(zipcode: string) {
-		setLocationOverride({ kind: "zipcode", zipcode });
-		setRefitVersion((version) => version + 1);
-		setIsLocationSheetOpen(false);
-	}
-
-	function handleApplyCurrentLocation(coords: Coordinates) {
-		setLocationOverride({ kind: "coordinates", ...coords });
-		setRefitVersion((version) => version + 1);
-		setIsLocationSheetOpen(false);
-	}
+	// Mesma logica da tela logada de pontos de coleta, num hook so: antes eram
+	// duas copias, e a correcao da busca por CEP tinha ficado so na de la.
+	const {
+		search,
+		setSearch,
+		filter,
+		setFilter,
+		selectedId,
+		setSelectedId,
+		selectedPoint,
+		closestPointId,
+		points,
+		isLoading,
+		effectiveCoordinates,
+		isLocationReady,
+		refitVersion,
+		isLocationSheetOpen,
+		setIsLocationSheetOpen,
+		applyZipCode,
+		applyCurrentLocation,
+	} = useDonationPointsSearch();
 
 	return (
 		<section
@@ -136,9 +85,7 @@ export function CollectionPointsSection() {
 								points={points}
 								pointsReady={!isLoading}
 								userLocation={effectiveCoordinates}
-								userLocationReady={
-									locationOverride !== null || isGeolocationResolved
-								}
+								userLocationReady={isLocationReady}
 								refitVersion={refitVersion}
 								selectedId={selectedId}
 								onSelectPoint={(id) => setSelectedId(id)}
@@ -173,14 +120,15 @@ export function CollectionPointsSection() {
 				<ChangeLocationSheet
 					open={isLocationSheetOpen}
 					onOpenChange={setIsLocationSheetOpen}
-					onApplyZipCode={handleApplyZipCode}
-					onApplyCurrentLocation={handleApplyCurrentLocation}
+					onApplyZipCode={applyZipCode}
+					onApplyCurrentLocation={applyCurrentLocation}
 				/>
 
 				<DonationPointDetailSheet
 					point={selectedPoint}
 					open={selectedId !== null}
 					isClosest={selectedId !== null && selectedId === closestPointId}
+					origin={effectiveCoordinates}
 					onOpenChange={(open) => !open && setSelectedId(null)}
 				/>
 			</div>

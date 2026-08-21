@@ -52,9 +52,14 @@ export function BrandPanel() {
 				/>
 			</Link>
 
-			<div className="relative mt-6 flex items-end gap-4 lg:mt-8 lg:block">
+			{/*
+			 * Texto e ilustracao lado a lado, alinhados pelo centro — no desktop e
+			 * no mobile. Antes a imagem ficava embaixo do titulo no desktop, o que
+			 * deixava a coluna comprida e vazia no meio.
+			 */}
+			<div className="relative mt-6 flex items-center gap-5 lg:mt-8 lg:gap-10">
 				<div className="min-w-0 flex-1">
-					<h1 className="font-display text-[26px] font-extrabold leading-[1.1] tracking-tight sm:text-[32px] lg:text-[42px]">
+					<h1 className="font-display text-[26px] font-extrabold leading-[1.1] tracking-tight sm:text-[32px] lg:text-[40px]">
 						Cada gota conta.
 						<br />
 						<span className="text-blue-tint-2">Continue de onde parou.</span>
@@ -66,34 +71,16 @@ export function BrandPanel() {
 					</p>
 				</div>
 
-				{/*
-				 * No mobile a ilustracao acompanha o titulo, pequena, para a faixa
-				 * nao roubar altura do formulario.
-				 */}
-				<img
-					src={maternidade}
-					alt=""
-					aria-hidden="true"
-					className="h-20 w-auto shrink-0 select-none drop-shadow-2xl sm:h-24 lg:hidden"
-				/>
-			</div>
-
-			{/*
-			 * No desktop ela vira a peca principal. Sem cartao em volta: a
-			 * ilustracao ja traz o proprio quadro claro, e um segundo por cima
-			 * virava moldura dentro de moldura.
-			 */}
-			<figure className="relative mt-8 hidden lg:block">
 				<img
 					src={maternidade}
 					alt="Ilustração de uma mãe com seu bebê"
 					width={668}
 					height={538}
-					className="mx-auto h-52 w-auto select-none drop-shadow-2xl xl:h-60"
+					className="h-24 w-auto shrink-0 select-none drop-shadow-2xl sm:h-32 lg:h-56 xl:h-64"
 				/>
-			</figure>
+			</div>
 
-			<div className="relative mt-8 hidden flex-wrap gap-2 lg:flex">
+			<div className="relative mt-8 hidden flex-wrap justify-center gap-2 lg:flex">
 				{SELOS.map((selo) => {
 					const Icon = selo.icon;
 

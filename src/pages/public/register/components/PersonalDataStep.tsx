@@ -1,3 +1,4 @@
+import { CalendarDays, IdCard, Mail, Phone, User } from "lucide-react";
 import { FormField } from "@/components/full/FormField";
 import { formatCpf, formatPhoneNumber, maskDate } from "@/utils/formatter";
 import type {
@@ -19,12 +20,11 @@ export function PersonalDataStep({
 }: PersonalDataStepProps) {
 	return (
 		<fieldset className="flex flex-col gap-5">
-			<legend className="mb-5 text-[13px] font-bold uppercase tracking-wide text-blue-deep">
-				Dados pessoais
-			</legend>
+			<legend className="sr-only">Dados pessoais</legend>
 
 			<FormField
 				id="register-name"
+				leading={<User />}
 				label="Nome completo"
 				value={form.name}
 				onChange={(value) => onChange("name", value)}
@@ -36,6 +36,7 @@ export function PersonalDataStep({
 			<div className="grid gap-5 sm:grid-cols-2">
 				<FormField
 					id="register-cpf"
+					leading={<IdCard />}
 					label="CPF"
 					value={form.cpf}
 					onChange={(value) => onChange("cpf", formatCpf(value))}
@@ -46,6 +47,7 @@ export function PersonalDataStep({
 				/>
 				<FormField
 					id="register-birth-date"
+					leading={<CalendarDays />}
 					label="Data de nascimento"
 					value={form.birthDate}
 					onChange={(value) => onChange("birthDate", maskDate(value))}
@@ -57,6 +59,7 @@ export function PersonalDataStep({
 				/>
 				<FormField
 					id="register-phone"
+					leading={<Phone />}
 					label="Telefone"
 					value={form.phone}
 					onChange={(value) => onChange("phone", formatPhoneNumber(value))}
@@ -68,6 +71,7 @@ export function PersonalDataStep({
 				/>
 				<FormField
 					id="register-email"
+					leading={<Mail />}
 					label="Email"
 					value={form.email}
 					onChange={(value) => onChange("email", value)}

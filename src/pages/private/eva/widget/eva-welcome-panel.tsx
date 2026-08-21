@@ -104,13 +104,15 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 				})}
 			</div>
 
-			<div className="eva-widget-welcome-foot-wrap">
-				<span className="eva-welcome-dots" aria-hidden="true">
+			<div className="eva-welcome-espaco" aria-hidden="true">
+				<span className="eva-welcome-dots">
 					<span className="eva-typing-dot" />
 					<span className="eva-typing-dot" />
 					<span className="eva-typing-dot" />
 				</span>
+			</div>
 
+			<div className="eva-widget-welcome-foot-wrap">
 				{isAnonymous ? (
 					// Modo anonimo: o aviso LGPD e bloqueante. O botao de ciencia leva
 					// ao chat preservando uma eventual pergunta vinda de um CTA (o

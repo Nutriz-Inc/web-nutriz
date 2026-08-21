@@ -121,6 +121,7 @@
 	cursor: pointer;
 	transition:
 		transform 0.2s ease,
+		background-color 0.2s ease,
 		box-shadow 0.2s ease,
 		border-radius 0.2s ease,
 		border-color 0.2s ease;
@@ -149,6 +150,8 @@
 	transform: translateX(6px);
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
+	/* Rosa clarinho da marca. */
+	background: var(--eva-tint);
 	border-color: color-mix(in oklch, var(--eva) 40%, transparent);
 	box-shadow: 0 10px 22px -12px color-mix(in oklch, var(--ink) 45%, transparent);
 }

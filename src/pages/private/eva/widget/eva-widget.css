@@ -140,10 +140,19 @@
 	align-items: center;
 }
 
-/* Cabecalho da abertura: so o botao de fechar, encostado a direita. */
+/*
+ * Cabecalho da abertura: so o botao de fechar. Sai do fluxo para poder ficar
+ * na mesma linha do nome, em vez de empurrar o conteudo para baixo.
+ */
 .eva-widget-header--bare {
-	justify-content: flex-end;
-	padding-bottom: 0;
+	position: absolute;
+	/* Acompanha o padding-top da abertura: medido no DOM para o centro do X
+	 * bater com o centro do nome. */
+	top: 27px;
+	right: 16px;
+	z-index: 2;
+	padding: 0;
+	background: transparent;
 }
 
 .eva-widget-header--welcome .eva-widget-header-title {
@@ -220,7 +229,8 @@
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	padding: 10px 24px 18px;
+	/* Respiro no topo: o nome estava encostado na borda do cartao. */
+	padding: 30px 22px 18px;
 	background: var(--surface);
 }
 
@@ -233,6 +243,8 @@
 
 .eva-welcome-id-text {
 	min-width: 0;
+	/* Espaco do botao de fechar, que flutua no canto. */
+	padding-right: 48px;
 }
 
 /*
@@ -261,13 +273,29 @@
 }
 
 /* Pilulas empilhadas, cada uma do tamanho do proprio texto. */
+/*
+ * `flex: 1` com `min-height: 0` deixava a lista encolher abaixo do proprio
+ * conteudo quando o espaco apertava, e a ultima pilula invadia os pontinhos.
+ * Agora ela nunca fica menor que o conteudo e o vazio sobra depois dela.
+ */
 .eva-welcome-pills {
-	flex: 1;
-	min-height: 0;
+	flex: 0 0 auto;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	gap: 8px;
+}
+
+/*
+ * Vao entre as sugestoes e o campo. Os pontinhos vivem aqui, centrados: antes
+ * ficavam colados no campo e a folga toda sobrava acima deles.
+ */
+.eva-welcome-espaco {
+	flex: 1 1 auto;
+	min-height: 24px;
+	display: flex;
+	align-items: center;
+	padding-left: 6px;
 }
 
 .eva-welcome-dots {

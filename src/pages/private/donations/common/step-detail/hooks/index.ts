@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import services from "@/services";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
+import { INTERVALO_AO_VIVO_MS } from "@/utils/live-query";
 
 export function useLatestStepJob(id_step?: string) {
 	const jobQuery = useQuery({
@@ -12,6 +13,7 @@ export function useLatestStepJob(id_step?: string) {
 				id_step: id_step as string,
 			}),
 		enabled: Boolean(id_step),
+		refetchInterval: INTERVALO_AO_VIVO_MS,
 	});
 
 	const latestJob = [...(jobQuery.data?.data ?? [])].sort((a, b) =>
@@ -36,6 +38,8 @@ export function useStepTimelines(id_donation_step: string, enabled = true) {
 		queryKey: ["donation-step-timelines", id_donation_step],
 		queryFn: () => services.donation.listStepTimelines({ id_donation_step }),
 		enabled: enabled && Boolean(id_donation_step),
+		// A linha do tempo ganha um item a cada acao do admin nesta etapa.
+		refetchInterval: INTERVALO_AO_VIVO_MS,
 	});
 
 	return { timelinesQuery };

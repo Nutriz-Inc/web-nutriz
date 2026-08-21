@@ -1,7 +1,7 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { EVA_SUGGESTIONS } from "@/pages/private/eva/constants";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
-import { EVA_LANDING_BG } from "../constants";
+import { LandingSection } from "./LandingSection";
 import { SlideButton } from "./SlideButton";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -29,56 +29,40 @@ export function EvaSection() {
 			} as const);
 
 	return (
-		<section
+		<LandingSection
 			id="a-eva"
-			className="scroll-mt-20 bg-surface pb-20 pt-2 lg:pb-24 lg:pt-4"
+			label="Rede de apoio"
+			title="Como você está hoje?"
+			tone="eva"
+			description="A EVA acolhe você a qualquer hora — doação de leite, ordenha, armazenamento e amamentação. Sem fila, sem espera."
+			surfaceClassName="bg-surface"
 		>
-			<div
-				aria-hidden
-				className="mx-auto mb-6 h-1.5 w-16 rounded-full bg-blue-tint lg:mb-8"
-			/>
-
-			<motion.div
-				{...reveal}
-				aria-labelledby="eva-section-title"
-				className="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-8"
-			>
-				<div
-					className="relative overflow-hidden rounded-3xl px-7 py-10 lg:rounded-2xl lg:px-14 lg:py-16"
-					style={{ background: EVA_LANDING_BG }}
-				>
+			<motion.div {...reveal}>
+				<div className="rounded-card gradient-eva relative overflow-hidden border border-line px-7 py-10 lg:px-14 lg:py-14">
 					<div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
 						<div className="min-w-0 lg:max-w-[460px]">
 							<motion.span
 								variants={item}
-								className="inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-[13px] font-bold tracking-[0.12em] text-danger"
+								className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.06em] text-eva shadow-soft"
 							>
 								<span
 									aria-hidden
 									className="size-1.5 rounded-full bg-success"
 								/>
-								ASSISTENTE 24 HORAS
+								Assistente 24 horas
 							</motion.span>
-
-							<motion.h2
-								variants={item}
-								id="eva-section-title"
-								className="mt-6 text-[34px] font-extrabold leading-[1.08] tracking-[-0.02em] text-ink lg:text-[48px]"
-							>
-								Como você está hoje?
-							</motion.h2>
 
 							<motion.p
 								variants={item}
-								className="mt-5 max-w-[440px] text-[15px] leading-relaxed text-ink lg:text-[16px]"
+								className="mt-6 max-w-[440px] text-[16px] font-semibold leading-relaxed text-ink lg:text-[18px]"
 							>
-								A EVA acolhe você a qualquer hora — doação de leite, ordenha,
-								armazenamento e amamentação. Sem fila, sem espera.
+								Pergunte o que quiser. Ela responde na hora, com conteúdo
+								validado pela rBLH.
 							</motion.p>
 
 							<motion.div
 								variants={item}
-								className="mt-9 flex flex-wrap items-center gap-4"
+								className="mt-7 flex flex-wrap items-center gap-4"
 							>
 								<div className="relative inline-flex">
 									{!reduce && (
@@ -114,7 +98,7 @@ export function EvaSection() {
 						<motion.div
 							variants={item}
 							aria-hidden
-							className="w-full max-w-[380px] flex-none rounded-2xl bg-white p-5 shadow-lift lg:w-[380px]"
+							className="rounded-card w-full max-w-[380px] flex-none border border-line bg-surface p-5 shadow-lift lg:w-[380px]"
 						>
 							<div className="flex items-center gap-2.5">
 								<span className="size-8 rounded-full bg-gradient-to-br from-warning-tint via-eva-bright to-purple" />
@@ -142,28 +126,26 @@ export function EvaSection() {
 						</motion.div>
 					</div>
 				</div>
-
-				<motion.div
-					variants={item}
-					className="mt-7 flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center"
-				>
-					<span className="text-[15px] font-bold text-ink">
-						Comece por aqui:
-					</span>
-					<div className="flex flex-wrap gap-2.5">
-						{EVA_SUGGESTIONS.map((suggestion) => (
-							<button
-								key={suggestion}
-								type="button"
-								onClick={() => openEva(suggestion)}
-								className="min-h-[44px] cursor-pointer rounded-full bg-danger-tint px-[18px] text-[14px] font-semibold text-eva transition-[filter] hover:brightness-[0.97] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-eva"
-							>
-								{suggestion}
-							</button>
-						))}
-					</div>
-				</motion.div>
 			</motion.div>
-		</section>
+
+			<motion.div
+				{...reveal}
+				className="mt-7 flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center"
+			>
+				<span className="text-[15px] font-bold text-ink">Comece por aqui:</span>
+				<div className="flex flex-wrap gap-2.5">
+					{EVA_SUGGESTIONS.map((suggestion) => (
+						<button
+							key={suggestion}
+							type="button"
+							onClick={() => openEva(suggestion)}
+							className="min-h-[44px] cursor-pointer rounded-full border border-line bg-eva-tint px-[18px] text-[14px] font-semibold text-eva outline-none transition-colors hover:bg-eva-tint/70 focus-visible:ring-3 focus-visible:ring-eva/40"
+						>
+							{suggestion}
+						</button>
+					))}
+				</div>
+			</motion.div>
+		</LandingSection>
 	);
 }

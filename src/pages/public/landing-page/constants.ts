@@ -116,13 +116,6 @@ export const METRICS: Metric[] = [
 	},
 ];
 
-// Fundo do bloco da EVA na landing: gradiente pastel da marca (pessego ->
-// rosa -> lilas), como na referencia. O contraste vem do TEXTO ESCURO sobre o
-// pastel (ver EvaSection) - no ponto mais claro do gradiente (#fbdcc4) o texto
-// #1c1b1f fica em ~13:1, bem acima do minimo WCAG AA (4.5:1).
-export const EVA_LANDING_BG =
-	"linear-gradient(120deg, #fbdcc4 0%, #f6bdd2 48%, #ccb4e8 100%)";
-
 export type FooterLink = {
 	label: string;
 	targetId?: string;

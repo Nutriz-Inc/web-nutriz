@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import novaDoacao from "@/assets/illustrations/nova-doacao.svg";
 import { HeroBackground } from "@/components/full/HeroBackground";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -13,7 +14,7 @@ export function FinalCtaSection() {
 	const reveal = useReveal();
 
 	return (
-		<section className="bg-surface-2 py-20 lg:py-24">
+		<section className="bg-surface-2 py-16 sm:py-20 lg:py-24">
 			<div className="mx-auto w-full max-w-[1200px] px-5 sm:px-6 lg:px-8">
 				<motion.div
 					{...reveal}
@@ -35,7 +36,16 @@ export function FinalCtaSection() {
 								</p>
 							</div>
 
-							<div className="flex flex-col items-start gap-5 lg:items-end">
+							<img
+								src={novaDoacao}
+								alt=""
+								aria-hidden="true"
+								width={220}
+								height={200}
+								className="pointer-events-none absolute -bottom-6 left-1/2 hidden h-40 w-auto -translate-x-1/2 select-none opacity-90 lg:block xl:h-48"
+							/>
+
+							<div className="relative flex flex-col items-start gap-5 lg:items-end">
 								<div className="flex w-full flex-col gap-3 sm:flex-row lg:justify-end">
 									<SlideButton
 										label="Quero ser doadora"

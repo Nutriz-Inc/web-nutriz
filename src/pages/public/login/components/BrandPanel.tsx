@@ -74,21 +74,23 @@ export function BrandPanel() {
 					src={maternidade}
 					alt=""
 					aria-hidden="true"
-					className="h-24 w-auto shrink-0 select-none rounded-2xl bg-white/90 p-2 shadow-lift sm:h-28 lg:hidden"
+					className="h-20 w-auto shrink-0 select-none drop-shadow-2xl sm:h-24 lg:hidden"
 				/>
 			</div>
 
-			{/* No desktop ela vira a peca principal, num cartao claro. */}
+			{/*
+			 * No desktop ela vira a peca principal. Sem cartao em volta: a
+			 * ilustracao ja traz o proprio quadro claro, e um segundo por cima
+			 * virava moldura dentro de moldura.
+			 */}
 			<figure className="relative mt-8 hidden lg:block">
-				<div className="rounded-card mx-auto flex max-w-[420px] items-center justify-center border border-white/25 bg-white/92 px-6 py-5 shadow-lift">
-					<img
-						src={maternidade}
-						alt="Ilustração de uma mãe com seu bebê"
-						width={668}
-						height={538}
-						className="h-44 w-auto select-none xl:h-52"
-					/>
-				</div>
+				<img
+					src={maternidade}
+					alt="Ilustração de uma mãe com seu bebê"
+					width={668}
+					height={538}
+					className="mx-auto h-52 w-auto select-none drop-shadow-2xl xl:h-60"
+				/>
 			</figure>
 
 			<div className="relative mt-8 hidden flex-wrap gap-2 lg:flex">

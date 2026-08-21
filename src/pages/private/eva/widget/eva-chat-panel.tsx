@@ -135,10 +135,17 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 	const consentSupportHref =
 		blockedReason === "consent" ? buildConsentSupportHref() : null;
 
+	// Tom do aviso a partir do motivo que o hook ja devolve. E so aparencia:
+	// nenhum motivo novo, nenhuma regra nova. Ver eva-widget.css.
+	const noticeTone = (motivo: typeof blockedReason): string =>
+		motivo === "rate_limit" || motivo === "jailbreak"
+			? "eva-widget-notice eva-widget-notice--alerta"
+			: "eva-widget-notice eva-widget-notice--erro";
+
 	const statusNotice = blocked ? (
 		blockedReason === "consent" ? (
 			<div className="eva-widget-notice-group">
-				<p className="eva-widget-notice">{BLOCKED_MESSAGES.consent}</p>
+				<p className={noticeTone(blockedReason)}>{BLOCKED_MESSAGES.consent}</p>
 				{/* TODO: quando existir a pagina de Termos de Uso, adicionar aqui um
 				    link/rota interna para ela ao lado do suporte. */}
 				{consentSupportHref && (
@@ -153,15 +160,17 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 				)}
 			</div>
 		) : (
-			<p className="eva-widget-notice">{BLOCKED_MESSAGES[blockedReason]}</p>
+			<p className={noticeTone(blockedReason)}>
+				{BLOCKED_MESSAGES[blockedReason]}
+			</p>
 		)
 	) : status === "reconnecting" || status === "connecting" ? (
-		<p className="eva-widget-notice">
+		<p className="eva-widget-notice eva-widget-notice--info">
 			{status === "reconnecting" ? "Reconectando..." : "Conectando..."}
 		</p>
 	) : status === "failed" || errorMessage ? (
 		<div className="eva-widget-notice-group">
-			<p className="eva-widget-notice">
+			<p className="eva-widget-notice eva-widget-notice--erro">
 				{errorMessage ?? CONNECTION_ERROR_MESSAGE}
 			</p>
 			{status === "failed" && !blocked && (

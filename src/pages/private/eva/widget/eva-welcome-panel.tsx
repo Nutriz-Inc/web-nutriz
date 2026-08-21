@@ -1,7 +1,8 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import { AvatarEva } from "../components/avatar-eva";
 import { ChatInput } from "../components/chat-input";
-import { SuggestionChips } from "../components/suggestion-chips";
+import { EVA_SUGGESTIONS } from "../constants";
 import "../eva.css";
 import type { EvaAccessMode } from "./use-eva-access";
 
@@ -10,9 +11,22 @@ type EvaWelcomePanelProps = {
 	onStart: (initialMessage?: string) => void;
 };
 
+/**
+ * Boas-vindas da EVA — uma tela so, sem rolagem.
+ *
+ * O que manda o desenho e a altura: tudo precisa caber nos ~556px uteis do
+ * modal (620px menos o cabecalho), inclusive com o aviso LGPD do modo
+ * anonimo, que e o caso mais alto. Por isso as sugestoes voltaram a duas
+ * colunas e os blocos sao compactos.
+ *
+ * A forma e a mesma do resto do app — superficie branca, `rounded-card-sm`,
+ * borda `line`, tipografia Geist. O rosa entra como acento (avatar, marcador
+ * de estado, barra de hover), nao como banho de cor.
+ */
 export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 	const isAnonymous = mode === "anonymous";
 	const [text, setText] = useState("");
+	const reduzirMovimento = useReducedMotion();
 
 	function handleSend() {
 		const trimmed = text.trim();
@@ -21,28 +35,54 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 		}
 	}
 
+	const entrada = (indice: number) =>
+		reduzirMovimento
+			? {}
+			: {
+					initial: { opacity: 0, y: 10 },
+					animate: { opacity: 1, y: 0 },
+					transition: {
+						duration: 0.32,
+						delay: 0.05 * indice,
+						ease: [0.22, 1, 0.36, 1] as const,
+					},
+				};
+
 	return (
 		<div className="eva-scope eva-widget-welcome">
-			<div className="eva-widget-welcome-top">
-				<AvatarEva size={52} />
-				<h2 className="eva-widget-welcome-title">
-					Fale com a EVA sobre amamentação
-				</h2>
+			<motion.div {...entrada(0)} className="eva-welcome-hero">
+				<AvatarEva size={56} />
+				<h2 className="eva-widget-welcome-title">Oi, eu sou a EVA</h2>
+				<p className="eva-welcome-sub">
+					Doação de leite, ordenha e amamentação — pergunte a qualquer hora.
+				</p>
+			</motion.div>
 
-				{isAnonymous && (
-					<div className="eva-widget-lgpd" role="note">
-						Este é um chat público. Não compartilhe dados pessoais (CPF, e-mail,
-						telefone). Para um atendimento personalizado e seguro,{" "}
-						<a className="eva-link" href="/registro">
-							cadastre-se na Nutriz
-						</a>
-						.
-					</div>
-				)}
+			{isAnonymous && (
+				<motion.p {...entrada(1)} className="eva-widget-lgpd" role="note">
+					Chat público: não compartilhe dados pessoais.{" "}
+					<a className="eva-link" href="/registro">
+						Cadastre-se
+					</a>{" "}
+					para um atendimento personalizado.
+				</motion.p>
+			)}
 
-				<div className="eva-widget-welcome-suggestions">
-					<p className="eva-widget-welcome-label">Comece por aqui</p>
-					<SuggestionChips onSelect={(suggestion) => onStart(suggestion)} />
+			<div className="eva-welcome-suggestions">
+				<p className="eva-widget-welcome-label">Comece por aqui</p>
+
+				<div className="eva-welcome-grid">
+					{EVA_SUGGESTIONS.map((suggestion, indice) => (
+						<motion.button
+							key={suggestion}
+							{...entrada(2 + indice)}
+							type="button"
+							className="eva-welcome-row"
+							onClick={() => onStart(suggestion)}
+						>
+							{suggestion}
+						</motion.button>
+					))}
 				</div>
 			</div>
 
@@ -67,8 +107,7 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 					/>
 				)}
 				<p className="eva-widget-welcome-foot">
-					A EVA pode se enganar e não substitui avaliação médica. Suas conversas
-					são protegidas.
+					A EVA não substitui avaliação médica.
 				</p>
 			</div>
 		</div>

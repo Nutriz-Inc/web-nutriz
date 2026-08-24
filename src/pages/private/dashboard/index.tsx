@@ -93,11 +93,11 @@ export function AdmDashboardPage() {
 				<StatCard
 					icon={<AlertTriangle className="size-4 text-eva" />}
 					iconBg="bg-danger-tint"
-					title="Doações com Erro"
+					title="Doações não concluídas"
 					subtitle="Ocorrências no período selecionado"
 					value={String(data?.donations_with_error ?? 0)}
 					valueColor="text-eva"
-					footnote="Doações que não puderem ser concluídas"
+					footnote="Doações que não puderam ser completadas"
 				/>
 			</div>
 		</Page>

@@ -1,76 +1,93 @@
 import { useState } from "react";
-import agendaVazia from "@/assets/illustrations/agenda-vazia.svg";
-import { EmptyState } from "@/components/full/EmptyState";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
-import { EnumJobStatus } from "@/services/types/i-job";
 import { EnumUserType } from "@/services/types/i-user";
-import { AppointmentCard } from "./components/AppointmentCard";
 import { DateFilter } from "./components/DateFilter";
-import { LoadMoreButton } from "./components/LoadMoreButton";
-import { StatusTabs } from "./components/StatusTabs";
+import { KanbanColumn } from "./components/KanbanColumn";
+import { COLUNAS_DO_QUADRO } from "./constants";
 import { useAppointmentsList } from "./hooks";
 import { toDateSetParam } from "./utils";
 
+/**
+ * Agendamentos do enfermeiro, num quadro de tres colunas.
+ *
+ * Antes era uma aba por status e uma grade de cartoes: so dava para ver um
+ * status de cada vez, e a pergunta que o enfermeiro faz ao abrir a tela —
+ * "quanto falta e o que ja saiu" — exigia trocar de aba. As colunas sao os tres
+ * `EnumJobStatus` que a API ja tem; o quadro nao inventa estado nenhum.
+ *
+ * Nao ha arrastar cartao entre colunas de proposito: mudar de status aqui exige
+ * o relatorio da consulta, que e preenchido na tela de detalhe. Um arrasto
+ * pularia essa etapa. O quadro mostra e leva para la; quem muda o estado e o
+ * formulario.
+ */
 export function AppointmentsPage() {
 	const { auth } = useAuth();
-	const [status, setStatus] = useState<EnumJobStatus>(EnumJobStatus.Pending);
 	const [dateFilter, setDateFilter] = useState("");
+	const dateSet = toDateSetParam(dateFilter);
 
-	const {
-		appointments,
-		total,
-		isLoading,
-		hasNextPage,
-		isFetchingNextPage,
-		fetchNextPage,
-	} = useAppointmentsList({ status, dateSet: toDateSetParam(dateFilter) });
+	// Uma consulta por coluna: o hook ja pagina por status, entao cada coluna
+	// carrega e pagina sozinha.
+	const pendentes = useAppointmentsList({
+		status: COLUNAS_DO_QUADRO[0].status,
+		dateSet,
+	});
+	const concluidos = useAppointmentsList({
+		status: COLUNAS_DO_QUADRO[1].status,
+		dateSet,
+	});
+	const comErro = useAppointmentsList({
+		status: COLUNAS_DO_QUADRO[2].status,
+		dateSet,
+	});
+
+	const consultas = [pendentes, concluidos, comErro];
+	const totalGeral = consultas.reduce(
+		(soma, consulta) => soma + consulta.total,
+		0,
+	);
+	const carregandoTudo = consultas.every((consulta) => consulta.isLoading);
 
 	return (
 		<Page
 			hasPermission={auth?.type === EnumUserType.Nurse}
-			loading={isLoading}
 			title="Agendamentos atribuídos"
-			description="Toque ou clique em um card para ver os detalhes e o relatório da consulta."
+			description="Cada coluna é um estado do agendamento. Toque em um card para ver os detalhes e o relatório."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={
 				<span className="shrink-0 rounded-full bg-blue-tint px-3 py-1.5 text-[13px] font-semibold text-blue-bright">
-					{appointments.length}
-					{hasNextPage ? "+" : ""} <span className="lg:hidden">agend.</span>
+					{carregandoTudo ? "—" : totalGeral}{" "}
+					<span className="lg:hidden">agend.</span>
 					<span className="hidden lg:inline">agendamentos</span>
 				</span>
 			}
 		>
-			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-surface-3 px-4 pb-24 pt-5 lg:m-0 lg:mx-auto lg:min-h-0 lg:w-full lg:max-w-[1200px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
-				<StatusTabs value={status} onChange={setStatus} />
-
-				<div className="h-px bg-blue-tint" />
-
+			<div className="flex flex-col gap-5 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6">
 				<DateFilter value={dateFilter} onChange={setDateFilter} />
 
-				{appointments.length === 0 ? (
-					<div className="rounded-card-sm border border-line bg-white">
-						<EmptyState
-							illustration={agendaVazia}
-							title="Nenhum agendamento encontrado"
-							description="Ajuste o período ou a aba selecionada."
-						/>
-					</div>
-				) : (
-					<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-						{appointments.map((appointment) => (
-							<AppointmentCard key={appointment.id} appointment={appointment} />
-						))}
-					</div>
-				)}
+				{/*
+				 * No celular as colunas viram um carrossel que encaixa: 84vw cada uma
+				 * deixa a proxima aparecendo pela borda, que e o que avisa que ha mais
+				 * coluna para o lado. De `lg` para cima elas dividem a largura.
+				 */}
+				<div className="sem-barra -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:px-0">
+					{COLUNAS_DO_QUADRO.map((coluna, indice) => {
+						const consulta = consultas[indice];
 
-				{hasNextPage && (
-					<LoadMoreButton
-						remaining={Math.max(total - appointments.length, 0)}
-						loading={isFetchingNextPage}
-						onClick={() => fetchNextPage()}
-					/>
-				)}
+						return (
+							<KanbanColumn
+								key={coluna.status}
+								coluna={coluna}
+								appointments={consulta.appointments}
+								total={consulta.total}
+								isLoading={consulta.isLoading}
+								hasNextPage={consulta.hasNextPage}
+								isFetchingNextPage={consulta.isFetchingNextPage}
+								onLoadMore={() => consulta.fetchNextPage()}
+							/>
+						);
+					})}
+				</div>
 			</div>
 		</Page>
 	);

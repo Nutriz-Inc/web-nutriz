@@ -47,12 +47,12 @@
 	/* Pele de baixo: pastel claro, para fundo escuro. Escrita com os tokens
 	 * globais porque o FAB fica fora de `.eva-scope`. */
 	background: linear-gradient(
-		145deg,
-		color-mix(in oklch, var(--purple-tint) 92%, transparent) 0%,
-		color-mix(in oklch, var(--eva-tint) 92%, transparent) 55%,
+		180deg,
+		color-mix(in oklch, var(--purple-tint) 96%, transparent) 0%,
+		color-mix(in oklch, var(--eva-tint) 96%, transparent) 55%,
 		color-mix(
 				in oklch,
-				color-mix(in oklch, var(--eva-bright) 45%, white) 92%,
+				color-mix(in oklch, var(--eva-bright) 45%, white) 96%,
 				transparent
 			)
 			100%
@@ -71,19 +71,57 @@
 		box-shadow 0.55s ease;
 }
 
-/* Pele de cima: saturada, para fundo claro. */
+/*
+ * Pele de cima, para fundo claro: so os rosas da EVA (`--eva` e `--eva-deep`),
+ * com a mesma onda que desliza no nome "Assistente EVA". O roxo saiu daqui —
+ * no croma cheio ele ficava neon ao lado do rosa.
+ *
+ * Repetir a primeira cor no fim e o que faz a volta da onda emendar sem salto,
+ * igual ao titulo.
+ *
+ * Sao os tres rosas da secao da EVA na landing, do mais claro ao mais fundo:
+ * `--eva-bright`, `--eva` e `--eva-deep`. O claro entra so nas pontas, e o
+ * miolo fica nos dois fundos — sozinho, `--eva-bright` da 2,01:1 contra o
+ * canvas, e o `--eva-tint` do cartao da landing da 1,01:1, ou seja, o botao
+ * sumiria no fundo claro, que e justamente o problema que as duas peles
+ * existem para resolver.
+ *
+ * Como a ponta clara existe, a linha interna vira uma borda rosa funda no
+ * estado claro: e ela que segura a silhueta do botao onde o degrade clareia.
+ */
 .eva-fab::before {
 	content: "";
 	position: absolute;
 	inset: 0;
 	border-radius: inherit;
 	background: linear-gradient(
-		145deg,
-		color-mix(in oklch, var(--eva-deep) 92%, transparent) 0%,
-		color-mix(in oklch, var(--purple) 92%, transparent) 100%
+		180deg,
+		color-mix(in oklch, var(--eva-bright) 92%, transparent) 0%,
+		color-mix(in oklch, var(--eva) 92%, transparent) 28%,
+		color-mix(in oklch, var(--eva-deep) 92%, transparent) 55%,
+		color-mix(in oklch, var(--eva) 92%, transparent) 80%,
+		color-mix(in oklch, var(--eva-bright) 92%, transparent) 100%
 	);
+	background-size: 100% 200%;
 	opacity: 0;
 	transition: opacity 0.55s ease;
+}
+
+.eva-fab[data-fundo="claro"]::before {
+	opacity: 1;
+	animation: eva-onda-vertical 6s linear infinite;
+}
+
+/*
+ * Espelho vertical do `eva-onda` do titulo: la o degrade e o dobro da LARGURA
+ * e desliza para o lado; aqui e o dobro da ALTURA e desce. Precisa ser um
+ * keyframe proprio — mover `background-position` no eixo x nao muda nada num
+ * degrade vertical.
+ */
+@keyframes eva-onda-vertical {
+	to {
+		background-position: 50% 200%;
+	}
 }
 
 /*
@@ -114,44 +152,69 @@
 .eva-fab[data-fundo="claro"]::after {
 	background: radial-gradient(
 		90% 75% at 26% 16%,
-		color-mix(in oklch, white 18%, transparent) 0%,
+		color-mix(in oklch, white 9%, transparent) 0%,
 		transparent 52%
 	);
 }
 
-.eva-fab[data-fundo="claro"]::before {
-	opacity: 1;
-}
-
-/* Sobre fundo claro a sombra pode ser mais funda sem virar borrao. */
+/* Sobre fundo claro a sombra pode ser mais funda sem virar borrao, e a linha
+ * interna deixa de ser branca para desenhar a borda do botao. */
 .eva-fab[data-fundo="claro"] {
-	box-shadow: 0 14px 34px -12px
-		color-mix(in oklch, var(--purple) 55%, transparent);
+	box-shadow:
+		inset 0 0 0 1.5px color-mix(in oklch, var(--eva-deep) 55%, transparent),
+		0 14px 34px -12px color-mix(in oklch, var(--eva-deep) 50%, transparent);
 }
 
 /*
- * A arte da flor vem preta. `invert(1)` deixa branca, `invert(0.1)` deixa quase
- * preta — e como e a MESMA funcao, o navegador interpola entre as duas e a flor
- * atravessa o cinza suavemente, no mesmo tempo do degrade.
+ * A flor deixa de ser tinta chapada e vira um recorte.
+ *
+ * Antes era o PNG preto com `filter: invert()`, o que so dava preto ou branco.
+ * Agora a silhueta e mascara: quem pinta sao duas camadas de degrade por baixo
+ * dela, e o que troca entre elas e a opacidade — assim a flor tem degrade nos
+ * dois estados e ainda atravessa de um para o outro sem corte.
  */
 .eva-fab-mark {
 	position: relative;
 	z-index: 1;
 	width: 28px;
 	height: 28px;
-	filter: brightness(0) invert(0.1);
-	transition: filter 0.55s ease;
+	-webkit-mask:
+		url("../../../../assets/images/eva-lotus.png") center / contain no-repeat;
+	mask:
+		url("../../../../assets/images/eva-lotus.png") center / contain no-repeat;
 	user-select: none;
 }
 
-.eva-fab[data-fundo="claro"] .eva-fab-mark {
-	filter: brightness(0) invert(1);
+.eva-fab-mark-cor {
+	position: absolute;
+	inset: 0;
+	transition: opacity 0.55s ease;
+}
+
+/* Sobre a pele pastel: a flor e que leva o croma cheio da marca. */
+.eva-fab-mark-cor--forte {
+	background: linear-gradient(180deg, var(--eva) 0%, var(--purple) 100%);
+	opacity: 1;
+}
+
+/* Sobre a pele suave: a flor clareia para se destacar dela. */
+.eva-fab-mark-cor--clara {
+	background: linear-gradient(180deg, white 0%, var(--eva-tint) 100%);
+	opacity: 0;
+}
+
+.eva-fab[data-fundo="claro"] .eva-fab-mark-cor--forte {
+	opacity: 0;
+}
+
+.eva-fab[data-fundo="claro"] .eva-fab-mark-cor--clara {
+	opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.eva-fab,
 	.eva-fab::before,
-	.eva-fab-mark {
+	.eva-fab-mark-cor {
 		transition-duration: 0.001ms;
 	}
 }
@@ -696,7 +759,8 @@
  * ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
 	.eva-welcome-name,
-	.eva-widget-header-title {
+	.eva-widget-header-title,
+	.eva-fab[data-fundo="claro"]::before {
 		animation: none;
 	}
 

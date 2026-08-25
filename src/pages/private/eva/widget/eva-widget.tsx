@@ -7,7 +7,6 @@ import {
 	useState,
 	useSyncExternalStore,
 } from "react";
-import lotus from "@/assets/images/eva-lotus.png";
 import { useBackdropTone } from "@/hooks/use-backdrop-tone";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
 import { EvaChatPanel } from "./eva-chat-panel";
@@ -202,8 +201,14 @@ export function EvaWidget() {
 					data-fundo={tomDoFundo}
 					aria-label="Abrir chat com a EVA"
 				>
-					{/* A bolinha era um circulo vazio, sem simbolo nenhum. */}
-					<img src={lotus} alt="" className="eva-fab-mark" />
+					{/*
+					 * A silhueta da flor e mascara (ver eva-widget.css); estas duas
+					 * camadas sao o degrade que aparece por dentro dela.
+					 */}
+					<span className="eva-fab-mark" aria-hidden="true">
+						<span className="eva-fab-mark-cor eva-fab-mark-cor--forte" />
+						<span className="eva-fab-mark-cor eva-fab-mark-cor--clara" />
+					</span>
 				</button>
 			</Dialog.Trigger>
 

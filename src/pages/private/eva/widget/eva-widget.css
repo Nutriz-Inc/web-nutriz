@@ -7,6 +7,23 @@
  * pontinhos. Ver tambem eva.css.
  * ------------------------------------------------------------------------- */
 
+/*
+ * O botao flutuante troca de pele conforme o fundo por tras dele.
+ *
+ * Ele e fixo num canto e a pagina rola por baixo: passa do azul escuro do topo
+ * da landing para o canvas claro das secoes, e volta ao escuro no rodape. Uma
+ * pele so sempre perdia em algum trecho — sobre o azul o pastel quase sumia, e
+ * a flor branca sobre o pastel dava 1,15:1.
+ *
+ * Sao duas peles empilhadas, e o que muda e a opacidade da de cima — cor de
+ * fundo em degrade nao transiciona, opacidade sim. Quem decide qual vale e o
+ * `data-fundo`, escrito pelo `useBackdropTone` a partir da cor lida no DOM.
+ *
+ * - fundo ESCURO -> pele PASTEL com a flor escura;
+ * - fundo CLARO  -> pele SATURADA com a flor branca.
+ *
+ * Nas duas a flor fica bem acima de 4,5:1, que era o problema antigo.
+ */
 .eva-fab {
 	position: fixed;
 	right: 20px;
@@ -17,8 +34,8 @@
 	height: 60px;
 	border: none;
 	border-radius: 50%;
-	/* Pastel claro, escrito com os tokens globais porque o FAB fica fora de
-	 * `.eva-scope`. */
+	/* Pele de baixo: pastel claro, para fundo escuro. Escrita com os tokens
+	 * globais porque o FAB fica fora de `.eva-scope`. */
 	background: linear-gradient(
 		145deg,
 		var(--purple-tint) 0%,
@@ -32,15 +49,55 @@
 	box-shadow: 0 12px 30px -12px color-mix(in oklch, var(--ink) 45%, transparent);
 	transition:
 		transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1),
-		box-shadow 0.22s ease;
+		box-shadow 0.55s ease;
 }
 
-/* A arte da flor vem preta; aqui ela vira branca. */
+/* Pele de cima: saturada, para fundo claro. */
+.eva-fab::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: linear-gradient(145deg, var(--eva-deep) 0%, var(--purple) 100%);
+	opacity: 0;
+	transition: opacity 0.55s ease;
+}
+
+.eva-fab[data-fundo="claro"]::before {
+	opacity: 1;
+}
+
+/* Sobre fundo claro a sombra pode ser mais funda sem virar borrao. */
+.eva-fab[data-fundo="claro"] {
+	box-shadow: 0 14px 34px -12px
+		color-mix(in oklch, var(--purple) 55%, transparent);
+}
+
+/*
+ * A arte da flor vem preta. `invert(1)` deixa branca, `invert(0.1)` deixa quase
+ * preta — e como e a MESMA funcao, o navegador interpola entre as duas e a flor
+ * atravessa o cinza suavemente, no mesmo tempo do degrade.
+ */
 .eva-fab-mark {
+	position: relative;
+	z-index: 1;
 	width: 28px;
 	height: 28px;
-	filter: brightness(0) invert(1);
+	filter: brightness(0) invert(0.1);
+	transition: filter 0.55s ease;
 	user-select: none;
+}
+
+.eva-fab[data-fundo="claro"] .eva-fab-mark {
+	filter: brightness(0) invert(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.eva-fab,
+	.eva-fab::before,
+	.eva-fab-mark {
+		transition-duration: 0.001ms;
+	}
 }
 
 /* Escondido enquanto algo cobre o canto dele. Ver eva-widget-bus.ts. */

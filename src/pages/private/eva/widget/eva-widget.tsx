@@ -1,7 +1,13 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Dialog } from "radix-ui";
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
-import lotus from "@/assets/images/eva-lotus.png";
+import {
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+	useSyncExternalStore,
+} from "react";
+import { useBackdropTone } from "@/hooks/use-backdrop-tone";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
@@ -91,6 +97,14 @@ export function EvaWidget() {
 	const reduce = useReducedMotion();
 
 	const [open, setOpen] = useState(false);
+
+	/*
+	 * O botao le a cor por tras dele e troca de pele. Com o chat aberto a
+	 * leitura para: o que estaria sob o ponto e a cortina do modal, nao a
+	 * pagina.
+	 */
+	const fabRef = useRef<HTMLButtonElement>(null);
+	const tomDoFundo = useBackdropTone(fabRef, !open);
 	const [view, setView] = useState<WidgetView>("welcome");
 	const [initialMessage, setInitialMessage] = useState<string | undefined>(
 		undefined,
@@ -181,12 +195,20 @@ export function EvaWidget() {
 		<Dialog.Root open={open} onOpenChange={handleOpenChange}>
 			<Dialog.Trigger asChild>
 				<button
+					ref={fabRef}
 					type="button"
 					className={fabObstruido ? "eva-fab eva-fab--oculto" : "eva-fab"}
+					data-fundo={tomDoFundo}
 					aria-label="Abrir chat com a EVA"
 				>
-					{/* A bolinha era um circulo vazio, sem simbolo nenhum. */}
-					<img src={lotus} alt="" className="eva-fab-mark" />
+					{/*
+					 * A silhueta da flor e mascara (ver eva-widget.css); estas duas
+					 * camadas sao o degrade que aparece por dentro dela.
+					 */}
+					<span className="eva-fab-mark" aria-hidden="true">
+						<span className="eva-fab-mark-cor eva-fab-mark-cor--forte" />
+						<span className="eva-fab-mark-cor eva-fab-mark-cor--clara" />
+					</span>
 				</button>
 			</Dialog.Trigger>
 

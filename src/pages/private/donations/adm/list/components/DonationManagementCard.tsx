@@ -21,7 +21,7 @@ export function DonationManagementCard({
 			type="button"
 			onClick={() => navigate(`/gestao-doacoes/${donation.id_donation}`)}
 			className={cn(
-				"flex w-full flex-col gap-3.5 bg-white p-[18px] text-left transition-colors hover:bg-surface-3",
+				"flex w-full flex-col gap-3.5 bg-surface p-[18px] text-left transition-colors hover:bg-surface-3",
 				"lg:flex-row lg:items-center lg:gap-6 lg:px-6 lg:py-4",
 				!donation.isActive && "opacity-70",
 			)}
@@ -36,7 +36,7 @@ export function DonationManagementCard({
 					<span
 						className={cn(
 							"text-[16px] font-bold",
-							donation.isActive ? "text-blue-deep" : "text-eva",
+							donation.isActive ? "text-blue-deep" : "text-eva-deep",
 						)}
 					>
 						{getInitials(donation.userName)}

@@ -8,6 +8,7 @@ import {
 import { useEffect, useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import { SkipLink } from "./components/full/SkipLink";
 import { useAuth } from "./hooks/use-auth";
 import { useThemeColor } from "./hooks/use-theme-color";
 import { registerAppRouter } from "./lib/app-navigation";
@@ -81,6 +82,8 @@ function App() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
+			{/* Primeiro elemento focavel da pagina, antes do router. */}
+			<SkipLink />
 			<RouterProvider
 				key={isAuthenticated ? "private" : "public"}
 				router={routes}

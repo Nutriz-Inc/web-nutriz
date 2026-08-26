@@ -34,7 +34,7 @@ export const BADGE_TONES: Record<
 	warning: { bg: "bg-warning-tint", text: "text-warning", dot: "bg-warning" },
 	error: { bg: "bg-danger-tint", text: "text-danger", dot: "bg-danger" },
 	teal: { bg: "bg-teal-tint", text: "text-teal", dot: "bg-teal" },
-	pink: { bg: "bg-eva-tint", text: "text-eva", dot: "bg-eva" },
+	pink: { bg: "bg-eva-tint", text: "text-eva-deep", dot: "bg-eva" },
 	purple: { bg: "bg-purple-tint", text: "text-purple", dot: "bg-purple" },
 	magenta: { bg: "bg-magenta-tint", text: "text-magenta", dot: "bg-magenta" },
 };

@@ -21,7 +21,7 @@ export function DonationFeedbackCard({
 
 	if (feedback) {
 		return (
-			<div className="flex flex-col gap-2 rounded-2xl bg-white p-4 shadow-soft">
+			<div className="flex flex-col gap-2 rounded-2xl bg-surface p-4 shadow-soft">
 				<div className="flex items-center gap-2">
 					<span className="text-[13px] font-bold text-ink">Seu feedback</span>
 				</div>
@@ -34,7 +34,7 @@ export function DonationFeedbackCard({
 	}
 
 	return (
-		<div className="flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-soft">
+		<div className="flex flex-col gap-3 rounded-2xl bg-surface p-4 shadow-soft">
 			<div className="flex flex-col gap-1">
 				<p className="text-[15px] font-bold text-ink">
 					{hasError ? "Sua doação foi encerrada" : "Sua doação foi concluída"}
@@ -58,7 +58,7 @@ export function DonationFeedbackCard({
 				type="button"
 				onClick={() => onSubmit(value, score)}
 				disabled={!value || !score || isPending}
-				className="self-end rounded-full bg-blue-deep hover:bg-blue px-5 py-2.5 text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="self-end rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				Enviar feedback
 			</button>

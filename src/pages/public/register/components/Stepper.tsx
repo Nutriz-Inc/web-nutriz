@@ -59,10 +59,10 @@ export function Stepper({
 								aria-hidden="true"
 								className={cn(
 									"h-1.5 w-full rounded-full transition-colors",
-									concluida && "bg-blue-deep",
-									atual && "bg-blue-bright",
+									concluida && "bg-blue-deep-fill",
+									atual && "bg-blue-bright-fill",
 									!concluida && !atual && "bg-blue-tint-2/70",
-									clicavel && "group-hover:bg-blue",
+									clicavel && "group-hover:bg-blue-fill",
 								)}
 							/>
 
@@ -71,8 +71,8 @@ export function Stepper({
 									aria-hidden="true"
 									className={cn(
 										"grid size-[18px] shrink-0 place-items-center rounded-full text-[10px] font-bold transition-colors",
-										concluida && "bg-blue-deep text-white",
-										atual && "bg-blue-bright text-white",
+										concluida && "bg-blue-deep-fill text-white",
+										atual && "bg-blue-bright-fill text-white",
 										!concluida &&
 											!atual &&
 											"bg-blue-tint-2/70 text-blue-deep/70",

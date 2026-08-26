@@ -16,7 +16,7 @@ export function LandingFooter() {
 	};
 
 	return (
-		<footer className="bg-blue-deep text-blue-tint-2">
+		<footer className="bg-blue-deep-fill text-blue-tint-2">
 			<div className="mx-auto w-full max-w-[1200px] px-5 py-14 lg:px-8">
 				<div className="flex flex-col gap-10 md:flex-row md:justify-between">
 					<div className="max-w-sm">

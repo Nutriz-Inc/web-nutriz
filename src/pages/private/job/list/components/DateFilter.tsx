@@ -12,7 +12,7 @@ export function DateFilter({ value, onChange }: DateFilterProps) {
 			<span className="text-[13px] font-medium text-ink-2">
 				Período do Agendamento
 			</span>
-			<div className="flex h-[46px] w-full max-w-[220px] items-center gap-2.5 rounded-xl border border-blue-tint bg-white px-3.5">
+			<div className="flex h-[46px] w-full max-w-[220px] items-center gap-2.5 rounded-xl border border-blue-tint bg-surface px-3.5">
 				<Calendar className="size-[18px] shrink-0 text-ink-3" />
 				<input
 					type="text"
@@ -20,7 +20,7 @@ export function DateFilter({ value, onChange }: DateFilterProps) {
 					value={value}
 					onChange={(event) => onChange(maskDate(event.target.value))}
 					placeholder="__/__/____"
-					className="min-w-0 flex-1 bg-transparent text-[15px] text-ink outline-none placeholder:text-blue-tint-2"
+					className="min-w-0 flex-1 bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-3"
 				/>
 				{value && (
 					<button

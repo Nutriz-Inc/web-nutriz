@@ -1,4 +1,4 @@
-import NutrizLogo from "@/assets/images/nutriz-logo.svg";
+import { NutrizLogo } from "@/components/full/NutrizLogo";
 
 export function Footer() {
 	const year = new Date().getFullYear();
@@ -7,11 +7,7 @@ export function Footer() {
 		<footer className="relative mt-4 border-t border-blue-tint-2/60">
 			<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-6 px-4 py-8 sm:px-6 sm:py-10 lg:flex-row lg:items-center lg:justify-between lg:px-10">
 				<div className="flex items-center gap-3">
-					<img
-						src={NutrizLogo}
-						alt="Nutriz"
-						className="h-6 w-auto select-none"
-					/>
+					<NutrizLogo className="h-6" />
 					<span aria-hidden="true" className="h-4 w-px bg-blue-tint-2" />
 					<span className="font-display text-sm font-bold text-blue-deep">
 						por Lactare

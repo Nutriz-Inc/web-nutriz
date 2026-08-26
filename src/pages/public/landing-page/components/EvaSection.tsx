@@ -46,6 +46,7 @@ export function EvaSection() {
 			tone="eva"
 			description="A EVA acolhe você a qualquer hora — doação de leite, ordenha, armazenamento e amamentação. Sem fila, sem espera."
 			surfaceClassName="bg-surface"
+			semDivisoria
 		>
 			<motion.div {...reveal}>
 				<div className="rounded-card gradient-eva relative isolate border border-line px-7 pb-24 pt-10 sm:pb-28 lg:px-14 lg:pb-32 lg:pt-14">
@@ -68,7 +69,7 @@ export function EvaSection() {
 						src={evaNuvens}
 						alt=""
 						aria-hidden="true"
-						className="pointer-events-none absolute -top-20 left-[-4%] -z-10 hidden w-[46%] max-w-[420px] select-none opacity-45 lg:block"
+						className="pointer-events-none absolute -top-8 left-[-4%] -z-10 hidden w-[46%] max-w-[420px] select-none opacity-45 lg:block"
 					/>
 					{/*
 					 * Nuvem da direita. No celular ela sobe so 24px acima do cartao
@@ -111,7 +112,7 @@ export function EvaSection() {
 						<div className="min-w-0 lg:max-w-[460px]">
 							<motion.span
 								variants={fadeUp}
-								className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.06em] text-eva shadow-soft"
+								className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.06em] text-eva-deep shadow-soft"
 							>
 								<span
 									aria-hidden
@@ -152,8 +153,8 @@ export function EvaSection() {
 										label="Falar com a EVA"
 										onClick={() => openEva()}
 										className="relative"
-										pillClassName="bg-white text-ink shadow-soft"
-										circleClassName="bg-eva text-white"
+										pillClassName="bg-surface text-ink shadow-soft"
+										circleClassName="bg-eva-fill text-white"
 									/>
 								</div>
 

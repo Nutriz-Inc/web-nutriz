@@ -47,26 +47,26 @@ export function DonationsPage() {
 					type="button"
 					onClick={goToCreation}
 					disabled={false}
-					className="hidden items-center gap-2 rounded-full bg-blue-deep px-6 py-3 text-[14px] font-semibold text-white transition-[transform,background-color] hover:bg-blue active:scale-[0.98] disabled:opacity-60 lg:flex"
+					className="hidden items-center gap-2 rounded-full bg-blue-deep-fill px-6 py-3 text-[14px] font-semibold text-white transition-[transform,background-color] hover:bg-blue-fill active:scale-[0.98] disabled:opacity-60 lg:flex"
 				>
 					<Plus className="size-4" />
 					Nova Doação
 				</button>
 			}
 		>
-			<div className="-mx-4 -mt-4 -mb-16 flex min-h-[calc(100vh-69px)] flex-col bg-surface-3 sm:-mx-6 sm:-mt-6 lg:-mx-10">
+			<div className="-mx-4 -mt-4 -mb-16 flex min-h-[calc(100vh-69px)] flex-col bg-canvas sm:-mx-6 sm:-mt-6 lg:-mx-10">
 				<div className="flex flex-1 flex-col gap-4 px-4 pb-28 pt-6 sm:px-6 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:px-10 lg:pb-4 lg:pt-8">
 					{isLoading ? (
 						<div className="flex flex-col gap-3">
 							{[0, 1, 2].map((index) => (
 								<div
 									key={index}
-									className="h-24 w-full animate-pulse rounded-2xl bg-white/70"
+									className="h-24 w-full animate-pulse rounded-2xl bg-surface/70"
 								/>
 							))}
 						</div>
 					) : isError ? (
-						<div className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-soft">
+						<div className="flex flex-col items-center gap-3 rounded-2xl bg-surface p-6 text-center shadow-soft">
 							<p className="text-[14px] text-ink-2">
 								Não foi possível carregar as suas doações.
 							</p>
@@ -79,7 +79,7 @@ export function DonationsPage() {
 							</button>
 						</div>
 					) : donations.length === 0 ? (
-						<div className="rounded-card-sm bg-white shadow-soft">
+						<div className="rounded-card-sm bg-surface shadow-soft">
 							<EmptyState
 								illustration={doacaoVazia}
 								title="Você ainda não tem doações"
@@ -127,7 +127,7 @@ export function DonationsPage() {
 						type="button"
 						onClick={goToCreation}
 						disabled={false}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep text-[15px] font-semibold text-white transition-[transform,background-color] hover:bg-blue active:scale-[0.98] disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep-fill text-[15px] font-semibold text-white transition-[transform,background-color] hover:bg-blue-fill active:scale-[0.98] disabled:opacity-60"
 					>
 						<Plus className="size-5" />
 						Nova Doação

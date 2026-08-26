@@ -35,7 +35,7 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 		<button
 			type="button"
 			onClick={() => navigate(`/agendamentos/${appointment.id}`)}
-			className="flex w-full flex-col gap-4 rounded-card-sm border border-line bg-white p-5 text-left transition-transform duration-200 hover:scale-[1.02] hover:shadow-soft"
+			className="flex w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 text-left transition-transform duration-200 hover:scale-[1.02] hover:shadow-soft"
 		>
 			<div className="flex items-start justify-between gap-3">
 				<div className="flex min-w-0 items-center gap-3">

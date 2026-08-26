@@ -220,7 +220,7 @@ export function ProfilePage() {
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col bg-surface-2 lg:m-0 lg:min-h-0 lg:bg-transparent lg:mx-auto lg:w-full lg:max-w-[1400px] lg:px-0 lg:py-8">
-				<div className="lg:mb-5 lg:flex lg:items-center lg:justify-between lg:gap-6 lg:rounded-card-sm lg:border lg:border-line lg:bg-white lg:p-6">
+				<div className="lg:mb-5 lg:flex lg:items-center lg:justify-between lg:gap-6 lg:rounded-card-sm lg:border lg:border-line lg:bg-surface lg:p-6">
 					<ProfileHeader
 						name={data?.name ?? ""}
 						email={data?.email ?? ""}

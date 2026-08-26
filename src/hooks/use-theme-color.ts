@@ -1,4 +1,5 @@
 import { useEffect, useSyncExternalStore } from "react";
+import { useAccessibility } from "@/context/accessibility-context";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
 
 /**
@@ -19,18 +20,28 @@ import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
  * landing (que abre com o hero azul). Aqui as duas seguem a rota.
  *
  * Hex e nao variavel CSS porque a meta tag nao le `var()`. Sao os mesmos
- * tokens do design system: --blue-deep e --canvas.
+ * tokens do design system: --blue-deep e --canvas, nos dois temas.
  */
 const AZUL_PROFUNDO = "#00325c";
-const CANVAS = "#eef3fa";
+const CANVAS_CLARO = "#eef3fa";
+/* Mesmo valor de `--canvas` no bloco `[data-tema="escuro"]` do index.css. */
+const CANVAS_ESCURO = "#111720";
 
-/** Unica tela que abre com o topo escuro (hero da landing). */
-function corDaRota(pathname: string, isAuthenticated: boolean): string {
+/**
+ * Unica tela que abre com o topo escuro no tema claro e o hero da landing —
+ * ele continua azul nos dois temas, porque as secoes escuras da landing sao
+ * superficie de marca e nao acompanham o tema.
+ */
+function corDaRota(
+	pathname: string,
+	isAuthenticated: boolean,
+	temaEscuro: boolean,
+): string {
 	if (!isAuthenticated && (pathname === "/" || pathname === "")) {
 		return AZUL_PROFUNDO;
 	}
 
-	return CANVAS;
+	return temaEscuro ? CANVAS_ESCURO : CANVAS_CLARO;
 }
 
 export function useThemeColor(isAuthenticated: boolean): void {
@@ -40,7 +51,8 @@ export function useThemeColor(isAuthenticated: boolean): void {
 		getAppPathname,
 	);
 
-	const cor = corDaRota(pathname, isAuthenticated);
+	const { temaEfetivo } = useAccessibility();
+	const cor = corDaRota(pathname, isAuthenticated, temaEfetivo === "escuro");
 
 	useEffect(() => {
 		const meta = document.querySelector<HTMLMetaElement>(

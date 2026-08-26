@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import amamentacao from "@/assets/illustrations/amamentacao.svg";
 import Wordmark from "@/assets/images/nutriz-logo-branco.svg";
+import { AccessibilityControls } from "@/components/full/AccessibilityControls";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { AddressStep } from "./components/AddressStep";
@@ -166,6 +167,12 @@ export function RegisterScreen() {
 							/>
 						</Link>
 
+						{/* Mesmo motivo do login: esta tela nao tem cabecalho. */}
+						<AccessibilityControls
+							tom="escuro"
+							className="absolute right-6 top-6 z-10"
+						/>
+
 						<Link
 							to="/"
 							className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 text-[13px] font-semibold text-white outline-none transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-white/50"
@@ -288,7 +295,7 @@ export function RegisterScreen() {
 												<Button
 													type="button"
 													onClick={() => navigate("/login")}
-													className="h-11 rounded-full bg-blue-deep px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue"
+													className="h-11 rounded-full bg-blue-deep-fill px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue-fill"
 												>
 													Fazer login
 												</Button>
@@ -321,7 +328,7 @@ export function RegisterScreen() {
 									<Button
 										type="submit"
 										disabled={isPending}
-										className="h-11 rounded-full bg-blue-deep px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue disabled:opacity-60"
+										className="h-11 rounded-full bg-blue-deep-fill px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue-fill disabled:opacity-60"
 									>
 										{isPending ? (
 											<span className="flex items-center gap-2">

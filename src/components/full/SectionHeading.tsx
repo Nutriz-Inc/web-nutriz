@@ -23,7 +23,7 @@ type SectionHeadingProps = {
 
 const LABEL_TONE = {
 	blue: "text-blue-bright",
-	eva: "text-eva",
+	eva: "text-eva-deep",
 	teal: "text-teal",
 	mint: "text-mint",
 } as const;

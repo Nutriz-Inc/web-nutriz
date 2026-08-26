@@ -2,7 +2,7 @@ import { DONATION_STATS } from "../constants";
 
 export function StatsCard() {
 	return (
-		<section className="rounded-card-sm border border-line bg-white p-5 shadow-soft">
+		<section className="rounded-card-sm border border-line bg-surface p-5 shadow-soft">
 			<h2 className="text-[15px] font-bold text-ink">A doação em números</h2>
 			<div className="mt-3 grid grid-cols-2 gap-2.5">
 				{DONATION_STATS.map((stat) => (

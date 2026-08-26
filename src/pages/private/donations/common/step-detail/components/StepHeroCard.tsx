@@ -19,7 +19,7 @@ export function StepHeroCard({
 	onViewTimeline,
 }: Props) {
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-5 shadow-soft">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 shadow-soft">
 			<div className="flex justify-start">
 				<button
 					type="button"

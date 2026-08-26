@@ -10,9 +10,9 @@ export function RecurrenceCard({ rate }: RecurrenceCardProps) {
 	const percent = toPercent(rate);
 
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-white p-5 lg:p-[26px]">
+		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
-				icon={<RefreshCcw className="size-4 text-eva" />}
+				icon={<RefreshCcw className="size-4 text-eva-deep" />}
 				iconBg="bg-danger-tint"
 				title="Taxa de Recorrência de Doadoras"
 				subtitle="Doadoras que ajudaram mais de uma vez"

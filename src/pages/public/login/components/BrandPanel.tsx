@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import cenarioCidade from "@/assets/illustrations/cenario-cidade.svg";
 import maternidade from "@/assets/illustrations/maternidade.svg";
 import Wordmark from "@/assets/images/nutriz-logo-branco.svg";
+import { AccessibilityControls } from "@/components/full/AccessibilityControls";
 
 const SELOS = [
 	{ icon: HeartHandshake, label: "Doação acompanhada" },
@@ -51,6 +52,13 @@ export function BrandPanel() {
 					className="h-7 w-auto select-none lg:h-8"
 				/>
 			</Link>
+
+			{/* Login e cadastro nao tem cabecalho: sem isto os controles de tema e
+			    fonte ficariam fora do alcance justamente nas duas primeiras telas. */}
+			<AccessibilityControls
+				tom="escuro"
+				className="absolute right-6 top-6 z-10"
+			/>
 
 			{/*
 			 * Texto e ilustracao lado a lado, alinhados pelo centro — no desktop e

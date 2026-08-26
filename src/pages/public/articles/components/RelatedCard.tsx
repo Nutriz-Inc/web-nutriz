@@ -9,7 +9,7 @@ export function RelatedCard({ article, onSelectArticle }: RelatedCardProps) {
 	const others = ARTICLES.filter((item) => item.id !== article.id);
 
 	return (
-		<section className="rounded-card-sm border border-line bg-white p-5 shadow-soft">
+		<section className="rounded-card-sm border border-line bg-surface p-5 shadow-soft">
 			<h2 className="text-[15px] font-bold text-ink">Outros artigos</h2>
 			<ul className="mt-3 flex flex-col gap-1">
 				{others.map((item) => (

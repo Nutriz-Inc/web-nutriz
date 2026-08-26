@@ -55,7 +55,7 @@ export function ArticlesScreen() {
 				<Page>
 					<Link
 						to={isAuthenticated ? "/conteudo-educativo" : "/"}
-						className="mb-4 inline-flex h-11 w-fit items-center gap-1.5 rounded-full border border-line bg-white px-5 text-[14px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+						className="mb-4 inline-flex h-11 w-fit items-center gap-1.5 rounded-full border border-line bg-surface px-5 text-[14px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 					>
 						<ChevronLeft className="size-4" aria-hidden="true" />
 						{isAuthenticated ? "Voltar para conteúdos" : "Voltar para o início"}

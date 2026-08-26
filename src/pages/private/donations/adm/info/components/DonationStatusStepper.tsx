@@ -21,7 +21,7 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 	);
 
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-6">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-6">
 			<div className="flex flex-col gap-1">
 				<p className="text-[16px] font-bold text-ink">Status da doação</p>
 				<p className="text-[12px] text-ink-2">
@@ -53,9 +53,9 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 								className={cn(
 									"flex size-7 shrink-0 items-center justify-center rounded-full text-[12px] font-bold",
 									isFailed
-										? "bg-danger text-white"
+										? "bg-danger-fill text-white"
 										: isDone
-											? "bg-success text-white"
+											? "bg-success-fill text-white"
 											: isCurrent
 												? "bg-blue-tint text-teal"
 												: "bg-surface-3 text-ink-3",

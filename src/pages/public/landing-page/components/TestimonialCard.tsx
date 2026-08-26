@@ -25,7 +25,12 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
 
 			<div className="flex gap-0.5" role="img" aria-label="5 de 5 estrelas">
 				{STARS.map((star) => (
-					<Star key={star} className="size-4 fill-amber text-amber" />
+					<Star
+						key={star}
+						// Contorno escuro pelo mesmo motivo do StarRating: o amarelo
+						// preenchido sozinho da 1,82:1 sobre o cartao branco.
+						className="size-4 fill-amber text-warning"
+					/>
 				))}
 			</div>
 

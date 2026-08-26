@@ -144,7 +144,7 @@ export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 													className={cn(
 														"flex size-9 shrink-0 items-center justify-center rounded-full transition-colors",
 														isActive
-															? "bg-blue-deep text-white"
+															? "bg-blue-deep-fill text-white"
 															: "bg-surface text-blue-deep shadow-soft",
 													)}
 												>

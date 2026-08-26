@@ -10,7 +10,7 @@ type ArticleCardProps = {
 
 export function ArticleCard({ article }: ArticleCardProps) {
 	return (
-		<div className="rounded-card-sm border border-line bg-white p-5 shadow-soft sm:p-7">
+		<div className="rounded-card-sm border border-line bg-surface p-5 shadow-soft sm:p-7">
 			<Badge
 				bordered
 				style={{

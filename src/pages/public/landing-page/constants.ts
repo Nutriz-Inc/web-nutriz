@@ -53,7 +53,7 @@ export const STEPS: Step[] = [
 		title: "Cadastre-se e faça triagem",
 		description:
 			"Clique em Quero doar e nossa equipe entrará em contato via WhatsApp para a triagem inicial.",
-		badge: "bg-blue",
+		badge: "bg-blue-fill",
 		accent: "text-blue",
 	},
 	{
@@ -61,7 +61,7 @@ export const STEPS: Step[] = [
 		title: "Realize os exames",
 		description:
 			"Exames simples de saúde para garantir a segurança do leite para os bebês receptores.",
-		badge: "bg-teal",
+		badge: "bg-teal-fill",
 		accent: "text-teal",
 	},
 	{
@@ -69,7 +69,7 @@ export const STEPS: Step[] = [
 		title: "Doe e acompanhe",
 		description:
 			"Coletamos o leite e você acompanha cada etapa pela plataforma em tempo real.",
-		badge: "bg-eva",
+		badge: "bg-eva-fill",
 		accent: "text-eva",
 	},
 ];

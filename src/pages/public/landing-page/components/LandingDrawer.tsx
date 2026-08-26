@@ -108,7 +108,7 @@ export function LandingDrawer({
 							onOpenChange(false);
 							navigate("/registro");
 						}}
-						className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep text-[15px] font-semibold text-white shadow-soft outline-none transition-colors hover:bg-blue focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+						className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep-fill text-[15px] font-semibold text-white shadow-soft outline-none transition-colors hover:bg-blue-fill focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 					>
 						Cadastrar-se
 					</button>

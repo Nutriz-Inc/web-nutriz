@@ -19,7 +19,7 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 	return (
 		<InteractiveCard
 			onClick={goToArticle}
-			className="flex flex-col overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
+			className="flex flex-col overflow-hidden rounded-card-sm border border-line bg-surface shadow-soft"
 		>
 			<ArticleCover article={article} className="h-[220px]" />
 

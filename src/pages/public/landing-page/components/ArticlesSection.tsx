@@ -19,7 +19,7 @@ export function ArticlesSection() {
 			tone="mint"
 			align="center"
 			onDark
-			surfaceClassName="relative isolate overflow-hidden bg-blue-deep"
+			surfaceClassName="relative isolate overflow-hidden bg-blue-deep-fill"
 		>
 			<span
 				aria-hidden="true"

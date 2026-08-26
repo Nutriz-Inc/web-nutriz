@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import bancoLeite from "@/assets/images/milk-bank.jpg";
 import whatsappIcone from "@/assets/images/whatsapp-icon.svg";
-import whatsappLogo from "@/assets/images/whatsapp-logo.png";
 import { StatefulButton } from "@/components/ui/stateful-button";
 import { cn } from "@/lib/utils";
 import {
@@ -96,7 +95,23 @@ export function HowItWorksSection() {
 						className="pointer-events-none absolute -top-16 -right-12 size-48 rounded-full bg-[#25d366]/15 blur-3xl"
 					/>
 					<div className="relative">
-						<img src={whatsappLogo} alt="WhatsApp" className="h-6 w-auto" />
+						{/*
+						 * O `whatsapp-logo.png` traz a palavra "WhatsApp" em verde
+						 * escuro, que sumia sobre o cartao escuro. Aqui o simbolo vem
+						 * do SVG (branco, sobre a bolha verde) e a palavra e texto, que
+						 * acompanha o tema.
+						 */}
+						<span className="flex items-center gap-2">
+							<span className="flex size-6 items-center justify-center rounded-full bg-[#25d366]">
+								<img
+									src={whatsappIcone}
+									alt=""
+									aria-hidden="true"
+									className="size-4"
+								/>
+							</span>
+							<span className="text-[15px] font-bold text-ink">WhatsApp</span>
+						</span>
 						<h3 className="mt-3 font-display text-[16px] font-bold leading-snug text-ink">
 							Fale com a nossa equipe
 						</h3>

@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AccessibilityControls } from "@/components/full/AccessibilityControls";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { setAppMenuOpen } from "@/pages/private/eva/widget/eva-widget-bus";
@@ -52,7 +53,7 @@ export function LandingHeader() {
 			className={cn(
 				"pt-safe fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300",
 				scrolled
-					? "border-white/10 bg-blue-deep"
+					? "border-white/10 bg-blue-deep-fill"
 					: "border-transparent bg-transparent",
 			)}
 		>
@@ -83,6 +84,7 @@ export function LandingHeader() {
 				</nav>
 
 				<div className="hidden items-center gap-2 lg:flex">
+					<AccessibilityControls tom="escuro" className="mr-1" />
 					<button
 						type="button"
 						onClick={() => navigate("/login")}
@@ -97,6 +99,10 @@ export function LandingHeader() {
 						Cadastrar-se
 					</Button>
 				</div>
+
+				{/* No celular os controles ficam no topo, ao lado do menu, e nao
+				    dentro dele: dois toques para trocar o tema seria pior. */}
+				<AccessibilityControls tom="escuro" className="lg:hidden" />
 
 				<button
 					type="button"

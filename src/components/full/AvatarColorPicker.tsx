@@ -47,7 +47,7 @@ export function AvatarColorPicker({
 
 					<span
 						aria-hidden="true"
-						className="absolute right-0 bottom-0 flex size-7 items-center justify-center rounded-full border border-line bg-white text-ink-2 shadow-soft transition-colors group-hover:bg-blue-tint group-hover:text-blue-deep"
+						className="absolute right-0 bottom-0 flex size-7 items-center justify-center rounded-full border border-line bg-surface text-ink-2 shadow-soft transition-colors group-hover:bg-blue-tint group-hover:text-blue-deep"
 					>
 						<Pencil className="size-3.5" />
 					</span>

@@ -2,7 +2,7 @@ import { Check, ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import amamentacao from "@/assets/illustrations/amamentacao.svg";
-import Wordmark from "@/assets/images/nutriz-wordmark-white.png";
+import Wordmark from "@/assets/images/nutriz-logo-branco.svg";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { AddressStep } from "./components/AddressStep";

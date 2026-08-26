@@ -2,7 +2,7 @@ import { HeartHandshake, MessageCircle, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import cenarioCidade from "@/assets/illustrations/cenario-cidade.svg";
 import maternidade from "@/assets/illustrations/maternidade.svg";
-import Wordmark from "@/assets/images/nutriz-wordmark-white.png";
+import Wordmark from "@/assets/images/nutriz-logo-branco.svg";
 
 const SELOS = [
 	{ icon: HeartHandshake, label: "Doação acompanhada" },

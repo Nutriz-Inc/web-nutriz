@@ -95,19 +95,22 @@ export function MapPreview({
 			<div className="relative isolate h-[225px] w-full overflow-hidden rounded-xl lg:h-full lg:max-h-[900px] lg:rounded-2xl">
 				<MapContainer center={center} zoom={13} className="size-full">
 					{/*
-					 * Voyager (CARTO) no lugar do tile padrao do OSM: mesma base de
-					 * dados, com agua e areas verdes coloridas, porem sem o excesso
-					 * de ruas e rotulos. Assim o pin do ponto e o que salta na tela.
+					 * Canvas cinza da Esri: sem chave, poucos rotulos e com irmao
+					 * escuro do mesmo desenho, entao o mapa acompanha o tema sem
+					 * filtro por cima.
 					 *
-					 * No tema escuro vale a versao escura do mesmo mapa: o claro virava
-					 * um retangulo aceso no meio da pagina. O `key` forca a troca de
-					 * camada — o Leaflet nao repinta os tiles so porque a URL mudou.
+					 * Aqui havia o basemap do CARTO, que passou a carimbar
+					 * 'API KEY REQUIRED' sobre o mapa inteiro no uso sem conta. O tile
+					 * padrao do OSM tambem serve e nao pede chave, mas traz rua e POI
+					 * demais — o pin do ponto some no meio.
+					 *
+					 * O `key` forca a troca de camada: o Leaflet nao repinta os tiles
+					 * so porque a URL mudou.
 					 */}
 					<TileLayer
 						key={temaEfetivo}
-						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-						url={`https://{s}.basemaps.cartocdn.com/${escuro ? "dark_all" : "light_all"}/{z}/{x}/{y}{r}.png`}
-						subdomains="abcd"
+						attribution='Tiles &copy; <a href="https://www.esri.com">Esri</a> &mdash; Esri, DeLorme, NAVTEQ'
+						url={`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${escuro ? "Dark" : "Light"}_Gray_Base/MapServer/tile/{z}/{y}/{x}`}
 						maxZoom={19}
 					/>
 

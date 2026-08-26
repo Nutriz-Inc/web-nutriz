@@ -28,10 +28,12 @@ export function AccessibilityControls({
 	const escuro = temaEfetivo === "escuro";
 	const fonteAtiva = preferencias.fonteDislexia;
 
+	// 44px no celular para bater com o botao do menu, que fica ao lado; 40px
+	// no desktop, onde a vizinhanca e o botao de entrar.
 	const base = cn(
-		"flex size-10 shrink-0 items-center justify-center rounded-full outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/60",
+		"flex size-11 shrink-0 items-center justify-center rounded-full outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/60 lg:size-10",
 		tom === "escuro"
-			? "border border-white/15 text-white hover:bg-white/10"
+			? "border border-white/15 bg-white/10 text-white hover:bg-white/20"
 			: "border border-line text-ink-2 hover:bg-surface-3",
 	);
 

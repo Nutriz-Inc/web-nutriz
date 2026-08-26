@@ -59,6 +59,16 @@
 		oklch(0.36 0.06 357) 55%,
 		oklch(0.42 0.08 5) 100%
 	);
+	/*
+	 * O degrade de acao nasce de --eva-deep/--purple, que no escuro sao
+	 * claros: a seta (--ink, clara) sumia sobre o botao de enviar. Mesma
+	 * familia rosa do pastel, so que funda — da 6:1 e 7,6:1 com --ink.
+	 */
+	--eva-acao: linear-gradient(
+		145deg,
+		oklch(0.42 0.09 340) 0%,
+		oklch(0.48 0.12 5) 100%
+	);
 }
 
 .eva-scope :focus-visible {

@@ -506,29 +506,39 @@
 	color: var(--ink-3);
 }
 
-/* Pilulas empilhadas, cada uma do tamanho do proprio texto. */
 /*
- * `flex: 1` com `min-height: 0` deixava a lista encolher abaixo do proprio
- * conteudo quando o espaco apertava, e a ultima pilula invadia os pontinhos.
- * Agora ela nunca fica menor que o conteudo e o vazio sobra depois dela.
+ * Pilulas empilhadas, cada uma do tamanho do proprio texto.
+ *
+ * Crescem para dividir a sobra com o vao de baixo, em vez de deixar todo o
+ * respiro num buraco so: sem o aviso LGPD (modo logado) sobravam quase 130px
+ * entre os pontinhos e o campo e o painel parecia outro. Onde nao ha sobra —
+ * o modo anonimo — `space-between` nao faz nada e o desenho fica igual.
+ *
+ * Nao encolhem (`0` no meio): com `flex: 1` e `min-height: 0` a lista ficava
+ * menor que o proprio conteudo quando o espaco apertava e a ultima pilula
+ * invadia os pontinhos.
  */
 .eva-welcome-pills {
-	flex: 0 0 auto;
+	flex: 1 0 auto;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	justify-content: space-between;
 	gap: 8px;
 }
 
 /*
- * Vao entre as sugestoes e o campo. Os pontinhos vivem aqui, centrados: antes
- * ficavam colados no campo e a folga toda sobrava acima deles.
+ * Vao entre as sugestoes e o campo. Os pontinhos ficam no topo dele, logo
+ * abaixo das pilulas: no modo anonimo o aviso LGPD consome a folga e eles
+ * caem ali de qualquer jeito, entao ancorar no topo e o que faz os dois
+ * paineis terem o mesmo ritmo. Centrado, o modo logado (sem o aviso) jogava
+ * os pontinhos para o meio de um vazio grande e parecia outra tela.
  */
 .eva-welcome-espaco {
 	flex: 1 1 auto;
 	min-height: 24px;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	padding-left: 6px;
 }
 
@@ -812,6 +822,15 @@
 	.eva-welcome-meio {
 		display: block;
 		flex: 1.6 1 0;
+	}
+
+	/*
+	 * No celular quem distribui a sobra sao os vaos de cima e do meio, entao
+	 * as pilulas voltam a ocupar so o proprio tamanho.
+	 */
+	.eva-welcome-pills {
+		flex: 0 0 auto;
+		justify-content: flex-start;
 	}
 
 	/* Os pontinhos voltam a ser so um respiro antes do campo. */

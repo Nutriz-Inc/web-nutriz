@@ -44,7 +44,7 @@ export function PasswordField({ value, onChange }: PasswordFieldProps) {
 						if (!value) setIsEditing(false);
 					}}
 					placeholder="Nova senha"
-					className="h-[30px] w-full rounded-lg border-[1.5px] border-blue-bright/80 bg-white pl-3 pr-8 text-[12px] text-ink outline-none placeholder:text-ink-3/60"
+					className="h-[30px] w-full rounded-lg border-[1.5px] border-blue-bright/80 bg-surface pl-3 pr-8 text-[12px] text-ink outline-none placeholder:text-ink-3/60"
 				/>
 				<button
 					type="button"

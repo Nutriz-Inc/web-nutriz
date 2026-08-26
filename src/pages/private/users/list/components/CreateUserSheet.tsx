@@ -215,7 +215,7 @@ export function CreateUserSheet({
 											"rounded-full px-5 py-2 text-[13px] font-semibold transition-colors",
 											active
 												? "bg-blue-deep text-white"
-												: "border border-line bg-white text-ink",
+												: "border border-line bg-surface text-ink",
 										)}
 									>
 										{USER_TYPE_LABEL[type]}
@@ -233,7 +233,7 @@ export function CreateUserSheet({
 						type="button"
 						onClick={() => handleOpenChange(false)}
 						disabled={isPending}
-						className="flex h-11 w-full items-center justify-center rounded-full border border-line bg-white text-[14px] font-semibold text-ink transition-colors hover:bg-surface-3 disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center rounded-full border border-line bg-surface text-[14px] font-semibold text-ink transition-colors hover:bg-surface-3 disabled:opacity-60"
 					>
 						Cancelar
 					</button>

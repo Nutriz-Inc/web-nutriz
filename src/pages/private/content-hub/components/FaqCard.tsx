@@ -7,7 +7,7 @@ export function FaqCard() {
 	const [openIndex, setOpenIndex] = useState<number | null>(0);
 
 	return (
-		<section className="rounded-card-sm border border-line bg-white p-5 shadow-soft">
+		<section className="rounded-card-sm border border-line bg-surface p-5 shadow-soft">
 			<h2 className="flex items-center gap-2 text-[15px] font-bold text-ink">
 				<HelpCircle className="size-4 text-blue-deep" aria-hidden />
 				Dúvidas frequentes

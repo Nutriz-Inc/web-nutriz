@@ -47,7 +47,7 @@ export function PeriodFilter({
 								value={customStart}
 								max={customEnd || undefined}
 								onChange={(event) => onCustomStartChange(event.target.value)}
-								className="h-[43px] rounded-card-sm border border-line bg-white px-3 text-[14px] text-ink outline-none focus:border-blue-deep"
+								className="h-[43px] rounded-card-sm border border-line bg-surface px-3 text-[14px] text-ink outline-none focus:border-blue-deep"
 							/>
 						</label>
 						<label className="flex flex-col gap-1">
@@ -57,7 +57,7 @@ export function PeriodFilter({
 								value={customEnd}
 								min={customStart || undefined}
 								onChange={(event) => onCustomEndChange(event.target.value)}
-								className="h-[43px] rounded-card-sm border border-line bg-white px-3 text-[14px] text-ink outline-none focus:border-blue-deep"
+								className="h-[43px] rounded-card-sm border border-line bg-surface px-3 text-[14px] text-ink outline-none focus:border-blue-deep"
 							/>
 						</label>
 					</div>

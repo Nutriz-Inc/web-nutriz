@@ -73,7 +73,7 @@ export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
 					{comNavegacao && (
 						<nav
 							aria-label="Navegação principal"
-							className="hidden items-center gap-1 rounded-full border border-line bg-white/70 px-2 py-1.5 backdrop-blur-sm lg:flex"
+							className="hidden items-center gap-1 rounded-full border border-line bg-surface/70 px-2 py-1.5 backdrop-blur-sm lg:flex"
 						>
 							{itensNavegacao.map((item) => (
 								<NavLink

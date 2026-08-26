@@ -10,7 +10,7 @@ type AppointmentStepperProps = {
 
 export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-5">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-5">
 			<div className="flex items-center gap-2">
 				<Bookmark className="size-4 text-ink-3" />
 				<span className="text-[12px] font-bold uppercase tracking-wide text-ink-2">
@@ -34,7 +34,7 @@ export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 										: isDone
 											? "bg-teal text-white"
 											: isCurrent
-												? "border-2 border-blue-bright bg-white"
+												? "border-2 border-blue-bright bg-surface"
 												: "bg-surface-3 text-ink-3",
 								)}
 							>

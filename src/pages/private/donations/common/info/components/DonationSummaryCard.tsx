@@ -6,7 +6,7 @@ type Props = {
 
 export function DonationSummaryCard({ quantityDonated }: Props) {
 	return (
-		<div className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-soft">
+		<div className="flex items-center gap-3 rounded-2xl bg-surface p-4 shadow-soft">
 			<div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-success-tint text-success">
 				<Milk className="size-5" />
 			</div>

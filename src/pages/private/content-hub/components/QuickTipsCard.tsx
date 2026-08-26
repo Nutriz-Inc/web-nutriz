@@ -3,7 +3,7 @@ import { QUICK_TIPS } from "../constants";
 
 export function QuickTipsCard() {
 	return (
-		<section className="rounded-card-sm border border-line bg-white p-5 shadow-soft">
+		<section className="rounded-card-sm border border-line bg-surface p-5 shadow-soft">
 			<h2 className="flex items-center gap-2 text-[15px] font-bold text-ink">
 				<Sparkles className="size-4 text-eva-deep" aria-hidden />
 				Dicas rápidas

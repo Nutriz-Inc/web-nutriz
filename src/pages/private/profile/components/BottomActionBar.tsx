@@ -12,7 +12,7 @@ export function BottomActionBar({
 	saving,
 }: BottomActionBarProps) {
 	return (
-		<div className="sticky bottom-0 flex flex-col gap-2 border-t border-ink-3/12 bg-white px-4 py-3 lg:static lg:flex-row-reverse lg:items-center lg:justify-start lg:gap-4 lg:border-none lg:bg-transparent lg:px-0 lg:py-6">
+		<div className="sticky bottom-0 flex flex-col gap-2 border-t border-ink-3/12 bg-surface px-4 py-3 lg:static lg:flex-row-reverse lg:items-center lg:justify-start lg:gap-4 lg:border-none lg:bg-transparent lg:px-0 lg:py-6">
 			<button
 				type="button"
 				onClick={onSave}

@@ -111,7 +111,7 @@ export function DonationsManagementPage() {
 						<button
 							type="button"
 							onClick={handleClearFilters}
-							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-white px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
+							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-surface px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
 						>
 							<X className="size-4" />
 							Limpar filtro
@@ -134,7 +134,7 @@ export function DonationsManagementPage() {
 				</div>
 
 				{donations.length === 0 ? (
-					<div className="rounded-card-sm bg-white">
+					<div className="rounded-card-sm bg-surface">
 						<EmptyState
 							illustration={buscaSemResultado}
 							title="Nenhuma doação encontrada"
@@ -159,7 +159,7 @@ export function DonationsManagementPage() {
 									onClick={() => setPage((current) => Math.max(1, current - 1))}
 									disabled={page === 1}
 									aria-label="Página anterior"
-									className="flex size-9 items-center justify-center rounded-lg border border-line bg-white text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
+									className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
 								>
 									<ChevronLeft className="size-4" />
 								</button>
@@ -173,7 +173,7 @@ export function DonationsManagementPage() {
 									}
 									disabled={page === totalPages}
 									aria-label="Próxima página"
-									className="flex size-9 items-center justify-center rounded-lg border border-line bg-white text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
+									className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
 								>
 									<ChevronRight className="size-4" />
 								</button>

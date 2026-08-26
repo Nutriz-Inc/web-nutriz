@@ -47,7 +47,7 @@ export function StepJobCard({
 
 	if (!isEditing) {
 		return (
-			<div className="flex flex-col gap-3 rounded-card-sm border border-line bg-white p-4 shadow-soft">
+			<div className="flex flex-col gap-3 rounded-card-sm border border-line bg-surface p-4 shadow-soft">
 				<div className="flex items-start justify-between gap-3">
 					<div className="flex items-center gap-3">
 						<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-tint text-[13px] font-bold text-blue-deep">
@@ -106,14 +106,14 @@ export function StepJobCard({
 	}
 
 	return (
-		<div className="flex flex-col gap-2.5 rounded-2xl border border-blue-bright bg-white p-4 shadow-soft">
+		<div className="flex flex-col gap-2.5 rounded-2xl border border-blue-bright bg-surface p-4 shadow-soft">
 			<div className="flex items-center gap-2">
 				<UserIcon className="size-4 shrink-0 text-ink-3" />
 				<select
 					value={nurseId}
 					onChange={(event) => setNurseId(event.target.value)}
 					disabled={disabled}
-					className="w-full rounded-xl border-[1.5px] border-blue-bright bg-white px-3 py-2 text-[13px] text-ink outline-none disabled:opacity-60"
+					className="w-full rounded-xl border-[1.5px] border-blue-bright bg-surface px-3 py-2 text-[13px] text-ink outline-none disabled:opacity-60"
 				>
 					{nurses.map((nurse) => (
 						<option key={nurse.id_user} value={nurse.id_user}>
@@ -129,7 +129,7 @@ export function StepJobCard({
 				rows={2}
 				disabled={disabled}
 				placeholder="Descrição do atendimento"
-				className="rounded-xl border-[1.5px] border-blue-bright bg-white px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
+				className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
 			/>
 
 			<div className="flex gap-2">

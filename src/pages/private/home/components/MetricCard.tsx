@@ -16,7 +16,7 @@ export function MetricCard({
 	sublabel,
 }: MetricCardProps) {
 	return (
-		<div className="bg-white border border-line flex flex-col gap-2 items-start p-6 rounded-card-sm w-full shadow-soft lg:flex-1 lg:gap-3.5 lg:p-7">
+		<div className="bg-surface border border-line flex flex-col gap-2 items-start p-6 rounded-card-sm w-full shadow-soft lg:flex-1 lg:gap-3.5 lg:p-7">
 			<div
 				className={`${iconBg} flex items-center justify-center rounded-2xl size-14 shrink-0`}
 			>

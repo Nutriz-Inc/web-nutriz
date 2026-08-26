@@ -43,7 +43,7 @@ export function StepAddressPicker({
 							onSelectExisting(event.target.value);
 						}
 					}}
-					className="w-full rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none"
+					className="w-full rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none"
 				>
 					{addresses.map((address) => (
 						<option key={address.id_address} value={address.id_address}>
@@ -63,19 +63,19 @@ export function StepAddressPicker({
 						}
 						placeholder="CEP"
 						inputMode="numeric"
-						className="flex-1 rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
+						className="flex-1 rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
 					/>
 					<input
 						value={number}
 						onChange={(event) => onNumberChange(event.target.value)}
 						placeholder="Número"
-						className="rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3 lg:w-32"
+						className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3 lg:w-32"
 					/>
 					<input
 						value={complement}
 						onChange={(event) => onComplementChange(event.target.value)}
 						placeholder="Complemento"
-						className="flex-1 rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
+						className="flex-1 rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
 					/>
 				</div>
 			)}

@@ -91,7 +91,7 @@ export function StepActionsFooter({
 								}
 								rows={3}
 								placeholder="Descreva o resultado desta etapa"
-								className="rounded-card-sm border border-line bg-white px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
+								className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
 							/>
 						</div>
 
@@ -112,7 +112,7 @@ export function StepActionsFooter({
 										onQuantityDonatedChange?.(event.target.value)
 									}
 									placeholder="Ex: 250"
-									className="rounded-card-sm border border-line bg-white px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
+									className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
 								/>
 							</div>
 						)}
@@ -182,7 +182,7 @@ export function StepActionsFooter({
 								}
 								rows={3}
 								placeholder="Explique o motivo do encerramento"
-								className="rounded-card-sm border border-line bg-white px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
+								className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
 							/>
 						</div>
 

@@ -61,12 +61,12 @@ export function DonationsPage() {
 							{[0, 1, 2].map((index) => (
 								<div
 									key={index}
-									className="h-24 w-full animate-pulse rounded-2xl bg-white/70"
+									className="h-24 w-full animate-pulse rounded-2xl bg-surface/70"
 								/>
 							))}
 						</div>
 					) : isError ? (
-						<div className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-soft">
+						<div className="flex flex-col items-center gap-3 rounded-2xl bg-surface p-6 text-center shadow-soft">
 							<p className="text-[14px] text-ink-2">
 								Não foi possível carregar as suas doações.
 							</p>
@@ -79,7 +79,7 @@ export function DonationsPage() {
 							</button>
 						</div>
 					) : donations.length === 0 ? (
-						<div className="rounded-card-sm bg-white shadow-soft">
+						<div className="rounded-card-sm bg-surface shadow-soft">
 							<EmptyState
 								illustration={doacaoVazia}
 								title="Você ainda não tem doações"

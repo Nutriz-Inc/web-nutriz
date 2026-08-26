@@ -152,7 +152,7 @@ export function EvaSection() {
 										label="Falar com a EVA"
 										onClick={() => openEva()}
 										className="relative"
-										pillClassName="bg-white text-ink shadow-soft"
+										pillClassName="bg-surface text-ink shadow-soft"
 										circleClassName="bg-eva text-white"
 									/>
 								</div>

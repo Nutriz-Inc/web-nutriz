@@ -21,7 +21,7 @@ export function StatCard({
 	footnote,
 }: StatCardProps) {
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-white p-5 lg:p-[26px]">
+		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
 				icon={icon}
 				iconBg={iconBg}

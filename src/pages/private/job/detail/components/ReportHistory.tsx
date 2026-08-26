@@ -8,7 +8,7 @@ type ReportHistoryProps = {
 
 export function ReportHistory({ reports }: ReportHistoryProps) {
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-5">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-5">
 			<div className="flex flex-col gap-1">
 				<div className="flex items-center gap-2">
 					<FileText className="size-4 text-ink-3" />

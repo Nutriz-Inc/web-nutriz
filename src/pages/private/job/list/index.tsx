@@ -49,7 +49,7 @@ export function AppointmentsPage() {
 				<DateFilter value={dateFilter} onChange={setDateFilter} />
 
 				{appointments.length === 0 ? (
-					<div className="rounded-card-sm border border-line bg-white">
+					<div className="rounded-card-sm border border-line bg-surface">
 						<EmptyState
 							illustration={agendaVazia}
 							title="Nenhum agendamento encontrado"

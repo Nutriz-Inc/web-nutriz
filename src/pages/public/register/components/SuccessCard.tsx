@@ -6,7 +6,7 @@ export function SuccessCard() {
 	const navigate = useNavigate();
 
 	return (
-		<div className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4 rounded-card-sm border border-line bg-white p-8 text-center shadow-soft">
+		<div className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4 rounded-card-sm border border-line bg-surface p-8 text-center shadow-soft">
 			<img
 				src={cadastroConcluido}
 				alt=""

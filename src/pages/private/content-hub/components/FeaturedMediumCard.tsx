@@ -14,7 +14,7 @@ export function FeaturedMediumCard({ article }: FeaturedMediumCardProps) {
 	return (
 		<InteractiveCard
 			onClick={() => navigate(`/artigos?a=${article.id}`)}
-			className="flex flex-col overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
+			className="flex flex-col overflow-hidden rounded-card-sm border border-line bg-surface shadow-soft"
 		>
 			<ArticleCover article={article} className="h-[100px]" />
 

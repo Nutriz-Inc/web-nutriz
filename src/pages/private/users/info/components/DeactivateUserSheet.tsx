@@ -66,7 +66,7 @@ export function DeactivateUserSheet({
 						type="button"
 						onClick={() => onOpenChange(false)}
 						disabled={isPending}
-						className="flex h-11 w-full items-center justify-center rounded-card-sm border border-line bg-white text-[12px] font-bold text-ink transition-opacity disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center rounded-card-sm border border-line bg-surface text-[12px] font-bold text-ink transition-opacity disabled:opacity-60"
 					>
 						Cancelar
 					</button>

@@ -50,8 +50,8 @@ export function RoundCheckbox({
 						checked
 							? tones.checked
 							: invalid
-								? "border-danger bg-white"
-								: "border-ink-3 bg-white",
+								? "border-danger bg-surface"
+								: "border-ink-3 bg-surface",
 					)}
 				/>
 				{checked && (

@@ -56,7 +56,7 @@ export function DonationCard({
 			whileTap={animar ? { x: 2 } : undefined}
 			transition={{ type: "spring", stiffness: 260, damping: 30 }}
 			className={cn(
-				"group relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl bg-white p-4 text-left shadow-soft transition-[box-shadow,border-radius] lg:gap-5 lg:rounded-3xl lg:p-8",
+				"group relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl bg-surface p-4 text-left shadow-soft transition-[box-shadow,border-radius] lg:gap-5 lg:rounded-3xl lg:p-8",
 				isClickable
 					? "hover:rounded-l-none focus-visible:rounded-l-none"
 					: "cursor-default",
@@ -136,7 +136,7 @@ export function DonationCard({
 							<span className="text-[10px] font-bold uppercase tracking-wider text-ink-2 lg:text-[11px]">
 								Etapa atual
 							</span>
-							<span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-bold text-ink lg:text-[12px]">
+							<span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-bold text-ink lg:text-[12px]">
 								{currentStep}/{totalSteps}
 							</span>
 						</div>

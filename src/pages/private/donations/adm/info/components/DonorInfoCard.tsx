@@ -9,7 +9,7 @@ type Props = {
 
 export function DonorInfoCard({ donor }: Props) {
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-6">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-6">
 			<div className="flex flex-col gap-1">
 				<p className="text-[16px] font-bold text-ink">Dados da doadora</p>
 				<p className="text-[12px] text-ink-2">

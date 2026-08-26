@@ -140,7 +140,7 @@ export function UsersManagementPage() {
 					</button>
 				</form>
 
-				<div className="overflow-hidden rounded-2xl border border-surface-3 bg-white">
+				<div className="overflow-hidden rounded-2xl border border-surface-3 bg-surface">
 					<UsersTableHeader />
 
 					{users.length === 0 ? (

@@ -43,7 +43,7 @@ export function UserSearchField({
 			className={cn(
 				// `min-w-0`: sem ele o `flex-1` de fora nao consegue encolher a caixa
 				// abaixo do proprio conteudo, e o formulario estourava a tela.
-				"flex h-[43px] w-full min-w-0 items-center rounded-card-sm border border-line bg-white focus-within:border-blue-deep",
+				"flex h-[43px] w-full min-w-0 items-center rounded-card-sm border border-line bg-surface focus-within:border-blue-deep",
 				className,
 			)}
 		>

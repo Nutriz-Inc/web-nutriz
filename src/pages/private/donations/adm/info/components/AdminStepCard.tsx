@@ -259,7 +259,7 @@ export function AdminStepCard({
 	};
 
 	return (
-		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-white p-6">
+		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-surface p-6">
 			<StepCardHeader
 				icon={definition.icon}
 				label={definition.name}

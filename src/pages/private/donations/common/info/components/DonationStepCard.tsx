@@ -83,7 +83,7 @@ export function DonationStepCard({
 								? "size-9 bg-eva text-[14px] text-white shadow-soft ring-2 ring-eva/30"
 								: isDone
 									? "size-7 bg-eva text-white shadow-soft"
-									: "size-7 border-[1.5px] border-dashed border-blue-tint-2 bg-white text-[12px] text-ink-3",
+									: "size-7 border-[1.5px] border-dashed border-blue-tint-2 bg-surface text-[12px] text-ink-3",
 						)}
 					>
 						{isDone ? <Check className="size-3.5" strokeWidth={3} /> : order}
@@ -112,7 +112,7 @@ export function DonationStepCard({
 				whileTap={animar ? { x: 2 } : undefined}
 				transition={{ type: "spring", stiffness: 260, damping: 30 }}
 				className={cn(
-					"group relative flex-1 overflow-hidden rounded-2xl bg-white text-left shadow-soft transition-[border-radius] disabled:cursor-default",
+					"group relative flex-1 overflow-hidden rounded-2xl bg-surface text-left shadow-soft transition-[border-radius] disabled:cursor-default",
 					isCurrent ? "mb-6 p-5" : "mb-4 p-3.5",
 					isClickable && "hover:rounded-l-none focus-visible:rounded-l-none",
 					!isCurrent && !isDone && "bg-surface-2",

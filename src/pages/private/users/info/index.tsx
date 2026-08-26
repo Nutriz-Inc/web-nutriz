@@ -99,7 +99,7 @@ export function UserManagementDetailPage() {
 					<button
 						type="button"
 						onClick={() => setDeactivateOpen(true)}
-						className="rounded-lg border border-danger-tint bg-white px-4 py-2 text-[13px] font-semibold text-danger transition-colors hover:bg-danger-tint"
+						className="rounded-lg border border-danger-tint bg-surface px-4 py-2 text-[13px] font-semibold text-danger transition-colors hover:bg-danger-tint"
 					>
 						Desativar usuário
 					</button>

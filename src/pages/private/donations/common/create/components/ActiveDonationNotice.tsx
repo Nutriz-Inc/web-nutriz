@@ -15,7 +15,7 @@ export function ActiveDonationNotice() {
 		<div className="rounded-card-sm flex gap-3 border border-eva/25 bg-eva-tint p-4">
 			<span
 				aria-hidden="true"
-				className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-eva-deep shadow-soft"
+				className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface text-eva-deep shadow-soft"
 			>
 				<Heart className="size-4 fill-eva" />
 			</span>

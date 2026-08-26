@@ -65,11 +65,11 @@ export function StepJobsSection({
 			))}
 
 			{showNewForm ? (
-				<div className="flex flex-col gap-2.5 rounded-xl border border-blue-bright bg-white p-3.5">
+				<div className="flex flex-col gap-2.5 rounded-xl border border-blue-bright bg-surface p-3.5">
 					<select
 						value={nurseId}
 						onChange={(event) => setNurseId(event.target.value)}
-						className="rounded-xl border-[1.5px] border-blue-bright bg-white px-3 py-2 text-[13px] text-ink outline-none"
+						className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3 py-2 text-[13px] text-ink outline-none"
 					>
 						<option value="">Selecione um enfermeiro</option>
 						{nurses.map((nurse) => (
@@ -84,7 +84,7 @@ export function StepJobsSection({
 						onChange={(event) => setDescription(event.target.value)}
 						rows={2}
 						placeholder="Descrição do atendimento"
-						className="rounded-xl border-[1.5px] border-blue-bright bg-white px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
+						className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
 					/>
 
 					<div className="flex gap-2">

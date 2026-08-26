@@ -516,6 +516,44 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+ * Fonte de leitura facilitada
+ *
+ * A troca nao pode sair de `--font-sans`: o bloco `@theme inline` compila o
+ * valor literal (`font-family: Geist Variable, sans-serif`), entao redefinir a
+ * variavel em tempo de execucao nao muda nada. Por isso a familia e escrita
+ * direto nos seletores.
+ *
+ * O bloco fica FORA de `@layer` de proposito: CSS sem camada vence as
+ * utilities do Tailwind, entao nao precisa de `!important`. Mesmo motivo da
+ * regra de zoom do iOS logo abaixo.
+ *
+ * O espacamento importa tanto quanto a letra: os estudos controlados que
+ * existem nao acharam ganho de leitura nas fontes desenhadas para dislexia,
+ * mas acharam em aumentar o espaco entre letras e entre linhas.
+ * ------------------------------------------------------------------------- */
+:root[data-fonte="dislexia"],
+:root[data-fonte="dislexia"] body,
+:root[data-fonte="dislexia"] .font-sans,
+:root[data-fonte="dislexia"] .font-display,
+:root[data-fonte="dislexia"] .font-body,
+:root[data-fonte="dislexia"] .font-heading {
+	font-family: "Atkinson Hyperlegible", "Geist Variable", sans-serif;
+}
+
+:root[data-fonte="dislexia"] body {
+	letter-spacing: 0.03em;
+	word-spacing: 0.08em;
+}
+
+/* Entrelinha so onde ha texto corrido: aplicada em tudo, ela esticaria botao
+ * e chip, que tem altura fixa. */
+:root[data-fonte="dislexia"] p,
+:root[data-fonte="dislexia"] li,
+:root[data-fonte="dislexia"] blockquote {
+	line-height: 1.7;
+}
+
+/* ---------------------------------------------------------------------------
  * Zoom ao focar um campo (iOS)
  *
  * O Safari do iPhone da zoom automatico quando o campo focado tem fonte menor

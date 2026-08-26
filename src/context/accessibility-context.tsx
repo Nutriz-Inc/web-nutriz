@@ -16,6 +16,7 @@ import {
 	type Preferencias,
 	type PreferenciaTema,
 } from "@/utils/accessibility-storage";
+import { carregarFonteLeituraFacil } from "@/utils/dyslexia-font";
 
 type AccessibilityContextValue = {
 	preferencias: Preferencias;
@@ -104,6 +105,17 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 			fonteDislexia: preferencias.fonteDislexia,
 		});
 	}, [preferencias, temaEfetivo, movimentoReduzido]);
+
+	/*
+	 * O arquivo da fonte so e buscado quando a opcao liga. Desligar nao
+	 * descarrega nada — o navegador ja tem o arquivo em cache e voltar a ligar
+	 * fica instantaneo.
+	 */
+	useEffect(() => {
+		if (preferencias.fonteDislexia) {
+			carregarFonteLeituraFacil();
+		}
+	}, [preferencias.fonteDislexia]);
 
 	const definirTema = useCallback((tema: PreferenciaTema) => {
 		setPreferencias((atual) => ({ ...atual, tema }));

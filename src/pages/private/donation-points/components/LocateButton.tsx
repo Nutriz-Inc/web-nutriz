@@ -2,10 +2,6 @@ import { LocateFixed } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-/**
- * Acao de trocar o endereco da busca. Ficava como icone flutuante no canto do
- * mapa, sem rotulo - ninguem achava. Agora e um botao com texto, acima do mapa.
- */
 export function LocateButton({
 	onClick,
 	className,

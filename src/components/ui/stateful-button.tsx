@@ -2,10 +2,6 @@ import { motion, useAnimate, useReducedMotion } from "framer-motion";
 import type { ComponentPropsWithoutRef, MouseEvent, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-/*
- * Os handlers de animacao/arraste do DOM colidem com os do framer-motion
- * (assinaturas diferentes para o mesmo nome), entao ficam de fora do spread.
- */
 type StatefulButtonProps = Omit<
 	ComponentPropsWithoutRef<"button">,
 	| "onClick"
@@ -15,22 +11,11 @@ type StatefulButtonProps = Omit<
 	| "onDragStart"
 	| "onDragEnd"
 > & {
-	/** Icone fixo, antes do rotulo — some com o giro e o certo. */
 	icon?: ReactNode;
 	onClick?: (event: MouseEvent<HTMLButtonElement>) => void | Promise<unknown>;
 	children: ReactNode;
 };
 
-/**
- * Botao com estado (Aceternity UI, adaptado).
- *
- * Ao clicar mostra um giro enquanto a acao roda e um certo quando termina,
- * voltando sozinho ao normal. O nome e `StatefulButton`, e nao `Button` como
- * na biblioteca, porque `components/ui/button.tsx` ja exporta um `Button`.
- *
- * Com `prefers-reduced-motion` nada se move: a acao roda e o rotulo fica como
- * esta.
- */
 export function StatefulButton({
 	className,
 	icon,
@@ -42,8 +27,6 @@ export function StatefulButton({
 	const reduzirMovimento = useReducedMotion();
 
 	async function handleClick(event: MouseEvent<HTMLButtonElement>) {
-		// A acao dispara antes de qualquer `await`: abrir uma aba depois de um
-		// await sai da janela de gesto do usuario e o navegador bloqueia.
 		const acao = onClick?.(event);
 
 		if (reduzirMovimento) {

@@ -9,8 +9,6 @@ type ChatInputProps = {
 	sending?: boolean;
 };
 
-// Linha de input do chat: pill de texto + botao circular preto de enviar.
-// O rodape de aviso medico fica a cargo de cada painel (textos diferem).
 export function ChatInput({
 	value,
 	onChange,

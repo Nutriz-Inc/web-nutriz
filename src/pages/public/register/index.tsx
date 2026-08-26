@@ -136,12 +136,6 @@ export function RegisterScreen() {
 	}
 
 	return (
-		/*
-		 * Coluna unica centrada — a divisao em duas e so do login. A cor vem de
-		 * uma faixa azul de largura total no topo, com o cartao do formulario
-		 * subindo por cima dela. Assim o cadastro tem o mesmo peso visual do
-		 * login sem partir a tela ao meio.
-		 */
 		<div className="relative isolate flex min-h-dvh flex-col overflow-hidden bg-canvas font-body">
 			<header className="gradient-blue relative isolate overflow-hidden pb-20 pt-[calc(1.25rem+env(safe-area-inset-top))] text-white sm:pb-24">
 				<span
@@ -167,7 +161,6 @@ export function RegisterScreen() {
 							/>
 						</Link>
 
-						{/* Mesmo motivo do login: esta tela nao tem cabecalho. */}
 						<AccessibilityControls
 							tom="escuro"
 							className="absolute right-6 top-6 z-10"
@@ -219,7 +212,6 @@ export function RegisterScreen() {
 				</div>
 			</header>
 
-			{/* O cartao sobe por cima da faixa azul: -mt cria a sobreposicao. */}
 			<main className="relative -mt-16 mx-auto w-full max-w-[680px] flex-1 px-4 pb-[calc(3rem+env(safe-area-inset-bottom))] sm:-mt-20 sm:px-6">
 				<Page>
 					{success ? (

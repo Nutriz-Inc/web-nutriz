@@ -20,7 +20,6 @@ import { carregarFonteLeituraFacil } from "@/utils/dyslexia-font";
 
 type AccessibilityContextValue = {
 	preferencias: Preferencias;
-	/** O que de fato vale agora, com "sistema" ja resolvido. */
 	temaEfetivo: "claro" | "escuro";
 	definirTema: (tema: PreferenciaTema) => void;
 	definirFonteDislexia: (ativa: boolean) => void;
@@ -39,15 +38,6 @@ function combina(consulta: string) {
 		: false;
 }
 
-/**
- * Preferencias de exibicao do app.
- *
- * O padrao e obedecer o `prefers-color-scheme` do sistema. A escolha manual
- * vence e fica salva; enquanto a pessoa nao escolher, a preferencia do sistema
- * continua valendo AO VIVO — mudar o tema do sistema com o app aberto muda o
- * app junto, e por isso o `matchMedia` fica observado em vez de lido so na
- * montagem.
- */
 export function AccessibilityProvider({ children }: PropsWithChildren) {
 	const [preferencias, setPreferencias] = useState<Preferencias>(() =>
 		lerPreferencias(),
@@ -80,8 +70,6 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 				: "claro"
 			: preferencias.tema;
 
-	// Grava e pinta no mesmo efeito: o que esta no DOM e o que esta salvo nunca
-	// divergem, nem quando a mudanca vem do sistema.
 	useEffect(() => {
 		gravarPreferencias(preferencias);
 		aplicarNoDocumento({
@@ -90,11 +78,6 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 		});
 	}, [preferencias, temaEfetivo]);
 
-	/*
-	 * O arquivo da fonte so e buscado quando a opcao liga. Desligar nao
-	 * descarrega nada — o navegador ja tem o arquivo em cache e voltar a ligar
-	 * fica instantaneo.
-	 */
 	useEffect(() => {
 		if (preferencias.fonteDislexia) {
 			carregarFonteLeituraFacil();
@@ -102,11 +85,6 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 	}, [preferencias.fonteDislexia]);
 
 	const definirTema = useCallback((tema: PreferenciaTema) => {
-		/*
-		 * Liga a transicao so durante a troca. Um `transition` permanente em
-		 * tudo deixaria qualquer hover arrastando; aqui a marca entra, o tema
-		 * muda no quadro seguinte e ela sai quando a animacao termina.
-		 */
 		const raiz = document.documentElement;
 		raiz.dataset.trocandoTema = "";
 

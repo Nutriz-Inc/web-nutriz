@@ -18,25 +18,8 @@ type EvaWelcomePanelProps = {
 	onStart: (initialMessage?: string) => void;
 };
 
-/**
- * Icone de cada sugestao, na ordem de `EVA_SUGGESTIONS`. Fica aqui, e nao nas
- * constantes, porque e decisao de aparencia — a lista de perguntas continua
- * sendo so texto.
- */
 const ICONES: LucideIcon[] = [Droplet, Sparkles, Snowflake, CalendarCheck];
 
-/**
- * Abertura da EVA, no desenho da referencia (eva.jpeg):
- *
- * - identidade em linha — quadrado de cantos macios com o pastel a esquerda,
- *   nome e descricao a direita;
- * - sugestoes como pilulas do tamanho do proprio texto, empilhadas e
- *   alinhadas a esquerda, cada uma com um icone de traco fino;
- * - tres pontinhos rosa antes do campo;
- * - campo de escrever largo, em cinza bem claro, com o botao circular colado.
- *
- * Tudo cabe sem rolagem, inclusive com o aviso do modo anonimo.
- */
 export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 	const isAnonymous = mode === "anonymous";
 	const [text, setText] = useState("");
@@ -64,7 +47,6 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 
 	return (
 		<div className="eva-scope eva-widget-welcome">
-			{/* So existe no mobile: empurra a identidade para pouco acima do meio. */}
 			<span className="eva-welcome-topo" aria-hidden="true" />
 
 			<motion.div {...entrada(0)} className="eva-welcome-id">
@@ -88,7 +70,6 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 				</motion.p>
 			)}
 
-			{/* So no mobile: separa a apresentacao do bloco de acao. */}
 			<span className="eva-welcome-meio" aria-hidden="true" />
 
 			<div className="eva-welcome-pills">
@@ -120,9 +101,6 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 
 			<div className="eva-widget-welcome-foot-wrap">
 				{isAnonymous ? (
-					// Modo anonimo: o aviso LGPD e bloqueante. O botao de ciencia leva
-					// ao chat preservando uma eventual pergunta vinda de um CTA (o
-					// input so aparece na conversa, apos a ciencia).
 					<button
 						type="button"
 						className="eva-btn-primary eva-widget-start"

@@ -64,11 +64,6 @@ export function NewDonationPage() {
 				);
 				navigate("/minhas-doacoes");
 			},
-			/*
-			 * Em vez de adivinhar pela mensagem do erro se a recusa foi por ja
-			 * existir uma doacao aberta, pergunta de novo: se vier uma ativa, o
-			 * aviso rosa toma o lugar da mensagem de falha sozinho.
-			 */
 			onError: () => {
 				refetchActiveDonation();
 			},
@@ -91,23 +86,9 @@ export function NewDonationPage() {
 			hasPermission={auth?.type === EnumUserType.Common}
 			loading={isLoading}
 		>
-			{/*
-			 * Ponto de confirmacao, nao tela de conteudo: um bloco so, deitado em
-			 * duas colunas no desktop (ilustracao a esquerda, fluxo e acoes a
-			 * direita). No mobile as duas colunas viram uma pilha.
-			 */}
 			<Reveal className="mx-auto w-full max-w-[1000px]">
 				<section className="rounded-card overflow-hidden border border-line bg-surface shadow-soft lg:grid lg:grid-cols-[minmax(0,42%)_1fr] lg:items-stretch">
-					{/*
-					 * Painel claro (gradient-milk) e nao o gradiente azul: a
-					 * ilustracao da unDraw e escura (#0f1f3d) e sumia sobre o azul.
-					 */}
 					<div className="gradient-milk relative flex flex-col items-center justify-center overflow-hidden border-b border-line px-6 py-8 text-center lg:border-b-0 lg:border-r lg:px-8 lg:py-12">
-						{/*
-						 * Bolinhas de fundo que vinham com a ilustracao antiga. Em
-						 * opacidade baixa elas so dao textura — a menina com o coracao
-						 * continua sendo o unico elemento em foco.
-						 */}
 						<span
 							aria-hidden="true"
 							className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -156,8 +137,6 @@ export function NewDonationPage() {
 
 						{temDoacaoAberta ? <ActiveDonationNotice /> : <AttentionNotice />}
 
-						{/* Falha inesperada. Ja ter uma doacao aberta nao passa por
-						    aqui: vira o aviso rosa acima. */}
 						{createDonationMutation.isError && !temDoacaoAberta && (
 							<p
 								role="alert"
@@ -168,8 +147,6 @@ export function NewDonationPage() {
 						)}
 
 						<div className="pb-safe flex flex-col gap-2.5 sm:flex-row-reverse">
-							{/* Com doacao aberta nao ha o que confirmar: o caminho e ir
-							    para a que ja existe. */}
 							<Button
 								type="button"
 								size="pill"
@@ -199,7 +176,6 @@ export function NewDonationPage() {
 				</section>
 			</Reveal>
 
-			{/* mesmo rodape das outras telas; sangra as gutters do Layout */}
 			<div className="-mx-4 -mb-16 mt-12 sm:-mx-6 lg:-mx-10">
 				<Footer />
 			</div>

@@ -95,12 +95,6 @@ export function HowItWorksSection() {
 						className="pointer-events-none absolute -top-16 -right-12 size-48 rounded-full bg-[#25d366]/15 blur-3xl"
 					/>
 					<div className="relative">
-						{/*
-						 * O `whatsapp-logo.png` traz a palavra "WhatsApp" em verde
-						 * escuro, que sumia sobre o cartao escuro. Aqui o simbolo vem
-						 * do SVG (branco, sobre a bolha verde) e a palavra e texto, que
-						 * acompanha o tema.
-						 */}
 						<span className="flex items-center gap-2">
 							<span className="flex size-6 items-center justify-center rounded-full bg-[#25d366]">
 								<img
@@ -121,13 +115,6 @@ export function HowItWorksSection() {
 					</div>
 					<div className="relative mt-4">
 						<StatefulButton
-							/*
-							 * Aqui vai so o simbolo (ja branco no proprio arquivo), nao
-							 * o `whatsapp-logo.png`: aquele e a marca com a palavra
-							 * "WhatsApp" escrita, e dentro do botao virava
-							 * "WhatsApp Chamar no WhatsApp", em verde escuro sobre
-							 * verde. A marca completa segue no topo do cartao.
-							 */
 							icon={
 								<img
 									src={whatsappIcone}
@@ -142,8 +129,6 @@ export function HowItWorksSection() {
 									"_blank",
 									"noopener,noreferrer",
 								);
-								// A aba abre na hora; a espera existe so para o giro
-								// aparecer antes do certo.
 								return new Promise((resolver) => setTimeout(resolver, 700));
 							}}
 							className="bg-[#25d366] text-white shadow-soft"

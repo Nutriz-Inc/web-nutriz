@@ -4,8 +4,6 @@ type SuggestionChipsProps = {
 	onSelect: (suggestion: string) => void;
 };
 
-// Chips "Comece por aqui" da tela de boas-vindas: clicar envia a pergunta.
-// Grade de 2 colunas para a tela inicial caber sem scroll.
 export function SuggestionChips({ onSelect }: SuggestionChipsProps) {
 	return (
 		<div

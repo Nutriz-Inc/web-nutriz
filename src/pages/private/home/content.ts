@@ -1,13 +1,3 @@
-/**
- * CONTEUDO INSTITUCIONAL / ILUSTRATIVO — NAO E DADO REAL DA API.
- *
- * Os depoimentos abaixo vieram do design e sao ficticios. Nao ha endpoint de
- * historias no backend hoje. Estao isolados aqui, fora dos componentes, para
- * que produto decida antes da apresentacao: manter, trocar por depoimento real
- * autorizado, ou remover a secao.
- *
- * TODO: API — substituir por uma fonte real de depoimentos quando existir.
- */
 export const INSTITUTIONAL_STORIES = [
 	{
 		tag: "UTI",
@@ -23,9 +13,4 @@ export const INSTITUTIONAL_STORIES = [
 	},
 ] as const;
 
-/**
- * O design exibia "128 histórias compartilhadas". Esse numero NAO existe na API
- * e nao pode ser apresentado como metrica real, entao o contador fica oculto.
- * TODO: API — reativar quando houver um total real de historias.
- */
 export const STORIES_TOTAL: number | null = null;

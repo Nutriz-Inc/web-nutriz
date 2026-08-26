@@ -15,16 +15,10 @@ import { cn } from "@/lib/utils";
 
 type AvatarColorPickerProps = {
 	idUser: string | undefined;
-	/** A bolinha de iniciais: ela inteira e o gatilho. */
 	children: ReactNode;
 	className?: string;
 };
 
-/**
- * Abre a paleta de cores da bolinha de iniciais. O gatilho e o proprio avatar,
- * com um lapis no cantinho indicando que da para trocar. As cores sao os tints
- * do design system, entao o avatar nunca sai da paleta do produto.
- */
 export function AvatarColorPicker({
 	idUser,
 	children,
@@ -69,9 +63,6 @@ export function AvatarColorPicker({
 
 						return (
 							// biome-ignore lint/a11y/useSemanticElements: o alvo e um
-							// circulo de cor com anel de foco proprio; input[type=radio]
-							// nativo nao renderiza isso sem appearance-none e hack de
-							// pseudo-elemento. A semantica de radiogroup fica pelo ARIA.
 							<button
 								key={cor.key}
 								type="button"

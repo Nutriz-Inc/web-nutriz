@@ -34,8 +34,6 @@ export function ActiveDonationsByStepCard({
 				<>
 					<div className="flex flex-col gap-3.5">
 						{sorted.map((item, index) => {
-							// Etapa desconhecida derrubava a pagina inteira em
-							// `display.label`; agora ela so aparece com o nome cru.
 							const display = STEP_DISPLAY[item.step] ?? {
 								label: item.step,
 							};

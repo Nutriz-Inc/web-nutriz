@@ -1,7 +1,6 @@
 import type { IPaginationRequest, IPaginationResponse } from "./i-index";
 import type { Address, AddressCreateBase } from "./i-user";
 
-// entities
 export interface Donation {
 	id_donation: string;
 	is_active: boolean;
@@ -70,7 +69,6 @@ export enum EnumDonationStepStatus {
 	Failed = "failed",
 }
 
-// donation
 export interface IListDonationsRequest extends IPaginationRequest {
 	is_active?: boolean;
 	user_document?: string;
@@ -102,7 +100,6 @@ export interface IUpdateDonationRequest {
 }
 export type IUpdateDonationResponse = Donation;
 
-//donation point
 export interface IListDonationPointsRequest extends IPaginationRequest {
 	show_address: boolean;
 	name?: string;
@@ -119,7 +116,6 @@ export interface IListDonationPointsResponse extends IPaginationResponse {
 	data: IDonationPointResponse[];
 }
 
-// donation step
 export interface ICreateDonationStepRequest {
 	id_donation: string;
 	id_address?: string;
@@ -139,7 +135,6 @@ export interface IUpdateDonationStepRequest {
 }
 export type IUpdateDonationStepResponse = DonationStep;
 
-// donation step timeline
 export interface IListDonationStepTimelinesRequest {
 	id_donation_step: string;
 }
@@ -148,7 +143,6 @@ export interface IListDonationStepTimelinesResponse {
 }
 
 export interface IDonation {
-	//donation
 	list(data: IListDonationsRequest): Promise<IListDonationsResponse>;
 	create(): Promise<ICreateDonationResponse>;
 	update(
@@ -157,12 +151,10 @@ export interface IDonation {
 	): Promise<IUpdateDonationResponse>;
 	get(id_donation: string): Promise<IGetDonationResponse>;
 
-	//donation point
 	listPoints(
 		data: IListDonationPointsRequest,
 	): Promise<IListDonationPointsResponse>;
 
-	//donation step
 	createStep(
 		data: ICreateDonationStepRequest,
 	): Promise<ICreateDonationStepResponse>;
@@ -171,7 +163,6 @@ export interface IDonation {
 		data: IUpdateDonationStepRequest,
 	): Promise<IUpdateDonationStepResponse>;
 
-	//donation step timeline
 	listStepTimelines(
 		data: IListDonationStepTimelinesRequest,
 	): Promise<IListDonationStepTimelinesResponse>;

@@ -5,25 +5,6 @@ export type GeoCoordinates = {
 	longitude: number;
 };
 
-/**
- * Converte um CEP em coordenadas, no proprio navegador.
- *
- * Por que existe: a busca por CEP na tela de pontos de coleta mandava o CEP
- * para a API e mais nada — o mapa nao tinha para onde ir e continuava parado
- * em Sao Paulo, entao parecia que "nenhum CEP funciona". A chamada da API
- * segue exatamente igual (o parametro `zipcode` nao mudou); estas coordenadas
- * servem so para posicionar o mapa e o pino de "voce esta aqui".
- *
- * Sao duas fontes, em cascata, porque nenhuma sozinha cobre todo CEP:
- *
- * 1. BrasilAPI /cep/v2 — a mesma ja usada no cadastro. Quando o provedor que
- *    responde e o open-cep, vem `location.coordinates`; nos outros provedores
- *    vem so o endereco, sem coordenada.
- * 2. Nominatim (OpenStreetMap) — busca pelo CEP e, se preciso, pelo endereco
- *    devolvido no passo 1. Cobre os casos em que a BrasilAPI responde sem
- *    coordenada ou nao responde.
- */
-
 type BrasilApiCep = {
 	street?: string;
 	neighborhood?: string;
@@ -114,12 +95,10 @@ export async function geocodeZipCode(
 
 	if (doCep) return doCep;
 
-	// Sem coordenada na BrasilAPI: o OpenStreetMap resolve pelo proprio CEP...
 	const porCep = await buscaNominatim({ postalcode: digitos }, signal);
 
 	if (porCep) return porCep;
 
-	// ...e, em ultimo caso, pelo endereco que a BrasilAPI devolveu.
 	if (endereco?.city) {
 		const partes = [
 			endereco.street,

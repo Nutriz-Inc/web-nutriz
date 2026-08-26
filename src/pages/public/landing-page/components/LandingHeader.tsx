@@ -25,10 +25,6 @@ export function LandingHeader() {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	// O FAB da EVA e global (montado em App.tsx, fora do RouterProvider) e nao
-	// enxerga o menu. Com o menu aberto ele cobria o botao "Entrar" e, como o
-	// Sheet bloqueia cliques fora dele, ficava sem resposta. Mesmo tratamento
-	// que o AppHeader ja dava na area logada.
 	useEffect(() => {
 		setAppMenuOpen(menuOpen);
 		return () => setAppMenuOpen(false);
@@ -94,25 +90,25 @@ export function LandingHeader() {
 					</button>
 					<Button
 						onClick={() => navigate("/registro")}
-						className="h-11 rounded-full bg-white px-6 text-[14px] font-semibold text-blue-deep hover:bg-blue-tint"
+						className="h-11 rounded-full bg-surface-on-fill px-6 text-[14px] font-semibold text-ink-on-fill hover:bg-blue-tint-2"
 					>
 						Cadastrar-se
 					</Button>
 				</div>
 
-				{/* No celular os controles ficam no topo, ao lado do menu, e nao
-				    dentro dele: dois toques para trocar o tema seria pior. */}
-				<AccessibilityControls tom="escuro" className="lg:hidden" />
+				<div className="flex shrink-0 items-center gap-1.5 lg:hidden">
+					<AccessibilityControls tom="escuro" />
 
-				<button
-					type="button"
-					onClick={() => setMenuOpen(true)}
-					aria-label="Abrir menu"
-					aria-expanded={menuOpen}
-					className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60 lg:hidden"
-				>
-					<Menu className="size-6" aria-hidden="true" />
-				</button>
+					<button
+						type="button"
+						onClick={() => setMenuOpen(true)}
+						aria-label="Abrir menu"
+						aria-expanded={menuOpen}
+						className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
+					>
+						<Menu className="size-[18px]" aria-hidden="true" />
+					</button>
+				</div>
 			</div>
 
 			<LandingDrawer

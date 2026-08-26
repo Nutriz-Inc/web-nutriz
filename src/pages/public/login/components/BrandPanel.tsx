@@ -11,17 +11,6 @@ const SELOS = [
 	{ icon: ShieldCheck, label: "Conteúdo da rBLH" },
 ];
 
-/**
- * Coluna da marca na tela de login. No desktop ocupa a metade esquerda e
- * carrega o discurso; no mobile encolhe para uma faixa de topo — a pessoa veio
- * para entrar, nao para ler.
- *
- * Mesmo `gradient-blue` e mesmos ink-blobs do hero da home, para o login
- * parecer a porta de entrada do app e nao uma tela avulsa. As ilustracoes sao
- * unDraw, como o resto do app; elas tem tracos escuros (#2f2e41), entao a
- * principal fica dentro de um cartao claro e o cenario da cidade entra so como
- * textura de fundo, bem apagado.
- */
 export function BrandPanel() {
 	return (
 		<aside className="gradient-blue relative isolate flex flex-col overflow-hidden px-6 pb-9 pt-[calc(2rem+env(safe-area-inset-top))] text-white lg:w-[52%] lg:shrink-0 lg:justify-between lg:px-14 lg:py-12">
@@ -53,18 +42,11 @@ export function BrandPanel() {
 				/>
 			</Link>
 
-			{/* Login e cadastro nao tem cabecalho: sem isto os controles de tema e
-			    fonte ficariam fora do alcance justamente nas duas primeiras telas. */}
 			<AccessibilityControls
 				tom="escuro"
 				className="absolute right-6 top-6 z-10"
 			/>
 
-			{/*
-			 * Texto e ilustracao lado a lado, alinhados pelo centro — no desktop e
-			 * no mobile. Antes a imagem ficava embaixo do titulo no desktop, o que
-			 * deixava a coluna comprida e vazia no meio.
-			 */}
 			<div className="relative mt-6 flex items-center gap-5 lg:mt-8 lg:gap-10">
 				<div className="min-w-0 flex-1">
 					<h1 className="font-display text-[26px] font-extrabold leading-[1.1] tracking-tight sm:text-[32px] lg:text-[40px]">

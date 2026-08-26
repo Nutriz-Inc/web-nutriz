@@ -15,11 +15,6 @@ type Coordinates = GeoCoordinates;
 type ChangeLocationSheetProps = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
-	/**
-	 * `coordinates` e o CEP ja resolvido em latitude/longitude, usado para
-	 * posicionar o mapa. Vem `null` quando nenhum servico soube localizar o
-	 * CEP — a busca na API continua valendo, so o mapa nao se move.
-	 */
 	onApplyZipCode: (zipCode: string, coordinates: Coordinates | null) => void;
 	onApplyCurrentLocation: (coordinates: Coordinates) => void;
 };
@@ -49,9 +44,6 @@ export function ChangeLocationSheet({
 
 		setIsSearching(true);
 
-		// O CEP vira coordenada aqui, no navegador: sem isso o mapa nao sabia
-		// para onde ir e ficava parado, dando a impressao de que a busca por
-		// CEP nao funcionava. Ver utils/geocode.ts.
 		const coordinates = await geocodeZipCode(zipCodeDigits);
 
 		setIsSearching(false);

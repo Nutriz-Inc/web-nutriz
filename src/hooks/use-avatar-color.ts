@@ -1,13 +1,5 @@
 import { useCallback, useSyncExternalStore } from "react";
 
-/**
- * Cor de fundo da bolinha de iniciais, escolhida pela nutriz no perfil.
- *
- * Sao os proprios tints do design system - nenhuma cor nova entra no sistema.
- * A escolha vive no localStorage por usuario: a API nao tem campo de avatar
- * nem de preferencia visual, e isso e enfeite, nao dado de negocio. Logo, nao
- * acompanha a pessoa em outro dispositivo.
- */
 export const AVATAR_COLORS = [
 	{ key: "azul", label: "Azul", bg: "bg-blue-tint", text: "text-blue-deep" },
 	{ key: "rosa", label: "Rosa", bg: "bg-eva-tint", text: "text-eva" },
@@ -32,8 +24,6 @@ function ehValida(valor: string | null): valor is AvatarColorKey {
 	return AVATAR_COLORS.some((cor) => cor.key === valor);
 }
 
-// Store minimo com listeners: os dois avatares (header e perfil) precisam
-// mudar juntos, e o evento "storage" do navegador so dispara em outra aba.
 const listeners = new Set<() => void>();
 
 function avisar() {

@@ -9,22 +9,12 @@ type SegmentedProps<T extends string> = {
 	options: SegmentedOption<T>[];
 	value: T;
 	onChange: (value: T) => void;
-	/** Divide a largura entre as opcoes (abas de tela); por padrao o controle ocupa so o necessario. */
 	fullWidth?: boolean;
-	/**
-	 * `lg` garante alvo de 44px, o minimo de area de toque das WCAG. E opcional
-	 * para nao mudar a altura das abas que ja existem pelo app.
-	 */
 	size?: "md" | "lg";
 	className?: string;
 	"aria-label"?: string;
 };
 
-/**
- * Controle segmentado do app: trilho em azul claro com a opcao ativa em
- * azul-escuro. Um unico desenho para abas de perfil, filtros de status e
- * qualquer alternancia de 2+ opcoes. Ver docs/design-system.md.
- */
 export function Segmented<T extends string>({
 	options,
 	value,

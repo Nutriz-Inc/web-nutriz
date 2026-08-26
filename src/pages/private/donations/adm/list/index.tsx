@@ -97,9 +97,6 @@ export function DonationsManagementPage() {
 							placeholder="Buscar por CPF..."
 						/>
 					</div>
-					{/* Os dois botoes dividem uma linha no celular: empilhados em
-					    largura cheia, o formulario ocupava quatro linhas antes de
-					    aparecer a primeira doacao. */}
 					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0 lg:gap-2.5">
 						<button
 							type="submit"

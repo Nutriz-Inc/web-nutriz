@@ -3,15 +3,10 @@ import { cn } from "@/lib/utils";
 
 type RevealProps = {
 	children: React.ReactNode;
-	/** Atraso em segundos, para escalonar itens de uma mesma grade. */
 	delay?: number;
 	className?: string;
 };
 
-/**
- * Reveal sutil ao entrar na viewport. Com `prefers-reduced-motion` o conteudo
- * aparece direto, sem deslocamento nem fade.
- */
 export function Reveal({ children, delay = 0, className }: RevealProps) {
 	const shouldReduceMotion = useReducedMotion();
 

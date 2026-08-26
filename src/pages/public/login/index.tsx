@@ -56,21 +56,11 @@ export function LoginScreen() {
 	const isPending = loginMutation.isPending;
 
 	return (
-		/*
-		 * Duas colunas deitadas no desktop (marca a esquerda, formulario a
-		 * direita) e uma pilha no mobile: faixa da marca em cima, formulario
-		 * embaixo. O formulario nunca divide espaco com ilustracao no celular,
-		 * entao o teclado nao empurra nada para fora da tela.
-		 */
 		<div className="flex min-h-dvh flex-col bg-canvas font-body lg:flex-row">
 			<BrandPanel />
 
 			<main className="flex flex-1 items-center justify-center px-5 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-9 sm:px-8 lg:px-10 lg:py-12">
 				<div className="w-full max-w-[420px]">
-					{/*
-					 * O formulario mora num cartao elevado, e nao solto sobre o fundo:
-					 * da peso visual a coluna da direita e cria o par com o painel azul.
-					 */}
 					<div className="rounded-card border border-line bg-surface p-6 shadow-lift sm:p-8">
 						<h2 className="text-center font-display text-[24px] font-extrabold tracking-tight text-ink lg:text-[26px]">
 							Bem-vinda(o) de volta

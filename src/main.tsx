@@ -7,11 +7,6 @@ import { AuthProvider } from "./context/auth-context";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		{/*
-		 * O provider de acessibilidade fica FORA do App porque o proprio App
-		 * chama `useThemeColor`, que le o tema. Estando dentro do return do App
-		 * ele nao cobriria o corpo do componente.
-		 */}
 		<AccessibilityProvider>
 			<AuthProvider>
 				<App />

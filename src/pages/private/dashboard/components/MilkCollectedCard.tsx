@@ -45,9 +45,6 @@ export function MilkCollectedCard({ total, byMonth }: MilkCollectedCardProps) {
 						<p className="text-[12px] text-ink-2">Meses anteriores</p>
 					</div>
 
-					{/* min-w-max NAO pode ficar aqui: com ele o proprio container de scroll
-					    cresce ate o tamanho do conteudo, o overflow-x-auto nunca entra e o
-					    card empurra a pagina no mobile. As barras ja tem shrink-0. */}
 					<div className="sem-barra flex h-[220px] items-end gap-3 overflow-x-auto lg:h-[280px] lg:gap-5">
 						{byMonth.map((item) => {
 							const isCurrent = item.month === currentMonth;

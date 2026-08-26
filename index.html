@@ -5,52 +5,15 @@
     <link rel="icon" href="/favicon.ico?v=4" sizes="16x16 32x32 48x48" />
     <link rel="icon" type="image/png" href="/favicon.png?v=4" sizes="512x512" />
     <link rel="apple-touch-icon" href="/favicon.png?v=4" />
-    <!--
-      viewport-fit=cover faz o documento ocupar a tela inteira do iPhone,
-      inclusive a faixa da ilha dinamica; quem afasta o conteudo de la e o
-      env(safe-area-inset-*) aplicado nos cabecalhos (ver src/index.css).
-      Sem maximum-scale/user-scalable: bloquear zoom quebra acessibilidade —
-      o zoom ao focar um campo e resolvido com fonte de 16px nos inputs.
-    -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <!--
-      Cor da barra de status. Comeca no azul da marca (a landing abre com o
-      hero azul) e passa a acompanhar o fundo de cada tela em tempo de
-      execucao — ver src/hooks/use-theme-color.ts.
-    -->
     <meta name="theme-color" content="#00325c" />
-    <!--
-      Nome do atalho quando a pessoa adiciona a Nutriz a tela de inicio.
-      Sem `apple-mobile-web-app-capable`: o modo standalone forcaria a barra de
-      status a um estilo unico, e o app tem telas de topo claro e de topo
-      escuro — em um dos dois o texto da barra ficaria ilegivel.
-    -->
     <meta name="apple-mobile-web-app-title" content="Nutriz" />
     <title>Nutriz</title>
-    <!--
-      Pinta o topo ANTES do primeiro paint.
-
-      A faixa da ilha dinamica no iPhone mostra o fundo do documento, e o
-      Safari captura essa cor logo no comeco. Deixar isso para o React era
-      tarde demais: por alguns segundos o `html` ficava sem cor, o fundo claro
-      do `body` propagava, e a landing (que abre azul) ganhava uma tarja branca
-      em cima que nao saia mais. Depois de montado, use-theme-color.ts assume e
-      mantem a cor sincronizada com a rota.
-    -->
     <script>
       (() => {
-        /*
-         * Preferencias de acessibilidade antes da primeira pintura.
-         *
-         * Precisa acontecer aqui, e nao no React: se o tema so fosse aplicado
-         * depois de montar, quem escolheu escuro veria um lampejo claro em
-         * toda abertura de pagina. Sao os mesmos atributos que
-         * `utils/accessibility-storage.ts` escreve depois — este script so
-         * chega primeiro.
-         */
         try {
           const salvo = JSON.parse(
             localStorage.getItem("nutriz:acessibilidade") || "{}"
@@ -72,9 +35,7 @@
           raiz.dataset.tema = temaFinal;
           raiz.dataset.fonte = salvo.fonteDislexia ? "dislexia" : "padrao";
           raiz.style.colorScheme = temaFinal === "escuro" ? "dark" : "light";
-        } catch {
-          /* localStorage bloqueado: fica no padrao claro do CSS. */
-        }
+        } catch {}
 
         try {
           const logado = !!localStorage.getItem("data");
@@ -88,9 +49,7 @@
           document.documentElement.style.backgroundColor = cor;
           const meta = document.querySelector('meta[name="theme-color"]');
           if (meta) meta.content = cor;
-        } catch {
-          /* localStorage bloqueado: fica a cor declarada na meta acima. */
-        }
+        } catch {}
       })();
     </script>
   </head>

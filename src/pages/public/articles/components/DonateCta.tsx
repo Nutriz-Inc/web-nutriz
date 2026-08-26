@@ -13,7 +13,7 @@ export function DonateCta() {
 			</p>
 			<Button
 				onClick={() => navigate("/registro")}
-				className="mt-4 h-11 w-full rounded-lg bg-white text-[14px] font-semibold text-blue-deep hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+				className="mt-4 h-11 w-full rounded-lg bg-surface-on-fill text-[14px] font-semibold text-ink-on-fill hover:bg-blue-tint-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
 			>
 				Quero doar
 				<ArrowRight className="size-4" aria-hidden />

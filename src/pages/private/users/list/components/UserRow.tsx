@@ -10,14 +10,6 @@ type Props = {
 	user: User;
 };
 
-/**
- * Linha da lista de usuarios.
- *
- * No celular e um cartao empilhado: nome (com a seta a direita), perfil,
- * email e CPF, um por linha. So a partir de `lg` vira a linha de tabela de
- * quatro colunas — antes o mesmo grid valia em qualquer largura e cada linha
- * pedia ~900px num espaco de ~356px, cortando email, CPF e perfil.
- */
 export function UserRow({ user }: Props) {
 	return (
 		<Link
@@ -31,11 +23,9 @@ export function UserRow({ user }: Props) {
 				<p className="truncate text-[15px] font-semibold text-ink">
 					{user.name}
 				</p>
-				{/* No desktop a seta vive na ultima coluna, junto do perfil. */}
 				<ChevronRight className="ml-auto size-5 shrink-0 text-ink-3 lg:hidden" />
 			</div>
 
-			{/* No celular o perfil sobe para logo abaixo do nome. */}
 			<div className="flex items-center justify-between gap-2 lg:order-last">
 				<Badge tone={USER_TYPE_TONE[user.type]}>
 					{USER_TYPE_LABEL[user.type]}

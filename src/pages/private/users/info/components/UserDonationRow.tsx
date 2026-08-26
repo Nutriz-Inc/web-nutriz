@@ -23,8 +23,6 @@ export function UserDonationRow({ donation }: UserDonationRowProps) {
 					state: { backTo: location.pathname },
 				})
 			}
-			// No celular os campos fluem lado a lado e quebram sozinhos: empilhados
-			// um por linha, cada doacao ocupava cinco linhas.
 			className={`flex w-full flex-wrap items-center gap-x-3 gap-y-2 p-4 text-left transition-colors hover:bg-surface-2 lg:grid ${DONATIONS_GRID_COLS} lg:items-center lg:gap-3 lg:px-4 lg:py-3`}
 		>
 			<div className="flex w-full items-center justify-between lg:block lg:w-auto">

@@ -1,14 +1,3 @@
-/**
- * "Pular para o conteudo".
- *
- * Fica invisivel ate receber foco. Quem navega por teclado ou leitor de tela
- * cai nele no primeiro Tab da pagina e evita percorrer o cabecalho e o menu
- * inteiros em toda troca de tela.
- *
- * O alvo e o `<main>` — todas as telas ja tem exatamente um, entao nao foi
- * preciso criar ancora nova. `tabindex={-1}` no destino e o que faz o foco
- * realmente ir para la; sem isso o navegador rola mas o foco fica para tras.
- */
 export function SkipLink() {
 	return (
 		<a

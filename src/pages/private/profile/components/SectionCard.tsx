@@ -3,10 +3,6 @@ import { cn } from "@/lib/utils";
 
 type SectionCardProps = {
 	icon: React.ReactNode;
-	/**
-	 * "chip" desenha a caixinha azul atras do icone; "bare" entrega o espaco
-	 * para o proprio elemento (avatar de iniciais, ilustracao).
-	 */
 	iconVariant?: "chip" | "bare";
 	title: string;
 	action?: React.ReactNode;

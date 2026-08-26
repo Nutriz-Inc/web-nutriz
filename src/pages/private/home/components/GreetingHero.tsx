@@ -3,13 +3,10 @@ import { Button } from "@/components/ui/button";
 
 type GreetingHeroProps = {
 	firstName?: string;
-	/** Mes/ano em que a doadora entrou (ja formatado) ou `null` se indisponivel. */
 	donorSince: string | null;
-	/** Volume doado ja formatado, ex.: "1,5 L". */
 	milkDonatedLabel: string;
 	onNewDonation: () => void;
 	onOpenEva: () => void;
-	/** Card da etapa atual, ancorado a direita no desktop. */
 	asideSlot?: React.ReactNode;
 };
 
@@ -57,7 +54,7 @@ export function GreetingHero({
 							type="button"
 							size="pill"
 							onClick={onNewDonation}
-							className="w-full bg-surface font-semibold text-blue-deep shadow-soft hover:bg-blue-tint sm:w-auto"
+							className="w-full bg-surface-on-fill font-semibold text-ink-on-fill shadow-soft hover:bg-blue-tint-2 sm:w-auto"
 						>
 							Nova doação
 							<Plus />
@@ -81,7 +78,6 @@ export function GreetingHero({
 							<dt className="text-[0.7rem] uppercase tracking-[0.05em] text-blue-tint">
 								Doadora desde
 							</dt>
-							{/* TODO: API — sem `created_at` nao ha como datar a entrada da doadora. */}
 							<dd className="mt-1 font-display text-base font-bold">
 								{donorSince ?? "—"}
 							</dd>

@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import { EVA_SUGGESTIONS } from "@/pages/private/eva/constants";
 
-/** Mesmos icones da abertura do widget, na mesma ordem. */
 const ICONES_SUGESTAO: LucideIcon[] = [
 	Droplet,
 	Sparkles,
@@ -29,13 +28,6 @@ import { SlideButton } from "./SlideButton";
 export function EvaSection() {
 	const reduce = useReducedMotion();
 
-	/*
-	 * Mesmo reveal do resto da landing (`useReveal` + `viewportOnce`). Esta
-	 * secao tinha variantes proprias com `amount: 0.3`, o que exigia 30% de um
-	 * bloco de ~800px visivel para o conteudo aparecer; o padrao compartilhado
-	 * dispara com `margin: "-80px"`, bem mais cedo, e ja trata
-	 * prefers-reduced-motion.
-	 */
 	const reveal = useReveal(staggerContainer);
 
 	return (
@@ -50,55 +42,24 @@ export function EvaSection() {
 		>
 			<motion.div {...reveal}>
 				<div className="rounded-card gradient-eva relative isolate border border-line px-7 pb-24 pt-10 sm:pb-28 lg:px-14 lg:pb-32 lg:pt-14">
-					{/*
-					 * Cena em tres planos, atravessando as bordas do cartao de
-					 * proposito: as nuvens saem por cima, a rua passa por baixo e pelos
-					 * dois lados, e a nutriz com o chat encosta no cartao da EVA. Por
-					 * isso o bloco NAO tem `overflow-hidden` — o recorte matava
-					 * justamente a sobreposicao.
-					 *
-					 * Tudo decorativo (`aria-hidden`) e em opacidade baixa, para nao
-					 * competir com o texto nem com o CTA.
-					 */}
-					{/*
-					 * Nuvem da esquerda: maior e mais alta, saindo por cima do cartao.
-					 * So existe de `lg` para cima: abaixo disso o titulo da secao fica
-					 * na mesma faixa horizontal e a nuvem passava por cima do texto.
-					 */}
 					<img
 						src={evaNuvens}
 						alt=""
 						aria-hidden="true"
 						className="pointer-events-none absolute -top-8 left-[-4%] -z-10 hidden w-[46%] max-w-[420px] select-none opacity-45 lg:block"
 					/>
-					{/*
-					 * Nuvem da direita. No celular ela sobe so 24px acima do cartao
-					 * (proporcao 811x311, entao 42% de largura da ~56px de altura): fica
-					 * entre a divisoria da secao e o selo "Assistente 24 horas", sem
-					 * encostar em nenhum dos dois.
-					 */}
 					<img
 						src={evaNuvens}
 						alt=""
 						aria-hidden="true"
 						className="pointer-events-none absolute -top-6 right-0 -z-10 w-[42%] max-w-[300px] select-none opacity-45 md:-top-12 md:right-[-2%] md:w-[34%]"
 					/>
-					{/*
-					 * A rua fica contida no cartao rosa, colada no canto de baixo. No
-					 * celular ela ocupa a largura inteira do cartao (o chat fica
-					 * empilhado, nao ao lado); a partir de `lg` a largura foi medida no
-					 * DOM para parar exatamente na borda esquerda do cartao do chat.
-					 */}
 					<img
 						src={evaRua}
 						alt=""
 						aria-hidden="true"
 						className="pointer-events-none absolute bottom-0 left-0 -z-10 w-full max-w-none select-none opacity-40 lg:w-[66%] lg:max-w-[700px]"
 					/>
-					{/*
-					 * A nutriz com o chat, espelhada (`-scale-x-100`) para ficar virada
-					 * para dentro da cena, encostando no cartao da EVA a direita.
-					 */}
 					<img
 						src={evaMensagem}
 						alt=""
@@ -138,8 +99,6 @@ export function EvaSection() {
 										<motion.span
 											aria-hidden
 											className="pointer-events-none absolute inset-0 rounded-full border border-white"
-											// Opacidade comeca e termina em 0: a emenda do loop fica
-											// invisivel, sem o "pulo" de reset entre um pulso e outro.
 											animate={{ opacity: [0, 0.6, 0], scale: [1, 1.1, 1.2] }}
 											transition={{
 												duration: 2.8,
@@ -153,7 +112,7 @@ export function EvaSection() {
 										label="Falar com a EVA"
 										onClick={() => openEva()}
 										className="relative"
-										pillClassName="bg-surface text-ink shadow-soft"
+										pillClassName="bg-surface-on-fill text-ink-on-fill shadow-soft"
 										circleClassName="bg-eva-fill text-white"
 									/>
 								</div>
@@ -176,7 +135,6 @@ export function EvaSection() {
 				className="mt-10 flex flex-col gap-3 lg:mt-16 lg:flex-row lg:flex-wrap lg:items-center"
 			>
 				<span className="text-[15px] font-bold text-ink">Comece por aqui:</span>
-				{/* `eva-scope` para as pilulas usarem o estilo real do widget. */}
 				<div className="eva-scope flex flex-wrap gap-2.5">
 					{EVA_SUGGESTIONS.map((suggestion, indice) => {
 						const Icone = ICONES_SUGESTAO[indice] ?? Sparkles;

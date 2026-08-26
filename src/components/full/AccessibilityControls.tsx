@@ -3,21 +3,10 @@ import { useAccessibility } from "@/context/accessibility-context";
 import { cn } from "@/lib/utils";
 
 type AccessibilityControlsProps = {
-	/** `escuro` para cabecalho sobre fundo de marca (landing, login, cadastro). */
 	tom?: "claro" | "escuro";
 	className?: string;
 };
 
-/**
- * Tema e fonte, direto no cabecalho.
- *
- * Ficavam num painel flutuante no canto da tela. Viraram dois botoes ao lado
- * das acoes do topo porque e onde a pessoa procura — e no celular seguem no
- * topo, e nao dentro do menu, para nao custar dois toques.
- *
- * A escolha vira `data-tema` / `data-fonte` em `<html>` e fica salva; ver
- * `utils/accessibility-storage.ts`.
- */
 export function AccessibilityControls({
 	tom = "claro",
 	className,
@@ -28,8 +17,6 @@ export function AccessibilityControls({
 	const escuro = temaEfetivo === "escuro";
 	const fonteAtiva = preferencias.fonteDislexia;
 
-	// 44px no celular para bater com o botao do menu, que fica ao lado; 40px
-	// no desktop, onde a vizinhanca e o botao de entrar.
 	const base = cn(
 		"flex size-11 shrink-0 items-center justify-center rounded-full outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/60 lg:size-10",
 		tom === "escuro"

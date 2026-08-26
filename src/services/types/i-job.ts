@@ -5,7 +5,6 @@ import type {
 } from "./i-index";
 import type { Address } from "./i-user";
 
-// entity
 export interface Job {
 	id_job: string;
 	id_user: string;

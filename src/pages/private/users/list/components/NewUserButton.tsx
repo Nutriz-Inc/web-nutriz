@@ -6,14 +6,6 @@ type NewUserButtonProps = {
 	className?: string;
 };
 
-/**
- * Acao de criar usuario.
- *
- * Existe em dois lugares da lista, um visivel de cada vez: no celular ela fica
- * ao lado do titulo da pagina (`actionSlot` do `Page`), onde sobra espaco; do
- * `lg` para cima volta para a direita da linha de filtros. Ficar so na linha de
- * filtros custava uma faixa inteira de largura cheia no celular.
- */
 export function NewUserButton({ onClick, className }: NewUserButtonProps) {
 	return (
 		<button

@@ -20,9 +20,6 @@ const GREETING: ChatMessage = {
 	paragraphs: [EVA_GREETING_TEXT],
 };
 
-// Nao ha endpoint de aceite de consent (o backend Go grava no cadastro). Quando
-// o chat e bloqueado por consent (4003), oferecemos suporte via WhatsApp em vez
-// de deixar a nutriz sem saida. Retorna null se o numero nao estiver configurado.
 function buildConsentSupportHref(): string | null {
 	const number = env.VITE_LACTARE_WHATSAPP_NUMBER?.trim();
 	if (!number) {
@@ -34,13 +31,8 @@ function buildConsentSupportHref(): string | null {
 	return `https://wa.me/${number}?text=${text}`;
 }
 
-// Margem (px) do fim da area de mensagens dentro da qual o usuario ainda e
-// considerado "acompanhando" o streaming - so entao o auto-scroll atua.
 const AUTO_SCROLL_THRESHOLD = 48;
 
-// Acao efetiva de uma mensagem da EVA: a acao do backend tem precedencia; na
-// falta dela, o modo anonimo ainda oferece cadastro quando a EVA sugere isso
-// na propria resposta (nudge do prompt publico).
 function messageAction(
 	message: ChatMessage,
 	isAnonymous: boolean,
@@ -66,11 +58,6 @@ type EvaChatPanelProps = {
 };
 
 export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
-	// Persistencia MVP: nutriz logada NAO persiste em localStorage (dado sensivel
-	// de saude; o backend ja grava conversation/message para auditoria). Ao
-	// recarregar, o chat reinicia limpo na UI. Anonimo vive so em memoria.
-	// TODO: exibir historico consumindo o GET /conversations do IA service
-	// quando a UI de historico for definida com o produto.
 	const {
 		messages,
 		isTyping,
@@ -85,8 +72,6 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 
 	const [input, setInput] = useState("");
 	const scrollRef = useRef<HTMLDivElement>(null);
-	// Auto-scroll so quando o usuario esta perto do fim; rolar para cima para
-	// reler uma resposta nao pode ser desfeito pelo streaming.
 	const stickToBottomRef = useRef(true);
 
 	const handleScroll = useCallback(() => {
@@ -116,8 +101,6 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 
 	function handleSend() {
 		if (sendMessage(input)) {
-			// Enviar mensagem devolve a visao para o fim, mesmo que a nutriz
-			// estivesse relendo algo acima.
 			stickToBottomRef.current = true;
 			setInput("");
 		}
@@ -139,8 +122,6 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 		blockedReason === "consent" ? (
 			<div className="eva-widget-notice-group">
 				<p className="eva-widget-notice">{BLOCKED_MESSAGES.consent}</p>
-				{/* TODO: quando existir a pagina de Termos de Uso, adicionar aqui um
-				    link/rota interna para ela ao lado do suporte. */}
 				{consentSupportHref && (
 					<a
 						href={consentSupportHref}

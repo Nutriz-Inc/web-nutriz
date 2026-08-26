@@ -14,12 +14,6 @@ export function useDonation(id_donation: string) {
 		queryKey: ["donation", id_donation],
 		queryFn: () => services.donation.get(id_donation),
 		enabled: Boolean(id_donation),
-		/*
-		 * Quem move as etapas e o admin, do outro lado. A tela se recarrega
-		 * sozinha para refletir isso; `refetchInterval` aceita funcao e recebe a
-		 * propria consulta, entao o intervalo desliga assim que a doacao chega
-		 * ao fim — dai nao ha mais o que mudar.
-		 */
 		refetchIntervalInBackground: true,
 		refetchInterval: (consulta) => {
 			const etapas = consulta.state.data?.steps ?? [];
@@ -28,15 +22,6 @@ export function useDonation(id_donation: string) {
 				(etapa) => etapa.status === EnumDonationStepStatus.Failed,
 			);
 
-			/*
-			 * Concluida e quando as QUATRO etapas do processo existem e estao
-			 * feitas — a mesma regra que a pagina usa para `isFullyCompleted`.
-			 *
-			 * Olhar so as etapas ja criadas estava errado e quebrava o caso mais
-			 * comum: doacao recem-aberta tem uma etapa so; o admin aprovava
-			 * aquela unica etapa, "todas as existentes" virava verdade, o ciclo
-			 * desligava de vez e a doadora nunca via a etapa seguinte abrir.
-			 */
 			const todasConcluidas = STEP_DEFINITIONS.every((definicao) => {
 				const etapa = etapas.find((item) => item.name === definicao.name);
 				return etapa?.status === EnumDonationStepStatus.Done;
@@ -51,7 +36,6 @@ export function useDonation(id_donation: string) {
 	return {
 		donationQuery,
 		etapasDestacadas,
-		/** Verdadeiro enquanto a tela esta se atualizando sozinha. */
 		aoVivo: !donationQuery.isLoading,
 	};
 }

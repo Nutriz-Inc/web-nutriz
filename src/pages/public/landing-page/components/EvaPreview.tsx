@@ -1,18 +1,6 @@
 import { AvatarEva } from "@/pages/private/eva/components/avatar-eva";
 import "@/pages/private/eva/eva.css";
 
-/**
- * Amostra do chat da EVA para a landing.
- *
- * Reusa as classes do widget de verdade (`eva-scope`, `eva-avatar`,
- * `eva-typing-dot`, `eva-input`) em vez de imitar o visual com Tailwind. Foi
- * assim que a secao antiga ficou desatualizada: ela desenhava a propria versao
- * da EVA — avatar em gradiente pessego, bolhas de outro raio, selo de "online"
- * — e nada disso existia mais no widget.
- *
- * E decorativa: `aria-hidden`, sem foco e sem interacao. Quem conversa e o
- * widget, pelo botao ao lado.
- */
 export function EvaPreview() {
 	return (
 		<div

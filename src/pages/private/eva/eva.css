@@ -1,35 +1,16 @@
-/* ---------------------------------------------------------------------------
- * EVA — camada de componentes
- *
- * Desenho seguindo a referencia entregue pelo time (eva.jpeg): cartao branco,
- * cromo em cinza muito claro, raios grandes, sombras difusas e quase sem
- * contraste, icones de traco fino e o pastel (lavanda -> rosa) aparecendo so
- * no avatar, no titulo e nos pontinhos.
- *
- * As cores saem dos tokens do app. Os nomes de variavel abaixo sao os mesmos
- * de antes, porque `message-bubble` e `typing-indicator` os consomem por
- * `style` inline — mudam os valores, nao os nomes.
- * ------------------------------------------------------------------------- */
-
 .eva-scope {
-	/* Pastel da EVA: lavanda virando rosa. */
 	--eva-pastel: linear-gradient(
 		145deg,
 		var(--purple-tint) 0%,
 		var(--eva-tint) 55%,
 		color-mix(in oklch, var(--eva-bright) 45%, white) 100%
 	);
-	/* Mesmo par, saturado, para texto: no ponto mais claro da 3,84:1, acima do
-	 * minimo de 3:1 exigido para titulo grande. */
 	--eva-grad-title: linear-gradient(100deg, var(--eva) 0%, var(--purple) 100%);
-	/* Fundo da marca: o pastel claro. */
 	--eva-marca: var(--eva-pastel);
-	/* Degrade de acao (botoes): saturado, porque leva rotulo branco em cima. */
 	--eva-acao: linear-gradient(145deg, var(--eva-deep) 0%, var(--purple) 100%);
 	--eva-grad-brand: var(--eva-marca);
 
 	--eva-bubble-user: var(--eva-tint);
-	/* Um degrau mais escuro que a superficie: a bolha se destacava de menos. */
 	--eva-bubble-eva: var(--surface-3);
 	--eva-chip-bg: var(--surface);
 	--eva-chip-text: var(--ink);
@@ -42,15 +23,6 @@
 	color: var(--eva-ink);
 }
 
-/*
- * Tema escuro: o pastel nao pode sair da inversao dos tokens.
- *
- * `--purple-tint` e `--eva-tint` viram escuros no tema escuro, mas
- * `--eva-bright` continua claro — o degrade ia do escuro para o rosa claro, o
- * oposto do desenho, e o rotulo escuro do botao ficava ilegivel na metade
- * clara. Aqui ele e um rosa escuro que abre de leve, com o rotulo em `--ink`,
- * que no escuro ja e claro.
- */
 :root[data-tema="escuro"] .eva-scope,
 :root[data-tema="escuro"].eva-scope {
 	--eva-pastel: linear-gradient(
@@ -59,11 +31,6 @@
 		oklch(0.36 0.06 357) 55%,
 		oklch(0.42 0.08 5) 100%
 	);
-	/*
-	 * O degrade de acao nasce de --eva-deep/--purple, que no escuro sao
-	 * claros: a seta (--ink, clara) sumia sobre o botao de enviar. Mesma
-	 * familia rosa do pastel, so que funda — da 6:1 e 7,6:1 com --ink.
-	 */
 	--eva-acao: linear-gradient(
 		145deg,
 		oklch(0.42 0.09 340) 0%,
@@ -76,8 +43,6 @@
 	box-shadow: 0 0 0 3px color-mix(in oklch, var(--eva) 40%, transparent);
 }
 
-/* --- Avatar --------------------------------------------------------------- */
-
 .eva-avatar {
 	position: relative;
 	display: grid;
@@ -85,13 +50,11 @@
 	background: var(--eva-marca);
 }
 
-/* A arte vem preta; aqui ela vira branca. */
 .eva-avatar-mark {
 	filter: brightness(0) invert(1);
 	user-select: none;
 }
 
-/* Quadrado de cantos macios, como na referencia. Usado na abertura. */
 .eva-avatar--squircle {
 	border-radius: 1.5rem !important;
 }
@@ -117,17 +80,6 @@
 	}
 }
 
-/* --- Pilulas de sugestao -------------------------------------------------- */
-
-/*
- * Na referencia elas nao ocupam a largura toda: cada uma tem o tamanho do
- * proprio texto, empilhadas e alinhadas a esquerda, com icone de traco fino.
- */
-/*
- * Hover igual ao do cartao clicavel do app (components/full/InteractiveCard),
- * usado nos cards de doacao: desliza para a direita, o canto esquerdo fica
- * reto e uma barra preenche a lateral.
- */
 .eva-pill {
 	position: relative;
 	overflow: hidden;
@@ -155,10 +107,6 @@
 		box-shadow 0.2s ease;
 }
 
-/*
- * Barra embaixo, crescendo da esquerda para a direita — uma sublinha. Ela e
- * recuada nas laterais para nao ser cortada pela curva da pilula.
- */
 .eva-pill::before {
 	content: "";
 	position: absolute;
@@ -167,7 +115,6 @@
 	bottom: 0;
 	height: 3px;
 	border-radius: 3px 3px 0 0;
-	/* Mesmo pastel do botao, nao o rosa forte. */
 	background: var(--eva-marca);
 	transform: scaleX(0);
 	transform-origin: left;
@@ -183,8 +130,6 @@
 .eva-pill:hover,
 .eva-pill:focus-visible {
 	transform: translateX(6px);
-	/* Quem sinaliza o hover e a barra lateral. O fundo so recebe 4% do rosa —
-	 * o suficiente para acusar o alvo sem pintar a pilula. */
 	background: color-mix(in oklch, var(--eva) 4%, var(--surface));
 	box-shadow: 0 10px 22px -12px color-mix(in oklch, var(--ink) 45%, transparent);
 }
@@ -202,7 +147,6 @@
 	transform: translateX(2px);
 }
 
-/* Chip legado (grade da versao antiga), mantido para nao quebrar estilo. */
 .eva-chip {
 	min-height: 44px;
 	padding: 8px 14px;
@@ -225,15 +169,8 @@
 	background: var(--surface-2);
 }
 
-/* --- Botoes --------------------------------------------------------------- */
-
 .eva-btn-primary {
 	border: none;
-	/*
-	 * Pastel da marca, como o resto. O rotulo e ESCURO e nao branco: sobre
-	 * este degrade o branco da 1,1:1 e some. Com `--ink` em cima da mais de
-	 * 12:1, e o botao continua claro.
-	 */
 	background: var(--eva-marca);
 	color: var(--ink);
 	border: 1px solid color-mix(in oklch, var(--eva) 22%, transparent);
@@ -294,8 +231,6 @@
 	transform: scale(0.97);
 }
 
-/* --- Campo de texto ------------------------------------------------------- */
-
 .eva-input {
 	flex: 1;
 	min-width: 0;
@@ -306,7 +241,6 @@
 	background: var(--surface);
 	box-shadow: 0 6px 18px -12px color-mix(in oklch, var(--ink) 45%, transparent);
 	font-family: inherit;
-	/* 16px: abaixo disso o Safari do iPhone da zoom ao focar. */
 	font-size: 16px;
 	color: var(--eva-ink);
 	transition:
@@ -362,8 +296,6 @@
 	color: var(--ink-3);
 }
 
-/* --- Pontinhos ------------------------------------------------------------ */
-
 .eva-typing-dot {
 	width: 7px;
 	height: 7px;
@@ -393,15 +325,12 @@
 	}
 }
 
-/* Horario abaixo da bolha, dos dois lados — como no WhatsApp. */
 .eva-msg-time {
 	font-size: 11px;
 	font-weight: 500;
 	color: var(--ink-3);
 	font-variant-numeric: tabular-nums;
 }
-
-/* --- Pilula de data ------------------------------------------------------- */
 
 .eva-date-pill {
 	align-self: center;
@@ -413,9 +342,6 @@
 	color: var(--ink-3);
 }
 
-/* ---------------------------------------------------------------------------
- * prefers-reduced-motion: desliga todo movimento.
- * ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
 	.eva-scope *,
 	.eva-scope *::before,

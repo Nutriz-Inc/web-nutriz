@@ -1,9 +1,5 @@
 import type { EvaBlockedReason } from "./types";
 
-// Close codes reais do nutriz-ia-service (ver chat_ws.py):
-// 4001 token ausente/invalido · 4003 consent LGPD ausente ·
-// 4403 papel sem acesso (adm/nurse) · 4008 limite de jailbreak ·
-// 4029 rate limit do modo publico.
 export const EVA_CLOSE_CODES = {
 	SESSION: 4001,
 	CONSENT: 4003,
@@ -12,7 +8,6 @@ export const EVA_CLOSE_CODES = {
 	RATE_LIMIT: 4029,
 } as const;
 
-// Encerramentos terminais: nao reconectar, apenas exibir o motivo.
 export const TERMINAL_CLOSE_REASONS: Record<
 	number,
 	Exclude<EvaBlockedReason, null>
@@ -40,8 +35,6 @@ export const BLOCKED_MESSAGES: Record<
 export const EVA_GREETING_TEXT =
 	"Oi! Eu sou a EVA. Estou aqui a qualquer hora para falar sobre doação de leite, ordenha e amamentação. Como posso te ajudar?";
 
-// Chips de sugestao da tela de boas-vindas e da secao da landing: clicar
-// envia a pergunta como mensagem normal (mesma mecanica do input).
 export const EVA_SUGGESTIONS = [
 	"Posso doar leite?",
 	"Como fazer a ordenha?",
@@ -49,8 +42,6 @@ export const EVA_SUGGESTIONS = [
 	"Como agendar a coleta?",
 ] as const;
 
-// Atalhos de acao rapida acima do input na conversa. Cada um envia a pergunta
-// correspondente ao LLM (nao ha fluxo dedicado no backend - e so texto).
 export const EVA_QUICK_ACTIONS: { label: string; message: string }[] = [
 	{ label: "Passo a passo", message: "Me explica o passo a passo da ordenha?" },
 	{ label: "Agendar coleta", message: "Como agendar a coleta do leite?" },

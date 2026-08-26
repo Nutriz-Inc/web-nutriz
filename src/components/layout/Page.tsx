@@ -32,9 +32,6 @@ export function Page({
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 
-	// Trilha derivada da rota: toda tela interna ganha uma sem precisar
-	// declarar nada. Ela convive com o botao "Voltar": a trilha diz onde a
-	// pessoa esta, o botao e o caminho rapido de uma tela so.
 	const { auth, isAuthenticated } = useAuth();
 	const trilha = isAuthenticated ? getBreadcrumb(pathname, auth?.type) : [];
 	const temTrilha = trilha.length >= 2;

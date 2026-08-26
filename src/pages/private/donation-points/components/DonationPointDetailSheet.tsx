@@ -18,11 +18,6 @@ type DonationPointDetailSheetProps = {
 	open: boolean;
 	isClosest: boolean;
 	onOpenChange: (open: boolean) => void;
-	/**
-	 * De onde a rota parte: o CEP buscado ou o GPS. Sem isso o Google Maps
-	 * assume a localizacao do aparelho — quem buscava um CEP de outro estado
-	 * recebia a rota saindo de onde estava, e nao do endereco que digitou.
-	 */
 	origin?: Coordinates | null;
 };
 
@@ -57,8 +52,6 @@ export function DonationPointDetailSheet({
 			destination: `${latitude},${longitude}`,
 		});
 
-		// Sem `origin` o Google Maps parte da localizacao do aparelho. Com um CEP
-		// buscado, a origem certa e o CEP.
 		if (origin) {
 			parametros.set("origin", `${origin.latitude},${origin.longitude}`);
 		}

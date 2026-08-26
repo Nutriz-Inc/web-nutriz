@@ -26,12 +26,6 @@ type ViaCepCep = {
 	uf?: string;
 };
 
-/**
- * A BrasilAPI consulta varios provedores e, quando todos falham ao mesmo
- * tempo (acontece), ela responde erro para CEPs perfeitamente validos e o
- * cadastro ficava sem preencher o endereco. O ViaCEP entra como segunda
- * tentativa para o formulario nao depender de um servico so.
- */
 async function buscaCep(
 	digits: string,
 	signal: AbortSignal,

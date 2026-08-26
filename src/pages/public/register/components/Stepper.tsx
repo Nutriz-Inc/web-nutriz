@@ -8,14 +8,6 @@ type StepperProps = {
 	onStepClick: (step: number) => void;
 };
 
-/**
- * Trilha do cadastro em barras: cada etapa e um segmento que preenche quando
- * e concluida, com o rotulo embaixo. Substituiu as bolinhas ligadas por fios —
- * ocupa menos altura, cabe no celular sem cortar rotulo e mostra o progresso
- * de relance, sem precisar contar circulos.
- *
- * Etapas ja visitadas sao clicaveis, para voltar e corrigir um campo.
- */
 export function Stepper({
 	steps,
 	current,

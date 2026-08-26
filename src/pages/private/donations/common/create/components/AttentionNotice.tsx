@@ -1,6 +1,5 @@
 import { Info } from "lucide-react";
 
-/** Aviso de que o proximo passo abre o WhatsApp da Lactare em outra aba. */
 export function AttentionNotice() {
 	return (
 		<div className="rounded-card-sm flex gap-3 bg-blue-tint p-4">

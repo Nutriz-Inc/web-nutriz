@@ -5,21 +5,13 @@ type ImpactTone = "blue" | "bright" | "eva";
 
 type ImpactCardProps = {
 	icon: LucideIcon;
-	/** Valor ja formatado. Use "—" quando o dado nao existir. */
 	value: string;
 	label: string;
 	hint: string;
 	tone?: ImpactTone;
-	/** Card destacado — ocupa duas colunas e usa tipografia maior. */
 	featured?: boolean;
 };
 
-/*
- * O degrade termina em `--surface`, e nao no branco literal: `to-white` nao
- * acompanha tema nenhum, e no escuro os tres cartoes viravam lajotas brancas
- * com um brilho diagonal atravessando. Com o token eles ficam escuros e o
- * tint da ponta e que da a cor.
- */
 const TONE_MAP: Record<
 	ImpactTone,
 	{
@@ -76,10 +68,6 @@ export function ImpactCard({
 				featured && "lg:p-8",
 			)}
 		>
-			{/*
-			 * Icone grande e apagado no canto: da identidade ao cartao sem
-			 * disputar espaco com o numero, que e o dado que importa.
-			 */}
 			<Icon
 				aria-hidden="true"
 				className={cn(

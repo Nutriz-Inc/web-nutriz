@@ -4,13 +4,6 @@ type LiveBadgeProps = {
 	className?: string;
 };
 
-/**
- * Selo de "ao vivo".
- *
- * Existe para a nutriz saber que nao precisa recarregar nada: a tela se
- * atualiza sozinha quando o admin mexe na doacao do outro lado. Sem ele, a
- * atualizacao acontece mas ninguem repara que ela e automatica.
- */
 export function LiveBadge({ className }: LiveBadgeProps) {
 	return (
 		<span

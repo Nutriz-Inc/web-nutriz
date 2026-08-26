@@ -11,16 +11,6 @@ type InteractiveCardProps = {
 	"aria-label"?: string;
 };
 
-/**
- * Cartao clicavel do app: ao passar o mouse ele desliza um pouco para a
- * direita, a borda esquerda fica reta e uma barra azul preenche a lateral,
- * como um item selecionado. O clique afunda de leve e so entao navega, para
- * o toque ter resposta antes de a tela trocar.
- *
- * E o padrao de qualquer cartao que leva para outra tela (doacoes, etapas,
- * conteudos). Com `prefers-reduced-motion` nada se move.
- * Ver docs/design-system.md.
- */
 export function InteractiveCard({
 	onClick,
 	disabled = false,

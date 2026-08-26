@@ -2,31 +2,12 @@ import { type RefObject, useEffect, useState } from "react";
 
 export type BackdropTone = "claro" | "escuro";
 
-/** Abaixo disso o fundo conta como escuro (luminancia relativa da WCAG). */
 const LIMITE_ESCURO = 0.42;
 
-/**
- * Cor de fundo atras de um elemento fixo, lida do proprio DOM.
- *
- * Serve ao botao flutuante da EVA: ele mora num canto fixo e passa por cima de
- * faixas de cores muito diferentes conforme a pagina rola. Em vez de manter uma
- * lista de "secoes escuras" — que envelhece a cada tela nova — aqui o fundo e
- * medido de verdade, com `elementsFromPoint` em cinco pontos do elemento.
- *
- * De cada ponto sobe-se a arvore ate achar uma cor: primeiro
- * `background-color`; se ela for transparente, tenta-se o `background-image`,
- * separando as paradas do degrade e tirando a media. Qualquer elemento pode
- * cravar a resposta com `data-fundo="claro" | "escuro"` — escapatoria para
- * fundo que e imagem, video ou canvas, onde nao ha cor para ler.
- *
- * A decisao usa luminancia relativa da WCAG, a mesma conta do contraste.
- */
 export function useBackdropTone(
 	ref: RefObject<HTMLElement | null>,
 	ativo = true,
 ): BackdropTone {
-	// Comeca em "claro": o app inteiro fora da landing e canvas claro, entao
-	// esse e o palpite certo na primeira pintura, antes da primeira medicao.
 	const [tom, setTom] = useState<BackdropTone>("claro");
 
 	useEffect(() => {
@@ -91,10 +72,6 @@ export function useBackdropTone(
 
 		window.addEventListener("scroll", agendar, { passive: true });
 		window.addEventListener("resize", agendar);
-		/*
-		 * Rede de seguranca para mudanca sem rolagem: troca de rota, abertura de
-		 * um painel, tema. Barato o suficiente — e um hit-test de cinco pontos.
-		 */
 		const relogio = window.setInterval(agendar, 500);
 
 		return () => {
@@ -111,7 +88,6 @@ export function useBackdropTone(
 	return tom;
 }
 
-/** Centro e quatro cantos recuados: pega bem a emenda entre duas faixas. */
 function pontosDeAmostra(caixa: DOMRect): [number, number][] {
 	const recuo = Math.min(caixa.width, caixa.height) * 0.3;
 
@@ -124,7 +100,6 @@ function pontosDeAmostra(caixa: DOMRect): [number, number][] {
 	];
 }
 
-/** Primeiro elemento sob o ponto que nao faz parte do proprio botao. */
 function primeiroAtras(x: number, y: number, proprio: HTMLElement) {
 	for (const candidato of document.elementsFromPoint(x, y)) {
 		if (!proprio.contains(candidato) && candidato !== proprio) {
@@ -135,10 +110,6 @@ function primeiroAtras(x: number, y: number, proprio: HTMLElement) {
 	return null;
 }
 
-/**
- * Sobe a arvore procurando uma resposta: um `data-fundo` cravado, ou a
- * luminancia da primeira cor de fundo que nao seja transparente.
- */
 function corDeFundo(inicio: Element): BackdropTone | number | null {
 	let no: Element | null = inicio;
 
@@ -168,13 +139,6 @@ function corDeFundo(inicio: Element): BackdropTone | number | null {
 	return null;
 }
 
-/**
- * Media das paradas de um degrade.
- *
- * O valor computado vem como `linear-gradient(145deg, rgb(a) 0%, rgb(b) 100%)`.
- * Separar por virgulas de primeiro nivel devolve cada parada; o que nao for cor
- * (o angulo, as porcentagens) simplesmente nao normaliza e cai fora.
- */
 function luminanciaDoDegrade(valor: string): number | null {
 	const abre = valor.indexOf("(");
 	const fecha = valor.lastIndexOf(")");
@@ -185,7 +149,6 @@ function luminanciaDoDegrade(valor: string): number | null {
 	const luminancias: number[] = [];
 
 	for (const parte of separarNoPrimeiroNivel(valor.slice(abre + 1, fecha))) {
-		// Tira a posicao ("rgb(0, 0, 0) 40%" -> "rgb(0, 0, 0)").
 		const semPosicao = parte.replace(/\s+-?[\d.]+(%|px|deg|rem|em)\s*$/g, "");
 		const rgb = paraRgb(semPosicao.trim());
 
@@ -224,20 +187,6 @@ function separarNoPrimeiroNivel(texto: string): string[] {
 let pincel: CanvasRenderingContext2D | null = null;
 const cacheDeCor = new Map<string, [number, number, number, number] | null>();
 
-/**
- * Normaliza qualquer sintaxe de cor para RGB pintando um pixel e lendo de
- * volta.
- *
- * A primeira versao disso lia `getComputedStyle(...).color` de um elemento
- * sonda, o que nao funciona: o Chrome preserva o espaco de cor no valor
- * computado, entao `oklch(0.981 0.005 258.3)` voltava como ele mesmo e os tres
- * numeros eram lidos como se fossem R, G e B — branco virava quase preto e o
- * botao ficava na pele errada em toda a pagina.
- *
- * Pintar e ler resolve de vez: o proprio navegador converte, e vale para
- * `oklch`, `color-mix`, `hsl`, hex e nome. O resultado fica em cache — a
- * medicao roda a cada quadro de rolagem e as cores se repetem muito.
- */
 function paraRgb(valor: string): [number, number, number, number] | null {
 	if (!valor || valor === "none" || valor === "transparent") {
 		return null;
@@ -258,8 +207,6 @@ function paraRgb(valor: string): [number, number, number, number] | null {
 	let resultado: [number, number, number, number] | null = null;
 
 	if (pincel) {
-		// Um valor que o navegador nao entende deixa o fillStyle como estava;
-		// pintar sobre um fundo conhecido revela isso.
 		pincel.clearRect(0, 0, 1, 1);
 		pincel.fillStyle = "#000000";
 		pincel.fillStyle = valor;
@@ -275,7 +222,6 @@ function paraRgb(valor: string): [number, number, number, number] | null {
 	return resultado;
 }
 
-/** Luminancia relativa da WCAG. */
 function luminancia([r, g, b]: [number, number, number, number]): number {
 	const canal = (valor: number) => {
 		const escala = valor / 255;

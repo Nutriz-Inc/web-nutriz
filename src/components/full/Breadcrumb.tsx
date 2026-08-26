@@ -9,10 +9,6 @@ type BreadcrumbProps = {
 	className?: string;
 };
 
-/**
- * Trilha da tela atual, acima do titulo. O ultimo item nunca e link e leva
- * `aria-current="page"`. Ver docs/design-system.md.
- */
 export function Breadcrumb({ items, className }: BreadcrumbProps) {
 	if (items.length < 2) {
 		return null;

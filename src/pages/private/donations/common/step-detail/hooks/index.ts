@@ -38,7 +38,6 @@ export function useStepTimelines(id_donation_step: string, enabled = true) {
 		queryKey: ["donation-step-timelines", id_donation_step],
 		queryFn: () => services.donation.listStepTimelines({ id_donation_step }),
 		enabled: enabled && Boolean(id_donation_step),
-		// A linha do tempo ganha um item a cada acao do admin nesta etapa.
 		...OPCOES_AO_VIVO,
 	});
 

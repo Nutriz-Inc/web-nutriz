@@ -23,7 +23,6 @@ const monthYearFormatter = new Intl.DateTimeFormat("pt-BR", {
 	year: "numeric",
 });
 
-/** "—" quando o dado nao veio da API: nunca exibir numero inventado. */
 const EMPTY = "—";
 
 export function HomePage() {
@@ -35,7 +34,6 @@ export function HomePage() {
 	const firstName = auth?.name?.split(" ")[0];
 	const currentStepDonation = data?.current_donation?.steps?.at(-1);
 
-	// A home tambem reflete, sem recarregar, o que o admin faz do outro lado.
 	useStepAlerts(data?.current_donation?.steps);
 
 	const donorSince = data?.created_at
@@ -50,7 +48,6 @@ export function HomePage() {
 			: (milkDonatedMl / 1000).toLocaleString("pt-BR", {
 					maximumFractionDigits: 1,
 				});
-	// Estimativa rBLH: bebes-dia alimentados pelo volume doado.
 	const babiesFed =
 		milkDonatedMl === null ? null : Math.floor(milkDonatedMl / BABY_ML_PER_DAY);
 

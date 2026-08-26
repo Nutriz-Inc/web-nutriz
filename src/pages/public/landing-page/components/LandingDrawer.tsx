@@ -17,13 +17,6 @@ type LandingDrawerProps = {
 	onNavigate: (targetId: string) => void;
 };
 
-/**
- * Menu lateral da landing no mobile. Mesmo desenho do AppDrawer da area
- * logada — topo em gradiente azul, itens em cartao com o icone numa bolha,
- * safe area em cima e embaixo — para o site publico e o app terem a mesma
- * identidade. A diferenca e o conteudo: aqui os itens rolam a pagina ate as
- * secoes e o rodape traz Login e Cadastro. Ver docs/design-system.md.
- */
 export function LandingDrawer({
 	open,
 	onOpenChange,

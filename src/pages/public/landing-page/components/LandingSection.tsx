@@ -6,32 +6,18 @@ import { useReveal } from "../hooks/use-reveal";
 
 type LandingSectionProps = {
 	id?: string;
-	/** Rotulo em caixa alta acima do titulo. */
 	label: string;
 	title: string;
-	/** Cor do rotulo. `mint` e a que le sobre o fundo escuro. */
 	tone?: "blue" | "eva" | "teal" | "mint";
-	/** Texto de apoio, a direita do titulo (ou abaixo, quando centrado). */
 	description?: string;
 	align?: "left" | "center";
-	/** Secao sobre fundo escuro: titulo e apoio em branco. */
 	onDark?: boolean;
-	/** Fundo da faixa. Sem valor, herda o da pagina. */
 	surfaceClassName?: string;
-	/** Esconde a regua entre o cabecalho e o conteudo. */
 	semDivisoria?: boolean;
 	className?: string;
 	children: ReactNode;
 };
 
-/**
- * Faixa de secao da landing.
- *
- * Existe para o ritmo ser o mesmo em todas: antes cada secao trazia o proprio
- * cabecalho, o proprio espacamento (`py-20`, `pt-12 pb-6`, `pt-4 pb-12`...) e
- * nenhuma divisoria. Aqui o padrao e um so e vem da home — rotulo + titulo,
- * regua de 1px e o conteudo a 24px dela.
- */
 export function LandingSection({
 	id,
 	label,
@@ -87,7 +73,6 @@ export function LandingSection({
 					)}
 				</motion.div>
 
-				{/* Mesma regua da home: separa o cabecalho do conteudo. */}
 				{!semDivisoria && (
 					<hr
 						className={cn(

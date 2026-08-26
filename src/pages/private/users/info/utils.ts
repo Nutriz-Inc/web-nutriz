@@ -59,7 +59,6 @@ export function toStepName(name: string): EnumDonationStepName | null {
 	);
 	if (exact) return exact as EnumDonationStepName;
 
-	// jobs antigos foram salvos com nomes curtos ("Exame", "Coleta"...)
 	if (normalized.includes("exame")) return EnumDonationStepName.BloodTest;
 	if (normalized.includes("kit")) return EnumDonationStepName.DeliverMilkingKit;
 	if (normalized.includes("análise") || normalized.includes("analise"))

@@ -4,13 +4,10 @@ import { Reveal } from "@/components/full/Reveal";
 import { cn } from "@/lib/utils";
 
 type EmptyStateProps = {
-	/** SVG importado de @/assets/illustrations. Decorativo: nao e lido. */
 	illustration: string;
 	title: string;
 	description?: string;
-	/** Botao ou link de saida, quando a tela tem uma acao obvia. */
 	action?: ReactNode;
-	/** `sm` para dentro de cards estreitos (aba, coluna lateral). */
 	size?: "sm" | "md";
 	className?: string;
 };
@@ -20,12 +17,6 @@ const ALTURA = {
 	md: "h-32 sm:h-40",
 } as const;
 
-/**
- * Estado vazio do app: ilustracao, titulo, texto e acao opcional, sempre na
- * mesma proporcao e espacamento. A ilustracao e apoio - nunca maior que o
- * texto - e entra com o mesmo reveal do resto do sistema, que ja respeita
- * `prefers-reduced-motion`. Ver docs/design-system.md.
- */
 export function EmptyState({
 	illustration,
 	title,
@@ -46,6 +37,7 @@ export function EmptyState({
 				alt=""
 				aria-hidden="true"
 				loading="lazy"
+				data-ilustracao=""
 				width={320}
 				height={200}
 				className={cn("w-auto max-w-full select-none", ALTURA[size])}

@@ -59,14 +59,14 @@ export function BabyConsentStep({
 							className="rounded-xl border border-danger-tint bg-eva-tint p-[18px]"
 						>
 							<div className="mb-4 flex items-center justify-between">
-								<p className="text-xs font-bold uppercase tracking-[0.08em] text-eva">
+								<p className="text-xs font-bold uppercase tracking-[0.08em] text-eva-deep">
 									Bebê {index + 1}
 								</p>
 								{form.babies.length > 1 && (
 									<button
 										type="button"
 										onClick={() => onRemoveBaby(index)}
-										className="flex min-h-11 items-center gap-1 rounded-md px-2 text-[13px] font-semibold text-eva transition-colors hover:text-eva focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
+										className="flex min-h-11 items-center gap-1 rounded-md px-2 text-[13px] font-semibold text-eva-deep transition-colors hover:text-eva-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
 									>
 										<X className="size-3.5" aria-hidden />
 										Remover
@@ -102,7 +102,7 @@ export function BabyConsentStep({
 					<button
 						type="button"
 						onClick={onAddBaby}
-						className="flex min-h-11 w-fit items-center gap-2 rounded-md border border-dashed border-eva px-4 text-sm font-semibold text-eva transition-colors hover:bg-eva-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
+						className="flex min-h-11 w-fit items-center gap-2 rounded-md border border-dashed border-eva px-4 text-sm font-semibold text-eva-deep transition-colors hover:bg-eva-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
 					>
 						<Plus className="size-4" aria-hidden />
 						Adicionar outro bebê

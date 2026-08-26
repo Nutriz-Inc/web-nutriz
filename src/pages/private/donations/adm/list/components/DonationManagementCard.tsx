@@ -36,7 +36,7 @@ export function DonationManagementCard({
 					<span
 						className={cn(
 							"text-[16px] font-bold",
-							donation.isActive ? "text-blue-deep" : "text-eva",
+							donation.isActive ? "text-blue-deep" : "text-eva-deep",
 						)}
 					>
 						{getInitials(donation.userName)}

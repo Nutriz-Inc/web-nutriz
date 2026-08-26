@@ -148,7 +148,10 @@
 	/* Paleta */
 	--blue-deep: oklch(0.313 0.089 250.4);
 	--blue: oklch(0.447 0.139 253.2);
-	--blue-bright: oklch(0.6 0.14 253.2);
+	/* Escurecido para AA: no valor antigo (0.6) dava 3,45:1 sobre --blue-tint,
+	 * onde o badge "info" o usa como texto, e 3,96:1 com branco em cima nos 23
+	 * fundos `bg-blue-bright`. Agora e 4,66:1 e 5,20:1. */
+	--blue-bright: oklch(0.529 0.14 253.2);
 	--blue-tint: oklch(0.952 0.015 251.2);
 	--blue-tint-2: oklch(0.9 0.034 253.7);
 	--eva: oklch(0.626 0.15 9.4);
@@ -170,7 +173,9 @@
 	--surface-3: oklch(0.96 0.009 258.3);
 	--ink: oklch(0.244 0.061 261.8);
 	--ink-2: oklch(0.431 0.048 263.2);
-	--ink-3: oklch(0.674 0.035 262.6);
+	/* Escurecido para AA: no valor antigo (0.674) dava 2,64:1 sobre --canvas,
+	 * o pior dos fundos em que aparece, e sao 147 usos. Agora e 4,63:1. */
+	--ink-3: oklch(0.535 0.035 262.6);
 	--canvas: oklch(0.962 0.011 256.7);
 
 	/* Linhas: bordas e separadores. A camada aditiva usava blue-tint-2/60
@@ -186,7 +191,9 @@
 	--purple-tint: oklch(0.943 0.028 294.6);
 	--magenta: oklch(0.449 0.217 319);
 	--magenta-tint: oklch(0.908 0.066 315.7);
-	--teal: oklch(0.596 0.101 186.2);
+	/* Escurecido para AA: 3,35:1 sobre --teal-tint no badge, 3,82:1 com branco
+	 * em cima. Agora 4,52:1 e 5,15:1. */
+	--teal: oklch(0.521 0.101 186.2);
 	--teal-tint: oklch(0.949 0.041 184.5);
 	--success: oklch(0.481 0.091 170.1);
 	--success-tint: oklch(0.953 0.023 172.9);

@@ -44,10 +44,10 @@ const TONE_MAP: Record<
 	eva: {
 		fundo: "bg-gradient-to-br from-eva-tint via-white to-white",
 		borda: "border-eva-tint",
-		rotulo: "text-eva",
-		valor: "text-eva",
+		rotulo: "text-eva-deep",
+		valor: "text-eva-deep",
 		marca: "text-eva-tint",
-		chip: "bg-eva-tint text-eva",
+		chip: "bg-eva-tint text-eva-deep",
 	},
 };
 

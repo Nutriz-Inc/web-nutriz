@@ -22,7 +22,7 @@ const ETAPAS = [
 	{
 		title: "Confirmação",
 		description: "Você confirma o interesse em fazer uma nova doação.",
-		icon: <Heart className="size-5 fill-eva text-eva" />,
+		icon: <Heart className="size-5 fill-eva text-eva-deep" />,
 		iconBg: "bg-eva-tint",
 	},
 	{
@@ -42,7 +42,7 @@ const ETAPAS = [
 	{
 		title: "Acompanhamento",
 		description: "A doação fica registrada aqui para você acompanhar.",
-		icon: <Droplet className="size-5 text-eva" />,
+		icon: <Droplet className="size-5 text-eva-deep" />,
 		iconBg: "bg-eva-tint",
 	},
 ];

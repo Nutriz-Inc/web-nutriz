@@ -17,7 +17,7 @@ export function NewBabyCard({ draft, onChange, onRemove }: NewBabyCardProps) {
 		<div className="overflow-hidden rounded-2xl border-[1.5px] border-eva/35 bg-white/8">
 			<div className="flex items-center justify-between border-b border-blue-bright/15 px-3 py-3">
 				<div className="flex items-center gap-2">
-					<span className="rounded-md bg-eva-tint px-2 py-1 text-[13px] font-bold text-eva">
+					<span className="rounded-md bg-eva-tint px-2 py-1 text-[13px] font-bold text-eva-deep">
 						NOVO
 					</span>
 					<span className="text-[13px] font-bold text-blue-deep">BEBÊ</span>
@@ -25,7 +25,7 @@ export function NewBabyCard({ draft, onChange, onRemove }: NewBabyCardProps) {
 				<button
 					type="button"
 					onClick={onRemove}
-					className="flex items-center gap-1.5 rounded-full border border-eva/30 bg-eva-tint px-3 py-1.5 text-[12px] font-semibold text-eva"
+					className="flex items-center gap-1.5 rounded-full border border-eva/30 bg-eva-tint px-3 py-1.5 text-[12px] font-semibold text-eva-deep"
 				>
 					Remover
 					<Trash2 className="size-3.5" />

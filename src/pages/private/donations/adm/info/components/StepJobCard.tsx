@@ -78,7 +78,7 @@ export function StepJobCard({
 							onClick={onRemove}
 							disabled={disabled}
 							aria-label="Remover agendamento"
-							className="flex items-center justify-center rounded-lg p-2 text-eva hover:bg-eva-tint disabled:opacity-60"
+							className="flex items-center justify-center rounded-lg p-2 text-eva-deep hover:bg-eva-tint disabled:opacity-60"
 						>
 							<Trash2 className="size-3.5" />
 						</button>

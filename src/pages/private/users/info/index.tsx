@@ -120,7 +120,7 @@ export function UserManagementDetailPage() {
 									<HeaderStat
 										value={String(user.donations_completed ?? 0)}
 										label="Doações concluídas"
-										valueClassName="text-eva"
+										valueClassName="text-eva-deep"
 									/>
 									<HeaderStat
 										value={lastDonation ? formatDateBR(lastDonation) : "—"}

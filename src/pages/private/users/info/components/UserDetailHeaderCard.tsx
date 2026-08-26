@@ -29,7 +29,7 @@ export function UserDetailHeaderCard({
 					<span
 						className={cn(
 							"text-[18px] font-bold",
-							isDonor ? "text-eva" : "text-blue-deep",
+							isDonor ? "text-eva-deep" : "text-blue-deep",
 						)}
 					>
 						{getInitials(user.name)}

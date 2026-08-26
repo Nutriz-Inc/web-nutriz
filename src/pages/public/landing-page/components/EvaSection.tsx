@@ -111,7 +111,7 @@ export function EvaSection() {
 						<div className="min-w-0 lg:max-w-[460px]">
 							<motion.span
 								variants={fadeUp}
-								className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.06em] text-eva shadow-soft"
+								className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.06em] text-eva-deep shadow-soft"
 							>
 								<span
 									aria-hidden

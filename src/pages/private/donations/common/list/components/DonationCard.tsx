@@ -86,7 +86,7 @@ export function DonationCard({
 					<Heart
 						className={cn(
 							"size-5 lg:size-7",
-							isInProgress ? "text-blue-bright" : "text-eva",
+							isInProgress ? "text-blue-bright" : "text-eva-deep",
 						)}
 					/>
 				</span>

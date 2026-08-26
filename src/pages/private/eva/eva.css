@@ -42,6 +42,25 @@
 	color: var(--eva-ink);
 }
 
+/*
+ * Tema escuro: o pastel nao pode sair da inversao dos tokens.
+ *
+ * `--purple-tint` e `--eva-tint` viram escuros no tema escuro, mas
+ * `--eva-bright` continua claro — o degrade ia do escuro para o rosa claro, o
+ * oposto do desenho, e o rotulo escuro do botao ficava ilegivel na metade
+ * clara. Aqui ele e um rosa escuro que abre de leve, com o rotulo em `--ink`,
+ * que no escuro ja e claro.
+ */
+:root[data-tema="escuro"] .eva-scope,
+:root[data-tema="escuro"].eva-scope {
+	--eva-pastel: linear-gradient(
+		145deg,
+		oklch(0.33 0.05 300) 0%,
+		oklch(0.36 0.06 357) 55%,
+		oklch(0.42 0.08 5) 100%
+	);
+}
+
 .eva-scope :focus-visible {
 	outline: none;
 	box-shadow: 0 0 0 3px color-mix(in oklch, var(--eva) 40%, transparent);

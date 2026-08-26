@@ -1,4 +1,4 @@
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { useReducedMotion } from "framer-motion";
 import type { Article } from "../data";
 import { getHeadings, headingId } from "../utils";
 

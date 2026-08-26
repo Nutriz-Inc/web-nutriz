@@ -5,13 +5,10 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from "@tanstack/react-query";
-import { MotionConfig } from "framer-motion";
 import { useEffect, useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Toaster, toast } from "sonner";
-import { AccessibilityWidget } from "./components/full/AccessibilityWidget";
 import { SkipLink } from "./components/full/SkipLink";
-import { useAccessibility } from "./context/accessibility-context";
 import { useAuth } from "./hooks/use-auth";
 import { useThemeColor } from "./hooks/use-theme-color";
 import { registerAppRouter } from "./lib/app-navigation";
@@ -69,7 +66,6 @@ const queryClient = new QueryClient({
 
 function App() {
 	const { isAuthenticated } = useAuth();
-	const { movimentoReduzido } = useAccessibility();
 
 	const routes = useMemo(() => {
 		return isAuthenticated ? routerPrivate() : publicRouter();
@@ -85,30 +81,20 @@ function App() {
 	useThemeColor(isAuthenticated);
 
 	return (
-		/*
-		 * `MotionConfig` e o que faz a preferencia do app chegar ao
-		 * framer-motion. Os 19 arquivos que animam ja chamam
-		 * `useReducedMotion()`, mas ele so le o `prefers-reduced-motion` do
-		 * sistema; com `reducedMotion="always"` o hook passa a devolver `true`
-		 * para todos eles de uma vez, e com "user" volta a seguir o sistema.
-		 */
-		<MotionConfig reducedMotion={movimentoReduzido ? "always" : "user"}>
-			<QueryClientProvider client={queryClient}>
-				{/* Primeiro elemento focavel da pagina, antes do router. */}
-				<SkipLink />
-				<RouterProvider
-					key={isAuthenticated ? "private" : "public"}
-					router={routes}
-				/>
-				<EvaWidget />
-				<AccessibilityWidget />
-				{/*
-				 * Topo a direita: o botao flutuante da EVA mora no canto de baixo a
-				 * direita, e os avisos caiam em cima dele.
-				 */}
-				<Toaster position="top-right" richColors />
-			</QueryClientProvider>
-		</MotionConfig>
+		<QueryClientProvider client={queryClient}>
+			{/* Primeiro elemento focavel da pagina, antes do router. */}
+			<SkipLink />
+			<RouterProvider
+				key={isAuthenticated ? "private" : "public"}
+				router={routes}
+			/>
+			<EvaWidget />
+			{/*
+			 * Topo a direita: o botao flutuante da EVA mora no canto de baixo a
+			 * direita, e os avisos caiam em cima dele.
+			 */}
+			<Toaster position="top-right" richColors />
+		</QueryClientProvider>
 	);
 }
 

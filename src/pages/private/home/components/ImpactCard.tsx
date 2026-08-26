@@ -14,6 +14,12 @@ type ImpactCardProps = {
 	featured?: boolean;
 };
 
+/*
+ * O degrade termina em `--surface`, e nao no branco literal: `to-white` nao
+ * acompanha tema nenhum, e no escuro os tres cartoes viravam lajotas brancas
+ * com um brilho diagonal atravessando. Com o token eles ficam escuros e o
+ * tint da ponta e que da a cor.
+ */
 const TONE_MAP: Record<
 	ImpactTone,
 	{
@@ -26,7 +32,7 @@ const TONE_MAP: Record<
 	}
 > = {
 	blue: {
-		fundo: "bg-gradient-to-br from-blue-tint via-white to-white",
+		fundo: "bg-gradient-to-br from-blue-tint via-surface to-surface",
 		borda: "border-blue-tint-2/70",
 		rotulo: "text-blue-bright",
 		valor: "text-blue-deep",
@@ -34,7 +40,7 @@ const TONE_MAP: Record<
 		chip: "bg-blue-tint text-blue-deep",
 	},
 	bright: {
-		fundo: "bg-gradient-to-br from-blue-tint-2/45 via-white to-white",
+		fundo: "bg-gradient-to-br from-blue-tint-2/25 via-surface to-surface",
 		borda: "border-blue-tint-2/60",
 		rotulo: "text-blue",
 		valor: "text-blue",
@@ -42,7 +48,7 @@ const TONE_MAP: Record<
 		chip: "bg-blue-tint-2/60 text-blue",
 	},
 	eva: {
-		fundo: "bg-gradient-to-br from-eva-tint via-white to-white",
+		fundo: "bg-gradient-to-br from-eva-tint via-surface to-surface",
 		borda: "border-eva-tint",
 		rotulo: "text-eva-deep",
 		valor: "text-eva-deep",

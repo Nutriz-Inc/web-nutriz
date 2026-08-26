@@ -1,5 +1,5 @@
+import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 /**
  * Conta de zero ate o numero do rotulo quando ele entra na tela.

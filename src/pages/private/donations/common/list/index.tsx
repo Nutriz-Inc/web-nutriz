@@ -54,7 +54,7 @@ export function DonationsPage() {
 				</button>
 			}
 		>
-			<div className="-mx-4 -mt-4 -mb-16 flex min-h-[calc(100vh-69px)] flex-col bg-surface-3 sm:-mx-6 sm:-mt-6 lg:-mx-10">
+			<div className="-mx-4 -mt-4 -mb-16 flex min-h-[calc(100vh-69px)] flex-col bg-canvas sm:-mx-6 sm:-mt-6 lg:-mx-10">
 				<div className="flex flex-1 flex-col gap-4 px-4 pb-28 pt-6 sm:px-6 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:px-10 lg:pb-4 lg:pt-8">
 					{isLoading ? (
 						<div className="flex flex-col gap-3">

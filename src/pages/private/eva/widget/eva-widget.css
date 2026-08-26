@@ -427,9 +427,15 @@
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	/*
+	 * 12px, e nao 16px. No modo anonimo entra o aviso de chat publico, e com
+	 * 16px o conteudo somava 541px numa janela de 524 — como o painel tem
+	 * `overflow: hidden`, os 17px que sobravam eram CORTADOS, e o botao de
+	 * comecar ficava colado no rodape.
+	 */
+	gap: 12px;
 	/* Respiro no topo: o nome estava encostado na borda do cartao. */
-	padding: 30px 22px 18px;
+	padding: 26px 22px 16px;
 	background: var(--surface);
 }
 

@@ -1,6 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { env } from "@/config/env";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { navigateApp } from "@/lib/app-navigation";
 import type { EvaMessageAction } from "../types";
 
@@ -66,17 +65,7 @@ function buildWhatsappHref(): string | null {
 function scrollToSection(id: string) {
 	// Apos navegar para a landing, rolar ate a secao (o render nao e sincrono).
 	window.setTimeout(() => {
-		/*
-		 * `behavior` explicito ganha do `scroll-behavior` do CSS, entao a
-		 * preferencia precisa ser lida aqui tambem — o atributo em `<html>` e a
-		 * fonte da verdade.
-		 */
-		const semMovimento =
-			document.documentElement.dataset.movimento === "reduzido";
-
-		document.getElementById(id)?.scrollIntoView({
-			behavior: semMovimento ? "auto" : "smooth",
-		});
+		document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 	}, 120);
 }
 

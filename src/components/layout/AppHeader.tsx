@@ -1,6 +1,7 @@
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AccessibilityControls } from "@/components/full/AccessibilityControls";
 import { NutrizLogo } from "@/components/full/NutrizLogo";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
@@ -92,7 +93,12 @@ export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
 
 					{comNavegacao && (
 						<div className="flex shrink-0 items-center gap-1">
+							<AccessibilityControls className="mr-1 hidden lg:flex" />
 							<UserMenu />
+
+							{/* No celular ficam no topo, ao lado do menu, e nao dentro
+							    dele: dois toques para trocar o tema seria pior. */}
+							<AccessibilityControls className="lg:hidden" />
 
 							<button
 								type="button"

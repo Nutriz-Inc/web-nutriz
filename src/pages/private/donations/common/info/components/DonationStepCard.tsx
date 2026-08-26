@@ -1,8 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import { Calendar, Check, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
 import { BADGE_LABEL, BADGE_TONE, type StepVisualStatus } from "../constants";

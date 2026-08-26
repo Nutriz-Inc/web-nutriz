@@ -107,7 +107,7 @@ export function UserManagementDetailPage() {
 			}
 		>
 			{user && (
-				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-surface-3 p-4 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:bg-transparent lg:p-0">
+				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-canvas p-4 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:bg-transparent lg:p-0">
 					<UserDetailHeaderCard
 						user={user}
 						stats={

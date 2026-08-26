@@ -516,6 +516,37 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+ * Transicao ao trocar de tema
+ *
+ * A classe entra em `<html>` so durante a troca e sai sozinha depois (ver
+ * `context/accessibility-context.tsx`). Ela nao pode ficar permanente: com
+ * `transition` em tudo, qualquer hover de cartao passaria a arrastar meio
+ * segundo, e a rolagem ficaria pesada.
+ *
+ * `prefers-reduced-motion` continua mandando: quem pediu menos movimento troca
+ * de tema no corte seco.
+ * ------------------------------------------------------------------------- */
+:root[data-trocando-tema] *,
+:root[data-trocando-tema] *::before,
+:root[data-trocando-tema] *::after {
+	transition:
+		background-color 320ms ease,
+		border-color 320ms ease,
+		color 320ms ease,
+		fill 320ms ease,
+		stroke 320ms ease,
+		box-shadow 320ms ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root[data-trocando-tema] *,
+	:root[data-trocando-tema] *::before,
+	:root[data-trocando-tema] *::after {
+		transition: none !important;
+	}
+}
+
+/* ---------------------------------------------------------------------------
  * Foco visivel — rede de seguranca
  *
  * O app ja declara foco em 113 lugares, mas usa `outline-none` em 67, e um
@@ -544,35 +575,13 @@ body {
  * paragrafo e lista o sublinhado e o que separa o link do texto em volta.
  * Fora deles nao vale — botao, cartao e item de menu tambem sao `<a>` e nao
  * devem ganhar risco.
+ *
+ * `nav` fica de fora: a trilha de navegacao e uma lista de `<a>` e ficava com
+ * o "Dashboard" sublinhado, o que nao e texto corrido.
  * ------------------------------------------------------------------------- */
-p > a,
-li > a {
+:is(p, li) > a:not(nav a) {
 	text-decoration: underline;
 	text-underline-offset: 2px;
-}
-
-/* ---------------------------------------------------------------------------
- * Movimento reduzido
- *
- * Vale para o CSS. A parte do framer-motion e resolvida no App, por
- * `MotionConfig`, que faz `useReducedMotion()` devolver `true` em todo o app.
- *
- * `animation: none` e nao duracao quase zero: com duracao zero a animacao
- * salta para o estado FINAL, e boa parte das daqui termina invisivel — o anel
- * de pulso acaba em `opacity: 0`, o brilho da etapa acaba sem sombra. Com
- * `none` o elemento fica no estado base, parado e visivel, que e o que a regra
- * pede: sem movimento, sem sumir e sem encolher.
- *
- * Fora de `@layer` para vencer as utilities sem `!important` — mesmo motivo
- * das outras regras deste arquivo.
- * ------------------------------------------------------------------------- */
-:root[data-movimento="reduzido"],
-:root[data-movimento="reduzido"] *,
-:root[data-movimento="reduzido"] *::before,
-:root[data-movimento="reduzido"] *::after {
-	animation: none !important;
-	transition: none !important;
-	scroll-behavior: auto !important;
 }
 
 /* ---------------------------------------------------------------------------

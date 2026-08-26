@@ -1,7 +1,6 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useId } from "react";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import type { FaqItem as FaqItemData } from "../constants";
 
 type FaqItemProps = {

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import amamentacao from "@/assets/illustrations/amamentacao.svg";
 import Wordmark from "@/assets/images/nutriz-logo-branco.svg";
+import { AccessibilityControls } from "@/components/full/AccessibilityControls";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { AddressStep } from "./components/AddressStep";
@@ -165,6 +166,12 @@ export function RegisterScreen() {
 								className="h-7 w-auto select-none"
 							/>
 						</Link>
+
+						{/* Mesmo motivo do login: esta tela nao tem cabecalho. */}
+						<AccessibilityControls
+							tom="escuro"
+							className="absolute right-6 top-6 z-10"
+						/>
 
 						<Link
 							to="/"

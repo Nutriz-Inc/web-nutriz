@@ -11,23 +11,17 @@ export const CHAVE_ACESSIBILIDADE = "nutriz:acessibilidade";
 /** "sistema" segue o `prefers-color-scheme`; as outras duas mandam nele. */
 export type PreferenciaTema = "sistema" | "claro" | "escuro";
 
-/** "sistema" segue o `prefers-reduced-motion`. */
-export type PreferenciaMovimento = "sistema" | "reduzido";
-
 export type Preferencias = {
 	tema: PreferenciaTema;
-	movimento: PreferenciaMovimento;
 	fonteDislexia: boolean;
 };
 
 export const PREFERENCIAS_PADRAO: Preferencias = {
 	tema: "sistema",
-	movimento: "sistema",
 	fonteDislexia: false,
 };
 
 const TEMAS: PreferenciaTema[] = ["sistema", "claro", "escuro"];
-const MOVIMENTOS: PreferenciaMovimento[] = ["sistema", "reduzido"];
 
 /**
  * Le o que estiver salvo, campo a campo.
@@ -49,9 +43,6 @@ export function lerPreferencias(): Preferencias {
 			tema: TEMAS.includes(bruto?.tema as PreferenciaTema)
 				? (bruto.tema as PreferenciaTema)
 				: PREFERENCIAS_PADRAO.tema,
-			movimento: MOVIMENTOS.includes(bruto?.movimento as PreferenciaMovimento)
-				? (bruto.movimento as PreferenciaMovimento)
-				: PREFERENCIAS_PADRAO.movimento,
 			fonteDislexia:
 				typeof bruto?.fonteDislexia === "boolean"
 					? bruto.fonteDislexia
@@ -81,12 +72,10 @@ export function gravarPreferencias(preferencias: Preferencias) {
  */
 export function aplicarNoDocumento(estado: {
 	tema: "claro" | "escuro";
-	movimento: "normal" | "reduzido";
 	fonteDislexia: boolean;
 }) {
 	const raiz = document.documentElement;
 	raiz.dataset.tema = estado.tema;
-	raiz.dataset.movimento = estado.movimento;
 	raiz.dataset.fonte = estado.fonteDislexia ? "dislexia" : "padrao";
 	// `color-scheme` faz o navegador pintar barra de rolagem, campo de
 	// formulario e autofill no tom certo — coisas que o CSS do app nao alcanca.

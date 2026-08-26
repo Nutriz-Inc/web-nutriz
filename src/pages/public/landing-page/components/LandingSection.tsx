@@ -18,6 +18,8 @@ type LandingSectionProps = {
 	onDark?: boolean;
 	/** Fundo da faixa. Sem valor, herda o da pagina. */
 	surfaceClassName?: string;
+	/** Esconde a regua entre o cabecalho e o conteudo. */
+	semDivisoria?: boolean;
 	className?: string;
 	children: ReactNode;
 };
@@ -39,6 +41,7 @@ export function LandingSection({
 	align = "left",
 	onDark = false,
 	surfaceClassName,
+	semDivisoria = false,
 	className,
 	children,
 }: LandingSectionProps) {
@@ -85,12 +88,14 @@ export function LandingSection({
 				</motion.div>
 
 				{/* Mesma regua da home: separa o cabecalho do conteudo. */}
-				<hr
-					className={cn(
-						"mt-6 border-0 border-t",
-						onDark ? "border-white/15" : "border-blue-tint-2/60",
-					)}
-				/>
+				{!semDivisoria && (
+					<hr
+						className={cn(
+							"mt-6 border-0 border-t",
+							onDark ? "border-white/15" : "border-blue-tint-2/60",
+						)}
+					/>
+				)}
 
 				<div className="mt-8 lg:mt-10">{children}</div>
 			</div>

@@ -1,6 +1,5 @@
-import { motion, useAnimate } from "framer-motion";
+import { motion, useAnimate, useReducedMotion } from "framer-motion";
 import type { ComponentPropsWithoutRef, MouseEvent, ReactNode } from "react";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 /*

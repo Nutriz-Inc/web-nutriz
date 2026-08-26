@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
 	CalendarCheck,
 	Droplet,
@@ -6,7 +6,6 @@ import {
 	Snowflake,
 	Sparkles,
 } from "lucide-react";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { EVA_SUGGESTIONS } from "@/pages/private/eva/constants";
 
 /** Mesmos icones da abertura do widget, na mesma ordem. */
@@ -47,6 +46,7 @@ export function EvaSection() {
 			tone="eva"
 			description="A EVA acolhe você a qualquer hora — doação de leite, ordenha, armazenamento e amamentação. Sem fila, sem espera."
 			surfaceClassName="bg-surface"
+			semDivisoria
 		>
 			<motion.div {...reveal}>
 				<div className="rounded-card gradient-eva relative isolate border border-line px-7 pb-24 pt-10 sm:pb-28 lg:px-14 lg:pb-32 lg:pt-14">
@@ -69,7 +69,7 @@ export function EvaSection() {
 						src={evaNuvens}
 						alt=""
 						aria-hidden="true"
-						className="pointer-events-none absolute -top-20 left-[-4%] -z-10 hidden w-[46%] max-w-[420px] select-none opacity-45 lg:block"
+						className="pointer-events-none absolute -top-8 left-[-4%] -z-10 hidden w-[46%] max-w-[420px] select-none opacity-45 lg:block"
 					/>
 					{/*
 					 * Nuvem da direita. No celular ela sobe so 24px acima do cartao

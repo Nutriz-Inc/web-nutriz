@@ -78,7 +78,7 @@ export function DonationsManagementPage() {
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-surface-3 px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
+			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-canvas px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
 				<form
 					onSubmit={handleApplyFilters}
 					className="flex flex-col gap-2.5 lg:flex-row lg:items-center"
@@ -143,10 +143,10 @@ export function DonationsManagementPage() {
 					</div>
 				) : (
 					<>
-						<div className="overflow-hidden rounded-2xl border border-line bg-surface-3">
+						<div className="overflow-hidden rounded-2xl border border-line bg-canvas">
 							{donations.map((donation, index) => (
 								<Fragment key={donation.id_donation}>
-									{index > 0 && <div className="h-2 bg-surface-3" />}
+									{index > 0 && <div className="h-2 bg-canvas" />}
 									<DonationManagementCard donation={donation} />
 								</Fragment>
 							))}

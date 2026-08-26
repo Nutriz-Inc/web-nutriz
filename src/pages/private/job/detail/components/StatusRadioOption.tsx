@@ -25,7 +25,7 @@ export function StatusRadioOption({
 				"flex w-full items-start gap-3 rounded-xl border p-3.5 text-left transition-colors",
 				selected
 					? "border-blue-bright bg-surface-3"
-					: "border-line bg-white hover:bg-surface-2",
+					: "border-line bg-surface hover:bg-surface-2",
 			)}
 		>
 			<span

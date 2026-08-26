@@ -35,7 +35,7 @@ export function UpdateStepStatusForm({
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="flex flex-col gap-5 rounded-card-sm border border-line bg-white p-5"
+			className="flex flex-col gap-5 rounded-card-sm border border-line bg-surface p-5"
 		>
 			<div className="flex flex-col gap-1">
 				<div className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export function UpdateStepStatusForm({
 					}}
 					rows={4}
 					placeholder="Descreva o resultado desta etapa e os próximos passos..."
-					className="w-full resize-y rounded-xl border border-blue-tint bg-white px-3.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-blue-tint-2 focus:border-blue-bright"
+					className="w-full resize-y rounded-xl border border-blue-tint bg-surface px-3.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-blue-bright"
 				/>
 			</div>
 
@@ -105,7 +105,7 @@ export function UpdateStepStatusForm({
 			<button
 				type="submit"
 				disabled={isPending}
-				className="flex h-[46px] w-fit items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-6 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="flex h-[46px] w-fit items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-6 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				{isPending ? (
 					<Loader2 className="size-4 animate-spin" />

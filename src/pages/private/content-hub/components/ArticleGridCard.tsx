@@ -15,7 +15,7 @@ export function ArticleGridCard({ article }: ArticleGridCardProps) {
 	return (
 		<InteractiveCard
 			onClick={() => navigate(`/artigos?a=${article.id}`)}
-			className="flex gap-4 rounded-card-sm border border-line bg-white p-4 shadow-soft"
+			className="flex gap-4 rounded-card-sm border border-line bg-surface p-4 shadow-soft"
 		>
 			<ArticleCover
 				article={article}

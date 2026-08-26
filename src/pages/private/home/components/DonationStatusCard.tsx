@@ -88,12 +88,12 @@ export function DonationStatusCard({ steps, className }: Props) {
 								<span
 									className={cn(
 										"relative flex size-9 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold tabular-nums lg:size-10 lg:text-base",
-										isDone && "bg-blue-deep text-white shadow-soft",
+										isDone && "bg-blue-deep-fill text-white shadow-soft",
 										isCurrent &&
-											"bg-eva text-white shadow-soft ring-2 ring-eva/30",
+											"bg-eva-fill text-white shadow-soft ring-2 ring-eva/30",
 										!isDone &&
 											!isCurrent &&
-											"border-[1.5px] border-dashed border-blue-tint-2 bg-white text-ink-3",
+											"border-[1.5px] border-dashed border-blue-tint-2 bg-surface text-ink-3",
 									)}
 								>
 									{isDone ? (

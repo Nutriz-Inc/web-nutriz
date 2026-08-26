@@ -29,8 +29,8 @@ export function FilterChips<T extends string>({
 						className={cn(
 							"shrink-0 whitespace-nowrap rounded-full px-5 py-2 text-[13px] font-semibold transition-colors",
 							active
-								? "bg-blue-deep text-white"
-								: "border border-line bg-white text-ink-2",
+								? "bg-blue-deep-fill text-white"
+								: "border border-line bg-surface text-ink-2",
 						)}
 					>
 						{option.label}

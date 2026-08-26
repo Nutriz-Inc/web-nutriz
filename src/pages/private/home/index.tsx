@@ -98,15 +98,6 @@ export function HomePage() {
 	return (
 		<Page loading={loading} hasPermission={auth?.type === EnumUserType.Common}>
 			<div className="relative isolate flex min-h-dvh flex-col overflow-hidden bg-canvas font-body">
-				<span
-					aria-hidden="true"
-					className="ink-blob -left-40 -top-48 h-[30rem] w-[30rem] bg-blue-tint-2/50 blur-3xl"
-				/>
-				<span
-					aria-hidden="true"
-					className="ink-blob -right-40 top-[28rem] h-[26rem] w-[26rem] bg-eva-tint/80 blur-3xl"
-				/>
-
 				<AppHeader />
 
 				<div className="relative mx-auto w-full max-w-[1400px] grow px-4 pb-16 sm:px-6 sm:pb-20 lg:px-10">

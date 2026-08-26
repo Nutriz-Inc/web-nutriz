@@ -19,7 +19,7 @@ export function VideoPreviewCard({ article }: VideoPreviewCardProps) {
 		<motion.div
 			whileHover={{ y: -3 }}
 			transition={{ type: "spring", stiffness: 300, damping: 22 }}
-			className="flex flex-col overflow-hidden rounded-card-sm border border-line bg-white shadow-soft"
+			className="flex flex-col overflow-hidden rounded-card-sm border border-line bg-surface shadow-soft"
 		>
 			<button
 				type="button"

@@ -125,6 +125,122 @@
 	--sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ---------------------------------------------------------------------------
+ * Tema escuro
+ *
+ * Paleta propria, nao inversao: inverter cor deixa o azul e o rosa vibrando e
+ * o fundo em preto puro, que cansa a vista. Aqui o fundo e cinza-azulado, cada
+ * superficie e um degrau MAIS CLARA que a anterior (elevacao por cor, nao por
+ * sombra), o texto e off-white e a marca perde ~40% de croma.
+ *
+ * A regra dos dois papeis vale aqui: `--X` clareia porque e cor de texto;
+ * `--X-fill` continua escuro porque carrega conteudo branco.
+ * ------------------------------------------------------------------------- */
+:root[data-tema="escuro"] {
+	/* Superficies: nunca preto puro. */
+	--canvas: oklch(0.205 0.02 258);
+	--surface: oklch(0.245 0.022 258);
+	--surface-2: oklch(0.285 0.024 258);
+	--surface-3: oklch(0.33 0.026 258);
+
+	/* Texto: off-white, nunca branco puro. */
+	--ink: oklch(0.945 0.008 258);
+	--ink-2: oklch(0.815 0.014 258);
+	--ink-3: oklch(0.702 0.018 258);
+
+	/* Linhas: luz sobre o escuro, e nao tinta sobre o claro. */
+	--line: oklch(1 0 0 / 0.12);
+	--line-strong: oklch(1 0 0 / 0.22);
+
+	/* Marca como TEXTO: clara e dessaturada. */
+	--blue-deep: oklch(0.78 0.07 253);
+	--blue: oklch(0.7 0.08 253);
+	--blue-bright: oklch(0.74 0.09 253);
+	--eva: oklch(0.72 0.1 9);
+	--eva-deep: oklch(0.775 0.09 8);
+	--eva-bright: oklch(0.8 0.08 5);
+	--mint: oklch(0.82 0.085 183);
+	--mint-bright: oklch(0.87 0.075 190);
+	--teal: oklch(0.79 0.075 186);
+	--success: oklch(0.79 0.09 170);
+	--danger: oklch(0.755 0.11 25);
+	--warning: oklch(0.815 0.095 64);
+	--amber: oklch(0.83 0.12 85);
+	--purple: oklch(0.76 0.11 293);
+	--magenta: oklch(0.755 0.12 319);
+
+	/* Marca como PREENCHIMENTO: continua escura, dessaturada o suficiente para
+	 * nao vibrar, e clara o bastante para o branco em cima passar em AA. */
+	--blue-deep-fill: oklch(0.36 0.075 251);
+	--blue-fill: oklch(0.44 0.1 253);
+	--blue-bright-fill: oklch(0.5 0.105 253);
+	--eva-fill: oklch(0.53 0.13 9);
+	--danger-fill: oklch(0.49 0.12 25);
+	--success-fill: oklch(0.47 0.08 170);
+	--teal-fill: oklch(0.48 0.08 186);
+
+	/* Tints deixam de ser fundo palido e viram superficie escura tingida. */
+	--blue-tint: oklch(0.3 0.03 251);
+	/*
+	 * Este NAO escurece junto com os outros tints. Ele tem um terceiro papel:
+	 * texto claro sobre as superficies escuras de marca — hero, rodape, painel
+	 * do login, cadastro —, que continuam escuras nos dois temas. Escurecendo,
+	 * o rodape inteiro caia para 1,09:1. Como fundo (`bg-blue-tint-2`) ele so
+	 * aparece em barra de grafico e contorno de etapa, onde claro sobre cartao
+	 * escuro tambem e a leitura certa.
+	 */
+	--blue-tint-2: oklch(0.74 0.035 254);
+	--eva-tint: oklch(0.3 0.032 357);
+	--teal-tint: oklch(0.295 0.03 185);
+	--success-tint: oklch(0.295 0.03 170);
+	--danger-tint: oklch(0.3 0.034 18);
+	--warning-tint: oklch(0.3 0.032 81);
+	--amber-tint: oklch(0.3 0.034 91);
+	--purple-tint: oklch(0.305 0.036 295);
+	--magenta-tint: oklch(0.3 0.036 316);
+
+	/*
+	 * Tokens do shadcn que o app ainda usa em algumas telas (`bg-card`,
+	 * `text-foreground`, `bg-muted`...). O bloco `.dark` que veio com o
+	 * template e cinza puro e depende da CLASSE `dark`, que este tema nao
+	 * escreve — sem isto, `bg-card` continuava branco no escuro e a home ficava
+	 * com texto claro sobre cartao branco.
+	 */
+	--background: var(--canvas);
+	--foreground: var(--ink);
+	--card: var(--surface);
+	--card-foreground: var(--ink);
+	--popover: var(--surface-2);
+	--popover-foreground: var(--ink);
+	--muted: var(--surface-2);
+	--muted-foreground: var(--ink-2);
+	--border: var(--line-strong);
+	--input: var(--line-strong);
+	--primary: var(--blue-bright);
+	--primary-foreground: var(--canvas);
+
+	/*
+	 * O degrade da EVA nao pode sair da inversao dos tokens: `--eva-tint` vira
+	 * escuro e `--eva-bright` fica claro, e o cartao iria do escuro para o rosa
+	 * claro, o oposto do desenho. Aqui ele e um rosa escuro que abre de leve.
+	 */
+	--nz-gradient-eva: linear-gradient(
+		140deg,
+		oklch(0.3 0.045 357) 0%,
+		oklch(0.4 0.075 5) 120%
+	);
+
+	/*
+	 * Sombra no escuro e quase invisivel — o que separa as camadas e a cor da
+	 * superficie. A sombra fica so como profundidade sutil, em preto e mais
+	 * opaca, porque a azulada do tema claro some por completo.
+	 */
+	--nz-shadow-soft:
+		0 1px 2px oklch(0 0 0 / 0.3), 0 12px 28px -18px oklch(0 0 0 / 0.55);
+	--nz-shadow-lift:
+		0 2px 4px oklch(0 0 0 / 0.35), 0 28px 56px -28px oklch(0 0 0 / 0.6);
+}
+
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
@@ -148,7 +264,10 @@
 	/* Paleta */
 	--blue-deep: oklch(0.313 0.089 250.4);
 	--blue: oklch(0.447 0.139 253.2);
-	--blue-bright: oklch(0.6 0.14 253.2);
+	/* Escurecido para AA: no valor antigo (0.6) dava 3,45:1 sobre --blue-tint,
+	 * onde o badge "info" o usa como texto, e 3,96:1 com branco em cima nos 23
+	 * fundos `bg-blue-bright`. Agora e 4,66:1 e 5,20:1. */
+	--blue-bright: oklch(0.529 0.14 253.2);
 	--blue-tint: oklch(0.952 0.015 251.2);
 	--blue-tint-2: oklch(0.9 0.034 253.7);
 	--eva: oklch(0.626 0.15 9.4);
@@ -170,8 +289,33 @@
 	--surface-3: oklch(0.96 0.009 258.3);
 	--ink: oklch(0.244 0.061 261.8);
 	--ink-2: oklch(0.431 0.048 263.2);
-	--ink-3: oklch(0.674 0.035 262.6);
+	/* Escurecido para AA: no valor antigo (0.674) dava 2,64:1 sobre --canvas,
+	 * o pior dos fundos em que aparece, e sao 147 usos. Agora e 4,63:1. */
+	--ink-3: oklch(0.535 0.035 262.6);
 	--canvas: oklch(0.962 0.011 256.7);
+
+	/*
+	 * Tokens de PREENCHIMENTO.
+	 *
+	 * Existem porque a mesma cor tinha dois papeis incompativeis. `text-blue-deep`
+	 * (109 usos) precisa CLAREAR no tema escuro para ser lido sobre superficie
+	 * escura; `bg-blue-deep` (46 usos) precisa CONTINUAR escuro, senao o
+	 * `text-white` em cima dele some. Como as duas utilities leem a mesma
+	 * variavel, nao havia como servir aos dois com um token so.
+	 *
+	 * Regra: `--X` e cor de TEXTO, borda, bolinha e barra — clareia no escuro.
+	 * `--X-fill` e superficie que carrega conteudo branco — nao clareia.
+	 *
+	 * No tema claro os dois valem exatamente o mesmo, entao a migracao nao muda
+	 * um pixel. Quem separa os dois e a Fase 2.
+	 */
+	--blue-deep-fill: var(--blue-deep);
+	--blue-fill: var(--blue);
+	--blue-bright-fill: var(--blue-bright);
+	--eva-fill: var(--eva);
+	--danger-fill: var(--danger);
+	--success-fill: var(--success);
+	--teal-fill: var(--teal);
 
 	/* Linhas: bordas e separadores. A camada aditiva usava blue-tint-2/60
 	 * solto nas telas; virou token para o app inteiro compartilhar. */
@@ -186,7 +330,9 @@
 	--purple-tint: oklch(0.943 0.028 294.6);
 	--magenta: oklch(0.449 0.217 319);
 	--magenta-tint: oklch(0.908 0.066 315.7);
-	--teal: oklch(0.596 0.101 186.2);
+	/* Escurecido para AA: 3,35:1 sobre --teal-tint no badge, 3,82:1 com branco
+	 * em cima. Agora 4,52:1 e 5,15:1. */
+	--teal: oklch(0.521 0.101 186.2);
 	--teal-tint: oklch(0.949 0.041 184.5);
 	--success: oklch(0.481 0.091 170.1);
 	--success-tint: oklch(0.953 0.023 172.9);
@@ -196,11 +342,14 @@
 	--warning-tint: oklch(0.953 0.029 80.7);
 
 	/* Camada organica: gradientes e sombras */
+	/* Escrito com os `-fill` porque ele e sempre superficie de marca com texto
+	 * branco em cima: no tema escuro precisa continuar escuro. No claro os
+	 * `-fill` valem o mesmo que os tokens base, entao nada muda. */
 	--nz-gradient-blue: linear-gradient(
 		150deg,
-		var(--blue-deep) 0%,
-		var(--blue) 55%,
-		var(--blue-bright) 100%
+		var(--blue-deep-fill) 0%,
+		var(--blue-fill) 55%,
+		var(--blue-bright-fill) 100%
 	);
 	--nz-gradient-milk: linear-gradient(
 		180deg,
@@ -224,6 +373,13 @@
 	--color-blue-deep: var(--blue-deep);
 	--color-blue: var(--blue);
 	--color-blue-bright: var(--blue-bright);
+	--color-blue-deep-fill: var(--blue-deep-fill);
+	--color-blue-fill: var(--blue-fill);
+	--color-blue-bright-fill: var(--blue-bright-fill);
+	--color-eva-fill: var(--eva-fill);
+	--color-danger-fill: var(--danger-fill);
+	--color-success-fill: var(--success-fill);
+	--color-teal-fill: var(--teal-fill);
 	--color-blue-tint: var(--blue-tint);
 	--color-blue-tint-2: var(--blue-tint-2);
 	--color-eva: var(--eva);
@@ -357,6 +513,169 @@ body {
 	&::-webkit-scrollbar {
 		display: none;
 	}
+}
+
+/* ---------------------------------------------------------------------------
+ * Arte decorativa que so faz sentido no tema claro
+ *
+ * Algumas ilustracoes existem so para preencher um vazio branco embaixo de uma
+ * lista curta. As cores delas estao no proprio SVG (paineis cinza-azulados,
+ * brancos chapados), entao no tema escuro elas viram um bloco claro flutuando
+ * na pagina — e o vazio que elas tapavam nem incomoda mais, porque o fundo
+ * escuro ja e uniforme. Some com elas em vez de repintar arte por arte.
+ *
+ * Vale so para enfeite (aria-hidden), nunca para ilustracao de estado vazio,
+ * que e conteudo de verdade.
+ * ------------------------------------------------------------------------ */
+:root[data-tema="escuro"] [data-so-tema-claro] {
+	display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Moldura do Leaflet no tema escuro
+ *
+ * O CSS do Leaflet vem com as cores cravadas: o fundo do mapa e `#ddd`, os
+ * botoes de zoom sao brancos e a tarja de creditos e branca translucida. Na
+ * pagina escura viravam quadrados claros em volta do mapa — e o `#ddd`
+ * aparece toda vez que os tiles ainda estao carregando ou falham.
+ *
+ * Nao da para resolver por token: o arquivo e importado por
+ * `MapPreview.tsx` e escreve valor literal. Repintamos so no escuro, com
+ * especificidade suficiente para ganhar dele venha em que ordem vier.
+ * ------------------------------------------------------------------------ */
+:root[data-tema="escuro"] .leaflet-container {
+	background: var(--surface-2);
+}
+
+:root[data-tema="escuro"] .leaflet-bar a,
+:root[data-tema="escuro"] .leaflet-bar a:hover {
+	background-color: var(--surface-2);
+	color: var(--ink);
+	border-bottom-color: var(--line);
+}
+
+:root[data-tema="escuro"] .leaflet-bar a:hover {
+	background-color: var(--surface-3);
+}
+
+:root[data-tema="escuro"] .leaflet-bar {
+	border: 1px solid var(--line);
+}
+
+:root[data-tema="escuro"] .leaflet-control-attribution {
+	background: color-mix(in oklch, var(--surface) 82%, transparent);
+	color: var(--ink-3);
+}
+
+:root[data-tema="escuro"] .leaflet-control-attribution a {
+	color: var(--blue-tint-2);
+}
+
+/* ---------------------------------------------------------------------------
+ * Transicao ao trocar de tema
+ *
+ * A classe entra em `<html>` so durante a troca e sai sozinha depois (ver
+ * `context/accessibility-context.tsx`). Ela nao pode ficar permanente: com
+ * `transition` em tudo, qualquer hover de cartao passaria a arrastar meio
+ * segundo, e a rolagem ficaria pesada.
+ *
+ * `prefers-reduced-motion` continua mandando: quem pediu menos movimento troca
+ * de tema no corte seco.
+ * ------------------------------------------------------------------------- */
+:root[data-trocando-tema] *,
+:root[data-trocando-tema] *::before,
+:root[data-trocando-tema] *::after {
+	transition:
+		background-color 320ms ease,
+		border-color 320ms ease,
+		color 320ms ease,
+		fill 320ms ease,
+		stroke 320ms ease,
+		box-shadow 320ms ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root[data-trocando-tema] *,
+	:root[data-trocando-tema] *::before,
+	:root[data-trocando-tema] *::after {
+		transition: none !important;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+ * Foco visivel — rede de seguranca
+ *
+ * O app ja declara foco em 113 lugares, mas usa `outline-none` em 67, e um
+ * elemento que perca o par fica sem indicacao nenhuma para quem navega por
+ * teclado.
+ *
+ * O alvo sao exatamente os focaveis que NAO declararam foco proprio — daí os
+ * dois `:not([class*=...])`. Sem eles, ou a regra pega todo mundo e soma um
+ * contorno por cima dos aneis que ja existem, ou (com `:where`, que tem
+ * especificidade zero) perde para o `outline-none` e nao pinta nada. A
+ * primeira versao daqui era `:where` e deixava 38 elementos sem indicacao
+ * nenhuma na landing.
+ * ------------------------------------------------------------------------- */
+:is(a, button, input, select, textarea, summary, [tabindex]):not(
+	[class*="focus-visible:ring"]
+):not([class*="focus-visible:outline"]):focus-visible {
+	outline: 2px solid var(--blue-bright);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Links dentro de texto corrido
+ *
+ * WCAG 1.4.1: a cor nao pode ser o unico sinal de que algo e link. Dentro de
+ * paragrafo e lista o sublinhado e o que separa o link do texto em volta.
+ * Fora deles nao vale — botao, cartao e item de menu tambem sao `<a>` e nao
+ * devem ganhar risco.
+ *
+ * `nav` fica de fora: a trilha de navegacao e uma lista de `<a>` e ficava com
+ * o "Dashboard" sublinhado, o que nao e texto corrido.
+ * ------------------------------------------------------------------------- */
+:is(p, li) > a:not(nav a) {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Fonte de leitura facilitada
+ *
+ * A troca nao pode sair de `--font-sans`: o bloco `@theme inline` compila o
+ * valor literal (`font-family: Geist Variable, sans-serif`), entao redefinir a
+ * variavel em tempo de execucao nao muda nada. Por isso a familia e escrita
+ * direto nos seletores.
+ *
+ * O bloco fica FORA de `@layer` de proposito: CSS sem camada vence as
+ * utilities do Tailwind, entao nao precisa de `!important`. Mesmo motivo da
+ * regra de zoom do iOS logo abaixo.
+ *
+ * O espacamento importa tanto quanto a letra: os estudos controlados que
+ * existem nao acharam ganho de leitura nas fontes desenhadas para dislexia,
+ * mas acharam em aumentar o espaco entre letras e entre linhas.
+ * ------------------------------------------------------------------------- */
+:root[data-fonte="dislexia"],
+:root[data-fonte="dislexia"] body,
+:root[data-fonte="dislexia"] .font-sans,
+:root[data-fonte="dislexia"] .font-display,
+:root[data-fonte="dislexia"] .font-body,
+:root[data-fonte="dislexia"] .font-heading {
+	font-family: "Atkinson Hyperlegible", "Geist Variable", sans-serif;
+}
+
+:root[data-fonte="dislexia"] body {
+	letter-spacing: 0.03em;
+	word-spacing: 0.08em;
+}
+
+/* Entrelinha so onde ha texto corrido: aplicada em tudo, ela esticaria botao
+ * e chip, que tem altura fixa. */
+:root[data-fonte="dislexia"] p,
+:root[data-fonte="dislexia"] li,
+:root[data-fonte="dislexia"] blockquote {
+	line-height: 1.7;
 }
 
 /* ---------------------------------------------------------------------------

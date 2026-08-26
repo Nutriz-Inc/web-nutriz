@@ -18,7 +18,7 @@ export function UserDetailHeaderCard({
 	const isDonor = user.type === EnumUserType.Common;
 
 	return (
-		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-white p-6 lg:flex-row lg:items-center lg:justify-between">
+		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-surface p-6 lg:flex-row lg:items-center lg:justify-between">
 			<div className="flex items-center gap-4">
 				<div
 					className={cn(
@@ -29,7 +29,7 @@ export function UserDetailHeaderCard({
 					<span
 						className={cn(
 							"text-[18px] font-bold",
-							isDonor ? "text-eva" : "text-blue-deep",
+							isDonor ? "text-eva-deep" : "text-blue-deep",
 						)}
 					>
 						{getInitials(user.name)}

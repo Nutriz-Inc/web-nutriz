@@ -42,10 +42,49 @@
     -->
     <script>
       (() => {
+        /*
+         * Preferencias de acessibilidade antes da primeira pintura.
+         *
+         * Precisa acontecer aqui, e nao no React: se o tema so fosse aplicado
+         * depois de montar, quem escolheu escuro veria um lampejo claro em
+         * toda abertura de pagina. Sao os mesmos atributos que
+         * `utils/accessibility-storage.ts` escreve depois — este script so
+         * chega primeiro.
+         */
+        try {
+          const salvo = JSON.parse(
+            localStorage.getItem("nutriz:acessibilidade") || "{}"
+          );
+          const pref = (v, ok) => (ok.indexOf(v) >= 0 ? v : "sistema");
+          const consulta = (q) =>
+            typeof matchMedia === "function" && matchMedia(q).matches;
+
+          const tema = pref(salvo.tema, ["sistema", "claro", "escuro"]);
+
+          const temaFinal =
+            tema === "sistema"
+              ? consulta("(prefers-color-scheme: dark)")
+                ? "escuro"
+                : "claro"
+              : tema;
+
+          const raiz = document.documentElement;
+          raiz.dataset.tema = temaFinal;
+          raiz.dataset.fonte = salvo.fonteDislexia ? "dislexia" : "padrao";
+          raiz.style.colorScheme = temaFinal === "escuro" ? "dark" : "light";
+        } catch {
+          /* localStorage bloqueado: fica no padrao claro do CSS. */
+        }
+
         try {
           const logado = !!localStorage.getItem("data");
           const naRaiz = location.pathname === "/" || location.pathname === "";
-          const cor = !logado && naRaiz ? "#00325c" : "#eef3fa";
+          const escuro = document.documentElement.dataset.tema === "escuro";
+          const cor = !logado && naRaiz
+            ? "#00325c"
+            : escuro
+              ? "#111720"
+              : "#eef3fa";
           document.documentElement.style.backgroundColor = cor;
           const meta = document.querySelector('meta[name="theme-color"]');
           if (meta) meta.content = cor;

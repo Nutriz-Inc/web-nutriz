@@ -26,7 +26,7 @@ export function StepHeader({
 		<div className="flex items-start gap-4 border-b border-line bg-blue-tint/40 px-5 py-4 sm:px-7 sm:py-5">
 			<span
 				aria-hidden="true"
-				className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-deep text-white shadow-soft"
+				className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-deep-fill text-white shadow-soft"
 			>
 				<Icon className="size-5" />
 			</span>
@@ -35,9 +35,9 @@ export function StepHeader({
 				<p className="font-display text-[10px] font-bold uppercase tracking-[0.12em] text-blue-bright">
 					Etapa {order} de {total}
 				</p>
-				<h3 className="mt-0.5 font-display text-[17px] font-extrabold tracking-tight text-ink">
+				<h2 className="mt-0.5 font-display text-[17px] font-extrabold tracking-tight text-ink">
 					{title}
-				</h3>
+				</h2>
 				<p className="mt-0.5 text-[13px] leading-[18px] text-ink-2">
 					{description}
 				</p>

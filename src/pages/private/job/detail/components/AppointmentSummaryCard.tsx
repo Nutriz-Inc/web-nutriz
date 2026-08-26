@@ -14,7 +14,7 @@ export function AppointmentSummaryCard({
 	appointment,
 }: AppointmentSummaryCardProps) {
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-5">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-5">
 			<div className="flex items-start justify-between gap-3">
 				<div className="flex min-w-0 items-center gap-3">
 					<div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-tint">

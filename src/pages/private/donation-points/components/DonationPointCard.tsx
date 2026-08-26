@@ -26,7 +26,7 @@ export function DonationPointCard({
 				"flex w-full items-start gap-3 rounded-xl border p-4 text-left transition-colors",
 				selected
 					? "border-blue-bright bg-blue-bright/10"
-					: "border-line bg-white",
+					: "border-line bg-surface",
 			)}
 		>
 			<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-bright/25">

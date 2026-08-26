@@ -79,7 +79,7 @@ export function StepEditableForm({
 					<span className="text-[12px] font-semibold text-ink-2">
 						Data do agendamento
 					</span>
-					<div className="flex items-center gap-2 rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3">
+					<div className="flex items-center gap-2 rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3">
 						<Calendar className="size-4 shrink-0 text-blue-deep" />
 						<input
 							type="date"
@@ -94,7 +94,7 @@ export function StepEditableForm({
 					<span className="text-[12px] font-semibold text-ink-2">
 						Horário do agendamento
 					</span>
-					<div className="flex items-center gap-2 rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3">
+					<div className="flex items-center gap-2 rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3">
 						<Clock className="size-4 shrink-0 text-blue-deep" />
 						<input
 							type="time"
@@ -116,7 +116,7 @@ export function StepEditableForm({
 						onStatusChange(event.target.value as EnumDonationStepStatus)
 					}
 					disabled={isPending}
-					className="rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none disabled:opacity-60"
+					className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none disabled:opacity-60"
 				>
 					{EDITABLE_STATUSES.map((status) => (
 						<option key={status} value={status}>
@@ -149,7 +149,7 @@ export function StepEditableForm({
 					onChange={(event) => onDescriptionChange(event.target.value)}
 					rows={2}
 					placeholder="Descreva o que será feito nesta etapa"
-					className="rounded-xl border-[1.5px] border-blue-bright bg-white px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
+					className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
 				/>
 			</label>
 
@@ -157,7 +157,7 @@ export function StepEditableForm({
 				type="button"
 				onClick={onSave}
 				disabled={isPending || saveDisabled}
-				className="self-start rounded-full bg-blue-deep hover:bg-blue px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="self-start rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				Salvar
 			</button>

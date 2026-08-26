@@ -23,9 +23,9 @@ export function SatisfactionCard({ feedbackByScore }: SatisfactionCardProps) {
 		: 0;
 
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-white p-5 lg:p-[26px]">
+		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
-				icon={<Star className="size-4 text-eva" />}
+				icon={<Star className="size-4 text-eva-deep" />}
 				iconBg="bg-danger-tint"
 				title="Nível de Satisfação"
 				subtitle="Distribuição de avaliações por estrela"
@@ -72,7 +72,7 @@ export function SatisfactionCard({ feedbackByScore }: SatisfactionCardProps) {
 						</div>
 						<div className="flex flex-col gap-0.5">
 							<p className="text-[11px] text-ink-3">Nota Média</p>
-							<p className="text-[16px] font-bold text-eva">
+							<p className="text-[16px] font-bold text-eva-deep">
 								{averageScore.toFixed(1)}{" "}
 								<span className="text-[11px] font-normal">/ 5</span>
 							</p>

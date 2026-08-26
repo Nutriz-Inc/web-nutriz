@@ -50,7 +50,13 @@ export function DonationPointsPage() {
 			description="Encontre o ponto de coleta mais próximo de você."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-surface-2 lg:mx-auto lg:grid lg:h-[calc(100vh-69px)] lg:max-w-[1400px] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden">
+			{/*
+			 * No desktop o painel e mais claro que o fundo da pagina, entao a borda
+			 * dele aparece — de canto vivo virava um retangulo duro no meio da tela,
+			 * ainda mais no tema escuro. Arredondado, le como cartao. No celular ele
+			 * sangra ate as bordas (`-mx-4`) e continua reto.
+			 */}
+			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-surface-2 lg:mx-auto lg:grid lg:h-[calc(100vh-69px)] lg:max-w-[1400px] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden lg:rounded-2xl">
 				<div className="flex flex-col gap-3 px-4 pt-4 lg:col-start-1 lg:row-start-1 lg:border-r lg:border-line lg:bg-surface-2 lg:px-5 lg:pb-4 lg:pt-5">
 					<SearchBar
 						value={search}
@@ -108,12 +114,16 @@ export function DonationPointsPage() {
 							{/*
 							 * Com poucos resultados sobrava um bloco branco embaixo da
 							 * lista. A ilustracao ocupa esse vazio e some quando a lista
-							 * e longa o bastante para rolar.
+							 * e longa o bastante para rolar. No tema escuro ela sai de
+							 * cena (`data-so-tema-claro`): as cores estao chapadas dentro
+							 * do SVG e virariam um bloco claro, e o vazio escuro nao
+							 * incomoda.
 							 */}
 							<img
 								src={pontosTopo}
 								alt=""
 								aria-hidden="true"
+								data-so-tema-claro
 								width={220}
 								height={160}
 								className="mx-auto mt-6 hidden h-28 w-auto select-none opacity-90 lg:block"

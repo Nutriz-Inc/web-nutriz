@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import { divIcon } from "leaflet";
 
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { useAccessibility } from "@/context/accessibility-context";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { type Coordinates, FitMapView } from "./FitMapView";
 import { LocateButton } from "./LocateButton";
@@ -35,8 +36,8 @@ const userIcon = divIcon({
 	iconAnchor: [9, 9],
 	html: `
 		<span class="relative flex size-[18px]">
-			<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-bright opacity-60"></span>
-			<span class="relative inline-flex size-[18px] rounded-full border-2 border-white bg-blue-bright"></span>
+			<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-bright-fill opacity-60"></span>
+			<span class="relative inline-flex size-[18px] rounded-full border-2 border-white bg-blue-bright-fill"></span>
 		</span>
 	`,
 });
@@ -68,6 +69,9 @@ export function MapPreview({
 	onSelectPoint,
 	onRequestChangeLocation,
 }: MapPreviewProps) {
+	const { temaEfetivo } = useAccessibility();
+	const escuro = temaEfetivo === "escuro";
+
 	// Ponto com coordenada de verdade: a API pode devolver endereco sem
 	// lat/long, e um NaN no centro deixa o mapa cinza.
 	const primeiroComCoordenada = points.find(
@@ -91,14 +95,22 @@ export function MapPreview({
 			<div className="relative isolate h-[225px] w-full overflow-hidden rounded-xl lg:h-full lg:max-h-[900px] lg:rounded-2xl">
 				<MapContainer center={center} zoom={13} className="size-full">
 					{/*
-					 * Voyager (CARTO) no lugar do tile padrao do OSM: mesma base de
-					 * dados, com agua e areas verdes coloridas, porem sem o excesso
-					 * de ruas e rotulos. Assim o pin do ponto e o que salta na tela.
+					 * Canvas cinza da Esri: sem chave, poucos rotulos e com irmao
+					 * escuro do mesmo desenho, entao o mapa acompanha o tema sem
+					 * filtro por cima.
+					 *
+					 * Aqui havia o basemap do CARTO, que passou a carimbar
+					 * 'API KEY REQUIRED' sobre o mapa inteiro no uso sem conta. O tile
+					 * padrao do OSM tambem serve e nao pede chave, mas traz rua e POI
+					 * demais — o pin do ponto some no meio.
+					 *
+					 * O `key` forca a troca de camada: o Leaflet nao repinta os tiles
+					 * so porque a URL mudou.
 					 */}
 					<TileLayer
-						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-						url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-						subdomains="abcd"
+						key={temaEfetivo}
+						attribution='Tiles &copy; <a href="https://www.esri.com">Esri</a> &mdash; Esri, DeLorme, NAVTEQ'
+						url={`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${escuro ? "Dark" : "Light"}_Gray_Base/MapServer/tile/{z}/{y}/{x}`}
 						maxZoom={19}
 					/>
 
@@ -140,11 +152,16 @@ export function MapPreview({
 				 * Tinta azul da paleta sobre os tiles: fica entre o mapa e os pins
 				 * (z abaixo do markerPane do Leaflet), entao os marcadores seguem
 				 * clicaveis e na cor cheia.
+				 *
+				 * No escuro ela sai: `multiply` sobre o mapa escuro so afunda o que
+				 * ja esta escuro e as ruas somem.
 				 */}
-				<span
-					aria-hidden="true"
-					className="pointer-events-none absolute inset-0 z-[400] bg-blue-tint-2/35 mix-blend-multiply"
-				/>
+				{!escuro && (
+					<span
+						aria-hidden="true"
+						className="pointer-events-none absolute inset-0 z-[400] bg-blue-tint-2/35 mix-blend-multiply"
+					/>
+				)}
 			</div>
 		</div>
 	);

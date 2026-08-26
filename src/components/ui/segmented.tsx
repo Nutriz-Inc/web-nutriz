@@ -11,6 +11,11 @@ type SegmentedProps<T extends string> = {
 	onChange: (value: T) => void;
 	/** Divide a largura entre as opcoes (abas de tela); por padrao o controle ocupa so o necessario. */
 	fullWidth?: boolean;
+	/**
+	 * `lg` garante alvo de 44px, o minimo de area de toque das WCAG. E opcional
+	 * para nao mudar a altura das abas que ja existem pelo app.
+	 */
+	size?: "md" | "lg";
 	className?: string;
 	"aria-label"?: string;
 };
@@ -25,6 +30,7 @@ export function Segmented<T extends string>({
 	value,
 	onChange,
 	fullWidth = false,
+	size = "md",
 	className,
 	"aria-label": ariaLabel,
 }: SegmentedProps<T>) {
@@ -49,10 +55,11 @@ export function Segmented<T extends string>({
 						aria-selected={active}
 						onClick={() => onChange(option.key)}
 						className={cn(
-							"shrink-0 whitespace-nowrap rounded-full px-5 py-2 text-[13px] font-semibold transition-colors",
+							"shrink-0 whitespace-nowrap rounded-full px-5 text-[13px] font-semibold transition-colors",
+							size === "lg" ? "min-h-11 py-2.5" : "py-2",
 							fullWidth && "flex-1 shrink",
 							active
-								? "bg-blue-deep text-white shadow-soft"
+								? "bg-blue-deep-fill text-white shadow-soft"
 								: "text-ink-2 hover:text-ink",
 						)}
 					>

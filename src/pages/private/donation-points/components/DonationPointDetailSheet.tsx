@@ -133,7 +133,7 @@ export function DonationPointDetailSheet({
 					<button
 						type="button"
 						onClick={handleTraceRoute}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-bright text-[12px] font-bold text-white"
+						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-bright-fill text-[12px] font-bold text-white"
 					>
 						<Navigation className="size-4" />
 						Traçar Rota

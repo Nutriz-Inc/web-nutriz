@@ -18,7 +18,7 @@ export function DonationInfoCard({ donation }: Props) {
 	);
 
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-6">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-6">
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center justify-between gap-2">
 					<p className="text-[16px] font-bold text-ink">Dados da doação</p>
@@ -58,7 +58,7 @@ export function DonationInfoCard({ donation }: Props) {
 					<span className="text-[12px] font-semibold text-ink-2">
 						Feedback da doadora
 					</span>
-					<div className="flex flex-col gap-2 rounded-card-sm border border-line bg-white px-3.5 py-3">
+					<div className="flex flex-col gap-2 rounded-card-sm border border-line bg-surface px-3.5 py-3">
 						{donation.score_feedback != null && (
 							<StarRating value={donation.score_feedback} size="sm" />
 						)}

@@ -27,7 +27,7 @@ export function TocCard({ article }: TocCardProps) {
 	return (
 		<nav
 			aria-label="Neste artigo"
-			className="rounded-card-sm border border-line bg-white p-5 shadow-soft"
+			className="rounded-card-sm border border-line bg-surface p-5 shadow-soft"
 		>
 			<h2 className="text-[15px] font-bold text-ink">Neste artigo</h2>
 			<ul className="mt-2 divide-y divide-canvas">

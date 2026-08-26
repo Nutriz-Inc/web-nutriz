@@ -138,7 +138,7 @@ export function LoginScreen() {
 								type="submit"
 								size="pill"
 								disabled={isPending}
-								className="mt-2 h-12 w-full bg-blue-deep text-[15px] font-semibold text-white shadow-soft hover:bg-blue disabled:opacity-60"
+								className="mt-2 h-12 w-full bg-blue-deep-fill text-[15px] font-semibold text-white shadow-soft hover:bg-blue-fill disabled:opacity-60"
 							>
 								{isPending ? (
 									<>

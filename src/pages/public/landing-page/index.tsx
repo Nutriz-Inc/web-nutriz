@@ -11,7 +11,7 @@ import { TestimonialsSection } from "./components/TestimonialsSection";
 
 export function LandingPageScreen() {
 	return (
-		<div className="min-h-dvh bg-white [&_button]:cursor-pointer">
+		<div className="min-h-dvh bg-surface [&_button]:cursor-pointer">
 			<LandingHeader />
 			<main>
 				<HeroSection />

@@ -8,7 +8,7 @@ type FinalResultCardProps = {
 
 export function FinalResultCard({ result }: FinalResultCardProps) {
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-white p-5">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-5">
 			<div className="flex items-center gap-2">
 				<Flag className="size-4 text-ink-3" />
 				<span className="text-[12px] font-bold uppercase tracking-wide text-ink-2">

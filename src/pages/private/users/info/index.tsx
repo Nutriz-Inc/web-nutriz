@@ -99,7 +99,7 @@ export function UserManagementDetailPage() {
 					<button
 						type="button"
 						onClick={() => setDeactivateOpen(true)}
-						className="rounded-lg border border-danger-tint bg-white px-4 py-2 text-[13px] font-semibold text-danger transition-colors hover:bg-danger-tint"
+						className="rounded-lg border border-danger-tint bg-surface px-4 py-2 text-[13px] font-semibold text-danger transition-colors hover:bg-danger-tint"
 					>
 						Desativar usuário
 					</button>
@@ -107,7 +107,7 @@ export function UserManagementDetailPage() {
 			}
 		>
 			{user && (
-				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-surface-3 p-4 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:bg-transparent lg:p-0">
+				<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-canvas p-4 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:bg-transparent lg:p-0">
 					<UserDetailHeaderCard
 						user={user}
 						stats={
@@ -120,7 +120,7 @@ export function UserManagementDetailPage() {
 									<HeaderStat
 										value={String(user.donations_completed ?? 0)}
 										label="Doações concluídas"
-										valueClassName="text-eva"
+										valueClassName="text-eva-deep"
 									/>
 									<HeaderStat
 										value={lastDonation ? formatDateBR(lastDonation) : "—"}

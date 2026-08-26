@@ -1,5 +1,5 @@
-import wordmarkColor from "@/assets/images/nutriz-wordmark-blue.png";
-import wordmarkWhite from "@/assets/images/nutriz-wordmark-white.png";
+import wordmarkColor from "@/assets/images/nutriz-logo.svg";
+import wordmarkWhite from "@/assets/images/nutriz-logo-branco.svg";
 import { cn } from "@/lib/utils";
 
 type WordmarkProps = {

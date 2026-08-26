@@ -14,7 +14,7 @@ export function SlideButton({
 	onClick,
 	className,
 	pillClassName = "bg-surface text-blue-deep shadow-lift",
-	circleClassName = "bg-blue-deep text-white",
+	circleClassName = "bg-blue-deep-fill text-white",
 }: SlideButtonProps) {
 	return (
 		<button

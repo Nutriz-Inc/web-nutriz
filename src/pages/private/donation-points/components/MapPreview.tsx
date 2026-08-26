@@ -35,8 +35,8 @@ const userIcon = divIcon({
 	iconAnchor: [9, 9],
 	html: `
 		<span class="relative flex size-[18px]">
-			<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-bright opacity-60"></span>
-			<span class="relative inline-flex size-[18px] rounded-full border-2 border-white bg-blue-bright"></span>
+			<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-bright-fill opacity-60"></span>
+			<span class="relative inline-flex size-[18px] rounded-full border-2 border-white bg-blue-bright-fill"></span>
 		</span>
 	`,
 });

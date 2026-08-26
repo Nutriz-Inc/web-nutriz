@@ -105,7 +105,7 @@ export function UpdateStepStatusForm({
 			<button
 				type="submit"
 				disabled={isPending}
-				className="flex h-[46px] w-fit items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-6 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="flex h-[46px] w-fit items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-6 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				{isPending ? (
 					<Loader2 className="size-4 animate-spin" />

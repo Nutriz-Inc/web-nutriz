@@ -175,7 +175,7 @@ export function NewDonationPage() {
 								size="pill"
 								onClick={temDoacaoAberta ? abrirDoacaoAtiva : handleConfirm}
 								disabled={isPending}
-								className="w-full bg-blue-deep font-semibold text-white shadow-soft hover:bg-blue sm:flex-1"
+								className="w-full bg-blue-deep-fill font-semibold text-white shadow-soft hover:bg-blue-fill sm:flex-1"
 							>
 								{temDoacaoAberta
 									? "Ver doação em andamento"

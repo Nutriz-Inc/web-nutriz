@@ -58,7 +58,7 @@ export function StepActionsFooter({
 							type="button"
 							onClick={() => onFinalizeDescriptionChange(stepDescription)}
 							disabled={isPending}
-							className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+							className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 						>
 							<Check className="size-4" />
 							Finalizar etapa
@@ -123,7 +123,7 @@ export function StepActionsFooter({
 								disabled={
 									!finalizeDescription || (isLastStep && !quantityDonated)
 								}
-								className="bg-blue-deep hover:bg-blue-deep"
+								className="bg-blue-deep-fill hover:bg-blue-deep-fill"
 							>
 								Finalizar etapa
 							</AlertDialogAction>
@@ -147,7 +147,7 @@ export function StepActionsFooter({
 							type="button"
 							onClick={() => onErrorDescriptionChange(stepDescription)}
 							disabled={isPending}
-							className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-danger px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+							className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-danger-fill px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 						>
 							<AlertTriangle className="size-4" />
 							Marcar como erro
@@ -190,7 +190,7 @@ export function StepActionsFooter({
 							<AlertDialogAction
 								onClick={onMarkAsError}
 								disabled={!errorDescription}
-								className="bg-danger hover:bg-danger"
+								className="bg-danger-fill hover:bg-danger-fill"
 							>
 								Marcar como erro
 							</AlertDialogAction>

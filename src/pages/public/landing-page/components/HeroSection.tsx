@@ -27,7 +27,7 @@ export function HeroSection() {
 	return (
 		<section
 			id="topo"
-			className="relative isolate overflow-hidden bg-blue-deep"
+			className="relative isolate overflow-hidden bg-blue-deep-fill"
 		>
 			<HeroBackground />
 

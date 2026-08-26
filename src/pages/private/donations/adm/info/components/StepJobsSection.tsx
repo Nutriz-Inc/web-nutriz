@@ -92,7 +92,7 @@ export function StepJobsSection({
 							type="button"
 							onClick={handleCreate}
 							disabled={disabled || !nurseId || !description}
-							className="rounded-full bg-blue-deep hover:bg-blue px-3 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60"
+							className="rounded-full bg-blue-deep-fill hover:bg-blue-fill px-3 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60"
 						>
 							Adicionar agendamento
 						</button>

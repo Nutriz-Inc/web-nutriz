@@ -53,9 +53,9 @@ export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
 								className={cn(
 									"flex size-7 shrink-0 items-center justify-center rounded-full text-[12px] font-bold",
 									isFailed
-										? "bg-danger text-white"
+										? "bg-danger-fill text-white"
 										: isDone
-											? "bg-success text-white"
+											? "bg-success-fill text-white"
 											: isCurrent
 												? "bg-blue-tint text-teal"
 												: "bg-surface-3 text-ink-3",

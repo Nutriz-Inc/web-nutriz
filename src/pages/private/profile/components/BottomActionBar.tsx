@@ -17,7 +17,7 @@ export function BottomActionBar({
 				type="button"
 				onClick={onSave}
 				disabled={saving}
-				className="flex h-[50px] w-full items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue text-[15px] font-semibold text-white disabled:opacity-70 lg:h-auto lg:w-auto lg:rounded-full lg:px-10 lg:py-3.5 lg:text-[14px]"
+				className="flex h-[50px] w-full items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill text-[15px] font-semibold text-white disabled:opacity-70 lg:h-auto lg:w-auto lg:rounded-full lg:px-10 lg:py-3.5 lg:text-[14px]"
 			>
 				{saving && <LoaderCircle className="size-4 animate-spin" />}
 				Salvar Alterações

@@ -137,7 +137,7 @@ export function StepJobCard({
 					type="button"
 					onClick={handleSave}
 					disabled={disabled || !description}
-					className="rounded-full bg-blue-deep hover:bg-blue px-3 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60"
+					className="rounded-full bg-blue-deep-fill hover:bg-blue-fill px-3 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60"
 				>
 					Salvar
 				</button>

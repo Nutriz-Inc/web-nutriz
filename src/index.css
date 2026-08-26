@@ -178,6 +178,29 @@
 	--ink-3: oklch(0.535 0.035 262.6);
 	--canvas: oklch(0.962 0.011 256.7);
 
+	/*
+	 * Tokens de PREENCHIMENTO.
+	 *
+	 * Existem porque a mesma cor tinha dois papeis incompativeis. `text-blue-deep`
+	 * (109 usos) precisa CLAREAR no tema escuro para ser lido sobre superficie
+	 * escura; `bg-blue-deep` (46 usos) precisa CONTINUAR escuro, senao o
+	 * `text-white` em cima dele some. Como as duas utilities leem a mesma
+	 * variavel, nao havia como servir aos dois com um token so.
+	 *
+	 * Regra: `--X` e cor de TEXTO, borda, bolinha e barra — clareia no escuro.
+	 * `--X-fill` e superficie que carrega conteudo branco — nao clareia.
+	 *
+	 * No tema claro os dois valem exatamente o mesmo, entao a migracao nao muda
+	 * um pixel. Quem separa os dois e a Fase 2.
+	 */
+	--blue-deep-fill: var(--blue-deep);
+	--blue-fill: var(--blue);
+	--blue-bright-fill: var(--blue-bright);
+	--eva-fill: var(--eva);
+	--danger-fill: var(--danger);
+	--success-fill: var(--success);
+	--teal-fill: var(--teal);
+
 	/* Linhas: bordas e separadores. A camada aditiva usava blue-tint-2/60
 	 * solto nas telas; virou token para o app inteiro compartilhar. */
 	--line: oklch(0.9 0.034 253.7 / 0.6);
@@ -231,6 +254,13 @@
 	--color-blue-deep: var(--blue-deep);
 	--color-blue: var(--blue);
 	--color-blue-bright: var(--blue-bright);
+	--color-blue-deep-fill: var(--blue-deep-fill);
+	--color-blue-fill: var(--blue-fill);
+	--color-blue-bright-fill: var(--blue-bright-fill);
+	--color-eva-fill: var(--eva-fill);
+	--color-danger-fill: var(--danger-fill);
+	--color-success-fill: var(--success-fill);
+	--color-teal-fill: var(--teal-fill);
 	--color-blue-tint: var(--blue-tint);
 	--color-blue-tint-2: var(--blue-tint-2);
 	--color-eva: var(--eva);

@@ -103,7 +103,7 @@ export function DonationsManagementPage() {
 					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0 lg:gap-2.5">
 						<button
 							type="submit"
-							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep hover:bg-blue px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
 						>
 							<Search className="size-4" />
 							Aplicar filtro

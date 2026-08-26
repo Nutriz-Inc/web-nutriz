@@ -52,7 +52,7 @@ export function LandingHeader() {
 			className={cn(
 				"pt-safe fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300",
 				scrolled
-					? "border-white/10 bg-blue-deep"
+					? "border-white/10 bg-blue-deep-fill"
 					: "border-transparent bg-transparent",
 			)}
 		>

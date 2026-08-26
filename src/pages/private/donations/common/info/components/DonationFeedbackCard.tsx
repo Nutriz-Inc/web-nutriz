@@ -58,7 +58,7 @@ export function DonationFeedbackCard({
 				type="button"
 				onClick={() => onSubmit(value, score)}
 				disabled={!value || !score || isPending}
-				className="self-end rounded-full bg-blue-deep hover:bg-blue px-5 py-2.5 text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="self-end rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				Enviar feedback
 			</button>

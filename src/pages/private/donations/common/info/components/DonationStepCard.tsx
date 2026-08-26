@@ -80,9 +80,9 @@ export function DonationStepCard({
 						className={cn(
 							"relative flex shrink-0 items-center justify-center rounded-full font-bold tabular-nums transition-all",
 							isCurrent
-								? "size-9 bg-eva text-[14px] text-white shadow-soft ring-2 ring-eva/30"
+								? "size-9 bg-eva-fill text-[14px] text-white shadow-soft ring-2 ring-eva/30"
 								: isDone
-									? "size-7 bg-eva text-white shadow-soft"
+									? "size-7 bg-eva-fill text-white shadow-soft"
 									: "size-7 border-[1.5px] border-dashed border-blue-tint-2 bg-surface text-[12px] text-ink-3",
 						)}
 					>

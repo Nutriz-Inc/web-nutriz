@@ -24,7 +24,7 @@ export function SuccessCard() {
 			</p>
 			<Button
 				onClick={() => navigate("/login")}
-				className="mt-2 h-11 w-full rounded-md bg-blue-deep text-sm font-semibold text-white hover:bg-blue"
+				className="mt-2 h-11 w-full rounded-md bg-blue-deep-fill text-sm font-semibold text-white hover:bg-blue-fill"
 			>
 				Voltar ao início
 			</Button>

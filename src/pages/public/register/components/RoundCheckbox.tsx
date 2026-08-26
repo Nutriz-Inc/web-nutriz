@@ -14,11 +14,11 @@ type RoundCheckboxProps = {
 
 const ACCENTS = {
 	pink: {
-		checked: "border-eva bg-eva",
+		checked: "border-eva bg-eva-fill",
 		focus: "focus-visible:outline-eva",
 	},
 	navy: {
-		checked: "border-blue-deep bg-blue-deep",
+		checked: "border-blue-deep bg-blue-deep-fill",
 		focus: "focus-visible:outline-blue-deep",
 	},
 };

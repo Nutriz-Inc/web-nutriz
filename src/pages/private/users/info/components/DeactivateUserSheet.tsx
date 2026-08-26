@@ -56,7 +56,7 @@ export function DeactivateUserSheet({
 						type="button"
 						onClick={onConfirm}
 						disabled={isPending}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-danger text-[12px] font-bold text-white transition-opacity disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-danger-fill text-[12px] font-bold text-white transition-opacity disabled:opacity-60"
 					>
 						{isPending && <LoaderCircle className="size-[15px] animate-spin" />}
 						{isPending ? "Desativando..." : "Desativar usuário"}

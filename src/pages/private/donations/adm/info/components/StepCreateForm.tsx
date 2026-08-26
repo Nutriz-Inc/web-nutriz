@@ -114,7 +114,7 @@ export function StepCreateForm({
 				type="button"
 				onClick={onCreate}
 				disabled={isPending || !date || !description}
-				className="self-start rounded-full bg-blue-deep hover:bg-blue px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="self-start rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				Agendar etapa
 			</button>

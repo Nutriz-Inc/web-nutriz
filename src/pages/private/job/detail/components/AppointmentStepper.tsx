@@ -30,9 +30,9 @@ export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 								className={cn(
 									"flex size-7 shrink-0 items-center justify-center rounded-full text-[12px] font-bold",
 									isFailed
-										? "bg-danger text-white"
+										? "bg-danger-fill text-white"
 										: isDone
-											? "bg-teal text-white"
+											? "bg-teal-fill text-white"
 											: isCurrent
 												? "border-2 border-blue-bright bg-surface"
 												: "bg-surface-3 text-ink-3",

@@ -288,7 +288,7 @@ export function RegisterScreen() {
 												<Button
 													type="button"
 													onClick={() => navigate("/login")}
-													className="h-11 rounded-full bg-blue-deep px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue"
+													className="h-11 rounded-full bg-blue-deep-fill px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue-fill"
 												>
 													Fazer login
 												</Button>
@@ -321,7 +321,7 @@ export function RegisterScreen() {
 									<Button
 										type="submit"
 										disabled={isPending}
-										className="h-11 rounded-full bg-blue-deep px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue disabled:opacity-60"
+										className="h-11 rounded-full bg-blue-deep-fill px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue-fill disabled:opacity-60"
 									>
 										{isPending ? (
 											<span className="flex items-center gap-2">

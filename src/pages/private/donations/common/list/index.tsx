@@ -47,7 +47,7 @@ export function DonationsPage() {
 					type="button"
 					onClick={goToCreation}
 					disabled={false}
-					className="hidden items-center gap-2 rounded-full bg-blue-deep px-6 py-3 text-[14px] font-semibold text-white transition-[transform,background-color] hover:bg-blue active:scale-[0.98] disabled:opacity-60 lg:flex"
+					className="hidden items-center gap-2 rounded-full bg-blue-deep-fill px-6 py-3 text-[14px] font-semibold text-white transition-[transform,background-color] hover:bg-blue-fill active:scale-[0.98] disabled:opacity-60 lg:flex"
 				>
 					<Plus className="size-4" />
 					Nova Doação
@@ -127,7 +127,7 @@ export function DonationsPage() {
 						type="button"
 						onClick={goToCreation}
 						disabled={false}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep text-[15px] font-semibold text-white transition-[transform,background-color] hover:bg-blue active:scale-[0.98] disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep-fill text-[15px] font-semibold text-white transition-[transform,background-color] hover:bg-blue-fill active:scale-[0.98] disabled:opacity-60"
 					>
 						<Plus className="size-5" />
 						Nova Doação

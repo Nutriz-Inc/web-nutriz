@@ -163,7 +163,7 @@ export function ChangeLocationSheet({
 						type="button"
 						onClick={handleSearch}
 						disabled={zipCodeDigits.length !== 8 || isSearching}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-bright text-[12px] font-bold text-white transition-opacity disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-bright-fill text-[12px] font-bold text-white transition-opacity disabled:opacity-60"
 					>
 						{isSearching && <LoaderCircle className="size-4 animate-spin" />}
 						{isSearching ? "Buscando..." : "Buscar"}

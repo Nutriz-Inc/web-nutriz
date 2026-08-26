@@ -59,7 +59,7 @@ export function Segmented<T extends string>({
 							size === "lg" ? "min-h-11 py-2.5" : "py-2",
 							fullWidth && "flex-1 shrink",
 							active
-								? "bg-blue-deep text-white shadow-soft"
+								? "bg-blue-deep-fill text-white shadow-soft"
 								: "text-ink-2 hover:text-ink",
 						)}
 					>

@@ -133,7 +133,7 @@ export function UsersManagementPage() {
 					<button
 						type="submit"
 						aria-label="Buscar"
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep px-4 text-[14px] font-semibold text-white transition-transform hover:bg-blue active:scale-[0.98] sm:px-5"
+						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill px-4 text-[14px] font-semibold text-white transition-transform hover:bg-blue-fill active:scale-[0.98] sm:px-5"
 					>
 						<Search className="size-4" />
 						<span className="hidden sm:inline">Buscar</span>

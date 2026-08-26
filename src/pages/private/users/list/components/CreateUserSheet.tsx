@@ -214,7 +214,7 @@ export function CreateUserSheet({
 										className={cn(
 											"rounded-full px-5 py-2 text-[13px] font-semibold transition-colors",
 											active
-												? "bg-blue-deep text-white"
+												? "bg-blue-deep-fill text-white"
 												: "border border-line bg-surface text-ink",
 										)}
 									>
@@ -241,7 +241,7 @@ export function CreateUserSheet({
 						type="button"
 						onClick={handleSubmit}
 						disabled={isPending}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep text-[14px] font-semibold text-white transition-colors hover:bg-blue disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep-fill text-[14px] font-semibold text-white transition-colors hover:bg-blue-fill disabled:opacity-60"
 					>
 						{isPending ? (
 							<LoaderCircle className="size-[18px] animate-spin" />

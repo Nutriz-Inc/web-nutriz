@@ -26,7 +26,7 @@ export function StepHeader({
 		<div className="flex items-start gap-4 border-b border-line bg-blue-tint/40 px-5 py-4 sm:px-7 sm:py-5">
 			<span
 				aria-hidden="true"
-				className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-deep text-white shadow-soft"
+				className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-deep-fill text-white shadow-soft"
 			>
 				<Icon className="size-5" />
 			</span>

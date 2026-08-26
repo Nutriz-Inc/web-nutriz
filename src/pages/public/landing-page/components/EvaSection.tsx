@@ -153,7 +153,7 @@ export function EvaSection() {
 										onClick={() => openEva()}
 										className="relative"
 										pillClassName="bg-surface text-ink shadow-soft"
-										circleClassName="bg-eva text-white"
+										circleClassName="bg-eva-fill text-white"
 									/>
 								</div>
 

@@ -7,7 +7,6 @@ export type Coordinates = {
 	longitude: number;
 };
 
-/** Distancia aproximada em km, so para escolher o ponto mais proximo. */
 function distanciaKm(a: Coordinates, b: [number, number]): number {
 	const dLat = a.latitude - b[0];
 	const dLon = (a.longitude - b[1]) * Math.cos((a.latitude * Math.PI) / 180);
@@ -49,10 +48,6 @@ export function FitMapView({
 			)
 			.map((point) => [point.address.latitude!, point.address.longitude!]);
 
-		// Com uma localizacao (CEP buscado ou GPS), o enquadramento e ela mais o
-		// ponto de coleta mais proximo. Antes o mapa abria todos os pontos do
-		// pais de uma vez, entao trocar o CEP quase nao mexia na imagem — parecia
-		// que a busca nao tinha funcionado.
 		if (userLocation) {
 			const origem: [number, number] = [
 				userLocation.latitude,

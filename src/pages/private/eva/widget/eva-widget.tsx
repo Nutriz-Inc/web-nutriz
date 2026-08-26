@@ -19,7 +19,6 @@ import {
 import "./eva-widget.css";
 import { useEvaAccess } from "./use-eva-access";
 
-// Rotas onde o widget da EVA nao deve aparecer (foco no formulario).
 const HIDDEN_ROUTES = new Set(["/login", "/registro"]);
 
 type WidgetView = "welcome" | "chat";
@@ -76,10 +75,7 @@ function markWelcomeSeen(userId: string | null) {
 
 	try {
 		localStorage.setItem(welcomeSeenKey(userId), "1");
-	} catch {
-		// localStorage indisponivel: sem persistir a flag, a nutriz apenas
-		// vera a boas-vindas de novo. Nao e critico.
-	}
+	} catch {}
 }
 
 export function EvaWidget() {
@@ -98,11 +94,6 @@ export function EvaWidget() {
 
 	const [open, setOpen] = useState(false);
 
-	/*
-	 * O botao le a cor por tras dele e troca de pele. Com o chat aberto a
-	 * leitura para: o que estaria sob o ponto e a cortina do modal, nao a
-	 * pagina.
-	 */
 	const fabRef = useRef<HTMLButtonElement>(null);
 	const tomDoFundo = useBackdropTone(fabRef, !open);
 	const [view, setView] = useState<WidgetView>("welcome");
@@ -116,8 +107,6 @@ export function EvaWidget() {
 				markWelcomeSeen(userId);
 			}
 
-			// Sem mensagem nova, preserva a que veio de um CTA (openEva) e ficou
-			// aguardando a ciencia do aviso LGPD na tela de boas-vindas.
 			setInitialMessage((previous) => message ?? previous);
 			setView("chat");
 		},
@@ -127,8 +116,6 @@ export function EvaWidget() {
 	const handleOpenChange = useCallback(
 		(next: boolean) => {
 			if (next) {
-				// Ao abrir: anonimo ve boas-vindas toda vez (cada visita e uma nova
-				// sessao); nutriz so na primeira vez (flag por id_user).
 				const skipWelcome = mode === "nutriz" && hasSeenWelcome(userId);
 				setInitialMessage(undefined);
 				setView(skipWelcome ? "chat" : "welcome");
@@ -139,13 +126,8 @@ export function EvaWidget() {
 		[mode, userId],
 	);
 
-	// CTAs "Falar com a EVA" (landing/home) abrem o widget via bus, ja que
-	// vivem dentro do RouterProvider e o widget fora dele.
 	useEffect(() => {
 		return subscribeEvaOpen((message?: string) => {
-			// Anonimo SEMPRE passa pela boas-vindas (e o aviso LGPD e bloqueante);
-			// nutriz pula direto para o chat se ja viu a boas-vindas ou se o CTA
-			// trouxe uma mensagem para enviar.
 			const skipWelcome =
 				mode === "nutriz" && (hasSeenWelcome(userId) || Boolean(message));
 
@@ -163,13 +145,8 @@ export function EvaWidget() {
 		return null;
 	}
 
-	// Algo aberto por cima do canto do FAB (menu lateral, bottom sheet,
-	// dialogo). Ele some enquanto durar — ver eva-widget-bus.ts. So vale com a
-	// EVA fechada: com ela aberta, quem esta por cima e o proprio modal.
 	const fabObstruido = !open && menuOpen;
 
-	// Animacao de abrir/fechar tipo "balao inflando": escala com mola na
-	// entrada, deflada rapida na saida, com origem no canto do FAB.
 	const modalMotion = reduce
 		? {
 				initial: { opacity: 0 },
@@ -201,10 +178,6 @@ export function EvaWidget() {
 					data-fundo={tomDoFundo}
 					aria-label="Abrir chat com a EVA"
 				>
-					{/*
-					 * A silhueta da flor e mascara (ver eva-widget.css); estas duas
-					 * camadas sao o degrade que aparece por dentro dela.
-					 */}
 					<span className="eva-fab-mark" aria-hidden="true">
 						<span className="eva-fab-mark-cor eva-fab-mark-cor--forte" />
 						<span className="eva-fab-mark-cor eva-fab-mark-cor--clara" />
@@ -231,9 +204,6 @@ export function EvaWidget() {
 								{...modalMotion}
 							>
 								{view === "welcome" ? (
-									// So o X. O nome aparece ao lado do quadrado da marca,
-									// dentro do painel; aqui ele fica apenas para leitores de
-									// tela, porque o Radix exige um titulo no dialogo.
 									<div className="eva-widget-header eva-widget-header--bare">
 										<CloseButton />
 										<Dialog.Title className="sr-only">
@@ -241,9 +211,6 @@ export function EvaWidget() {
 										</Dialog.Title>
 									</div>
 								) : (
-									// Nome ao centro e fechar a direita, como na abertura. O
-									// selo de "online" saiu — ele prometia presenca humana que
-									// a EVA nao tem.
 									<div className="eva-widget-header eva-widget-header--chat">
 										<span className="eva-widget-header-spacer" aria-hidden />
 										<Dialog.Title className="eva-widget-header-title">

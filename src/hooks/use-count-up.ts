@@ -1,16 +1,6 @@
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-/**
- * Conta de zero ate o numero do rotulo quando ele entra na tela.
- *
- * Recebe e devolve **texto**, nao numero: os rotulos da landing sao
- * "4.200+", "12 mil L", "98%" — a parte numerica e animada e o resto do
- * texto fica intacto. Sem isso seria preciso quebrar cada metrica em
- * numero + sufixo e reescrever a copy.
- *
- * Com `prefers-reduced-motion` o valor final aparece direto, sem contagem.
- */
 export function useCountUp(label: string, durationMs = 1400) {
 	const reduzirMovimento = useReducedMotion();
 	const [texto, setTexto] = useState(() => (reduzirMovimento ? label : null));
@@ -24,7 +14,6 @@ export function useCountUp(label: string, durationMs = 1400) {
 			return;
 		}
 
-		// Primeiro numero do rotulo, com separador de milhar opcional.
 		const encontrado = label.match(/[\d.]+/);
 
 		if (!encontrado) {
@@ -58,7 +47,6 @@ export function useCountUp(label: string, durationMs = 1400) {
 					if (!inicio) inicio = agora;
 
 					const progresso = Math.min((agora - inicio) / durationMs, 1);
-					// easeOutCubic: rapido no comeco, assentando no fim.
 					const suave = 1 - (1 - progresso) ** 3;
 
 					setTexto(formatar(Math.round(destino * suave)));

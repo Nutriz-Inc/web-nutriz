@@ -6,15 +6,9 @@ type StepRowProps = {
 	iconBg: string;
 	title: string;
 	description: string;
-	/** Sem o fio ligando ao proximo item. */
 	isLast?: boolean;
 };
 
-/**
- * Uma linha do "como funciona": bolha com icone, fio ligando a proxima e o
- * texto ao lado. Compacto de proposito — esta tela e um ponto de confirmacao,
- * nao uma tela de conteudo.
- */
 export function StepRow({
 	icon,
 	iconBg,

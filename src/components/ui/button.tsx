@@ -34,8 +34,6 @@ const buttonVariants = cva(
 				"icon-sm":
 					"size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
 				"icon-lg": "size-9",
-				// Design system Nutriz: alvos de toque >= 44px e cantos totalmente
-				// arredondados. Ver docs/design-system.md.
 				pill: "h-11 gap-2 rounded-full px-6 text-[0.9375rem] [&_svg:not([class*='size-'])]:size-4",
 				"icon-pill":
 					"size-11 rounded-full [&_svg:not([class*='size-'])]:size-5",

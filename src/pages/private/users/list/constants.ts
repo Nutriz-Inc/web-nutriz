@@ -4,10 +4,6 @@ import type { CreateUserFormData } from "./validation";
 
 export type ProfileFilter = "all" | EnumUserType;
 
-/**
- * Campos pelos quais a lista pode ser buscada. Antes eram tres caixas de texto
- * lado a lado; agora e uma caixa so e o campo vira uma escolha.
- */
 export type UserSearchFieldKey = "name" | "cpf" | "internal_identifier";
 
 export const USER_SEARCH_FIELDS: {
@@ -19,8 +15,6 @@ export const USER_SEARCH_FIELDS: {
 	{ key: "cpf", label: "CPF", placeholder: "Buscar por CPF..." },
 	{
 		key: "internal_identifier",
-		// Rotulo curto: ele fica dentro da caixa de busca, e "Identificador"
-		// inteiro comia a largura do campo no celular.
 		label: "ID interno",
 		placeholder: "Buscar por identificador interno...",
 	},

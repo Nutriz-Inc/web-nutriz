@@ -6,8 +6,6 @@ export type StepFilter = "all" | EnumDonationStepName;
 export type ActiveFilter = "all" | "active" | "inactive";
 
 export const STEP_FILTER_OPTIONS: FilterChipOption<StepFilter>[] = [
-	// "Todas as etapas", e nao "Todas": os dois grupos de filtro ficam na mesma
-	// linha, e com o mesmo rotulo apareciam dois chips "Todas" lado a lado.
 	{ key: "all", label: "Todas as etapas" },
 	{
 		key: EnumDonationStepName.BloodTest,

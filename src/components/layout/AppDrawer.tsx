@@ -21,16 +21,6 @@ type AppDrawerProps = {
 	onOpenChange: (open: boolean) => void;
 };
 
-/**
- * Menu lateral do mobile. Existe so abaixo de `lg` — no desktop a navegacao
- * mora na pilula do AppHeader e este Sheet nunca abre.
- *
- * Segue a mesma identidade das telas logadas: topo em gradiente azul da marca
- * (o mesmo `gradient-blue` do hero), cartoes de item com raio `rounded-card-sm`
- * e o item ativo em `blue-tint`, como a pilula do header. O padding do topo e
- * do rodape respeita a safe area do iPhone (ilha dinamica e barra de gestos).
- * Ver docs/design-system.md.
- */
 export function AppDrawer({ open, onOpenChange }: AppDrawerProps) {
 	const { auth, handleLogout } = useAuth();
 	const { cor } = useAvatarColor(auth?.id_user);

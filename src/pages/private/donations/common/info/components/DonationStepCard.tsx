@@ -15,7 +15,6 @@ interface Props {
 	icon: LucideIcon;
 	visualStatus: StepVisualStatus;
 	isLast: boolean;
-	/** Etapa que acabou de mudar de estado enquanto a tela estava aberta. */
 	justChanged?: boolean;
 	onClick?: () => void;
 }
@@ -41,7 +40,6 @@ export function DonationStepCard({
 	const reduzirMovimento = useReducedMotion();
 	const animar = isClickable && !reduzirMovimento;
 
-	// Mesma pausa do card da lista: o card responde antes de a rota trocar.
 	function handleClick() {
 		if (!onClick) {
 			return;
@@ -56,15 +54,9 @@ export function DonationStepCard({
 	return (
 		<div className="flex gap-4">
 			<div className="flex flex-col items-center">
-				{/*
-				 * Tres estados legiveis de relance: concluida (cheia, com visto),
-				 * atual (halo em volta, para puxar o olho) e futura (contorno
-				 * tracejado, sinalizando que ainda nao aconteceu).
-				 */}
 				<div className="relative flex shrink-0 items-center justify-center">
 					{isCurrent && (
 						<>
-							{/* pulso continuo marcando a etapa em que a nutriz esta */}
 							<span
 								aria-hidden="true"
 								className="absolute inset-0 -m-1 rounded-full bg-eva/30 motion-safe:pulso-etapa"
@@ -116,9 +108,6 @@ export function DonationStepCard({
 					isCurrent ? "mb-6 p-5" : "mb-4 p-3.5",
 					isClickable && "hover:rounded-l-none focus-visible:rounded-l-none",
 					!isCurrent && !isDone && "bg-surface-2",
-					// Aviso momentaneo de que ESTA etapa acabou de mudar. Fica em
-					// `motion-safe` porque e enfeite: com movimento reduzido a
-					// mudanca ja chegou pelo texto, pelo estado e pelo toast.
 					justChanged && "motion-safe:brilho-etapa",
 				)}
 			>

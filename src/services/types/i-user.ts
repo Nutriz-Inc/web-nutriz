@@ -5,7 +5,6 @@ import type {
 	IPaginationResponse,
 } from "./i-index";
 
-// entities
 export interface Address {
 	id_address: string;
 	id_user?: string;
@@ -67,7 +66,6 @@ export enum EnumUserType {
 	Nurse = "nurse",
 }
 
-// address
 export interface AddressCreateBase {
 	zip_code: string;
 	number?: string;
@@ -87,7 +85,6 @@ export type IRemoveAddressResponse = IDeleteResponse;
 
 export type IGetAddressResponse = Address;
 
-// consent
 export interface ICreateConsentRequest {
 	terms_version: string;
 	ip_address: string;
@@ -95,7 +92,6 @@ export interface ICreateConsentRequest {
 }
 export type ICreateConsentResponse = ConsentLog;
 
-// user baby
 export interface UserBabyCreateBase {
 	name?: string;
 	birth_date: string;
@@ -111,7 +107,6 @@ export type IUpdateUserBabyResponse = UserBaby;
 
 export type IRemoveUserBabyResponse = IDeleteResponse;
 
-// user
 export interface ICreateUserRequest {
 	type: EnumUserType;
 	name: string;
@@ -161,7 +156,6 @@ export type IUpdateUserResponse = User;
 export type IRemoveUserResponse = IDeleteResponse;
 
 export interface IUser {
-	// user
 	list(data: IListUsersRequest): Promise<IListUsersResponse>;
 	createCommon(data: ICreateUserRequest): Promise<ICreateUserResponse>;
 	createAdminAndNurse(data: ICreateUserRequest): Promise<ICreateUserResponse>;
@@ -172,7 +166,6 @@ export interface IUser {
 	get(id_user: string, data: IGetUserRequest): Promise<IGetUserResponse>;
 	remove(id_user: string): Promise<IRemoveUserResponse>;
 
-	// address
 	createAddress(data: ICreateAddressRequest): Promise<ICreateAddressResponse>;
 	updateAddress(
 		id_address: string,
@@ -181,7 +174,6 @@ export interface IUser {
 	removeAddress(id_address: string): Promise<IRemoveAddressResponse>;
 	getAddresses(id_address: string): Promise<IGetAddressResponse>;
 
-	// user baby
 	createBaby(data: ICreateUserBabyRequest): Promise<ICreateUserBabyResponse>;
 	updateBaby(
 		id_user_baby: string,
@@ -189,6 +181,5 @@ export interface IUser {
 	): Promise<IUpdateUserBabyResponse>;
 	removeBaby(id_user_baby: string): Promise<IRemoveUserBabyResponse>;
 
-	// consent
 	createConsent(data: ICreateConsentRequest): Promise<ICreateConsentResponse>;
 }

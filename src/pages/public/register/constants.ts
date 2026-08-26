@@ -7,10 +7,6 @@ export const WIZARD_STEPS = [
 	"Bebê e termos",
 ];
 
-/**
- * Cabecalho de cada etapa, dentro do cartao do formulario. O `legend` dos
- * componentes de etapa vira `sr-only` para nao repetir o titulo na tela.
- */
 export const WIZARD_STEP_META: {
 	title: string;
 	description: string;

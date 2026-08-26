@@ -23,8 +23,6 @@ const FILTER_OPTIONS: FilterChipOption<DonationPointsFilter>[] = [
 ];
 
 export function CollectionPointsSection() {
-	// Mesma logica da tela logada de pontos de coleta, num hook so: antes eram
-	// duas copias, e a correcao da busca por CEP tinha ficado so na de la.
 	const {
 		search,
 		setSearch,
@@ -63,11 +61,6 @@ export function CollectionPointsSection() {
 						placeholder="Buscar ponto de coleta"
 					/>
 
-					{/*
-					 * Filtros a esquerda e a acao de trocar endereco a direita, na
-					 * mesma linha: assim ela fica no topo da coluna da lista, e nao
-					 * roubando altura do mapa. No celular volta a empilhar.
-					 */}
 					<div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
 						<div className="flex gap-2 overflow-x-auto pb-1">
 							<FilterChips
@@ -77,11 +70,6 @@ export function CollectionPointsSection() {
 							/>
 						</div>
 
-						{/*
-						 * 368px = a coluna da lista (400px do
-						 * `lg:grid-cols-[1fr_400px]`) menos o `p-4` dos dois lados.
-						 * Assim o botao fica exatamente sobre os cartoes da lista.
-						 */}
 						<LocateButton
 							onClick={() => setIsLocationSheetOpen(true)}
 							className="sm:self-stretch lg:w-[368px] lg:shrink-0 lg:self-auto"
@@ -90,8 +78,6 @@ export function CollectionPointsSection() {
 				</div>
 
 				<div className="grid lg:h-[520px] lg:grid-cols-[1fr_400px]">
-					{/* Mesmo padding da coluna da lista: os dois blocos comecam e
-					    terminam na mesma linha. */}
 					<div className="px-4 pb-4 lg:h-full lg:p-4">
 						<MapPreview
 							points={points}

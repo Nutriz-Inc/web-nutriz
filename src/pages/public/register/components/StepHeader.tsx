@@ -4,17 +4,10 @@ type StepHeaderProps = {
 	icon: LucideIcon;
 	title: string;
 	description: string;
-	/** Posicao da etapa, ex.: 2 de 4. */
 	order: number;
 	total: number;
 };
 
-/**
- * Cabecalho da etapa atual, no topo do cartao do formulario: icone, titulo,
- * uma linha explicando para que servem aqueles campos e a posicao na trilha.
- * Existe porque o formulario sozinho ficava seco demais — sem contexto entre
- * um passo e o outro.
- */
 export function StepHeader({
 	icon: Icon,
 	title,

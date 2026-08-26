@@ -6,7 +6,6 @@ import type { EvaMessageAction } from "../types";
 type EvaActionButtonProps = {
 	action: EvaMessageAction;
 	isAnonymous: boolean;
-	// Fecha o widget ao navegar para uma rota interna do app.
 	onNavigate: () => void;
 };
 
@@ -14,10 +13,6 @@ type Target =
 	| { kind: "route"; to: string; scrollTo?: string }
 	| { kind: "external"; href: string };
 
-// Catalogo FECHADO: slug -> destino. Slug desconhecido retorna null e o botao
-// nao e renderizado (nunca navegar para rota vinda do servidor). O destino de
-// collection_points depende do modo: logada tem a rota; anonima ve a secao na
-// landing.
 function resolveTarget(slug: string, isAnonymous: boolean): Target | null {
 	switch (slug) {
 		case "signup":
@@ -26,8 +21,6 @@ function resolveTarget(slug: string, isAnonymous: boolean): Target | null {
 			return { kind: "route", to: "/login" };
 		case "articles":
 			return { kind: "route", to: "/artigos" };
-		// Telas internas: nao existem no router publico, entao para visitante
-		// anonimo o botao simplesmente nao aparece.
 		case "home":
 			return isAnonymous ? null : { kind: "route", to: "/home" };
 		case "my_donations":
@@ -63,7 +56,6 @@ function buildWhatsappHref(): string | null {
 }
 
 function scrollToSection(id: string) {
-	// Apos navegar para a landing, rolar ate a secao (o render nao e sincrono).
 	window.setTimeout(() => {
 		document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 	}, 120);

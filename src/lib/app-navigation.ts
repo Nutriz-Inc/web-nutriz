@@ -1,8 +1,3 @@
-// Ponte de navegacao para componentes que vivem FORA do RouterProvider
-// (o widget global da EVA e montado ao lado do RouterProvider em App.tsx e,
-// por isso, nao pode usar hooks do react-router). O App registra o router
-// ativo aqui; o widget navega e observa a rota atual atraves desta ponte.
-
 type MinimalRouter = {
 	navigate: (to: string) => void | Promise<void>;
 	subscribe: (listener: () => void) => () => void;

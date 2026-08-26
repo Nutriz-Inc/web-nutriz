@@ -61,12 +61,6 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 							style={{ color: article.accent }}
 							aria-hidden
 						/>
-						{/*
-						 * Cor fixa, e nao `text-ink-2`: o fundo deste bloco vem em hex
-						 * do proprio conteudo do artigo e nao acompanha o tema. Com o
-						 * texto seguindo o tema, no escuro ficava claro sobre um fundo
-						 * que continua palido — media 1,57:1.
-						 */}
 						<p
 							className="text-[13px] leading-[1.6]"
 							style={{ color: "oklch(0.244 0.061 261.8)" }}

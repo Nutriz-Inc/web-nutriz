@@ -38,10 +38,6 @@ export function DonationStatusCard({ steps, className }: Props) {
 				Status da sua doação atual
 			</p>
 
-			{/*
-			 * Mobile: lista vertical. sm: duas colunas. lg: trilha horizontal
-			 * centralizada, com conectores ligando o centro de um passo ao proximo.
-			 */}
 			<ol className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-0">
 				{STEP_DEFINITIONS.map((definition) => {
 					const step = steps.find((s) => s.name === definition.name);
@@ -69,11 +65,6 @@ export function DonationStatusCard({ steps, className }: Props) {
 								/>
 							)}
 
-							{/*
-							 * Mesma identidade da trilha dentro da doacao: concluida
-							 * cheia com visto, atual com halo pulsando e futura com
-							 * contorno tracejado. Ver DonationStepCard.
-							 */}
 							<span
 								aria-hidden="true"
 								className="relative flex shrink-0 items-center justify-center"

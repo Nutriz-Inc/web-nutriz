@@ -45,7 +45,6 @@ export function StoriesBoard() {
 
 			<p className="relative text-xs leading-relaxed text-ink-2">
 				{STORIES_TOTAL === null ? (
-					// Conteudo institucional ilustrativo — ver src/pages/private/home/content.ts
 					<>Relatos compartilhados pela rede de bancos de leite humano.</>
 				) : (
 					<>

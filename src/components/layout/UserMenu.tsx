@@ -16,10 +16,6 @@ import { cn } from "@/lib/utils";
 import { USER_TYPE_LABEL } from "@/utils/constants";
 import { getInitials } from "./utils";
 
-/**
- * Avatar da nutriz no canto direito do header, com o menu da conta.
- * A API nao expoe foto de perfil, entao o avatar mostra as iniciais.
- */
 export function UserMenu() {
 	const { auth, handleLogout } = useAuth();
 	const { cor } = useAvatarColor(auth?.id_user);

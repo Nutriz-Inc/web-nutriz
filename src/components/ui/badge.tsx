@@ -5,12 +5,6 @@ import type * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-/**
- * Tons dos badges do app. Os hex sao exatamente os que ja estavam espalhados
- * pelas telas (status de doacao e de agendamento, etapas, tipo de usuario);
- * aqui viraram fonte unica. Quem precisa so da bolinha — grafico do dashboard,
- * opcao de status da enfermeira — le BADGE_TONES[tone].dot.
- */
 export type BadgeTone =
 	| "neutral"
 	| "info"
@@ -48,12 +42,10 @@ const badgeVariants = cva(
 				md: "px-3 py-1 text-[12px]",
 				lg: "px-3 py-1.5 text-[13px]",
 			},
-			// Rotulo curto em caixa alta (etapas dentro de cards de doacao).
 			caps: {
 				true: "uppercase tracking-[0.3px]",
 				false: "",
 			},
-			// Chips de categoria (conteudo educativo, artigos) levam borda.
 			bordered: {
 				true: "border",
 				false: "",
@@ -66,10 +58,6 @@ const badgeVariants = cva(
 export interface BadgeProps
 	extends React.ComponentPropsWithoutRef<"span">,
 		VariantProps<typeof badgeVariants> {
-	/**
-	 * Omita o tom quando as cores vierem de fora (chips de categoria trazem a
-	 * cor do proprio artigo via `style`).
-	 */
 	tone?: BadgeTone;
 	dot?: boolean;
 }

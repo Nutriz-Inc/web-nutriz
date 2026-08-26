@@ -15,22 +15,11 @@ type FormFieldProps = {
 	autoComplete?: string;
 	maxLength?: number;
 	optional?: boolean;
-	/** Icone dentro do campo, a esquerda. Puramente visual. */
 	leading?: ReactNode;
-	/** Acao dentro do campo, a direita (ex.: mostrar/ocultar senha). */
 	trailing?: ReactNode;
 	className?: string;
 };
 
-/**
- * Campo de formulario do app: rotulo, input e mensagem de erro em um so
- * desenho. Usado no cadastro e no login.
- *
- * O campo tem 44px de altura (alvo de toque do design system), fundo
- * `surface-2` para se destacar do cartao branco e anel azul no foco. Com
- * `leading`, o icone fica dentro do campo e o texto recua para nao passar por
- * baixo dele. Ver docs/design-system.md.
- */
 export function FormField({
 	id,
 	label,

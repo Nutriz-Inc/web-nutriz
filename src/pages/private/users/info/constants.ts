@@ -13,8 +13,6 @@ export type UserTypeDisplay = {
 	tone: BadgeTone;
 };
 
-// O tom vem do mapa global para o mesmo perfil nao aparecer com cores
-// diferentes aqui e na lista/perfil; so o rotulo e local.
 export const USER_TYPE_DISPLAY: Record<EnumUserType, UserTypeDisplay> = {
 	[EnumUserType.Admin]: {
 		label: "Administrador",

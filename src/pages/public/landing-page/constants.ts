@@ -41,9 +41,7 @@ export type Step = {
 	number: string;
 	title: string;
 	description: string;
-	/** Fundo da bolha do numero. */
 	badge: string;
-	/** Cor do icone da etapa. */
 	accent: string;
 };
 
@@ -147,7 +145,6 @@ export const FOOTER_SOCIALS = [
 	{ label: "YouTube", Icon: YoutubeIcon },
 ];
 
-/** Bolinhas decorativas do CTA final, em tokens da paleta. */
 export const CTA_AVATARS = [
 	"bg-eva",
 	"bg-mint",

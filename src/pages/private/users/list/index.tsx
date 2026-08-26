@@ -27,7 +27,6 @@ export function UsersManagementPage() {
 
 	const [searchField, setSearchField] = useState<UserSearchFieldKey>("name");
 	const [term, setTerm] = useState("");
-	// O termo so vira parametro da consulta quando a busca e disparada.
 	const [appliedTerm, setAppliedTerm] = useState("");
 	const [appliedField, setAppliedField] = useState<UserSearchFieldKey>("name");
 	const [profileFilter, setProfileFilter] = useState<ProfileFilter>("all");
@@ -41,9 +40,6 @@ export function UsersManagementPage() {
 	}
 
 	function handleFieldChange(next: UserSearchFieldKey) {
-		// Trocar de campo zera o que estava escrito e o que estava valendo: um
-		// CPF digitado nao faz sentido como busca por nome, e deixar o filtro
-		// antigo ativo com a caixa vazia so confunde.
 		setSearchField(next);
 		setTerm("");
 		setAppliedField(next);
@@ -92,8 +88,6 @@ export function UsersManagementPage() {
 				/>
 			}
 		>
-			{/* `gap-4` sem prefixo: o `lg:gap-6` de antes so valia no desktop, e no
-			    celular os filtros encostavam na lista. */}
 			<div className="flex flex-col gap-4 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6">
 				<div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
 					<div className="sem-barra -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:px-0">
@@ -109,11 +103,6 @@ export function UsersManagementPage() {
 					/>
 				</div>
 
-				{/*
-				 * Uma caixa so no lugar das tres de antes. O "Limpar filtro"
-				 * tambem saiu: quem limpa a busca e o "x" dentro da propria
-				 * caixa, e o perfil volta ao normal pelo chip "Todos".
-				 */}
 				<form
 					onSubmit={handleApplyFilters}
 					className="flex items-center gap-2.5"
@@ -128,8 +117,6 @@ export function UsersManagementPage() {
 						onClear={handleClearSearch}
 						className="flex-1"
 					/>
-					{/* No celular o botao e so a lupa: com rotulo ele virava mais uma
-					    linha de largura cheia. */}
 					<button
 						type="submit"
 						aria-label="Buscar"

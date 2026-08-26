@@ -34,8 +34,6 @@ export function DonationCard({
 	const reduzirMovimento = useReducedMotion();
 	const animar = isClickable && !reduzirMovimento;
 
-	// O clique afunda o card e ele volta antes de a rota trocar: sem a pausa,
-	// a navegacao come a animacao e o toque parece nao ter resposta.
 	function handleClick() {
 		if (!onClick) {
 			return;
@@ -75,7 +73,6 @@ export function DonationCard({
 				</span>
 			)}
 
-			{/* itens-center: o titulo alinha no meio do circulo do coracao */}
 			<div className="flex items-center gap-3 lg:gap-4">
 				<span
 					className={cn(
@@ -122,10 +119,6 @@ export function DonationCard({
 				<>
 					<div className="h-px bg-blue-tint" />
 
-					{/*
-					 * Grupo proprio: o bloco so reage ao mouse em cima dele, e nao
-					 * junto com o cartao inteiro.
-					 */}
 					<div className="group/etapa relative flex flex-col gap-2.5 overflow-hidden rounded-xl bg-surface-3 p-3.5 transition-[transform,border-radius,background-color] duration-200 hover:translate-x-2 hover:rounded-l-none hover:bg-blue-tint/60 lg:gap-3 lg:rounded-2xl lg:p-5">
 						<span
 							aria-hidden="true"

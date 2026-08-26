@@ -60,7 +60,6 @@ export function AuthProvider({ children }: IAuthProvider) {
 
 		localStorage.removeItem(CONTEXT_KEY);
 
-		// Nao deixa a conversa da EVA (dado sensivel) sobreviver a troca de conta.
 		clearPrivateSession();
 
 		setApiToken("");

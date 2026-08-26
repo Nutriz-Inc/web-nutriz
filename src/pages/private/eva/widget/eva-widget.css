@@ -1,51 +1,14 @@
-/* ---------------------------------------------------------------------------
- * Widget global da EVA — bolinha, janela e estados
- *
- * Desenho seguindo a referencia entregue pelo time (eva.jpeg): cartao branco
- * de canto muito arredondado, sombra difusa e sem contraste, cromo em cinza
- * bem claro e o pastel (lavanda -> rosa) so no avatar, no titulo e nos
- * pontinhos. Ver tambem eva.css.
- * ------------------------------------------------------------------------- */
-
-/*
- * O botao flutuante troca de pele conforme o fundo por tras dele.
- *
- * Ele e fixo num canto e a pagina rola por baixo: passa do azul escuro do topo
- * da landing para o canvas claro das secoes, e volta ao escuro no rodape. Uma
- * pele so sempre perdia em algum trecho — sobre o azul o pastel quase sumia, e
- * a flor branca sobre o pastel dava 1,15:1.
- *
- * Sao duas peles empilhadas, e o que muda e a opacidade da de cima — cor de
- * fundo em degrade nao transiciona, opacidade sim. Quem decide qual vale e o
- * `data-fundo`, escrito pelo `useBackdropTone` a partir da cor lida no DOM.
- *
- * - fundo ESCURO -> pele PASTEL com a flor escura;
- * - fundo CLARO  -> pele SATURADA com a flor branca.
- *
- * Antes a flor branca sobre o pastel dava 1,15:1. Medido no pixel, com o
- * vidro ja aplicado: 3,63:1 na pele saturada e 11,84:1 na pastel — as duas
- * acima dos 3:1 que a WCAG pede para um icone funcional.
- */
 .eva-fab {
 	position: fixed;
 	right: 20px;
-	/* Acima da barra de gestos do iPhone. */
 	bottom: calc(20px + env(safe-area-inset-bottom, 0px));
 	z-index: 60;
 	width: 60px;
 	height: 60px;
 	border: none;
 	border-radius: 50%;
-	/*
-	 * Vidro: as duas peles sao translucidas e o que passa por tras entra
-	 * borrado. A opacidade nao desce mais que isso de proposito — abaixo de ~85%
-	 * o fundo comeca a atravessar a flor e o contraste que as duas peles existem
-	 * para garantir se perde.
-	 */
 	backdrop-filter: blur(14px) saturate(150%);
 	-webkit-backdrop-filter: blur(14px) saturate(150%);
-	/* Pele de baixo: pastel claro, para fundo escuro. Escrita com os tokens
-	 * globais porque o FAB fica fora de `.eva-scope`. */
 	background: linear-gradient(
 		180deg,
 		color-mix(in oklch, var(--purple-tint) 96%, transparent) 0%,
@@ -61,8 +24,6 @@
 	display: grid;
 	place-items: center;
 	cursor: pointer;
-	/* A linha interna e a borda do vidro; a sombra externa continua dando o
-	 * descolamento da pagina. */
 	box-shadow:
 		inset 0 0 0 1px color-mix(in oklch, white 45%, transparent),
 		0 12px 30px -12px color-mix(in oklch, var(--ink) 45%, transparent);
@@ -71,24 +32,6 @@
 		box-shadow 0.55s ease;
 }
 
-/*
- * Pele de cima, para fundo claro: so os rosas da EVA (`--eva` e `--eva-deep`),
- * com a mesma onda que desliza no nome "Assistente EVA". O roxo saiu daqui —
- * no croma cheio ele ficava neon ao lado do rosa.
- *
- * Repetir a primeira cor no fim e o que faz a volta da onda emendar sem salto,
- * igual ao titulo.
- *
- * Sao os tres rosas da secao da EVA na landing, do mais claro ao mais fundo:
- * `--eva-bright`, `--eva` e `--eva-deep`. O claro entra so nas pontas, e o
- * miolo fica nos dois fundos — sozinho, `--eva-bright` da 2,01:1 contra o
- * canvas, e o `--eva-tint` do cartao da landing da 1,01:1, ou seja, o botao
- * sumiria no fundo claro, que e justamente o problema que as duas peles
- * existem para resolver.
- *
- * Como a ponta clara existe, a linha interna vira uma borda rosa funda no
- * estado claro: e ela que segura a silhueta do botao onde o degrade clareia.
- */
 .eva-fab::before {
 	content: "";
 	position: absolute;
@@ -112,29 +55,12 @@
 	animation: eva-onda-vertical 6s linear infinite;
 }
 
-/*
- * Espelho vertical do `eva-onda` do titulo: la o degrade e o dobro da LARGURA
- * e desliza para o lado; aqui e o dobro da ALTURA e desce. Precisa ser um
- * keyframe proprio — mover `background-position` no eixo x nao muda nada num
- * degrade vertical.
- */
 @keyframes eva-onda-vertical {
 	to {
 		background-position: 50% 200%;
 	}
 }
 
-/*
- * Brilho do vidro: uma luz difusa no canto de cima a esquerda, como reflexo
- * numa superficie curva. Fica acima das duas peles (ordem de pintura) e abaixo
- * da flor, que sobe com `z-index: 1`.
- *
- * A forca do brilho muda com a pele, e isso nao e capricho: com 55% de branco
- * fixo, a pele saturada clareava ate `rgb(219,174,202)` justo onde a flor
- * branca passa, e o contraste dela caia para 1,92:1 — pior do que antes do
- * vidro. Sobre a pele pastel o mesmo brilho e inofensivo, porque ali a flor e
- * escura e clarear o fundo so ajuda.
- */
 .eva-fab::after {
 	content: "";
 	position: absolute;
@@ -157,22 +83,12 @@
 	);
 }
 
-/* Sobre fundo claro a sombra pode ser mais funda sem virar borrao, e a linha
- * interna deixa de ser branca para desenhar a borda do botao. */
 .eva-fab[data-fundo="claro"] {
 	box-shadow:
 		inset 0 0 0 1.5px color-mix(in oklch, var(--eva-deep) 55%, transparent),
 		0 14px 34px -12px color-mix(in oklch, var(--eva-deep) 50%, transparent);
 }
 
-/*
- * A flor deixa de ser tinta chapada e vira um recorte.
- *
- * Antes era o PNG preto com `filter: invert()`, o que so dava preto ou branco.
- * Agora a silhueta e mascara: quem pinta sao duas camadas de degrade por baixo
- * dela, e o que troca entre elas e a opacidade — assim a flor tem degrade nos
- * dois estados e ainda atravessa de um para o outro sem corte.
- */
 .eva-fab-mark {
 	position: relative;
 	z-index: 1;
@@ -191,13 +107,11 @@
 	transition: opacity 0.55s ease;
 }
 
-/* Sobre a pele pastel: a flor e que leva o croma cheio da marca. */
 .eva-fab-mark-cor--forte {
 	background: linear-gradient(180deg, var(--eva) 0%, var(--purple) 100%);
 	opacity: 1;
 }
 
-/* Sobre a pele suave: a flor clareia para se destacar dela. */
 .eva-fab-mark-cor--clara {
 	background: linear-gradient(180deg, white 0%, var(--eva-tint) 100%);
 	opacity: 0;
@@ -219,7 +133,6 @@
 	}
 }
 
-/* Escondido enquanto algo cobre o canto dele. Ver eva-widget-bus.ts. */
 .eva-fab--oculto {
 	display: none;
 }
@@ -247,10 +160,6 @@
 	background: color-mix(in oklch, var(--ink) 22%, transparent);
 }
 
-/*
- * Cartao: canto de 36px e sombra larga e clara, como na referencia — nada de
- * borda dura nem sombra escura.
- */
 .eva-widget-modal {
 	position: fixed;
 	z-index: 70;
@@ -279,17 +188,10 @@
 		height: 100dvh;
 		max-height: 100dvh;
 		border-radius: 0;
-		/* Em tela cheia o modal encosta nas safe areas: o cabecalho ficava sob
-		 * a ilha dinamica e o campo de escrever, sob a barra de gestos. */
 		padding-top: env(safe-area-inset-top, 0px);
 		padding-bottom: env(safe-area-inset-bottom, 0px);
 	}
 }
-
-/* ---------------------------------------------------------------------------
- * Cabecalho: branco, botao circular cinza claro a esquerda e o titulo ao
- * centro, recortado no degrade pastel.
- * ------------------------------------------------------------------------- */
 
 .eva-widget-header {
 	display: flex;
@@ -304,12 +206,6 @@
 	font-size: 19px;
 	font-weight: 700;
 	letter-spacing: -0.01em;
-	/*
-	 * Gradiente escrito com os tokens globais (:root), e nao com a variavel
-	 * de `.eva-scope`: o cabecalho fica FORA daquele escopo, entao a variavel
-	 * chegava vazia, o `background` nao valia e o texto — que e transparente
-	 * por causa do recorte — sumia.
-	 */
 	background: linear-gradient(
 		100deg,
 		var(--eva) 0%,
@@ -320,7 +216,6 @@
 	-webkit-background-clip: text;
 	background-clip: text;
 	-webkit-text-fill-color: transparent;
-	/* Reserva, caso o recorte no texto nao seja suportado. */
 	color: var(--eva);
 	animation: eva-onda 6s linear infinite;
 }
@@ -331,14 +226,8 @@
 	align-items: center;
 }
 
-/*
- * Cabecalho da abertura: so o botao de fechar. Sai do fluxo para poder ficar
- * na mesma linha do nome, em vez de empurrar o conteudo para baixo.
- */
 .eva-widget-header--bare {
 	position: absolute;
-	/* Acompanha o padding-top da abertura: medido no DOM para o centro do X
-	 * bater com o centro do nome. */
 	top: 27px;
 	right: 16px;
 	z-index: 2;
@@ -350,7 +239,6 @@
 	text-align: center;
 }
 
-/* Espacador, titulo ao centro e o X a direita. */
 .eva-widget-header--chat {
 	display: grid;
 	grid-template-columns: 40px 1fr 40px;
@@ -395,7 +283,6 @@
 	background: var(--success);
 }
 
-/* Botao circular de cromo, no cinza claro da referencia. */
 .eva-widget-close {
 	width: 40px;
 	height: 40px;
@@ -417,30 +304,17 @@
 	color: var(--ink);
 }
 
-/* ---------------------------------------------------------------------------
- * Abertura — uma tela so, sem rolagem.
- * ------------------------------------------------------------------------- */
-
 .eva-widget-welcome {
 	flex: 1;
 	min-height: 0;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	/*
-	 * 12px, e nao 16px. No modo anonimo entra o aviso de chat publico, e com
-	 * 16px o conteudo somava 541px numa janela de 524 — como o painel tem
-	 * `overflow: hidden`, os 17px que sobravam eram CORTADOS, e o botao de
-	 * comecar ficava colado no rodape.
-	 */
 	gap: 12px;
-	/* Respiro no topo: o nome estava encostado na borda do cartao. */
 	padding: 26px 22px 16px;
 	background: var(--surface);
 }
 
-/* Identidade em linha: bloco pastel + nome e descricao. */
-/* Sem efeito no desktop; viram espacadores no mobile (fim do arquivo). */
 .eva-welcome-topo,
 .eva-welcome-meio {
 	display: none;
@@ -454,26 +328,14 @@
 
 .eva-welcome-id-text {
 	min-width: 0;
-	/* Espaco do botao de fechar, que flutua no canto. */
 	padding-right: 48px;
 }
 
-/*
- * Nome ao lado do quadrado da marca, no mesmo degrade do resto. Escrito com
- * os tokens globais porque `--eva-grad-title` vive em `.eva-scope` e o valor
- * nao chega em todo lugar; e texto grande, entao o minimo e 3:1 — o ponto
- * mais claro do degrade da 3,84:1.
- */
 .eva-welcome-name {
 	margin: 0;
 	font-size: 19px;
 	font-weight: 700;
 	letter-spacing: -0.01em;
-	/*
-	 * Onda: as MESMAS duas cores (--eva e --purple), so que o degrade e o
-	 * dobro da largura do texto e desliza. Repetir `--eva` no fim faz a volta
-	 * emendar sem salto — com duas paradas apenas, o loop piscava.
-	 */
 	background: linear-gradient(
 		100deg,
 		var(--eva) 0%,
@@ -488,11 +350,6 @@
 	animation: eva-onda 6s linear infinite;
 }
 
-/*
- * Anima `background-position`, e nao transform: nao da para deslizar um
- * degrade recortado no texto so com transform sem duplicar o elemento. E um
- * titulo pequeno, entao o custo e desprezivel.
- */
 @keyframes eva-onda {
 	to {
 		background-position: 200% 50%;
@@ -506,18 +363,6 @@
 	color: var(--ink-3);
 }
 
-/*
- * Pilulas empilhadas, cada uma do tamanho do proprio texto.
- *
- * Crescem para dividir a sobra com o vao de baixo, em vez de deixar todo o
- * respiro num buraco so: sem o aviso LGPD (modo logado) sobravam quase 130px
- * entre os pontinhos e o campo e o painel parecia outro. Onde nao ha sobra —
- * o modo anonimo — `space-between` nao faz nada e o desenho fica igual.
- *
- * Nao encolhem (`0` no meio): com `flex: 1` e `min-height: 0` a lista ficava
- * menor que o proprio conteudo quando o espaco apertava e a ultima pilula
- * invadia os pontinhos.
- */
 .eva-welcome-pills {
 	flex: 1 0 auto;
 	display: flex;
@@ -527,13 +372,6 @@
 	gap: 8px;
 }
 
-/*
- * Vao entre as sugestoes e o campo. Os pontinhos ficam no topo dele, logo
- * abaixo das pilulas: no modo anonimo o aviso LGPD consome a folga e eles
- * caem ali de qualquer jeito, entao ancorar no topo e o que faz os dois
- * paineis terem o mesmo ritmo. Centrado, o modo logado (sem o aviso) jogava
- * os pontinhos para o meio de um vazio grande e parecia outra tela.
- */
 .eva-welcome-espaco {
 	flex: 1 1 auto;
 	min-height: 24px;
@@ -569,7 +407,6 @@
 	text-align: center;
 }
 
-/* Rotulo da versao antiga; sem uso na abertura nova. */
 .eva-widget-welcome-label {
 	margin: 0;
 	font-size: 11px;
@@ -578,8 +415,6 @@
 	letter-spacing: 0.06em;
 	color: var(--ink-3);
 }
-
-/* --- Conversa ------------------------------------------------------------- */
 
 .eva-widget-chat {
 	flex: 1;
@@ -625,15 +460,6 @@
 	font-size: 11px;
 	color: var(--ink-3);
 }
-
-/* ---------------------------------------------------------------------------
- * Avisos de estado
- *
- * Um cartao por estado, com o tom semantico do app em vez de uma linha de
- * texto cinza para tudo: da para distinguir de relance "estou reconectando"
- * de "a sessao acabou". As variantes vem do `blockedReason`/`status` que o
- * painel ja calcula — nenhuma regra nova.
- * ------------------------------------------------------------------------- */
 
 .eva-widget-notice {
 	margin: 0;
@@ -688,8 +514,6 @@
 	padding: 10px 14px;
 }
 
-/* --- Acao contextual abaixo da mensagem da EVA ---------------------------- */
-
 .eva-msg-with-action {
 	display: flex;
 	flex-direction: column;
@@ -697,11 +521,6 @@
 	gap: 8px;
 }
 
-/*
- * Mesmo desenho das pilulas de sugestao da abertura: superficie branca, borda
- * leve, sombra suave e a sublinha crescendo no hover. Antes era um botao
- * escuro chapado, que destoava.
- */
 .eva-action-btn {
 	position: relative;
 	overflow: hidden;
@@ -709,7 +528,6 @@
 	align-items: center;
 	gap: 10px;
 	min-height: 44px;
-	/* alinha sob a bolha da EVA, depois do avatar (28px + 8px de gap) */
 	margin-left: 36px;
 	padding: 0 18px;
 	border: 1px solid color-mix(in oklch, var(--line-strong) 55%, transparent);
@@ -770,9 +588,6 @@
 	transform: translateX(3px);
 }
 
-/* ---------------------------------------------------------------------------
- * prefers-reduced-motion: sem movimento nenhum.
- * ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
 	.eva-welcome-name,
 	.eva-widget-header-title,
@@ -796,24 +611,7 @@
 	}
 }
 
-/* ---------------------------------------------------------------------------
- * Mobile — no fim do arquivo de proposito
- *
- * Estas regras precisam vir DEPOIS das regras base: media query nao aumenta
- * especificidade, entao com o bloco la em cima o `.eva-welcome-espaco` base
- * ganhava, continuava esticando e o `justify-content` nao surtia efeito.
- * ------------------------------------------------------------------------- */
 @media (max-width: 520px) {
-	/*
-	 * Em tela cheia a sobra e dividida em dois vaos:
-	 *
-	 *   [vao de cima ~38%]
-	 *   identidade + aviso        <- um pouco acima do meio
-	 *   [vao do meio ~62%]
-	 *   sugestoes, pontinhos e campo   <- apoiados na base
-	 *
-	 * Antes havia um vao so, e as sugestoes subiam grudadas na apresentacao.
-	 */
 	.eva-welcome-topo {
 		display: block;
 		flex: 1 1 0;
@@ -824,22 +622,16 @@
 		flex: 1.6 1 0;
 	}
 
-	/*
-	 * No celular quem distribui a sobra sao os vaos de cima e do meio, entao
-	 * as pilulas voltam a ocupar so o proprio tamanho.
-	 */
 	.eva-welcome-pills {
 		flex: 0 0 auto;
 		justify-content: flex-start;
 	}
 
-	/* Os pontinhos voltam a ser so um respiro antes do campo. */
 	.eva-welcome-espaco {
 		flex: 0 0 auto;
 		min-height: 16px;
 	}
 
-	/* O aviso encostava na borda de baixo. */
 	.eva-widget-welcome {
 		padding-bottom: 28px;
 	}

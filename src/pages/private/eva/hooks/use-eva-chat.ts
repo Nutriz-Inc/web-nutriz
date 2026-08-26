@@ -66,9 +66,6 @@ function splitParagraphs(text: string) {
 export function useEvaChat(initialMessage?: string) {
 	const { auth, isAuthenticated } = useAuth();
 
-	// Modo logado: reidrata a conversa preservada em memoria (fechar/reabrir o
-	// widget nao perde as mensagens; reseta no reload). Anonimo sempre comeca
-	// do zero.
 	const [messages, setMessages] = useState<ChatMessage[]>(() =>
 		isAuthenticated ? getPrivateSession().messages : [],
 	);
@@ -91,16 +88,12 @@ export function useEvaChat(initialMessage?: string) {
 	const pendingInitialRef = useRef(initialMessage ?? null);
 	const nextIdRef = useRef(0);
 	const tokenRef = useRef(auth?.token);
-	// Modo anonimo: sem usuario autenticado. Usa /ws/chat-public com um
-	// session token efemero obtido de POST /session/anonymous.
 	const isAnonymousRef = useRef(!isAuthenticated);
 	const anonTokenRef = useRef<string | null>(null);
 
 	tokenRef.current = auth?.token;
 	isAnonymousRef.current = !isAuthenticated;
 
-	// Modo logado: espelha a conversa no store em memoria a cada mudanca das
-	// mensagens (para sobreviver ao fechar/reabrir o widget).
 	useEffect(() => {
 		if (isAuthenticated) {
 			savePrivateSession(messages, conversationIdRef.current);
@@ -137,10 +130,6 @@ export function useEvaChat(initialMessage?: string) {
 
 	const sendRaw = useCallback(
 		(text: string, socket?: WebSocket) => {
-			// A mensagem inicial e enviada de dentro do onopen do socket que acabou
-			// de abrir; usar esse socket (e nao wsRef.current) evita perder o envio
-			// quando ha uma conexao concorrente que ja reatribuiu wsRef.current
-			// (ex.: duplo-mount do StrictMode em dev).
 			const ws = socket ?? wsRef.current;
 
 			if (!ws || ws.readyState !== WebSocket.OPEN || sendingRef.current) {
@@ -179,7 +168,6 @@ export function useEvaChat(initialMessage?: string) {
 				anonTokenRef.current = await fetchAnonymousToken();
 			}
 
-			// Sessao pode ter sido descartada entre o inicio e o fim do fetch
 			if (disposedRef.current) {
 				return;
 			}
@@ -203,8 +191,6 @@ export function useEvaChat(initialMessage?: string) {
 			}
 
 			wsUrl = `${evaWsUrl}/ws/chat?token=${encodeURIComponent(token)}`;
-			// Retoma a mesma conversa ao reabrir o widget (o backend reusa a
-			// conversation e recarrega o historico para o contexto do LLM).
 			const resumeId = conversationIdRef.current;
 			if (resumeId) {
 				wsUrl += `&conversation_id=${encodeURIComponent(resumeId)}`;
@@ -242,8 +228,6 @@ export function useEvaChat(initialMessage?: string) {
 			switch (frame.type) {
 				case "conversation": {
 					conversationIdRef.current = frame.conversation_id ?? null;
-					// Guarda o id junto das mensagens atuais para retomar a mesma
-					// conversa ao reabrir (modo logado).
 					if (!isAnonymousRef.current) {
 						savePrivateSession(
 							getPrivateSession().messages,
@@ -278,8 +262,6 @@ export function useEvaChat(initialMessage?: string) {
 					break;
 				}
 				case "action": {
-					// Frame opcional enviado antes do "done": anexa a acao a
-					// mensagem da EVA em streaming. Nao afeta chunk/done/error.
 					const streamId = streamIdRef.current;
 					const slug = frame.action;
 
@@ -319,9 +301,6 @@ export function useEvaChat(initialMessage?: string) {
 			finalizeStream(true);
 			finishSending();
 
-			// Encerramentos terminais (sessao, consent, papel bloqueado, rate
-			// limit, jailbreak): exibir o motivo e nao reconectar. Nos casos do
-			// modo publico a mensagem amigavel ja chegou como chunk antes do close.
 			const terminalReason = TERMINAL_CLOSE_REASONS[event.code];
 
 			if (terminalReason) {

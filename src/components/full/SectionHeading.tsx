@@ -1,21 +1,12 @@
 import { cn } from "@/lib/utils";
 
 type SectionHeadingProps = {
-	/** Rotulo curto em caixa alta acima do titulo. */
 	label: string;
 	title: string;
-	/**
-	 * Cor do rotulo. `blue` para secoes de dados, `eva` para rede de apoio,
-	 * `teal` e `mint` para a landing (mint le sobre fundo escuro).
-	 */
 	tone?: "blue" | "eva" | "teal" | "mint";
-	/** `center` para as secoes da landing que sao centradas. */
 	align?: "left" | "center";
-	/** Titulo claro, para secao sobre fundo escuro. */
 	onDark?: boolean;
-	/** Nivel semantico do titulo — respeite a hierarquia da pagina. */
 	as?: "h2" | "h3";
-	/** Acao alinhada a direita (ex.: "Ver mais"). */
 	actionSlot?: React.ReactNode;
 	className?: string;
 	id?: string;
@@ -28,10 +19,6 @@ const LABEL_TONE = {
 	mint: "text-mint",
 } as const;
 
-/**
- * Cabecalho de secao do design system Nutriz: rotulo em caixa alta + titulo
- * display. Ver docs/design-system.md.
- */
 export function SectionHeading({
 	label,
 	title,

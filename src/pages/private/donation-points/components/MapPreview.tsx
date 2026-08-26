@@ -9,11 +9,8 @@ import { type Coordinates, FitMapView } from "./FitMapView";
 import { LocateButton } from "./LocateButton";
 import { MapResizeHandler } from "./MapResizeHandler";
 
-const DEFAULT_CENTER: [number, number] = [-23.5505, -46.6333]; // São Paulo
+const DEFAULT_CENTER: [number, number] = [-23.5505, -46.6333];
 
-// Pin classico (gota) em vez de bolinha: sobre o mapa colorido do OSM uma
-// bolinha some, e a gota tem silhueta reconhecivel. Selecionado fica maior e
-// em rosa; os demais em vermelho.
 const pointIcon = (selected: boolean) => {
 	const largura = selected ? 34 : 26;
 	const altura = selected ? 46 : 35;
@@ -48,10 +45,6 @@ type MapPreviewProps = {
 	userLocation: Coordinates | null;
 	userLocationReady: boolean;
 	refitVersion: number;
-	/**
-	 * Mostra o botao de trocar endereco acima do mapa. A landing desliga: la
-	 * ele vive na linha dos filtros, alinhado ao topo da lista.
-	 */
 	showLocateButton?: boolean;
 	selectedId: string | null;
 	onSelectPoint?: (id: string) => void;
@@ -72,8 +65,6 @@ export function MapPreview({
 	const { temaEfetivo } = useAccessibility();
 	const escuro = temaEfetivo === "escuro";
 
-	// Ponto com coordenada de verdade: a API pode devolver endereco sem
-	// lat/long, e um NaN no centro deixa o mapa cinza.
 	const primeiroComCoordenada = points.find(
 		(point) =>
 			point.address.latitude != null && point.address.longitude != null,
@@ -94,19 +85,6 @@ export function MapPreview({
 
 			<div className="relative isolate h-[225px] w-full overflow-hidden rounded-xl lg:h-full lg:max-h-[900px] lg:rounded-2xl">
 				<MapContainer center={center} zoom={13} className="size-full">
-					{/*
-					 * Canvas cinza da Esri: sem chave, poucos rotulos e com irmao
-					 * escuro do mesmo desenho, entao o mapa acompanha o tema sem
-					 * filtro por cima.
-					 *
-					 * Aqui havia o basemap do CARTO, que passou a carimbar
-					 * 'API KEY REQUIRED' sobre o mapa inteiro no uso sem conta. O tile
-					 * padrao do OSM tambem serve e nao pede chave, mas traz rua e POI
-					 * demais — o pin do ponto some no meio.
-					 *
-					 * O `key` forca a troca de camada: o Leaflet nao repinta os tiles
-					 * so porque a URL mudou.
-					 */}
 					<TileLayer
 						key={temaEfetivo}
 						attribution='Tiles &copy; <a href="https://www.esri.com">Esri</a> &mdash; Esri, DeLorme, NAVTEQ'
@@ -148,14 +126,6 @@ export function MapPreview({
 						))}
 				</MapContainer>
 
-				{/*
-				 * Tinta azul da paleta sobre os tiles: fica entre o mapa e os pins
-				 * (z abaixo do markerPane do Leaflet), entao os marcadores seguem
-				 * clicaveis e na cor cheia.
-				 *
-				 * No escuro ela sai: `multiply` sobre o mapa escuro so afunda o que
-				 * ja esta escuro e as ruas somem.
-				 */}
 				{!escuro && (
 					<span
 						aria-hidden="true"

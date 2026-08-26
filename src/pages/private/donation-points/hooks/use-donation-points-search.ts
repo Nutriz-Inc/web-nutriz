@@ -10,20 +10,9 @@ type LocationOverride =
 	| {
 			kind: "zipcode";
 			zipcode: string;
-			/** CEP ja resolvido em coordenadas, so para posicionar o mapa. */
 			coordinates: Coordinates | null;
 	  };
 
-/**
- * Estado da busca de pontos de coleta: texto, filtro, localizacao, selecao e a
- * consulta em si.
- *
- * Existe porque a tela logada e a secao da landing faziam exatamente a mesma
- * coisa em dois arquivos, e elas *derraparam*: a correcao da busca por CEP foi
- * aplicada so na tela logada, entao na landing o mapa continuava sem o ponto
- * de "voce esta aqui". Com a logica em um lugar so, a proxima correcao vale
- * para as duas de graca.
- */
 export function useDonationPointsSearch() {
 	const [search, setSearch] = useState("");
 	const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -48,9 +37,6 @@ export function useDonationPointsSearch() {
 	const coordinatesOverride =
 		locationOverride?.kind === "coordinates" ? locationOverride : null;
 
-	// Na busca por CEP o pino de "voce esta aqui", o centro do mapa e a origem
-	// da rota vem do CEP geocodificado no navegador (utils/geocode.ts). A
-	// requisicao da API segue mandando so o `zipcode`, como sempre mandou.
 	const effectiveCoordinates = zipCodeSearch
 		? zipCodeSearch.coordinates
 		: (coordinatesOverride ?? coordinates);

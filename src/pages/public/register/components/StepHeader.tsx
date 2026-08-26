@@ -35,9 +35,9 @@ export function StepHeader({
 				<p className="font-display text-[10px] font-bold uppercase tracking-[0.12em] text-blue-bright">
 					Etapa {order} de {total}
 				</p>
-				<h3 className="mt-0.5 font-display text-[17px] font-extrabold tracking-tight text-ink">
+				<h2 className="mt-0.5 font-display text-[17px] font-extrabold tracking-tight text-ink">
 					{title}
-				</h3>
+				</h2>
 				<p className="mt-0.5 text-[13px] leading-[18px] text-ink-2">
 					{description}
 				</p>

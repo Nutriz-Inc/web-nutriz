@@ -516,6 +516,42 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+ * Foco visivel — rede de seguranca
+ *
+ * O app ja declara foco em 113 lugares, mas usa `outline-none` em 67, e um
+ * elemento que perca o par fica sem indicacao nenhuma para quem navega por
+ * teclado.
+ *
+ * O alvo sao exatamente os focaveis que NAO declararam foco proprio — daí os
+ * dois `:not([class*=...])`. Sem eles, ou a regra pega todo mundo e soma um
+ * contorno por cima dos aneis que ja existem, ou (com `:where`, que tem
+ * especificidade zero) perde para o `outline-none` e nao pinta nada. A
+ * primeira versao daqui era `:where` e deixava 38 elementos sem indicacao
+ * nenhuma na landing.
+ * ------------------------------------------------------------------------- */
+:is(a, button, input, select, textarea, summary, [tabindex]):not(
+	[class*="focus-visible:ring"]
+):not([class*="focus-visible:outline"]):focus-visible {
+	outline: 2px solid var(--blue-bright);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Links dentro de texto corrido
+ *
+ * WCAG 1.4.1: a cor nao pode ser o unico sinal de que algo e link. Dentro de
+ * paragrafo e lista o sublinhado e o que separa o link do texto em volta.
+ * Fora deles nao vale — botao, cartao e item de menu tambem sao `<a>` e nao
+ * devem ganhar risco.
+ * ------------------------------------------------------------------------- */
+p > a,
+li > a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
  * Movimento reduzido
  *
  * Vale para o CSS. A parte do framer-motion e resolvida no App, por

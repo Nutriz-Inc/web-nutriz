@@ -10,6 +10,7 @@ import { useEffect, useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { AccessibilityWidget } from "./components/full/AccessibilityWidget";
+import { SkipLink } from "./components/full/SkipLink";
 import { useAccessibility } from "./context/accessibility-context";
 import { useAuth } from "./hooks/use-auth";
 import { useThemeColor } from "./hooks/use-theme-color";
@@ -93,6 +94,8 @@ function App() {
 		 */
 		<MotionConfig reducedMotion={movimentoReduzido ? "always" : "user"}>
 			<QueryClientProvider client={queryClient}>
+				{/* Primeiro elemento focavel da pagina, antes do router. */}
+				<SkipLink />
 				<RouterProvider
 					key={isAuthenticated ? "private" : "public"}
 					router={routes}

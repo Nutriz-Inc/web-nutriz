@@ -1,4 +1,5 @@
 import axios from "axios";
+import { CHAVE_ACESSIBILIDADE } from "@/utils/accessibility-storage";
 import { env } from "../config/env";
 import { Auth } from "./auth";
 import { Dashboard } from "./dashboard";
@@ -35,7 +36,20 @@ httpClient.interceptors.response.use(
 		const isLoginRequest = error.config?.url?.includes("/auth/login");
 
 		if ((status === 401 || status === 403) && !isLoginRequest) {
+			/*
+			 * Limpeza da sessao preservando as preferencias de acessibilidade.
+			 *
+			 * O `localStorage.clear()` que estava aqui levava tudo junto. Quem usa
+			 * a fonte para dislexia ou o tema escuro perdia a configuracao a cada
+			 * sessao expirada e tinha que reconfigurar — o que anula o recurso.
+			 * Tudo que e sessao continua sendo apagado; so esta chave sobrevive.
+			 */
+			const acessibilidade = localStorage.getItem(CHAVE_ACESSIBILIDADE);
 			localStorage.clear();
+			if (acessibilidade !== null) {
+				localStorage.setItem(CHAVE_ACESSIBILIDADE, acessibilidade);
+			}
+
 			window.location.reload();
 		}
 

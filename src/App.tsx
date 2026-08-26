@@ -8,6 +8,8 @@ import {
 import { useEffect, useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import { AccessibilityWidget } from "./components/full/AccessibilityWidget";
+import { AccessibilityProvider } from "./context/accessibility-context";
 import { useAuth } from "./hooks/use-auth";
 import { useThemeColor } from "./hooks/use-theme-color";
 import { registerAppRouter } from "./lib/app-navigation";
@@ -81,16 +83,19 @@ function App() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<RouterProvider
-				key={isAuthenticated ? "private" : "public"}
-				router={routes}
-			/>
-			<EvaWidget />
-			{/*
-			 * Topo a direita: o botao flutuante da EVA mora no canto de baixo a
-			 * direita, e os avisos caiam em cima dele.
-			 */}
-			<Toaster position="top-right" richColors />
+			<AccessibilityProvider>
+				<RouterProvider
+					key={isAuthenticated ? "private" : "public"}
+					router={routes}
+				/>
+				<EvaWidget />
+				<AccessibilityWidget />
+				{/*
+				 * Topo a direita: o botao flutuante da EVA mora no canto de baixo a
+				 * direita, e os avisos caiam em cima dele.
+				 */}
+				<Toaster position="top-right" richColors />
+			</AccessibilityProvider>
 		</QueryClientProvider>
 	);
 }

@@ -28,7 +28,7 @@ export function AppointmentDetailPage() {
 		>
 			{!appointment ? (
 				<div className="flex flex-col items-center gap-2 rounded-card-sm border border-line bg-surface p-10 text-center">
-					<CalendarX className="size-8 text-blue-tint-2" />
+					<CalendarX className="size-8 text-ink-3" />
 					<p className="text-[15px] font-semibold text-ink">
 						Agendamento não encontrado
 					</p>

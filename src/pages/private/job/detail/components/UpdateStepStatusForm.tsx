@@ -80,7 +80,7 @@ export function UpdateStepStatusForm({
 					}}
 					rows={4}
 					placeholder="Descreva o resultado desta etapa e os próximos passos..."
-					className="w-full resize-y rounded-xl border border-blue-tint bg-surface px-3.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-blue-tint-2 focus:border-blue-bright"
+					className="w-full resize-y rounded-xl border border-blue-tint bg-surface px-3.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-blue-bright"
 				/>
 			</div>
 

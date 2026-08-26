@@ -125,6 +125,122 @@
 	--sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ---------------------------------------------------------------------------
+ * Tema escuro
+ *
+ * Paleta propria, nao inversao: inverter cor deixa o azul e o rosa vibrando e
+ * o fundo em preto puro, que cansa a vista. Aqui o fundo e cinza-azulado, cada
+ * superficie e um degrau MAIS CLARA que a anterior (elevacao por cor, nao por
+ * sombra), o texto e off-white e a marca perde ~40% de croma.
+ *
+ * A regra dos dois papeis vale aqui: `--X` clareia porque e cor de texto;
+ * `--X-fill` continua escuro porque carrega conteudo branco.
+ * ------------------------------------------------------------------------- */
+:root[data-tema="escuro"] {
+	/* Superficies: nunca preto puro. */
+	--canvas: oklch(0.205 0.02 258);
+	--surface: oklch(0.245 0.022 258);
+	--surface-2: oklch(0.285 0.024 258);
+	--surface-3: oklch(0.33 0.026 258);
+
+	/* Texto: off-white, nunca branco puro. */
+	--ink: oklch(0.945 0.008 258);
+	--ink-2: oklch(0.815 0.014 258);
+	--ink-3: oklch(0.702 0.018 258);
+
+	/* Linhas: luz sobre o escuro, e nao tinta sobre o claro. */
+	--line: oklch(1 0 0 / 0.12);
+	--line-strong: oklch(1 0 0 / 0.22);
+
+	/* Marca como TEXTO: clara e dessaturada. */
+	--blue-deep: oklch(0.78 0.07 253);
+	--blue: oklch(0.7 0.08 253);
+	--blue-bright: oklch(0.74 0.09 253);
+	--eva: oklch(0.72 0.1 9);
+	--eva-deep: oklch(0.775 0.09 8);
+	--eva-bright: oklch(0.8 0.08 5);
+	--mint: oklch(0.82 0.085 183);
+	--mint-bright: oklch(0.87 0.075 190);
+	--teal: oklch(0.79 0.075 186);
+	--success: oklch(0.79 0.09 170);
+	--danger: oklch(0.755 0.11 25);
+	--warning: oklch(0.815 0.095 64);
+	--amber: oklch(0.83 0.12 85);
+	--purple: oklch(0.76 0.11 293);
+	--magenta: oklch(0.755 0.12 319);
+
+	/* Marca como PREENCHIMENTO: continua escura, dessaturada o suficiente para
+	 * nao vibrar, e clara o bastante para o branco em cima passar em AA. */
+	--blue-deep-fill: oklch(0.36 0.075 251);
+	--blue-fill: oklch(0.44 0.1 253);
+	--blue-bright-fill: oklch(0.5 0.105 253);
+	--eva-fill: oklch(0.53 0.13 9);
+	--danger-fill: oklch(0.49 0.12 25);
+	--success-fill: oklch(0.47 0.08 170);
+	--teal-fill: oklch(0.48 0.08 186);
+
+	/* Tints deixam de ser fundo palido e viram superficie escura tingida. */
+	--blue-tint: oklch(0.3 0.03 251);
+	/*
+	 * Este NAO escurece junto com os outros tints. Ele tem um terceiro papel:
+	 * texto claro sobre as superficies escuras de marca — hero, rodape, painel
+	 * do login, cadastro —, que continuam escuras nos dois temas. Escurecendo,
+	 * o rodape inteiro caia para 1,09:1. Como fundo (`bg-blue-tint-2`) ele so
+	 * aparece em barra de grafico e contorno de etapa, onde claro sobre cartao
+	 * escuro tambem e a leitura certa.
+	 */
+	--blue-tint-2: oklch(0.74 0.035 254);
+	--eva-tint: oklch(0.3 0.032 357);
+	--teal-tint: oklch(0.295 0.03 185);
+	--success-tint: oklch(0.295 0.03 170);
+	--danger-tint: oklch(0.3 0.034 18);
+	--warning-tint: oklch(0.3 0.032 81);
+	--amber-tint: oklch(0.3 0.034 91);
+	--purple-tint: oklch(0.305 0.036 295);
+	--magenta-tint: oklch(0.3 0.036 316);
+
+	/*
+	 * Tokens do shadcn que o app ainda usa em algumas telas (`bg-card`,
+	 * `text-foreground`, `bg-muted`...). O bloco `.dark` que veio com o
+	 * template e cinza puro e depende da CLASSE `dark`, que este tema nao
+	 * escreve — sem isto, `bg-card` continuava branco no escuro e a home ficava
+	 * com texto claro sobre cartao branco.
+	 */
+	--background: var(--canvas);
+	--foreground: var(--ink);
+	--card: var(--surface);
+	--card-foreground: var(--ink);
+	--popover: var(--surface-2);
+	--popover-foreground: var(--ink);
+	--muted: var(--surface-2);
+	--muted-foreground: var(--ink-2);
+	--border: var(--line-strong);
+	--input: var(--line-strong);
+	--primary: var(--blue-bright);
+	--primary-foreground: var(--canvas);
+
+	/*
+	 * O degrade da EVA nao pode sair da inversao dos tokens: `--eva-tint` vira
+	 * escuro e `--eva-bright` fica claro, e o cartao iria do escuro para o rosa
+	 * claro, o oposto do desenho. Aqui ele e um rosa escuro que abre de leve.
+	 */
+	--nz-gradient-eva: linear-gradient(
+		140deg,
+		oklch(0.3 0.045 357) 0%,
+		oklch(0.4 0.075 5) 120%
+	);
+
+	/*
+	 * Sombra no escuro e quase invisivel — o que separa as camadas e a cor da
+	 * superficie. A sombra fica so como profundidade sutil, em preto e mais
+	 * opaca, porque a azulada do tema claro some por completo.
+	 */
+	--nz-shadow-soft:
+		0 1px 2px oklch(0 0 0 / 0.3), 0 12px 28px -18px oklch(0 0 0 / 0.55);
+	--nz-shadow-lift:
+		0 2px 4px oklch(0 0 0 / 0.35), 0 28px 56px -28px oklch(0 0 0 / 0.6);
+}
+
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
@@ -226,11 +342,14 @@
 	--warning-tint: oklch(0.953 0.029 80.7);
 
 	/* Camada organica: gradientes e sombras */
+	/* Escrito com os `-fill` porque ele e sempre superficie de marca com texto
+	 * branco em cima: no tema escuro precisa continuar escuro. No claro os
+	 * `-fill` valem o mesmo que os tokens base, entao nada muda. */
 	--nz-gradient-blue: linear-gradient(
 		150deg,
-		var(--blue-deep) 0%,
-		var(--blue) 55%,
-		var(--blue-bright) 100%
+		var(--blue-deep-fill) 0%,
+		var(--blue-fill) 55%,
+		var(--blue-bright-fill) 100%
 	);
 	--nz-gradient-milk: linear-gradient(
 		180deg,

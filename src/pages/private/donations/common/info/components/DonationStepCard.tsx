@@ -181,7 +181,7 @@ export function DonationStepCard({
 						className={
 							isCurrent || isDone
 								? "text-[13px] text-ink-2"
-								: "text-[12px] text-blue-tint-2"
+								: "text-[12px] text-ink-3"
 						}
 					>
 						{description}

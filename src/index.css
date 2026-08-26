@@ -222,6 +222,7 @@
 	--surface-3: oklch(0.96 0.009 258.3);
 	--surface-on-fill: oklch(1 0 0);
 	--ink-on-fill: oklch(0.313 0.089 250.4);
+	--canvas-on-fill: oklch(0.962 0.011 256.7);
 	--ink: oklch(0.244 0.061 261.8);
 	--ink-2: oklch(0.431 0.048 263.2);
 	--ink-3: oklch(0.535 0.035 262.6);
@@ -301,6 +302,7 @@
 	--color-surface-3: var(--surface-3);
 	--color-surface-on-fill: var(--surface-on-fill);
 	--color-ink-on-fill: var(--ink-on-fill);
+	--color-canvas-on-fill: var(--canvas-on-fill);
 	--color-ink: var(--ink);
 	--color-ink-2: var(--ink-2);
 	--color-ink-3: var(--ink-3);
@@ -390,6 +392,12 @@ body {
 
 :root[data-tema="escuro"] [data-so-tema-claro] {
 	display: none;
+}
+
+:root[data-tema="escuro"] [data-ilustracao] {
+	background: var(--canvas-on-fill);
+	border-radius: 1rem;
+	padding: 0.625rem 1.125rem;
 }
 
 :root[data-tema="escuro"] .leaflet-container {

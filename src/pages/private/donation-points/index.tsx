@@ -50,7 +50,13 @@ export function DonationPointsPage() {
 			description="Encontre o ponto de coleta mais próximo de você."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-surface-2 lg:mx-auto lg:grid lg:h-[calc(100vh-69px)] lg:max-w-[1400px] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden">
+			{/*
+			 * No desktop o painel e mais claro que o fundo da pagina, entao a borda
+			 * dele aparece — de canto vivo virava um retangulo duro no meio da tela,
+			 * ainda mais no tema escuro. Arredondado, le como cartao. No celular ele
+			 * sangra ate as bordas (`-mx-4`) e continua reto.
+			 */}
+			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex flex-col bg-surface-2 lg:mx-auto lg:grid lg:h-[calc(100vh-69px)] lg:max-w-[1400px] lg:grid-cols-[420px_1fr] lg:grid-rows-[auto_1fr] lg:overflow-hidden lg:rounded-2xl">
 				<div className="flex flex-col gap-3 px-4 pt-4 lg:col-start-1 lg:row-start-1 lg:border-r lg:border-line lg:bg-surface-2 lg:px-5 lg:pb-4 lg:pt-5">
 					<SearchBar
 						value={search}

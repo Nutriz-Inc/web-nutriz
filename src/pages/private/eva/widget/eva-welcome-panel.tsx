@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
 	CalendarCheck,
 	Droplet,
@@ -7,6 +7,7 @@ import {
 	Sparkles,
 } from "lucide-react";
 import { useState } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { AvatarEva } from "../components/avatar-eva";
 import { ChatInput } from "../components/chat-input";
 import { EVA_SUGGESTIONS } from "../constants";

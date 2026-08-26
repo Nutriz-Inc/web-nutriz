@@ -1,7 +1,8 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/images/hero-mother-baby.png";
 import { HeroBackground } from "@/components/full/HeroBackground";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import {
 	fadeScale,
 	fadeUp,

@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Dialog } from "radix-ui";
 import {
 	useCallback,
@@ -8,6 +8,7 @@ import {
 	useSyncExternalStore,
 } from "react";
 import { useBackdropTone } from "@/hooks/use-backdrop-tone";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaWelcomePanel } from "./eva-welcome-panel";

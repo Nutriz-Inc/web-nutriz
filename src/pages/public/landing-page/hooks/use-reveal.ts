@@ -1,4 +1,5 @@
-import { useReducedMotion, type Variants } from "framer-motion";
+import type { Variants } from "framer-motion";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { fadeUp, viewportOnce } from "../animations/variants";
 
 export function useReveal(variants: Variants = fadeUp) {

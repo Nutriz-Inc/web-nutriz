@@ -1,6 +1,7 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Calendar, ChevronRight, Heart, Lock } from "lucide-react";
 import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
 import { ProgressBar } from "./ProgressBar";

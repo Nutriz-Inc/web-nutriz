@@ -516,6 +516,30 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+ * Movimento reduzido
+ *
+ * Vale para o CSS. A parte do framer-motion e resolvida no App, por
+ * `MotionConfig`, que faz `useReducedMotion()` devolver `true` em todo o app.
+ *
+ * `animation: none` e nao duracao quase zero: com duracao zero a animacao
+ * salta para o estado FINAL, e boa parte das daqui termina invisivel — o anel
+ * de pulso acaba em `opacity: 0`, o brilho da etapa acaba sem sombra. Com
+ * `none` o elemento fica no estado base, parado e visivel, que e o que a regra
+ * pede: sem movimento, sem sumir e sem encolher.
+ *
+ * Fora de `@layer` para vencer as utilities sem `!important` — mesmo motivo
+ * das outras regras deste arquivo.
+ * ------------------------------------------------------------------------- */
+:root[data-movimento="reduzido"],
+:root[data-movimento="reduzido"] *,
+:root[data-movimento="reduzido"] *::before,
+:root[data-movimento="reduzido"] *::after {
+	animation: none !important;
+	transition: none !important;
+	scroll-behavior: auto !important;
+}
+
+/* ---------------------------------------------------------------------------
  * Fonte de leitura facilitada
  *
  * A troca nao pode sair de `--font-sans`: o bloco `@theme inline` compila o

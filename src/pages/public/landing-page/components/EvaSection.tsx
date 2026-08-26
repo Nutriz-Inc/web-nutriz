@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
 	CalendarCheck,
 	Droplet,
@@ -6,6 +6,7 @@ import {
 	Snowflake,
 	Sparkles,
 } from "lucide-react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { EVA_SUGGESTIONS } from "@/pages/private/eva/constants";
 
 /** Mesmos icones da abertura do widget, na mesma ordem. */

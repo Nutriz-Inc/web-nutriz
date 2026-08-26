@@ -1,5 +1,5 @@
-import { useReducedMotion } from "framer-motion";
 import { useCallback } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 export function useScrollToSection() {
 	const shouldReduceMotion = useReducedMotion();

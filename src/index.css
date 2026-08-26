@@ -532,6 +532,46 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+ * Moldura do Leaflet no tema escuro
+ *
+ * O CSS do Leaflet vem com as cores cravadas: o fundo do mapa e `#ddd`, os
+ * botoes de zoom sao brancos e a tarja de creditos e branca translucida. Na
+ * pagina escura viravam quadrados claros em volta do mapa — e o `#ddd`
+ * aparece toda vez que os tiles ainda estao carregando ou falham.
+ *
+ * Nao da para resolver por token: o arquivo e importado por
+ * `MapPreview.tsx` e escreve valor literal. Repintamos so no escuro, com
+ * especificidade suficiente para ganhar dele venha em que ordem vier.
+ * ------------------------------------------------------------------------ */
+:root[data-tema="escuro"] .leaflet-container {
+	background: var(--surface-2);
+}
+
+:root[data-tema="escuro"] .leaflet-bar a,
+:root[data-tema="escuro"] .leaflet-bar a:hover {
+	background-color: var(--surface-2);
+	color: var(--ink);
+	border-bottom-color: var(--line);
+}
+
+:root[data-tema="escuro"] .leaflet-bar a:hover {
+	background-color: var(--surface-3);
+}
+
+:root[data-tema="escuro"] .leaflet-bar {
+	border: 1px solid var(--line);
+}
+
+:root[data-tema="escuro"] .leaflet-control-attribution {
+	background: color-mix(in oklch, var(--surface) 82%, transparent);
+	color: var(--ink-3);
+}
+
+:root[data-tema="escuro"] .leaflet-control-attribution a {
+	color: var(--blue-tint-2);
+}
+
+/* ---------------------------------------------------------------------------
  * Transicao ao trocar de tema
  *
  * A classe entra em `<html>` so durante a troca e sai sozinha depois (ver

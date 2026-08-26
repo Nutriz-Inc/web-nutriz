@@ -13,38 +13,22 @@ import { UserMenu } from "./UserMenu";
 import { getUserMenu } from "./utils";
 
 type AppHeaderProps = {
-	/**
-	 * Navegacao e menu da conta. Ficam ocultos nas telas publicas (cadastro),
-	 * onde nao ha sessao e as rotas privadas nem existem no router.
-	 */
 	showMenu?: boolean;
 	className?: string;
 };
 
-/**
- * Barra de topo do app, no mesmo formato do header da landing: logo a
- * esquerda, navegacao horizontal numa pilula e o avatar da conta a direita.
- * O fundo continua sendo o da area logada (claro) — so a estrutura e o
- * espacamento sao espelhados. No mobile a navegacao colapsa no AppDrawer,
- * como a landing faz. Ver docs/design-system.md.
- */
 export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const { auth, isAuthenticated } = useAuth();
 
-	// O FAB da EVA e global (montado em App.tsx, fora do RouterProvider) e nao
-	// enxerga o drawer. Com o menu aberto ele ficava por cima e sem resposta ao
-	// clique, entao o header avisa o widget para se esconder.
 	useEffect(() => {
 		setAppMenuOpen(drawerOpen);
 		return () => setAppMenuOpen(false);
 	}, [drawerOpen]);
 
-	// Sem sessao (cadastro), a home privada nao existe no router publico.
 	const logoHref = isAuthenticated ? getHome(auth?.type) : "/";
 	const comNavegacao = showMenu && !!auth;
 
-	// Perfil sai da barra porque ja esta no menu do avatar, junto de "Sair".
 	const itensNavegacao = auth
 		? getUserMenu(auth.type).filter(
 				(item) =>
@@ -92,12 +76,10 @@ export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
 					)}
 
 					{comNavegacao && (
-						<div className="flex shrink-0 items-center gap-1">
+						<div className="flex shrink-0 items-center gap-1.5">
 							<AccessibilityControls className="mr-1 hidden lg:flex" />
 							<UserMenu />
 
-							{/* No celular ficam no topo, ao lado do menu, e nao dentro
-							    dele: dois toques para trocar o tema seria pior. */}
 							<AccessibilityControls className="lg:hidden" />
 
 							<button
@@ -105,9 +87,9 @@ export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
 								onClick={() => setDrawerOpen(true)}
 								aria-label="Abrir menu de navegação"
 								aria-expanded={drawerOpen}
-								className="flex size-11 items-center justify-center rounded-full text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50 lg:hidden"
+								className="flex size-11 shrink-0 items-center justify-center rounded-full border border-line text-ink-2 outline-none transition-colors hover:bg-surface-3 focus-visible:ring-3 focus-visible:ring-blue-bright/60 lg:hidden"
 							>
-								<Menu className="size-6" aria-hidden="true" />
+								<Menu className="size-[18px]" aria-hidden="true" />
 							</button>
 						</div>
 					)}

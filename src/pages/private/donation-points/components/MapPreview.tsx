@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import { divIcon } from "leaflet";
 
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { useAccessibility } from "@/context/accessibility-context";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { type Coordinates, FitMapView } from "./FitMapView";
 import { LocateButton } from "./LocateButton";
@@ -68,6 +69,9 @@ export function MapPreview({
 	onSelectPoint,
 	onRequestChangeLocation,
 }: MapPreviewProps) {
+	const { temaEfetivo } = useAccessibility();
+	const escuro = temaEfetivo === "escuro";
+
 	// Ponto com coordenada de verdade: a API pode devolver endereco sem
 	// lat/long, e um NaN no centro deixa o mapa cinza.
 	const primeiroComCoordenada = points.find(
@@ -94,10 +98,15 @@ export function MapPreview({
 					 * Voyager (CARTO) no lugar do tile padrao do OSM: mesma base de
 					 * dados, com agua e areas verdes coloridas, porem sem o excesso
 					 * de ruas e rotulos. Assim o pin do ponto e o que salta na tela.
+					 *
+					 * No tema escuro vale a versao escura do mesmo mapa: o claro virava
+					 * um retangulo aceso no meio da pagina. O `key` forca a troca de
+					 * camada — o Leaflet nao repinta os tiles so porque a URL mudou.
 					 */}
 					<TileLayer
+						key={temaEfetivo}
 						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-						url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+						url={`https://{s}.basemaps.cartocdn.com/${escuro ? "dark_all" : "light_all"}/{z}/{x}/{y}{r}.png`}
 						subdomains="abcd"
 						maxZoom={19}
 					/>
@@ -140,11 +149,16 @@ export function MapPreview({
 				 * Tinta azul da paleta sobre os tiles: fica entre o mapa e os pins
 				 * (z abaixo do markerPane do Leaflet), entao os marcadores seguem
 				 * clicaveis e na cor cheia.
+				 *
+				 * No escuro ela sai: `multiply` sobre o mapa escuro so afunda o que
+				 * ja esta escuro e as ruas somem.
 				 */}
-				<span
-					aria-hidden="true"
-					className="pointer-events-none absolute inset-0 z-[400] bg-blue-tint-2/35 mix-blend-multiply"
-				/>
+				{!escuro && (
+					<span
+						aria-hidden="true"
+						className="pointer-events-none absolute inset-0 z-[400] bg-blue-tint-2/35 mix-blend-multiply"
+					/>
+				)}
 			</div>
 		</div>
 	);

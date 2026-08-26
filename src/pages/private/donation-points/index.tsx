@@ -108,12 +108,16 @@ export function DonationPointsPage() {
 							{/*
 							 * Com poucos resultados sobrava um bloco branco embaixo da
 							 * lista. A ilustracao ocupa esse vazio e some quando a lista
-							 * e longa o bastante para rolar.
+							 * e longa o bastante para rolar. No tema escuro ela sai de
+							 * cena (`data-so-tema-claro`): as cores estao chapadas dentro
+							 * do SVG e virariam um bloco claro, e o vazio escuro nao
+							 * incomoda.
 							 */}
 							<img
 								src={pontosTopo}
 								alt=""
 								aria-hidden="true"
+								data-so-tema-claro
 								width={220}
 								height={160}
 								className="mx-auto mt-6 hidden h-28 w-auto select-none opacity-90 lg:block"

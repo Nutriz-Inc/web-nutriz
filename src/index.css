@@ -516,6 +516,22 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+ * Arte decorativa que so faz sentido no tema claro
+ *
+ * Algumas ilustracoes existem so para preencher um vazio branco embaixo de uma
+ * lista curta. As cores delas estao no proprio SVG (paineis cinza-azulados,
+ * brancos chapados), entao no tema escuro elas viram um bloco claro flutuando
+ * na pagina — e o vazio que elas tapavam nem incomoda mais, porque o fundo
+ * escuro ja e uniforme. Some com elas em vez de repintar arte por arte.
+ *
+ * Vale so para enfeite (aria-hidden), nunca para ilustracao de estado vazio,
+ * que e conteudo de verdade.
+ * ------------------------------------------------------------------------ */
+:root[data-tema="escuro"] [data-so-tema-claro] {
+	display: none;
+}
+
+/* ---------------------------------------------------------------------------
  * Transicao ao trocar de tema
  *
  * A classe entra em `<html>` so durante a troca e sai sozinha depois (ver

@@ -1,5 +1,7 @@
 import { Segmented, type SegmentedOption } from "@/components/ui/segmented";
 
+import { PROFILE_TABS_ID } from "../utils";
+
 export type ProfileTabKey = "dados" | "bebe";
 
 const TABS: SegmentedOption<ProfileTabKey>[] = [
@@ -19,6 +21,8 @@ export function ProfileTabs({ value, onChange }: ProfileTabsProps) {
 			value={value}
 			onChange={onChange}
 			fullWidth
+			size="lg"
+			idPrefix={PROFILE_TABS_ID}
 			aria-label="Seções do perfil"
 		/>
 	);

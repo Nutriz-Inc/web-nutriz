@@ -1,14 +1,12 @@
-import { Baby } from "lucide-react";
 import bebeNaoCadastrado from "@/assets/illustrations/bebe-nao-cadastrado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
+import { Reveal } from "@/components/full/Reveal";
+import { SectionHeading } from "@/components/full/SectionHeading";
 import type { UserBaby } from "@/services/types/i-user";
-import { formatDateBR } from "@/utils/formatter";
-import { Field } from "../../../../components/full/Field";
 import { AddBabyButton } from "./AddBabyButton";
+import { BabyCard } from "./BabyCard";
 import type { BabyDraft } from "./NewBabyCard";
 import { NewBabyCard } from "./NewBabyCard";
-import { RemoveBabyButton } from "./RemoveBabyButton";
-import { SectionCard } from "./SectionCard";
 
 type BabySectionProps = {
 	babies: UserBaby[];
@@ -37,69 +35,60 @@ export function BabySection({
 	onChangeDraft,
 	onRemoveDraft,
 }: BabySectionProps) {
-	return (
-		<div className="flex flex-col gap-4">
-			<div className="flex items-center justify-between px-1">
-				<p className="text-[13px] font-bold uppercase text-blue-deep">Bebês</p>
-				<AddBabyButton onClick={onAddDraft} />
-			</div>
+	const isEmpty = babies.length === 0 && drafts.length === 0;
 
-			<div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:items-start lg:gap-5">
-				{babies.length === 0 ? (
-					<SectionCard icon={<Baby className="size-[18px]" />} title="Bebê">
+	return (
+		<div className="flex flex-col gap-5">
+			<SectionHeading
+				label="Cadastro"
+				title="Seus bebês"
+				actionSlot={<AddBabyButton onClick={onAddDraft} />}
+			/>
+
+			{isEmpty ? (
+				<Reveal>
+					<div className="rounded-card-sm border border-line bg-surface shadow-soft">
 						<EmptyState
-							size="sm"
 							illustration={bebeNaoCadastrado}
 							title="Nenhum bebê cadastrado ainda"
 							description="Cadastre para a EVA personalizar as orientações."
+							action={
+								<AddBabyButton onClick={onAddDraft} label="Cadastrar bebê" />
+							}
 						/>
-					</SectionCard>
-				) : (
-					babies.map((baby) => {
-						const birthDate = babyBirthDates[baby.id_user_baby] ?? "";
-
-						return (
-							<SectionCard
-								key={baby.id_user_baby}
-								icon={<Baby className="size-[18px]" />}
-								title="Bebê"
-								action={
-									<RemoveBabyButton
-										onConfirm={() => onRemoveBaby(baby.id_user_baby)}
-										loading={removingBabyId === baby.id_user_baby}
-									/>
+					</div>
+				</Reveal>
+			) : (
+				<div className="grid gap-5 lg:grid-cols-2 lg:items-start">
+					{babies.map((baby, index) => (
+						<Reveal key={baby.id_user_baby} delay={index * 0.05}>
+							<BabyCard
+								baby={baby}
+								name={babyNames[baby.id_user_baby] ?? ""}
+								onChangeName={(name) =>
+									onChangeBabyName(baby.id_user_baby, name)
 								}
-							>
-								<Field
-									label="Nome do Bebê"
-									value={babyNames[baby.id_user_baby] ?? ""}
-									onChange={(value) =>
-										onChangeBabyName(baby.id_user_baby, value)
-									}
-								/>
-								<Field
-									label="Data de Nascimento"
-									type="date"
-									value={birthDate}
-									displayValue={birthDate ? formatDateBR(birthDate) : ""}
-									onChange={(value) =>
-										onChangeBabyBirthDate(baby.id_user_baby, value)
-									}
-								/>
-							</SectionCard>
-						);
-					})
-				)}
+								birthDate={babyBirthDates[baby.id_user_baby] ?? ""}
+								onChangeBirthDate={(birthDate) =>
+									onChangeBabyBirthDate(baby.id_user_baby, birthDate)
+								}
+								onRemove={() => onRemoveBaby(baby.id_user_baby)}
+								removing={removingBabyId === baby.id_user_baby}
+							/>
+						</Reveal>
+					))}
 
-				{drafts.map((draft) => (
-					<NewBabyCard
-						key={draft.key}
-						draft={draft}
-						onChange={onChangeDraft}
-						onRemove={() => onRemoveDraft(draft.key)}
-					/>
-				))}
-			</div>
+					{drafts.map((draft, index) => (
+						<Reveal key={draft.key} delay={(babies.length + index) * 0.05}>
+							<NewBabyCard
+								draft={draft}
+								onChange={onChangeDraft}
+								onRemove={() => onRemoveDraft(draft.key)}
+							/>
+						</Reveal>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }

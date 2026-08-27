@@ -1,19 +1,16 @@
-import { MapPin } from "lucide-react";
-import { getInitials } from "@/components/layout/utils";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useAuth } from "@/hooks/use-auth";
-import { useAvatarColor } from "@/hooks/use-avatar-color";
+import { FormField } from "@/components/full/FormField";
+import { Reveal } from "@/components/full/Reveal";
 import { cn } from "@/lib/utils";
 import { EnumUserType } from "@/services/types/i-user";
 import {
 	formatCep,
 	formatCpf,
 	formatDateBR,
-	formatPhoneNumber,
+	maskPhoneNumber,
 } from "@/utils/formatter";
-import { Field } from "../../../../components/full/Field";
 import { PasswordField } from "./PasswordField";
-import { SectionCard } from "./SectionCard";
+import { ProfileSectionCard } from "./ProfileSectionCard";
+import { ReadOnlyField } from "./ReadOnlyField";
 
 export type MyDataFormValues = {
 	name: string;
@@ -44,9 +41,6 @@ export function MyDataSection({
 	showAddress = true,
 	userType = EnumUserType.Common,
 }: MyDataSectionProps) {
-	const { auth } = useAuth();
-	const { cor } = useAvatarColor(auth?.id_user);
-
 	function setField<K extends keyof MyDataFormValues>(
 		key: K,
 		value: MyDataFormValues[K],
@@ -57,97 +51,109 @@ export function MyDataSection({
 	return (
 		<div
 			className={cn(
-				"flex flex-col gap-4 lg:gap-5",
-				showAddress ? "lg:grid lg:grid-cols-2 lg:items-start" : "lg:max-w-xl",
+				"grid gap-5",
+				showAddress ? "lg:grid-cols-2 lg:items-start" : "lg:max-w-2xl",
 			)}
 		>
-			<SectionCard
-				iconVariant="bare"
-				icon={
-					<Avatar className="size-[34px] border border-line">
-						<AvatarFallback className={cn("text-[12px]", cor.bg, cor.text)}>
-							{getInitials(values.name || auth?.name)}
-						</AvatarFallback>
-					</Avatar>
-				}
-				title="Perfil"
-			>
-				<Field
-					label="Nome Completo"
-					value={values.name}
-					onChange={(value) => setField("name", value)}
-				/>
-				{userType !== EnumUserType.Common && (
-					<Field
-						label="Identificador"
-						value={identifier}
-						editable={false}
-						onChange={() => {}}
-					/>
-				)}
-				<Field
-					label="CPF"
-					value={formatCpf(values.cpf)}
-					editable={false}
-					onChange={() => {}}
-				/>
-				<Field
-					label="Data de Nascimento"
-					value={values.birth_date ? formatDateBR(values.birth_date) : ""}
-					editable={false}
-					onChange={() => {}}
-				/>
-				<Field
-					label="Telefone"
-					value={values.phone_number}
-					inputMode="tel"
-					onChange={(value) =>
-						setField("phone_number", formatPhoneNumber(value))
-					}
-				/>
-				<Field
-					label="Email"
-					value={values.email}
-					inputMode="email"
-					onChange={(value) => setField("email", value)}
-				/>
-				<PasswordField
-					value={values.password}
-					onChange={(value) => setField("password", value)}
-				/>
-			</SectionCard>
+			<Reveal>
+				<ProfileSectionCard label="Conta" title="Dados pessoais">
+					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+						<FormField
+							id="perfil-nome"
+							label="Nome completo"
+							value={values.name}
+							autoComplete="name"
+							onChange={(value) => setField("name", value)}
+							className="sm:col-span-2"
+						/>
+
+						{userType !== EnumUserType.Common && (
+							<ReadOnlyField
+								label="Identificador"
+								value={identifier}
+								className="sm:col-span-2"
+							/>
+						)}
+
+						<ReadOnlyField label="CPF" value={formatCpf(values.cpf)} />
+
+						<ReadOnlyField
+							label="Data de nascimento"
+							value={values.birth_date ? formatDateBR(values.birth_date) : ""}
+						/>
+
+						<FormField
+							id="perfil-telefone"
+							label="Telefone"
+							value={values.phone_number}
+							inputMode="tel"
+							autoComplete="tel"
+							maxLength={15}
+							placeholder="(00) 00000-0000"
+							onChange={(value) =>
+								setField("phone_number", maskPhoneNumber(value))
+							}
+						/>
+
+						<FormField
+							id="perfil-email"
+							label="E-mail"
+							value={values.email}
+							type="email"
+							inputMode="email"
+							autoComplete="email"
+							onChange={(value) => setField("email", value)}
+						/>
+
+						<PasswordField
+							value={values.password}
+							onChange={(value) => setField("password", value)}
+							className="sm:col-span-2"
+						/>
+					</div>
+				</ProfileSectionCard>
+			</Reveal>
 
 			{showAddress && (
-				<SectionCard icon={<MapPin className="size-[18px]" />} title="Endereço">
-					<Field
-						label="CEP"
-						value={values.zip_code}
-						inputMode="numeric"
-						onChange={(value) => setField("zip_code", formatCep(value))}
-					/>
-					<Field
-						label="Endereço"
-						value={street}
-						editable={false}
-						onChange={() => {}}
-					/>
-					<div className="flex">
-						<div className="flex-1 border-r border-blue-bright/10">
-							<Field
+				<Reveal delay={0.06}>
+					<ProfileSectionCard label="Coleta" title="Endereço de coleta">
+						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+							<FormField
+								id="perfil-cep"
+								label="CEP"
+								value={values.zip_code}
+								inputMode="numeric"
+								autoComplete="postal-code"
+								maxLength={9}
+								placeholder="00000-000"
+								onChange={(value) => setField("zip_code", formatCep(value))}
+								className="sm:col-span-2"
+							/>
+
+							<ReadOnlyField
+								label="Endereço"
+								value={street}
+								className="sm:col-span-2"
+							/>
+
+							<FormField
+								id="perfil-numero"
 								label="Número"
 								value={values.number}
+								inputMode="numeric"
 								onChange={(value) => setField("number", value)}
 							/>
-						</div>
-						<div className="flex-1">
-							<Field
+
+							<FormField
+								id="perfil-complemento"
 								label="Complemento"
 								value={values.complement}
+								optional
 								onChange={(value) => setField("complement", value)}
 							/>
 						</div>
-					</div>
-				</SectionCard>
+					</ProfileSectionCard>
+				</Reveal>
 			)}
 		</div>
 	);

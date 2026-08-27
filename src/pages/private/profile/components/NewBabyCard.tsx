@@ -1,4 +1,6 @@
 import { Trash2 } from "lucide-react";
+import { FormField } from "@/components/full/FormField";
+import { ProfileSectionCard } from "./ProfileSectionCard";
 
 export type BabyDraft = {
 	key: string;
@@ -14,45 +16,44 @@ type NewBabyCardProps = {
 
 export function NewBabyCard({ draft, onChange, onRemove }: NewBabyCardProps) {
 	return (
-		<div className="overflow-hidden rounded-2xl border-[1.5px] border-eva/35 bg-white/8">
-			<div className="flex items-center justify-between border-b border-blue-bright/15 px-3 py-3">
-				<div className="flex items-center gap-2">
-					<span className="rounded-md bg-eva-tint px-2 py-1 text-[13px] font-bold text-eva-deep">
-						NOVO
-					</span>
-					<span className="text-[13px] font-bold text-blue-deep">BEBÊ</span>
-				</div>
+		<ProfileSectionCard
+			as="h3"
+			tone="eva"
+			label="Novo"
+			title="Novo bebê"
+			action={
 				<button
 					type="button"
 					onClick={onRemove}
-					className="flex items-center gap-1.5 rounded-full border border-eva/30 bg-eva-tint px-3 py-1.5 text-[12px] font-semibold text-eva-deep"
+					className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-semibold text-ink-2 outline-none transition-colors hover:bg-surface-3 focus-visible:ring-3 focus-visible:ring-blue-bright/50 motion-reduce:transition-none"
 				>
-					Remover
-					<Trash2 className="size-3.5" />
+					<Trash2 className="size-4" aria-hidden="true" />
+					Descartar
 				</button>
-			</div>
-
-			<div className="flex flex-col gap-1.5 border-b border-blue-bright/10 px-3 py-3">
-				<p className="text-[12px] font-bold text-blue-deep">Nome do bebê</p>
-				<input
+			}
+		>
+			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+				<FormField
+					id={`novo-bebe-nome-${draft.key}`}
+					label="Nome do bebê"
 					value={draft.name}
-					onChange={(e) => onChange({ ...draft, name: e.target.value })}
-					placeholder="Nome completo do bebê..."
-					className="h-8 w-full rounded-lg border-[1.5px] border-blue-bright/80 bg-surface px-3 text-[14px] text-ink outline-none placeholder:text-ink-3/35"
+					placeholder="Nome completo do bebê"
+					onChange={(value) => onChange({ ...draft, name: value })}
 				/>
-			</div>
-
-			<div className="flex flex-col gap-1.5 px-3 py-3">
-				<p className="text-[12px] font-bold text-blue-deep">
-					Data de nascimento
-				</p>
-				<input
+				<FormField
+					id={`novo-bebe-nascimento-${draft.key}`}
+					label="Data de nascimento"
 					type="date"
 					value={draft.birth_date}
-					onChange={(e) => onChange({ ...draft, birth_date: e.target.value })}
-					className="h-[30px] w-full rounded-lg bg-surface px-3 text-[14px] text-ink outline-none"
+					onChange={(value) => onChange({ ...draft, birth_date: value })}
 				/>
 			</div>
-		</div>
+
+			{(!draft.name || !draft.birth_date) && (
+				<p className="text-[12px] text-ink-2">
+					Preencha nome e data de nascimento para que este bebê seja salvo.
+				</p>
+			)}
+		</ProfileSectionCard>
 	);
 }

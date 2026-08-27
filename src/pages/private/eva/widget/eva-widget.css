@@ -307,7 +307,7 @@
 .eva-widget-welcome {
 	flex: 1;
 	min-height: 0;
-	overflow: hidden;
+	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
@@ -635,4 +635,14 @@
 	.eva-widget-welcome {
 		padding-bottom: 28px;
 	}
+}
+
+@media (min-width: 521px) {
+	:root[data-fonte="dislexia"] .eva-widget-modal {
+		height: 596px;
+	}
+}
+
+:root[data-fonte="dislexia"] .eva-welcome-espaco {
+	min-height: 8px;
 }

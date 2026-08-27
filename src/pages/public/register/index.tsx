@@ -161,18 +161,17 @@ export function RegisterScreen() {
 							/>
 						</Link>
 
-						<AccessibilityControls
-							tom="escuro"
-							className="absolute right-6 top-6 z-10"
-						/>
+						<div className="flex shrink-0 items-center gap-1.5">
+							<AccessibilityControls tom="escuro" />
 
-						<Link
-							to="/"
-							className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 text-[13px] font-semibold text-white outline-none transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-white/50"
-						>
-							<ChevronLeft className="size-4" aria-hidden="true" />
-							Voltar
-						</Link>
+							<Link
+								to="/"
+								className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 text-[13px] font-semibold text-white outline-none transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-white/50 lg:h-10"
+							>
+								<ChevronLeft className="size-4" aria-hidden="true" />
+								Voltar
+							</Link>
+						</div>
 					</div>
 
 					<div className="mt-5 flex items-center gap-5">

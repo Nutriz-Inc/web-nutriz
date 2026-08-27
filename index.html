@@ -18,18 +18,7 @@
           const salvo = JSON.parse(
             localStorage.getItem("nutriz:acessibilidade") || "{}"
           );
-          const pref = (v, ok) => (ok.indexOf(v) >= 0 ? v : "sistema");
-          const consulta = (q) =>
-            typeof matchMedia === "function" && matchMedia(q).matches;
-
-          const tema = pref(salvo.tema, ["sistema", "claro", "escuro"]);
-
-          const temaFinal =
-            tema === "sistema"
-              ? consulta("(prefers-color-scheme: dark)")
-                ? "escuro"
-                : "claro"
-              : tema;
+          const temaFinal = salvo.tema === "escuro" ? "escuro" : "claro";
 
           const raiz = document.documentElement;
           raiz.dataset.tema = temaFinal;

@@ -1,4 +1,4 @@
-import { Trash2 } from "lucide-react";
+import { LoaderCircle, Trash2 } from "lucide-react";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -26,16 +26,21 @@ export function RemoveBabyButton({
 				<button
 					type="button"
 					disabled={loading}
-					className="flex items-center gap-1.5 rounded-full border border-eva/30 bg-eva-tint px-3 py-1.5 text-[12px] font-semibold text-eva-deep disabled:opacity-60"
+					aria-busy={loading}
+					className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-danger/30 px-4 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-3 focus-visible:ring-danger/40 disabled:opacity-60 motion-reduce:transition-none"
 				>
+					{loading ? (
+						<LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
+					) : (
+						<Trash2 className="size-4" aria-hidden="true" />
+					)}
 					Remover
-					<Trash2 className="size-3.5" />
 				</button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<div className="flex size-12 items-center justify-center rounded-full bg-eva-tint">
-						<Trash2 className="size-5 text-eva-deep" />
+					<div className="flex size-12 items-center justify-center rounded-full bg-danger-tint">
+						<Trash2 className="size-5 text-danger" aria-hidden="true" />
 					</div>
 					<AlertDialogTitle>Remover bebê</AlertDialogTitle>
 					<AlertDialogDescription>

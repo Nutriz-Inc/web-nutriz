@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
+import { Reveal } from "@/components/full/Reveal";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
+import { formatCep, maskPhoneNumber } from "@/utils/formatter";
 import { BabySection } from "./components/BabySection";
 import { BottomActionBar } from "./components/BottomActionBar";
 import {
@@ -10,7 +12,7 @@ import {
 	MyDataSection,
 } from "./components/MyDataSection";
 import type { BabyDraft } from "./components/NewBabyCard";
-import { ProfileHeader } from "./components/ProfileHeader";
+import { ProfileHeaderCard } from "./components/ProfileHeaderCard";
 import { type ProfileTabKey, ProfileTabs } from "./components/ProfileTabs";
 import {
 	useCreateBaby,
@@ -20,7 +22,7 @@ import {
 	useUpdateBaby,
 	useUpdateProfile,
 } from "./hooks";
-import { createDraft } from "./utils";
+import { createDraft, PROFILE_TABS_ID } from "./utils";
 
 export function ProfilePage() {
 	const { auth } = useAuth();
@@ -47,10 +49,10 @@ export function ProfilePage() {
 
 	const baselineValues: MyDataFormValues = {
 		name: data?.name ?? "",
-		phone_number: data?.phone_number ?? "",
+		phone_number: maskPhoneNumber(data?.phone_number ?? ""),
 		email: data?.email ?? "",
 		password: "",
-		zip_code: address?.zipcode ?? "",
+		zip_code: formatCep(address?.zipcode ?? ""),
 		number: address?.number ?? "",
 		complement: address?.complement ?? "",
 		cpf: data?.cpf ?? "",
@@ -142,10 +144,15 @@ export function ProfilePage() {
 			const requests: Promise<unknown>[] = [];
 
 			if (hasUserChanges) {
+				const phoneUnchanged =
+					values.phone_number === baselineValues.phone_number;
+
 				requests.push(
 					updateProfile.mutateAsync({
 						name: values.name,
-						phone_number: values.phone_number,
+						phone_number: phoneUnchanged
+							? (data?.phone_number ?? "")
+							: values.phone_number,
 						email: values.email,
 						password: values.password || undefined,
 					}),
@@ -212,30 +219,36 @@ export function ProfilePage() {
 		updateBaby.isPending ||
 		createBaby.isPending;
 
+	const panelProps = isCommon
+		? {
+				role: "tabpanel" as const,
+				id: `${PROFILE_TABS_ID}-panel-${tab}`,
+				"aria-labelledby": `${PROFILE_TABS_ID}-tab-${tab}`,
+			}
+		: {};
+
 	return (
 		<Page
 			loading={isLoading}
 			title="Perfil"
 			description={`Gerencie suas informações pessoais${isCommon ? " e de seu bebê" : ""}.`}
-			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col bg-surface-2 lg:m-0 lg:min-h-0 lg:bg-transparent lg:mx-auto lg:w-full lg:max-w-[1400px] lg:px-0 lg:py-8">
-				<div className="lg:mb-5 lg:flex lg:items-center lg:justify-between lg:gap-6 lg:rounded-card-sm lg:border lg:border-line lg:bg-surface lg:p-6">
-					<ProfileHeader
+			<div className="flex flex-col gap-5">
+				<Reveal>
+					<ProfileHeaderCard
 						name={data?.name ?? ""}
 						email={data?.email ?? ""}
 						userType={auth?.type}
 						idUser={auth?.id_user}
+						tabsSlot={
+							isCommon ? (
+								<ProfileTabs value={tab} onChange={setTab} />
+							) : undefined
+						}
 					/>
+				</Reveal>
 
-					{isCommon && (
-						<div className="border-b border-ink-3/12 px-4 py-3 lg:shrink-0 lg:border-none lg:p-0">
-							<ProfileTabs value={tab} onChange={setTab} />
-						</div>
-					)}
-				</div>
-
-				<div className="flex-1 px-4 py-4 lg:flex-none lg:px-0 lg:py-0">
+				<div {...panelProps}>
 					{!isCommon || tab === "dados" ? (
 						<MyDataSection
 							values={values}

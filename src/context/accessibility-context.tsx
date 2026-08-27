@@ -13,6 +13,7 @@ import {
 	aplicarNoDocumento,
 	gravarPreferencias,
 	lerPreferencias,
+	PREFERENCIAS_PADRAO,
 	type Preferencias,
 	type PreferenciaTema,
 } from "@/utils/accessibility-storage";
@@ -20,7 +21,7 @@ import { carregarFonteLeituraFacil } from "@/utils/dyslexia-font";
 
 type AccessibilityContextValue = {
 	preferencias: Preferencias;
-	temaEfetivo: "claro" | "escuro";
+	temaEfetivo: PreferenciaTema;
 	definirTema: (tema: PreferenciaTema) => void;
 	definirFonteDislexia: (ativa: boolean) => void;
 	restaurarPadroes: () => void;
@@ -30,45 +31,13 @@ const AccessibilityContext = createContext<AccessibilityContextValue | null>(
 	null,
 );
 
-const CONSULTA_ESCURO = "(prefers-color-scheme: dark)";
-
-function combina(consulta: string) {
-	return typeof window !== "undefined" && window.matchMedia
-		? window.matchMedia(consulta).matches
-		: false;
-}
-
 export function AccessibilityProvider({ children }: PropsWithChildren) {
 	const [preferencias, setPreferencias] = useState<Preferencias>(() =>
 		lerPreferencias(),
 	);
-	const [sistemaEscuro, setSistemaEscuro] = useState(() =>
-		combina(CONSULTA_ESCURO),
-	);
 	const relogioDaTroca = useRef<number | undefined>(undefined);
 
-	useEffect(() => {
-		if (!window.matchMedia) {
-			return;
-		}
-
-		const escuro = window.matchMedia(CONSULTA_ESCURO);
-		const aoMudarEscuro = (e: MediaQueryListEvent) =>
-			setSistemaEscuro(e.matches);
-
-		escuro.addEventListener("change", aoMudarEscuro);
-
-		return () => {
-			escuro.removeEventListener("change", aoMudarEscuro);
-		};
-	}, []);
-
-	const temaEfetivo: "claro" | "escuro" =
-		preferencias.tema === "sistema"
-			? sistemaEscuro
-				? "escuro"
-				: "claro"
-			: preferencias.tema;
+	const temaEfetivo = preferencias.tema;
 
 	useEffect(() => {
 		gravarPreferencias(preferencias);
@@ -101,7 +70,7 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 	}, []);
 
 	const restaurarPadroes = useCallback(() => {
-		setPreferencias({ tema: "sistema", fonteDislexia: false });
+		setPreferencias(PREFERENCIAS_PADRAO);
 	}, []);
 
 	const valor = useMemo(

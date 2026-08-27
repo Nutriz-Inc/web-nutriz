@@ -1,6 +1,6 @@
 export const CHAVE_ACESSIBILIDADE = "nutriz:acessibilidade";
 
-export type PreferenciaTema = "sistema" | "claro" | "escuro";
+export type PreferenciaTema = "claro" | "escuro";
 
 export type Preferencias = {
 	tema: PreferenciaTema;
@@ -8,11 +8,11 @@ export type Preferencias = {
 };
 
 export const PREFERENCIAS_PADRAO: Preferencias = {
-	tema: "sistema",
+	tema: "claro",
 	fonteDislexia: false,
 };
 
-const TEMAS: PreferenciaTema[] = ["sistema", "claro", "escuro"];
+const TEMAS: PreferenciaTema[] = ["claro", "escuro"];
 
 export function lerPreferencias(): Preferencias {
 	try {

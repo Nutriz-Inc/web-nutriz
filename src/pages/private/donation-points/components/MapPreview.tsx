@@ -11,6 +11,15 @@ import { MapResizeHandler } from "./MapResizeHandler";
 
 const DEFAULT_CENTER: [number, number] = [-23.5505, -46.6333];
 
+const LIMITES_DO_MUNDO: [[number, number], [number, number]] = [
+	[-85, -180],
+	[85, 180],
+];
+
+const ZOOM_MINIMO = 3;
+const ZOOM_MAXIMO = 18;
+const ZOOM_MAXIMO_COM_DADOS = 16;
+
 const pointIcon = (selected: boolean) => {
 	const largura = selected ? 34 : 26;
 	const altura = selected ? 46 : 35;
@@ -84,12 +93,22 @@ export function MapPreview({
 			{showLocateButton && <LocateButton onClick={onRequestChangeLocation} />}
 
 			<div className="relative isolate h-[225px] w-full overflow-hidden rounded-xl lg:h-full lg:max-h-[900px] lg:rounded-2xl">
-				<MapContainer center={center} zoom={13} className="size-full">
+				<MapContainer
+					center={center}
+					zoom={13}
+					minZoom={ZOOM_MINIMO}
+					maxZoom={ZOOM_MAXIMO}
+					maxBounds={LIMITES_DO_MUNDO}
+					maxBoundsViscosity={1}
+					className="size-full"
+				>
 					<TileLayer
 						key={temaEfetivo}
 						attribution='Tiles &copy; <a href="https://www.esri.com">Esri</a> &mdash; Esri, DeLorme, NAVTEQ'
 						url={`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${escuro ? "Dark" : "Light"}_Gray_Base/MapServer/tile/{z}/{y}/{x}`}
-						maxZoom={19}
+						maxZoom={ZOOM_MAXIMO}
+						maxNativeZoom={ZOOM_MAXIMO_COM_DADOS}
+						noWrap
 					/>
 
 					<FitMapView

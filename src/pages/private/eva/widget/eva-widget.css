@@ -443,17 +443,6 @@
 	flex-shrink: 0;
 }
 
-.eva-widget-quick-actions {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-}
-
-.eva-quick-chip {
-	padding: 0 14px;
-	font-size: 13px;
-}
-
 .eva-widget-input-foot {
 	margin: 0;
 	text-align: center;

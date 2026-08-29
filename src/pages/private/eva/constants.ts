@@ -42,11 +42,6 @@ export const EVA_SUGGESTIONS = [
 	"Como agendar a coleta?",
 ] as const;
 
-export const EVA_QUICK_ACTIONS: { label: string; message: string }[] = [
-	{ label: "Passo a passo", message: "Me explica o passo a passo da ordenha?" },
-	{ label: "Agendar coleta", message: "Como agendar a coleta do leite?" },
-];
-
 export const CONNECTION_ERROR_MESSAGE =
 	"Não foi possível conectar à EVA. Verifique sua conexão.";
 

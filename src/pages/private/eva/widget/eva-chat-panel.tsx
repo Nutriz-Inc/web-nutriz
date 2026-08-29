@@ -6,7 +6,6 @@ import {
 	BLOCKED_MESSAGES,
 	CONNECTION_ERROR_MESSAGE,
 	EVA_GREETING_TEXT,
-	EVA_QUICK_ACTIONS,
 } from "../constants";
 import "../eva.css";
 import { env } from "@/config/env";
@@ -106,15 +105,8 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 		}
 	}
 
-	function handleQuickAction(message: string) {
-		if (sendMessage(message)) {
-			stickToBottomRef.current = true;
-		}
-	}
-
 	const blocked = blockedReason !== null;
 	const inputDisabled = blocked || status === "failed";
-	const canQuickAct = status === "open" && !blocked && !isSending;
 	const consentSupportHref =
 		blockedReason === "consent" ? buildConsentSupportHref() : null;
 
@@ -185,21 +177,6 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 			</div>
 
 			<div className="eva-widget-input-area">
-				{canQuickAct && (
-					<div className="eva-widget-quick-actions">
-						{EVA_QUICK_ACTIONS.map((action) => (
-							<button
-								key={action.label}
-								type="button"
-								className="eva-outline-btn eva-quick-chip"
-								onClick={() => handleQuickAction(action.message)}
-							>
-								{action.label}
-							</button>
-						))}
-					</div>
-				)}
-
 				<ChatInput
 					value={input}
 					onChange={setInput}

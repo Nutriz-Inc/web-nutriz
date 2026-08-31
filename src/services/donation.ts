@@ -4,6 +4,8 @@ import type {
 	ICreateDonationStepRequest,
 	ICreateDonationStepResponse,
 	IDonation,
+	IListDonationStepsRequest,
+	IListDonationStepsResponse,
 	IGetDonationResponse,
 	IListDonationPointsRequest,
 	IListDonationPointsResponse,
@@ -58,6 +60,16 @@ export class Donation implements IDonation {
 		params: IListDonationPointsRequest,
 	): Promise<IListDonationPointsResponse> {
 		const { data } = await this.httpClient.get("/public/donation/point", {
+			params,
+		});
+
+		return data;
+	}
+
+	async listSteps(
+		params: IListDonationStepsRequest,
+	): Promise<IListDonationStepsResponse> {
+		const { data } = await this.httpClient.get("/internal/donation/step", {
 			params,
 		});
 

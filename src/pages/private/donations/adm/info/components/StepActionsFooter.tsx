@@ -10,6 +10,9 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import type { BottleUpdateBase } from "@/services/types/i-donation";
+import { bottlesAreValid } from "@/utils/bottle";
+import { BottleListEditor } from "./BottleListEditor";
 
 type Props = {
 	definitionLabel: string;
@@ -22,8 +25,8 @@ type Props = {
 	onErrorDescriptionChange: (value: string) => void;
 	onMarkAsError: () => void;
 	isLastStep?: boolean;
-	quantityDonated?: string;
-	onQuantityDonatedChange?: (value: string) => void;
+	bottles: BottleUpdateBase[];
+	onBottlesChange: (next: BottleUpdateBase[]) => void;
 };
 
 export function StepActionsFooter({
@@ -37,9 +40,11 @@ export function StepActionsFooter({
 	onErrorDescriptionChange,
 	onMarkAsError,
 	isLastStep,
-	quantityDonated,
-	onQuantityDonatedChange,
+	bottles,
+	onBottlesChange,
 }: Props) {
+	const bottlesInvalid = Boolean(isLastStep) && !bottlesAreValid(bottles);
+
 	return (
 		<div className="flex flex-col gap-3 lg:flex-row">
 			<div className="flex flex-1 flex-col gap-3 rounded-xl border border-blue-deep/20 bg-blue-tint p-4 lg:flex-row lg:items-center lg:justify-between">
@@ -96,33 +101,17 @@ export function StepActionsFooter({
 						</div>
 
 						{isLastStep && (
-							<div className="flex flex-col gap-1.5 text-left">
-								<label
-									htmlFor="quantity-donated"
-									className="text-[12px] font-semibold text-ink-2"
-								>
-									Quantidade doada (ml)
-								</label>
-								<input
-									id="quantity-donated"
-									type="number"
-									min={0}
-									value={quantityDonated}
-									onChange={(event) =>
-										onQuantityDonatedChange?.(event.target.value)
-									}
-									placeholder="Ex: 250"
-									className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
-								/>
-							</div>
+							<BottleListEditor
+								bottles={bottles}
+								onChange={onBottlesChange}
+								disabled={isPending}
+							/>
 						)}
 
 						<AlertDialogFooter>
 							<AlertDialogAction
 								onClick={onFinalize}
-								disabled={
-									!finalizeDescription || (isLastStep && !quantityDonated)
-								}
+								disabled={!finalizeDescription || bottlesInvalid}
 								className="bg-blue-deep-fill hover:bg-blue-deep-fill"
 							>
 								Finalizar etapa

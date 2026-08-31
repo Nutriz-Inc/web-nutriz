@@ -81,6 +81,12 @@ export function phoneToE164(value: string): string {
 	return `+55${onlyDigits(value)}`;
 }
 
+export function formatMl(value?: number | null): string {
+	if (value === undefined || value === null) return "—";
+
+	return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} ml`;
+}
+
 export function formatDateBR(isoDate: string): string {
 	return new Date(isoDate).toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }

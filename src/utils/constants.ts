@@ -18,10 +18,12 @@ export const USER_TYPE_LABEL: Record<EnumUserType, string> = {
 	[EnumUserType.Common]: "Doadora",
 	[EnumUserType.Nurse]: "Enfermeiro(a)",
 	[EnumUserType.Admin]: "Administrador(a)",
+	[EnumUserType.Driver]: "Motorista",
 };
 
 export const USER_TYPE_TONE: Record<EnumUserType, BadgeTone> = {
 	[EnumUserType.Admin]: "brand",
 	[EnumUserType.Nurse]: "purple",
 	[EnumUserType.Common]: "success",
+	[EnumUserType.Driver]: "teal",
 };

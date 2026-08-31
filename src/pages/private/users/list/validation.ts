@@ -3,7 +3,7 @@ import type { EnumUserType } from "@/services/types/i-user";
 import { onlyDigits } from "@/utils/formatter";
 
 export type CreateUserFormData = {
-	type: EnumUserType.Admin | EnumUserType.Nurse;
+	type: EnumUserType.Admin | EnumUserType.Nurse | EnumUserType.Driver;
 	name: string;
 	cpf: string;
 	email: string;

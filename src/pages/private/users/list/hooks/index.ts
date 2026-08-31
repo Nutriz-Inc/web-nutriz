@@ -21,7 +21,7 @@ export function useCreateUser() {
 
 	const createUserMutation = useMutation({
 		mutationFn: (data: ICreateUserRequest) =>
-			services.user.createAdminAndNurse(data),
+			services.user.createInternal(data),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: ["users"] });
 		},

@@ -64,6 +64,7 @@ export enum EnumUserType {
 	Common = "common",
 	Admin = "adm",
 	Nurse = "nurse",
+	Driver = "driver",
 }
 
 export interface AddressCreateBase {
@@ -158,7 +159,7 @@ export type IRemoveUserResponse = IDeleteResponse;
 export interface IUser {
 	list(data: IListUsersRequest): Promise<IListUsersResponse>;
 	createCommon(data: ICreateUserRequest): Promise<ICreateUserResponse>;
-	createAdminAndNurse(data: ICreateUserRequest): Promise<ICreateUserResponse>;
+	createInternal(data: ICreateUserRequest): Promise<ICreateUserResponse>;
 	update(
 		id_user: string,
 		data: IUpdateUserRequest,

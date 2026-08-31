@@ -6,10 +6,10 @@ export function getHome(userType?: EnumUserType) {
 	switch (userType) {
 		case EnumUserType.Admin:
 			return "/dashboard";
-			break;
 		case EnumUserType.Nurse:
 			return "/agendamentos";
-			break;
+		case EnumUserType.Driver:
+			return "/rotas";
 		default:
 			return "/home";
 	}

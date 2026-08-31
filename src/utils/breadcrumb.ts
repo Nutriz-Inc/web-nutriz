@@ -14,6 +14,7 @@ const TELAS: Record<string, string> = {
 	"/perfil": "Perfil",
 	"/nova-doacao": "Nova doação",
 	"/agendamentos": "Meus agendamentos",
+	"/rotas": "Rotas",
 	"/gestao-doacoes": "Gestão de doações",
 	"/usuarios": "Usuários",
 	"/dashboard": "Dashboard",

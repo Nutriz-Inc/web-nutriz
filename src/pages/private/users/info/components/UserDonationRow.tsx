@@ -5,7 +5,6 @@ import { StatusBadge } from "@/pages/private/donations/adm/list/components/Statu
 import type { IDonationResponse } from "@/services/types/i-donation";
 import { formatDateBR } from "@/utils/formatter";
 import { DONATIONS_GRID_COLS } from "../constants";
-import { formatML } from "../utils";
 
 type UserDonationRowProps = {
 	donation: IDonationResponse;
@@ -35,10 +34,6 @@ export function UserDonationRow({ donation }: UserDonationRowProps) {
 			<span className="text-[14px] text-ink-2">
 				<span className="lg:hidden">Data: </span>
 				{formatDateBR(donation.created_at)}
-			</span>
-			<span className="text-[14px] font-semibold text-ink">
-				<span className="font-normal text-ink-2 lg:hidden">Volume: </span>
-				{formatML(donation.quantity_donated)}
 			</span>
 			<DonationStatusBadge
 				isActive={donation.is_active}

@@ -2,11 +2,13 @@
 import { AlertTriangle } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+	type BottleUpdateBase,
 	type DonationStep,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
 import type { Job } from "@/services/types/i-job";
 import type { Address } from "@/services/types/i-user";
+import { emptyBottle, normalizeBottlesPayload } from "@/utils/bottle";
 import type { StepDefinition } from "../../../common/info/constants";
 import { StepTimelineSheet } from "../../../common/step-detail/components/StepTimelineSheet";
 import { useStepAddress } from "../../../common/step-detail/hooks";
@@ -72,7 +74,9 @@ export function AdminStepCard({
 	);
 	const [finalizeDescription, setFinalizeDescription] = useState("");
 	const [errorDescription, setErrorDescription] = useState("");
-	const [quantityDonated, setQuantityDonated] = useState("");
+	const [bottles, setBottles] = useState<BottleUpdateBase[]>(() => [
+		emptyBottle(),
+	]);
 
 	const [addressMode, setAddressMode] = useState<"existing" | "new">("new");
 	const [selectedAddressId, setSelectedAddressId] = useState("");
@@ -165,9 +169,9 @@ export function AdminStepCard({
 			},
 			{
 				onSuccess: () => {
-					if (isLastStep && quantityDonated) {
+					if (isLastStep && bottles.length > 0) {
 						updateDonationMutation.mutate({
-							quantity_donated: Number(quantityDonated),
+							bottles: normalizeBottlesPayload(bottles),
 						});
 					}
 					onFinalized?.();
@@ -358,8 +362,8 @@ export function AdminStepCard({
 							onErrorDescriptionChange={setErrorDescription}
 							onMarkAsError={handleMarkAsError}
 							isLastStep={isLastStep}
-							quantityDonated={quantityDonated}
-							onQuantityDonatedChange={setQuantityDonated}
+							bottles={bottles}
+							onBottlesChange={setBottles}
 						/>
 					)}
 				</>

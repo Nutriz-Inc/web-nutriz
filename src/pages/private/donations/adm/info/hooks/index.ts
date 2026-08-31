@@ -95,6 +95,9 @@ export function useUpdateDonation(id_donation: string) {
 				["donation", id_donation],
 				(current) => current && { ...current, ...updatedDonation },
 			);
+			await queryClient.invalidateQueries({
+				queryKey: ["donation", id_donation],
+			});
 		},
 	});
 }

@@ -1,4 +1,5 @@
-import { Calendar, IdCardLanyard, Milk } from "lucide-react";
+import { Calendar, IdCardLanyard } from "lucide-react";
+import { BottleSummaryList } from "@/components/full/BottleSummaryList";
 import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
 import { StarRating } from "@/components/full/StarRating";
 import {
@@ -45,12 +46,11 @@ export function DonationInfoCard({ donation }: Props) {
 				value={formatDateBR(donation.created_at)}
 			/>
 
-			{donation.quantity_donated != null && (
-				<DonorInfoRow
-					icon={Milk}
-					label="Quantidade doada"
-					value={`${donation.quantity_donated} ml`}
-				/>
+			{donation.bottles && donation.bottles.length > 0 && (
+				<div className="flex flex-col gap-1.5">
+					<span className="text-[12px] font-semibold text-ink-2">Frascos</span>
+					<BottleSummaryList bottles={donation.bottles} />
+				</div>
 			)}
 
 			{(donation.user_feedback || donation.score_feedback != null) && (

@@ -4,7 +4,6 @@ import type { Address, AddressCreateBase } from "./i-user";
 export interface Donation {
 	id_donation: string;
 	is_active: boolean;
-	quantity_donated?: number;
 	user_feedback?: string;
 	score_feedback?: number;
 	created_at: string;
@@ -13,6 +12,16 @@ export interface Donation {
 	updated_by?: string;
 	removed_at?: string;
 	removed_by?: string;
+}
+
+export interface Bottle {
+	id_bottle: string;
+	id_donation: string;
+	quantity_donated_ml?: number;
+	discarded?: boolean;
+	description?: string;
+	created_at: string;
+	created_by: string;
 }
 
 export interface DonationPoint {
@@ -90,11 +99,17 @@ export type ICreateDonationResponse = Donation;
 
 export interface IGetDonationResponse extends Donation {
 	steps: DonationStep[];
+	bottles?: Bottle[];
 }
 
+export interface BottleUpdateBase {
+	quantity_donated_ml: number;
+	discarded?: boolean;
+	description?: string;
+}
 export interface IUpdateDonationRequest {
 	is_active?: boolean;
-	quantity_donated?: number;
+	bottles?: BottleUpdateBase[];
 	user_feedback?: string;
 	score_feedback?: number;
 }
@@ -135,6 +150,21 @@ export interface IUpdateDonationStepRequest {
 }
 export type IUpdateDonationStepResponse = DonationStep;
 
+export interface IListDonationStepsRequest extends IPaginationRequest {
+	status?: EnumDonationStepStatus;
+	id_donation?: string;
+	name?: EnumDonationStepName;
+	set_date?: string;
+	neighborhood?: string;
+	city?: string;
+}
+export interface IDonationStepResponse extends DonationStep {
+	address?: Address;
+}
+export interface IListDonationStepsResponse extends IPaginationResponse {
+	data: IDonationStepResponse[];
+}
+
 export interface IListDonationStepTimelinesRequest {
 	id_donation_step: string;
 }
@@ -155,6 +185,9 @@ export interface IDonation {
 		data: IListDonationPointsRequest,
 	): Promise<IListDonationPointsResponse>;
 
+	listSteps(
+		data: IListDonationStepsRequest,
+	): Promise<IListDonationStepsResponse>;
 	createStep(
 		data: ICreateDonationStepRequest,
 	): Promise<ICreateDonationStepResponse>;

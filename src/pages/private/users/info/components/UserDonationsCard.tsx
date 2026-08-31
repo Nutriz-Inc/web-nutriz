@@ -19,7 +19,7 @@ const FILTER_OPTIONS: FilterChipOption<DonationFilter>[] = [
 	{ key: "inactive", label: "Concluídas" },
 ];
 
-const COLUMN_LABELS = ["Doação", "Etapa atual", "Data", "Volume", "Status", ""];
+const COLUMN_LABELS = ["Doação", "Etapa atual", "Data", "Status", ""];
 
 type UserDonationsCardProps = {
 	donations: IDonationResponse[];

@@ -69,7 +69,13 @@ export function StepActionsFooter({
 							Finalizar etapa
 						</button>
 					</AlertDialogTrigger>
-					<AlertDialogContent>
+					<AlertDialogContent
+						className={
+							isLastStep
+								? "flex max-h-[85vh] max-w-lg flex-col overflow-y-auto"
+								: undefined
+						}
+					>
 						<AlertDialogHeader>
 							<div className="flex size-12 items-center justify-center rounded-full bg-blue-tint">
 								<Check className="size-5 text-blue-deep" />
@@ -81,32 +87,34 @@ export function StepActionsFooter({
 							</AlertDialogDescription>
 						</AlertDialogHeader>
 
-						<div className="flex flex-col gap-1.5 text-left">
-							<label
-								htmlFor="finalize-description"
-								className="text-[12px] font-semibold text-ink-2"
-							>
-								Descrição a ser registrada
-							</label>
-							<textarea
-								id="finalize-description"
-								value={finalizeDescription}
-								onChange={(event) =>
-									onFinalizeDescriptionChange(event.target.value)
-								}
-								rows={3}
-								placeholder="Descreva o resultado desta etapa"
-								className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
-							/>
-						</div>
+						<div className="mt-4 flex flex-col gap-4">
+							<div className="flex flex-col gap-1.5 text-left">
+								<label
+									htmlFor="finalize-description"
+									className="text-[12px] font-semibold text-ink-2"
+								>
+									Descrição a ser registrada
+								</label>
+								<textarea
+									id="finalize-description"
+									value={finalizeDescription}
+									onChange={(event) =>
+										onFinalizeDescriptionChange(event.target.value)
+									}
+									rows={3}
+									placeholder="Descreva o resultado desta etapa"
+									className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
+								/>
+							</div>
 
-						{isLastStep && (
-							<BottleListEditor
-								bottles={bottles}
-								onChange={onBottlesChange}
-								disabled={isPending}
-							/>
-						)}
+							{isLastStep && (
+								<BottleListEditor
+									bottles={bottles}
+									onChange={onBottlesChange}
+									disabled={isPending}
+								/>
+							)}
+						</div>
 
 						<AlertDialogFooter>
 							<AlertDialogAction

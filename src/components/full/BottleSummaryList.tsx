@@ -8,7 +8,7 @@ type Props = {
 };
 
 export function BottleSummaryList({ bottles }: Props) {
-	if (bottles.length === 0) {
+	if (!bottles.length) {
 		return <p className="text-[13px] text-ink-3">Nenhum frasco registrado.</p>;
 	}
 

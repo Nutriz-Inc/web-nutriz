@@ -15,7 +15,7 @@ export function sumBottlesMl(
 }
 
 export function bottlesAreValid(bottles: BottleUpdateBase[]): boolean {
-	if (bottles.length === 0) return false;
+	if (!bottles.length) return false;
 
 	return bottles.every((bottle) => {
 		if (

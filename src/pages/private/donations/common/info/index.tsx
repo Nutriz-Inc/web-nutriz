@@ -53,11 +53,10 @@ export function DonationInfoPage() {
 			actionSlot={!isConcluded && <LiveBadge />}
 		>
 			<div className="flex flex-col pt-4 gap-5">
-				{donationQuery.data?.quantity_donated != null && (
-					<DonationSummaryCard
-						quantityDonated={donationQuery.data.quantity_donated}
-					/>
-				)}
+				{donationQuery.data?.bottles &&
+					donationQuery.data.bottles.length > 0 && (
+						<DonationSummaryCard bottles={donationQuery.data.bottles} />
+					)}
 
 				{isConcluded && (
 					<DonationFeedbackCard

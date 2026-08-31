@@ -10,6 +10,9 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import type { BottleUpdateBase } from "@/services/types/i-donation";
+import { bottlesAreValid } from "@/utils/bottle";
+import { BottleListEditor } from "./BottleListEditor";
 
 type Props = {
 	definitionLabel: string;
@@ -22,8 +25,8 @@ type Props = {
 	onErrorDescriptionChange: (value: string) => void;
 	onMarkAsError: () => void;
 	isLastStep?: boolean;
-	quantityDonated?: string;
-	onQuantityDonatedChange?: (value: string) => void;
+	bottles: BottleUpdateBase[];
+	onBottlesChange: (next: BottleUpdateBase[]) => void;
 };
 
 export function StepActionsFooter({
@@ -37,9 +40,11 @@ export function StepActionsFooter({
 	onErrorDescriptionChange,
 	onMarkAsError,
 	isLastStep,
-	quantityDonated,
-	onQuantityDonatedChange,
+	bottles,
+	onBottlesChange,
 }: Props) {
+	const bottlesInvalid = Boolean(isLastStep) && !bottlesAreValid(bottles);
+
 	return (
 		<div className="flex flex-col gap-3 lg:flex-row">
 			<div className="flex flex-1 flex-col gap-3 rounded-xl border border-blue-deep/20 bg-blue-tint p-4 lg:flex-row lg:items-center lg:justify-between">
@@ -64,7 +69,13 @@ export function StepActionsFooter({
 							Finalizar etapa
 						</button>
 					</AlertDialogTrigger>
-					<AlertDialogContent>
+					<AlertDialogContent
+						className={
+							isLastStep
+								? "flex max-h-[85vh] max-w-lg flex-col overflow-y-auto"
+								: undefined
+						}
+					>
 						<AlertDialogHeader>
 							<div className="flex size-12 items-center justify-center rounded-full bg-blue-tint">
 								<Check className="size-5 text-blue-deep" />
@@ -76,53 +87,39 @@ export function StepActionsFooter({
 							</AlertDialogDescription>
 						</AlertDialogHeader>
 
-						<div className="flex flex-col gap-1.5 text-left">
-							<label
-								htmlFor="finalize-description"
-								className="text-[12px] font-semibold text-ink-2"
-							>
-								Descrição a ser registrada
-							</label>
-							<textarea
-								id="finalize-description"
-								value={finalizeDescription}
-								onChange={(event) =>
-									onFinalizeDescriptionChange(event.target.value)
-								}
-								rows={3}
-								placeholder="Descreva o resultado desta etapa"
-								className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
-							/>
-						</div>
-
-						{isLastStep && (
+						<div className="mt-4 flex flex-col gap-4">
 							<div className="flex flex-col gap-1.5 text-left">
 								<label
-									htmlFor="quantity-donated"
+									htmlFor="finalize-description"
 									className="text-[12px] font-semibold text-ink-2"
 								>
-									Quantidade doada (ml)
+									Descrição a ser registrada
 								</label>
-								<input
-									id="quantity-donated"
-									type="number"
-									min={0}
-									value={quantityDonated}
+								<textarea
+									id="finalize-description"
+									value={finalizeDescription}
 									onChange={(event) =>
-										onQuantityDonatedChange?.(event.target.value)
+										onFinalizeDescriptionChange(event.target.value)
 									}
-									placeholder="Ex: 250"
+									rows={3}
+									placeholder="Descreva o resultado desta etapa"
 									className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
 								/>
 							</div>
-						)}
+
+							{isLastStep && (
+								<BottleListEditor
+									bottles={bottles}
+									onChange={onBottlesChange}
+									disabled={isPending}
+								/>
+							)}
+						</div>
 
 						<AlertDialogFooter>
 							<AlertDialogAction
 								onClick={onFinalize}
-								disabled={
-									!finalizeDescription || (isLastStep && !quantityDonated)
-								}
+								disabled={!finalizeDescription || bottlesInvalid}
 								className="bg-blue-deep-fill hover:bg-blue-deep-fill"
 							>
 								Finalizar etapa

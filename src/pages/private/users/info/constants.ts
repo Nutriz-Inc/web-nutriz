@@ -3,7 +3,7 @@ import { EnumUserType } from "@/services/types/i-user";
 import { USER_TYPE_TONE } from "@/utils/constants";
 
 export const DONATIONS_GRID_COLS =
-	"lg:grid-cols-[repeat(5,minmax(0,1fr))_32px]";
+	"lg:grid-cols-[repeat(4,minmax(0,1fr))_32px]";
 
 export const APPOINTMENTS_GRID_COLS =
 	"lg:grid-cols-[repeat(6,minmax(0,1fr))_32px]";

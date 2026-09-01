@@ -1,6 +1,7 @@
 import { useState } from "react";
 import agendaVazia from "@/assets/illustrations/agenda-vazia.svg";
 import { EmptyState } from "@/components/full/EmptyState";
+import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumJobStatus } from "@/services/types/i-job";
@@ -21,6 +22,7 @@ export function AppointmentsPage() {
 		appointments,
 		total,
 		isLoading,
+		isUpdating,
 		hasNextPage,
 		isFetchingNextPage,
 		fetchNextPage,
@@ -48,27 +50,29 @@ export function AppointmentsPage() {
 
 				<DateFilter value={dateFilter} onChange={setDateFilter} />
 
-				{appointments.length === 0 ? (
-					<div className="rounded-card-sm border border-line bg-surface">
-						<EmptyState
-							illustration={agendaVazia}
-							title="Nenhum agendamento encontrado"
-							description="Ajuste o período ou a aba selecionada."
-						/>
-					</div>
-				) : (
-					<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-						{appointments.map((appointment, index) => (
-							<div
-								key={appointment.id}
-								className="h-full motion-safe:surge-etapa"
-								style={{ animationDelay: `${Math.min(index, 7) * 55}ms` }}
-							>
-								<AppointmentCard appointment={appointment} />
-							</div>
-						))}
-					</div>
-				)}
+				<RefreshableList updating={isUpdating}>
+					{appointments.length === 0 ? (
+						<div className="rounded-card-sm border border-line bg-surface">
+							<EmptyState
+								illustration={agendaVazia}
+								title="Nenhum agendamento encontrado"
+								description="Ajuste o período ou a aba selecionada."
+							/>
+						</div>
+					) : (
+						<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+							{appointments.map((appointment, index) => (
+								<div
+									key={appointment.id}
+									className="h-full motion-safe:surge-etapa"
+									style={{ animationDelay: `${Math.min(index, 7) * 55}ms` }}
+								>
+									<AppointmentCard appointment={appointment} />
+								</div>
+							))}
+						</div>
+					)}
+				</RefreshableList>
 
 				{hasNextPage && (
 					<LoadMoreButton

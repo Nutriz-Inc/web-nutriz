@@ -41,7 +41,7 @@ export function useDonationPointsSearch() {
 		? zipCodeSearch.coordinates
 		: (coordinatesOverride ?? coordinates);
 
-	const { data, isLoading } = useQueryDonationPoints({
+	const { data, isLoading, isPlaceholderData } = useQueryDonationPoints({
 		name: debouncedSearch || undefined,
 		has_home: filter === "home" ? true : undefined,
 		zipcode: zipCodeOverride,
@@ -94,6 +94,7 @@ export function useDonationPointsSearch() {
 		closestPointId,
 		points,
 		isLoading,
+		isPlaceholderData,
 		effectiveCoordinates,
 		isLocationReady: locationOverride !== null || isGeolocationResolved,
 		refitVersion,

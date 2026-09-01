@@ -117,6 +117,13 @@ export function DonationStepCard({
 						className="absolute inset-y-0 left-0 w-1.5 origin-left scale-x-0 bg-blue-deep transition-transform duration-200 group-hover:scale-x-100 group-focus-visible:scale-x-100"
 					/>
 				)}
+
+				{justChanged && (
+					<span
+						aria-hidden="true"
+						className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-eva/20 to-transparent motion-safe:varredura-etapa"
+					/>
+				)}
 				<div className="flex items-start gap-3">
 					<div
 						className={cn(

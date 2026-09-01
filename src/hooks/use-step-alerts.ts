@@ -5,7 +5,7 @@ import {
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
 
-const DESTAQUE_MS = 6000;
+const DESTAQUE_MS = 2600;
 
 const AVISO: Partial<
 	Record<

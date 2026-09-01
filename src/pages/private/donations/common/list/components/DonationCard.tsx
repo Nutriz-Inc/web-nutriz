@@ -1,9 +1,9 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Calendar, ChevronRight, Heart, Lock } from "lucide-react";
 import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
-import { ProgressBar } from "./ProgressBar";
 
 type DonationCardProps = {
 	number: number;

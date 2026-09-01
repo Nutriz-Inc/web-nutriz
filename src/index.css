@@ -504,18 +504,47 @@ body {
 
 @keyframes brilho-etapa {
 	0% {
-		box-shadow: 0 0 0 0 color-mix(in oklch, var(--eva) 60%, transparent);
+		box-shadow: 0 0 0 0 color-mix(in oklch, var(--eva) 45%, transparent);
+		transform: translateY(0);
 	}
-	70% {
-		box-shadow: 0 0 0 14px color-mix(in oklch, var(--eva) 0%, transparent);
+	35% {
+		box-shadow: 0 0 0 6px color-mix(in oklch, var(--eva) 16%, transparent);
+		transform: translateY(-2px);
 	}
 	100% {
-		box-shadow: 0 0 0 0 color-mix(in oklch, var(--eva) 0%, transparent);
+		box-shadow: 0 0 0 14px color-mix(in oklch, var(--eva) 0%, transparent);
+		transform: translateY(0);
+	}
+}
+
+@keyframes varredura-etapa {
+	from {
+		transform: translateX(-140%) skewX(-12deg);
+	}
+	to {
+		transform: translateX(320%) skewX(-12deg);
+	}
+}
+
+@keyframes brilho-barra {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(400%);
 	}
 }
 
 @utility brilho-etapa {
-	animation: brilho-etapa 1.8s cubic-bezier(0, 0, 0.2, 1) 3;
+	animation: brilho-etapa 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility varredura-etapa {
+	animation: varredura-etapa 1.15s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@utility brilho-barra {
+	animation: brilho-barra 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 @utility pulso-etapa {

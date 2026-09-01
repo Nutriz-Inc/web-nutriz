@@ -1,7 +1,7 @@
-import { Check } from "lucide-react";
+import { AlertTriangle, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export type StepDotStatus = "done" | "current" | "waiting";
+export type StepDotStatus = "done" | "current" | "waiting" | "failed";
 
 type StepDotProps = {
 	status: StepDotStatus;
@@ -20,6 +20,7 @@ export function StepDot({
 }: StepDotProps) {
 	const isCurrent = status === "current";
 	const isDone = status === "done";
+	const isFailed = status === "failed";
 
 	return (
 		<span className="relative flex shrink-0 items-center justify-center">
@@ -56,8 +57,10 @@ export function StepDot({
 					isCurrent &&
 						"bg-surface text-blue-bright ring-2 ring-blue-bright/45 ring-inset",
 					isDone && "bg-blue-bright-fill text-white shadow-soft",
+					isFailed && "bg-danger-fill text-white shadow-soft",
 					!isCurrent &&
 						!isDone &&
+						!isFailed &&
 						"border-[1.5px] border-dashed border-blue-tint-2 bg-surface text-ink-3",
 					celebrate && "motion-safe:pop-etapa",
 					className,
@@ -79,6 +82,8 @@ export function StepDot({
 					</svg>
 				) : isDone ? (
 					<Check className={cn("size-3.5", iconClassName)} strokeWidth={3} />
+				) : isFailed ? (
+					<AlertTriangle className={cn("size-3.5", iconClassName)} />
 				) : (
 					order
 				)}

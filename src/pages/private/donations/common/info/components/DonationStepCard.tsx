@@ -107,7 +107,7 @@ export function DonationStepCard({
 						/>
 						<span
 							aria-hidden="true"
-							className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-blue-bright/25 to-transparent motion-safe:varredura-etapa"
+							className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-blue-bright/20 to-transparent motion-safe:varredura-etapa"
 						/>
 					</>
 				)}

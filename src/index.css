@@ -565,11 +565,19 @@ body {
 }
 
 @keyframes varredura-etapa {
-	from {
-		transform: translateX(-140%) skewX(-12deg);
+	0% {
+		transform: translateX(-150%) skewX(-12deg);
+		opacity: 0;
 	}
-	to {
-		transform: translateX(320%) skewX(-12deg);
+	16% {
+		opacity: 1;
+	}
+	55% {
+		opacity: 0.9;
+	}
+	100% {
+		transform: translateX(300%) skewX(-12deg);
+		opacity: 0;
 	}
 }
 
@@ -600,7 +608,7 @@ body {
 }
 
 @utility varredura-etapa {
-	animation: varredura-etapa 1.4s 0.12s cubic-bezier(0.4, 0, 0.2, 1) both;
+	animation: varredura-etapa 2s 0.1s cubic-bezier(0.33, 0, 0.15, 1) both;
 }
 
 @utility brilho-barra {

@@ -3,6 +3,7 @@ import { type FormEvent, useState } from "react";
 import usuariosVazio from "@/assets/illustrations/usuarios-vazio.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
+import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
@@ -127,19 +128,21 @@ export function UsersManagementPage() {
 					</button>
 				</form>
 
-				<div className="overflow-hidden rounded-2xl border border-surface-3 bg-surface">
-					<UsersTableHeader />
+				<RefreshableList updating={usersQuery.isPlaceholderData}>
+					<div className="overflow-hidden rounded-2xl border border-surface-3 bg-surface">
+						<UsersTableHeader />
 
-					{users.length === 0 ? (
-						<EmptyState
-							illustration={usuariosVazio}
-							title="Nenhum usuário encontrado"
-							description="Ajuste a busca ou o filtro selecionado."
-						/>
-					) : (
-						users.map((user) => <UserRow key={user.id_user} user={user} />)
-					)}
-				</div>
+						{users.length === 0 ? (
+							<EmptyState
+								illustration={usuariosVazio}
+								title="Nenhum usuário encontrado"
+								description="Ajuste a busca ou o filtro selecionado."
+							/>
+						) : (
+							users.map((user) => <UserRow key={user.id_user} user={user} />)
+						)}
+					</div>
+				</RefreshableList>
 			</div>
 
 			<CreateUserSheet

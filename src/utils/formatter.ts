@@ -106,3 +106,14 @@ export function formatCreatedAt(createdAt: string) {
 	const date = new Date(createdAt);
 	return `${dateFormatter.format(date)} - ${timeFormatter.format(date)}`;
 }
+
+export function formatDateTimeParts(value: string): {
+	date: string;
+	time: string;
+} {
+	const parsed = new Date(value);
+	return {
+		date: dateFormatter.format(parsed),
+		time: timeFormatter.format(parsed),
+	};
+}

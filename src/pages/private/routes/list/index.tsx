@@ -3,6 +3,7 @@ import { type FormEvent, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
+import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -64,7 +65,7 @@ export function RoutesListPage() {
 		setPage(1);
 	}
 
-	const { data, isLoading } = useRoutesList({
+	const { data, isLoading, isPlaceholderData } = useRoutesList({
 		page,
 		page_size: DEFAULT_PAGE_SIZE,
 		driver_name: appliedDriverName || undefined,
@@ -148,51 +149,55 @@ export function RoutesListPage() {
 					/>
 				</div>
 
-				{routes.length === 0 ? (
-					<div className="rounded-card-sm bg-surface">
-						<EmptyState
-							illustration={buscaSemResultado}
-							title="Nenhuma rota encontrada"
-							description="Ajuste a busca ou o filtro selecionado."
-						/>
-					</div>
-				) : (
-					<>
-						<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-							{routes.map((route) => (
-								<RouteCard key={route.id_route} route={route} />
-							))}
+				<RefreshableList updating={isPlaceholderData}>
+					{routes.length === 0 ? (
+						<div className="rounded-card-sm bg-surface">
+							<EmptyState
+								illustration={buscaSemResultado}
+								title="Nenhuma rota encontrada"
+								description="Ajuste a busca ou o filtro selecionado."
+							/>
 						</div>
-
-						{totalPages > 1 && (
-							<div className="flex items-center justify-center gap-3 lg:justify-end">
-								<button
-									type="button"
-									onClick={() => setPage((current) => Math.max(1, current - 1))}
-									disabled={page === 1}
-									aria-label="Página anterior"
-									className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
-								>
-									<ChevronLeft className="size-4" />
-								</button>
-								<span className="text-[13px] font-semibold text-ink">
-									Página {page} de {totalPages}
-								</span>
-								<button
-									type="button"
-									onClick={() =>
-										setPage((current) => Math.min(totalPages, current + 1))
-									}
-									disabled={page === totalPages}
-									aria-label="Próxima página"
-									className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
-								>
-									<ChevronRight className="size-4" />
-								</button>
+					) : (
+						<>
+							<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+								{routes.map((route) => (
+									<RouteCard key={route.id_route} route={route} />
+								))}
 							</div>
-						)}
-					</>
-				)}
+
+							{totalPages > 1 && (
+								<div className="flex items-center justify-center gap-3 lg:justify-end">
+									<button
+										type="button"
+										onClick={() =>
+											setPage((current) => Math.max(1, current - 1))
+										}
+										disabled={page === 1}
+										aria-label="Página anterior"
+										className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
+									>
+										<ChevronLeft className="size-4" />
+									</button>
+									<span className="text-[13px] font-semibold text-ink">
+										Página {page} de {totalPages}
+									</span>
+									<button
+										type="button"
+										onClick={() =>
+											setPage((current) => Math.min(totalPages, current + 1))
+										}
+										disabled={page === totalPages}
+										aria-label="Próxima página"
+										className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
+									>
+										<ChevronRight className="size-4" />
+									</button>
+								</div>
+							)}
+						</>
+					)}
+				</RefreshableList>
 			</div>
 		</Page>
 	);

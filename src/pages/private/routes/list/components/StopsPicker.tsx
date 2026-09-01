@@ -1,16 +1,31 @@
 import { Check, Plus, X } from "lucide-react";
 import { useMemo } from "react";
 import { cn } from "@/lib/utils";
+import { EnumDonationStepStatus } from "@/services/types/i-donation";
 import { formatDateBR } from "@/utils/formatter";
 import { useDonationStepsList } from "../hooks";
 
 type StopsPickerProps = {
 	value: string[];
 	onChange: (ids: string[]) => void;
+	city?: string;
+	neighborhood?: string;
 };
 
-export function StopsPicker({ value, onChange }: StopsPickerProps) {
-	const { data, isLoading } = useDonationStepsList({ page: 1, page_size: 50 });
+export function StopsPicker({
+	value,
+	onChange,
+	city,
+	neighborhood,
+}: StopsPickerProps) {
+	const { data, isLoading } = useDonationStepsList({
+		page: 1,
+		page_size: 50,
+		status: EnumDonationStepStatus.Pending,
+		has_address: true,
+		city: city || undefined,
+		neighborhood: neighborhood || undefined,
+	});
 	const steps = data?.data ?? [];
 
 	const selected = new Set(value);

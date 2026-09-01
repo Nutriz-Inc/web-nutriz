@@ -228,7 +228,12 @@ export function CreateRouteDialog() {
 						</datalist>
 					</div>
 
-					<StopsPicker value={stops} onChange={setStops} />
+					<StopsPicker
+						value={stops}
+						onChange={setStops}
+						city={city}
+						neighborhood={neighborhood}
+					/>
 				</div>
 
 				<AlertDialogFooter>

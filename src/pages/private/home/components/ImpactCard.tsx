@@ -37,7 +37,7 @@ const TONE_MAP: Record<
 		rotulo: "text-blue",
 		valor: "text-blue",
 		marca: "text-blue-tint-2/60",
-		chip: "bg-blue-tint-2/60 text-blue",
+		chip: "bg-blue-tint text-blue-bright",
 	},
 	eva: {
 		fundo: "bg-gradient-to-br from-eva-tint via-surface to-surface",

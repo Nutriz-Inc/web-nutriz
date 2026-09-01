@@ -25,20 +25,20 @@ export function StepDot({
 				<>
 					<span
 						aria-hidden="true"
-						className="absolute inset-0 -m-1 rounded-full bg-blue-bright/30 motion-safe:pulso-etapa"
+						className="absolute inset-0 -m-[3px] rounded-full bg-blue-bright/10"
 					/>
 					<span
 						aria-hidden="true"
-						className="absolute inset-0 -m-0.5 rounded-full bg-blue-bright/10"
+						className="absolute inset-0 -m-[3px] rounded-full border-2 border-transparent border-t-blue-bright border-r-blue-bright/35 motion-safe:giro-etapa"
 					/>
 				</>
 			)}
 
 			<span
 				className={cn(
-					"relative flex shrink-0 items-center justify-center rounded-full font-sans font-bold tabular-nums transition-all",
+					"relative flex shrink-0 items-center justify-center rounded-full font-sans font-bold tabular-nums transition-all duration-300",
 					isCurrent &&
-						"bg-gradient-to-br from-blue-bright to-mint text-white shadow-soft ring-2 ring-blue-bright/30",
+						"bg-surface text-blue-bright ring-2 ring-blue-bright/45 ring-inset",
 					isDone && "bg-blue-bright-fill text-white shadow-soft",
 					!isCurrent &&
 						!isDone &&

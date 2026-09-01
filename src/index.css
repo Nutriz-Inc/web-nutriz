@@ -190,6 +190,8 @@
 		0 1px 2px oklch(0 0 0 / 0.3), 0 12px 28px -18px oklch(0 0 0 / 0.55);
 	--nz-shadow-lift:
 		0 2px 4px oklch(0 0 0 / 0.35), 0 28px 56px -28px oklch(0 0 0 / 0.6);
+	--nz-shadow-nudge:
+		0 1px 2px oklch(0 0 0 / 0.32), 0 16px 34px -22px oklch(0 0 0 / 0.57);
 }
 
 @layer base {
@@ -276,6 +278,9 @@
 	--nz-shadow-lift:
 		0 2px 4px oklch(0.313 0.089 250.4 / 0.05),
 		0 28px 56px -28px oklch(0.313 0.089 250.4 / 0.3);
+	--nz-shadow-nudge:
+		0 1px 2px oklch(0.313 0.089 250.4 / 0.045),
+		0 16px 34px -22px oklch(0.313 0.089 250.4 / 0.24);
 }
 
 @theme inline {
@@ -326,6 +331,7 @@
 
 	--shadow-soft: var(--nz-shadow-soft);
 	--shadow-lift: var(--nz-shadow-lift);
+	--shadow-nudge: var(--nz-shadow-nudge);
 }
 
 @utility ink-blob {
@@ -549,4 +555,46 @@ body {
 
 @utility pulso-etapa {
 	animation: pulso-etapa 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes giro-etapa {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes surge-etapa {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes preenche-barra {
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
+}
+
+@utility giro-etapa {
+	animation: giro-etapa 2.6s linear infinite;
+}
+
+@utility surge-etapa {
+	animation: surge-etapa 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility preenche-barra {
+	transform-origin: left center;
+	animation: preenche-barra 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

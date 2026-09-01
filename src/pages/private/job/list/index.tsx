@@ -58,8 +58,14 @@ export function AppointmentsPage() {
 					</div>
 				) : (
 					<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-						{appointments.map((appointment) => (
-							<AppointmentCard key={appointment.id} appointment={appointment} />
+						{appointments.map((appointment, index) => (
+							<div
+								key={appointment.id}
+								className="h-full motion-safe:surge-etapa"
+								style={{ animationDelay: `${Math.min(index, 7) * 55}ms` }}
+							>
+								<AppointmentCard appointment={appointment} />
+							</div>
 						))}
 					</div>
 				)}

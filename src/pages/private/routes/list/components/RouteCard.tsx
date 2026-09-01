@@ -1,4 +1,5 @@
 import { Calendar, Gauge, MapPin, User } from "lucide-react";
+import { AppointmentInfoRow } from "@/components/full/AppointmentInfoRow";
 import { EnumRouteStatus, type IRouteResponse } from "@/services/types/i-route";
 import { formatDateBR } from "@/utils/formatter";
 import { RouteStatusBadge } from "./RouteStatusBadge";
@@ -13,47 +14,42 @@ export function RouteCard({ route }: RouteCardProps) {
 		route.status === EnumRouteStatus.Done && route.mileage != null;
 
 	return (
-		<div className="flex w-full flex-col gap-3.5 bg-surface p-[18px] lg:flex-row lg:items-center lg:gap-6 lg:px-6 lg:py-4">
-			<div className="flex min-w-0 flex-col gap-1 lg:w-[260px] lg:shrink-0">
-				<p className="truncate text-[18px] font-bold text-ink">{route.name}</p>
-				<span className="flex items-center gap-1.5 text-[13px] text-ink-3">
-					<User className="size-[14px] shrink-0" />
-					<span className="truncate">{route.driver_name ?? "—"}</span>
-				</span>
-			</div>
-
-			<div className="flex flex-wrap items-center gap-2 lg:w-[160px] lg:shrink-0">
+		<div className="flex w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 text-left transition-transform duration-200 hover:scale-[1.02] hover:shadow-soft">
+			<div className="flex items-start justify-between gap-3">
+				<div className="flex min-w-0 items-center gap-3">
+					<div className="flex min-w-0 flex-col">
+						<p className="truncate text-[16px] font-bold text-ink">
+							{route.name}
+						</p>
+					</div>
+				</div>
 				<RouteStatusBadge status={route.status} />
 			</div>
 
-			<div className="h-px bg-blue-tint lg:hidden" />
-
-			<div className="flex flex-col gap-2.5 lg:flex-1 lg:flex-row lg:flex-wrap lg:items-center lg:justify-end lg:gap-6">
+			<div className="flex flex-col gap-3">
+				<AppointmentInfoRow
+					icon={<User className="size-[18px] shrink-0 text-ink-3" />}
+					label="Motorista"
+					value={route.driver_name ?? "—"}
+				/>
+				<AppointmentInfoRow
+					icon={<Calendar className="size-[18px] shrink-0 text-ink-3" />}
+					label="Data programada"
+					value={formatDateBR(route.date_set)}
+				/>
 				{location && (
-					<div className="flex items-center gap-2.5">
-						<MapPin className="size-[18px] shrink-0 text-ink-3" />
-						<span className="text-[15px] font-semibold text-ink">
-							{location}
-						</span>
-					</div>
+					<AppointmentInfoRow
+						icon={<MapPin className="size-[18px] shrink-0 text-ink-3" />}
+						label="Local"
+						value={location}
+					/>
 				)}
-
-				<div className="flex items-center gap-2.5">
-					<Calendar className="size-[18px] shrink-0 text-ink-3" />
-					<span className="text-[14px] text-ink-2">Data:</span>
-					<span className="text-[15px] font-semibold text-ink">
-						{formatDateBR(route.date_set)}
-					</span>
-				</div>
-
 				{showMileage && (
-					<div className="flex items-center gap-2.5">
-						<Gauge className="size-[18px] shrink-0 text-ink-3" />
-						<span className="text-[14px] text-ink-2">Quilometragem:</span>
-						<span className="text-[15px] font-semibold text-ink">
-							{route.mileage} km
-						</span>
-					</div>
+					<AppointmentInfoRow
+						icon={<Gauge className="size-[18px] shrink-0 text-ink-3" />}
+						label="Quilometragem"
+						value={`${route.mileage} km`}
+					/>
 				)}
 			</div>
 		</div>

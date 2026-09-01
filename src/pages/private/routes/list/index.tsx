@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import { type FormEvent, Fragment, useState } from "react";
+import { type FormEvent, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
@@ -84,9 +84,7 @@ export function RoutesListPage() {
 			title="Rotas"
 			description={`${total} rotas cadastradas`}
 			loading={isLoading}
-			hasPermission={
-				auth?.type !== EnumUserType.Common
-			}
+			hasPermission={auth?.type !== EnumUserType.Common}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-canvas px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
@@ -120,9 +118,9 @@ export function RoutesListPage() {
 							value={dateSet}
 							onChange={(event) => handleDateSetChange(event.target.value)}
 							aria-label="Filtrar por data programada"
-							className="h-[43px] w-full rounded-card-sm border border-line bg-surface px-4 text-[15px] text-ink outline-none placeholder:text-ink-3 lg:w-auto lg:flex-1"
+							className="h-[43px] w-full rounded-card-sm border border-line bg-surface px-4 text-[15px] text-ink outline-none placeholder:text-ink-3 lg:w-[180px] lg:shrink-0"
 						/>
-						<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0 lg:gap-2.5">
+						<div className="grid grid-cols-2 gap-2.5 lg:ml-auto lg:flex lg:shrink-0 lg:gap-2.5">
 							<button
 								type="submit"
 								className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
@@ -160,12 +158,9 @@ export function RoutesListPage() {
 					</div>
 				) : (
 					<>
-						<div className="overflow-hidden rounded-2xl border border-line bg-canvas">
-							{routes.map((route, index) => (
-								<Fragment key={route.id_route}>
-									{index > 0 && <div className="h-2 bg-canvas" />}
-									<RouteCard route={route} />
-								</Fragment>
+						<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+							{routes.map((route) => (
+								<RouteCard key={route.id_route} route={route} />
 							))}
 						</div>
 

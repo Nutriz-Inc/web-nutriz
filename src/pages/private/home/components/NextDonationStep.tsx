@@ -1,5 +1,6 @@
 import { Status } from "@/components/full/Status";
 import { Button } from "@/components/ui/button";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { cn } from "@/lib/utils";
 import {
 	type EnumDonationStepName,
@@ -25,7 +26,6 @@ export function NextDonationStep({
 	className,
 }: Props) {
 	const stepNumber = STEP_NUMBER[stepName];
-	const progress = (stepNumber / NUMBER_OF_DONATION_STEPS) * 100;
 	const formattedDate = datetime
 		? formatCreatedAt(datetime)
 		: "Sem data marcada";
@@ -53,19 +53,12 @@ export function NextDonationStep({
 
 			<div className="flex items-center gap-3">
 				<span className="text-xs font-medium text-ink-2">Progresso</span>
-				<div
-					role="progressbar"
-					aria-label="Progresso da doação"
-					aria-valuenow={stepNumber}
-					aria-valuemin={0}
-					aria-valuemax={NUMBER_OF_DONATION_STEPS}
-					className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-3"
-				>
-					<div
-						className="h-full rounded-full bg-blue-bright transition-all"
-						style={{ width: `${progress}%` }}
-					/>
-				</div>
+				<ProgressBar
+					current={stepNumber}
+					total={NUMBER_OF_DONATION_STEPS}
+					size="sm"
+					className="flex-1"
+				/>
 				<span className="font-sans text-xs font-bold tabular-nums text-blue-deep">
 					{stepNumber} / {NUMBER_OF_DONATION_STEPS}
 				</span>

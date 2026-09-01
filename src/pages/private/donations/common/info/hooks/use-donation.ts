@@ -36,7 +36,6 @@ export function useDonation(id_donation: string) {
 	return {
 		donationQuery,
 		etapasDestacadas,
-		aoVivo: !donationQuery.isLoading,
 	};
 }
 

@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import services from "@/services";
 
 type UseQueryDonationPointsParams = {
@@ -19,5 +19,6 @@ export function useQueryDonationPoints(params: UseQueryDonationPointsParams) {
 				show_address: true,
 				...params,
 			}),
+		placeholderData: keepPreviousData,
 	});
 }

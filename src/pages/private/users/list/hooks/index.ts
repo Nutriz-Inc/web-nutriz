@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+	keepPreviousData,
+	useMutation,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import services from "@/services";
 import type {
 	ICreateUserRequest,
@@ -9,6 +14,7 @@ export function useUsersList(params: IListUsersRequest) {
 	const usersQuery = useQuery({
 		queryKey: ["users", params],
 		queryFn: () => services.user.list(params),
+		placeholderData: keepPreviousData,
 	});
 
 	return {
@@ -21,7 +27,7 @@ export function useCreateUser() {
 
 	const createUserMutation = useMutation({
 		mutationFn: (data: ICreateUserRequest) =>
-			services.user.createAdminAndNurse(data),
+			services.user.createInternal(data),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: ["users"] });
 		},

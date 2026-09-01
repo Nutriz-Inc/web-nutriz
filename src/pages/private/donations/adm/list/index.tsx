@@ -3,6 +3,7 @@ import { type FormEvent, Fragment, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
+import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -57,7 +58,7 @@ export function DonationsManagementPage() {
 		setPage(1);
 	}
 
-	const { data, isLoading } = useAdminDonationsList({
+	const { data, isLoading, isPlaceholderData } = useAdminDonationsList({
 		page,
 		page_size: DEFAULT_PAGE_SIZE,
 		user_name: appliedName || undefined,
@@ -130,54 +131,58 @@ export function DonationsManagementPage() {
 					/>
 				</div>
 
-				{donations.length === 0 ? (
-					<div className="rounded-card-sm bg-surface">
-						<EmptyState
-							illustration={buscaSemResultado}
-							title="Nenhuma doação encontrada"
-							description="Ajuste a busca ou o filtro selecionado."
-						/>
-					</div>
-				) : (
-					<>
-						<div className="overflow-hidden rounded-2xl border border-line bg-canvas">
-							{donations.map((donation, index) => (
-								<Fragment key={donation.id_donation}>
-									{index > 0 && <div className="h-2 bg-canvas" />}
-									<DonationManagementCard donation={donation} />
-								</Fragment>
-							))}
+				<RefreshableList updating={isPlaceholderData}>
+					{donations.length === 0 ? (
+						<div className="rounded-card-sm bg-surface">
+							<EmptyState
+								illustration={buscaSemResultado}
+								title="Nenhuma doação encontrada"
+								description="Ajuste a busca ou o filtro selecionado."
+							/>
 						</div>
-
-						{totalPages > 1 && (
-							<div className="flex items-center justify-center gap-3 lg:justify-end">
-								<button
-									type="button"
-									onClick={() => setPage((current) => Math.max(1, current - 1))}
-									disabled={page === 1}
-									aria-label="Página anterior"
-									className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
-								>
-									<ChevronLeft className="size-4" />
-								</button>
-								<span className="text-[13px] font-semibold text-ink">
-									Página {page} de {totalPages}
-								</span>
-								<button
-									type="button"
-									onClick={() =>
-										setPage((current) => Math.min(totalPages, current + 1))
-									}
-									disabled={page === totalPages}
-									aria-label="Próxima página"
-									className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
-								>
-									<ChevronRight className="size-4" />
-								</button>
+					) : (
+						<>
+							<div className="overflow-hidden rounded-2xl border border-line bg-canvas">
+								{donations.map((donation, index) => (
+									<Fragment key={donation.id_donation}>
+										{index > 0 && <div className="h-2 bg-canvas" />}
+										<DonationManagementCard donation={donation} />
+									</Fragment>
+								))}
 							</div>
-						)}
-					</>
-				)}
+
+							{totalPages > 1 && (
+								<div className="flex items-center justify-center gap-3 lg:justify-end">
+									<button
+										type="button"
+										onClick={() =>
+											setPage((current) => Math.max(1, current - 1))
+										}
+										disabled={page === 1}
+										aria-label="Página anterior"
+										className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
+									>
+										<ChevronLeft className="size-4" />
+									</button>
+									<span className="text-[13px] font-semibold text-ink">
+										Página {page} de {totalPages}
+									</span>
+									<button
+										type="button"
+										onClick={() =>
+											setPage((current) => Math.min(totalPages, current + 1))
+										}
+										disabled={page === totalPages}
+										aria-label="Próxima página"
+										className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
+									>
+										<ChevronRight className="size-4" />
+									</button>
+								</div>
+							)}
+						</>
+					)}
+				</RefreshableList>
 			</div>
 		</Page>
 	);

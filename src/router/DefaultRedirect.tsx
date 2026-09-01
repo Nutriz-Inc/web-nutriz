@@ -14,6 +14,9 @@ export function DefaultRedirect() {
 		case EnumUserType.Nurse:
 			target = "/agendamentos";
 			break;
+		case EnumUserType.Driver:
+			target = "/rotas";
+			break;
 		default:
 			target = "/home";
 	}

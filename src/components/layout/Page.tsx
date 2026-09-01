@@ -40,10 +40,16 @@ export function Page({
 		<button
 			type="button"
 			onClick={() => navigate(backTo)}
-			className="mb-3 inline-flex w-fit items-center gap-1 rounded-full py-1.5 pl-2 pr-3 text-[13px] font-semibold text-blue-deep transition-colors hover:bg-blue-tint"
+			aria-label={temTrilha ? "Voltar" : undefined}
+			className={cn(
+				"inline-flex shrink-0 items-center justify-center text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50",
+				temTrilha
+					? "size-8 rounded-full border border-line bg-surface"
+					: "w-fit gap-1 rounded-full py-1.5 pl-2 pr-3 text-[13px] font-semibold",
+			)}
 		>
-			<ChevronLeft className="size-4" />
-			Voltar
+			<ChevronLeft className={temTrilha ? "size-[18px]" : "size-4"} />
+			{!temTrilha && "Voltar"}
 		</button>
 	);
 
@@ -64,20 +70,29 @@ export function Page({
 
 	return (
 		<>
-			{temTrilha && <Breadcrumb items={trilha} />}
-			{backButton}
+			{(temTrilha || backTo) && (
+				<div
+					className={cn(
+						"mb-5 flex flex-wrap items-center gap-x-3 gap-y-2",
+						titleClassName,
+					)}
+				>
+					{backButton}
+					{temTrilha && <Breadcrumb items={trilha} className="mb-0 min-w-0" />}
+				</div>
+			)}
 
 			{title && (
-				<div className={cn("flex flex-col mb-8", titleClassName)}>
-					<div className="flex items-center justify-between mb-2">
-						{title && (
-							<h1 className="text-2xl font-extrabold text-ink lg:text-4xl">
-								{title}
-							</h1>
-						)}
+				<div className={cn("mb-8 flex flex-col gap-2", titleClassName)}>
+					<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+						<h1 className="font-display text-[1.625rem] font-extrabold leading-tight tracking-tight text-blue-deep lg:text-4xl">
+							{title}
+						</h1>
 						{actionSlot}
 					</div>
-					{description && <p className="text-sm text-ink-3">{description}</p>}
+					{description && (
+						<p className="text-sm text-ink-3 lg:text-[15px]">{description}</p>
+					)}
 				</div>
 			)}
 

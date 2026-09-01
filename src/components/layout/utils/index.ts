@@ -7,6 +7,7 @@ import {
 	LayoutDashboard,
 	type LucideProps,
 	MapPin,
+	Route,
 	User,
 	Users,
 } from "lucide-react";
@@ -60,12 +61,20 @@ const navItemsUserAdmin: NavItem[] = [
 		to: "/usuarios",
 		adminOnly: true,
 	},
+	{ label: "Rotas", icon: Route, to: "/rotas" },
 	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
 	{ label: "Perfil", icon: User, to: "/perfil" },
 ];
 
 const navItemsUserNurse: NavItem[] = [
 	{ label: "Meus Agendamentos", icon: CalendarCheck, to: "/agendamentos" },
+	{ label: "Rotas", icon: Route, to: "/rotas" },
+	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
+	{ label: "Perfil", icon: User, to: "/perfil" },
+];
+
+const navItemsUserDriver: NavItem[] = [
+	{ label: "Rotas", icon: Route, to: "/rotas" },
 	{ label: "Pontos de Coleta", icon: MapPin, to: "/pontos-de-coleta" },
 	{ label: "Perfil", icon: User, to: "/perfil" },
 ];
@@ -76,6 +85,8 @@ export function getUserMenu(userType: EnumUserType) {
 			return navItemsUserAdmin;
 		case EnumUserType.Nurse:
 			return navItemsUserNurse;
+		case EnumUserType.Driver:
+			return navItemsUserDriver;
 		default:
 			return navItemsUserCommon;
 	}
@@ -89,6 +100,8 @@ export function getuserRootPage(userType?: EnumUserType) {
 			return "/gestao-doacoes";
 		case EnumUserType.Nurse:
 			return "/agendamentos";
+		case EnumUserType.Driver:
+			return "/rotas";
 		default:
 			return "/home";
 	}

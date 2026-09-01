@@ -6,6 +6,7 @@ import {
 	type FilterChipOption,
 	FilterChips,
 } from "@/components/full/FilterChips";
+import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { ChangeLocationSheet } from "./components/ChangeLocationSheet";
@@ -34,6 +35,7 @@ export function DonationPointsPage() {
 		closestPointId,
 		points,
 		isLoading,
+		isPlaceholderData,
 		effectiveCoordinates,
 		isLocationReady,
 		refitVersion,
@@ -95,26 +97,28 @@ export function DonationPointsPage() {
 							description="Tente outro endereço ou amplie a busca."
 						/>
 					) : (
-						<div className="flex flex-col gap-3 px-4 lg:px-5">
-							{points.map((point) => (
-								<DonationPointCard
-									key={point.id_donation_point}
-									point={point}
-									selected={point.id_donation_point === selectedId}
-									onSelect={() => setSelectedId(point.id_donation_point)}
-								/>
-							))}
+						<RefreshableList updating={isPlaceholderData}>
+							<div className="flex flex-col gap-3 px-4 lg:px-5">
+								{points.map((point) => (
+									<DonationPointCard
+										key={point.id_donation_point}
+										point={point}
+										selected={point.id_donation_point === selectedId}
+										onSelect={() => setSelectedId(point.id_donation_point)}
+									/>
+								))}
 
-							<img
-								src={pontosTopo}
-								alt=""
-								aria-hidden="true"
-								data-so-tema-claro
-								width={220}
-								height={160}
-								className="mx-auto mt-6 hidden h-28 w-auto select-none opacity-90 lg:block"
-							/>
-						</div>
+								<img
+									src={pontosTopo}
+									alt=""
+									aria-hidden="true"
+									data-so-tema-claro
+									width={220}
+									height={160}
+									className="mx-auto mt-6 hidden h-28 w-auto select-none opacity-90 lg:block"
+								/>
+							</div>
+						</RefreshableList>
 					)}
 				</div>
 

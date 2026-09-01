@@ -26,4 +26,8 @@ export const USER_TYPE_DISPLAY: Record<EnumUserType, UserTypeDisplay> = {
 		label: "Doadora",
 		tone: USER_TYPE_TONE[EnumUserType.Common],
 	},
+	[EnumUserType.Driver]: {
+		label: "Motorista",
+		tone: USER_TYPE_TONE[EnumUserType.Driver],
+	},
 };

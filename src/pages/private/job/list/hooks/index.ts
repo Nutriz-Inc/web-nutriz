@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/use-auth";
 import services from "@/services";
 import type { EnumJobStatus, IJobResponse } from "@/services/types/i-job";
@@ -65,6 +65,7 @@ export function useAppointmentsList({
 			return allPages.length + 1;
 		},
 		staleTime: 10000,
+		placeholderData: keepPreviousData,
 	});
 
 	const appointments =
@@ -75,6 +76,7 @@ export function useAppointmentsList({
 		appointments,
 		total,
 		isLoading: query.isLoading,
+		isUpdating: query.isPlaceholderData,
 		hasNextPage: query.hasNextPage,
 		isFetchingNextPage: query.isFetchingNextPage,
 		fetchNextPage: query.fetchNextPage,

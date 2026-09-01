@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { LiveBadge } from "@/components/full/LiveBadge";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import {
@@ -50,7 +49,6 @@ export function DonationInfoPage() {
 			loading={donationQuery.isLoading}
 			backTo="/minhas-doacoes"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
-			actionSlot={!isConcluded && <LiveBadge />}
 		>
 			<div className="flex flex-col pt-4 gap-5">
 				{donationQuery.data?.bottles &&

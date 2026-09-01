@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import { Calendar, Check, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { StepDot } from "@/components/ui/step-dot";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
 import { BADGE_LABEL, BADGE_TONE, type StepVisualStatus } from "../constants";
@@ -54,42 +55,20 @@ export function DonationStepCard({
 	return (
 		<div className="flex gap-4">
 			<div className="flex flex-col items-center">
-				<div className="relative flex shrink-0 items-center justify-center">
-					{isCurrent && (
-						<>
-							<span
-								aria-hidden="true"
-								className="absolute inset-0 -m-1 rounded-full bg-eva/30 motion-safe:pulso-etapa"
-							/>
-							<span
-								aria-hidden="true"
-								className="absolute inset-0 -m-0.5 rounded-full bg-eva/10"
-							/>
-						</>
-					)}
-
-					<div
-						className={cn(
-							"relative flex shrink-0 items-center justify-center rounded-full font-bold tabular-nums transition-all",
-							isCurrent
-								? "size-9 bg-eva-fill text-[14px] text-white shadow-soft ring-2 ring-eva/30"
-								: isDone
-									? "size-7 bg-eva-fill text-white shadow-soft"
-									: "size-7 border-[1.5px] border-dashed border-blue-tint-2 bg-surface text-[12px] text-ink-3",
-						)}
-					>
-						{isDone ? <Check className="size-3.5" strokeWidth={3} /> : order}
-					</div>
-				</div>
+				<StepDot
+					status={visualStatus}
+					order={order}
+					className={isCurrent ? "size-9 text-[14px]" : "size-7 text-[12px]"}
+				/>
 
 				{!isLast && (
 					<div
 						className={cn(
 							"w-0.5 flex-1 rounded-full",
 							isDone
-								? "bg-eva"
+								? "bg-blue-bright-fill"
 								: isCurrent
-									? "bg-gradient-to-b from-eva to-blue-tint"
+									? "bg-gradient-to-b from-blue-bright to-blue-tint"
 									: "bg-blue-tint",
 						)}
 					/>
@@ -115,6 +94,13 @@ export function DonationStepCard({
 					<span
 						aria-hidden="true"
 						className="absolute inset-y-0 left-0 w-1.5 origin-left scale-x-0 bg-blue-deep transition-transform duration-200 group-hover:scale-x-100 group-focus-visible:scale-x-100"
+					/>
+				)}
+
+				{justChanged && (
+					<span
+						aria-hidden="true"
+						className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-eva/20 to-transparent motion-safe:varredura-etapa"
 					/>
 				)}
 				<div className="flex items-start gap-3">

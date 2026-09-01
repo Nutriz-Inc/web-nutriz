@@ -1,6 +1,5 @@
 import { Droplet, Gift, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { LiveBadge } from "@/components/full/LiveBadge";
 import { Reveal } from "@/components/full/Reveal";
 import { SectionHeading } from "@/components/full/SectionHeading";
 import { AppHeader } from "@/components/layout/AppHeader";
@@ -126,7 +125,6 @@ export function HomePage() {
 									id="home-status"
 									label="Status"
 									title="Acompanhe sua doação"
-									actionSlot={<LiveBadge />}
 								/>
 								<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
 

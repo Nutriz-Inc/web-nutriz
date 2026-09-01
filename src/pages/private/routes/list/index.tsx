@@ -8,6 +8,7 @@ import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
+import { CreateRouteDialog } from "./components/CreateRouteDialog";
 import { RouteCard } from "./components/RouteCard";
 import {
 	ROUTE_STATUS_FILTER_OPTIONS,
@@ -86,6 +87,7 @@ export function RoutesListPage() {
 			loading={isLoading}
 			hasPermission={auth?.type !== EnumUserType.Common}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			actionSlot={auth?.type === EnumUserType.Admin && <CreateRouteDialog />}
 		>
 			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-canvas px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
 				<form onSubmit={handleApplyFilters} className="flex flex-col gap-2.5">

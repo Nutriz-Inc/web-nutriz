@@ -25,11 +25,13 @@ export const PROFILE_FILTER_OPTIONS: FilterChipOption<ProfileFilter>[] = [
 	{ key: EnumUserType.Admin, label: "Administrador" },
 	{ key: EnumUserType.Nurse, label: "Enfermeiro" },
 	{ key: EnumUserType.Common, label: "Doadora" },
+	{ key: EnumUserType.Driver, label: "Motorista" },
 ];
 
 export const PROFILE_TYPE_OPTIONS = [
 	EnumUserType.Admin,
 	EnumUserType.Nurse,
+	EnumUserType.Driver,
 ] as const;
 
 export const EMPTY_FORM: CreateUserFormData = {

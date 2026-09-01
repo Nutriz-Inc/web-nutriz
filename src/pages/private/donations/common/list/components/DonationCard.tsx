@@ -54,7 +54,10 @@ export function DonationCard({
 			whileTap={animar ? { x: 2 } : undefined}
 			transition={{ type: "spring", stiffness: 260, damping: 30 }}
 			className={cn(
-				"group relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl bg-surface p-4 text-left shadow-soft transition-[box-shadow,border-radius] lg:gap-5 lg:rounded-3xl lg:p-8",
+				"group relative flex w-full flex-col overflow-hidden rounded-2xl bg-surface text-left shadow-soft transition-[box-shadow,border-radius] lg:rounded-3xl",
+				isInProgress
+					? "gap-3 p-4 lg:gap-5 lg:p-8"
+					: "gap-2 p-3.5 lg:gap-2.5 lg:p-5",
 				isClickable
 					? "hover:rounded-l-none focus-visible:rounded-l-none"
 					: "cursor-default",
@@ -73,17 +76,22 @@ export function DonationCard({
 				</span>
 			)}
 
-			<div className="flex items-center gap-3 lg:gap-4">
+			<div
+				className={cn("flex items-center gap-3", isInProgress && "lg:gap-4")}
+			>
 				<span
 					className={cn(
-						"flex size-10 shrink-0 items-center justify-center rounded-full lg:size-14",
-						isInProgress ? "bg-blue-tint" : "bg-eva-tint",
+						"flex shrink-0 items-center justify-center rounded-full",
+						isInProgress
+							? "size-10 bg-blue-tint lg:size-14"
+							: "size-9 bg-eva-tint lg:size-10",
 					)}
 				>
 					<Heart
 						className={cn(
-							"size-5 lg:size-7",
-							isInProgress ? "text-blue-bright" : "text-eva-deep",
+							isInProgress
+								? "size-5 text-blue-bright lg:size-7"
+								: "size-4 text-eva-deep lg:size-[18px]",
 						)}
 					/>
 				</span>
@@ -95,7 +103,14 @@ export function DonationCard({
 						)}
 					>
 						<div className="flex min-w-0 flex-1 items-center justify-between gap-2">
-							<p className="truncate text-[16px] font-bold text-ink lg:text-[22px]">
+							<p
+								className={cn(
+									"truncate font-bold text-ink",
+									isInProgress
+										? "text-[16px] lg:text-[22px]"
+										: "text-[15px] lg:text-[17px]",
+								)}
+							>
 								Doação #{number}
 							</p>
 							<DonationStatusBadge
@@ -110,8 +125,20 @@ export function DonationCard({
 				</div>
 			</div>
 
-			<div className="flex items-center gap-2 text-[13px] text-ink-2 lg:gap-2.5 lg:text-[14px]">
-				<Calendar className="size-4 shrink-0 lg:size-[18px]" />
+			<div
+				className={cn(
+					"flex items-center gap-2",
+					isInProgress
+						? "text-[13px] text-ink-2 lg:gap-2.5 lg:text-[14px]"
+						: "text-[12.5px] text-ink-3 lg:text-[13px]",
+				)}
+			>
+				<Calendar
+					className={cn(
+						"shrink-0",
+						isInProgress ? "size-4 lg:size-[18px]" : "size-3.5 lg:size-4",
+					)}
+				/>
 				Criada em {formattedDate}
 			</div>
 

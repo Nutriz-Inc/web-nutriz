@@ -6,6 +6,7 @@ export type StepDotStatus = "done" | "current" | "waiting";
 type StepDotProps = {
 	status: StepDotStatus;
 	order: number;
+	celebrate?: boolean;
 	className?: string;
 	iconClassName?: string;
 };
@@ -13,6 +14,7 @@ type StepDotProps = {
 export function StepDot({
 	status,
 	order,
+	celebrate = false,
 	className,
 	iconClassName,
 }: StepDotProps) {
@@ -21,7 +23,7 @@ export function StepDot({
 
 	return (
 		<span className="relative flex shrink-0 items-center justify-center">
-			{isCurrent && (
+			{isCurrent && !celebrate && (
 				<>
 					<span
 						aria-hidden="true"
@@ -30,6 +32,20 @@ export function StepDot({
 					<span
 						aria-hidden="true"
 						className="absolute inset-0 -m-[3px] rounded-full border-2 border-transparent border-t-blue-bright border-r-blue-bright/35 motion-safe:giro-etapa"
+					/>
+				</>
+			)}
+
+			{celebrate && (
+				<>
+					<span
+						aria-hidden="true"
+						className="absolute inset-0 rounded-full bg-blue-bright/40 motion-safe:ondulacao-etapa"
+					/>
+					<span
+						aria-hidden="true"
+						style={{ animationDelay: "280ms" }}
+						className="absolute inset-0 rounded-full bg-mint/45 motion-safe:ondulacao-etapa"
 					/>
 				</>
 			)}
@@ -43,10 +59,25 @@ export function StepDot({
 					!isCurrent &&
 						!isDone &&
 						"border-[1.5px] border-dashed border-blue-tint-2 bg-surface text-ink-3",
+					celebrate && "motion-safe:pop-etapa",
 					className,
 				)}
 			>
-				{isDone ? (
+				{isDone && celebrate ? (
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeWidth={3}
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						aria-hidden="true"
+						className={cn("size-3.5", iconClassName)}
+					>
+						<title>Etapa concluída</title>
+						<path d="M20 6 9 17l-5-5" className="motion-safe:traco-etapa" />
+					</svg>
+				) : isDone ? (
 					<Check className={cn("size-3.5", iconClassName)} strokeWidth={3} />
 				) : (
 					order

@@ -59,6 +59,7 @@ export function DonationStepCard({
 				<StepDot
 					status={visualStatus}
 					order={order}
+					celebrate={justChanged && isDone}
 					className={isCurrent ? "size-9 text-[14px]" : "size-7 text-[12px]"}
 				/>
 
@@ -89,7 +90,6 @@ export function DonationStepCard({
 							? "bg-surface-3"
 							: "bg-surface-2",
 					isClickable && "hover:rounded-l-none focus-visible:rounded-l-none",
-					justChanged && "motion-safe:brilho-etapa",
 				)}
 			>
 				{isClickable && (
@@ -100,10 +100,16 @@ export function DonationStepCard({
 				)}
 
 				{justChanged && (
-					<span
-						aria-hidden="true"
-						className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-eva/20 to-transparent motion-safe:varredura-etapa"
-					/>
+					<>
+						<span
+							aria-hidden="true"
+							className="pointer-events-none absolute inset-0 rounded-[inherit] motion-safe:aura-etapa"
+						/>
+						<span
+							aria-hidden="true"
+							className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-blue-bright/25 to-transparent motion-safe:varredura-etapa"
+						/>
+					</>
 				)}
 
 				<div className="flex items-start gap-3">

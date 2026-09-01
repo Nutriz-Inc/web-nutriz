@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { StepDot } from "@/components/ui/step-dot";
 import { cn } from "@/lib/utils";
 import { STEP_DEFINITIONS } from "@/pages/private/donations/common/info/constants";
 import {
@@ -57,46 +57,20 @@ export function DonationStatusCard({ steps, className }: Props) {
 									className={cn(
 										"hidden lg:absolute lg:left-[calc(50%+1.875rem)] lg:right-[calc(-50%+1.875rem)] lg:top-5 lg:block lg:h-0.5 lg:-translate-y-1/2 lg:rounded-full",
 										isDone
-											? "bg-blue-deep"
+											? "bg-blue-bright-fill"
 											: isCurrent
-												? "bg-gradient-to-r from-eva to-blue-tint-2"
+												? "bg-gradient-to-r from-blue-bright to-blue-tint-2"
 												: "bg-blue-tint-2",
 									)}
 								/>
 							)}
 
-							<span
-								aria-hidden="true"
-								className="relative flex shrink-0 items-center justify-center"
-							>
-								{isCurrent && (
-									<>
-										<span className="absolute inset-0 -m-1 rounded-full bg-eva/30 motion-safe:pulso-etapa" />
-										<span className="absolute inset-0 -m-0.5 rounded-full bg-eva/10" />
-									</>
-								)}
-
-								<span
-									className={cn(
-										"relative flex size-9 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold tabular-nums lg:size-10 lg:text-base",
-										isDone && "bg-blue-deep-fill text-white shadow-soft",
-										isCurrent &&
-											"bg-eva-fill text-white shadow-soft ring-2 ring-eva/30",
-										!isDone &&
-											!isCurrent &&
-											"border-[1.5px] border-dashed border-blue-tint-2 bg-surface text-ink-3",
-									)}
-								>
-									{isDone ? (
-										<Check
-											className="size-4 lg:size-[1.125rem]"
-											strokeWidth={3}
-										/>
-									) : (
-										definition.order
-									)}
-								</span>
-							</span>
+							<StepDot
+								status={isDone ? "done" : isCurrent ? "current" : "waiting"}
+								order={definition.order}
+								className="size-9 text-sm lg:size-10 lg:text-base"
+								iconClassName="size-4 lg:size-[1.125rem]"
+							/>
 
 							<p
 								className={cn(

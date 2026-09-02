@@ -9,6 +9,7 @@ type Props = {
 	driverName?: string;
 	driver?: User;
 	carregando: boolean;
+	colunas?: 2 | 4;
 	onAbrirPerfil?: () => void;
 };
 
@@ -16,6 +17,7 @@ export function RouteDriverCard({
 	driverName,
 	driver,
 	carregando,
+	colunas = 2,
 	onAbrirPerfil,
 }: Props) {
 	const nome = driver?.name ?? driverName ?? "—";
@@ -78,7 +80,7 @@ export function RouteDriverCard({
 				</div>
 			) : dados.length > 0 ? (
 				<DataGrid
-					colunas={2}
+					colunas={colunas}
 					colunasMobile={2}
 					className="border-y"
 					itens={dados.map((item) => ({

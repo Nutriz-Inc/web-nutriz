@@ -43,7 +43,7 @@ export function RouteHistoryStrip({ route }: Props) {
 
 	return (
 		<DataGrid
-			colunas={1}
+			colunas={2}
 			colunasMobile={2}
 			itens={marcos.map((marco) => {
 				const cumprido = Boolean(marco.data);

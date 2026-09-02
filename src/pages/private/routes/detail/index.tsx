@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { SectionLabel } from "@/components/full/SectionLabel";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -53,6 +53,7 @@ type Modal =
 
 export function RouteDetailPage() {
 	const { id_route = "" } = useParams();
+	const navigate = useNavigate();
 	const { auth } = useAuth();
 
 	const [modal, setModal] = useState<Modal>();
@@ -208,6 +209,14 @@ export function RouteDetailPage() {
 										driverName={route.driver_name}
 										driver={driverQuery.data}
 										carregando={driverQuery.isLoading}
+										onAbrirPerfil={
+											ehAdm
+												? () =>
+														navigate(`/usuarios/${route.id_driver}`, {
+															state: { backTo: `/rotas/${id_route}` },
+														})
+												: undefined
+										}
 									/>
 								</div>
 

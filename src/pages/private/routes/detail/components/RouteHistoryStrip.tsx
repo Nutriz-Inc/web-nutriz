@@ -4,6 +4,7 @@ import {
 	CirclePlay,
 	PlusCircle,
 } from "lucide-react";
+import { DataGrid } from "@/components/full/DataGrid";
 import { cn } from "@/lib/utils";
 import type { IGetRouteResponse } from "@/services/types/i-route";
 import { formatDateTimeParts } from "@/utils/formatter";
@@ -41,22 +42,20 @@ export function RouteHistoryStrip({ route }: Props) {
 	];
 
 	return (
-		<ol className="flex flex-col px-5 pb-5 sm:flex-row">
-			{marcos.map((marco, indice) => {
+		<DataGrid
+			colunas={4}
+			colunasMobile={2}
+			itens={marcos.map((marco) => {
 				const cumprido = Boolean(marco.data);
 				const partes = marco.data ? formatDateTimeParts(marco.data) : null;
-				const isLast = indice === marcos.length - 1;
-				const proximoCumprido = Boolean(marcos[indice + 1]?.data);
 
-				return (
-					<li
-						key={marco.chave}
-						className="flex gap-3 sm:min-w-0 sm:flex-1 sm:flex-col sm:gap-2.5"
-					>
-						<div className="flex flex-col items-center sm:w-full sm:flex-row">
+				return {
+					chave: marco.chave,
+					conteudo: (
+						<div className="flex items-center gap-3 px-5 py-4">
 							<span
 								className={cn(
-									"flex size-8 shrink-0 items-center justify-center rounded-full transition-colors",
+									"flex size-9 shrink-0 items-center justify-center rounded-full",
 									cumprido
 										? "bg-blue-tint text-blue-deep"
 										: "bg-surface-2 text-ink-3",
@@ -65,40 +64,23 @@ export function RouteHistoryStrip({ route }: Props) {
 								{marco.icone}
 							</span>
 
-							{!isLast && (
-								<span
-									aria-hidden="true"
-									className={cn(
-										"my-1 flex-1 sm:mx-2 sm:my-0",
-										proximoCumprido
-											? "w-0.5 rounded-full bg-blue-tint-2 sm:h-0.5 sm:w-auto"
-											: "w-0 border-l-2 border-dotted border-blue-tint-2 sm:h-0 sm:w-auto sm:border-l-0 sm:border-t-2",
-									)}
-								/>
-							)}
+							<div className="flex min-w-0 flex-col">
+								<span className="text-[11px] text-ink-2">{marco.rotulo}</span>
+								{partes ? (
+									<span className="truncate text-[13px] font-semibold tabular-nums text-ink">
+										{partes.date}
+										<span className="ml-1.5 text-ink-2">{partes.time}</span>
+									</span>
+								) : (
+									<span className="text-[13px] font-semibold text-ink-3">
+										Ainda não
+									</span>
+								)}
+							</div>
 						</div>
-
-						<div
-							className={cn(
-								"flex min-w-0 flex-col",
-								isLast ? "pb-0" : "pb-5 sm:pb-0",
-							)}
-						>
-							<span className="text-[11px] text-ink-2">{marco.rotulo}</span>
-							{partes ? (
-								<span className="truncate text-[13px] font-semibold tabular-nums text-ink">
-									{partes.date}
-									<span className="ml-1.5 text-ink-2">{partes.time}</span>
-								</span>
-							) : (
-								<span className="text-[13px] font-semibold text-ink-3">
-									Ainda não
-								</span>
-							)}
-						</div>
-					</li>
-				);
+					),
+				};
 			})}
-		</ol>
+		/>
 	);
 }

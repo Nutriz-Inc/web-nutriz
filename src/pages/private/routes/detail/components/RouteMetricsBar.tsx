@@ -7,7 +7,7 @@ import { useRouteTimer } from "../hooks/use-route-timer";
 import { formatarCronometro, formatarDuracaoCurta } from "../utils";
 
 type Props = {
-	inicioCadeiaFria?: string;
+	dateStart?: string;
 	dateEnd?: string;
 	mileage?: number;
 	mediaPorRota?: number | null;
@@ -20,17 +20,17 @@ function formatarKm(valor: number): string {
 }
 
 export function RouteMetricsBar({
-	inicioCadeiaFria,
+	dateStart,
 	dateEnd,
 	mileage,
 	mediaPorRota,
 	totalParadas,
 	paradasVisitadas,
 }: Props) {
-	const decorrido = useRouteTimer(inicioCadeiaFria, dateEnd);
+	const decorrido = useRouteTimer(dateStart, dateEnd);
 
-	const naoIniciada = !inicioCadeiaFria;
-	const emAndamento = Boolean(inicioCadeiaFria) && !dateEnd;
+	const naoIniciada = !dateStart;
+	const emAndamento = Boolean(dateStart) && !dateEnd;
 	const excedeu = !naoIniciada && decorrido >= LIMITE_ROTA_MS;
 	const emAviso = !naoIniciada && !excedeu && decorrido >= AVISO_ROTA_MS;
 
@@ -59,15 +59,15 @@ export function RouteMetricsBar({
 		{
 			chave: "tempo",
 			icone: <Timer className="size-4 shrink-0" />,
-			rotulo: "Cadeia fria",
+			rotulo: "Tempo de rota",
 			valor: naoIniciada ? "6h" : formatarCronometro(decorrido),
 			apoio: naoIniciada
-				? "começa na 1ª coleta"
+				? "disponíveis para a rota"
 				: emAndamento
 					? excedeu
 						? "limite de 6h excedido"
 						: `restam ${formatarDuracaoCurta(restante)}`
-					: "tempo total do leite em trânsito",
+					: "duração total",
 			tom: tomDoTempo,
 		},
 		{
@@ -184,8 +184,7 @@ export function RouteMetricsBar({
 					</p>
 				) : (
 					<p className="text-[12px] text-ink-2">
-						Limite de 6 horas de cadeia fria, contadas a partir da primeira
-						coleta.
+						Limite de 6 horas por rota, contadas a partir do início.
 					</p>
 				)}
 			</div>

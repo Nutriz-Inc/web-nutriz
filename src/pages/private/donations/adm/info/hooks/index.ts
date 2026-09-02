@@ -139,11 +139,28 @@ export function useAddStepToRoute() {
 			queryClient.invalidateQueries({ queryKey: ["routes-list"] });
 			queryClient.invalidateQueries({ queryKey: ["route", id_route] });
 			queryClient.invalidateQueries({ queryKey: ["routes-all"] });
+			queryClient.invalidateQueries({
+				queryKey: ["steps-available-for-route"],
+			});
 		},
 	});
 }
 
-// A API não expõe "rotas por etapa" — lista as rotas e olha os stops de cada uma.
+export function useStepsAvailableForRoute(id_donation: string) {
+	return useQuery({
+		queryKey: ["steps-available-for-route", id_donation],
+		queryFn: () =>
+			services.donation.listSteps({
+				page: 1,
+				page_size: 50,
+				id_donation,
+				available_for_route: true,
+			}),
+		enabled: Boolean(id_donation),
+		staleTime: 15000,
+	});
+}
+
 export function useRoutesForDonationStep(idDonationStep: string) {
 	const listQuery = useQuery({
 		queryKey: ["routes-all"],

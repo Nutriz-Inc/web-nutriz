@@ -11,15 +11,27 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { formatDateBR } from "@/utils/formatter";
-import { useAddStepToRoute, usePendingRoutes } from "../hooks";
+import {
+	useAddStepToRoute,
+	usePendingRoutes,
+	useStepsAvailableForRoute,
+} from "../hooks";
 
 type Props = {
+	idDonation: string;
 	idDonationStep: string;
 };
 
-export function AddStepToRouteButton({ idDonationStep }: Props) {
+export function AddStepToRouteButton({ idDonation, idDonationStep }: Props) {
 	const [open, setOpen] = useState(false);
 	const [idRoute, setIdRoute] = useState("");
+
+	const availableQuery = useStepsAvailableForRoute(idDonation);
+	const isAvailableForRoute = Boolean(
+		availableQuery.data?.data.some(
+			(step) => step.id_donation_step === idDonationStep,
+		),
+	);
 
 	const routesQuery = usePendingRoutes();
 	const routes = routesQuery.data?.data ?? [];
@@ -39,6 +51,8 @@ export function AddStepToRouteButton({ idDonationStep }: Props) {
 			{ onSuccess: () => handleOpenChange(false) },
 		);
 	}
+
+	if (!isAvailableForRoute) return null;
 
 	return (
 		<AlertDialog open={open} onOpenChange={handleOpenChange}>

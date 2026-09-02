@@ -347,7 +347,10 @@ export function AdminStepCard({
 					<StepRoutesList idDonationStep={step.id_donation_step} />
 
 					{!isLocked && (
-						<AddStepToRouteButton idDonationStep={step.id_donation_step} />
+						<AddStepToRouteButton
+							idDonation={idDonation}
+							idDonationStep={step.id_donation_step}
+						/>
 					)}
 
 					<div className="h-px bg-blue-tint" />

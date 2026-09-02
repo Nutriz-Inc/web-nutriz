@@ -23,6 +23,7 @@ export function StopsPicker({
 		page_size: 50,
 		status: EnumDonationStepStatus.Pending,
 		has_address: true,
+		available_for_route: true,
 		city: city || undefined,
 		neighborhood: neighborhood || undefined,
 	});

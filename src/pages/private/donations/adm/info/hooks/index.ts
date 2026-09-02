@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+	useMutation,
+	useQueries,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import services from "@/services";
 import type {
 	ICreateDonationStepRequest,
@@ -11,6 +16,10 @@ import type {
 	IUpdateJobRequest,
 	Job,
 } from "@/services/types/i-job";
+import {
+	EnumRouteStatus,
+	type IGetRouteResponse,
+} from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
 
 export function useAdminDonationDetail(id_donation: string) {
@@ -100,6 +109,90 @@ export function useUpdateDonation(id_donation: string) {
 			});
 		},
 	});
+}
+
+export function usePendingRoutes() {
+	return useQuery({
+		queryKey: ["pending-routes"],
+		queryFn: () =>
+			services.route.list({
+				page: 1,
+				page_size: 50,
+				status: EnumRouteStatus.Pending,
+			}),
+		staleTime: 30000,
+	});
+}
+
+export function useAddStepToRoute() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: ({
+			id_route,
+			id_donation_step,
+		}: {
+			id_route: string;
+			id_donation_step: string;
+		}) => services.route.createStop(id_route, { id_donation_step }),
+		onSuccess: (_data, { id_route }) => {
+			queryClient.invalidateQueries({ queryKey: ["routes-list"] });
+			queryClient.invalidateQueries({ queryKey: ["route", id_route] });
+			queryClient.invalidateQueries({ queryKey: ["routes-all"] });
+			queryClient.invalidateQueries({
+				queryKey: ["steps-available-for-route"],
+			});
+		},
+	});
+}
+
+export function useStepsAvailableForRoute(id_donation: string) {
+	return useQuery({
+		queryKey: ["steps-available-for-route", id_donation],
+		queryFn: () =>
+			services.donation.listSteps({
+				page: 1,
+				page_size: 50,
+				id_donation,
+				available_for_route: true,
+			}),
+		enabled: Boolean(id_donation),
+		staleTime: 15000,
+	});
+}
+
+export function useRoutesForDonationStep(idDonationStep: string) {
+	const listQuery = useQuery({
+		queryKey: ["routes-all"],
+		queryFn: () => services.route.list({ page: 1, page_size: 50 }),
+		staleTime: 30000,
+	});
+
+	const routes = listQuery.data?.data ?? [];
+
+	const detailQueries = useQueries({
+		queries: routes.map((route) => ({
+			queryKey: ["route", route.id_route],
+			queryFn: () => services.route.get(route.id_route),
+			staleTime: 30000,
+		})),
+	});
+
+	const associatedRoutes = detailQueries
+		.map((query) => query.data)
+		.filter(
+			(detail): detail is IGetRouteResponse =>
+				!!detail?.stops?.some(
+					(stop) =>
+						stop.id_donation_step === idDonationStep && !stop.removed_at,
+				),
+		);
+
+	return {
+		routes: associatedRoutes,
+		isLoading:
+			listQuery.isLoading || detailQueries.some((query) => query.isLoading),
+	};
 }
 
 export function useNurses() {

@@ -1,6 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+	keepPreviousData,
+	useMutation,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import services from "@/services";
-import type { EnumDonationStepStatus } from "@/services/types/i-donation";
+import type { EnumDonationStepName } from "@/services/types/i-donation";
 import type {
 	ICreateRouteStopRequest,
 	IGetRouteResponse,
@@ -128,27 +133,29 @@ type UseDonationStepOptionsParams = {
 	enabled: boolean;
 	city?: string;
 	neighborhood?: string;
-	status?: EnumDonationStepStatus;
+	name?: EnumDonationStepName;
 };
 
 export function useDonationStepOptions({
 	enabled,
 	city,
 	neighborhood,
-	status,
+	name,
 }: UseDonationStepOptionsParams) {
 	return useQuery({
-		queryKey: ["route-stop-options", city, neighborhood, status],
+		queryKey: ["route-stop-options", city, neighborhood, name],
 		enabled,
 		staleTime: 30000,
+		placeholderData: keepPreviousData,
 		queryFn: () =>
 			services.donation.listSteps({
 				page: 1,
 				page_size: 50,
 				city,
 				neighborhood,
-				status,
+				name,
 				has_address: true,
+				available_for_route: true,
 			}),
 	});
 }

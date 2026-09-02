@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import {
+	type FilterChipOption,
+	FilterChips,
+} from "@/components/full/FilterChips";
+import {
 	Sheet,
 	SheetContent,
 	SheetDescription,
@@ -11,6 +15,7 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import type { IDonationStepResponse } from "@/services/types/i-donation";
+import { EnumDonationStepName } from "@/services/types/i-donation";
 import { formatCreatedAt } from "@/utils/formatter";
 import {
 	CLASSE_BOTAO_PRIMARIO,
@@ -18,10 +23,22 @@ import {
 	CLASSE_SHEET,
 } from "../constants";
 
+type EtapaFiltro = "all" | EnumDonationStepName;
+
+const ETAPA_OPCOES: FilterChipOption<EtapaFiltro>[] = [
+	{ key: "all", label: "Todas" },
+	{ key: EnumDonationStepName.BloodTest, label: "Exame de sangue" },
+	{ key: EnumDonationStepName.DeliverMilkingKit, label: "Kit de ordenha" },
+	{ key: EnumDonationStepName.CollectMilk, label: "Coletar leite" },
+	{ key: EnumDonationStepName.MilkAnalysis, label: "Análise de leite" },
+];
+
 type Props = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	opcoes: IDonationStepResponse[];
+	etapa: EtapaFiltro;
+	onEtapaChange: (etapa: EtapaFiltro) => void;
 	carregando: boolean;
 	salvando: boolean;
 	erro?: string;
@@ -46,6 +63,8 @@ export function AddStopSheet({
 	open,
 	onOpenChange,
 	opcoes,
+	etapa,
+	onEtapaChange,
 	carregando,
 	salvando,
 	erro,
@@ -69,10 +88,19 @@ export function AddStopSheet({
 						Adicionar parada
 					</SheetTitle>
 					<SheetDescription className="text-[13px] text-ink-2">
-						Escolha a etapa de doação que entra no trajeto. A ordem das paradas
-						é recalculada automaticamente.
+						Só aparecem etapas com endereço, na região da rota e que ainda não
+						estão em outra rota ativa. A ordem das paradas é recalculada
+						automaticamente.
 					</SheetDescription>
 				</SheetHeader>
+
+				<div className="sem-barra -mx-1 flex shrink-0 items-center gap-2 overflow-x-auto px-1 pb-1">
+					<FilterChips
+						options={ETAPA_OPCOES}
+						value={etapa}
+						onChange={onEtapaChange}
+					/>
+				</div>
 
 				<div className="flex min-h-0 flex-1 flex-col gap-2.5 overflow-y-auto pr-0.5">
 					{carregando ? (
@@ -84,7 +112,7 @@ export function AddStopSheet({
 							size="sm"
 							illustration={buscaSemResultado}
 							title="Nenhuma etapa disponível"
-							description="Não há etapas de doação na região desta rota."
+							description="Nenhuma etapa livre na região desta rota com esse filtro."
 						/>
 					) : (
 						opcoes.map((step) => {
@@ -150,3 +178,5 @@ export function AddStopSheet({
 		</Sheet>
 	);
 }
+
+export type { EtapaFiltro };

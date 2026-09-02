@@ -44,6 +44,8 @@ export const MENSAGENS_DE_ERRO: Record<string, string> = {
 	"stops.invalid_city": "Esta etapa não fica na cidade da rota.",
 	"stops.invalid_neighborhood": "Esta etapa não fica no bairro da rota.",
 	"stops.invalid_id": "Etapa de doação inválida.",
+	"stops.no_address": "Esta etapa não tem endereço cadastrado.",
+	"stops.already_in_route": "Esta etapa já está em outra rota ativa.",
 	"donation.inactive": "A doação desta etapa não está mais ativa.",
 	"user.forbidden": "Você não tem permissão para esta ação.",
 };

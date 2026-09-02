@@ -1,4 +1,4 @@
-import { AlertTriangle, Gauge, MapPin, Timer, TrendingUp } from "lucide-react";
+import { AlertTriangle, Gauge, MapPin, Timer } from "lucide-react";
 import type { ReactNode } from "react";
 import { DataGrid } from "@/components/full/DataGrid";
 import { cn } from "@/lib/utils";
@@ -39,9 +39,6 @@ export function RouteMetricsBar({
 		? 0
 		: Math.min((decorrido / LIMITE_ROTA_MS) * 100, 100);
 
-	const mediaPorParada =
-		paradasVisitadas > 0 && decorrido > 0 ? decorrido / paradasVisitadas : null;
-
 	const tomDoTempo = excedeu
 		? "text-danger"
 		: emAviso
@@ -56,20 +53,6 @@ export function RouteMetricsBar({
 		apoio: string;
 		tom?: string;
 	}[] = [
-		{
-			chave: "tempo",
-			icone: <Timer className="size-4 shrink-0" />,
-			rotulo: "Tempo de rota",
-			valor: naoIniciada ? "6h" : formatarCronometro(decorrido),
-			apoio: naoIniciada
-				? "disponíveis para a rota"
-				: emAndamento
-					? excedeu
-						? "limite de 6h excedido"
-						: `restam ${formatarDuracaoCurta(restante)}`
-					: "duração total",
-			tom: tomDoTempo,
-		},
 		{
 			chave: "paradas",
 			icone: <MapPin className="size-4 shrink-0" />,
@@ -88,13 +71,18 @@ export function RouteMetricsBar({
 						: `${totalParadas - paradasVisitadas} restantes`,
 		},
 		{
-			chave: "ritmo",
-			icone: <TrendingUp className="size-4 shrink-0" />,
-			rotulo: "Média por parada",
-			valor: mediaPorParada ? formatarDuracaoCurta(mediaPorParada) : "—",
-			apoio: mediaPorParada
-				? "tempo médio até cada chegada"
-				: "após a primeira chegada",
+			chave: "tempo",
+			icone: <Timer className="size-4 shrink-0" />,
+			rotulo: "Tempo de rota",
+			valor: naoIniciada ? "6h" : formatarCronometro(decorrido),
+			apoio: naoIniciada
+				? "disponíveis para a rota"
+				: emAndamento
+					? excedeu
+						? "limite de 6h excedido"
+						: `restam ${formatarDuracaoCurta(restante)}`
+					: "duração total",
+			tom: tomDoTempo,
 		},
 		{
 			chave: "km",
@@ -121,7 +109,7 @@ export function RouteMetricsBar({
 	return (
 		<section className="flex w-full flex-col">
 			<DataGrid
-				colunas={4}
+				colunas={3}
 				colunasMobile={2}
 				itens={metricas.map((metrica, indice) => ({
 					chave: metrica.chave,

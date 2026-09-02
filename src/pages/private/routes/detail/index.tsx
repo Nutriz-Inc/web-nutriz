@@ -5,7 +5,7 @@ import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumRouteStatus, type IRouteStop } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
-import { AddStopSheet } from "./components/AddStopSheet";
+import { AddStopSheet, type EtapaFiltro } from "./components/AddStopSheet";
 import { CancelRouteSheet } from "./components/CancelRouteSheet";
 import { ConfirmActionDialog } from "./components/ConfirmActionDialog";
 import { EditRouteSheet } from "./components/EditRouteSheet";
@@ -20,6 +20,7 @@ import { RouteDriverActions } from "./components/RouteDriverActions";
 import { RouteDriverCard } from "./components/RouteDriverCard";
 import { RouteHeaderCard } from "./components/RouteHeaderCard";
 import { RouteHistoryStrip } from "./components/RouteHistoryStrip";
+import { RouteIdentityLine } from "./components/RouteIdentityLine";
 import { RouteMapCard } from "./components/RouteMapCard";
 import { RouteMetricsBar } from "./components/RouteMetricsBar";
 import { RouteStartBanner } from "./components/RouteStartBanner";
@@ -65,6 +66,7 @@ export function RouteDetailPage() {
 	const [modal, setModal] = useState<Modal>();
 	const [paradaSelecionada, setParadaSelecionada] = useState<IRouteStop>();
 	const [erroDeAcao, setErroDeAcao] = useState<string>();
+	const [etapaFiltro, setEtapaFiltro] = useState<EtapaFiltro>("all");
 	const [estadoCheckIn, setEstadoCheckIn] = useState<EstadoCheckIn>("pronto");
 
 	const handleEstadoCheckIn = useCallback(
@@ -116,6 +118,7 @@ export function RouteDetailPage() {
 		enabled: modal === "adicionar" && podeGerenciar,
 		city: route?.city,
 		neighborhood: route?.neighborhood,
+		name: etapaFiltro === "all" ? undefined : etapaFiltro,
 	});
 
 	const idsJaNaRota = new Set(stops.map((stop) => stop.id_donation_step));
@@ -166,7 +169,7 @@ export function RouteDetailPage() {
 	return (
 		<Page
 			title={route?.name ?? "Rota"}
-			description="Acompanhe o trajeto, as paradas e o andamento da rota."
+			description={route ? <RouteIdentityLine route={route} /> : undefined}
 			hasPermission={auth?.type !== EnumUserType.Common}
 			loading={routeQuery.isLoading}
 			backTo="/rotas"
@@ -200,16 +203,6 @@ export function RouteDetailPage() {
 						<div className="order-1 grid xl:order-2 xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)_minmax(0,360px)] xl:border-t xl:border-line">
 							<div className="order-3 flex flex-col border-t border-line xl:order-none xl:border-r xl:border-t-0">
 								<div className="flex flex-col">
-									<SectionLabel className="px-5 pt-5">Rota</SectionLabel>
-									<RouteHeaderCard
-										route={route}
-										podeGerenciar={podeGerenciar}
-										onEditar={() => setModal("editar")}
-										onCancelar={() => setModal("cancelar")}
-									/>
-								</div>
-
-								<div className="flex flex-col border-t border-line">
 									<SectionLabel className="px-5 pt-5">Motorista</SectionLabel>
 									<RouteDriverCard
 										driverName={route.driver_name}
@@ -223,6 +216,18 @@ export function RouteDetailPage() {
 														})
 												: undefined
 										}
+									/>
+								</div>
+
+								<div className="flex flex-col border-t border-line">
+									<SectionLabel className="px-5 pt-5">
+										Detalhes da rota
+									</SectionLabel>
+									<RouteHeaderCard
+										route={route}
+										podeGerenciar={podeGerenciar}
+										onEditar={() => setModal("editar")}
+										onCancelar={() => setModal("cancelar")}
 									/>
 								</div>
 
@@ -363,6 +368,8 @@ export function RouteDetailPage() {
 						open={modal === "adicionar"}
 						onOpenChange={(aberto) => (aberto ? undefined : fecharModal())}
 						opcoes={opcoesDisponiveis}
+						etapa={etapaFiltro}
+						onEtapaChange={setEtapaFiltro}
 						carregando={opcoesQuery.isLoading}
 						salvando={createStopMutation.isPending}
 						erro={erroDeAcao}

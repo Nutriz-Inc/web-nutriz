@@ -187,3 +187,25 @@ export function entradaDeImprevisto(
 
 	return `Parada ${numero} (${linha}): ${texto.trim()}`;
 }
+
+const ID_DE_DOACAO = /^don_[0-9A-Za-z]{20,}$/;
+
+export function ehIdDeDoacao(valor: string): boolean {
+	return ID_DE_DOACAO.test(valor.trim());
+}
+
+export function combinaComBusca(
+	step: { id_donation: string; id_donation_step: string },
+	endereco: string,
+	busca: string,
+): boolean {
+	const termo = busca.trim().toLowerCase();
+
+	if (!termo) {
+		return true;
+	}
+
+	return [step.id_donation, step.id_donation_step, endereco].some((campo) =>
+		campo.toLowerCase().includes(termo),
+	);
+}

@@ -134,6 +134,7 @@ type UseDonationStepOptionsParams = {
 	city?: string;
 	neighborhood?: string;
 	name?: EnumDonationStepName;
+	id_donation?: string;
 };
 
 export function useDonationStepOptions({
@@ -141,9 +142,10 @@ export function useDonationStepOptions({
 	city,
 	neighborhood,
 	name,
+	id_donation,
 }: UseDonationStepOptionsParams) {
 	return useQuery({
-		queryKey: ["route-stop-options", city, neighborhood, name],
+		queryKey: ["route-stop-options", city, neighborhood, name, id_donation],
 		enabled,
 		staleTime: 30000,
 		placeholderData: keepPreviousData,
@@ -154,6 +156,7 @@ export function useDonationStepOptions({
 				city,
 				neighborhood,
 				name,
+				id_donation,
 				has_address: true,
 				available_for_route: true,
 			}),

@@ -1,11 +1,13 @@
 import { LoaderCircle, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
+import { CopyableId } from "@/components/full/CopyableId";
 import { EmptyState } from "@/components/full/EmptyState";
 import {
 	type FilterChipOption,
 	FilterChips,
 } from "@/components/full/FilterChips";
+import { SearchBar } from "@/components/full/SearchBar";
 import {
 	Sheet,
 	SheetContent,
@@ -39,6 +41,8 @@ type Props = {
 	opcoes: IDonationStepResponse[];
 	etapa: EtapaFiltro;
 	onEtapaChange: (etapa: EtapaFiltro) => void;
+	busca: string;
+	onBuscaChange: (busca: string) => void;
 	carregando: boolean;
 	salvando: boolean;
 	erro?: string;
@@ -65,6 +69,8 @@ export function AddStopSheet({
 	opcoes,
 	etapa,
 	onEtapaChange,
+	busca,
+	onBuscaChange,
 	carregando,
 	salvando,
 	erro,
@@ -94,12 +100,20 @@ export function AddStopSheet({
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="sem-barra -mx-1 flex shrink-0 items-center gap-2 overflow-x-auto px-1 pb-1">
-					<FilterChips
-						options={ETAPA_OPCOES}
-						value={etapa}
-						onChange={onEtapaChange}
+				<div className="flex shrink-0 flex-col gap-2.5">
+					<SearchBar
+						value={busca}
+						onChange={onBuscaChange}
+						placeholder="Buscar por código da doação ou endereço..."
 					/>
+
+					<div className="sem-barra -mx-1 flex items-center gap-2 overflow-x-auto px-1 pb-1">
+						<FilterChips
+							options={ETAPA_OPCOES}
+							value={etapa}
+							onChange={onEtapaChange}
+						/>
+					</div>
 				</div>
 
 				<div className="flex min-h-0 flex-1 flex-col gap-2.5 overflow-y-auto pr-0.5">
@@ -112,7 +126,7 @@ export function AddStopSheet({
 							size="sm"
 							illustration={buscaSemResultado}
 							title="Nenhuma etapa disponível"
-							description="Nenhuma etapa livre na região desta rota com esse filtro."
+							description="Nenhuma etapa livre na região desta rota com esses filtros."
 						/>
 					) : (
 						opcoes.map((step) => {
@@ -131,9 +145,15 @@ export function AddStopSheet({
 											: "border-line bg-surface hover:bg-surface-2",
 									)}
 								>
-									<span className="text-[14px] font-bold text-ink">
-										{step.name}
-									</span>
+									<div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+										<span className="text-[14px] font-bold text-ink">
+											{step.name}
+										</span>
+										<CopyableId
+											id={step.id_donation}
+											className="shrink-0 text-[12px]"
+										/>
+									</div>
 									<span className="flex items-start gap-2 text-[13px] text-ink-2">
 										<MapPin className="mt-px size-4 shrink-0" />
 										{enderecoDaEtapa(step)}

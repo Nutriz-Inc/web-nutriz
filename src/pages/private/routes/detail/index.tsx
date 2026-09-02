@@ -203,6 +203,20 @@ export function RouteDetailPage() {
 										carregando={driverQuery.isLoading}
 									/>
 								</div>
+
+								{podeReportar && (
+									<div className="mt-auto flex justify-center border-t border-line p-5">
+										<RouteDriverActions
+											variante="topo"
+											podeIniciar={false}
+											podeFinalizar={false}
+											podeReportar
+											onIniciar={() => setModal("iniciar")}
+											onFinalizar={() => setModal("finalizar")}
+											onReportar={() => setModal("reportar")}
+										/>
+									</div>
+								)}
 							</div>
 
 							<div className="flex flex-col gap-3 border-t border-line p-5 xl:border-t-0">
@@ -263,13 +277,13 @@ export function RouteDetailPage() {
 									}}
 								/>
 
-								{podeOperar && (podeFinalizar || podeReportar) && (
+								{podeFinalizar && (
 									<div className="mt-auto flex flex-col gap-2.5 border-t border-line p-5">
 										<RouteDriverActions
 											variante="rodape"
 											podeIniciar={false}
-											podeFinalizar={podeFinalizar}
-											podeReportar={podeReportar}
+											podeFinalizar
+											podeReportar={false}
 											onIniciar={() => setModal("iniciar")}
 											onFinalizar={() => setModal("finalizar")}
 											onReportar={() => setModal("reportar")}

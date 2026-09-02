@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 export type EstadoCheckIn = "pronto" | "enviando" | "concluido" | "oculto";
 
 const DURACAO_COMEMORACAO_MS = 1700;
-const ONDAS = [0, 700, 1400];
+const ONDAS = [0, 1300, 2600];
 
 function horaAgora(): string {
 	return new Date().toLocaleTimeString("pt-BR", {
@@ -79,16 +79,16 @@ export function RouteCheckInButton({ onIniciar, onEstadoChange, erro }: Props) {
 			{estado !== "oculto" && (
 				<motion.div
 					key="check-in"
-					initial={reduzirMovimento ? false : { opacity: 0, scale: 0.92 }}
+					initial={reduzirMovimento ? false : { opacity: 0, scale: 0.94 }}
 					animate={{ opacity: 1, scale: 1 }}
 					exit={
 						reduzirMovimento
 							? { opacity: 0 }
-							: { opacity: 0, scale: 1.3, filter: "blur(8px)" }
+							: { opacity: 0, scale: 1.14, filter: "blur(6px)" }
 					}
 					transition={{
-						duration: concluido ? 0.8 : 0.35,
-						ease: [0.22, 1, 0.36, 1],
+						duration: concluido ? 1.1 : 0.5,
+						ease: [0.16, 1, 0.3, 1],
 					}}
 					className="pointer-events-none absolute inset-0 z-[500] flex flex-col items-center justify-center gap-4"
 				>
@@ -101,7 +101,7 @@ export function RouteCheckInButton({ onIniciar, onEstadoChange, erro }: Props) {
 									aria-hidden="true"
 									style={{ animationDelay: `${atraso}ms` }}
 									className={cn(
-										"absolute size-[156px] rounded-full motion-safe:pulso-etapa",
+										"absolute size-[156px] rounded-full motion-safe:onda-checkin",
 										concluido ? "bg-success" : "bg-blue-bright",
 									)}
 								/>
@@ -118,12 +118,12 @@ export function RouteCheckInButton({ onIniciar, onEstadoChange, erro }: Props) {
 							}
 							animate={
 								concluido && !reduzirMovimento
-									? { scale: [1, 1.12, 1] }
+									? { scale: [1, 1.07, 1] }
 									: { scale: 1 }
 							}
-							transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+							transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
 							className={cn(
-								"pointer-events-auto relative flex size-[156px] flex-col items-center justify-center gap-1 rounded-full text-white shadow-lift outline-none transition-colors duration-500 focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-default",
+								"pointer-events-auto relative flex size-[156px] flex-col items-center justify-center gap-1 rounded-full text-white shadow-lift outline-none transition-colors duration-700 focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-default",
 								concluido
 									? "bg-success-fill focus-visible:ring-success/60"
 									: "bg-blue-deep-fill hover:bg-blue-fill focus-visible:ring-blue-bright/60 active:scale-[0.97]",

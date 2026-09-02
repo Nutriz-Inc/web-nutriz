@@ -13,8 +13,9 @@ export function ehRotaEncerrada(status: EnumRouteStatus): boolean {
 	);
 }
 
+// Rota com erro tambem acabou: nao se marca parada, nao se finaliza, nao se edita.
 export function ehRotaAlteravel(status: EnumRouteStatus): boolean {
-	return status !== EnumRouteStatus.Done && status !== EnumRouteStatus.Canceled;
+	return !ehRotaEncerrada(status);
 }
 
 export function ordenarParadas(stops: IRouteStop[]): IRouteStop[] {

@@ -3,11 +3,13 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumJobStatus } from "@/services/types/i-job";
+import { EnumRouteStatus } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
 import { formatDateBR } from "@/utils/formatter";
 import { CollectionAddressCard } from "./components/CollectionAddressCard";
 import { ContactInfoCard } from "./components/ContactInfoCard";
 import { DeactivateUserSheet } from "./components/DeactivateUserSheet";
+import { DriverRoutesCard } from "./components/DriverRoutesCard";
 import { HeaderStat } from "./components/HeaderStat";
 import { NurseAppointmentsCard } from "./components/NurseAppointmentsCard";
 import { UserDetailHeaderCard } from "./components/UserDetailHeaderCard";
@@ -15,6 +17,7 @@ import type { DonationFilter } from "./components/UserDonationsCard";
 import { UserDonationsCard } from "./components/UserDonationsCard";
 import {
 	useAdminUserDetail,
+	useDriverRoutes,
 	useNurseAppointments,
 	useRemoveUser,
 	useUserDonations,
@@ -56,6 +59,10 @@ export function UserManagementDetailPage() {
 		id_user,
 		user?.type === EnumUserType.Nurse,
 	);
+	const routesQuery = useDriverRoutes(
+		id_user,
+		user?.type === EnumUserType.Driver,
+	);
 
 	const allDonations = allDonationsQuery.data?.data ?? [];
 	const donations =
@@ -63,6 +70,7 @@ export function UserManagementDetailPage() {
 			? allDonations
 			: (filteredDonationsQuery.data?.data ?? []);
 	const jobs = jobsQuery.data?.data ?? [];
+	const routes = routesQuery.data?.data ?? [];
 
 	const lastDonation = allDonations.reduce<string | null>(
 		(latest, donation) =>
@@ -85,6 +93,20 @@ export function UserManagementDetailPage() {
 					: earliest,
 			null,
 		);
+
+	const activeRoutes = routes.filter(
+		(route) =>
+			route.status === EnumRouteStatus.Pending ||
+			route.status === EnumRouteStatus.InProgress,
+	);
+	const doneRoutesCount = routes.filter(
+		(route) => route.status === EnumRouteStatus.Done,
+	).length;
+	const nextRoute = activeRoutes.reduce<string | null>(
+		(earliest, route) =>
+			!earliest || route.date_set < earliest ? route.date_set : earliest,
+		null,
+	);
 
 	return (
 		<Page
@@ -146,6 +168,21 @@ export function UserManagementDetailPage() {
 										label="Próximo agendamento"
 									/>
 								</>
+							) : user.type === EnumUserType.Driver ? (
+								<>
+									<HeaderStat
+										value={String(activeRoutes.length)}
+										label="Rotas ativas"
+									/>
+									<HeaderStat
+										value={String(doneRoutesCount)}
+										label="Concluídas"
+									/>
+									<HeaderStat
+										value={nextRoute ? formatDateBR(nextRoute) : "—"}
+										label="Próxima rota"
+									/>
+								</>
 							) : undefined
 						}
 					/>
@@ -170,6 +207,10 @@ export function UserManagementDetailPage() {
 
 					{user.type === EnumUserType.Nurse && (
 						<NurseAppointmentsCard jobs={jobs} />
+					)}
+
+					{user.type === EnumUserType.Driver && (
+						<DriverRoutesCard routes={routes} loading={routesQuery.isLoading} />
 					)}
 
 					<DeactivateUserSheet

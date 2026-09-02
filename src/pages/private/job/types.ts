@@ -39,6 +39,7 @@ export type AppointmentFinalResult = {
 
 export type AppointmentDetail = Appointment & {
 	ended: boolean;
+	id_user_common?: string;
 	donorPhone?: string;
 	donorEmail?: string;
 	finalResult?: AppointmentFinalResult;

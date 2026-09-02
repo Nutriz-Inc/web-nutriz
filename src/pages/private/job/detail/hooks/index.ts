@@ -142,6 +142,7 @@ export function useAppointmentDetail(id_job: string) {
 
 			return {
 				id: job.id_job,
+				id_user_common: job.id_user_common,
 				donorName: donor?.name ?? "—",
 				donorPhone: donor?.phone_number,
 				donorEmail: donor?.email,

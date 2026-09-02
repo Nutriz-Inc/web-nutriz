@@ -70,3 +70,16 @@ export function useNurseAppointments(id_user: string, enabled: boolean) {
 		enabled: Boolean(id_user) && enabled,
 	});
 }
+
+export function useDriverRoutes(id_user: string, enabled: boolean) {
+	return useQuery({
+		queryKey: ["admin-user-driver-routes", id_user],
+		queryFn: () =>
+			services.route.list({
+				page: 1,
+				page_size: 50,
+				id_driver: id_user,
+			}),
+		enabled: Boolean(id_user) && enabled,
+	});
+}

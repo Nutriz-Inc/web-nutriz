@@ -1,5 +1,5 @@
 import { CalendarX } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
@@ -10,18 +10,26 @@ import { FinalResultCard } from "../../detail/components/FinalResultCard";
 import { ReportHistory } from "../../detail/components/ReportHistory";
 import { StepDescriptionCard } from "../../detail/components/StepDescriptionCard";
 import { useAppointmentDetail } from "../../detail/hooks";
+import { DonationLinkCard } from "./components/DonationLinkCard";
 import { UpdateStepDescriptionForm } from "./components/UpdateStepDescriptionForm";
+import { useAppointmentDonation } from "./hooks";
 
 export function AppointmentManagementDetailPage() {
 	const { id_job = "" } = useParams();
+	const location = useLocation();
+	const backTo = location.state?.backTo ?? "/gestao-agendamentos";
 	const { auth } = useAuth();
 	const { data: appointment, isLoading } = useAppointmentDetail(id_job);
+	const { data: id_donation } = useAppointmentDonation(
+		id_job,
+		appointment?.id_user_common,
+	);
 
 	return (
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={isLoading}
-			backTo="/gestao-agendamentos"
+			backTo={backTo}
 			title={`Agendamento #${id_job.slice(0, 8)}`}
 			description="Acompanhe as etapas do agendamento e edite a descrição enquanto ele estiver em andamento."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
@@ -47,6 +55,7 @@ export function AppointmentManagementDetailPage() {
 					<div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:gap-6">
 						<div className="flex flex-col gap-5 lg:w-[340px] lg:shrink-0">
 							<AppointmentSummaryCard appointment={appointment} />
+							{id_donation && <DonationLinkCard id_donation={id_donation} />}
 							{appointment.steps.length > 0 && (
 								<AppointmentStepper
 									steps={appointment.steps}

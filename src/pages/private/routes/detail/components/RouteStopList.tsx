@@ -69,16 +69,16 @@ export function RouteStopList({
 
 					<div
 						aria-hidden="true"
-						className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-6 pb-4"
+						className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-6 pb-5 pt-2"
 					>
 						<img
 							src={rotaSemParadas}
 							alt=""
 							loading="lazy"
 							data-ilustracao=""
-							width={320}
-							height={117}
-							className="w-full max-w-[260px] select-none opacity-70"
+							width={454}
+							height={272}
+							className="max-h-full w-full max-w-[240px] select-none opacity-70"
 						/>
 					</div>
 				</div>

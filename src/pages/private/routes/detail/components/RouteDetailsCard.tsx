@@ -29,7 +29,7 @@ export function RouteDetailsCard({ route, podeEditar, onEditar }: Props) {
 	return (
 		<section className="flex h-full w-full flex-col">
 			<div className="flex items-start justify-between gap-3 p-5">
-				<p className="min-w-0 flex-1 text-[13px] leading-relaxed text-ink-2">
+				<p className="min-w-0 flex-1 whitespace-pre-line break-words text-[13px] leading-relaxed text-ink-2">
 					{route.description || "Sem descrição."}
 				</p>
 
@@ -54,7 +54,7 @@ export function RouteDetailsCard({ route, podeEditar, onEditar }: Props) {
 					conteudo: (
 						<div className="flex flex-col gap-1 px-5 py-4">
 							<span className="text-[11px] text-ink-2">{item.rotulo}</span>
-							<span className="text-[13px] font-semibold text-ink">
+							<span className="break-words text-[13px] font-semibold text-ink">
 								{item.valor}
 							</span>
 							{item.complemento && (

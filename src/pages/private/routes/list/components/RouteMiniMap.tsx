@@ -22,12 +22,22 @@ type Props = {
 export function RouteMiniMap({ city, neighborhood }: Props) {
 	const { temaEfetivo } = useAccessibility();
 	const escuro = temaEfetivo === "escuro";
+	const temRegiao = Boolean(city || neighborhood);
 	const { data, isLoading } = useRegionCoordinates(city, neighborhood);
 
-	if (isLoading || !data) {
+	if (temRegiao && isLoading) {
+		return <div className="size-full animate-pulse bg-surface-2" />;
+	}
+
+	// Sem coordenada nao da para desenhar o mapa certo, e desenhar o errado seria
+	// pior. O lugar vira um painel proprio em vez de um icone solto no cinza.
+	if (!data) {
 		return (
-			<div className="flex size-full items-center justify-center bg-surface-2">
-				<MapPinned className="size-6 text-blue-tint-2" />
+			<div className="flex size-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-blue-tint via-surface-2 to-surface-2 px-3 text-center">
+				<MapPinned className="size-6 text-blue-deep/60" />
+				<span className="text-[11px] leading-tight text-ink-2">
+					{temRegiao ? "Região não localizada" : "Região não informada"}
+				</span>
 			</div>
 		);
 	}

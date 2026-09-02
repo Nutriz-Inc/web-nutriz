@@ -17,6 +17,7 @@ import {
 	type RouteStatusFilter,
 } from "./constants";
 import { useRoutesList } from "./hooks";
+import { ordenarPorPrioridade } from "./utils";
 
 export function RoutesListPage() {
 	const { auth } = useAuth();
@@ -90,11 +91,13 @@ export function RoutesListPage() {
 	);
 
 	const todasAsRotas = data?.data ?? [];
-	const routes = ehAdm
-		? todasAsRotas
-		: todasAsRotas.filter(
-				(route) => status === "all" || route.status === status,
-			);
+	const routes = ordenarPorPrioridade(
+		ehAdm
+			? todasAsRotas
+			: todasAsRotas.filter(
+					(route) => status === "all" || route.status === status,
+				),
+	);
 	const total = ehAdm ? (data?.total ?? 0) : routes.length;
 	const totalPages = ehAdm
 		? Math.max(1, Math.ceil((data?.total ?? 0) / DEFAULT_PAGE_SIZE))

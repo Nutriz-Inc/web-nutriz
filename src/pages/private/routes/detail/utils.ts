@@ -75,6 +75,29 @@ export function formatarEndereco(stop: IRouteStop): string {
 	return [logradouro, address.neighborhood, regiao].filter(Boolean).join(" · ");
 }
 
+export function partesDoEndereco(stop: IRouteStop): {
+	linha: string;
+	regiao: string;
+} {
+	const address = stop.address;
+
+	if (!address) {
+		return { linha: "Endereço não informado", regiao: "" };
+	}
+
+	const linha = [address.street, address.number ?? "s/n"]
+		.filter(Boolean)
+		.join(", ");
+	const regiao = [
+		address.neighborhood,
+		[address.city, address.state].filter(Boolean).join("/"),
+	]
+		.filter(Boolean)
+		.join(" · ");
+
+	return { linha, regiao };
+}
+
 export function temCoordenadas(stop: IRouteStop): boolean {
 	return stop.address?.latitude != null && stop.address?.longitude != null;
 }
@@ -98,4 +121,53 @@ export function mensagemDeErro(erro: unknown): string {
 	);
 
 	return codigo ? MENSAGENS_DE_ERRO[codigo] : ERRO_GENERICO;
+}
+
+export function coordenadasDaParada(stop: IRouteStop): string | null {
+	const latitude = stop.address?.latitude;
+	const longitude = stop.address?.longitude;
+
+	if (latitude == null || longitude == null) {
+		return null;
+	}
+
+	return `${latitude},${longitude}`;
+}
+
+const MAXIMO_DE_PONTOS_INTERMEDIARIOS = 8;
+
+export function urlDoGoogleMaps(stops: IRouteStop[]): string | null {
+	const pontos = stops
+		.map(coordenadasDaParada)
+		.filter((ponto): ponto is string => ponto !== null);
+
+	if (pontos.length === 0) {
+		return null;
+	}
+
+	const parametros = new URLSearchParams({
+		api: "1",
+		destination: pontos[pontos.length - 1],
+		travelmode: "driving",
+	});
+
+	if (pontos.length > 1) {
+		parametros.set("origin", pontos[0]);
+
+		const intermediarios = pontos
+			.slice(1, -1)
+			.slice(0, MAXIMO_DE_PONTOS_INTERMEDIARIOS);
+
+		if (intermediarios.length > 0) {
+			parametros.set("waypoints", intermediarios.join("|"));
+		}
+	}
+
+	return `https://www.google.com/maps/dir/?${parametros.toString()}`;
+}
+
+export function paradasForaDaNavegacao(stops: IRouteStop[]): number {
+	const comCoordenada = stops.filter(temCoordenadas).length;
+
+	return Math.max(comCoordenada - (MAXIMO_DE_PONTOS_INTERMEDIARIOS + 2), 0);
 }

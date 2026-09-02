@@ -111,7 +111,7 @@ export function AddStopSheet({
 										{enderecoDaEtapa(step)}
 									</span>
 									{step.set_date && (
-										<span className="text-[12.5px] text-ink-2">
+										<span className="text-[12px] text-ink-2">
 											Agendada para {formatCreatedAt(step.set_date)}
 										</span>
 									)}

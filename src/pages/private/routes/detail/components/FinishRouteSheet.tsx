@@ -115,7 +115,7 @@ export function FinishRouteSheet({
 								<span className="font-sans text-[15px] font-extrabold leading-none tabular-nums text-blue-deep">
 									{item.valor}
 								</span>
-								<span className="text-[9.5px] font-bold uppercase leading-tight tracking-[0.06em] text-ink-2">
+								<span className="text-[10px] font-bold uppercase leading-tight tracking-[0.06em] text-ink-2">
 									{item.rotulo}
 								</span>
 							</div>

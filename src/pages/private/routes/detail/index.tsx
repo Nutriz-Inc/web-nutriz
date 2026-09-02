@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { SectionLabel } from "@/components/full/SectionLabel";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumRouteStatus, type IRouteStop } from "@/services/types/i-route";
@@ -9,15 +10,15 @@ import { CancelRouteSheet } from "./components/CancelRouteSheet";
 import { ConfirmActionDialog } from "./components/ConfirmActionDialog";
 import { EditRouteSheet } from "./components/EditRouteSheet";
 import { FinishRouteSheet } from "./components/FinishRouteSheet";
+import { OpenInMapsButton } from "./components/OpenInMapsButton";
 import { ReportProblemSheet } from "./components/ReportProblemSheet";
 import { RouteDriverActions } from "./components/RouteDriverActions";
 import { RouteDriverCard } from "./components/RouteDriverCard";
 import { RouteHeaderCard } from "./components/RouteHeaderCard";
-import { RouteMap } from "./components/RouteMap";
-import { RouteMileageCard } from "./components/RouteMileageCard";
+import { RouteMapCard } from "./components/RouteMapCard";
+import { RouteProgressCard } from "./components/RouteProgressCard";
 import { RouteStartBanner } from "./components/RouteStartBanner";
 import { RouteStopList } from "./components/RouteStopList";
-import { RouteTimeCard } from "./components/RouteTimeCard";
 import {
 	useCreateRouteStop,
 	useDonationStepOptions,
@@ -74,6 +75,10 @@ export function RouteDetailPage() {
 	const podeMarcarParada = podeOperar && Boolean(route?.date_start);
 	const podeFinalizar =
 		podeOperar && Boolean(route?.date_start) && paradasVisitadas > 0;
+	const podeReportar =
+		podeOperar &&
+		(route?.status === EnumRouteStatus.Pending ||
+			route?.status === EnumRouteStatus.InProgress);
 
 	const updateMutation = useUpdateRoute(id_route);
 	const createStopMutation = useCreateRouteStop(id_route);
@@ -139,79 +144,117 @@ export function RouteDetailPage() {
 			loading={routeQuery.isLoading}
 			backTo="/rotas"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			actionSlot={
+				podeOperar ? (
+					<div className="hidden lg:flex">
+						<RouteDriverActions
+							variante="topo"
+							podeIniciar={podeIniciar}
+							podeFinalizar={podeFinalizar}
+							podeReportar={podeReportar}
+							onIniciar={() => setModal("iniciar")}
+							onFinalizar={() => setModal("finalizar")}
+							onReportar={() => setModal("reportar")}
+						/>
+					</div>
+				) : undefined
+			}
 		>
 			{route && (
-				<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-4 lg:gap-6">
+				<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-5 pb-24 lg:gap-6 lg:pb-0">
 					{podeOperar && !route.date_start && (
 						<RouteStartBanner dateSet={route.date_set} />
 					)}
 
-					<div className="flex flex-col gap-4 lg:grid lg:grid-cols-[380px_1fr] lg:items-start lg:gap-6">
-						<div className="flex flex-col gap-4 lg:gap-6">
-							<RouteHeaderCard
-								route={route}
-								podeGerenciar={podeGerenciar}
-								onEditar={() => setModal("editar")}
-								onCancelar={() => setModal("cancelar")}
-							/>
+					<div className="flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,380px)_1fr] lg:items-start lg:gap-6">
+						<div className="flex flex-col gap-5 lg:gap-6">
+							<div className="flex flex-col gap-2.5">
+								<SectionLabel>Rota</SectionLabel>
+								<RouteHeaderCard
+									route={route}
+									podeGerenciar={podeGerenciar}
+									onEditar={() => setModal("editar")}
+									onCancelar={() => setModal("cancelar")}
+								/>
+							</div>
 
-							<RouteTimeCard
-								dateStart={route.date_start}
-								dateEnd={route.date_end}
-							/>
+							<div className="flex flex-col gap-2.5">
+								<SectionLabel>Andamento</SectionLabel>
+								<RouteProgressCard
+									dateStart={route.date_start}
+									dateEnd={route.date_end}
+									mileage={route.mileage}
+									mediaPorRota={
+										ehAdm
+											? (statsQuery.data?.average_mileage_per_route ?? null)
+											: null
+									}
+								/>
+							</div>
 
-							<RouteDriverCard
-								driverName={route.driver_name}
-								driver={driverQuery.data}
-								carregando={driverQuery.isLoading}
-							/>
-
-							<RouteMileageCard
-								mileage={route.mileage}
-								mediaPorRota={
-									ehAdm
-										? (statsQuery.data?.average_mileage_per_route ?? null)
-										: null
-								}
-							/>
+							<div className="flex flex-col gap-2.5">
+								<SectionLabel>Motorista</SectionLabel>
+								<RouteDriverCard
+									driverName={route.driver_name}
+									driver={driverQuery.data}
+									carregando={driverQuery.isLoading}
+								/>
+							</div>
 						</div>
 
-						<div className="flex flex-col gap-4 lg:gap-6">
-							<RouteMap
-								stops={stops}
-								className="h-[240px] w-full overflow-hidden rounded-2xl shadow-soft lg:h-[420px] lg:rounded-3xl"
-							/>
+						<div className="flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start xl:gap-6">
+							<div className="flex flex-col gap-2.5">
+								<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
+									Trajeto
+								</SectionLabel>
+								<RouteMapCard stops={stops} />
+								<p className="text-[12px] text-ink-2">
+									Traçado ilustrativo. Início, chegadas e finalização continuam
+									sendo registrados aqui no sistema.
+								</p>
+							</div>
 
-							<RouteStopList
-								stops={stops}
-								podeGerenciar={podeGerenciar}
-								podeMarcar={podeMarcarParada}
-								onAdicionar={() => setModal("adicionar")}
-								onRemover={(stop) => {
-									setParadaSelecionada(stop);
-									setModal("remover");
-								}}
-								onMarcar={(stop) => {
-									setParadaSelecionada(stop);
-									setModal("chegar");
-								}}
-							/>
-
-							{podeOperar && (
-								<RouteDriverActions
-									podeIniciar={podeIniciar}
-									podeFinalizar={podeFinalizar}
-									podeReportar={
-										route.status === EnumRouteStatus.Pending ||
-										route.status === EnumRouteStatus.InProgress
+							<div className="flex flex-col gap-2.5">
+								<SectionLabel
+									trailing={
+										<span className="text-[12px] font-semibold text-ink-2">
+											{paradasVisitadas} de {stops.length} visitadas
+										</span>
 									}
-									onIniciar={() => setModal("iniciar")}
-									onFinalizar={() => setModal("finalizar")}
-									onReportar={() => setModal("reportar")}
+								>
+									Paradas
+								</SectionLabel>
+								<RouteStopList
+									stops={stops}
+									podeGerenciar={podeGerenciar}
+									podeMarcar={podeMarcarParada}
+									onAdicionar={() => setModal("adicionar")}
+									onRemover={(stop) => {
+										setParadaSelecionada(stop);
+										setModal("remover");
+									}}
+									onMarcar={(stop) => {
+										setParadaSelecionada(stop);
+										setModal("chegar");
+									}}
 								/>
-							)}
+							</div>
 						</div>
 					</div>
+
+					{podeOperar && (
+						<div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface px-4 py-3 shadow-lift lg:hidden">
+							<RouteDriverActions
+								variante="rodape"
+								podeIniciar={podeIniciar}
+								podeFinalizar={podeFinalizar}
+								podeReportar={podeReportar}
+								onIniciar={() => setModal("iniciar")}
+								onFinalizar={() => setModal("finalizar")}
+								onReportar={() => setModal("reportar")}
+							/>
+						</div>
+					)}
 
 					<EditRouteSheet
 						open={modal === "editar"}

@@ -1,7 +1,8 @@
-import { Ban, CalendarClock, MapPin, Pencil, PlusCircle } from "lucide-react";
+import { Ban, Pencil } from "lucide-react";
 import { RouteStatusBadge } from "@/components/full/RouteStatusBadge";
+import { cn } from "@/lib/utils";
 import type { IGetRouteResponse } from "@/services/types/i-route";
-import { formatCreatedAt } from "@/utils/formatter";
+import { formatDateBR, formatDateTimeParts } from "@/utils/formatter";
 
 type Props = {
 	route: IGetRouteResponse;
@@ -16,79 +17,88 @@ export function RouteHeaderCard({
 	onEditar,
 	onCancelar,
 }: Props) {
-	const regiao = [route.city, route.neighborhood].filter(Boolean).join(" · ");
+	const previsto = formatDateTimeParts(route.date_set);
 
-	const dados = [
+	const meta = [
 		{
-			icone: <CalendarClock className="size-4 shrink-0 text-ink-2" />,
 			rotulo: "Prevista para",
-			valor: formatCreatedAt(route.date_set),
+			valor: previsto.date,
+			complemento: `às ${previsto.time}`,
 		},
 		{
-			icone: <MapPin className="size-4 shrink-0 text-ink-2" />,
 			rotulo: "Região",
-			valor: regiao || "Sem região definida",
+			valor:
+				[route.city, route.neighborhood].filter(Boolean).join(" · ") || "—",
 		},
-		{
-			icone: <PlusCircle className="size-4 shrink-0 text-ink-2" />,
-			rotulo: "Criada em",
-			valor: formatCreatedAt(route.created_at),
-		},
+		{ rotulo: "Criada em", valor: formatDateBR(route.created_at) },
 	];
 
 	return (
-		<section className="flex w-full flex-col gap-4 rounded-2xl bg-surface p-5 shadow-soft lg:gap-5 lg:rounded-3xl lg:p-6">
-			<div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
-				<h2 className="min-w-0 flex-1 break-words font-display text-[18px] font-extrabold tracking-tight text-blue-deep lg:text-[20px]">
-					{route.name}
-				</h2>
-				<RouteStatusBadge status={route.status} />
+		<section className="flex w-full flex-col rounded-card-sm border border-line bg-surface shadow-soft">
+			<div className="flex flex-col gap-3 p-5">
+				<div className="flex items-start justify-between gap-3">
+					<h2 className="min-w-0 flex-1 break-words font-display text-[18px] font-extrabold tracking-tight text-blue-deep">
+						{route.name}
+					</h2>
+
+					<div className="flex shrink-0 items-center gap-2">
+						<RouteStatusBadge status={route.status} />
+						{podeGerenciar && (
+							<button
+								type="button"
+								onClick={onEditar}
+								aria-label="Editar nome e descrição da rota"
+								className="flex size-9 items-center justify-center rounded-full text-ink-2 outline-none transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:ring-4 focus-visible:ring-blue-bright/50"
+							>
+								<Pencil className="size-4" />
+							</button>
+						)}
+					</div>
+				</div>
+
+				<p className="text-[13px] leading-relaxed text-ink-2">
+					{route.description}
+				</p>
 			</div>
 
-			<p className="text-[14px] leading-relaxed text-ink-2">
-				{route.description}
-			</p>
-
-			<div className="h-px bg-blue-tint" />
-
-			<div className="flex flex-col gap-2.5">
-				{dados.map((item) => (
-					<div key={item.rotulo} className="flex items-center gap-2.5">
-						{item.icone}
-						<span className="text-[13px] text-ink-2">{item.rotulo}</span>
-						<span className="ml-auto min-w-0 truncate text-[14px] font-semibold text-ink">
-							{item.valor}
-						</span>
+			<dl className="grid grid-cols-3 divide-x divide-line border-t border-line">
+				{meta.map((item) => (
+					<div key={item.rotulo} className="flex flex-col gap-1 px-4 py-3.5">
+						<dt className="text-[11px] text-ink-2">{item.rotulo}</dt>
+						<dd className="flex flex-col">
+							<span className="text-[13px] font-semibold text-ink">
+								{item.valor}
+							</span>
+							{item.complemento && (
+								<span className="text-[11px] text-ink-2">
+									{item.complemento}
+								</span>
+							)}
+						</dd>
 					</div>
 				))}
-			</div>
+			</dl>
 
 			{route.user_feedback && (
-				<div className="flex flex-col gap-1 rounded-xl bg-surface-2 p-3.5">
-					<span className="text-[10.5px] font-bold uppercase tracking-wider text-ink-2">
+				<div className="flex flex-col gap-1 border-t border-line px-5 py-4">
+					<span className="text-[11px] font-bold uppercase tracking-[0.06em] text-ink-2">
 						Relato do motorista
 					</span>
-					<p className="text-[13.5px] leading-relaxed text-ink">
+					<p className="text-[13px] leading-relaxed text-ink">
 						{route.user_feedback}
 					</p>
 				</div>
 			)}
 
 			{podeGerenciar && (
-				<div className="flex flex-wrap gap-2.5 border-t border-line pt-4">
-					<button
-						type="button"
-						onClick={onEditar}
-						className="flex h-11 items-center justify-center gap-2 rounded-full border border-blue-tint-2 bg-surface px-5 text-[14px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50"
-					>
-						<Pencil className="size-4" />
-						Editar
-					</button>
-
+				<div className="border-t border-line px-5 py-3">
 					<button
 						type="button"
 						onClick={onCancelar}
-						className="flex h-11 items-center justify-center gap-2 rounded-full border border-danger-tint bg-surface px-5 text-[14px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-3 focus-visible:ring-danger/40"
+						className={cn(
+							"flex h-9 items-center gap-2 rounded-full px-3 text-[13px] font-semibold text-danger",
+							"outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40",
+						)}
 					>
 						<Ban className="size-4" />
 						Cancelar rota

@@ -38,7 +38,7 @@ export function RouteStopList({
 					}
 				/>
 			) : (
-				<ol className="flex flex-col p-5 xl:max-h-[420px] xl:overflow-y-auto">
+				<ol className="flex flex-col p-5 xl:max-h-[520px] xl:overflow-y-auto">
 					{stops.map((stop, index) => (
 						<RouteStopItem
 							key={stop.id_route_donation_step}

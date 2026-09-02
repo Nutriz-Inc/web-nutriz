@@ -15,8 +15,9 @@ import { ReportProblemSheet } from "./components/ReportProblemSheet";
 import { RouteDriverActions } from "./components/RouteDriverActions";
 import { RouteDriverCard } from "./components/RouteDriverCard";
 import { RouteHeaderCard } from "./components/RouteHeaderCard";
+import { RouteHistoryCard } from "./components/RouteHistoryCard";
 import { RouteMapCard } from "./components/RouteMapCard";
-import { RouteProgressCard } from "./components/RouteProgressCard";
+import { RouteMetricsBar } from "./components/RouteMetricsBar";
 import { RouteStartBanner } from "./components/RouteStartBanner";
 import { RouteStopList } from "./components/RouteStopList";
 import {
@@ -166,8 +167,29 @@ export function RouteDetailPage() {
 						<RouteStartBanner dateSet={route.date_set} />
 					)}
 
-					<div className="flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,380px)_1fr] lg:items-start lg:gap-6">
-						<div className="flex flex-col gap-5 lg:gap-6">
+					<div
+						style={{ animationDelay: "40ms" }}
+						className="motion-safe:surge-etapa"
+					>
+						<RouteMetricsBar
+							dateStart={route.date_start}
+							dateEnd={route.date_end}
+							mileage={route.mileage}
+							mediaPorRota={
+								ehAdm
+									? (statsQuery.data?.average_mileage_per_route ?? null)
+									: null
+							}
+							totalParadas={stops.length}
+							paradasVisitadas={paradasVisitadas}
+						/>
+					</div>
+
+					<div className="flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:items-start lg:gap-6 xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)_minmax(0,340px)]">
+						<div
+							style={{ animationDelay: "120ms" }}
+							className="flex flex-col gap-5 motion-safe:surge-etapa lg:gap-6"
+						>
 							<div className="flex flex-col gap-2.5">
 								<SectionLabel>Rota</SectionLabel>
 								<RouteHeaderCard
@@ -179,20 +201,6 @@ export function RouteDetailPage() {
 							</div>
 
 							<div className="flex flex-col gap-2.5">
-								<SectionLabel>Andamento</SectionLabel>
-								<RouteProgressCard
-									dateStart={route.date_start}
-									dateEnd={route.date_end}
-									mileage={route.mileage}
-									mediaPorRota={
-										ehAdm
-											? (statsQuery.data?.average_mileage_per_route ?? null)
-											: null
-									}
-								/>
-							</div>
-
-							<div className="flex flex-col gap-2.5">
 								<SectionLabel>Motorista</SectionLabel>
 								<RouteDriverCard
 									driverName={route.driver_name}
@@ -200,45 +208,54 @@ export function RouteDetailPage() {
 									carregando={driverQuery.isLoading}
 								/>
 							</div>
+
+							<div className="flex flex-col gap-2.5">
+								<SectionLabel>Histórico</SectionLabel>
+								<RouteHistoryCard route={route} />
+							</div>
 						</div>
 
-						<div className="flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start xl:gap-6">
-							<div className="flex flex-col gap-2.5">
-								<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
-									Trajeto
-								</SectionLabel>
-								<RouteMapCard stops={stops} />
-								<p className="text-[12px] text-ink-2">
-									Traçado ilustrativo. Início, chegadas e finalização continuam
-									sendo registrados aqui no sistema.
-								</p>
-							</div>
+						<div
+							style={{ animationDelay: "200ms" }}
+							className="flex flex-col gap-2.5 motion-safe:surge-etapa"
+						>
+							<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
+								Trajeto
+							</SectionLabel>
+							<RouteMapCard stops={stops} />
+							<p className="text-[12px] leading-relaxed text-ink-2">
+								Traçado ilustrativo. Início, chegadas e finalização continuam
+								sendo registrados aqui no sistema.
+							</p>
+						</div>
 
-							<div className="flex flex-col gap-2.5">
-								<SectionLabel
-									trailing={
-										<span className="text-[12px] font-semibold text-ink-2">
-											{paradasVisitadas} de {stops.length} visitadas
-										</span>
-									}
-								>
-									Paradas
-								</SectionLabel>
-								<RouteStopList
-									stops={stops}
-									podeGerenciar={podeGerenciar}
-									podeMarcar={podeMarcarParada}
-									onAdicionar={() => setModal("adicionar")}
-									onRemover={(stop) => {
-										setParadaSelecionada(stop);
-										setModal("remover");
-									}}
-									onMarcar={(stop) => {
-										setParadaSelecionada(stop);
-										setModal("chegar");
-									}}
-								/>
-							</div>
+						<div
+							style={{ animationDelay: "280ms" }}
+							className="flex flex-col gap-2.5 motion-safe:surge-etapa lg:col-span-2 xl:col-span-1"
+						>
+							<SectionLabel
+								trailing={
+									<span className="text-[12px] font-semibold text-ink-2">
+										{paradasVisitadas} de {stops.length} visitadas
+									</span>
+								}
+							>
+								Paradas
+							</SectionLabel>
+							<RouteStopList
+								stops={stops}
+								podeGerenciar={podeGerenciar}
+								podeMarcar={podeMarcarParada}
+								onAdicionar={() => setModal("adicionar")}
+								onRemover={(stop) => {
+									setParadaSelecionada(stop);
+									setModal("remover");
+								}}
+								onMarcar={(stop) => {
+									setParadaSelecionada(stop);
+									setModal("chegar");
+								}}
+							/>
 						</div>
 					</div>
 

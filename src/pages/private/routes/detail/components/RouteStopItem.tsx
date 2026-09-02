@@ -35,7 +35,7 @@ export function RouteStopItem({
 	const temAcoes = podeMarcar || podeRemover;
 
 	return (
-		<li className="flex gap-3">
+		<li className="group flex gap-3 rounded-xl transition-colors">
 			<div className="flex flex-col items-center pt-0.5">
 				<StepDot
 					status={concluida ? "done" : atual ? "current" : "waiting"}
@@ -116,7 +116,7 @@ export function RouteStopItem({
 								type="button"
 								onClick={onRemover}
 								aria-label={`Remover a parada em ${linha}`}
-								className="flex size-11 items-center justify-center rounded-full text-ink-2 outline-none transition-colors hover:bg-danger-tint hover:text-danger focus-visible:ring-4 focus-visible:ring-danger/40"
+								className="flex size-11 items-center justify-center rounded-full text-ink-2 opacity-70 outline-none transition-[color,background-color,opacity] hover:bg-danger-tint hover:text-danger focus-visible:opacity-100 focus-visible:ring-4 focus-visible:ring-danger/40 group-hover:opacity-100"
 							>
 								<Trash2 className="size-4" />
 							</button>

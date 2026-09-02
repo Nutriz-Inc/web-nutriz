@@ -1,4 +1,3 @@
-import { IdCard, Mail, Phone, UserRound } from "lucide-react";
 import { getInitials } from "@/components/layout/utils";
 import type { User } from "@/services/types/i-user";
 import { formatCpf, formatDateBR, formatPhoneNumber } from "@/utils/formatter";
@@ -14,60 +13,48 @@ export function RouteDriverCard({ driverName, driver, carregando }: Props) {
 
 	const dados = [
 		{
-			icone: <Phone className="size-4 shrink-0 text-ink-2" />,
 			rotulo: "Telefone",
 			valor: driver?.phone_number
 				? formatPhoneNumber(driver.phone_number)
 				: undefined,
 		},
+		{ rotulo: "E-mail", valor: driver?.email },
+		{ rotulo: "CPF", valor: driver?.cpf ? formatCpf(driver.cpf) : undefined },
 		{
-			icone: <Mail className="size-4 shrink-0 text-ink-2" />,
-			rotulo: "E-mail",
-			valor: driver?.email,
-		},
-		{
-			icone: <IdCard className="size-4 shrink-0 text-ink-2" />,
-			rotulo: "CPF",
-			valor: driver?.cpf ? formatCpf(driver.cpf) : undefined,
-		},
-		{
-			icone: <UserRound className="size-4 shrink-0 text-ink-2" />,
 			rotulo: "Nascimento",
 			valor: driver?.birth_date ? formatDateBR(driver.birth_date) : undefined,
 		},
 	].filter((item) => Boolean(item.valor));
 
 	return (
-		<section className="flex w-full flex-col gap-4 rounded-2xl bg-surface p-5 shadow-soft lg:rounded-3xl lg:p-6">
-			<h2 className="font-display text-xs font-bold uppercase tracking-[0.06em] text-blue-bright">
-				Motorista
-			</h2>
-
-			<div className="flex items-center gap-3">
+		<section className="flex w-full flex-col">
+			<div className="flex items-center gap-3 p-5">
 				<span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-tint text-[15px] font-bold text-blue-deep">
 					{getInitials(nome)}
 				</span>
-				<p className="min-w-0 truncate text-[16px] font-bold text-ink">
-					{nome}
-				</p>
+				<div className="flex min-w-0 flex-col">
+					<p className="truncate text-[15px] font-bold text-ink">{nome}</p>
+					<span className="text-[12px] text-ink-2">Motorista da rota</span>
+				</div>
 			</div>
 
 			{carregando ? (
-				<div className="h-16 w-full animate-pulse rounded-xl bg-surface-2" />
+				<div className="border-t border-line p-5">
+					<div className="h-12 w-full animate-pulse rounded-xl bg-surface-2" />
+				</div>
 			) : dados.length > 0 ? (
-				<div className="flex flex-col gap-2.5">
+				<dl className="grid grid-cols-2 divide-x divide-y divide-line border-t border-line">
 					{dados.map((item) => (
-						<div key={item.rotulo} className="flex items-center gap-2.5">
-							{item.icone}
-							<span className="text-[13px] text-ink-2">{item.rotulo}</span>
-							<span className="ml-auto min-w-0 truncate text-[14px] font-semibold text-ink">
+						<div key={item.rotulo} className="flex flex-col gap-1 px-4 py-3.5">
+							<dt className="text-[11px] text-ink-2">{item.rotulo}</dt>
+							<dd className="truncate text-[13px] font-semibold text-ink">
 								{item.valor}
-							</span>
+							</dd>
 						</div>
 					))}
-				</div>
+				</dl>
 			) : (
-				<p className="text-[13px] text-ink-2">
+				<p className="border-t border-line px-5 py-4 text-[13px] text-ink-2">
 					Não foi possível carregar os dados do motorista.
 				</p>
 			)}

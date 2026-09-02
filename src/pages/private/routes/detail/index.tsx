@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { SectionLabel } from "@/components/full/SectionLabel";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumRouteStatus, type IRouteStop } from "@/services/types/i-route";
@@ -9,15 +10,16 @@ import { CancelRouteSheet } from "./components/CancelRouteSheet";
 import { ConfirmActionDialog } from "./components/ConfirmActionDialog";
 import { EditRouteSheet } from "./components/EditRouteSheet";
 import { FinishRouteSheet } from "./components/FinishRouteSheet";
+import { OpenInMapsButton } from "./components/OpenInMapsButton";
 import { ReportProblemSheet } from "./components/ReportProblemSheet";
 import { RouteDriverActions } from "./components/RouteDriverActions";
 import { RouteDriverCard } from "./components/RouteDriverCard";
 import { RouteHeaderCard } from "./components/RouteHeaderCard";
-import { RouteMap } from "./components/RouteMap";
-import { RouteMileageCard } from "./components/RouteMileageCard";
+import { RouteHistoryCard } from "./components/RouteHistoryCard";
+import { RouteMapCard } from "./components/RouteMapCard";
+import { RouteMetricsBar } from "./components/RouteMetricsBar";
 import { RouteStartBanner } from "./components/RouteStartBanner";
 import { RouteStopList } from "./components/RouteStopList";
-import { RouteTimeCard } from "./components/RouteTimeCard";
 import {
 	useCreateRouteStop,
 	useDonationStepOptions,
@@ -74,6 +76,10 @@ export function RouteDetailPage() {
 	const podeMarcarParada = podeOperar && Boolean(route?.date_start);
 	const podeFinalizar =
 		podeOperar && Boolean(route?.date_start) && paradasVisitadas > 0;
+	const podeReportar =
+		podeOperar &&
+		(route?.status === EnumRouteStatus.Pending ||
+			route?.status === EnumRouteStatus.InProgress);
 
 	const updateMutation = useUpdateRoute(id_route);
 	const createStopMutation = useCreateRouteStop(id_route);
@@ -139,79 +145,126 @@ export function RouteDetailPage() {
 			loading={routeQuery.isLoading}
 			backTo="/rotas"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			actionSlot={
+				podeOperar ? (
+					<div className="hidden lg:flex">
+						<RouteDriverActions
+							variante="topo"
+							podeIniciar={podeIniciar}
+							podeFinalizar={podeFinalizar}
+							podeReportar={podeReportar}
+							onIniciar={() => setModal("iniciar")}
+							onFinalizar={() => setModal("finalizar")}
+							onReportar={() => setModal("reportar")}
+						/>
+					</div>
+				) : undefined
+			}
 		>
 			{route && (
-				<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-4 lg:gap-6">
+				<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-5 pb-24 lg:pb-0">
 					{podeOperar && !route.date_start && (
 						<RouteStartBanner dateSet={route.date_set} />
 					)}
 
-					<div className="flex flex-col gap-4 lg:grid lg:grid-cols-[380px_1fr] lg:items-start lg:gap-6">
-						<div className="flex flex-col gap-4 lg:gap-6">
-							<RouteHeaderCard
-								route={route}
-								podeGerenciar={podeGerenciar}
-								onEditar={() => setModal("editar")}
-								onCancelar={() => setModal("cancelar")}
-							/>
+					<div
+						style={{ animationDelay: "40ms" }}
+						className="overflow-hidden rounded-card border border-line bg-surface shadow-soft motion-safe:surge-etapa"
+					>
+						<RouteMetricsBar
+							dateStart={route.date_start}
+							dateEnd={route.date_end}
+							mileage={route.mileage}
+							mediaPorRota={
+								ehAdm
+									? (statsQuery.data?.average_mileage_per_route ?? null)
+									: null
+							}
+							totalParadas={stops.length}
+							paradasVisitadas={paradasVisitadas}
+						/>
 
-							<RouteTimeCard
-								dateStart={route.date_start}
-								dateEnd={route.date_end}
-							/>
+						<div className="grid border-t border-line xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)_minmax(0,360px)]">
+							<div className="flex flex-col border-line xl:border-r">
+								<div className="flex flex-col">
+									<SectionLabel className="px-5 pt-5">Rota</SectionLabel>
+									<RouteHeaderCard
+										route={route}
+										podeGerenciar={podeGerenciar}
+										onEditar={() => setModal("editar")}
+										onCancelar={() => setModal("cancelar")}
+									/>
+								</div>
 
-							<RouteDriverCard
-								driverName={route.driver_name}
-								driver={driverQuery.data}
-								carregando={driverQuery.isLoading}
-							/>
+								<div className="flex flex-col border-t border-line">
+									<SectionLabel className="px-5 pt-5">Motorista</SectionLabel>
+									<RouteDriverCard
+										driverName={route.driver_name}
+										driver={driverQuery.data}
+										carregando={driverQuery.isLoading}
+									/>
+								</div>
 
-							<RouteMileageCard
-								mileage={route.mileage}
-								mediaPorRota={
-									ehAdm
-										? (statsQuery.data?.average_mileage_per_route ?? null)
-										: null
-								}
-							/>
-						</div>
+								<div className="flex flex-col border-t border-line">
+									<SectionLabel className="px-5 pt-5">Histórico</SectionLabel>
+									<RouteHistoryCard route={route} />
+								</div>
+							</div>
 
-						<div className="flex flex-col gap-4 lg:gap-6">
-							<RouteMap
-								stops={stops}
-								className="h-[240px] w-full overflow-hidden rounded-2xl shadow-soft lg:h-[420px] lg:rounded-3xl"
-							/>
+							<div className="flex flex-col gap-3 border-t border-line p-5 xl:border-t-0">
+								<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
+									Trajeto
+								</SectionLabel>
+								<RouteMapCard stops={stops} />
+								<p className="text-[12px] leading-relaxed text-ink-2">
+									Traçado ilustrativo. Início, chegadas e finalização continuam
+									sendo registrados aqui no sistema.
+								</p>
+							</div>
 
-							<RouteStopList
-								stops={stops}
-								podeGerenciar={podeGerenciar}
-								podeMarcar={podeMarcarParada}
-								onAdicionar={() => setModal("adicionar")}
-								onRemover={(stop) => {
-									setParadaSelecionada(stop);
-									setModal("remover");
-								}}
-								onMarcar={(stop) => {
-									setParadaSelecionada(stop);
-									setModal("chegar");
-								}}
-							/>
-
-							{podeOperar && (
-								<RouteDriverActions
-									podeIniciar={podeIniciar}
-									podeFinalizar={podeFinalizar}
-									podeReportar={
-										route.status === EnumRouteStatus.Pending ||
-										route.status === EnumRouteStatus.InProgress
+							<div className="flex flex-col border-t border-line xl:border-l xl:border-t-0">
+								<SectionLabel
+									className="px-5 pt-5"
+									trailing={
+										<span className="text-[12px] font-semibold text-ink-2">
+											{paradasVisitadas} de {stops.length}
+										</span>
 									}
-									onIniciar={() => setModal("iniciar")}
-									onFinalizar={() => setModal("finalizar")}
-									onReportar={() => setModal("reportar")}
+								>
+									Paradas
+								</SectionLabel>
+								<RouteStopList
+									stops={stops}
+									rotaIniciada={Boolean(route.date_start)}
+									podeGerenciar={podeGerenciar}
+									podeMarcar={podeMarcarParada}
+									onAdicionar={() => setModal("adicionar")}
+									onRemover={(stop) => {
+										setParadaSelecionada(stop);
+										setModal("remover");
+									}}
+									onMarcar={(stop) => {
+										setParadaSelecionada(stop);
+										setModal("chegar");
+									}}
 								/>
-							)}
+							</div>
 						</div>
 					</div>
+
+					{podeOperar && (
+						<div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface px-4 py-3 shadow-lift lg:hidden">
+							<RouteDriverActions
+								variante="rodape"
+								podeIniciar={podeIniciar}
+								podeFinalizar={podeFinalizar}
+								podeReportar={podeReportar}
+								onIniciar={() => setModal("iniciar")}
+								onFinalizar={() => setModal("finalizar")}
+								onReportar={() => setModal("reportar")}
+							/>
+						</div>
+					)}
 
 					<EditRouteSheet
 						open={modal === "editar"}

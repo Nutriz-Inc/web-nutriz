@@ -93,7 +93,7 @@ export function ReportProblemSheet({
 									aria-pressed={tipo === item.valor}
 									onClick={() => setTipo(item.valor)}
 									className={cn(
-										"flex h-11 items-center rounded-full border px-4 text-[13.5px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
+										"flex h-11 items-center rounded-full border px-4 text-[13px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
 										tipo === item.valor
 											? "border-blue-bright bg-blue-tint text-blue-deep"
 											: "border-line bg-surface text-ink-2 hover:bg-surface-2",

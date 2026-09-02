@@ -1,8 +1,8 @@
-import { CircleAlert, Flag, Play } from "lucide-react";
+import { CircleAlert, CircleCheckBig, CirclePlay } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { CLASSE_BOTAO_PRIMARIO, CLASSE_BOTAO_SECUNDARIO } from "../constants";
 
 type Props = {
+	variante: "topo" | "rodape";
 	podeIniciar: boolean;
 	podeFinalizar: boolean;
 	podeReportar: boolean;
@@ -12,6 +12,7 @@ type Props = {
 };
 
 export function RouteDriverActions({
+	variante,
 	podeIniciar,
 	podeFinalizar,
 	podeReportar,
@@ -23,45 +24,47 @@ export function RouteDriverActions({
 		return null;
 	}
 
+	const noRodape = variante === "rodape";
+
+	const principal = cn(
+		"gradient-blue flex items-center justify-center gap-2.5 rounded-full font-bold text-white shadow-lift outline-none transition-[transform,filter] hover:brightness-110 focus-visible:ring-4 focus-visible:ring-blue-bright/60 active:scale-[0.98]",
+		noRodape ? "h-14 flex-1 text-[17px]" : "h-14 px-8 text-[16px]",
+	);
+
+	const secundario = cn(
+		"flex shrink-0 items-center justify-center gap-2 rounded-full border-[1.5px] border-danger-tint bg-surface font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40",
+		noRodape ? "size-14 sm:h-14 sm:w-auto sm:px-6" : "h-14 px-6 text-[15px]",
+	);
+
 	return (
-		<div className="sticky bottom-0 z-20 -mx-4 border-t border-line bg-surface px-4 py-3.5 shadow-lift sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:rounded-3xl lg:border lg:p-6 lg:shadow-soft">
-			<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-2.5 sm:flex-row sm:items-center lg:flex-col lg:items-stretch">
-				{podeIniciar && (
-					<button
-						type="button"
-						onClick={onIniciar}
-						className={cn(CLASSE_BOTAO_PRIMARIO, "flex-1 text-[16px]")}
-					>
-						<Play className="size-[18px]" />
-						Iniciar rota
-					</button>
-				)}
+		<div className={cn("flex items-center gap-3", noRodape && "w-full")}>
+			{podeIniciar && (
+				<button type="button" onClick={onIniciar} className={principal}>
+					<CirclePlay className="size-6" strokeWidth={2.2} />
+					Iniciar rota
+				</button>
+			)}
 
-				{podeFinalizar && (
-					<button
-						type="button"
-						onClick={onFinalizar}
-						className={cn(CLASSE_BOTAO_PRIMARIO, "flex-1 text-[16px]")}
-					>
-						<Flag className="size-[18px]" />
-						Finalizar rota
-					</button>
-				)}
+			{podeFinalizar && (
+				<button type="button" onClick={onFinalizar} className={principal}>
+					<CircleCheckBig className="size-6" strokeWidth={2.2} />
+					Finalizar rota
+				</button>
+			)}
 
-				{podeReportar && (
-					<button
-						type="button"
-						onClick={onReportar}
-						className={cn(
-							CLASSE_BOTAO_SECUNDARIO,
-							"border-danger-tint text-danger hover:bg-danger-tint sm:flex-none lg:flex-1",
-						)}
-					>
-						<CircleAlert className="size-[18px]" />
+			{podeReportar && (
+				<button
+					type="button"
+					onClick={onReportar}
+					aria-label="Reportar problema na rota"
+					className={secundario}
+				>
+					<CircleAlert className="size-6" strokeWidth={2.2} />
+					<span className={noRodape ? "hidden sm:inline" : undefined}>
 						Reportar problema
-					</button>
-				)}
-			</div>
+					</span>
+				</button>
+			)}
 		</div>
 	);
 }

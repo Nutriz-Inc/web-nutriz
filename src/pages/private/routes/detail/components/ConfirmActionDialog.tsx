@@ -49,7 +49,7 @@ export function ConfirmActionDialog({
 		>
 			<AlertDialogContent className="rounded-card border-line bg-surface">
 				<AlertDialogHeader>
-					<AlertDialogTitle className="text-[19px] font-bold text-ink">
+					<AlertDialogTitle className="text-[18px] font-bold text-ink">
 						{titulo}
 					</AlertDialogTitle>
 					<AlertDialogDescription className="text-[14px] leading-relaxed text-ink-2">

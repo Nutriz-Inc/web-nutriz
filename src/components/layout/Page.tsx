@@ -91,7 +91,9 @@ export function Page({
 						{actionSlot}
 					</div>
 					{description && (
-						<div className="text-sm text-ink-2 lg:text-[15px]">{description}</div>
+						<div className="text-sm text-ink-2 lg:text-[15px]">
+							{description}
+						</div>
 					)}
 				</div>
 			)}

@@ -17,15 +17,16 @@ import {
 	type EstadoCheckIn,
 	RouteCheckInButton,
 } from "./components/RouteCheckInButton";
-import { RouteDriverActions } from "./components/RouteDriverActions";
+import { RouteDetailsCard } from "./components/RouteDetailsCard";
 import { RouteDriverCard } from "./components/RouteDriverCard";
-import { RouteHeaderCard } from "./components/RouteHeaderCard";
+import { RouteHeaderActions } from "./components/RouteHeaderActions";
 import { RouteHistoryStrip } from "./components/RouteHistoryStrip";
 import { RouteIdentityLine } from "./components/RouteIdentityLine";
 import { RouteMapCard } from "./components/RouteMapCard";
-import { RouteMetricsBar } from "./components/RouteMetricsBar";
 import { RouteStartBanner } from "./components/RouteStartBanner";
 import { RouteStopList } from "./components/RouteStopList";
+import { RouteStopsFooter } from "./components/RouteStopsFooter";
+import { RouteTimeCard } from "./components/RouteTimeCard";
 import { StopIssueSheet } from "./components/StopIssueSheet";
 import {
 	useCreateRouteStop,
@@ -50,15 +51,15 @@ import {
 	paradasPendentes,
 } from "./utils";
 
-const CARTAO =
-	"overflow-hidden rounded-card border border-line bg-surface shadow-soft";
+const CARTAO = "overflow-hidden rounded-card border border-line bg-surface";
+
+const BLOCO = "flex flex-col gap-2.5";
 
 type Modal =
 	| "editar"
 	| "cancelar"
 	| "adicionar"
 	| "remover"
-	| "iniciar"
 	| "chegar"
 	| "problema"
 	| "finalizar"
@@ -187,6 +188,16 @@ export function RouteDetailPage() {
 		<Page
 			title={route?.name ?? "Rota"}
 			description={route ? <RouteIdentityLine route={route} /> : undefined}
+			actionSlot={
+				route ? (
+					<RouteHeaderActions
+						podeCancelar={podeGerenciar}
+						podeReportar={podeReportar}
+						onCancelar={() => setModal("cancelar")}
+						onReportar={() => setModal("reportar")}
+					/>
+				) : undefined
+			}
 			hasPermission={auth?.type !== EnumUserType.Common}
 			loading={routeQuery.isLoading}
 			backTo="/rotas"
@@ -198,34 +209,57 @@ export function RouteDetailPage() {
 						<RouteStartBanner dateSet={route.date_set} />
 					)}
 
-					<section
+					<div
 						style={{ animationDelay: "40ms" }}
-						className="flex flex-col gap-2.5 motion-safe:surge-etapa"
+						className={cn(
+							"grid gap-5 motion-safe:surge-etapa lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] lg:gap-6",
+							podeIniciar && "order-2 lg:order-none",
+						)}
 					>
-						<SectionLabel>Motorista</SectionLabel>
-						<div className={CARTAO}>
-							<RouteDriverCard
-								driverName={route.driver_name}
-								driver={driverQuery.data}
-								carregando={driverQuery.isLoading}
-								colunas={4}
-								onAbrirPerfil={
-									ehAdm
-										? () =>
-												navigate(`/usuarios/${route.id_driver}`, {
-													state: { backTo: `/rotas/${id_route}` },
-												})
-										: undefined
-								}
-							/>
-						</div>
-					</section>
+						<section className={BLOCO}>
+							<SectionLabel>Motorista</SectionLabel>
+							<div className={cn(CARTAO, "flex-1")}>
+								<RouteDriverCard
+									driverName={route.driver_name}
+									driver={driverQuery.data}
+									carregando={driverQuery.isLoading}
+									onAbrirPerfil={
+										ehAdm
+											? () =>
+													navigate(`/usuarios/${route.id_driver}`, {
+														state: { backTo: `/rotas/${id_route}` },
+													})
+											: undefined
+									}
+								/>
+							</div>
+						</section>
+
+						<section className={BLOCO}>
+							<SectionLabel>Tempo de rota</SectionLabel>
+							<div className={cn(CARTAO, "flex-1")}>
+								<RouteTimeCard
+									dateStart={route.date_start}
+									dateEnd={route.date_end}
+									mileage={route.mileage}
+									mediaPorRota={
+										ehAdm
+											? (statsQuery.data?.average_mileage_per_route ?? null)
+											: null
+									}
+								/>
+							</div>
+						</section>
+					</div>
 
 					<div
 						style={{ animationDelay: "120ms" }}
-						className="grid gap-5 motion-safe:surge-etapa lg:grid-cols-2 lg:gap-6 lg:items-start"
+						className={cn(
+							"grid gap-5 motion-safe:surge-etapa lg:grid-cols-[minmax(0,400px)_minmax(0,1fr)] lg:gap-6",
+							podeIniciar && "order-1 lg:order-none",
+						)}
 					>
-						<section className="flex flex-col gap-2.5">
+						<section className={BLOCO}>
 							<SectionLabel
 								trailing={
 									<span className="text-[12px] font-semibold text-ink-2">
@@ -236,7 +270,7 @@ export function RouteDetailPage() {
 								Paradas
 							</SectionLabel>
 
-							<div className={cn(CARTAO, "flex flex-col")}>
+							<div className={cn(CARTAO, "flex flex-1 flex-col")}>
 								<RouteStopList
 									stops={stops}
 									rotaIniciada={Boolean(route.date_start)}
@@ -257,101 +291,70 @@ export function RouteDetailPage() {
 									}}
 								/>
 
-								{podeOperar && pendentes > 0 && (
-									<p className="border-t border-line px-5 py-4 text-[12px] text-ink-2">
-										{pendentes === 1
-											? "Falta marcar 1 parada para poder finalizar a rota."
-											: `Faltam marcar ${pendentes} paradas para poder finalizar a rota.`}
-									</p>
-								)}
-
-								{podeOperar && (podeFinalizar || podeReportar) && (
-									<div className="flex flex-col gap-2.5 border-t border-line p-5">
-										<RouteDriverActions
-											variante="rodape"
-											podeIniciar={false}
-											podeFinalizar={podeFinalizar}
-											podeReportar={podeReportar}
-											onIniciar={() => setModal("iniciar")}
-											onFinalizar={() => setModal("finalizar")}
-											onReportar={() => setModal("reportar")}
-										/>
-									</div>
+								{podeOperar && (
+									<RouteStopsFooter
+										pendentes={pendentes}
+										podeFinalizar={podeFinalizar}
+										onFinalizar={() => setModal("finalizar")}
+									/>
 								)}
 							</div>
 						</section>
 
-						<div className="flex flex-col gap-5 lg:gap-6">
-							<section className="flex flex-col gap-2.5">
-								<SectionLabel>Tempo de rota</SectionLabel>
-								<div className={CARTAO}>
-									<RouteMetricsBar
-										dateStart={route.date_start}
-										dateEnd={route.date_end}
-										mileage={route.mileage}
-										mediaPorRota={
-											ehAdm
-												? (statsQuery.data?.average_mileage_per_route ?? null)
-												: null
-										}
-										totalParadas={stops.length}
-										paradasVisitadas={paradasVisitadas}
-									/>
-								</div>
-							</section>
+						<section
+							className={cn(BLOCO, podeIniciar && "order-first lg:order-none")}
+						>
+							<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
+								Trajeto
+							</SectionLabel>
 
-							<section className="flex flex-col gap-2.5">
-								<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
-									Trajeto
-								</SectionLabel>
+							<div className={CARTAO}>
+								<RouteMapCard
+									stops={stops}
+									desfocado={
+										mostrarCheckIn &&
+										(estadoCheckIn === "pronto" || estadoCheckIn === "enviando")
+									}
+									overlay={
+										mostrarCheckIn ? (
+											<RouteCheckInButton
+												erro={erroDeAcao}
+												onEstadoChange={handleEstadoCheckIn}
+												onIniciar={() =>
+													updateMutation.mutateAsync({ date_start: true })
+												}
+											/>
+										) : undefined
+									}
+								/>
+							</div>
 
-								<div className={CARTAO}>
-									<RouteMapCard
-										stops={stops}
-										desfocado={
-											mostrarCheckIn &&
-											(estadoCheckIn === "pronto" ||
-												estadoCheckIn === "enviando")
-										}
-										overlay={
-											mostrarCheckIn ? (
-												<RouteCheckInButton
-													erro={erroDeAcao}
-													onEstadoChange={handleEstadoCheckIn}
-													onIniciar={() =>
-														updateMutation.mutateAsync({ date_start: true })
-													}
-												/>
-											) : undefined
-										}
-									/>
-								</div>
-
-								<p className="text-[12px] leading-relaxed text-ink-2">
-									Traçado ilustrativo. Início, chegadas e finalização continuam
-									sendo registrados aqui no sistema.
-								</p>
-							</section>
-						</div>
+							<p className="text-[12px] leading-relaxed text-ink-2">
+								Traçado ilustrativo. Início, chegadas e finalização continuam
+								sendo registrados aqui no sistema.
+							</p>
+						</section>
 					</div>
 
 					<div
 						style={{ animationDelay: "200ms" }}
-						className="grid gap-5 motion-safe:surge-etapa lg:grid-cols-2 lg:gap-6"
+						className={cn(
+							"grid gap-5 motion-safe:surge-etapa lg:grid-cols-2 lg:gap-6",
+							podeIniciar && "order-3 lg:order-none",
+						)}
 					>
-						<section className="flex flex-col gap-2.5">
+						<section className={BLOCO}>
 							<SectionLabel>Detalhes da rota</SectionLabel>
 							<div className={cn(CARTAO, "flex-1")}>
-								<RouteHeaderCard
+								<RouteDetailsCard
 									route={route}
-									podeGerenciar={podeGerenciar}
+									podeEditar={podeGerenciar}
 									onEditar={() => setModal("editar")}
-									onCancelar={() => setModal("cancelar")}
 								/>
 							</div>
 						</section>
 
-						<section className="flex flex-col gap-2.5">
+						<section className={BLOCO}>
 							<SectionLabel>Histórico</SectionLabel>
 							<div className={cn(CARTAO, "flex-1")}>
 								<RouteHistoryStrip route={route} />
@@ -424,19 +427,6 @@ export function RouteDetailPage() {
 									paradaSelecionada.id_route_donation_step,
 								),
 							)
-						}
-					/>
-
-					<ConfirmActionDialog
-						open={modal === "iniciar"}
-						onOpenChange={(aberto) => (aberto ? undefined : fecharModal())}
-						titulo="Confirma o início da rota?"
-						descricao="O horário de início é registrado agora e o contador de 6 horas começa a correr."
-						rotuloConfirmar="Iniciar rota"
-						carregando={updateMutation.isPending}
-						erro={erroDeAcao}
-						onConfirmar={() =>
-							executar(() => updateMutation.mutateAsync({ date_start: true }))
 						}
 					/>
 

@@ -29,7 +29,7 @@ export function RouteStopList({
 	const indiceAtual = rotaIniciada ? indiceDaParadaAtual(stops) : -1;
 
 	return (
-		<section className="flex w-full flex-col">
+		<section className="flex w-full flex-1 flex-col">
 			{stops.length === 0 ? (
 				<EmptyState
 					size="sm"
@@ -42,7 +42,7 @@ export function RouteStopList({
 					}
 				/>
 			) : (
-				<ol className="flex flex-col px-5 pt-4 xl:max-h-[560px] xl:overflow-y-auto">
+				<ol className="flex flex-1 flex-col overflow-y-auto p-5">
 					{stops.map((stop, index) => (
 						<RouteStopItem
 							key={stop.id_route_donation_step}
@@ -64,7 +64,7 @@ export function RouteStopList({
 			)}
 
 			{podeGerenciar && (
-				<div className="p-5 pt-1">
+				<div className="mt-auto border-t border-line p-4">
 					<button
 						type="button"
 						onClick={onAdicionar}

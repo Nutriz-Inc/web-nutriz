@@ -223,6 +223,7 @@ export function RouteDetailPage() {
 									driverName={route.driver_name}
 									driver={driverQuery.data}
 									carregando={driverQuery.isLoading}
+									relato={route.user_feedback}
 									onAbrirPerfil={
 										ehAdm
 											? () =>

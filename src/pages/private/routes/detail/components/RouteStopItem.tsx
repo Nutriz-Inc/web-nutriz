@@ -1,10 +1,17 @@
 import { Check, MapPinOff, Trash2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { StepDot } from "@/components/ui/step-dot";
 import { cn } from "@/lib/utils";
 import type { IRouteStop } from "@/services/types/i-route";
 import { formatCreatedAt } from "@/utils/formatter";
 import type { EstadoDaParada } from "../utils";
 import { partesDoEndereco, temCoordenadas } from "../utils";
+
+const BADGE = {
+	concluida: { rotulo: "VISITADA", tone: "success" as const },
+	atual: { rotulo: "EM ROTA", tone: "brand" as const },
+	proxima: { rotulo: "AGUARDANDO", tone: "neutral" as const },
+};
 
 type Props = {
 	stop: IRouteStop;
@@ -32,25 +39,22 @@ export function RouteStopItem({
 	const semCoordenada = !temCoordenadas(stop);
 	const { linha, regiao } = partesDoEndereco(stop);
 
-	const temAcoes = podeMarcar || podeRemover;
-
 	return (
-		<li className="group flex gap-3 rounded-xl transition-colors">
-			<div className="flex flex-col items-center pt-0.5">
+		<li className="group flex gap-3.5">
+			<div className="flex flex-col items-center">
 				<StepDot
 					status={concluida ? "done" : atual ? "current" : "waiting"}
 					order={numero}
-					className="size-6 text-[11px]"
-					iconClassName="size-3"
+					className={atual ? "size-9 text-[14px]" : "size-7 text-[12px]"}
 				/>
 
 				{!isLast && (
 					<div
 						className={cn(
-							"my-1 flex-1",
+							"my-1.5 flex-1",
 							concluida
 								? "w-0.5 rounded-full bg-blue-bright-fill"
-								: "w-0 border-l-2 border-dotted border-blue-tint-2",
+								: "w-0 border-l-2 border-dashed border-blue-tint-2",
 						)}
 					/>
 				)}
@@ -58,31 +62,41 @@ export function RouteStopItem({
 
 			<div
 				className={cn(
-					"flex min-w-0 flex-1 flex-col gap-1",
-					isLast ? "pb-0.5" : "pb-5",
+					"mb-3 flex min-w-0 flex-1 flex-col gap-2 rounded-xl px-4 py-3.5 transition-colors",
+					atual
+						? "bg-blue-tint/70 ring-1 ring-blue-bright/25"
+						: concluida
+							? "bg-surface-3"
+							: "bg-surface-2",
 				)}
 			>
-				<p
-					className={cn(
-						"break-words text-[14px] font-bold",
-						concluida || atual ? "text-ink" : "text-ink-2",
-					)}
-				>
-					{linha}
-				</p>
+				<div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1.5">
+					<p
+						className={cn(
+							"min-w-0 flex-1 break-words font-bold text-ink",
+							atual ? "text-[15px]" : "text-[14px]",
+						)}
+					>
+						{linha}
+					</p>
+
+					<Badge
+						tone={BADGE[estado].tone}
+						size="sm"
+						caps
+						dot={atual}
+						className="shrink-0 px-2 py-0.5 text-[10px] tracking-[0.06em]"
+					>
+						{BADGE[estado].rotulo}
+					</Badge>
+				</div>
 
 				{regiao && <p className="text-[12px] text-ink-2">{regiao}</p>}
 
 				{stop.date_start && (
-					<p className="flex items-center gap-1.5 text-[12px] text-success">
+					<p className="flex items-center gap-1.5 text-[12px] font-semibold text-success">
 						<Check className="size-3.5 shrink-0" strokeWidth={3} />
-						{formatCreatedAt(stop.date_start)}
-					</p>
-				)}
-
-				{atual && !stop.date_start && (
-					<p className="text-[12px] font-semibold text-blue-bright">
-						Próxima parada
+						Chegada em {formatCreatedAt(stop.date_start)}
 					</p>
 				)}
 
@@ -93,8 +107,8 @@ export function RouteStopItem({
 					</p>
 				)}
 
-				{temAcoes && (
-					<div className="flex flex-wrap items-center gap-2 pt-1.5">
+				{(podeMarcar || podeRemover) && (
+					<div className="flex flex-wrap items-center gap-2 border-t border-line pt-3">
 						{podeMarcar && (
 							<button
 								type="button"
@@ -102,7 +116,7 @@ export function RouteStopItem({
 								className={cn(
 									"flex h-11 items-center justify-center gap-2 rounded-full px-5 font-bold outline-none transition-[transform,filter,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
 									atual
-										? "gradient-blue text-[14px] text-white shadow-soft hover:brightness-110"
+										? "gradient-blue flex-1 text-[15px] text-white shadow-soft hover:brightness-110"
 										: "border border-blue-tint-2 bg-surface text-[13px] text-blue-deep hover:bg-blue-tint",
 								)}
 							>
@@ -116,7 +130,7 @@ export function RouteStopItem({
 								type="button"
 								onClick={onRemover}
 								aria-label={`Remover a parada em ${linha}`}
-								className="flex size-11 items-center justify-center rounded-full text-ink-2 opacity-70 outline-none transition-[color,background-color,opacity] hover:bg-danger-tint hover:text-danger focus-visible:opacity-100 focus-visible:ring-4 focus-visible:ring-danger/40 group-hover:opacity-100"
+								className="flex size-11 shrink-0 items-center justify-center rounded-full text-ink-2 outline-none transition-colors hover:bg-danger-tint hover:text-danger focus-visible:ring-4 focus-visible:ring-danger/40"
 							>
 								<Trash2 className="size-4" />
 							</button>

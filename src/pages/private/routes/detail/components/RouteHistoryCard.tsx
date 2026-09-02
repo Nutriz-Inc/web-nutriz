@@ -41,7 +41,7 @@ export function RouteHistoryCard({ route }: Props) {
 	];
 
 	return (
-		<section className="flex w-full flex-col rounded-card-sm border border-line bg-surface p-5 shadow-soft">
+		<section className="flex w-full flex-col p-5">
 			<ol className="flex flex-col">
 				{marcos.map((marco, indice) => {
 					const cumprido = Boolean(marco.data);

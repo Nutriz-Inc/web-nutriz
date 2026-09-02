@@ -162,14 +162,14 @@ export function RouteDetailPage() {
 			}
 		>
 			{route && (
-				<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-5 pb-24 lg:gap-6 lg:pb-0">
+				<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-5 pb-24 lg:pb-0">
 					{podeOperar && !route.date_start && (
 						<RouteStartBanner dateSet={route.date_set} />
 					)}
 
 					<div
 						style={{ animationDelay: "40ms" }}
-						className="motion-safe:surge-etapa"
+						className="overflow-hidden rounded-card border border-line bg-surface shadow-soft motion-safe:surge-etapa"
 					>
 						<RouteMetricsBar
 							dateStart={route.date_start}
@@ -183,79 +183,72 @@ export function RouteDetailPage() {
 							totalParadas={stops.length}
 							paradasVisitadas={paradasVisitadas}
 						/>
-					</div>
 
-					<div className="flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:items-start lg:gap-6 xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)_minmax(0,340px)]">
-						<div
-							style={{ animationDelay: "120ms" }}
-							className="flex flex-col gap-5 motion-safe:surge-etapa lg:gap-6"
-						>
-							<div className="flex flex-col gap-2.5">
-								<SectionLabel>Rota</SectionLabel>
-								<RouteHeaderCard
-									route={route}
+						<div className="grid border-t border-line xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)_minmax(0,360px)]">
+							<div className="flex flex-col border-line xl:border-r">
+								<div className="flex flex-col">
+									<SectionLabel className="px-5 pt-5">Rota</SectionLabel>
+									<RouteHeaderCard
+										route={route}
+										podeGerenciar={podeGerenciar}
+										onEditar={() => setModal("editar")}
+										onCancelar={() => setModal("cancelar")}
+									/>
+								</div>
+
+								<div className="flex flex-col border-t border-line">
+									<SectionLabel className="px-5 pt-5">Motorista</SectionLabel>
+									<RouteDriverCard
+										driverName={route.driver_name}
+										driver={driverQuery.data}
+										carregando={driverQuery.isLoading}
+									/>
+								</div>
+
+								<div className="flex flex-col border-t border-line">
+									<SectionLabel className="px-5 pt-5">Histórico</SectionLabel>
+									<RouteHistoryCard route={route} />
+								</div>
+							</div>
+
+							<div className="flex flex-col gap-3 border-t border-line p-5 xl:border-t-0">
+								<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
+									Trajeto
+								</SectionLabel>
+								<RouteMapCard stops={stops} />
+								<p className="text-[12px] leading-relaxed text-ink-2">
+									Traçado ilustrativo. Início, chegadas e finalização continuam
+									sendo registrados aqui no sistema.
+								</p>
+							</div>
+
+							<div className="flex flex-col border-t border-line xl:border-l xl:border-t-0">
+								<SectionLabel
+									className="px-5 pt-5"
+									trailing={
+										<span className="text-[12px] font-semibold text-ink-2">
+											{paradasVisitadas} de {stops.length}
+										</span>
+									}
+								>
+									Paradas
+								</SectionLabel>
+								<RouteStopList
+									stops={stops}
+									rotaIniciada={Boolean(route.date_start)}
 									podeGerenciar={podeGerenciar}
-									onEditar={() => setModal("editar")}
-									onCancelar={() => setModal("cancelar")}
+									podeMarcar={podeMarcarParada}
+									onAdicionar={() => setModal("adicionar")}
+									onRemover={(stop) => {
+										setParadaSelecionada(stop);
+										setModal("remover");
+									}}
+									onMarcar={(stop) => {
+										setParadaSelecionada(stop);
+										setModal("chegar");
+									}}
 								/>
 							</div>
-
-							<div className="flex flex-col gap-2.5">
-								<SectionLabel>Motorista</SectionLabel>
-								<RouteDriverCard
-									driverName={route.driver_name}
-									driver={driverQuery.data}
-									carregando={driverQuery.isLoading}
-								/>
-							</div>
-
-							<div className="flex flex-col gap-2.5">
-								<SectionLabel>Histórico</SectionLabel>
-								<RouteHistoryCard route={route} />
-							</div>
-						</div>
-
-						<div
-							style={{ animationDelay: "200ms" }}
-							className="flex flex-col gap-2.5 motion-safe:surge-etapa"
-						>
-							<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
-								Trajeto
-							</SectionLabel>
-							<RouteMapCard stops={stops} />
-							<p className="text-[12px] leading-relaxed text-ink-2">
-								Traçado ilustrativo. Início, chegadas e finalização continuam
-								sendo registrados aqui no sistema.
-							</p>
-						</div>
-
-						<div
-							style={{ animationDelay: "280ms" }}
-							className="flex flex-col gap-2.5 motion-safe:surge-etapa lg:col-span-2 xl:col-span-1"
-						>
-							<SectionLabel
-								trailing={
-									<span className="text-[12px] font-semibold text-ink-2">
-										{paradasVisitadas} de {stops.length} visitadas
-									</span>
-								}
-							>
-								Paradas
-							</SectionLabel>
-							<RouteStopList
-								stops={stops}
-								podeGerenciar={podeGerenciar}
-								podeMarcar={podeMarcarParada}
-								onAdicionar={() => setModal("adicionar")}
-								onRemover={(stop) => {
-									setParadaSelecionada(stop);
-									setModal("remover");
-								}}
-								onMarcar={(stop) => {
-									setParadaSelecionada(stop);
-									setModal("chegar");
-								}}
-							/>
 						</div>
 					</div>
 

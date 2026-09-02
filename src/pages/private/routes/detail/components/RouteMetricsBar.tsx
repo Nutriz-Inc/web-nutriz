@@ -118,7 +118,7 @@ export function RouteMetricsBar({
 	];
 
 	return (
-		<section className="flex w-full flex-col overflow-hidden rounded-card-sm border border-line bg-surface shadow-soft">
+		<section className="flex w-full flex-col">
 			<div className="grid grid-cols-2 lg:grid-cols-4">
 				{metricas.map((metrica, indice) => (
 					<div

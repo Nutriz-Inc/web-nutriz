@@ -34,7 +34,7 @@ export function RouteHeaderCard({
 	];
 
 	return (
-		<section className="flex w-full flex-col rounded-card-sm border border-line bg-surface shadow-soft">
+		<section className="flex w-full flex-col">
 			<div className="flex flex-col gap-3 p-5">
 				<div className="flex items-start justify-between gap-3">
 					<h2 className="min-w-0 flex-1 break-words font-display text-[18px] font-extrabold tracking-tight text-blue-deep">

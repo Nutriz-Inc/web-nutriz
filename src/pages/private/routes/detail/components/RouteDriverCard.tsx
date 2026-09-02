@@ -27,7 +27,7 @@ export function RouteDriverCard({ driverName, driver, carregando }: Props) {
 	].filter((item) => Boolean(item.valor));
 
 	return (
-		<section className="flex w-full flex-col rounded-card-sm border border-line bg-surface shadow-soft">
+		<section className="flex w-full flex-col">
 			<div className="flex items-center gap-3 p-5">
 				<span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-tint text-[15px] font-bold text-blue-deep">
 					{getInitials(nome)}

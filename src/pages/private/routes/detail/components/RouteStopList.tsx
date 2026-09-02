@@ -7,6 +7,7 @@ import { RouteStopItem } from "./RouteStopItem";
 
 type Props = {
 	stops: IRouteStop[];
+	rotaIniciada: boolean;
 	podeGerenciar: boolean;
 	podeMarcar: boolean;
 	onAdicionar: () => void;
@@ -16,16 +17,17 @@ type Props = {
 
 export function RouteStopList({
 	stops,
+	rotaIniciada,
 	podeGerenciar,
 	podeMarcar,
 	onAdicionar,
 	onRemover,
 	onMarcar,
 }: Props) {
-	const indiceAtual = indiceDaParadaAtual(stops);
+	const indiceAtual = rotaIniciada ? indiceDaParadaAtual(stops) : -1;
 
 	return (
-		<section className="flex w-full flex-col overflow-hidden rounded-card-sm border border-line bg-surface shadow-soft">
+		<section className="flex w-full flex-col">
 			{stops.length === 0 ? (
 				<EmptyState
 					size="sm"
@@ -38,7 +40,7 @@ export function RouteStopList({
 					}
 				/>
 			) : (
-				<ol className="flex flex-col p-5 xl:max-h-[520px] xl:overflow-y-auto">
+				<ol className="flex flex-col px-5 pt-4 xl:max-h-[560px] xl:overflow-y-auto">
 					{stops.map((stop, index) => (
 						<RouteStopItem
 							key={stop.id_route_donation_step}
@@ -59,7 +61,7 @@ export function RouteStopList({
 			)}
 
 			{podeGerenciar && (
-				<div className="border-t border-line p-4">
+				<div className="p-5 pt-1">
 					<button
 						type="button"
 						onClick={onAdicionar}

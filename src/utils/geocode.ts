@@ -112,3 +112,20 @@ export async function geocodeZipCode(
 
 	return null;
 }
+
+export async function geocodeRegion(
+	city?: string,
+	neighborhood?: string,
+	signal?: AbortSignal,
+): Promise<GeoCoordinates | null> {
+	if (!city && !neighborhood) {
+		return null;
+	}
+
+	const params: Record<string, string> = {};
+
+	if (city) params.city = city;
+	if (neighborhood) params.suburb = neighborhood;
+
+	return buscaNominatim(params, signal);
+}

@@ -131,7 +131,7 @@ export function RouteStopItem({
 								className={cn(
 									"flex h-11 items-center justify-center gap-2 rounded-full px-5 font-bold outline-none transition-[transform,filter,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
 									atual
-										? "gradient-blue flex-1 text-[15px] text-white shadow-soft hover:brightness-110"
+										? "flex-1 bg-blue-deep-fill text-[15px] text-white hover:bg-blue-fill"
 										: "border border-blue-tint-2 bg-surface text-[13px] text-blue-deep hover:bg-blue-tint",
 								)}
 							>

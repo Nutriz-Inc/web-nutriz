@@ -77,6 +77,11 @@ export function RouteDetailPage() {
 
 	const stops = ordenarParadas(route?.stops ?? []);
 	const paradasVisitadas = stops.filter((stop) => stop.date_start).length;
+	const inicioCadeiaFria = stops
+		.map((stop) => stop.date_start)
+		.filter((data): data is string => Boolean(data))
+		.sort()
+		.at(0);
 	const rotaAlteravel = route ? ehRotaAlteravel(route.status) : false;
 
 	const podeGerenciar = Boolean(ehAdm && rotaAlteravel);
@@ -172,7 +177,7 @@ export function RouteDetailPage() {
 					>
 						<div className="order-2 border-t border-line xl:order-1 xl:border-t-0">
 							<RouteMetricsBar
-								dateStart={route.date_start}
+								inicioCadeiaFria={inicioCadeiaFria}
 								dateEnd={route.date_end}
 								mileage={route.mileage}
 								mediaPorRota={

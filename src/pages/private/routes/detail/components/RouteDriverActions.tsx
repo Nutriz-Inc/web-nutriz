@@ -27,7 +27,7 @@ export function RouteDriverActions({
 	const noRodape = variante === "rodape";
 
 	const principal = cn(
-		"gradient-blue flex items-center justify-center gap-2.5 rounded-full font-bold text-white shadow-lift outline-none transition-[transform,filter] hover:brightness-110 focus-visible:ring-4 focus-visible:ring-blue-bright/60 active:scale-[0.98]",
+		"flex items-center justify-center gap-2.5 rounded-full bg-blue-deep-fill font-bold text-white outline-none transition-[transform,background-color] hover:bg-blue-fill focus-visible:ring-4 focus-visible:ring-blue-bright/60 active:scale-[0.98]",
 		noRodape ? "h-14 flex-1 text-[17px]" : "h-14 px-8 text-[16px]",
 	);
 

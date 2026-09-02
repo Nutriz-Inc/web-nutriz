@@ -7,7 +7,7 @@ import { useRouteTimer } from "../hooks/use-route-timer";
 import { formatarCronometro, formatarDuracaoCurta } from "../utils";
 
 type Props = {
-	dateStart?: string;
+	inicioCadeiaFria?: string;
 	dateEnd?: string;
 	mileage?: number;
 	mediaPorRota?: number | null;
@@ -20,17 +20,17 @@ function formatarKm(valor: number): string {
 }
 
 export function RouteMetricsBar({
-	dateStart,
+	inicioCadeiaFria,
 	dateEnd,
 	mileage,
 	mediaPorRota,
 	totalParadas,
 	paradasVisitadas,
 }: Props) {
-	const decorrido = useRouteTimer(dateStart, dateEnd);
+	const decorrido = useRouteTimer(inicioCadeiaFria, dateEnd);
 
-	const naoIniciada = !dateStart;
-	const emAndamento = Boolean(dateStart) && !dateEnd;
+	const naoIniciada = !inicioCadeiaFria;
+	const emAndamento = Boolean(inicioCadeiaFria) && !dateEnd;
 	const excedeu = !naoIniciada && decorrido >= LIMITE_ROTA_MS;
 	const emAviso = !naoIniciada && !excedeu && decorrido >= AVISO_ROTA_MS;
 
@@ -59,15 +59,15 @@ export function RouteMetricsBar({
 		{
 			chave: "tempo",
 			icone: <Timer className="size-4 shrink-0" />,
-			rotulo: "Tempo de rota",
+			rotulo: "Cadeia fria",
 			valor: naoIniciada ? "6h" : formatarCronometro(decorrido),
 			apoio: naoIniciada
-				? "disponíveis para a rota"
+				? "começa na 1ª coleta"
 				: emAndamento
 					? excedeu
 						? "limite de 6h excedido"
 						: `restam ${formatarDuracaoCurta(restante)}`
-					: "duração total",
+					: "tempo total do leite em trânsito",
 			tom: tomDoTempo,
 		},
 		{
@@ -136,6 +136,8 @@ export function RouteMetricsBar({
 							</span>
 
 							<p
+								role={metrica.chave === "tempo" ? "timer" : undefined}
+								aria-live="off"
 								className={cn(
 									"font-display text-[28px] font-extrabold leading-none tabular-nums tracking-tight",
 									metrica.tom ?? "text-blue-deep",
@@ -158,7 +160,11 @@ export function RouteMetricsBar({
 					<div
 						className={cn(
 							"h-full rounded-full transition-[width] duration-700 ease-out",
-							excedeu ? "bg-danger" : emAviso ? "bg-warning" : "gradient-blue",
+							excedeu
+								? "bg-danger"
+								: emAviso
+									? "bg-warning"
+									: "bg-blue-bright-fill",
 						)}
 						style={{ width: `${preenchido}%` }}
 					/>
@@ -178,7 +184,8 @@ export function RouteMetricsBar({
 					</p>
 				) : (
 					<p className="text-[12px] text-ink-2">
-						Limite de 6 horas por rota (cadeia fria).
+						Limite de 6 horas de cadeia fria, contadas a partir da primeira
+						coleta.
 					</p>
 				)}
 			</div>

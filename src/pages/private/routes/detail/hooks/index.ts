@@ -102,12 +102,24 @@ export function useRouteStats(enabled: boolean) {
 	});
 }
 
+type RegistrarImprevistoParams = {
+	id_stop: string;
+	relato: string;
+};
+
 export function useMarkStopError(id_route: string) {
 	const invalidar = useInvalidarRota(id_route);
 
 	return useMutation({
-		mutationFn: (id_stop: string) =>
-			services.route.updateStop(id_stop, { has_error: true }),
+		mutationFn: async ({ id_stop, relato }: RegistrarImprevistoParams) => {
+			const resposta = await services.route.updateStop(id_stop, {
+				has_error: true,
+			});
+
+			await services.route.update(id_route, { user_feedback: relato });
+
+			return resposta;
+		},
 		onSuccess: invalidar,
 	});
 }

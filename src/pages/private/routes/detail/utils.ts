@@ -158,3 +158,32 @@ export function urlDoGoogleMaps(stops: IRouteStop[]): string | null {
 
 	return `https://www.google.com/maps/dir/${trajeto}/?travelmode=driving`;
 }
+
+const LIMITE_RELATO = 500;
+
+export function acrescentarRelato(
+	relatoAtual: string | undefined,
+	novaEntrada: string,
+): string {
+	const quebra = String.fromCharCode(10);
+	const entradas = [
+		...(relatoAtual ? relatoAtual.split(quebra).filter(Boolean) : []),
+		novaEntrada,
+	];
+
+	while (entradas.length > 1 && entradas.join(quebra).length > LIMITE_RELATO) {
+		entradas.shift();
+	}
+
+	return entradas.join(quebra).slice(0, LIMITE_RELATO);
+}
+
+export function entradaDeImprevisto(
+	numero: number,
+	stop: IRouteStop,
+	texto: string,
+): string {
+	const { linha } = partesDoEndereco(stop);
+
+	return `Parada ${numero} (${linha}): ${texto.trim()}`;
+}

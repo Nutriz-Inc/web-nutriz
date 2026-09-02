@@ -24,6 +24,7 @@ import { RouteMapCard } from "./components/RouteMapCard";
 import { RouteMetricsBar } from "./components/RouteMetricsBar";
 import { RouteStartBanner } from "./components/RouteStartBanner";
 import { RouteStopList } from "./components/RouteStopList";
+import { StopIssueSheet } from "./components/StopIssueSheet";
 import {
 	useCreateRouteStop,
 	useDonationStepOptions,
@@ -36,7 +37,9 @@ import {
 	useUpdateRoute,
 } from "./hooks";
 import {
+	acrescentarRelato,
 	ehRotaAlteravel,
+	entradaDeImprevisto,
 	formatarEndereco,
 	mensagemDeErro,
 	ordenarParadas,
@@ -428,27 +431,34 @@ export function RouteDetailPage() {
 						}
 					/>
 
-					<ConfirmActionDialog
+					<StopIssueSheet
 						open={modal === "problema"}
 						onOpenChange={(aberto) => (aberto ? undefined : fecharModal())}
-						titulo="Marcar parada como não realizada?"
-						descricao={
-							paradaSelecionada
-								? `A parada em ${formatarEndereco(paradaSelecionada)} fica registrada como não realizada e você segue para a próxima. Dá para voltar atrás marcando a chegada depois.`
-								: ""
+						endereco={
+							paradaSelecionada ? formatarEndereco(paradaSelecionada) : ""
 						}
-						rotuloConfirmar="Não deu certo"
-						tom="perigo"
-						carregando={markErrorMutation.isPending}
+						salvando={markErrorMutation.isPending}
 						erro={erroDeAcao}
-						onConfirmar={() =>
-							paradaSelecionada &&
+						onConfirmar={(texto) => {
+							if (!paradaSelecionada) return;
+
+							const numero =
+								stops.findIndex(
+									(stop) =>
+										stop.id_route_donation_step ===
+										paradaSelecionada.id_route_donation_step,
+								) + 1;
+
 							executar(() =>
-								markErrorMutation.mutateAsync(
-									paradaSelecionada.id_route_donation_step,
-								),
-							)
-						}
+								markErrorMutation.mutateAsync({
+									id_stop: paradaSelecionada.id_route_donation_step,
+									relato: acrescentarRelato(
+										route.user_feedback,
+										entradaDeImprevisto(numero, paradaSelecionada, texto),
+									),
+								}),
+							);
+						}}
 					/>
 
 					<FinishRouteSheet
@@ -459,6 +469,7 @@ export function RouteDetailPage() {
 								? Date.now() - new Date(route.date_start).getTime()
 								: 0
 						}
+						relatoAtual={route.user_feedback}
 						totalParadas={stops.length}
 						paradasVisitadas={paradasVisitadas}
 						salvando={updateMutation.isPending}

@@ -20,6 +20,7 @@ type Props = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	duracaoMs: number;
+	relatoAtual?: string;
 	totalParadas: number;
 	paradasVisitadas: number;
 	salvando: boolean;
@@ -31,6 +32,7 @@ export function FinishRouteSheet({
 	open,
 	onOpenChange,
 	duracaoMs,
+	relatoAtual,
 	totalParadas,
 	paradasVisitadas,
 	salvando,
@@ -44,10 +46,10 @@ export function FinishRouteSheet({
 	useEffect(() => {
 		if (open) {
 			setKm("");
-			setRelato("");
+			setRelato(relatoAtual ?? "");
 			setErroLocal(undefined);
 		}
-	}, [open]);
+	}, [open, relatoAtual]);
 
 	const excedeu = duracaoMs >= LIMITE_ROTA_MS;
 

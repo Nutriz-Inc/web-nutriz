@@ -49,7 +49,11 @@ export function RouteMiniMap({ city, neighborhood }: Props) {
 		>
 			<TileLayer
 				key={temaEfetivo}
-				url={`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${escuro ? "Dark" : "Light"}_Gray_Base/MapServer/tile/{z}/{y}/{x}`}
+				url={
+					escuro
+						? "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+						: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+				}
 				maxNativeZoom={16}
 				noWrap
 			/>

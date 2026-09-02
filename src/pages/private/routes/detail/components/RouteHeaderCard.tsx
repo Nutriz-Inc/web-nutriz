@@ -91,13 +91,14 @@ export function RouteHeaderCard({
 			)}
 
 			{podeGerenciar && (
-				<div className="border-t border-line px-5 py-3">
+				<div className="flex justify-center border-t border-line px-5 py-4">
 					<button
 						type="button"
 						onClick={onCancelar}
 						className={cn(
-							"flex h-9 items-center gap-2 rounded-full px-3 text-[13px] font-semibold text-danger",
-							"outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40",
+							"flex h-11 items-center justify-center gap-2 rounded-full px-6 text-[14px] font-semibold text-danger",
+							"border-[1.5px] border-danger/40 bg-surface outline-none transition-colors",
+							"hover:border-danger hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40",
 						)}
 					>
 						<Ban className="size-4" />

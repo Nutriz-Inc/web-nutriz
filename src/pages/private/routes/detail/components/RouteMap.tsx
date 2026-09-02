@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import type { IRouteStop } from "@/services/types/i-route";
 import { formatarEndereco, temCoordenadas } from "../utils";
 import { FitRouteBounds } from "./FitRouteBounds";
+import { MapInteractionToggle } from "./MapInteractionToggle";
 
 const CENTRO_PADRAO: [number, number] = [-23.5505, -46.6333];
 const ZOOM_MINIMO = 3;
@@ -31,10 +32,11 @@ function stopIcon(numero: number, concluida: boolean) {
 
 type Props = {
 	stops: IRouteStop[];
+	interativo?: boolean;
 	className?: string;
 };
 
-export function RouteMap({ stops, className }: Props) {
+export function RouteMap({ stops, interativo = true, className }: Props) {
 	const { temaEfetivo } = useAccessibility();
 	const escuro = temaEfetivo === "escuro";
 
@@ -48,7 +50,13 @@ export function RouteMap({ stops, className }: Props) {
 	const centro = posicoes[0] ?? CENTRO_PADRAO;
 
 	return (
-		<div className={cn("relative isolate", className)}>
+		<div
+			className={cn(
+				"relative isolate",
+				!interativo && "[&_.leaflet-control-zoom]:hidden",
+				className,
+			)}
+		>
 			<MapContainer
 				center={centro}
 				zoom={13}
@@ -58,14 +66,19 @@ export function RouteMap({ stops, className }: Props) {
 			>
 				<TileLayer
 					key={temaEfetivo}
-					attribution='Tiles &copy; <a href="https://www.esri.com">Esri</a> &mdash; Esri, DeLorme, NAVTEQ'
-					url={`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${escuro ? "Dark" : "Light"}_Gray_Base/MapServer/tile/{z}/{y}/{x}`}
+					attribution='Tiles &copy; <a href="https://www.esri.com">Esri</a>'
+					url={
+						escuro
+							? "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+							: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+					}
 					maxZoom={ZOOM_MAXIMO}
 					maxNativeZoom={ZOOM_MAXIMO_COM_DADOS}
 					noWrap
 				/>
 
 				<MapResizeHandler />
+				<MapInteractionToggle interativo={interativo} />
 				<FitRouteBounds posicoes={posicoes} />
 
 				{posicoes.length > 1 && (

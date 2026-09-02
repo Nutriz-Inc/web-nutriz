@@ -91,7 +91,22 @@ export function RouteStopItem({
 					</Badge>
 				</div>
 
-				{regiao && <p className="text-[12px] text-ink-2">{regiao}</p>}
+				<div className="flex items-center justify-between gap-2">
+					<p className="min-w-0 flex-1 truncate text-[12px] text-ink-2">
+						{regiao}
+					</p>
+
+					{podeRemover && (
+						<button
+							type="button"
+							onClick={onRemover}
+							aria-label={`Remover a parada em ${linha}`}
+							className="flex size-8 shrink-0 items-center justify-center rounded-full text-ink-2 outline-none transition-colors hover:bg-danger-tint hover:text-danger focus-visible:ring-4 focus-visible:ring-danger/40"
+						>
+							<Trash2 className="size-4" />
+						</button>
+					)}
+				</div>
 
 				{stop.date_start && (
 					<p className="flex items-center gap-1.5 text-[12px] font-semibold text-success">
@@ -107,7 +122,7 @@ export function RouteStopItem({
 					</p>
 				)}
 
-				{(podeMarcar || podeRemover) && (
+				{podeMarcar && (
 					<div className="flex flex-wrap items-center gap-2 border-t border-line pt-3">
 						{podeMarcar && (
 							<button
@@ -122,17 +137,6 @@ export function RouteStopItem({
 							>
 								<Check className="size-4" strokeWidth={3} />
 								Cheguei
-							</button>
-						)}
-
-						{podeRemover && (
-							<button
-								type="button"
-								onClick={onRemover}
-								aria-label={`Remover a parada em ${linha}`}
-								className="flex size-11 shrink-0 items-center justify-center rounded-full text-ink-2 outline-none transition-colors hover:bg-danger-tint hover:text-danger focus-visible:ring-4 focus-visible:ring-danger/40"
-							>
-								<Trash2 className="size-4" />
 							</button>
 						)}
 					</div>

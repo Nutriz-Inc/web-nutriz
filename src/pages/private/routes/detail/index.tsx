@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SectionLabel } from "@/components/full/SectionLabel";
 import { Page } from "@/components/layout/Page";
@@ -12,10 +12,14 @@ import { EditRouteSheet } from "./components/EditRouteSheet";
 import { FinishRouteSheet } from "./components/FinishRouteSheet";
 import { OpenInMapsButton } from "./components/OpenInMapsButton";
 import { ReportProblemSheet } from "./components/ReportProblemSheet";
+import {
+	type EstadoCheckIn,
+	RouteCheckInButton,
+} from "./components/RouteCheckInButton";
 import { RouteDriverActions } from "./components/RouteDriverActions";
 import { RouteDriverCard } from "./components/RouteDriverCard";
 import { RouteHeaderCard } from "./components/RouteHeaderCard";
-import { RouteHistoryCard } from "./components/RouteHistoryCard";
+import { RouteHistoryStrip } from "./components/RouteHistoryStrip";
 import { RouteMapCard } from "./components/RouteMapCard";
 import { RouteMetricsBar } from "./components/RouteMetricsBar";
 import { RouteStartBanner } from "./components/RouteStartBanner";
@@ -54,6 +58,12 @@ export function RouteDetailPage() {
 	const [modal, setModal] = useState<Modal>();
 	const [paradaSelecionada, setParadaSelecionada] = useState<IRouteStop>();
 	const [erroDeAcao, setErroDeAcao] = useState<string>();
+	const [estadoCheckIn, setEstadoCheckIn] = useState<EstadoCheckIn>("pronto");
+
+	const handleEstadoCheckIn = useCallback(
+		(proximo: EstadoCheckIn) => setEstadoCheckIn(proximo),
+		[],
+	);
 
 	const routeQuery = useRouteDetail(id_route);
 	const route = routeQuery.data;
@@ -76,6 +86,10 @@ export function RouteDetailPage() {
 	const podeMarcarParada = podeOperar && Boolean(route?.date_start);
 	const podeFinalizar =
 		podeOperar && Boolean(route?.date_start) && paradasVisitadas > 0;
+	const mostrarCheckIn =
+		estadoCheckIn !== "oculto" &&
+		(podeIniciar || estadoCheckIn !== "pronto") &&
+		Boolean(ehDonoDaRota);
 	const podeReportar =
 		podeOperar &&
 		(route?.status === EnumRouteStatus.Pending ||
@@ -145,24 +159,9 @@ export function RouteDetailPage() {
 			loading={routeQuery.isLoading}
 			backTo="/rotas"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
-			actionSlot={
-				podeOperar ? (
-					<div className="hidden lg:flex">
-						<RouteDriverActions
-							variante="topo"
-							podeIniciar={podeIniciar}
-							podeFinalizar={podeFinalizar}
-							podeReportar={podeReportar}
-							onIniciar={() => setModal("iniciar")}
-							onFinalizar={() => setModal("finalizar")}
-							onReportar={() => setModal("reportar")}
-						/>
-					</div>
-				) : undefined
-			}
 		>
 			{route && (
-				<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-5 pb-24 lg:pb-0">
+				<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-5">
 					{podeOperar && !route.date_start && (
 						<RouteStartBanner dateSet={route.date_set} />
 					)}
@@ -204,18 +203,32 @@ export function RouteDetailPage() {
 										carregando={driverQuery.isLoading}
 									/>
 								</div>
-
-								<div className="flex flex-col border-t border-line">
-									<SectionLabel className="px-5 pt-5">Histórico</SectionLabel>
-									<RouteHistoryCard route={route} />
-								</div>
 							</div>
 
 							<div className="flex flex-col gap-3 border-t border-line p-5 xl:border-t-0">
 								<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
 									Trajeto
 								</SectionLabel>
-								<RouteMapCard stops={stops} />
+
+								<RouteMapCard
+									stops={stops}
+									desfocado={
+										mostrarCheckIn &&
+										(estadoCheckIn === "pronto" || estadoCheckIn === "enviando")
+									}
+									overlay={
+										mostrarCheckIn ? (
+											<RouteCheckInButton
+												erro={erroDeAcao}
+												onEstadoChange={handleEstadoCheckIn}
+												onIniciar={() =>
+													updateMutation.mutateAsync({ date_start: true })
+												}
+											/>
+										) : undefined
+									}
+								/>
+
 								<p className="text-[12px] leading-relaxed text-ink-2">
 									Traçado ilustrativo. Início, chegadas e finalização continuam
 									sendo registrados aqui no sistema.
@@ -233,6 +246,7 @@ export function RouteDetailPage() {
 								>
 									Paradas
 								</SectionLabel>
+
 								<RouteStopList
 									stops={stops}
 									rotaIniciada={Boolean(route.date_start)}
@@ -248,23 +262,30 @@ export function RouteDetailPage() {
 										setModal("chegar");
 									}}
 								/>
+
+								{podeOperar && (podeFinalizar || podeReportar) && (
+									<div className="mt-auto flex flex-col gap-2.5 border-t border-line p-5">
+										<RouteDriverActions
+											variante="rodape"
+											podeIniciar={false}
+											podeFinalizar={podeFinalizar}
+											podeReportar={podeReportar}
+											onIniciar={() => setModal("iniciar")}
+											onFinalizar={() => setModal("finalizar")}
+											onReportar={() => setModal("reportar")}
+										/>
+									</div>
+								)}
 							</div>
 						</div>
-					</div>
 
-					{podeOperar && (
-						<div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface px-4 py-3 shadow-lift lg:hidden">
-							<RouteDriverActions
-								variante="rodape"
-								podeIniciar={podeIniciar}
-								podeFinalizar={podeFinalizar}
-								podeReportar={podeReportar}
-								onIniciar={() => setModal("iniciar")}
-								onFinalizar={() => setModal("finalizar")}
-								onReportar={() => setModal("reportar")}
-							/>
+						<div className="border-t border-line">
+							<SectionLabel className="px-5 pt-5">
+								Histórico da rota
+							</SectionLabel>
+							<RouteHistoryStrip route={route} />
 						</div>
-					)}
+					</div>
 
 					<EditRouteSheet
 						open={modal === "editar"}

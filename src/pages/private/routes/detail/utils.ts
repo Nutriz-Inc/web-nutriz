@@ -1,9 +1,9 @@
 import axios from "axios";
 import type { IRouteStop } from "@/services/types/i-route";
-import { EnumRouteStatus } from "@/services/types/i-route";
+import { EnumRouteStatus, EnumRouteStopStatus } from "@/services/types/i-route";
 import { ERRO_GENERICO, MENSAGENS_DE_ERRO } from "./constants";
 
-export type EstadoDaParada = "concluida" | "atual" | "proxima";
+export type EstadoDaParada = "concluida" | "erro" | "atual" | "proxima";
 
 export function ehRotaEncerrada(status: EnumRouteStatus): boolean {
 	return (
@@ -21,8 +21,16 @@ export function ordenarParadas(stops: IRouteStop[]): IRouteStop[] {
 	return [...stops].sort((a, b) => (a.stop_order ?? 0) - (b.stop_order ?? 0));
 }
 
+export function paradaMarcada(stop: IRouteStop): boolean {
+	return Boolean(stop.date_start) || stop.status === EnumRouteStopStatus.Error;
+}
+
+export function paradasPendentes(stops: IRouteStop[]): number {
+	return stops.filter((stop) => !paradaMarcada(stop)).length;
+}
+
 export function indiceDaParadaAtual(stops: IRouteStop[]): number {
-	return stops.findIndex((stop) => !stop.date_start);
+	return stops.findIndex((stop) => !paradaMarcada(stop));
 }
 
 export function estadoDaParada(
@@ -32,6 +40,9 @@ export function estadoDaParada(
 ): EstadoDaParada {
 	if (stop.date_start) {
 		return "concluida";
+	}
+	if (stop.status === EnumRouteStopStatus.Error) {
+		return "erro";
 	}
 	return indice === indiceAtual ? "atual" : "proxima";
 }

@@ -28,6 +28,7 @@ import {
 	useCreateRouteStop,
 	useDonationStepOptions,
 	useMarkStopArrival,
+	useMarkStopError,
 	useRemoveRouteStop,
 	useRouteDetail,
 	useRouteDriver,
@@ -39,6 +40,7 @@ import {
 	formatarEndereco,
 	mensagemDeErro,
 	ordenarParadas,
+	paradasPendentes,
 } from "./utils";
 
 type Modal =
@@ -48,6 +50,7 @@ type Modal =
 	| "remover"
 	| "iniciar"
 	| "chegar"
+	| "problema"
 	| "finalizar"
 	| "reportar";
 
@@ -85,8 +88,12 @@ export function RouteDetailPage() {
 
 	const podeIniciar = podeOperar && !route?.date_start;
 	const podeMarcarParada = podeOperar && Boolean(route?.date_start);
+	const pendentes = paradasPendentes(stops);
 	const podeFinalizar =
-		podeOperar && Boolean(route?.date_start) && paradasVisitadas > 0;
+		podeOperar &&
+		Boolean(route?.date_start) &&
+		stops.length > 0 &&
+		pendentes === 0;
 	const mostrarCheckIn =
 		estadoCheckIn !== "oculto" &&
 		(podeIniciar || estadoCheckIn !== "pronto") &&
@@ -100,6 +107,7 @@ export function RouteDetailPage() {
 	const createStopMutation = useCreateRouteStop(id_route);
 	const removeStopMutation = useRemoveRouteStop(id_route);
 	const markArrivalMutation = useMarkStopArrival(id_route);
+	const markErrorMutation = useMarkStopError(id_route);
 
 	const opcoesQuery = useDonationStepOptions({
 		enabled: modal === "adicionar" && podeGerenciar,
@@ -286,7 +294,19 @@ export function RouteDetailPage() {
 										setParadaSelecionada(stop);
 										setModal("chegar");
 									}}
+									onReportarProblema={(stop) => {
+										setParadaSelecionada(stop);
+										setModal("problema");
+									}}
 								/>
+
+								{podeOperar && pendentes > 0 && (
+									<p className="border-t border-line px-5 py-4 text-[12px] text-ink-2">
+										{pendentes === 1
+											? "Falta marcar 1 parada para poder finalizar a rota."
+											: `Faltam marcar ${pendentes} paradas para poder finalizar a rota.`}
+									</p>
+								)}
 
 								{podeFinalizar && (
 									<div className="mt-auto flex flex-col gap-2.5 border-t border-line p-5">
@@ -305,9 +325,6 @@ export function RouteDetailPage() {
 						</div>
 
 						<div className="order-3 border-t border-line">
-							<SectionLabel className="px-5 pt-5">
-								Histórico da rota
-							</SectionLabel>
 							<RouteHistoryStrip route={route} />
 						</div>
 					</div>
@@ -405,6 +422,29 @@ export function RouteDetailPage() {
 							paradaSelecionada &&
 							executar(() =>
 								markArrivalMutation.mutateAsync(
+									paradaSelecionada.id_route_donation_step,
+								),
+							)
+						}
+					/>
+
+					<ConfirmActionDialog
+						open={modal === "problema"}
+						onOpenChange={(aberto) => (aberto ? undefined : fecharModal())}
+						titulo="Marcar parada como não realizada?"
+						descricao={
+							paradaSelecionada
+								? `A parada em ${formatarEndereco(paradaSelecionada)} fica registrada como não realizada e você segue para a próxima. Dá para voltar atrás marcando a chegada depois.`
+								: ""
+						}
+						rotuloConfirmar="Não deu certo"
+						tom="perigo"
+						carregando={markErrorMutation.isPending}
+						erro={erroDeAcao}
+						onConfirmar={() =>
+							paradaSelecionada &&
+							executar(() =>
+								markErrorMutation.mutateAsync(
 									paradaSelecionada.id_route_donation_step,
 								),
 							)

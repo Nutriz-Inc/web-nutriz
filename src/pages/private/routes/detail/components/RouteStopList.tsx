@@ -13,6 +13,7 @@ type Props = {
 	onAdicionar: () => void;
 	onRemover: (stop: IRouteStop) => void;
 	onMarcar: (stop: IRouteStop) => void;
+	onReportarProblema: (stop: IRouteStop) => void;
 };
 
 export function RouteStopList({
@@ -23,6 +24,7 @@ export function RouteStopList({
 	onAdicionar,
 	onRemover,
 	onMarcar,
+	onReportarProblema,
 }: Props) {
 	const indiceAtual = rotaIniciada ? indiceDaParadaAtual(stops) : -1;
 
@@ -55,6 +57,7 @@ export function RouteStopList({
 							}
 							onRemover={() => onRemover(stop)}
 							onMarcar={() => onMarcar(stop)}
+							onReportarProblema={() => onReportarProblema(stop)}
 						/>
 					))}
 				</ol>

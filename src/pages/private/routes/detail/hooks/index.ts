@@ -102,6 +102,16 @@ export function useRouteStats(enabled: boolean) {
 	});
 }
 
+export function useMarkStopError(id_route: string) {
+	const invalidar = useInvalidarRota(id_route);
+
+	return useMutation({
+		mutationFn: (id_stop: string) =>
+			services.route.updateStop(id_stop, { has_error: true }),
+		onSuccess: invalidar,
+	});
+}
+
 type UseDonationStepOptionsParams = {
 	enabled: boolean;
 	city?: string;

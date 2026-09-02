@@ -26,11 +26,20 @@ export interface Route {
 	removed_by?: string;
 }
 
+export enum EnumRouteStopStatus {
+	Pending = "pending",
+	InProgress = "in_progress",
+	Done = "done",
+	Error = "error",
+}
+
 export interface RouteDonationStep {
 	id_route_donation_step: string;
 	id_route: string;
 	id_donation_step: string;
 	stop_order?: number;
+	status: EnumRouteStopStatus;
+	description?: string;
 	date_start?: string;
 	date_end?: string;
 	created_at: string;
@@ -111,6 +120,7 @@ export interface ICreateRouteStopResponse extends Route {
 
 export interface IUpdateRouteStopRequest {
 	date_start?: boolean;
+	has_error?: boolean;
 }
 export interface IUpdateRouteStopResponse {
 	stop: RouteDonationStep;

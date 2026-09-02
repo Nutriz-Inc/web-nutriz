@@ -1,5 +1,5 @@
-import { Check, MapPinOff, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Check, CircleAlert, MapPinOff, Trash2 } from "lucide-react";
+import { Badge, type BadgeTone } from "@/components/ui/badge";
 import { StepDot } from "@/components/ui/step-dot";
 import { cn } from "@/lib/utils";
 import type { IRouteStop } from "@/services/types/i-route";
@@ -7,10 +7,11 @@ import { formatCreatedAt } from "@/utils/formatter";
 import type { EstadoDaParada } from "../utils";
 import { partesDoEndereco, temCoordenadas } from "../utils";
 
-const BADGE = {
-	concluida: { rotulo: "VISITADA", tone: "success" as const },
-	atual: { rotulo: "EM ROTA", tone: "brand" as const },
-	proxima: { rotulo: "AGUARDANDO", tone: "neutral" as const },
+const BADGE: Record<EstadoDaParada, { rotulo: string; tone: BadgeTone }> = {
+	concluida: { rotulo: "VISITADA", tone: "success" },
+	erro: { rotulo: "NÃO REALIZADA", tone: "error" },
+	atual: { rotulo: "EM ROTA", tone: "brand" },
+	proxima: { rotulo: "AGUARDANDO", tone: "neutral" },
 };
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
 	podeMarcar: boolean;
 	onRemover: () => void;
 	onMarcar: () => void;
+	onReportarProblema: () => void;
 };
 
 export function RouteStopItem({
@@ -33,8 +35,10 @@ export function RouteStopItem({
 	podeMarcar,
 	onRemover,
 	onMarcar,
+	onReportarProblema,
 }: Props) {
 	const concluida = estado === "concluida";
+	const comErro = estado === "erro";
 	const atual = estado === "atual";
 	const semCoordenada = !temCoordenadas(stop);
 	const { linha, regiao } = partesDoEndereco(stop);
@@ -43,7 +47,15 @@ export function RouteStopItem({
 		<li className="group flex gap-3.5">
 			<div className="flex flex-col items-center">
 				<StepDot
-					status={concluida ? "done" : atual ? "current" : "waiting"}
+					status={
+						concluida
+							? "done"
+							: comErro
+								? "failed"
+								: atual
+									? "current"
+									: "waiting"
+					}
 					order={numero}
 					className={atual ? "size-9 text-[14px]" : "size-7 text-[12px]"}
 				/>
@@ -65,9 +77,11 @@ export function RouteStopItem({
 					"mb-3 flex min-w-0 flex-1 flex-col gap-2 rounded-xl px-4 py-3.5 transition-colors",
 					atual
 						? "bg-blue-tint/70 ring-1 ring-blue-bright/25"
-						: concluida
-							? "bg-surface-3"
-							: "bg-surface-2",
+						: comErro
+							? "bg-danger-tint/60"
+							: concluida
+								? "bg-surface-3"
+								: "bg-surface-2",
 				)}
 			>
 				<div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1.5">
@@ -115,6 +129,13 @@ export function RouteStopItem({
 					</p>
 				)}
 
+				{comErro && (
+					<p className="flex items-center gap-1.5 text-[12px] font-semibold text-danger">
+						<CircleAlert className="size-3.5 shrink-0" />
+						Marcada como não realizada
+					</p>
+				)}
+
 				{semCoordenada && (
 					<p className="flex items-center gap-1.5 text-[12px] text-warning">
 						<MapPinOff className="size-3.5 shrink-0" />
@@ -124,19 +145,28 @@ export function RouteStopItem({
 
 				{podeMarcar && (
 					<div className="flex flex-wrap items-center gap-2 border-t border-line pt-3">
-						{podeMarcar && (
+						<button
+							type="button"
+							onClick={onMarcar}
+							className={cn(
+								"flex h-11 items-center justify-center gap-2 rounded-full px-5 font-bold outline-none transition-[transform,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
+								atual
+									? "flex-1 bg-blue-deep-fill text-[15px] text-white hover:bg-blue-fill"
+									: "border border-blue-tint-2 bg-surface text-[13px] text-blue-deep hover:bg-blue-tint",
+							)}
+						>
+							<Check className="size-4" strokeWidth={3} />
+							{comErro ? "Consegui coletar" : "Cheguei"}
+						</button>
+
+						{!comErro && (
 							<button
 								type="button"
-								onClick={onMarcar}
-								className={cn(
-									"flex h-11 items-center justify-center gap-2 rounded-full px-5 font-bold outline-none transition-[transform,filter,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
-									atual
-										? "flex-1 bg-blue-deep-fill text-[15px] text-white hover:bg-blue-fill"
-										: "border border-blue-tint-2 bg-surface text-[13px] text-blue-deep hover:bg-blue-tint",
-								)}
+								onClick={onReportarProblema}
+								className="flex h-11 items-center justify-center gap-2 rounded-full border border-danger-tint bg-surface px-4 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40"
 							>
-								<Check className="size-4" strokeWidth={3} />
-								Cheguei
+								<CircleAlert className="size-4" />
+								Não deu certo
 							</button>
 						)}
 					</div>

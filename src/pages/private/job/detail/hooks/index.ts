@@ -3,7 +3,6 @@ import { STEP_DEFINITIONS } from "@/pages/private/donations/common/info/constant
 import services from "@/services";
 import type { IGetJobResponse } from "@/services/types/i-job";
 import { EnumJobStatus } from "@/services/types/i-job";
-import type { Address } from "@/services/types/i-user";
 import { isEndedStatus } from "../../list/utils";
 import type {
 	AppointmentDetail,
@@ -11,18 +10,8 @@ import type {
 	AppointmentReport,
 	AppointmentStepItem,
 } from "../../types";
+import { formatLocation } from "../../utils";
 import { findStepDefinition } from "../utils";
-
-function formatLocation(address?: Address): string {
-	if (!address) return "—";
-
-	const street = [address.street, address.number ?? "s/n"]
-		.filter(Boolean)
-		.join(", ");
-	const region = [address.city, address.state].filter(Boolean).join("/");
-
-	return [street, address.neighborhood, region].filter(Boolean).join(" - ");
-}
 
 type UpdateAppointmentInput = {
 	status: EnumJobStatus;

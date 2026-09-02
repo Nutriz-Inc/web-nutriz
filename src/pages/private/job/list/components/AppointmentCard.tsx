@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, FileText } from "lucide-react";
+import { ArrowUpRight, FileText, Stethoscope } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { AppointmentStatusBadge } from "@/components/full/AppointmentStatusBadge";
 import { getInitials } from "@/components/layout/utils";
@@ -11,9 +11,17 @@ import { getReportHint } from "../utils";
 
 type AppointmentCardProps = {
 	appointment: Appointment;
+	basePath?: string;
+	canFillReport?: boolean;
+	highlightNurse?: boolean;
 };
 
-export function AppointmentCard({ appointment }: AppointmentCardProps) {
+export function AppointmentCard({
+	appointment,
+	basePath = "/agendamentos",
+	canFillReport = true,
+	highlightNurse = false,
+}: AppointmentCardProps) {
 	const navigate = useNavigate();
 	const reduzirMovimento = useReducedMotion();
 
@@ -22,7 +30,7 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 			? "Interrompida na etapa"
 			: "Etapa da doação";
 
-	const reportHint = getReportHint(appointment);
+	const reportHint = getReportHint(appointment, canFillReport);
 	const schedule = appointment.dateSet
 		? formatDateTimeParts(appointment.dateSet)
 		: undefined;
@@ -37,7 +45,7 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 	return (
 		<motion.button
 			type="button"
-			onClick={() => navigate(`/agendamentos/${appointment.id}`)}
+			onClick={() => navigate(`${basePath}/${appointment.id}`)}
 			whileHover={reduzirMovimento ? undefined : { y: -3 }}
 			whileTap={reduzirMovimento ? undefined : { scale: 0.99 }}
 			transition={{ type: "spring", stiffness: 320, damping: 28 }}
@@ -64,6 +72,27 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 			</div>
 
 			<div className="mx-5 h-px bg-line" />
+
+			{highlightNurse && (
+				<div className="mx-5 mt-4 flex items-center gap-3 rounded-xl border border-blue-tint-2 bg-blue-tint px-3.5 py-3">
+					<span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-bright-fill text-[14px] font-bold text-white">
+						{appointment.nurseName ? (
+							getInitials(appointment.nurseName)
+						) : (
+							<Stethoscope className="size-[18px]" />
+						)}
+					</span>
+					<div className="flex min-w-0 flex-col">
+						<span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-blue-bright">
+							<Stethoscope className="size-3.5 shrink-0" />
+							Enfermeiro responsável
+						</span>
+						<span className="truncate text-[15px] font-bold text-blue-deep">
+							{appointment.nurseName ?? "Não atribuído"}
+						</span>
+					</div>
+				</div>
+			)}
 
 			<div className="grid flex-1 grid-cols-2 gap-x-4 gap-y-4 px-5 py-4">
 				{fields.map((field) => (

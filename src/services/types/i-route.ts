@@ -52,7 +52,7 @@ export enum EnumRouteStatus {
 export interface ICreateRouteRequest {
 	id_driver: string;
 	date_set: string;
-	stops: string[];
+	stops?: string[];
 	name: string;
 	description: string;
 	neighborhood?: string;

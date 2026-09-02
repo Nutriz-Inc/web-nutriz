@@ -100,7 +100,7 @@ export function CreateRouteDialog() {
 				</button>
 			</AlertDialogTrigger>
 
-			<AlertDialogContent className="relative flex max-h-[85vh] max-w-2xl flex-col overflow-y-auto">
+			<AlertDialogContent className="flex max-h-[85vh] max-w-2xl flex-col overflow-y-auto">
 				<button
 					type="button"
 					aria-label="Fechar"

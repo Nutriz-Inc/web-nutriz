@@ -45,6 +45,7 @@ export function RouteHistoryStrip({ route }: Props) {
 		<DataGrid
 			colunas={4}
 			colunasMobile={2}
+			className="mt-4 border-t"
 			itens={marcos.map((marco) => {
 				const cumprido = Boolean(marco.data);
 				const partes = marco.data ? formatDateTimeParts(marco.data) : null;

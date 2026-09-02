@@ -5,6 +5,7 @@ export type AppointmentStatus = EnumJobStatus;
 export type Appointment = {
 	id: string;
 	donorName: string;
+	nurseName?: string;
 	dateSet: string;
 	locationName: string;
 	stepName: string;

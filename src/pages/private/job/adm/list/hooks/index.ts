@@ -1,35 +1,39 @@
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
-import { useAuth } from "@/hooks/use-auth";
 import services from "@/services";
 import type { EnumJobStatus } from "@/services/types/i-job";
-import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
-import { toAppointment } from "../../utils";
+import { toAppointment } from "../../../utils";
 
-type UseAppointmentsListParams = {
-	status: EnumJobStatus;
+type UseAdminAppointmentsListParams = {
+	status?: EnumJobStatus;
 	dateSet?: string;
+	donorName?: string;
+	nurseName?: string;
 };
 
-export function useAppointmentsList({
+export function useAdminAppointmentsList({
 	status,
 	dateSet,
-}: UseAppointmentsListParams) {
-	const { auth } = useAuth();
-	const id_user_nurse =
-		auth?.type === EnumUserType.Nurse ? auth.id_user : undefined;
-
+	donorName,
+	nurseName,
+}: UseAdminAppointmentsListParams) {
 	const query = useInfiniteQuery({
-		queryKey: ["appointments-list", id_user_nurse, status, dateSet],
-		enabled: Boolean(id_user_nurse),
+		queryKey: [
+			"admin-appointments-list",
+			status,
+			dateSet,
+			donorName,
+			nurseName,
+		],
 		initialPageParam: 1,
 		queryFn: ({ pageParam }) =>
 			services.job.list({
 				page: pageParam,
 				page_size: DEFAULT_PAGE_SIZE,
-				id_user_nurse,
 				status,
 				date_set: dateSet,
+				user_common_name: donorName,
+				user_nurse_name: nurseName,
 			}),
 		getNextPageParam: (lastPage, allPages) => {
 			if (lastPage.data.length < DEFAULT_PAGE_SIZE) return undefined;

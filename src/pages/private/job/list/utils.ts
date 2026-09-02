@@ -11,7 +11,10 @@ export function isEndedStatus(status: AppointmentStatus): boolean {
 	return ENDED_STATUSES.includes(status);
 }
 
-export function getReportHint(appointment: Appointment): {
+export function getReportHint(
+	appointment: Appointment,
+	canFillReport = true,
+): {
 	text: string;
 	highlighted: boolean;
 } {
@@ -20,6 +23,9 @@ export function getReportHint(appointment: Appointment): {
 	}
 	if (isEndedStatus(appointment.status)) {
 		return { text: "Encerrado sem relatório", highlighted: false };
+	}
+	if (!canFillReport) {
+		return { text: "Relatório ainda não preenchido", highlighted: false };
 	}
 	return { text: "Toque para preencher o relatório", highlighted: true };
 }

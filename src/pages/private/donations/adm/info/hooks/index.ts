@@ -195,9 +195,10 @@ export function useRoutesForDonationStep(idDonationStep: string) {
 	};
 }
 
-export function useNurses() {
+export function useNurses(enabled = true) {
 	return useQuery({
 		queryKey: ["admin-nurses"],
+		enabled,
 		queryFn: async () => {
 			const { data } = await services.user.list({
 				page: 1,

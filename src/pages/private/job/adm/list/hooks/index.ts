@@ -1,6 +1,13 @@
-import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
+import {
+	keepPreviousData,
+	useInfiniteQuery,
+	useMutation,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import services from "@/services";
-import type { EnumJobStatus } from "@/services/types/i-job";
+import { EnumDonationStepStatus } from "@/services/types/i-donation";
+import type { EnumJobStatus, ICreateJobRequest } from "@/services/types/i-job";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { toAppointment } from "../../../utils";
 
@@ -60,4 +67,32 @@ export function useAdminAppointmentsList({
 		isFetchingNextPage: query.isFetchingNextPage,
 		fetchNextPage: query.fetchNextPage,
 	};
+}
+
+export function usePendingDonationSteps(enabled: boolean) {
+	return useQuery({
+		queryKey: ["pending-donation-steps"],
+		enabled,
+		queryFn: async () => {
+			const { data } = await services.donation.listSteps({
+				page: 1,
+				page_size: 50,
+				status: EnumDonationStepStatus.Pending,
+			});
+			return data;
+		},
+		staleTime: 30000,
+	});
+}
+
+export function useCreateAppointment() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (data: ICreateJobRequest) => services.job.create(data),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["admin-appointments-list"] });
+			queryClient.invalidateQueries({ queryKey: ["pending-donation-steps"] });
+		},
+	});
 }

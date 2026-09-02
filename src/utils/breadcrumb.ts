@@ -40,6 +40,7 @@ const DETALHES: Record<string, BreadcrumbItem[]> = {
 		{ label: "Doação" },
 	],
 	usuarios: [{ label: "Usuários", to: "/usuarios" }, { label: "Usuário" }],
+	rotas: [{ label: "Rotas", to: "/rotas" }, { label: "Rota" }],
 	artigos: [
 		{ label: "Conteúdo educativo", to: "/conteudo-educativo" },
 		{ label: "Artigo" },

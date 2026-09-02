@@ -29,6 +29,13 @@ export interface IGetAdmDashboardResponse {
 	donations_with_error: number;
 	donor_recurrence_rate: number;
 	active_donations_by_step: ActiveDonationsByStep[];
+	bottles_count: number;
+	discarded_bottles_count: number;
+	average_bottles_per_donor: number;
+	bottles_utilization_rate: number;
+	average_mileage_per_route?: number;
+	average_stops_per_route?: number;
+	average_route_duration_hours?: number;
 }
 
 export interface IDashboard {

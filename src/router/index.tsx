@@ -8,6 +8,7 @@ import { DonationInfoPage } from "@/pages/private/donations/common/info";
 import { DonationStepDetailPage } from "@/pages/private/donations/common/step-detail";
 import { AppointmentDetailPage } from "@/pages/private/job/detail";
 import { AppointmentsPage } from "@/pages/private/job/list";
+import { RouteDetailPage } from "@/pages/private/routes/detail";
 import { RoutesListPage } from "@/pages/private/routes/list";
 import { DonationPointsPage } from "../pages/private/donation-points";
 import { DonationsManagementPage } from "../pages/private/donations/adm/list";
@@ -78,6 +79,11 @@ export function routerPrivate() {
 					id: "private-rotas",
 					path: "/rotas",
 					element: <RoutesListPage />,
+				},
+				{
+					id: "private-rota-detalhe",
+					path: "/rotas/:id_route",
+					element: <RouteDetailPage />,
 				},
 				{
 					id: "private-agendamento-detalhe",

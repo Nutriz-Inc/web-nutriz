@@ -3,11 +3,11 @@ import "leaflet/dist/leaflet.css";
 import { divIcon } from "leaflet";
 
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapResizeHandler } from "@/components/full/MapResizeHandler";
 import { useAccessibility } from "@/context/accessibility-context";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { type Coordinates, FitMapView } from "./FitMapView";
 import { LocateButton } from "./LocateButton";
-import { MapResizeHandler } from "./MapResizeHandler";
 
 const DEFAULT_CENTER: [number, number] = [-23.5505, -46.6333];
 

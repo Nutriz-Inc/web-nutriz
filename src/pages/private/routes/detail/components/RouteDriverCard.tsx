@@ -1,3 +1,4 @@
+import { DataGrid } from "@/components/full/DataGrid";
 import { getInitials } from "@/components/layout/utils";
 import type { User } from "@/services/types/i-user";
 import { formatCpf, formatDateBR, formatPhoneNumber } from "@/utils/formatter";
@@ -43,16 +44,22 @@ export function RouteDriverCard({ driverName, driver, carregando }: Props) {
 					<div className="h-12 w-full animate-pulse rounded-xl bg-surface-2" />
 				</div>
 			) : dados.length > 0 ? (
-				<dl className="grid grid-cols-2 divide-x divide-y divide-line border-t border-line">
-					{dados.map((item) => (
-						<div key={item.rotulo} className="flex flex-col gap-1 px-4 py-3.5">
-							<dt className="text-[11px] text-ink-2">{item.rotulo}</dt>
-							<dd className="truncate text-[13px] font-semibold text-ink">
-								{item.valor}
-							</dd>
-						</div>
-					))}
-				</dl>
+				<DataGrid
+					colunas={2}
+					colunasMobile={2}
+					className="border-y"
+					itens={dados.map((item) => ({
+						chave: item.rotulo,
+						conteudo: (
+							<div className="flex flex-col gap-1 px-4 py-3.5">
+								<span className="text-[11px] text-ink-2">{item.rotulo}</span>
+								<span className="truncate text-[13px] font-semibold text-ink">
+									{item.valor}
+								</span>
+							</div>
+						),
+					}))}
+				/>
 			) : (
 				<p className="border-t border-line px-5 py-4 text-[13px] text-ink-2">
 					Não foi possível carregar os dados do motorista.

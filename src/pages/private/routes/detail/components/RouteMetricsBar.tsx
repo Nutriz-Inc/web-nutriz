@@ -1,5 +1,6 @@
 import { AlertTriangle, Gauge, MapPin, Timer, TrendingUp } from "lucide-react";
 import type { ReactNode } from "react";
+import { DataGrid } from "@/components/full/DataGrid";
 import { cn } from "@/lib/utils";
 import { AVISO_ROTA_MS, LIMITE_ROTA_MS } from "../constants";
 import { useRouteTimer } from "../hooks/use-route-timer";
@@ -119,36 +120,35 @@ export function RouteMetricsBar({
 
 	return (
 		<section className="flex w-full flex-col">
-			<div className="grid grid-cols-2 lg:grid-cols-4">
-				{metricas.map((metrica, indice) => (
-					<div
-						key={metrica.chave}
-						style={{ animationDelay: `${indice * 70}ms` }}
-						className={cn(
-							"flex flex-col gap-1.5 border-line p-5 motion-safe:surge-etapa",
-							indice % 2 === 1 && "border-l",
-							indice > 1 && "border-t lg:border-t-0",
-							indice > 0 && "lg:border-l",
-						)}
-					>
-						<span className="flex items-center gap-2 text-[13px] text-ink-2">
-							{metrica.icone}
-							{metrica.rotulo}
-						</span>
-
-						<p
-							className={cn(
-								"font-display text-[28px] font-extrabold leading-none tabular-nums tracking-tight",
-								metrica.tom ?? "text-blue-deep",
-							)}
+			<DataGrid
+				colunas={4}
+				colunasMobile={2}
+				itens={metricas.map((metrica, indice) => ({
+					chave: metrica.chave,
+					conteudo: (
+						<div
+							style={{ animationDelay: `${indice * 70}ms` }}
+							className="flex flex-col gap-1.5 p-5 motion-safe:surge-etapa"
 						>
-							{metrica.valor}
-						</p>
+							<span className="flex items-center gap-2 text-[13px] text-ink-2">
+								{metrica.icone}
+								{metrica.rotulo}
+							</span>
 
-						<span className="text-[12px] text-ink-2">{metrica.apoio}</span>
-					</div>
-				))}
-			</div>
+							<p
+								className={cn(
+									"font-display text-[28px] font-extrabold leading-none tabular-nums tracking-tight",
+									metrica.tom ?? "text-blue-deep",
+								)}
+							>
+								{metrica.valor}
+							</p>
+
+							<span className="text-[12px] text-ink-2">{metrica.apoio}</span>
+						</div>
+					),
+				}))}
+			/>
 
 			<div className="flex flex-col gap-2 border-t border-line px-5 py-4">
 				<div

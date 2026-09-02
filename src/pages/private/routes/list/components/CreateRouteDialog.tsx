@@ -1,4 +1,4 @@
-import { Plus, Route as RouteIcon } from "lucide-react";
+import { Plus, Route as RouteIcon, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import {
 	AlertDialog,
@@ -100,7 +100,18 @@ export function CreateRouteDialog() {
 				</button>
 			</AlertDialogTrigger>
 
-			<AlertDialogContent className="flex max-h-[85vh] max-w-2xl flex-col overflow-y-auto">
+			<AlertDialogContent className="relative flex max-h-[85vh] max-w-2xl flex-col overflow-y-auto">
+				<AlertDialogCancel asChild>
+					<button
+						type="button"
+						aria-label="Fechar"
+						disabled={createRoute.isPending}
+						className="absolute right-4 top-4 mt-0 flex size-9 items-center justify-center rounded-full border-0 bg-transparent p-0 text-ink-2 outline-none transition-colors hover:bg-surface-3 hover:text-ink focus-visible:ring-4 focus-visible:ring-blue-bright/50 disabled:opacity-40"
+					>
+						<X className="size-4" />
+					</button>
+				</AlertDialogCancel>
+
 				<AlertDialogHeader>
 					<div className="flex size-12 items-center justify-center rounded-full bg-blue-tint">
 						<RouteIcon className="size-5 text-blue-deep" />

@@ -1,4 +1,5 @@
 import { Ban, Pencil } from "lucide-react";
+import { DataGrid } from "@/components/full/DataGrid";
 import { RouteStatusBadge } from "@/components/full/RouteStatusBadge";
 import { cn } from "@/lib/utils";
 import type { IGetRouteResponse } from "@/services/types/i-route";
@@ -61,11 +62,15 @@ export function RouteHeaderCard({
 				</p>
 			</div>
 
-			<dl className="grid grid-cols-3 divide-x divide-line border-t border-line">
-				{meta.map((item) => (
-					<div key={item.rotulo} className="flex flex-col gap-1 px-4 py-3.5">
-						<dt className="text-[11px] text-ink-2">{item.rotulo}</dt>
-						<dd className="flex flex-col">
+			<DataGrid
+				colunas={3}
+				colunasMobile={3}
+				className="border-y"
+				itens={meta.map((item) => ({
+					chave: item.rotulo,
+					conteudo: (
+						<div className="flex flex-col gap-1 px-4 py-3.5">
+							<span className="text-[11px] text-ink-2">{item.rotulo}</span>
 							<span className="text-[13px] font-semibold text-ink">
 								{item.valor}
 							</span>
@@ -74,10 +79,10 @@ export function RouteHeaderCard({
 									{item.complemento}
 								</span>
 							)}
-						</dd>
-					</div>
-				))}
-			</dl>
+						</div>
+					),
+				}))}
+			/>
 
 			{route.user_feedback && (
 				<div className="flex flex-col gap-1 border-t border-line px-5 py-4">

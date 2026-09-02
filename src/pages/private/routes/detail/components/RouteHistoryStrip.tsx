@@ -4,6 +4,7 @@ import {
 	CirclePlay,
 	PlusCircle,
 } from "lucide-react";
+import { DataGrid } from "@/components/full/DataGrid";
 import { cn } from "@/lib/utils";
 import type { IGetRouteResponse } from "@/services/types/i-route";
 import { formatDateTimeParts } from "@/utils/formatter";
@@ -41,48 +42,45 @@ export function RouteHistoryStrip({ route }: Props) {
 	];
 
 	return (
-		<ol className="grid grid-cols-2 lg:grid-cols-4">
-			{marcos.map((marco, indice) => {
+		<DataGrid
+			colunas={4}
+			colunasMobile={2}
+			itens={marcos.map((marco) => {
 				const cumprido = Boolean(marco.data);
 				const partes = marco.data ? formatDateTimeParts(marco.data) : null;
 
-				return (
-					<li
-						key={marco.chave}
-						className={cn(
-							"flex items-center gap-3 border-line px-5 py-4",
-							indice % 2 === 1 && "border-l",
-							indice > 1 && "border-t lg:border-t-0",
-							indice > 0 && "lg:border-l",
-						)}
-					>
-						<span
-							className={cn(
-								"flex size-9 shrink-0 items-center justify-center rounded-full",
-								cumprido
-									? "bg-blue-tint text-blue-deep"
-									: "bg-surface-2 text-ink-3",
-							)}
-						>
-							{marco.icone}
-						</span>
+				return {
+					chave: marco.chave,
+					conteudo: (
+						<div className="flex items-center gap-3 px-5 py-4">
+							<span
+								className={cn(
+									"flex size-9 shrink-0 items-center justify-center rounded-full",
+									cumprido
+										? "bg-blue-tint text-blue-deep"
+										: "bg-surface-2 text-ink-3",
+								)}
+							>
+								{marco.icone}
+							</span>
 
-						<div className="flex min-w-0 flex-col">
-							<span className="text-[11px] text-ink-2">{marco.rotulo}</span>
-							{partes ? (
-								<span className="truncate text-[13px] font-semibold tabular-nums text-ink">
-									{partes.date}
-									<span className="ml-1.5 text-ink-2">{partes.time}</span>
-								</span>
-							) : (
-								<span className="text-[13px] font-semibold text-ink-3">
-									Ainda não
-								</span>
-							)}
+							<div className="flex min-w-0 flex-col">
+								<span className="text-[11px] text-ink-2">{marco.rotulo}</span>
+								{partes ? (
+									<span className="truncate text-[13px] font-semibold tabular-nums text-ink">
+										{partes.date}
+										<span className="ml-1.5 text-ink-2">{partes.time}</span>
+									</span>
+								) : (
+									<span className="text-[13px] font-semibold text-ink-3">
+										Ainda não
+									</span>
+								)}
+							</div>
 						</div>
-					</li>
-				);
+					),
+				};
 			})}
-		</ol>
+		/>
 	);
 }

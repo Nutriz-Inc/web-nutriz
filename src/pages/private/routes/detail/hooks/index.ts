@@ -3,6 +3,7 @@ import services from "@/services";
 import type { EnumDonationStepStatus } from "@/services/types/i-donation";
 import type {
 	ICreateRouteStopRequest,
+	IGetRouteResponse,
 	IUpdateRouteRequest,
 } from "@/services/types/i-route";
 import { intervaloAoVivo } from "@/utils/live-query";
@@ -46,12 +47,20 @@ function useInvalidarRota(id_route: string) {
 }
 
 export function useUpdateRoute(id_route: string) {
+	const queryClient = useQueryClient();
 	const invalidar = useInvalidarRota(id_route);
 
 	return useMutation({
 		mutationFn: (body: IUpdateRouteRequest) =>
 			services.route.update(id_route, body),
-		onSuccess: invalidar,
+		onSuccess: async (rotaAtualizada) => {
+			queryClient.setQueryData<IGetRouteResponse>(
+				["route", id_route],
+				(atual) => (atual ? { ...atual, ...rotaAtualizada } : atual),
+			);
+
+			await invalidar();
+		},
 	});
 }
 

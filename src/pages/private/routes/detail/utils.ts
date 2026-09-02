@@ -134,8 +134,6 @@ export function coordenadasDaParada(stop: IRouteStop): string | null {
 	return `${latitude},${longitude}`;
 }
 
-const MAXIMO_DE_PONTOS_INTERMEDIARIOS = 8;
-
 export function urlDoGoogleMaps(stops: IRouteStop[]): string | null {
 	const pontos = stops
 		.map(coordenadasDaParada)
@@ -145,29 +143,7 @@ export function urlDoGoogleMaps(stops: IRouteStop[]): string | null {
 		return null;
 	}
 
-	const parametros = new URLSearchParams({
-		api: "1",
-		destination: pontos[pontos.length - 1],
-		travelmode: "driving",
-	});
+	const trajeto = pontos.join("/");
 
-	if (pontos.length > 1) {
-		parametros.set("origin", pontos[0]);
-
-		const intermediarios = pontos
-			.slice(1, -1)
-			.slice(0, MAXIMO_DE_PONTOS_INTERMEDIARIOS);
-
-		if (intermediarios.length > 0) {
-			parametros.set("waypoints", intermediarios.join("|"));
-		}
-	}
-
-	return `https://www.google.com/maps/dir/?${parametros.toString()}`;
-}
-
-export function paradasForaDaNavegacao(stops: IRouteStop[]): number {
-	const comCoordenada = stops.filter(temCoordenadas).length;
-
-	return Math.max(comCoordenada - (MAXIMO_DE_PONTOS_INTERMEDIARIOS + 2), 0);
+	return `https://www.google.com/maps/dir/${trajeto}/?travelmode=driving`;
 }

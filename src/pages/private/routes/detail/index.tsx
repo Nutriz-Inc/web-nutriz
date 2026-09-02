@@ -168,23 +168,25 @@ export function RouteDetailPage() {
 
 					<div
 						style={{ animationDelay: "40ms" }}
-						className="overflow-hidden rounded-card border border-line bg-surface shadow-soft motion-safe:surge-etapa"
+						className="flex flex-col overflow-hidden rounded-card border border-line bg-surface shadow-soft motion-safe:surge-etapa"
 					>
-						<RouteMetricsBar
-							dateStart={route.date_start}
-							dateEnd={route.date_end}
-							mileage={route.mileage}
-							mediaPorRota={
-								ehAdm
-									? (statsQuery.data?.average_mileage_per_route ?? null)
-									: null
-							}
-							totalParadas={stops.length}
-							paradasVisitadas={paradasVisitadas}
-						/>
+						<div className="order-2 border-t border-line xl:order-1 xl:border-t-0">
+							<RouteMetricsBar
+								dateStart={route.date_start}
+								dateEnd={route.date_end}
+								mileage={route.mileage}
+								mediaPorRota={
+									ehAdm
+										? (statsQuery.data?.average_mileage_per_route ?? null)
+										: null
+								}
+								totalParadas={stops.length}
+								paradasVisitadas={paradasVisitadas}
+							/>
+						</div>
 
-						<div className="grid border-t border-line xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)_minmax(0,360px)]">
-							<div className="flex flex-col border-line xl:border-r">
+						<div className="order-1 grid xl:order-2 xl:grid-cols-[minmax(0,340px)_minmax(0,1fr)_minmax(0,360px)] xl:border-t xl:border-line">
+							<div className="order-3 flex flex-col border-t border-line xl:order-none xl:border-r xl:border-t-0">
 								<div className="flex flex-col">
 									<SectionLabel className="px-5 pt-5">Rota</SectionLabel>
 									<RouteHeaderCard
@@ -219,7 +221,7 @@ export function RouteDetailPage() {
 								)}
 							</div>
 
-							<div className="flex flex-col gap-3 border-t border-line p-5 xl:border-t-0">
+							<div className="order-1 flex flex-col gap-3 p-5 xl:order-none">
 								<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
 									Trajeto
 								</SectionLabel>
@@ -249,7 +251,7 @@ export function RouteDetailPage() {
 								</p>
 							</div>
 
-							<div className="flex flex-col border-t border-line xl:border-l xl:border-t-0">
+							<div className="order-2 flex flex-col border-t border-line xl:order-none xl:border-l xl:border-t-0">
 								<SectionLabel
 									className="px-5 pt-5"
 									trailing={
@@ -293,7 +295,7 @@ export function RouteDetailPage() {
 							</div>
 						</div>
 
-						<div className="border-t border-line">
+						<div className="order-3 border-t border-line">
 							<SectionLabel className="px-5 pt-5">
 								Histórico da rota
 							</SectionLabel>

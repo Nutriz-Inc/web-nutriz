@@ -11,7 +11,7 @@ type Props = {
 
 export function RouteMapCard({ stops, overlay, desfocado = false }: Props) {
 	return (
-		<div className="relative isolate h-[240px] w-full overflow-hidden rounded-xl border border-line sm:h-[320px] xl:h-[560px]">
+		<div className="relative isolate h-[380px] w-full overflow-hidden rounded-xl border border-line sm:h-[420px] xl:h-[560px]">
 			<div
 				className={cn(
 					"size-full transition-[filter,transform] duration-700 ease-out",

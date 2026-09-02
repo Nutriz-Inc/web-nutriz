@@ -1,5 +1,6 @@
 import { AlertTriangle, Clock } from "lucide-react";
 import { useState } from "react";
+import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
@@ -62,43 +63,49 @@ export function AdmDashboardPage() {
 					onApplyCustom={handleApplyCustom}
 				/>
 
-				<MilkCollectedCard
-					total={data?.total_milk_collected ?? 0}
-					byMonth={data?.milk_collected_by_month ?? []}
-				/>
+				<RefreshableList updating={dashboardQuery.isPlaceholderData}>
+					<div className="flex flex-col gap-6">
+						<MilkCollectedCard
+							total={data?.total_milk_collected ?? 0}
+							byMonth={data?.milk_collected_by_month ?? []}
+						/>
 
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<ActiveDonationsByStepCard
-						activeDonationsByStep={data?.active_donations_by_step ?? []}
-					/>
-					<SatisfactionCard feedbackByScore={data?.feedback_by_score ?? []} />
-				</div>
+						<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+							<ActiveDonationsByStepCard
+								activeDonationsByStep={data?.active_donations_by_step ?? []}
+							/>
+							<SatisfactionCard
+								feedbackByScore={data?.feedback_by_score ?? []}
+							/>
+						</div>
 
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<RecurrenceCard rate={data?.donor_recurrence_rate ?? 0} />
-					<StatCard
-						icon={<Clock className="size-4 text-blue-deep" />}
-						iconBg="bg-blue-tint"
-						title="Tempo Médio de Resposta"
-						subtitle="Triagem até a 1ª coleta agendada"
-						value={
-							data?.average_service_time_hours != null
-								? `${data.average_service_time_hours.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}h`
-								: "—"
-						}
-						footnote="Média de horas até o primeiro agendamento"
-					/>
-				</div>
+						<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+							<RecurrenceCard rate={data?.donor_recurrence_rate ?? 0} />
+							<StatCard
+								icon={<Clock className="size-4 text-blue-deep" />}
+								iconBg="bg-blue-tint"
+								title="Tempo Médio de Resposta"
+								subtitle="Triagem até a 1ª coleta agendada"
+								value={
+									data?.average_service_time_hours != null
+										? `${data.average_service_time_hours.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}h`
+										: "—"
+								}
+								footnote="Média de horas até o primeiro agendamento"
+							/>
+						</div>
 
-				<StatCard
-					icon={<AlertTriangle className="size-4 text-eva-deep" />}
-					iconBg="bg-danger-tint"
-					title="Doações não concluídas"
-					subtitle="Ocorrências no período selecionado"
-					value={String(data?.donations_with_error ?? 0)}
-					valueColor="text-eva-deep"
-					footnote="Doações que não puderam ser completadas"
-				/>
+						<StatCard
+							icon={<AlertTriangle className="size-4 text-eva-deep" />}
+							iconBg="bg-danger-tint"
+							title="Doações não concluídas"
+							subtitle="Ocorrências no período selecionado"
+							value={String(data?.donations_with_error ?? 0)}
+							valueColor="text-eva-deep"
+							footnote="Doações que não puderam ser completadas"
+						/>
+					</div>
+				</RefreshableList>
 			</div>
 		</Page>
 	);

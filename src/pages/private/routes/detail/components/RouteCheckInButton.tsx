@@ -101,7 +101,7 @@ export function RouteCheckInButton({ onIniciar, onEstadoChange, erro }: Props) {
 									aria-hidden="true"
 									style={{ animationDelay: `${atraso}ms` }}
 									className={cn(
-										"absolute size-[156px] rounded-full motion-safe:onda-checkin",
+										"absolute size-[132px] rounded-full motion-safe:onda-checkin sm:size-[156px]",
 										concluido ? "bg-success" : "bg-blue-bright",
 									)}
 								/>
@@ -123,21 +123,21 @@ export function RouteCheckInButton({ onIniciar, onEstadoChange, erro }: Props) {
 							}
 							transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
 							className={cn(
-								"pointer-events-auto relative flex size-[156px] flex-col items-center justify-center gap-1 rounded-full text-white shadow-lift outline-none transition-colors duration-700 focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-default",
+								"pointer-events-auto relative flex size-[132px] flex-col items-center justify-center gap-1 rounded-full sm:size-[156px] text-white outline-none transition-colors duration-700 focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-default",
 								concluido
 									? "bg-success-fill focus-visible:ring-success/60"
 									: "bg-blue-deep-fill hover:bg-blue-fill focus-visible:ring-blue-bright/60 active:scale-[0.97]",
 							)}
 						>
-							<span className="font-sans text-[26px] font-extrabold leading-none tabular-nums">
+							<span className="font-sans text-[24px] font-extrabold leading-none tabular-nums sm:text-[26px]">
 								{concluido ? (horaRegistrada ?? hora) : hora}
 							</span>
 
-							<span className="text-[14px] font-bold">
+							<span className="text-[13px] font-bold sm:text-[14px]">
 								{concluido ? "Rota iniciada" : "Iniciar rota"}
 							</span>
 
-							<span className="mt-1 flex size-9 items-center justify-center rounded-full bg-white/15">
+							<span className="mt-0.5 flex size-8 items-center justify-center rounded-full bg-white/15 sm:mt-1 sm:size-9">
 								{enviando ? (
 									<LoaderCircle className="size-5 animate-spin" />
 								) : concluido ? (

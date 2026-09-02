@@ -4,6 +4,7 @@ import { divIcon } from "leaflet";
 import { MapContainer, Marker, Polyline, TileLayer } from "react-leaflet";
 import { MapResizeHandler } from "@/components/full/MapResizeHandler";
 import { useAccessibility } from "@/context/accessibility-context";
+import { cn } from "@/lib/utils";
 import type { IRouteStop } from "@/services/types/i-route";
 import { formatarEndereco, temCoordenadas } from "../utils";
 import { FitRouteBounds } from "./FitRouteBounds";
@@ -47,7 +48,7 @@ export function RouteMap({ stops, className }: Props) {
 	const centro = posicoes[0] ?? CENTRO_PADRAO;
 
 	return (
-		<div className={className}>
+		<div className={cn("relative isolate", className)}>
 			<MapContainer
 				center={centro}
 				zoom={13}

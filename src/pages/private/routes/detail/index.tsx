@@ -28,6 +28,7 @@ import { RouteStopList } from "./components/RouteStopList";
 import { RouteStopsFooter } from "./components/RouteStopsFooter";
 import { RouteTimeCard } from "./components/RouteTimeCard";
 import { StopIssueSheet } from "./components/StopIssueSheet";
+import { CLASSE_ALTURA_PAINEL } from "./constants";
 import {
 	useCreateRouteStop,
 	useDonationStepOptions,
@@ -271,7 +272,9 @@ export function RouteDetailPage() {
 								Paradas
 							</SectionLabel>
 
-							<div className={cn(CARTAO, "flex flex-1 flex-col")}>
+							<div
+								className={cn(CARTAO, "flex flex-col", CLASSE_ALTURA_PAINEL)}
+							>
 								<RouteStopList
 									stops={stops}
 									rotaIniciada={Boolean(route.date_start)}

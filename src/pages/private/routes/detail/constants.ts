@@ -67,3 +67,7 @@ export const CLASSE_BOTAO_SECUNDARIO =
 
 export const CLASSE_BOTAO_PERIGO =
 	"flex h-11 items-center justify-center gap-2 rounded-full bg-danger-fill px-6 text-[15px] font-semibold text-white outline-none transition-[transform,background-color] hover:opacity-90 focus-visible:ring-3 focus-visible:ring-danger/40 active:scale-[0.98] disabled:opacity-60";
+
+// Altura compartilhada do mapa e do cartao de paradas: os dois ficam do mesmo
+// tamanho na faixa, cheios ou vazios.
+export const CLASSE_ALTURA_PAINEL = "h-[380px] sm:h-[420px] xl:h-[560px]";

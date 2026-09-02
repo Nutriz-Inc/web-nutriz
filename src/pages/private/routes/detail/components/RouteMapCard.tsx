@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import type { IRouteStop } from "@/services/types/i-route";
+import { CLASSE_ALTURA_PAINEL } from "../constants";
 import { RouteMap } from "./RouteMap";
 
 type Props = {
@@ -11,7 +12,12 @@ type Props = {
 
 export function RouteMapCard({ stops, overlay, desfocado = false }: Props) {
 	return (
-		<div className="relative isolate h-[380px] w-full overflow-hidden rounded-xl border border-line sm:h-[420px] xl:h-[560px]">
+		<div
+			className={cn(
+				"relative isolate w-full overflow-hidden rounded-xl border border-line",
+				CLASSE_ALTURA_PAINEL,
+			)}
+		>
 			<div
 				className={cn(
 					"size-full transition-[filter,transform] duration-700 ease-out",

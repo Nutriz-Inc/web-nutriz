@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import nadaPorAqui from "@/assets/illustrations/nada-por-aqui.svg";
+import rotaSemParadas from "@/assets/illustrations/rota-sem-paradas.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import type { IRouteStop } from "@/services/types/i-route";
 import { estadoDaParada, indiceDaParadaAtual } from "../utils";
@@ -33,7 +33,8 @@ export function RouteStopList({
 			{stops.length === 0 ? (
 				<EmptyState
 					size="sm"
-					illustration={nadaPorAqui}
+					className="my-auto"
+					illustration={rotaSemParadas}
 					title="Nenhuma parada nesta rota"
 					description={
 						podeGerenciar
@@ -42,25 +43,45 @@ export function RouteStopList({
 					}
 				/>
 			) : (
-				<ol className="flex flex-1 flex-col overflow-y-auto p-5">
-					{stops.map((stop, index) => (
-						<RouteStopItem
-							key={stop.id_route_donation_step}
-							stop={stop}
-							numero={index + 1}
-							estado={estadoDaParada(stop, index, indiceAtual)}
-							isLast={index === stops.length - 1}
-							podeRemover={podeGerenciar}
-							podeMarcar={
-								podeMarcar &&
-								estadoDaParada(stop, index, indiceAtual) !== "concluida"
-							}
-							onRemover={() => onRemover(stop)}
-							onMarcar={() => onMarcar(stop)}
-							onReportarProblema={() => onReportarProblema(stop)}
+				// A rolagem fica neste container, nao na <ol>: assim a ilustracao de
+				// rodape ocupa o que sobrar quando a lista e curta, e some sozinha
+				// (flex-1 colapsa) quando as paradas passam da altura do cartao.
+				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+					<ol className="flex shrink-0 flex-col p-5">
+						{stops.map((stop, index) => (
+							<RouteStopItem
+								key={stop.id_route_donation_step}
+								stop={stop}
+								numero={index + 1}
+								estado={estadoDaParada(stop, index, indiceAtual)}
+								isLast={index === stops.length - 1}
+								podeRemover={podeGerenciar}
+								podeMarcar={
+									podeMarcar &&
+									estadoDaParada(stop, index, indiceAtual) !== "concluida"
+								}
+								onRemover={() => onRemover(stop)}
+								onMarcar={() => onMarcar(stop)}
+								onReportarProblema={() => onReportarProblema(stop)}
+							/>
+						))}
+					</ol>
+
+					<div
+						aria-hidden="true"
+						className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-6 pb-4"
+					>
+						<img
+							src={rotaSemParadas}
+							alt=""
+							loading="lazy"
+							data-ilustracao=""
+							width={320}
+							height={117}
+							className="w-full max-w-[260px] select-none opacity-70"
 						/>
-					))}
-				</ol>
+					</div>
+				</div>
 			)}
 
 			{podeGerenciar && (

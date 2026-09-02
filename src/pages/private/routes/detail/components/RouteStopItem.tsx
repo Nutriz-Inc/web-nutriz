@@ -144,18 +144,18 @@ export function RouteStopItem({
 				)}
 
 				{podeMarcar && (
-					<div className="flex flex-wrap items-center gap-2 border-t border-line pt-3">
+					<div className="flex items-center gap-2 border-t border-line pt-3">
 						<button
 							type="button"
 							onClick={onMarcar}
 							className={cn(
-								"flex h-11 items-center justify-center gap-2 rounded-full px-5 font-bold outline-none transition-[transform,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
+								"flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-[13px] font-bold outline-none transition-[transform,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
 								atual
-									? "flex-1 bg-blue-deep-fill text-[15px] text-white hover:bg-blue-fill"
-									: "border border-blue-tint-2 bg-surface text-[13px] text-blue-deep hover:bg-blue-tint",
+									? "bg-blue-deep-fill text-white hover:bg-blue-fill"
+									: "border border-blue-tint-2 bg-surface text-blue-deep hover:bg-blue-tint",
 							)}
 						>
-							<Check className="size-4" strokeWidth={3} />
+							<Check className="size-4 shrink-0" strokeWidth={3} />
 							{comErro ? "Consegui coletar" : "Cheguei"}
 						</button>
 
@@ -163,9 +163,9 @@ export function RouteStopItem({
 							<button
 								type="button"
 								onClick={onReportarProblema}
-								className="flex h-11 items-center justify-center gap-2 rounded-full border border-danger-tint bg-surface px-4 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40"
+								className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-danger-tint bg-surface px-3 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40"
 							>
-								<CircleAlert className="size-4" />
+								<CircleAlert className="size-4 shrink-0" />
 								Não deu certo
 							</button>
 						)}

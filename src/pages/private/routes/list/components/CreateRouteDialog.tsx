@@ -100,7 +100,7 @@ export function CreateRouteDialog() {
 				</button>
 			</AlertDialogTrigger>
 
-			<AlertDialogContent className="flex max-h-[85vh] max-w-lg flex-col overflow-y-auto">
+			<AlertDialogContent className="flex max-h-[85vh] max-w-2xl flex-col overflow-y-auto">
 				<AlertDialogHeader>
 					<div className="flex size-12 items-center justify-center rounded-full bg-blue-tint">
 						<RouteIcon className="size-5 text-blue-deep" />

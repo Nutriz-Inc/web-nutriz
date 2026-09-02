@@ -27,6 +27,7 @@ import {
 	toDateInputValue,
 	toTimeInputValue,
 } from "../utils";
+import { AddStepToRouteButton } from "./AddStepToRouteButton";
 import { StepActionsFooter } from "./StepActionsFooter";
 import { StepCardHeader } from "./StepCardHeader";
 import { StepCreateForm } from "./StepCreateForm";
@@ -35,6 +36,7 @@ import { StepEditableForm } from "./StepEditableForm";
 import { StepFailedFooter } from "./StepFailedFooter";
 import { StepLockedCard } from "./StepLockedCard";
 import { StepReadOnlyInfo } from "./StepReadOnlyInfo";
+import { StepRoutesList } from "./StepRoutesList";
 
 type Props = {
 	idDonation: string;
@@ -341,6 +343,12 @@ export function AdminStepCard({
 							/>
 						)}
 					</div>
+
+					<StepRoutesList idDonationStep={step.id_donation_step} />
+
+					{!isLocked && (
+						<AddStepToRouteButton idDonationStep={step.id_donation_step} />
+					)}
 
 					<div className="h-px bg-blue-tint" />
 

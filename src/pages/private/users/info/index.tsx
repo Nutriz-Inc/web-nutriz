@@ -3,11 +3,13 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumJobStatus } from "@/services/types/i-job";
+import { EnumRouteStatus } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
 import { formatDateBR } from "@/utils/formatter";
 import { CollectionAddressCard } from "./components/CollectionAddressCard";
 import { ContactInfoCard } from "./components/ContactInfoCard";
 import { DeactivateUserSheet } from "./components/DeactivateUserSheet";
+import { DriverRoutesCard } from "./components/DriverRoutesCard";
 import { HeaderStat } from "./components/HeaderStat";
 import { NurseAppointmentsCard } from "./components/NurseAppointmentsCard";
 import { UserDetailHeaderCard } from "./components/UserDetailHeaderCard";
@@ -15,6 +17,7 @@ import type { DonationFilter } from "./components/UserDonationsCard";
 import { UserDonationsCard } from "./components/UserDonationsCard";
 import {
 	useAdminUserDetail,
+	useDriverRoutes,
 	useNurseAppointments,
 	useRemoveUser,
 	useUserDonations,
@@ -56,6 +59,10 @@ export function UserManagementDetailPage() {
 		id_user,
 		user?.type === EnumUserType.Nurse,
 	);
+	const routesQuery = useDriverRoutes(
+		id_user,
+		user?.type === EnumUserType.Driver,
+	);
 
 	const allDonations = allDonationsQuery.data?.data ?? [];
 	const donations =
@@ -63,6 +70,7 @@ export function UserManagementDetailPage() {
 			? allDonations
 			: (filteredDonationsQuery.data?.data ?? []);
 	const jobs = jobsQuery.data?.data ?? [];
+	const routes = routesQuery.data?.data ?? [];
 
 	const lastDonation = allDonations.reduce<string | null>(
 		(latest, donation) =>
@@ -83,6 +91,21 @@ export function UserManagementDetailPage() {
 				!earliest || (job.date_set as string) < earliest
 					? (job.date_set as string)
 					: earliest,
+			null,
+		);
+
+	const rotasEmAberto = routes.filter(
+		(route) =>
+			route.status === EnumRouteStatus.Pending ||
+			route.status === EnumRouteStatus.InProgress,
+	);
+	const rotasConcluidas = routes.filter(
+		(route) => route.status === EnumRouteStatus.Done,
+	);
+	const proximaRota = rotasEmAberto
+		.map((route) => route.date_set)
+		.reduce<string | null>(
+			(earliest, data) => (!earliest || data < earliest ? data : earliest),
 			null,
 		);
 
@@ -146,6 +169,22 @@ export function UserManagementDetailPage() {
 										label="Próximo agendamento"
 									/>
 								</>
+							) : user.type === EnumUserType.Driver ? (
+								<>
+									<HeaderStat
+										value={String(rotasEmAberto.length)}
+										label="Rotas em aberto"
+									/>
+									<HeaderStat
+										value={String(rotasConcluidas.length)}
+										label="Rotas concluídas"
+										valueClassName="text-eva-deep"
+									/>
+									<HeaderStat
+										value={proximaRota ? formatShortDateTime(proximaRota) : "—"}
+										label="Próxima rota"
+									/>
+								</>
 							) : undefined
 						}
 					/>
@@ -170,6 +209,10 @@ export function UserManagementDetailPage() {
 
 					{user.type === EnumUserType.Nurse && (
 						<NurseAppointmentsCard jobs={jobs} />
+					)}
+
+					{user.type === EnumUserType.Driver && (
+						<DriverRoutesCard routes={routes} />
 					)}
 
 					<DeactivateUserSheet

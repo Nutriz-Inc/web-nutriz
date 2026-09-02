@@ -8,6 +8,8 @@ export const DONATIONS_GRID_COLS =
 export const APPOINTMENTS_GRID_COLS =
 	"lg:grid-cols-[repeat(6,minmax(0,1fr))_32px]";
 
+export const ROUTES_GRID_COLS = "lg:grid-cols-[repeat(5,minmax(0,1fr))_32px]";
+
 export type UserTypeDisplay = {
 	label: string;
 	tone: BadgeTone;

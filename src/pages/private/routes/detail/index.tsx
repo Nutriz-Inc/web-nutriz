@@ -227,7 +227,10 @@ export function RouteDetailPage() {
 			hasPermission={auth?.type !== EnumUserType.Common}
 			loading={routeQuery.isLoading}
 			backTo="/rotas"
-			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			// `lg:mb-5` encurta o respiro de 32px que o `Page` da por padrao: sem a
+			// linha de descricao, que virou cartao, sobrava um vazio grande entre o
+			// titulo e o primeiro cartao no desktop.
+			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px] lg:mb-5"
 		>
 			{route && (
 				<div className="mx-auto flex w-full max-w-[1400px] flex-col gap-5 lg:gap-6">

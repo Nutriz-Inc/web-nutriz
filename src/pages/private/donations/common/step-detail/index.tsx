@@ -8,6 +8,7 @@ import { formatCep, formatCreatedAt } from "@/utils/formatter";
 import { STEP_DEFINITIONS } from "../info/constants";
 import { useDonation } from "../info/hooks/use-donation";
 import { StepAboutCard } from "./components/StepAboutCard";
+import { StepHelpCard } from "./components/StepHelpCard";
 import { StepHeroCard } from "./components/StepHeroCard";
 import { StepInfoRow } from "./components/StepInfoRow";
 import { StepNurseCard } from "./components/StepNurseCard";
@@ -101,6 +102,8 @@ export function DonationStepDetailPage() {
 							)}
 
 							<StepAboutCard text={step.description} />
+
+							<StepHelpCard />
 						</div>
 
 						<StepTimelineSheet

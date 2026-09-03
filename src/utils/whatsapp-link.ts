@@ -3,6 +3,7 @@ import { env } from "@/config/env";
 export enum EnumWhatsAppLinkContext {
 	NewDonation = "new-donation",
 	NewDonor = "new-donor",
+	DonationHelp = "donation-help",
 }
 
 export function buildLactareWhatsAppLink(context: EnumWhatsAppLinkContext) {
@@ -17,6 +18,11 @@ export function buildLactareWhatsAppLink(context: EnumWhatsAppLinkContext) {
 		case EnumWhatsAppLinkContext.NewDonor:
 			message = encodeURIComponent(
 				"Olá! Quero ser doadora de leite pela Nutriz.",
+			);
+			break;
+		case EnumWhatsAppLinkContext.DonationHelp:
+			message = encodeURIComponent(
+				"Olá, estou com dúvida sobre minha doação e gostaria de ajuda.",
 			);
 			break;
 		default:

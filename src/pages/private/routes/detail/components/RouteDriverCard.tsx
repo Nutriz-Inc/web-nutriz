@@ -60,7 +60,7 @@ export function RouteDriverCard({
 						type="button"
 						onClick={onAbrirPerfil}
 						aria-label={`Abrir o perfil de ${nome}`}
-						className="group flex w-full items-center gap-3 p-5 outline-none transition-colors hover:bg-surface-2 focus-visible:ring-4 focus-visible:ring-blue-bright/40"
+						className="group flex w-full flex-1 items-center gap-3 p-5 text-left outline-none transition-colors hover:bg-surface-2 focus-visible:ring-4 focus-visible:ring-blue-bright/40"
 					>
 						{identidade}
 						<ChevronRight
@@ -71,18 +71,20 @@ export function RouteDriverCard({
 						/>
 					</button>
 				) : (
-					<div className="flex w-full items-center gap-3 p-5">{identidade}</div>
+					<div className="flex w-full flex-1 items-center gap-3 p-5">
+						{identidade}
+					</div>
 				)}
 
 				{carregando ? (
-					<div className="mt-auto border-t border-line p-5">
+					<div className="border-t border-line p-5">
 						<div className="h-10 w-full animate-pulse rounded-xl bg-surface-2" />
 					</div>
 				) : dados.length > 0 ? (
 					<DataGrid
 						colunas={2}
 						colunasMobile={1}
-						className="mt-auto border-t"
+						className="border-t"
 						itens={dados.map((item) => ({
 							chave: item.rotulo,
 							conteudo: (
@@ -96,7 +98,7 @@ export function RouteDriverCard({
 						}))}
 					/>
 				) : (
-					<p className="mt-auto border-t border-line px-5 py-4 text-[13px] text-ink-2">
+					<p className="border-t border-line px-5 py-4 text-[13px] text-ink-2">
 						Não foi possível carregar os dados do motorista.
 					</p>
 				)}

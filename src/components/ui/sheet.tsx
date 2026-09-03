@@ -133,7 +133,13 @@ function SheetDescription({
 	);
 }
 
+// Sheet de conteudo: barra de baixo no celular, cartao centrado no desktop.
+// Vive aqui para nao ser recopiada a cada tela que precisa do mesmo formato.
+const CLASSE_SHEET_CONTEUDO =
+	"flex max-h-[92vh] flex-col gap-5 rounded-t-2xl border-none p-5 lg:data-[side=bottom]:inset-x-0 lg:data-[side=bottom]:top-1/2 lg:data-[side=bottom]:bottom-auto lg:data-[side=bottom]:left-1/2 lg:data-[side=bottom]:h-auto lg:data-[side=bottom]:max-h-[min(88vh,46rem)] lg:data-[side=bottom]:w-[560px] lg:data-[side=bottom]:-translate-x-1/2 lg:data-[side=bottom]:-translate-y-1/2 lg:data-[side=bottom]:rounded-card lg:data-[side=bottom]:border lg:data-[side=bottom]:border-line lg:data-[side=bottom]:p-8 lg:data-[side=bottom]:shadow-lift";
+
 export {
+	CLASSE_SHEET_CONTEUDO,
 	Sheet,
 	SheetClose,
 	SheetContent,

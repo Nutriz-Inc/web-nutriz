@@ -1,13 +1,20 @@
-import { ChevronDown } from "lucide-react";
+import { Maximize2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import {
+	CLASSE_SHEET_CONTEUDO,
+	Sheet,
+	SheetContent,
+	SheetHeader,
+	SheetTitle,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 type Props = {
 	texto: string;
+	titulo: string;
 	linhas?: 2 | 3 | 4 | 5 | 6;
 	className?: string;
-	rotuloMais?: string;
-	rotuloMenos?: string;
+	rotulo?: string;
 };
 
 // Tailwind precisa da classe inteira escrita no fonte para gerar o CSS.
@@ -20,16 +27,16 @@ const CORTE = {
 } as const;
 
 /**
- * Texto de tamanho imprevisivel dentro de um cartao. Corta em N linhas e so
- * oferece "ver mais" quando o texto realmente passa disso, para o cartao nao
- * crescer sem limite e esticar o vizinho da mesma faixa.
+ * Texto de tamanho imprevisivel dentro de um cartao. Fica sempre cortado em N
+ * linhas e o texto inteiro abre num sheet — assim o cartao tem altura fixa e o
+ * vizinho da mesma faixa nunca e esticado por ele.
  */
 export function ExpandableText({
 	texto,
+	titulo,
 	linhas = 4,
 	className,
-	rotuloMais = "Ver mais",
-	rotuloMenos = "Ver menos",
+	rotulo = "Ver texto completo",
 }: Props) {
 	const referencia = useRef<HTMLParagraphElement>(null);
 	const [aberto, setAberto] = useState(false);
@@ -40,11 +47,8 @@ export function ExpandableText({
 
 		if (!elemento) return;
 
-		// So da para medir com o corte aplicado; aberto, altura real e a visivel.
-		if (aberto) return;
-
 		setTransborda(elemento.scrollHeight > elemento.clientHeight + 1);
-	}, [aberto]);
+	}, []);
 
 	useEffect(() => {
 		medir();
@@ -67,28 +71,36 @@ export function ExpandableText({
 				ref={referencia}
 				className={cn(
 					"whitespace-pre-line break-words text-[13px] leading-relaxed text-ink-2",
-					!aberto && CORTE[linhas],
+					CORTE[linhas],
 				)}
 			>
 				{texto}
 			</p>
 
-			{(transborda || aberto) && (
+			{transborda && (
 				<button
 					type="button"
-					onClick={() => setAberto((atual) => !atual)}
-					aria-expanded={aberto}
-					className="flex items-center gap-1 self-start rounded-full text-[12px] font-semibold text-blue-deep outline-none transition-colors hover:text-blue-fill focus-visible:ring-4 focus-visible:ring-blue-bright/50"
+					onClick={() => setAberto(true)}
+					className="flex items-center gap-1.5 self-start rounded-full text-[12px] font-semibold text-blue-deep outline-none transition-colors hover:text-blue-fill focus-visible:ring-4 focus-visible:ring-blue-bright/50"
 				>
-					{aberto ? rotuloMenos : rotuloMais}
-					<ChevronDown
-						className={cn(
-							"size-3.5 transition-transform duration-300",
-							aberto && "rotate-180",
-						)}
-					/>
+					{rotulo}
+					<Maximize2 className="size-3.5" />
 				</button>
 			)}
+
+			<Sheet open={aberto} onOpenChange={setAberto}>
+				<SheetContent side="bottom" className={CLASSE_SHEET_CONTEUDO}>
+					<SheetHeader className="p-0">
+						<SheetTitle className="font-display text-[18px] font-extrabold text-blue-deep">
+							{titulo}
+						</SheetTitle>
+					</SheetHeader>
+
+					<p className="overflow-y-auto whitespace-pre-line break-words text-[14px] leading-relaxed text-ink">
+						{texto}
+					</p>
+				</SheetContent>
+			</Sheet>
 		</div>
 	);
 }

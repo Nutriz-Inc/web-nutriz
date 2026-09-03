@@ -106,7 +106,11 @@ export function RouteDriverCard({
 				<span className="text-[11px] text-ink-2">Relato do motorista</span>
 
 				{relato ? (
-					<ExpandableText texto={relato} linhas={5} />
+					<ExpandableText
+						texto={relato}
+						titulo="Relato do motorista"
+						linhas={5}
+					/>
 				) : (
 					<p className="text-[13px] leading-relaxed text-ink-2">
 						Registrado quando o motorista finaliza a rota.

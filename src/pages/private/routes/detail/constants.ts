@@ -1,3 +1,5 @@
+import { CLASSE_SHEET_CONTEUDO } from "@/components/ui/sheet";
+
 export const LIMITE_ROTA_MS = 6 * 60 * 60 * 1000;
 
 export const AVISO_ROTA_MS = 5 * 60 * 60 * 1000;
@@ -53,8 +55,7 @@ export const MENSAGENS_DE_ERRO: Record<string, string> = {
 export const ERRO_GENERICO =
 	"Não foi possível concluir a ação. Tente novamente.";
 
-export const CLASSE_SHEET =
-	"flex max-h-[92vh] flex-col gap-5 rounded-t-2xl border-none p-5 lg:data-[side=bottom]:inset-x-0 lg:data-[side=bottom]:top-1/2 lg:data-[side=bottom]:bottom-auto lg:data-[side=bottom]:left-1/2 lg:data-[side=bottom]:h-auto lg:data-[side=bottom]:max-h-[min(88vh,46rem)] lg:data-[side=bottom]:w-[560px] lg:data-[side=bottom]:-translate-x-1/2 lg:data-[side=bottom]:-translate-y-1/2 lg:data-[side=bottom]:rounded-card lg:data-[side=bottom]:border lg:data-[side=bottom]:border-line lg:data-[side=bottom]:p-8 lg:data-[side=bottom]:shadow-lift";
+export const CLASSE_SHEET = CLASSE_SHEET_CONTEUDO;
 
 export const CLASSE_CAMPO_TEXTO =
 	"w-full resize-y rounded-xl border border-blue-tint bg-surface px-3.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-blue-bright";

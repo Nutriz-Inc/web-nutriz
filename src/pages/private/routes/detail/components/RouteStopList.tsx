@@ -1,15 +1,34 @@
 import { Plus } from "lucide-react";
-import rotaSemParadas from "@/assets/illustrations/rota-sem-paradas.svg";
-import rotaSemParadasEscuro from "@/assets/illustrations/rota-sem-paradas-escuro.svg";
+import rotaAguardando from "@/assets/illustrations/rota-aguardando.png";
+import rotaEmAndamento from "@/assets/illustrations/rota-em-andamento.png";
+import rotaFinalizada from "@/assets/illustrations/rota-finalizada.png";
 import { EmptyState } from "@/components/full/EmptyState";
-import { useAccessibility } from "@/context/accessibility-context";
 import type { IRouteStop } from "@/services/types/i-route";
+import type { EstadoDaRota } from "../utils";
 import { estadoDaParada, indiceDaParadaAtual } from "../utils";
 import { RouteStopItem } from "./RouteStopItem";
+
+// Uma arte por momento da rota, para o motorista reconhecer de relance em que
+// pe ele esta sem precisar ler nada.
+const ARTE: Record<EstadoDaRota, { src: string; alt: string }> = {
+	aguardando: {
+		src: rotaAguardando,
+		alt: "Motorista ao lado do caminhão com a lista de paradas pronta, aguardando o início da rota",
+	},
+	andamento: {
+		src: rotaEmAndamento,
+		alt: "Caminhão a caminho das próximas paradas, com parte do trajeto já concluído",
+	},
+	finalizada: {
+		src: rotaFinalizada,
+		alt: "Motorista comemorando com todas as paradas da rota concluídas",
+	},
+};
 
 type Props = {
 	stops: IRouteStop[];
 	rotaIniciada: boolean;
+	estadoRota: EstadoDaRota;
 	podeGerenciar: boolean;
 	podeMarcar: boolean;
 	onAdicionar: () => void;
@@ -21,6 +40,7 @@ type Props = {
 export function RouteStopList({
 	stops,
 	rotaIniciada,
+	estadoRota,
 	podeGerenciar,
 	podeMarcar,
 	onAdicionar,
@@ -28,8 +48,7 @@ export function RouteStopList({
 	onMarcar,
 	onReportarProblema,
 }: Props) {
-	const { temaEfetivo } = useAccessibility();
-	const arte = temaEfetivo === "escuro" ? rotaSemParadasEscuro : rotaSemParadas;
+	const arte = ARTE[estadoRota];
 
 	const indiceAtual = rotaIniciada ? indiceDaParadaAtual(stops) : -1;
 
@@ -39,8 +58,8 @@ export function RouteStopList({
 				<EmptyState
 					size="sm"
 					className="my-auto"
-					illustration={rotaSemParadas}
-					illustrationDark={rotaSemParadasEscuro}
+					illustration={arte.src}
+					illustrationDark={arte.src}
 					title="Nenhuma parada nesta rota"
 					description={
 						podeGerenciar
@@ -76,17 +95,15 @@ export function RouteStopList({
 
 					{/* Ocupa o que sobrar quando a lista e curta e colapsa sozinha
 					    (flex-1) quando as paradas passam da altura do cartao. */}
-					<div
-						aria-hidden="true"
-						className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-5 pt-2"
-					>
+					<div className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-5 pt-2">
 						<img
-							src={arte}
-							alt=""
+							src={arte.src}
+							alt={arte.alt}
 							loading="lazy"
-							width={960}
-							height={402}
-							className="max-h-full w-full max-w-[260px] select-none opacity-80"
+							decoding="async"
+							width={1536}
+							height={1024}
+							className="max-h-full w-full max-w-[280px] select-none object-contain"
 						/>
 					</div>
 				</div>

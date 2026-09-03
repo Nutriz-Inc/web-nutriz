@@ -8,6 +8,24 @@ import { ERRO_GENERICO, MENSAGENS_DE_ERRO } from "./constants";
 
 export type EstadoDaParada = "concluida" | "erro" | "atual" | "proxima";
 
+export type EstadoDaRota = "aguardando" | "andamento" | "finalizada";
+
+/**
+ * Em que pe a rota esta, do ponto de vista de quem opera. Cancelada e com erro
+ * contam como encerradas: nao ha mais o que rodar nelas.
+ */
+export function estadoDaRota(route: {
+	status: EnumRouteStatus;
+	date_start?: string;
+	date_end?: string;
+}): EstadoDaRota {
+	if (route.date_end || ehRotaEncerrada(route.status)) {
+		return "finalizada";
+	}
+
+	return route.date_start ? "andamento" : "aguardando";
+}
+
 export function ehRotaEncerrada(status: EnumRouteStatus): boolean {
 	return (
 		status === EnumRouteStatus.Done ||

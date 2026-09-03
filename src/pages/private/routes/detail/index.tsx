@@ -46,6 +46,7 @@ import {
 	ehIdDeDoacao,
 	ehRotaAlteravel,
 	entradaDeImprevisto,
+	estadoDaRota,
 	formatarEndereco,
 	mensagemDeErro,
 	ordenarParadas,
@@ -327,6 +328,7 @@ export function RouteDetailPage() {
 								<RouteStopList
 									stops={stops}
 									rotaIniciada={Boolean(route.date_start)}
+									estadoRota={estadoDaRota(route)}
 									podeGerenciar={podeGerenciar}
 									podeMarcar={podeMarcarParada}
 									onAdicionar={() => setModal("adicionar")}

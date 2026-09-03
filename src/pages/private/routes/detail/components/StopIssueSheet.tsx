@@ -70,8 +70,11 @@ export function StopIssueSheet({
 				<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-0.5">
 					<p className="flex items-start gap-2 rounded-xl bg-danger-tint px-3.5 py-3 text-[13px] font-semibold text-danger">
 						<CircleAlert className="mt-px size-4 shrink-0" />A parada fica
-						marcada como não realizada e você segue para a próxima. Dá para
-						voltar atrás registrando a chegada depois.
+						marcada como não realizada e você segue para a próxima.{" "}
+						<strong className="font-extrabold">
+							Não dá para voltar atrás:
+						</strong>{" "}
+						marcou imprevisto, a parada fica assim até o fim da rota.
 					</p>
 
 					<div className="flex flex-col gap-1.5">

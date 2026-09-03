@@ -60,9 +60,12 @@ export function RouteStopList({
 								estado={estadoDaParada(stop, index, indiceAtual)}
 								isLast={index === stops.length - 1}
 								podeRemover={podeGerenciar}
+								// Parada com erro nao volta atras: marcou, marcou.
 								podeMarcar={
 									podeMarcar &&
-									estadoDaParada(stop, index, indiceAtual) !== "concluida"
+									!["concluida", "erro"].includes(
+										estadoDaParada(stop, index, indiceAtual),
+									)
 								}
 								onRemover={() => onRemover(stop)}
 								onMarcar={() => onMarcar(stop)}

@@ -151,19 +151,17 @@ export function RouteStopItem({
 							)}
 						>
 							<Check className="size-4 shrink-0" strokeWidth={3} />
-							{comErro ? "Consegui coletar" : "Cheguei"}
+							Cheguei
 						</button>
 
-						{!comErro && (
-							<button
-								type="button"
-								onClick={onReportarProblema}
-								className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-danger-tint bg-surface px-3 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40"
-							>
-								<CircleAlert className="size-4 shrink-0" />
-								Imprevisto
-							</button>
-						)}
+						<button
+							type="button"
+							onClick={onReportarProblema}
+							className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-danger-tint bg-surface px-3 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40"
+						>
+							<CircleAlert className="size-4 shrink-0" />
+							Imprevisto
+						</button>
 					</div>
 				)}
 			</div>

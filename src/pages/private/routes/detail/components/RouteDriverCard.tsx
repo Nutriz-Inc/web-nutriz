@@ -1,5 +1,6 @@
 import { ChevronRight, IdCard } from "lucide-react";
 import { DataGrid } from "@/components/full/DataGrid";
+import { ExpandableText } from "@/components/full/ExpandableText";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import type { User } from "@/services/types/i-user";
@@ -105,9 +106,7 @@ export function RouteDriverCard({
 				<span className="text-[11px] text-ink-2">Relato do motorista</span>
 
 				{relato ? (
-					<p className="whitespace-pre-line text-[13px] leading-relaxed text-ink">
-						{relato}
-					</p>
+					<ExpandableText texto={relato} linhas={5} />
 				) : (
 					<p className="text-[13px] leading-relaxed text-ink-2">
 						Registrado quando o motorista finaliza a rota.

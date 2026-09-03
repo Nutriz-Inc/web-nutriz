@@ -1,5 +1,6 @@
 import { Pencil } from "lucide-react";
 import { DataGrid } from "@/components/full/DataGrid";
+import { ExpandableText } from "@/components/full/ExpandableText";
 import type { IGetRouteResponse } from "@/services/types/i-route";
 import { formatDateBR, formatDateTimeParts } from "@/utils/formatter";
 
@@ -29,9 +30,13 @@ export function RouteDetailsCard({ route, podeEditar, onEditar }: Props) {
 	return (
 		<section className="flex h-full w-full flex-col">
 			<div className="flex items-start justify-between gap-3 p-5">
-				<p className="min-w-0 flex-1 whitespace-pre-line break-words text-[13px] leading-relaxed text-ink-2">
-					{route.description || "Sem descrição."}
-				</p>
+				{route.description ? (
+					<ExpandableText texto={route.description} className="flex-1" />
+				) : (
+					<p className="min-w-0 flex-1 text-[13px] leading-relaxed text-ink-2">
+						Sem descrição.
+					</p>
+				)}
 
 				{podeEditar && (
 					<button

@@ -1,11 +1,9 @@
 import "leaflet/dist/leaflet.css";
 
 import { divIcon } from "leaflet";
-import { MapPinned } from "lucide-react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { MapResizeHandler } from "@/components/full/MapResizeHandler";
 import { useAccessibility } from "@/context/accessibility-context";
-import { useRegionCoordinates } from "../hooks";
 
 const marcador = divIcon({
 	className: "",
@@ -14,40 +12,43 @@ const marcador = divIcon({
 	html: '<span style="display:block;width:18px;height:18px;border-radius:9999px;background:#00549e;border:3px solid #fff;box-shadow:0 2px 5px rgba(15,31,61,.35)"></span>',
 });
 
+// O mapa do card e enfeite: nao vale uma ida ao Nominatim por cartao, que ainda
+// por cima deixava sem mapa toda rota sem regiao cadastrada. Cada card recebe um
+// recorte fixo, sorteado pelo id da rota — o mesmo card mostra sempre o mesmo.
+const RECORTES: [number, number][] = [
+	[-23.5505, -46.6333], // Se
+	[-23.5629, -46.6544], // Bela Vista
+	[-23.5475, -46.6361], // Republica
+	[-23.5975, -46.6875], // Santo Amaro
+	[-23.5329, -46.7918], // Butanta
+	[-23.5087, -46.6266], // Santana
+	[-23.5678, -46.7089], // Pinheiros
+	[-23.6236, -46.6403], // Jabaquara
+];
+
+function recorteDaRota(id: string): [number, number] {
+	let soma = 0;
+
+	for (let i = 0; i < id.length; i += 1) {
+		soma = (soma + id.charCodeAt(i) * (i + 1)) % 100000;
+	}
+
+	return RECORTES[soma % RECORTES.length];
+}
+
 type Props = {
-	city?: string;
-	neighborhood?: string;
+	idRoute: string;
 };
 
-export function RouteMiniMap({ city, neighborhood }: Props) {
+export function RouteMiniMap({ idRoute }: Props) {
 	const { temaEfetivo } = useAccessibility();
 	const escuro = temaEfetivo === "escuro";
-	const temRegiao = Boolean(city || neighborhood);
-	const { data, isLoading } = useRegionCoordinates(city, neighborhood);
-
-	if (temRegiao && isLoading) {
-		return <div className="size-full animate-pulse bg-surface-2" />;
-	}
-
-	// Sem coordenada nao da para desenhar o mapa certo, e desenhar o errado seria
-	// pior. O lugar vira um painel proprio em vez de um icone solto no cinza.
-	if (!data) {
-		return (
-			<div className="flex size-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-blue-tint via-surface-2 to-surface-2 px-3 text-center">
-				<MapPinned className="size-6 text-blue-deep/60" />
-				<span className="text-[11px] leading-tight text-ink-2">
-					{temRegiao ? "Região não localizada" : "Região não informada"}
-				</span>
-			</div>
-		);
-	}
-
-	const centro: [number, number] = [data.latitude, data.longitude];
+	const centro = recorteDaRota(idRoute);
 
 	return (
 		<MapContainer
 			center={centro}
-			zoom={12}
+			zoom={13}
 			dragging={false}
 			scrollWheelZoom={false}
 			doubleClickZoom={false}

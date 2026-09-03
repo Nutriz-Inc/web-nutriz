@@ -308,9 +308,7 @@ export function RouteDetailPage() {
 						<section
 							className={cn(BLOCO, podeIniciar && "order-first lg:order-none")}
 						>
-							<SectionLabel trailing={<OpenInMapsButton stops={stops} />}>
-								Trajeto
-							</SectionLabel>
+							<SectionLabel>Trajeto</SectionLabel>
 
 							<div className={CARTAO}>
 								<RouteMapCard
@@ -333,10 +331,14 @@ export function RouteDetailPage() {
 								/>
 							</div>
 
-							<p className="text-[12px] leading-relaxed text-ink-2">
-								Traçado ilustrativo. Início, chegadas e finalização continuam
-								sendo registrados aqui no sistema.
-							</p>
+							<div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
+								<p className="text-[12px] leading-relaxed text-ink-2">
+									Traçado ilustrativo. Início, chegadas e finalização continuam
+									sendo registrados aqui no sistema.
+								</p>
+
+								<OpenInMapsButton stops={stops} />
+							</div>
 						</section>
 					</div>
 

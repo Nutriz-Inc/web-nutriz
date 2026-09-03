@@ -11,7 +11,6 @@ import type {
 	IListRoutesRequest,
 } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
-import { geocodeRegion } from "@/utils/geocode";
 
 export function useRoutesList(params: IListRoutesRequest) {
 	return useQuery({
@@ -90,16 +89,5 @@ export function useSpDistricts(cityId?: number) {
 		enabled: Boolean(cityId),
 		staleTime: Number.POSITIVE_INFINITY,
 		gcTime: Number.POSITIVE_INFINITY,
-	});
-}
-
-export function useRegionCoordinates(city?: string, neighborhood?: string) {
-	return useQuery({
-		queryKey: ["route-region", city ?? "", neighborhood ?? ""],
-		enabled: Boolean(city || neighborhood),
-		staleTime: 24 * 60 * 60 * 1000,
-		gcTime: 24 * 60 * 60 * 1000,
-		retry: false,
-		queryFn: ({ signal }) => geocodeRegion(city, neighborhood, signal),
 	});
 }

@@ -85,7 +85,7 @@ export function RouteCard({ route }: RouteCardProps) {
 				aria-hidden="true"
 				className="relative isolate hidden w-[180px] shrink-0 self-stretch overflow-hidden border-l border-line sm:block"
 			>
-				<RouteMiniMap city={route.city} neighborhood={route.neighborhood} />
+				<RouteMiniMap idRoute={route.id_route} />
 			</div>
 		</motion.button>
 	);

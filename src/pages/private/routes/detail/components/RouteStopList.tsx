@@ -1,5 +1,4 @@
 import { Plus } from "lucide-react";
-import rotaSemParadas from "@/assets/illustrations/rota-sem-paradas.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import type { IRouteStop } from "@/services/types/i-route";
 import { estadoDaParada, indiceDaParadaAtual } from "../utils";
@@ -34,7 +33,6 @@ export function RouteStopList({
 				<EmptyState
 					size="sm"
 					className="my-auto"
-					illustration={rotaSemParadas}
 					title="Nenhuma parada nesta rota"
 					description={
 						podeGerenciar
@@ -43,9 +41,7 @@ export function RouteStopList({
 					}
 				/>
 			) : (
-				// A rolagem fica neste container, nao na <ol>: assim a ilustracao de
-				// rodape ocupa o que sobrar quando a lista e curta, e some sozinha
-				// (flex-1 colapsa) quando as paradas passam da altura do cartao.
+				// O cartao tem altura fixa, igual a do mapa: a lista rola por dentro.
 				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
 					<ol className="flex shrink-0 flex-col p-5">
 						{stops.map((stop, index) => (
@@ -66,21 +62,6 @@ export function RouteStopList({
 							/>
 						))}
 					</ol>
-
-					<div
-						aria-hidden="true"
-						className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-6 pb-5 pt-2"
-					>
-						<img
-							src={rotaSemParadas}
-							alt=""
-							loading="lazy"
-							data-ilustracao=""
-							width={454}
-							height={272}
-							className="max-h-full w-full max-w-[240px] select-none opacity-70"
-						/>
-					</div>
 				</div>
 			)}
 

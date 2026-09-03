@@ -350,7 +350,7 @@ export function RouteDetailPage() {
 						)}
 					>
 						<section className={BLOCO}>
-							<SectionLabel>Detalhes da rota</SectionLabel>
+							<SectionLabel>Descrição</SectionLabel>
 							<div className={cn(CARTAO, "flex-1")}>
 								<RouteDetailsCard
 									route={route}

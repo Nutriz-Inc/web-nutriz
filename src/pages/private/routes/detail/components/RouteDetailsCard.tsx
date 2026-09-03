@@ -1,8 +1,6 @@
 import { Pencil } from "lucide-react";
-import { DataGrid } from "@/components/full/DataGrid";
 import { ExpandableText } from "@/components/full/ExpandableText";
 import type { IGetRouteResponse } from "@/services/types/i-route";
-import { formatDateBR, formatDateTimeParts } from "@/utils/formatter";
 
 type Props = {
 	route: IGetRouteResponse;
@@ -11,22 +9,6 @@ type Props = {
 };
 
 export function RouteDetailsCard({ route, podeEditar, onEditar }: Props) {
-	const previsto = formatDateTimeParts(route.date_set);
-
-	const meta = [
-		{
-			rotulo: "Prevista para",
-			valor: previsto.date,
-			complemento: `às ${previsto.time}`,
-		},
-		{
-			rotulo: "Região",
-			valor:
-				[route.city, route.neighborhood].filter(Boolean).join(" · ") || "—",
-		},
-		{ rotulo: "Criada em", valor: formatDateBR(route.created_at) },
-	];
-
 	return (
 		<section className="flex h-full w-full flex-col">
 			<div className="flex items-start justify-between gap-3 p-5">
@@ -53,28 +35,6 @@ export function RouteDetailsCard({ route, podeEditar, onEditar }: Props) {
 					</button>
 				)}
 			</div>
-
-			<DataGrid
-				colunas={3}
-				colunasMobile={1}
-				className="mt-auto border-t"
-				itens={meta.map((item) => ({
-					chave: item.rotulo,
-					conteudo: (
-						<div className="flex flex-col gap-1 px-5 py-4">
-							<span className="text-[11px] text-ink-2">{item.rotulo}</span>
-							<span className="break-words text-[13px] font-semibold text-ink">
-								{item.valor}
-							</span>
-							{item.complemento && (
-								<span className="text-[11px] text-ink-2">
-									{item.complemento}
-								</span>
-							)}
-						</div>
-					),
-				}))}
-			/>
 		</section>
 	);
 }

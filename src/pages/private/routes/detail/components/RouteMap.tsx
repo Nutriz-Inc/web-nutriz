@@ -3,12 +3,17 @@ import "leaflet/dist/leaflet.css";
 import { divIcon } from "leaflet";
 import { MapContainer, Marker, Polyline, TileLayer } from "react-leaflet";
 import { MapResizeHandler } from "@/components/full/MapResizeHandler";
-import { useAccessibility } from "@/context/accessibility-context";
 import { cn } from "@/lib/utils";
 import type { IRouteStop } from "@/services/types/i-route";
 import { formatarEndereco, temCoordenadas } from "../utils";
 import { FitRouteBounds } from "./FitRouteBounds";
 import { MapInteractionToggle } from "./MapInteractionToggle";
+
+// O mapa das rotas fica no tile claro mesmo no tema escuro: o World_Topo_Map
+// mostra nome de rua, quadra e ponto de referencia que o Dark Gray Base nao tem,
+// e aqui o mapa e ferramenta de trabalho do motorista, nao enfeite.
+const TILE_ROTA =
+	"https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}";
 
 const CENTRO_PADRAO: [number, number] = [-23.5505, -46.6333];
 const ZOOM_MINIMO = 3;
@@ -37,9 +42,6 @@ type Props = {
 };
 
 export function RouteMap({ stops, interativo = true, className }: Props) {
-	const { temaEfetivo } = useAccessibility();
-	const escuro = temaEfetivo === "escuro";
-
 	const comCoordenada = stops.filter(temCoordenadas);
 
 	const posicoes: [number, number][] = comCoordenada.map((stop) => [
@@ -65,13 +67,8 @@ export function RouteMap({ stops, interativo = true, className }: Props) {
 				className="size-full"
 			>
 				<TileLayer
-					key={temaEfetivo}
 					attribution='Tiles &copy; <a href="https://www.esri.com">Esri</a>'
-					url={
-						escuro
-							? "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-							: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
-					}
+					url={TILE_ROTA}
 					maxZoom={ZOOM_MAXIMO}
 					maxNativeZoom={ZOOM_MAXIMO_COM_DADOS}
 					noWrap

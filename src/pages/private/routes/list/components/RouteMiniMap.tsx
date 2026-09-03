@@ -3,7 +3,12 @@ import "leaflet/dist/leaflet.css";
 import { divIcon } from "leaflet";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { MapResizeHandler } from "@/components/full/MapResizeHandler";
-import { useAccessibility } from "@/context/accessibility-context";
+
+// O mapa das rotas fica no tile claro mesmo no tema escuro: o World_Topo_Map
+// mostra nome de rua, quadra e ponto de referencia que o Dark Gray Base nao tem,
+// e aqui o mapa e ferramenta de trabalho do motorista, nao enfeite.
+const TILE_ROTA =
+	"https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}";
 
 const marcador = divIcon({
 	className: "",
@@ -41,8 +46,6 @@ type Props = {
 };
 
 export function RouteMiniMap({ idRoute }: Props) {
-	const { temaEfetivo } = useAccessibility();
-	const escuro = temaEfetivo === "escuro";
 	const centro = recorteDaRota(idRoute);
 
 	return (
@@ -58,16 +61,7 @@ export function RouteMiniMap({ idRoute }: Props) {
 			attributionControl={false}
 			className="size-full"
 		>
-			<TileLayer
-				key={temaEfetivo}
-				url={
-					escuro
-						? "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-						: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
-				}
-				maxNativeZoom={16}
-				noWrap
-			/>
+			<TileLayer url={TILE_ROTA} maxNativeZoom={16} noWrap />
 			<MapResizeHandler />
 			<Marker position={centro} icon={marcador} />
 		</MapContainer>

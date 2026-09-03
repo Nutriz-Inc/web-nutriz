@@ -4,7 +4,7 @@ import { Reveal } from "@/components/full/Reveal";
 import { cn } from "@/lib/utils";
 
 type EmptyStateProps = {
-	illustration: string;
+	illustration?: string;
 	title: string;
 	description?: string;
 	action?: ReactNode;
@@ -32,16 +32,18 @@ export function EmptyState({
 				className,
 			)}
 		>
-			<img
-				src={illustration}
-				alt=""
-				aria-hidden="true"
-				loading="lazy"
-				data-ilustracao=""
-				width={320}
-				height={200}
-				className={cn("w-auto max-w-full select-none", ALTURA[size])}
-			/>
+			{illustration && (
+				<img
+					src={illustration}
+					alt=""
+					aria-hidden="true"
+					loading="lazy"
+					data-ilustracao=""
+					width={320}
+					height={200}
+					className={cn("w-auto max-w-full select-none", ALTURA[size])}
+				/>
+			)}
 
 			<div className="flex flex-col gap-1">
 				<p className="text-[15px] font-semibold text-ink">{title}</p>

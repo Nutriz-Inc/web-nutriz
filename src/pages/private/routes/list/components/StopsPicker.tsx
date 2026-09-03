@@ -1,5 +1,7 @@
-import { Check, Plus, X } from "lucide-react";
-import { useMemo } from "react";
+import { Check, Plus, Search, X } from "lucide-react";
+import { useMemo, useState } from "react";
+import { SectionLabel } from "@/components/full/SectionLabel";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { cn } from "@/lib/utils";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
 import { formatDateBR } from "@/utils/formatter";
@@ -12,111 +14,227 @@ type StopsPickerProps = {
 	neighborhood?: string;
 };
 
+// Busca sem acento: "sao paulo" acha "São Paulo".
+function normalizar(texto: string): string {
+	return texto
+		.normalize("NFD")
+		.replace(/\p{Diacritic}/gu, "")
+		.toLowerCase();
+}
+
 export function StopsPicker({
 	value,
 	onChange,
 	city,
 	neighborhood,
 }: StopsPickerProps) {
+	const [busca, setBusca] = useState("");
+
+	// Cidade e bairro sao digitados: sem atraso, cada tecla vira uma consulta.
+	const cidadeAtrasada = useDebouncedValue(city);
+	const bairroAtrasado = useDebouncedValue(neighborhood);
+
 	const { data, isLoading } = useDonationStepsList({
 		page: 1,
 		page_size: 50,
 		status: EnumDonationStepStatus.Pending,
 		has_address: true,
 		available_for_route: true,
-		city: city || undefined,
-		neighborhood: neighborhood || undefined,
+		city: cidadeAtrasada || undefined,
+		neighborhood: bairroAtrasado || undefined,
 	});
 	const steps = data?.data ?? [];
 
 	const selected = new Set(value);
-	const labelById = useMemo(() => {
-		const map = new Map<string, string>();
-		for (const step of steps) map.set(step.id_donation_step, step.name);
-		return map;
+
+	const dadosPorId = useMemo(() => {
+		const mapa = new Map<string, { nome: string; local: string }>();
+
+		for (const step of steps) {
+			mapa.set(step.id_donation_step, {
+				nome: step.name,
+				local: [step.address?.neighborhood, step.address?.city]
+					.filter(Boolean)
+					.join(" · "),
+			});
+		}
+
+		return mapa;
 	}, [steps]);
 
-	function add(id: string) {
-		if (!selected.has(id)) onChange([...value, id]);
-	}
+	// A busca so filtra o que ja veio: nao muda a consulta nem os filtros que o
+	// backend espera.
+	const visiveis = useMemo(() => {
+		const termo = normalizar(busca.trim());
 
-	function remove(id: string) {
-		onChange(value.filter((current) => current !== id));
+		if (!termo) return steps;
+
+		return steps.filter((step) =>
+			normalizar(
+				[
+					step.name,
+					step.address?.neighborhood,
+					step.address?.city,
+					step.id_donation,
+				]
+					.filter(Boolean)
+					.join(" "),
+			).includes(termo),
+		);
+	}, [steps, busca]);
+
+	function alternar(id: string) {
+		if (selected.has(id)) {
+			onChange(value.filter((atual) => atual !== id));
+			return;
+		}
+
+		onChange([...value, id]);
 	}
 
 	return (
-		<div className="flex flex-col gap-2.5 text-left">
-			<span className="text-[12px] font-semibold text-ink-2">
-				Paradas da rota <span className="text-ink-3">({value.length})</span>
-			</span>
+		<section className="flex flex-col gap-3 text-left">
+			<SectionLabel
+				trailing={
+					<span
+						className={cn(
+							"text-[12px] font-semibold",
+							value.length > 0 ? "text-blue-deep" : "text-ink-2",
+						)}
+					>
+						{value.length} selecionada{value.length === 1 ? "" : "s"}
+					</span>
+				}
+			>
+				Paradas
+			</SectionLabel>
 
-			{value.length > 0 && (
-				<div className="flex flex-wrap gap-1.5">
-					{value.map((id, index) => (
-						<span
-							key={id}
-							className="flex items-center gap-1 rounded-full bg-blue-tint px-2.5 py-1 text-[12px] font-semibold text-blue-deep"
-						>
-							{index + 1}. {labelById.get(id) ?? `${id.slice(0, 8)}…`}
-							<button
-								type="button"
-								onClick={() => remove(id)}
-								aria-label="Remover parada"
-							>
-								<X className="size-3.5" />
-							</button>
-						</span>
-					))}
-				</div>
-			)}
-
-			<div className="flex max-h-[220px] flex-col gap-1.5 overflow-y-auto rounded-card-sm border border-line bg-surface-2 p-2">
-				{isLoading ? (
-					<p className="px-1 py-2 text-[13px] text-ink-3">Carregando etapas…</p>
-				) : steps.length === 0 ? (
-					<p className="px-1 py-2 text-[13px] text-ink-3">
-						Nenhuma etapa disponível.
-					</p>
-				) : (
-					steps.map((step) => {
-						const added = selected.has(step.id_donation_step);
-						const location = [step.address?.city, step.address?.neighborhood]
-							.filter(Boolean)
-							.join(" · ");
+			{value.length > 0 ? (
+				<ol className="flex flex-col gap-1.5 rounded-xl border border-blue-tint bg-blue-tint/40 p-2.5">
+					{value.map((id, index) => {
+						const dados = dadosPorId.get(id);
 
 						return (
-							<button
-								key={step.id_donation_step}
-								type="button"
-								onClick={() =>
-									added
-										? remove(step.id_donation_step)
-										: add(step.id_donation_step)
-								}
-								className={cn(
-									"flex items-center justify-between gap-2 rounded-lg border px-2.5 py-2 text-left text-[13px] transition-colors",
-									added
-										? "border-blue-deep bg-blue-tint text-blue-deep"
-										: "border-line bg-surface text-ink hover:bg-surface-3",
-								)}
+							<li
+								key={id}
+								className="flex items-center gap-2.5 rounded-lg bg-surface px-2.5 py-2"
 							>
-								<span className="flex min-w-0 flex-col">
-									<span className="truncate font-semibold">{step.name}</span>
-									<span className="truncate text-[11px] text-ink-3">
-										{step.set_date ? formatDateBR(step.set_date) : "sem data"}
-										{location && ` · ${location}`}
-									</span>
+								<span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-blue-deep-fill text-[11px] font-bold tabular-nums text-white">
+									{index + 1}
 								</span>
-								{added ? (
-									<Check className="size-4 shrink-0" />
-								) : (
-									<Plus className="size-4 shrink-0 text-ink-3" />
-								)}
-							</button>
+
+								<span className="flex min-w-0 flex-1 flex-col">
+									<span className="truncate text-[13px] font-semibold text-ink">
+										{dados?.nome ?? `${id.slice(0, 12)}…`}
+									</span>
+									{dados?.local && (
+										<span className="truncate text-[11px] text-ink-2">
+											{dados.local}
+										</span>
+									)}
+								</span>
+
+								<button
+									type="button"
+									onClick={() => alternar(id)}
+									aria-label={`Remover ${dados?.nome ?? "parada"} da rota`}
+									className="flex size-7 shrink-0 items-center justify-center rounded-full text-ink-2 outline-none transition-colors hover:bg-danger-tint hover:text-danger focus-visible:ring-4 focus-visible:ring-danger/40"
+								>
+									<X className="size-3.5" />
+								</button>
+							</li>
 						);
-					})
-				)}
+					})}
+				</ol>
+			) : (
+				<p className="rounded-xl border border-dashed border-blue-tint-2 px-3.5 py-3 text-[12px] leading-relaxed text-ink-2">
+					Nenhuma parada escolhida ainda. Toque nas etapas abaixo para montar o
+					trajeto — a ordem de visita é otimizada depois.
+				</p>
+			)}
+
+			<div className="flex flex-col gap-2 rounded-xl border border-line bg-surface-2 p-2.5">
+				<div className="relative">
+					<Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ink-3" />
+					<input
+						value={busca}
+						onChange={(evento) => setBusca(evento.target.value)}
+						placeholder="Buscar etapa por nome, bairro ou cidade"
+						aria-label="Buscar etapa disponível"
+						className="w-full rounded-lg border border-line bg-surface py-2 pl-9 pr-3 text-[13px] text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-blue-bright"
+					/>
+				</div>
+
+				<div className="flex max-h-[240px] flex-col gap-1.5 overflow-y-auto">
+					{isLoading ? (
+						<p className="px-1 py-3 text-center text-[13px] text-ink-2">
+							Carregando etapas disponíveis…
+						</p>
+					) : visiveis.length === 0 ? (
+						<p className="px-3 py-3 text-center text-[13px] leading-relaxed text-ink-2">
+							{busca.trim()
+								? "Nenhuma etapa encontrada para essa busca."
+								: city || neighborhood
+									? "Nenhuma etapa disponível nessa região. Limpe a cidade e o bairro para ver todas."
+									: "Nenhuma etapa disponível para montar rota no momento."}
+						</p>
+					) : (
+						visiveis.map((step) => {
+							const escolhida = selected.has(step.id_donation_step);
+							const local = [step.address?.neighborhood, step.address?.city]
+								.filter(Boolean)
+								.join(" · ");
+
+							return (
+								<button
+									key={step.id_donation_step}
+									type="button"
+									aria-pressed={escolhida}
+									onClick={() => alternar(step.id_donation_step)}
+									className={cn(
+										"flex items-center gap-2.5 rounded-lg border px-2.5 py-2 text-left outline-none transition-colors focus-visible:ring-4 focus-visible:ring-blue-bright/40",
+										escolhida
+											? "border-blue-deep bg-blue-tint"
+											: "border-line bg-surface hover:border-blue-tint-2 hover:bg-blue-tint/40",
+									)}
+								>
+									<span
+										className={cn(
+											"flex size-5 shrink-0 items-center justify-center rounded-md border transition-colors",
+											escolhida
+												? "border-blue-deep bg-blue-deep-fill text-white"
+												: "border-blue-tint-2 bg-surface text-transparent",
+										)}
+									>
+										{escolhida ? (
+											<Check className="size-3.5" strokeWidth={3} />
+										) : (
+											<Plus className="size-3.5 text-ink-3" />
+										)}
+									</span>
+
+									<span className="flex min-w-0 flex-1 flex-col">
+										<span
+											className={cn(
+												"truncate text-[13px] font-semibold",
+												escolhida ? "text-blue-deep" : "text-ink",
+											)}
+										>
+											{step.name}
+										</span>
+										<span className="truncate text-[11px] text-ink-2">
+											{step.set_date
+												? formatDateBR(step.set_date)
+												: "sem data prevista"}
+											{local && ` · ${local}`}
+										</span>
+									</span>
+								</button>
+							);
+						})
+					)}
+				</div>
 			</div>
-		</div>
+		</section>
 	);
 }

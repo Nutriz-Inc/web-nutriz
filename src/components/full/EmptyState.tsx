@@ -53,7 +53,10 @@ export function EmptyState({
 					{...(illustrationDark ? {} : { "data-ilustracao": "" })}
 					width={320}
 					height={200}
-					className={cn("w-auto max-w-full select-none", ALTURA[size])}
+					className={cn(
+						"w-auto max-w-full select-none object-contain",
+						ALTURA[size],
+					)}
 				/>
 			)}
 

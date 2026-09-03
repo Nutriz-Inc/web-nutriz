@@ -1,6 +1,7 @@
 import "leaflet/dist/leaflet.css";
 
 import { divIcon } from "leaflet";
+import { useEffect, useRef, useState } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { MapResizeHandler } from "@/components/full/MapResizeHandler";
 
@@ -46,7 +47,41 @@ type Props = {
 };
 
 export function RouteMiniMap({ idRoute }: Props) {
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [visivel, setVisivel] = useState(false);
 	const centro = recorteDaRota(idRoute);
+
+	// A listagem traz até 50 cartões, e cada mapa baixa os próprios tiles. Montar
+	// todos de uma vez enche a rede de requisições que ninguém vai ver: o mapa só
+	// nasce quando o cartão chega perto da tela.
+	useEffect(() => {
+		const elemento = containerRef.current;
+
+		if (!elemento) return;
+
+		if (typeof IntersectionObserver === "undefined") {
+			setVisivel(true);
+			return;
+		}
+
+		const observador = new IntersectionObserver(
+			(entradas) => {
+				if (entradas.some((entrada) => entrada.isIntersecting)) {
+					setVisivel(true);
+					observador.disconnect();
+				}
+			},
+			{ rootMargin: "200px" },
+		);
+
+		observador.observe(elemento);
+
+		return () => observador.disconnect();
+	}, []);
+
+	if (!visivel) {
+		return <div ref={containerRef} className="size-full bg-surface-2" />;
+	}
 
 	return (
 		<MapContainer

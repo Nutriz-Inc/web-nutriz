@@ -24,7 +24,7 @@ export function RouteHeaderActions({
 	}
 
 	return (
-		<div className="-mr-2 flex w-full flex-wrap items-center justify-end gap-1 sm:mr-0 sm:w-auto sm:gap-2.5">
+		<div className="ml-auto flex shrink-0 flex-wrap items-center justify-end gap-1 sm:gap-2.5">
 			{podeReportar && (
 				<button type="button" onClick={onReportar} className={PERIGO}>
 					<CircleAlert className="size-4 sm:size-[18px]" />

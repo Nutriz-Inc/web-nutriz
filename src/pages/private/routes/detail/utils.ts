@@ -79,6 +79,21 @@ export function formatarDuracaoCurta(ms: number): string {
 	return `${horas}h ${minutos}min`;
 }
 
+/**
+ * O backend manda `estimated_time` como `time.Duration` do Go, que serializa em
+ * **nanossegundos**. E o tempo de deslocamento do OSRM mais 15 minutos de
+ * seguranca por parada, o mesmo numero que ele usa para barrar rota acima de 6h.
+ */
+export function msDoTempoEstimado(estimadoEmNs?: number): number | undefined {
+	if (estimadoEmNs == null || !Number.isFinite(estimadoEmNs)) {
+		return undefined;
+	}
+
+	const ms = estimadoEmNs / 1_000_000;
+
+	return ms > 0 ? ms : undefined;
+}
+
 export function formatarEndereco(stop: IRouteStop): string {
 	const address = stop.address;
 	if (!address) {

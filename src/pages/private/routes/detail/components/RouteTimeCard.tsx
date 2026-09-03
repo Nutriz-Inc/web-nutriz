@@ -1,13 +1,18 @@
-import { AlertTriangle, Gauge } from "lucide-react";
+import { AlertTriangle, Gauge, Timer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AVISO_ROTA_MS, LIMITE_ROTA_MS } from "../constants";
 import { useRouteTimer } from "../hooks/use-route-timer";
-import { formatarCronometro, formatarDuracaoCurta } from "../utils";
+import {
+	formatarCronometro,
+	formatarDuracaoCurta,
+	msDoTempoEstimado,
+} from "../utils";
 
 type Props = {
 	dateStart?: string;
 	dateEnd?: string;
 	mileage?: number;
+	estimatedTime?: number;
 	mediaPorRota?: number | null;
 };
 
@@ -19,9 +24,11 @@ export function RouteTimeCard({
 	dateStart,
 	dateEnd,
 	mileage,
+	estimatedTime,
 	mediaPorRota,
 }: Props) {
 	const decorrido = useRouteTimer(dateStart, dateEnd);
+	const previsto = msDoTempoEstimado(estimatedTime);
 
 	const naoIniciada = !dateStart;
 	const emAndamento = Boolean(dateStart) && !dateEnd;
@@ -95,7 +102,21 @@ export function RouteTimeCard({
 				)}
 			</div>
 
-			<div className="mt-auto flex items-center justify-between gap-3 border-t border-line px-5 py-4">
+			<div
+				className="mt-auto flex items-center justify-between gap-3 border-t border-line px-5 py-4"
+				title="Tempo de deslocamento calculado pelo trajeto, mais 15 minutos de segurança por parada."
+			>
+				<span className="flex items-center gap-2 text-[13px] text-ink-2">
+					<Timer className="size-4 shrink-0" />
+					Previsão de duração
+				</span>
+
+				<span className="text-right text-[14px] font-semibold tabular-nums text-ink">
+					{previsto != null ? formatarDuracaoCurta(previsto) : "—"}
+				</span>
+			</div>
+
+			<div className="flex items-center justify-between gap-3 border-t border-line px-5 py-4">
 				<span className="flex items-center gap-2 text-[13px] text-ink-2">
 					<Gauge className="size-4 shrink-0" />
 					Quilometragem

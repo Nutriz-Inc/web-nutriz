@@ -244,6 +244,7 @@ export function RouteDetailPage() {
 									dateStart={route.date_start}
 									dateEnd={route.date_end}
 									mileage={route.mileage}
+									estimatedTime={route.estimated_time}
 									mediaPorRota={
 										ehAdm
 											? (statsQuery.data?.average_mileage_per_route ?? null)

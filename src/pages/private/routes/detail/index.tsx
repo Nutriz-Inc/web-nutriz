@@ -362,7 +362,21 @@ export function RouteDetailPage() {
 								ordem?.trajeto,
 							)}
 						>
-							<SectionLabel>Trajeto</SectionLabel>
+							{/* No celular o atalho fica no cantinho do rotulo, perto do mapa.
+							    A partir do `lg` ele desce para baixo do mapa: la em cima ele
+							    deixaria o rotulo mais alto que o de "Paradas" e os dois
+							    cartoes da faixa nao fechariam. */}
+							<SectionLabel
+								trailing={
+									<OpenInMapsButton
+										stops={stops}
+										compacto
+										className="lg:hidden"
+									/>
+								}
+							>
+								Trajeto
+							</SectionLabel>
 
 							<div className={CARTAO}>
 								<RouteMapCard
@@ -391,7 +405,7 @@ export function RouteDetailPage() {
 									sendo registrados aqui no sistema.
 								</p>
 
-								<OpenInMapsButton stops={stops} />
+								<OpenInMapsButton stops={stops} className="hidden lg:flex" />
 							</div>
 						</section>
 

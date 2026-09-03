@@ -15,7 +15,8 @@ const TELAS: Record<string, string> = {
 	"/nova-doacao": "Nova doação",
 	"/agendamentos": "Meus agendamentos",
 	"/rotas": "Rotas",
-	"/gestao-doacoes": "Gestão de doações",
+	"/gestao-doacoes": "Doações",
+	"/gestao-agendamentos": "Agendamentos",
 	"/usuarios": "Usuários",
 	"/dashboard": "Dashboard",
 };
@@ -36,10 +37,15 @@ const DETALHES: Record<string, BreadcrumbItem[]> = {
 		{ label: "Agendamento" },
 	],
 	"gestao-doacoes": [
-		{ label: "Gestão de doações", to: "/gestao-doacoes" },
+		{ label: "Doações", to: "/gestao-doacoes" },
 		{ label: "Doação" },
 	],
+	"gestao-agendamentos": [
+		{ label: "Agendamentos", to: "/gestao-agendamentos" },
+		{ label: "Agendamento" },
+	],
 	usuarios: [{ label: "Usuários", to: "/usuarios" }, { label: "Usuário" }],
+	rotas: [{ label: "Rotas", to: "/rotas" }, { label: "Rota" }],
 	artigos: [
 		{ label: "Conteúdo educativo", to: "/conteudo-educativo" },
 		{ label: "Artigo" },

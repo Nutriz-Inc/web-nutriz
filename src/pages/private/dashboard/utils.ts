@@ -43,3 +43,19 @@ export function toPercent(rate: number): number {
 	const percent = rate > 1 ? rate : rate * 100;
 	return Math.max(0, Math.min(100, Math.round(percent)));
 }
+
+export function formatDecimal(value: number, fractionDigits = 1): string {
+	return value.toLocaleString("pt-BR", {
+		maximumFractionDigits: fractionDigits,
+	});
+}
+
+export function formatOptionalDecimal(
+	value: number | null | undefined,
+	suffix = "",
+	fractionDigits = 1,
+): string {
+	if (value == null) return "—";
+
+	return `${formatDecimal(value, fractionDigits)}${suffix}`;
+}

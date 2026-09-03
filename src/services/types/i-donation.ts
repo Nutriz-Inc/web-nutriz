@@ -157,6 +157,8 @@ export interface IListDonationStepsRequest extends IPaginationRequest {
 	set_date?: string;
 	neighborhood?: string;
 	city?: string;
+	has_address?: boolean;
+	available_for_route?: boolean;
 }
 export interface IDonationStepResponse extends DonationStep {
 	address?: Address;

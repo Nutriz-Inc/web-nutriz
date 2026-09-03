@@ -50,9 +50,15 @@ const navItemsUserAdmin: NavItem[] = [
 		adminOnly: true,
 	},
 	{
-		label: "Gestão de Doações",
+		label: "Doações",
 		icon: ClipboardList,
 		to: "/gestao-doacoes",
+		adminOnly: true,
+	},
+	{
+		label: "Agendamentos",
+		icon: CalendarCheck,
+		to: "/gestao-agendamentos",
 		adminOnly: true,
 	},
 	{

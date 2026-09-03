@@ -73,7 +73,7 @@ export function DonationsManagementPage() {
 
 	return (
 		<Page
-			title="Gestão de Doações"
+			title="Doações"
 			description={`${total} doações cadastradas`}
 			loading={isLoading}
 			hasPermission={auth?.type === EnumUserType.Admin}

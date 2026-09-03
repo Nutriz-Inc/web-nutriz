@@ -11,7 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 export type IPage = {
 	children: React.ReactNode;
 	title?: string;
-	description?: string;
+	description?: React.ReactNode;
 	actionSlot?: React.ReactNode;
 	loading?: boolean;
 	hasPermission?: boolean;
@@ -91,7 +91,9 @@ export function Page({
 						{actionSlot}
 					</div>
 					{description && (
-						<p className="text-sm text-ink-3 lg:text-[15px]">{description}</p>
+						<div className="text-sm text-ink-2 lg:text-[15px]">
+							{description}
+						</div>
 					)}
 				</div>
 			)}

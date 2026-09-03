@@ -1,10 +1,17 @@
 import type { ReactNode } from "react";
 
 import { Reveal } from "@/components/full/Reveal";
+import { useAccessibility } from "@/context/accessibility-context";
 import { cn } from "@/lib/utils";
 
 type EmptyStateProps = {
-	illustration: string;
+	illustration?: string;
+	/**
+	 * Mesma arte redesenhada para o tema escuro. Quando existe, a ilustracao
+	 * dispensa a placa clara que o `[data-ilustracao]` desenha atras dela e fica
+	 * com fundo transparente.
+	 */
+	illustrationDark?: string;
 	title: string;
 	description?: string;
 	action?: ReactNode;
@@ -19,12 +26,17 @@ const ALTURA = {
 
 export function EmptyState({
 	illustration,
+	illustrationDark,
 	title,
 	description,
 	action,
 	size = "md",
 	className,
 }: EmptyStateProps) {
+	const { temaEfetivo } = useAccessibility();
+	const escuro = temaEfetivo === "escuro";
+	const arte = escuro && illustrationDark ? illustrationDark : illustration;
+
 	return (
 		<Reveal
 			className={cn(
@@ -32,16 +44,18 @@ export function EmptyState({
 				className,
 			)}
 		>
-			<img
-				src={illustration}
-				alt=""
-				aria-hidden="true"
-				loading="lazy"
-				data-ilustracao=""
-				width={320}
-				height={200}
-				className={cn("w-auto max-w-full select-none", ALTURA[size])}
-			/>
+			{arte && (
+				<img
+					src={arte}
+					alt=""
+					aria-hidden="true"
+					loading="lazy"
+					{...(illustrationDark ? {} : { "data-ilustracao": "" })}
+					width={320}
+					height={200}
+					className={cn("w-auto max-w-full select-none", ALTURA[size])}
+				/>
+			)}
 
 			<div className="flex flex-col gap-1">
 				<p className="text-[15px] font-semibold text-ink">{title}</p>

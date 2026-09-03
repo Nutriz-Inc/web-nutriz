@@ -12,3 +12,12 @@ export const ROUTE_STATUS_FILTER_OPTIONS: FilterChipOption<RouteStatusFilter>[] 
 		{ key: EnumRouteStatus.Canceled, label: "Cancelada" },
 		{ key: EnumRouteStatus.Error, label: "Erro" },
 	];
+
+export const ROUTE_STATUS_FILTER_OPTIONS_OPERACAO: FilterChipOption<RouteStatusFilter>[] =
+	[
+		{ key: "all", label: "Todas" },
+		{ key: EnumRouteStatus.Pending, label: "Pendentes" },
+		{ key: EnumRouteStatus.InProgress, label: "Em andamento" },
+		{ key: EnumRouteStatus.Done, label: "Concluídas" },
+		{ key: EnumRouteStatus.Error, label: "Com erro" },
+	];

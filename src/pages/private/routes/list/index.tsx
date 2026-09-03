@@ -7,18 +7,25 @@ import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import { cn } from "@/lib/utils";
+import { EnumRouteStatus } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { CreateRouteDialog } from "./components/CreateRouteDialog";
 import { RouteCard } from "./components/RouteCard";
 import {
 	ROUTE_STATUS_FILTER_OPTIONS,
+	ROUTE_STATUS_FILTER_OPTIONS_OPERACAO,
 	type RouteStatusFilter,
 } from "./constants";
 import { useRoutesList } from "./hooks";
+import { ordenarPorPrioridade } from "./utils";
 
 export function RoutesListPage() {
 	const { auth } = useAuth();
+
+	const ehAdm = auth?.type === EnumUserType.Admin;
+	const ehMotorista = auth?.type === EnumUserType.Driver;
 
 	const [driverName, setDriverName] = useState("");
 	const [appliedDriverName, setAppliedDriverName] = useState("");
@@ -66,20 +73,37 @@ export function RoutesListPage() {
 		setPage(1);
 	}
 
+	// O backend recusa `status=error` (o validador so aceita pending, in_progress,
+	// done e canceled), entao esse chip e o unico filtrado aqui. Ver [[backend-rotas]].
+	const filtrarErroLocalmente = status === EnumRouteStatus.Error;
+	const statusParaApi =
+		status === "all" || filtrarErroLocalmente ? undefined : status;
+
 	const { data, isLoading, isPlaceholderData } = useRoutesList({
 		page,
 		page_size: DEFAULT_PAGE_SIZE,
-		driver_name: appliedDriverName || undefined,
+		// O motorista so enxerga as rotas dele; o enfermeiro o backend ja recorta
+		// pelos agendamentos dele.
+		id_driver: ehMotorista ? auth?.id_user : undefined,
+		driver_name: (ehAdm && appliedDriverName) || undefined,
 		name: appliedName || undefined,
-		city: appliedCity || undefined,
-		neighborhood: appliedNeighborhood || undefined,
+		city: (ehAdm && appliedCity) || undefined,
+		neighborhood: (ehAdm && appliedNeighborhood) || undefined,
 		date_set: dateSet || undefined,
-		status: status === "all" ? undefined : status,
+		status: statusParaApi,
 	});
 
-	const routes = data?.data ?? [];
-	const total = data?.total ?? 0;
-	const totalPages = Math.max(1, Math.ceil(total / DEFAULT_PAGE_SIZE));
+	const todasAsRotas = data?.data ?? [];
+	const routes = ordenarPorPrioridade(
+		filtrarErroLocalmente
+			? todasAsRotas.filter((route) => route.status === EnumRouteStatus.Error)
+			: todasAsRotas,
+	);
+	const total = filtrarErroLocalmente ? routes.length : (data?.total ?? 0);
+	const totalPages = Math.max(
+		1,
+		Math.ceil((data?.total ?? 0) / DEFAULT_PAGE_SIZE),
+	);
 
 	return (
 		<Page
@@ -92,27 +116,38 @@ export function RoutesListPage() {
 		>
 			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-canvas px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
 				<form onSubmit={handleApplyFilters} className="flex flex-col gap-2.5">
-					<div className="grid gap-2.5 lg:grid-cols-2 xl:grid-cols-4">
-						<SearchBar
-							value={driverName}
-							onChange={setDriverName}
-							placeholder="Buscar por motorista..."
-						/>
+					<div
+						className={cn(
+							"grid gap-2.5",
+							ehAdm && "lg:grid-cols-2 xl:grid-cols-4",
+						)}
+					>
+						{ehAdm && (
+							<SearchBar
+								value={driverName}
+								onChange={setDriverName}
+								placeholder="Buscar por motorista..."
+							/>
+						)}
 						<SearchBar
 							value={name}
 							onChange={setName}
 							placeholder="Buscar por nome da rota..."
 						/>
-						<SearchBar
-							value={city}
-							onChange={setCity}
-							placeholder="Buscar por cidade..."
-						/>
-						<SearchBar
-							value={neighborhood}
-							onChange={setNeighborhood}
-							placeholder="Buscar por bairro..."
-						/>
+						{ehAdm && (
+							<>
+								<SearchBar
+									value={city}
+									onChange={setCity}
+									placeholder="Buscar por cidade..."
+								/>
+								<SearchBar
+									value={neighborhood}
+									onChange={setNeighborhood}
+									placeholder="Buscar por bairro..."
+								/>
+							</>
+						)}
 					</div>
 
 					<div className="flex flex-col gap-2.5 lg:flex-row lg:items-center">
@@ -145,7 +180,11 @@ export function RoutesListPage() {
 
 				<div className="sem-barra flex items-center gap-2.5 overflow-x-auto">
 					<FilterChips
-						options={ROUTE_STATUS_FILTER_OPTIONS}
+						options={
+							ehAdm
+								? ROUTE_STATUS_FILTER_OPTIONS
+								: ROUTE_STATUS_FILTER_OPTIONS_OPERACAO
+						}
 						value={status}
 						onChange={handleStatusChange}
 					/>

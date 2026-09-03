@@ -45,6 +45,7 @@ const DETALHES: Record<string, BreadcrumbItem[]> = {
 		{ label: "Agendamento" },
 	],
 	usuarios: [{ label: "Usuários", to: "/usuarios" }, { label: "Usuário" }],
+	rotas: [{ label: "Rotas", to: "/rotas" }, { label: "Rota" }],
 	artigos: [
 		{ label: "Conteúdo educativo", to: "/conteudo-educativo" },
 		{ label: "Artigo" },

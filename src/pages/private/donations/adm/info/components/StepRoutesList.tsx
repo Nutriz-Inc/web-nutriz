@@ -1,5 +1,5 @@
 import { Route as RouteIcon } from "lucide-react";
-import { RouteStatusBadge } from "@/pages/private/routes/list/components/RouteStatusBadge";
+import { RouteStatusBadge } from "@/components/full/RouteStatusBadge";
 import { formatDateBR } from "@/utils/formatter";
 import { useRoutesForDonationStep } from "../hooks";
 

@@ -1,6 +1,6 @@
 import { ChevronRight, Route as RouteIcon } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RouteStatusBadge } from "@/pages/private/routes/list/components/RouteStatusBadge";
+import { RouteStatusBadge } from "@/components/full/RouteStatusBadge";
 import { EnumRouteStatus, type IRouteResponse } from "@/services/types/i-route";
 import { formatDateBR } from "@/utils/formatter";
 import { ROUTES_GRID_COLS } from "../constants";

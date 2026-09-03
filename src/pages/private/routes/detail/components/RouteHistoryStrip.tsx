@@ -1,9 +1,4 @@
-import {
-	CalendarClock,
-	CircleCheckBig,
-	CirclePlay,
-	PlusCircle,
-} from "lucide-react";
+import { CircleCheckBig, CirclePlay, PlusCircle } from "lucide-react";
 import { DataGrid } from "@/components/full/DataGrid";
 import { cn } from "@/lib/utils";
 import type { IGetRouteResponse } from "@/services/types/i-route";
@@ -22,12 +17,6 @@ export function RouteHistoryStrip({ route }: Props) {
 			data: route.created_at,
 		},
 		{
-			chave: "prevista",
-			icone: <CalendarClock className="size-4" />,
-			rotulo: "Prevista para",
-			data: route.date_set,
-		},
-		{
 			chave: "iniciada",
 			icone: <CirclePlay className="size-4" />,
 			rotulo: "Iniciada",
@@ -43,8 +32,8 @@ export function RouteHistoryStrip({ route }: Props) {
 
 	return (
 		<DataGrid
-			colunas={2}
-			colunasMobile={2}
+			colunas={3}
+			colunasMobile={1}
 			itens={marcos.map((marco) => {
 				const cumprido = Boolean(marco.data);
 				const partes = marco.data ? formatDateTimeParts(marco.data) : null;

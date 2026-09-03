@@ -21,7 +21,7 @@ import { RouteDetailsCard } from "./components/RouteDetailsCard";
 import { RouteDriverCard } from "./components/RouteDriverCard";
 import { RouteHeaderActions } from "./components/RouteHeaderActions";
 import { RouteHistoryStrip } from "./components/RouteHistoryStrip";
-import { RouteIdentityLine } from "./components/RouteIdentityLine";
+import { RouteIdentityCard } from "./components/RouteIdentityCard";
 import { RouteMapCard } from "./components/RouteMapCard";
 import { RouteStartBanner } from "./components/RouteStartBanner";
 import { RouteStopList } from "./components/RouteStopList";
@@ -188,7 +188,6 @@ export function RouteDetailPage() {
 	return (
 		<Page
 			title={route?.name ?? "Rota"}
-			description={route ? <RouteIdentityLine route={route} /> : undefined}
 			actionSlot={
 				route ? (
 					<RouteHeaderActions
@@ -211,10 +210,21 @@ export function RouteDetailPage() {
 					)}
 
 					<div
+						style={{ animationDelay: "20ms" }}
+						className={cn(
+							CARTAO,
+							"motion-safe:surge-etapa",
+							podeIniciar && "order-1 lg:order-none",
+						)}
+					>
+						<RouteIdentityCard route={route} />
+					</div>
+
+					<div
 						style={{ animationDelay: "40ms" }}
 						className={cn(
 							"grid gap-5 motion-safe:surge-etapa lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] lg:gap-6",
-							podeIniciar && "order-2 lg:order-none",
+							podeIniciar && "order-3 lg:order-none",
 						)}
 					>
 						<section className={BLOCO}>
@@ -258,7 +268,7 @@ export function RouteDetailPage() {
 						style={{ animationDelay: "120ms" }}
 						className={cn(
 							"grid gap-5 motion-safe:surge-etapa lg:grid-cols-[minmax(0,400px)_minmax(0,1fr)] lg:gap-6",
-							podeIniciar && "order-1 lg:order-none",
+							podeIniciar && "order-2 lg:order-none",
 						)}
 					>
 						<section className={BLOCO}>
@@ -346,7 +356,7 @@ export function RouteDetailPage() {
 						style={{ animationDelay: "200ms" }}
 						className={cn(
 							"grid gap-5 motion-safe:surge-etapa lg:grid-cols-2 lg:gap-6",
-							podeIniciar && "order-3 lg:order-none",
+							podeIniciar && "order-4 lg:order-none",
 						)}
 					>
 						<section className={BLOCO}>

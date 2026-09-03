@@ -73,7 +73,7 @@ export function AppointmentsManagementPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={isLoading}
-			title="Gestão de Agendamentos"
+			title="Agendamentos"
 			description="Filtre os agendamentos e clique em um card para ver os detalhes."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={

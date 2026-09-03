@@ -117,6 +117,32 @@ export function RouteDetailPage() {
 		(route?.status === EnumRouteStatus.Pending ||
 			route?.status === EnumRouteStatus.InProgress);
 
+	// No celular o motorista trabalha de cima para baixo, entao a tela abre pelo
+	// que ele toca: antes de comecar, o check-in que mora no mapa; depois de
+	// comecar, o cronometro e as paradas. O que e so leitura desce. Adm e
+	// enfermeiro ficam com a ordem natural do DOM.
+	const ordem = !podeOperar
+		? undefined
+		: podeIniciar
+			? {
+					trajeto: "order-1",
+					tempo: "order-2",
+					paradas: "order-3",
+					identidade: "order-4",
+					motorista: "order-5",
+					descricao: "order-6",
+					historico: "order-7",
+				}
+			: {
+					tempo: "order-1",
+					paradas: "order-2",
+					trajeto: "order-3",
+					identidade: "order-4",
+					motorista: "order-5",
+					descricao: "order-6",
+					historico: "order-7",
+				};
+
 	const updateMutation = useUpdateRoute(id_route);
 	const createStopMutation = useCreateRouteStop(id_route);
 	const removeStopMutation = useRemoveRouteStop(id_route);
@@ -209,25 +235,29 @@ export function RouteDetailPage() {
 						<RouteStartBanner dateSet={route.date_set} />
 					)}
 
-					<div
-						style={{ animationDelay: "20ms" }}
-						className={cn(
-							CARTAO,
-							"motion-safe:surge-etapa",
-							podeIniciar && "order-1 lg:order-none",
-						)}
-					>
-						<RouteIdentityCard route={route} />
-					</div>
+					{/* As sete secoes sao irmas de propósito: so assim o `order` do
+					    celular consegue reordena-las entre si. No desktop o `order`
+					    e zerado e a grade de 12 colunas recompoe as faixas. */}
+					<div className="flex flex-col gap-5 lg:grid lg:grid-cols-12 lg:gap-6">
+						<div
+							style={{ animationDelay: "20ms" }}
+							className={cn(
+								CARTAO,
+								"motion-safe:surge-etapa lg:col-span-12 lg:order-none",
+								ordem?.identidade,
+							)}
+						>
+							<RouteIdentityCard route={route} />
+						</div>
 
-					<div
-						style={{ animationDelay: "40ms" }}
-						className={cn(
-							"grid gap-5 motion-safe:surge-etapa lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] lg:gap-6",
-							podeIniciar && "order-3 lg:order-none",
-						)}
-					>
-						<section className={BLOCO}>
+						<section
+							style={{ animationDelay: "40ms" }}
+							className={cn(
+								BLOCO,
+								"motion-safe:surge-etapa lg:col-span-8 lg:order-none",
+								ordem?.motorista,
+							)}
+						>
 							<SectionLabel>Motorista</SectionLabel>
 							<div className={cn(CARTAO, "flex-1")}>
 								<RouteDriverCard
@@ -247,7 +277,14 @@ export function RouteDetailPage() {
 							</div>
 						</section>
 
-						<section className={BLOCO}>
+						<section
+							style={{ animationDelay: "60ms" }}
+							className={cn(
+								BLOCO,
+								"motion-safe:surge-etapa lg:col-span-4 lg:order-none",
+								ordem?.tempo,
+							)}
+						>
 							<SectionLabel>Tempo de rota</SectionLabel>
 							<div className={cn(CARTAO, "flex-1")}>
 								<RouteTimeCard
@@ -262,16 +299,15 @@ export function RouteDetailPage() {
 								/>
 							</div>
 						</section>
-					</div>
 
-					<div
-						style={{ animationDelay: "120ms" }}
-						className={cn(
-							"grid gap-5 motion-safe:surge-etapa lg:grid-cols-[minmax(0,400px)_minmax(0,1fr)] lg:gap-6",
-							podeIniciar && "order-2 lg:order-none",
-						)}
-					>
-						<section className={BLOCO}>
+						<section
+							style={{ animationDelay: "120ms" }}
+							className={cn(
+								BLOCO,
+								"motion-safe:surge-etapa lg:col-span-4 lg:order-none",
+								ordem?.paradas,
+							)}
+						>
 							<SectionLabel
 								trailing={
 									<span className="text-[12px] font-semibold text-ink-2">
@@ -316,7 +352,12 @@ export function RouteDetailPage() {
 						</section>
 
 						<section
-							className={cn(BLOCO, podeIniciar && "order-first lg:order-none")}
+							style={{ animationDelay: "140ms" }}
+							className={cn(
+								BLOCO,
+								"motion-safe:surge-etapa lg:col-span-8 lg:order-none",
+								ordem?.trajeto,
+							)}
 						>
 							<SectionLabel>Trajeto</SectionLabel>
 
@@ -350,16 +391,15 @@ export function RouteDetailPage() {
 								<OpenInMapsButton stops={stops} />
 							</div>
 						</section>
-					</div>
 
-					<div
-						style={{ animationDelay: "200ms" }}
-						className={cn(
-							"grid gap-5 motion-safe:surge-etapa lg:grid-cols-2 lg:gap-6",
-							podeIniciar && "order-4 lg:order-none",
-						)}
-					>
-						<section className={BLOCO}>
+						<section
+							style={{ animationDelay: "200ms" }}
+							className={cn(
+								BLOCO,
+								"motion-safe:surge-etapa lg:col-span-6 lg:order-none",
+								ordem?.descricao,
+							)}
+						>
 							<SectionLabel>Descrição</SectionLabel>
 							<div className={cn(CARTAO, "flex-1")}>
 								<RouteDetailsCard
@@ -370,7 +410,14 @@ export function RouteDetailPage() {
 							</div>
 						</section>
 
-						<section className={BLOCO}>
+						<section
+							style={{ animationDelay: "220ms" }}
+							className={cn(
+								BLOCO,
+								"motion-safe:surge-etapa lg:col-span-6 lg:order-none",
+								ordem?.historico,
+							)}
+						>
 							<SectionLabel>Histórico</SectionLabel>
 							<div className={cn(CARTAO, "flex-1")}>
 								<RouteHistoryStrip route={route} />

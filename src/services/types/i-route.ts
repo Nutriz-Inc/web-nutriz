@@ -18,6 +18,7 @@ export interface Route {
 	date_end?: string;
 	mileage?: number;
 	date_set: string;
+	estimated_time?: number;
 	created_at: string;
 	created_by: string;
 	updated_at?: string;
@@ -26,7 +27,7 @@ export interface Route {
 	removed_by?: string;
 }
 
-export enum EnumRouteStopStatus {
+export enum EnumRouteDonationStepStatus {
 	Pending = "pending",
 	InProgress = "in_progress",
 	Done = "done",
@@ -38,7 +39,7 @@ export interface RouteDonationStep {
 	id_route: string;
 	id_donation_step: string;
 	stop_order?: number;
-	status: EnumRouteStopStatus;
+	status: EnumRouteDonationStepStatus;
 	description?: string;
 	date_start?: string;
 	date_end?: string;

@@ -1,6 +1,9 @@
 import axios from "axios";
 import type { IRouteStop } from "@/services/types/i-route";
-import { EnumRouteStatus, EnumRouteStopStatus } from "@/services/types/i-route";
+import {
+	EnumRouteDonationStepStatus,
+	EnumRouteStatus,
+} from "@/services/types/i-route";
 import { ERRO_GENERICO, MENSAGENS_DE_ERRO } from "./constants";
 
 export type EstadoDaParada = "concluida" | "erro" | "atual" | "proxima";
@@ -23,7 +26,10 @@ export function ordenarParadas(stops: IRouteStop[]): IRouteStop[] {
 }
 
 export function paradaMarcada(stop: IRouteStop): boolean {
-	return Boolean(stop.date_start) || stop.status === EnumRouteStopStatus.Error;
+	return (
+		Boolean(stop.date_start) ||
+		stop.status === EnumRouteDonationStepStatus.Error
+	);
 }
 
 export function paradasPendentes(stops: IRouteStop[]): number {
@@ -42,7 +48,7 @@ export function estadoDaParada(
 	if (stop.date_start) {
 		return "concluida";
 	}
-	if (stop.status === EnumRouteStopStatus.Error) {
+	if (stop.status === EnumRouteDonationStepStatus.Error) {
 		return "erro";
 	}
 	return indice === indiceAtual ? "atual" : "proxima";

@@ -7,8 +7,11 @@ type Props = {
 	onReportar: () => void;
 };
 
+// Sao acoes de excecao: no celular ficam discretas, sem contorno e sem ocupar a
+// largura toda, para nao competir com o que o motorista usa a cada parada. Do
+// `sm` para cima voltam a ser pilulas contornadas.
 const PERIGO =
-	"flex h-11 items-center justify-center gap-2 rounded-full border-[1.5px] border-danger/35 bg-surface px-5 text-[14px] font-semibold text-danger outline-none transition-colors hover:border-danger hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40";
+	"flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-full px-2 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40 sm:h-11 sm:gap-2 sm:border-[1.5px] sm:border-danger/35 sm:bg-surface sm:px-5 sm:text-[14px] sm:hover:border-danger";
 
 export function RouteHeaderActions({
 	podeCancelar,
@@ -21,17 +24,17 @@ export function RouteHeaderActions({
 	}
 
 	return (
-		<div className="flex w-full flex-wrap items-center gap-2.5 sm:w-auto">
+		<div className="-mr-2 flex w-full flex-wrap items-center justify-end gap-1 sm:mr-0 sm:w-auto sm:gap-2.5">
 			{podeReportar && (
 				<button type="button" onClick={onReportar} className={PERIGO}>
-					<CircleAlert className="size-[18px]" />
+					<CircleAlert className="size-4 sm:size-[18px]" />
 					Reportar problema
 				</button>
 			)}
 
 			{podeCancelar && (
 				<button type="button" onClick={onCancelar} className={PERIGO}>
-					<Ban className="size-[18px]" />
+					<Ban className="size-4 sm:size-[18px]" />
 					Cancelar rota
 				</button>
 			)}

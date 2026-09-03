@@ -43,16 +43,14 @@ export function RouteStopItem({
 	const semCoordenada = !temCoordenadas(stop);
 	const { linha, regiao } = partesDoEndereco(stop);
 
-	const marcador = (className?: string) => (
+	const marcador = (wrapperClassName?: string) => (
 		<StepDot
 			status={
 				concluida ? "done" : comErro ? "failed" : atual ? "current" : "waiting"
 			}
 			order={numero}
-			className={cn(
-				atual ? "size-7 text-[12px]" : "size-6 text-[11px]",
-				className,
-			)}
+			className={atual ? "size-7 text-[12px]" : "size-6 text-[11px]"}
+			wrapperClassName={wrapperClassName}
 		/>
 	);
 
@@ -83,7 +81,7 @@ export function RouteStopItem({
 					atual && "-mt-1.5 mb-3.5 bg-blue-tint/60 p-3",
 				)}
 			>
-				{marcador("mt-0.5 shrink-0 sm:hidden")}
+				{marcador("mt-0.5 sm:hidden")}
 
 				<div className="min-w-0 flex-1">
 					<div className="flex items-start justify-between gap-2">

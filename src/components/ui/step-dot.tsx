@@ -7,7 +7,14 @@ type StepDotProps = {
 	status: StepDotStatus;
 	order: number;
 	celebrate?: boolean;
+	/** Classe do circulo: tamanho, tipografia. */
 	className?: string;
+	/**
+	 * Classe do envoltorio, que e quem ocupa espaco no layout e ancora as ondas
+	 * e o arco em rotacao. Margem, visibilidade e posicionamento vao aqui - no
+	 * `className` elas escondem o circulo e deixam a animacao orfa.
+	 */
+	wrapperClassName?: string;
 	iconClassName?: string;
 };
 
@@ -16,6 +23,7 @@ export function StepDot({
 	order,
 	celebrate = false,
 	className,
+	wrapperClassName,
 	iconClassName,
 }: StepDotProps) {
 	const isCurrent = status === "current";
@@ -23,7 +31,12 @@ export function StepDot({
 	const isFailed = status === "failed";
 
 	return (
-		<span className="relative flex shrink-0 items-center justify-center">
+		<span
+			className={cn(
+				"relative flex shrink-0 items-center justify-center",
+				wrapperClassName,
+			)}
+		>
 			{isCurrent && !celebrate && (
 				<>
 					<span

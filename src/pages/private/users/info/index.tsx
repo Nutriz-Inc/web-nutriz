@@ -94,20 +94,19 @@ export function UserManagementDetailPage() {
 			null,
 		);
 
-	const rotasEmAberto = routes.filter(
+	const activeRoutes = routes.filter(
 		(route) =>
 			route.status === EnumRouteStatus.Pending ||
 			route.status === EnumRouteStatus.InProgress,
 	);
-	const rotasConcluidas = routes.filter(
+	const doneRoutesCount = routes.filter(
 		(route) => route.status === EnumRouteStatus.Done,
+	).length;
+	const nextRoute = activeRoutes.reduce<string | null>(
+		(earliest, route) =>
+			!earliest || route.date_set < earliest ? route.date_set : earliest,
+		null,
 	);
-	const proximaRota = rotasEmAberto
-		.map((route) => route.date_set)
-		.reduce<string | null>(
-			(earliest, data) => (!earliest || data < earliest ? data : earliest),
-			null,
-		);
 
 	return (
 		<Page
@@ -172,16 +171,15 @@ export function UserManagementDetailPage() {
 							) : user.type === EnumUserType.Driver ? (
 								<>
 									<HeaderStat
-										value={String(rotasEmAberto.length)}
-										label="Rotas em aberto"
+										value={String(activeRoutes.length)}
+										label="Rotas ativas"
 									/>
 									<HeaderStat
-										value={String(rotasConcluidas.length)}
-										label="Rotas concluídas"
-										valueClassName="text-eva-deep"
+										value={String(doneRoutesCount)}
+										label="Concluídas"
 									/>
 									<HeaderStat
-										value={proximaRota ? formatShortDateTime(proximaRota) : "—"}
+										value={nextRoute ? formatDateBR(nextRoute) : "—"}
 										label="Próxima rota"
 									/>
 								</>
@@ -212,7 +210,7 @@ export function UserManagementDetailPage() {
 					)}
 
 					{user.type === EnumUserType.Driver && (
-						<DriverRoutesCard routes={routes} />
+						<DriverRoutesCard routes={routes} loading={routesQuery.isLoading} />
 					)}
 
 					<DeactivateUserSheet

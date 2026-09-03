@@ -5,6 +5,7 @@ export type AppointmentStatus = EnumJobStatus;
 export type Appointment = {
 	id: string;
 	donorName: string;
+	nurseName?: string;
 	dateSet: string;
 	locationName: string;
 	stepName: string;
@@ -38,6 +39,7 @@ export type AppointmentFinalResult = {
 
 export type AppointmentDetail = Appointment & {
 	ended: boolean;
+	id_user_common?: string;
 	donorPhone?: string;
 	donorEmail?: string;
 	finalResult?: AppointmentFinalResult;

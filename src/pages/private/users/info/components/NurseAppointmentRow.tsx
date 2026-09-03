@@ -19,9 +19,7 @@ export function NurseAppointmentRow({ job }: NurseAppointmentRowProps) {
 	const stepName = toStepName(job.name);
 
 	function handleClick() {
-		if (!job.id_donation) return;
-
-		navigate(`/gestao-doacoes/${job.id_donation}`, {
+		navigate(`/gestao-agendamentos/${job.id_job}`, {
 			state: { backTo: location.pathname },
 		});
 	}
@@ -30,8 +28,7 @@ export function NurseAppointmentRow({ job }: NurseAppointmentRowProps) {
 		<button
 			type="button"
 			onClick={handleClick}
-			disabled={!job.id_donation}
-			className={`flex w-full flex-col gap-2.5 p-4 text-left transition-colors enabled:hover:bg-surface-2 lg:grid ${APPOINTMENTS_GRID_COLS} lg:items-center lg:gap-3 lg:px-4 lg:py-3`}
+			className={`flex w-full flex-col gap-2.5 p-4 text-left transition-colors hover:bg-surface-2 lg:grid ${APPOINTMENTS_GRID_COLS} lg:items-center lg:gap-3 lg:px-4 lg:py-3`}
 		>
 			<div className="flex items-center justify-between lg:contents">
 				<div className="flex items-center gap-3">
@@ -44,9 +41,7 @@ export function NurseAppointmentRow({ job }: NurseAppointmentRowProps) {
 						{donorName}
 					</span>
 				</div>
-				{job.id_donation && (
-					<ChevronRight className="size-4 text-ink-3 lg:hidden" />
-				)}
+				<ChevronRight className="size-4 text-ink-3 lg:hidden" />
 			</div>
 			<StatusBadge step={stepName} label={stepName ?? job.name} />
 			<span className="text-[14px] text-ink-2">
@@ -62,11 +57,7 @@ export function NurseAppointmentRow({ job }: NurseAppointmentRowProps) {
 				{formatJobLocation(job.address)}
 			</span>
 			<AppointmentStatusBadge status={job.status} />
-			{job.id_donation ? (
-				<ChevronRight className="hidden size-4 text-ink-3 lg:block" />
-			) : (
-				<span className="hidden lg:block" />
-			)}
+			<ChevronRight className="hidden size-4 text-ink-3 lg:block" />
 		</button>
 	);
 }

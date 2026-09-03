@@ -56,6 +56,12 @@ const navItemsUserAdmin: NavItem[] = [
 		adminOnly: true,
 	},
 	{
+		label: "Gestão de Agendamentos",
+		icon: CalendarCheck,
+		to: "/gestao-agendamentos",
+		adminOnly: true,
+	},
+	{
 		label: "Usuários",
 		icon: Users,
 		to: "/usuarios",

@@ -6,6 +6,8 @@ import { DonationManagementDetailPage } from "@/pages/private/donations/adm/info
 import { NewDonationPage } from "@/pages/private/donations/common/create";
 import { DonationInfoPage } from "@/pages/private/donations/common/info";
 import { DonationStepDetailPage } from "@/pages/private/donations/common/step-detail";
+import { AppointmentManagementDetailPage } from "@/pages/private/job/adm/detail";
+import { AppointmentsManagementPage } from "@/pages/private/job/adm/list";
 import { AppointmentDetailPage } from "@/pages/private/job/detail";
 import { AppointmentsPage } from "@/pages/private/job/list";
 import { RouteDetailPage } from "@/pages/private/routes/detail";
@@ -99,6 +101,16 @@ export function routerPrivate() {
 					id: "private-gestao-doacoes",
 					path: "/gestao-doacoes",
 					element: <DonationsManagementPage />,
+				},
+				{
+					id: "private-gestao-agendamentos",
+					path: "/gestao-agendamentos",
+					element: <AppointmentsManagementPage />,
+				},
+				{
+					id: "private-gestao-agendamentos-detalhe",
+					path: "/gestao-agendamentos/:id_job",
+					element: <AppointmentManagementDetailPage />,
 				},
 				{
 					id: "private-doacao-info",

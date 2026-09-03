@@ -95,7 +95,7 @@ export function RouteStopList({
 
 					{/* Ocupa o que sobrar quando a lista e curta e colapsa sozinha
 					    (flex-1) quando as paradas passam da altura do cartao. */}
-					<div className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-5 pt-2">
+					<div className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-10 pt-2">
 						<img
 							src={arte.src}
 							alt={arte.alt}

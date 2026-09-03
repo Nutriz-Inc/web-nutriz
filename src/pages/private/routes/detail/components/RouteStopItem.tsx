@@ -49,7 +49,7 @@ export function RouteStopItem({
 				concluida ? "done" : comErro ? "failed" : atual ? "current" : "waiting"
 			}
 			order={numero}
-			className={atual ? "size-7 text-[12px]" : "size-6 text-[11px]"}
+			className={cn("size-6 text-[11px]", atual && "sm:size-7 sm:text-[12px]")}
 			wrapperClassName={wrapperClassName}
 		/>
 	);
@@ -76,12 +76,12 @@ export function RouteStopItem({
 
 			<div
 				className={cn(
-					"flex min-w-0 flex-1 gap-2.5 rounded-xl transition-colors sm:block",
-					isLast ? "pb-1" : "pb-5",
-					atual && "-mt-1.5 mb-3.5 bg-blue-tint/60 p-3",
+					"flex min-w-0 flex-1 items-start gap-2.5 rounded-xl p-3 transition-colors sm:block sm:p-0",
+					isLast ? "sm:pb-1" : "sm:pb-5",
+					atual && "bg-blue-tint/60 sm:-mt-1.5 sm:mb-3.5 sm:p-3",
 				)}
 			>
-				{marcador("mt-0.5 sm:hidden")}
+				{marcador("sm:hidden")}
 
 				<div className="min-w-0 flex-1">
 					<div className="flex items-start justify-between gap-2">

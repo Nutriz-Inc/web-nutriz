@@ -51,7 +51,7 @@ export function RouteStopList({
 			) : (
 				// O cartao tem altura fixa, igual a do mapa: a lista rola por dentro.
 				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-					<ol className="flex shrink-0 flex-col p-5">
+					<ol className="flex shrink-0 flex-col gap-1.5 p-3 sm:gap-0 sm:p-5">
 						{stops.map((stop, index) => (
 							<RouteStopItem
 								key={stop.id_route_donation_step}

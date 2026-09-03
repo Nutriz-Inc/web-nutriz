@@ -1,5 +1,8 @@
 import { Plus } from "lucide-react";
+import rotaSemParadas from "@/assets/illustrations/rota-sem-paradas.svg";
+import rotaSemParadasEscuro from "@/assets/illustrations/rota-sem-paradas-escuro.svg";
 import { EmptyState } from "@/components/full/EmptyState";
+import { useAccessibility } from "@/context/accessibility-context";
 import type { IRouteStop } from "@/services/types/i-route";
 import { estadoDaParada, indiceDaParadaAtual } from "../utils";
 import { RouteStopItem } from "./RouteStopItem";
@@ -25,6 +28,9 @@ export function RouteStopList({
 	onMarcar,
 	onReportarProblema,
 }: Props) {
+	const { temaEfetivo } = useAccessibility();
+	const arte = temaEfetivo === "escuro" ? rotaSemParadasEscuro : rotaSemParadas;
+
 	const indiceAtual = rotaIniciada ? indiceDaParadaAtual(stops) : -1;
 
 	return (
@@ -33,6 +39,8 @@ export function RouteStopList({
 				<EmptyState
 					size="sm"
 					className="my-auto"
+					illustration={rotaSemParadas}
+					illustrationDark={rotaSemParadasEscuro}
 					title="Nenhuma parada nesta rota"
 					description={
 						podeGerenciar
@@ -62,6 +70,22 @@ export function RouteStopList({
 							/>
 						))}
 					</ol>
+
+					{/* Ocupa o que sobrar quando a lista e curta e colapsa sozinha
+					    (flex-1) quando as paradas passam da altura do cartao. */}
+					<div
+						aria-hidden="true"
+						className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-5 pt-2"
+					>
+						<img
+							src={arte}
+							alt=""
+							loading="lazy"
+							width={960}
+							height={402}
+							className="max-h-full w-full max-w-[260px] select-none opacity-80"
+						/>
+					</div>
 				</div>
 			)}
 

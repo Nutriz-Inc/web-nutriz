@@ -7,6 +7,8 @@ import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import { cn } from "@/lib/utils";
+import { EnumRouteStatus } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { CreateRouteDialog } from "./components/CreateRouteDialog";
@@ -71,37 +73,37 @@ export function RoutesListPage() {
 		setPage(1);
 	}
 
-	const { data, isLoading, isPlaceholderData } = useRoutesList(
-		ehAdm
-			? {
-					page,
-					page_size: DEFAULT_PAGE_SIZE,
-					driver_name: appliedDriverName || undefined,
-					name: appliedName || undefined,
-					city: appliedCity || undefined,
-					neighborhood: appliedNeighborhood || undefined,
-					date_set: dateSet || undefined,
-					status: status === "all" ? undefined : status,
-				}
-			: {
-					page: 1,
-					page_size: DEFAULT_PAGE_SIZE,
-					id_driver: ehMotorista ? auth?.id_user : undefined,
-				},
-	);
+	// O backend recusa `status=error` (o validador so aceita pending, in_progress,
+	// done e canceled), entao esse chip e o unico filtrado aqui. Ver [[backend-rotas]].
+	const filtrarErroLocalmente = status === EnumRouteStatus.Error;
+	const statusParaApi =
+		status === "all" || filtrarErroLocalmente ? undefined : status;
+
+	const { data, isLoading, isPlaceholderData } = useRoutesList({
+		page,
+		page_size: DEFAULT_PAGE_SIZE,
+		// O motorista so enxerga as rotas dele; o enfermeiro o backend ja recorta
+		// pelos agendamentos dele.
+		id_driver: ehMotorista ? auth?.id_user : undefined,
+		driver_name: (ehAdm && appliedDriverName) || undefined,
+		name: appliedName || undefined,
+		city: (ehAdm && appliedCity) || undefined,
+		neighborhood: (ehAdm && appliedNeighborhood) || undefined,
+		date_set: dateSet || undefined,
+		status: statusParaApi,
+	});
 
 	const todasAsRotas = data?.data ?? [];
 	const routes = ordenarPorPrioridade(
-		ehAdm
-			? todasAsRotas
-			: todasAsRotas.filter(
-					(route) => status === "all" || route.status === status,
-				),
+		filtrarErroLocalmente
+			? todasAsRotas.filter((route) => route.status === EnumRouteStatus.Error)
+			: todasAsRotas,
 	);
-	const total = ehAdm ? (data?.total ?? 0) : routes.length;
-	const totalPages = ehAdm
-		? Math.max(1, Math.ceil((data?.total ?? 0) / DEFAULT_PAGE_SIZE))
-		: 1;
+	const total = filtrarErroLocalmente ? routes.length : (data?.total ?? 0);
+	const totalPages = Math.max(
+		1,
+		Math.ceil((data?.total ?? 0) / DEFAULT_PAGE_SIZE),
+	);
 
 	return (
 		<Page
@@ -113,59 +115,68 @@ export function RoutesListPage() {
 			actionSlot={auth?.type === EnumUserType.Admin && <CreateRouteDialog />}
 		>
 			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-canvas px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
-				{ehAdm && (
-					<form onSubmit={handleApplyFilters} className="flex flex-col gap-2.5">
-						<div className="grid gap-2.5 lg:grid-cols-2 xl:grid-cols-4">
+				<form onSubmit={handleApplyFilters} className="flex flex-col gap-2.5">
+					<div
+						className={cn(
+							"grid gap-2.5",
+							ehAdm && "lg:grid-cols-2 xl:grid-cols-4",
+						)}
+					>
+						{ehAdm && (
 							<SearchBar
 								value={driverName}
 								onChange={setDriverName}
 								placeholder="Buscar por motorista..."
 							/>
-							<SearchBar
-								value={name}
-								onChange={setName}
-								placeholder="Buscar por nome da rota..."
-							/>
-							<SearchBar
-								value={city}
-								onChange={setCity}
-								placeholder="Buscar por cidade..."
-							/>
-							<SearchBar
-								value={neighborhood}
-								onChange={setNeighborhood}
-								placeholder="Buscar por bairro..."
-							/>
-						</div>
+						)}
+						<SearchBar
+							value={name}
+							onChange={setName}
+							placeholder="Buscar por nome da rota..."
+						/>
+						{ehAdm && (
+							<>
+								<SearchBar
+									value={city}
+									onChange={setCity}
+									placeholder="Buscar por cidade..."
+								/>
+								<SearchBar
+									value={neighborhood}
+									onChange={setNeighborhood}
+									placeholder="Buscar por bairro..."
+								/>
+							</>
+						)}
+					</div>
 
-						<div className="flex flex-col gap-2.5 lg:flex-row lg:items-center">
-							<input
-								type="date"
-								value={dateSet}
-								onChange={(event) => handleDateSetChange(event.target.value)}
-								aria-label="Filtrar por data programada"
-								className="h-[43px] w-full rounded-card-sm border border-line bg-surface px-4 text-[15px] text-ink outline-none placeholder:text-ink-3 lg:w-[180px] lg:shrink-0"
-							/>
-							<div className="grid grid-cols-2 gap-2.5 lg:ml-auto lg:flex lg:shrink-0 lg:gap-2.5">
-								<button
-									type="submit"
-									className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-								>
-									<Search className="size-4" />
-									Aplicar filtro
-								</button>
-								<button
-									type="button"
-									onClick={handleClearFilters}
-									className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-surface px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
-								>
-									<X className="size-4" />
-									Limpar filtro
-								</button>
-							</div>
+					<div className="flex flex-col gap-2.5 lg:flex-row lg:items-center">
+						<input
+							type="date"
+							value={dateSet}
+							onChange={(event) => handleDateSetChange(event.target.value)}
+							aria-label="Filtrar por data programada"
+							className="h-[43px] w-full rounded-card-sm border border-line bg-surface px-4 text-[15px] text-ink outline-none placeholder:text-ink-3 lg:w-[180px] lg:shrink-0"
+						/>
+						<div className="grid grid-cols-2 gap-2.5 lg:ml-auto lg:flex lg:shrink-0 lg:gap-2.5">
+							<button
+								type="submit"
+								className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+							>
+								<Search className="size-4" />
+								Aplicar filtro
+							</button>
+							<button
+								type="button"
+								onClick={handleClearFilters}
+								className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-surface px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
+							>
+								<X className="size-4" />
+								Limpar filtro
+							</button>
 						</div>
-					</form>
-				)}
+					</div>
+				</form>
 
 				<div className="sem-barra flex items-center gap-2.5 overflow-x-auto">
 					<FilterChips

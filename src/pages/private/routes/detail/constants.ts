@@ -1,4 +1,5 @@
 import { CLASSE_SHEET_CONTEUDO } from "@/components/ui/sheet";
+import { CLASSE_CAMPO } from "@/lib/form-classes";
 
 export const LIMITE_ROTA_MS = 6 * 60 * 60 * 1000;
 
@@ -57,17 +58,15 @@ export const ERRO_GENERICO =
 
 export const CLASSE_SHEET = CLASSE_SHEET_CONTEUDO;
 
-export const CLASSE_CAMPO_TEXTO =
-	"w-full resize-y rounded-xl border border-blue-tint bg-surface px-3.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-blue-bright";
-
-export const CLASSE_BOTAO_PRIMARIO =
-	"flex h-11 items-center justify-center gap-2 rounded-full bg-blue-deep-fill px-6 text-[15px] font-semibold text-white outline-none transition-[transform,background-color] hover:bg-blue-fill focus-visible:ring-3 focus-visible:ring-blue-bright/50 active:scale-[0.98] disabled:opacity-60";
-
-export const CLASSE_BOTAO_SECUNDARIO =
-	"flex h-11 items-center justify-center gap-2 rounded-full border border-blue-tint-2 bg-surface px-6 text-[15px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50 disabled:opacity-60";
-
-export const CLASSE_BOTAO_PERIGO =
-	"flex h-11 items-center justify-center gap-2 rounded-full bg-danger-fill px-6 text-[15px] font-semibold text-white outline-none transition-[transform,background-color] hover:opacity-90 focus-visible:ring-3 focus-visible:ring-danger/40 active:scale-[0.98] disabled:opacity-60";
+// A aparencia dos campos e botoes mora em `lib/form-classes`, compartilhada com
+// o formulario de criar rota. Estes nomes ficam para nao mexer nos oito sheets
+// que ja importam daqui.
+export const CLASSE_CAMPO_TEXTO = CLASSE_CAMPO;
+export {
+	CLASSE_BOTAO_PERIGO,
+	CLASSE_BOTAO_PRIMARIO,
+	CLASSE_BOTAO_SECUNDARIO,
+} from "@/lib/form-classes";
 
 // Altura compartilhada do mapa e do cartao de paradas: os dois ficam do mesmo
 // tamanho na faixa, cheios ou vazios.

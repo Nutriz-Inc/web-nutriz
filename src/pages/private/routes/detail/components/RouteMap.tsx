@@ -5,7 +5,13 @@ import { MapContainer, Marker, Polyline, TileLayer } from "react-leaflet";
 import { MapResizeHandler } from "@/components/full/MapResizeHandler";
 import { cn } from "@/lib/utils";
 import type { IRouteStop } from "@/services/types/i-route";
-import { formatarEndereco, temCoordenadas } from "../utils";
+import type { EstadoDaParada } from "../utils";
+import {
+	estadoDaParada,
+	formatarEndereco,
+	indiceDaParadaAtual,
+	temCoordenadas,
+} from "../utils";
 import { FitRouteBounds } from "./FitRouteBounds";
 import { MapInteractionToggle } from "./MapInteractionToggle";
 
@@ -20,18 +26,27 @@ const ZOOM_MINIMO = 3;
 const ZOOM_MAXIMO = 18;
 const ZOOM_MAXIMO_COM_DADOS = 16;
 
-const COR_CONCLUIDA = "#00549e";
-const COR_PENDENTE = "#246cb9";
+// O marcador conta o mesmo que a lista de paradas: verde quando o motorista
+// registrou a chegada, vermelho quando marcou imprevisto, azul enquanto nao
+// aconteceu nenhum dos dois.
+const COR_DA_PARADA: Record<EstadoDaParada, string> = {
+	concluida: "var(--success-fill)",
+	erro: "var(--danger-fill)",
+	atual: "#246cb9",
+	proxima: "#246cb9",
+};
 
-function stopIcon(numero: number, concluida: boolean) {
-	const cor = concluida ? COR_CONCLUIDA : COR_PENDENTE;
-	const opacidade = concluida ? "1" : "0.9";
+const COR_TRACADO = "#246cb9";
+
+function stopIcon(numero: number, estado: EstadoDaParada) {
+	const cor = COR_DA_PARADA[estado];
+	const resolvida = estado === "concluida" || estado === "erro";
 
 	return divIcon({
 		className: "",
 		iconSize: [30, 30],
 		iconAnchor: [15, 15],
-		html: `<span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9999px;background:${cor};opacity:${opacidade};color:#fff;font-family:inherit;font-size:13px;font-weight:700;border:2.5px solid #fff;box-shadow:0 2px 5px rgba(15,31,61,.35)">${numero}</span>`,
+		html: `<span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9999px;background:${cor};opacity:${resolvida ? "1" : "0.9"};color:#fff;font-family:inherit;font-size:13px;font-weight:700;border:2.5px solid #fff;box-shadow:0 2px 5px rgba(15,31,61,.35)">${numero}</span>`,
 	});
 }
 
@@ -50,6 +65,11 @@ export function RouteMap({ stops, interativo = true, className }: Props) {
 	]);
 
 	const centro = posicoes[0] ?? CENTRO_PADRAO;
+
+	// O indice da parada atual e calculado sobre a lista inteira, nao so sobre as
+	// que tem coordenada: se uma parada sem endereco esta pendente, ela ainda e a
+	// vez dela, e as seguintes continuam azuis.
+	const indiceAtual = indiceDaParadaAtual(stops);
 
 	return (
 		<div
@@ -82,7 +102,7 @@ export function RouteMap({ stops, interativo = true, className }: Props) {
 					<Polyline
 						positions={posicoes}
 						pathOptions={{
-							color: COR_PENDENTE,
+							color: COR_TRACADO,
 							weight: 4,
 							opacity: 0.75,
 							dashArray: "1 10",
@@ -95,7 +115,10 @@ export function RouteMap({ stops, interativo = true, className }: Props) {
 					<Marker
 						key={stop.id_route_donation_step}
 						position={posicoes[index]}
-						icon={stopIcon(index + 1, Boolean(stop.date_start))}
+						icon={stopIcon(
+							index + 1,
+							estadoDaParada(stop, stops.indexOf(stop), indiceAtual),
+						)}
 						title={`${index + 1}. ${formatarEndereco(stop)}`}
 					/>
 				))}

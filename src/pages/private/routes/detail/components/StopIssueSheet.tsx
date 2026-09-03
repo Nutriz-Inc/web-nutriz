@@ -68,14 +68,21 @@ export function StopIssueSheet({
 				</SheetHeader>
 
 				<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-0.5">
-					<p className="flex items-start gap-2 rounded-xl bg-danger-tint px-3.5 py-3 text-[13px] font-semibold text-danger">
-						<CircleAlert className="mt-px size-4 shrink-0" />A parada fica
-						marcada como não realizada e você segue para a próxima.{" "}
-						<strong className="font-extrabold">
-							Não dá para voltar atrás:
-						</strong>{" "}
-						marcou imprevisto, a parada fica assim até o fim da rota.
-					</p>
+					{/* O texto vai dentro de um bloco proprio: num container flex, cada
+					    trecho solto vira um item e o paragrafo quebra em pedacos. */}
+					<div className="flex items-start gap-2.5 rounded-xl bg-danger-tint px-3.5 py-3">
+						<CircleAlert className="mt-0.5 size-4 shrink-0 text-danger" />
+
+						<div className="flex min-w-0 flex-col gap-1">
+							<p className="text-[13px] font-bold leading-snug text-danger">
+								Não dá para voltar atrás
+							</p>
+							<p className="text-[13px] leading-relaxed text-danger/85">
+								A parada fica marcada como não realizada até o fim da rota e
+								você segue para a próxima.
+							</p>
+						</div>
+					</div>
 
 					<div className="flex flex-col gap-1.5">
 						<label

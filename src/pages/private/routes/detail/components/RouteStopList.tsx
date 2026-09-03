@@ -95,7 +95,10 @@ export function RouteStopList({
 
 					{/* Ocupa o que sobrar quando a lista e curta e colapsa sozinha
 					    (flex-1) quando as paradas passam da altura do cartao. */}
-					<div className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-10 pt-2">
+					<div className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-6 pt-2 sm:pb-10">
+						{/* Largura solta e altura travada: com `w-full` a imagem mantinha
+						    os 3:2 dela e passava da altura que sobrava, e o `overflow`
+						    do pai cortava o topo. Assim ela encolhe inteira. */}
 						<img
 							src={arte.src}
 							alt={arte.alt}
@@ -103,7 +106,7 @@ export function RouteStopList({
 							decoding="async"
 							width={1536}
 							height={1024}
-							className="max-h-full w-full max-w-[280px] select-none object-contain"
+							className="h-auto max-h-[110px] w-auto max-w-[240px] select-none object-contain sm:max-h-full sm:max-w-[280px]"
 						/>
 					</div>
 				</div>

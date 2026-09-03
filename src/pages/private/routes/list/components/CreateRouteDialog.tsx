@@ -144,10 +144,11 @@ export function CreateRouteDialog() {
 	const [neighborhood, setNeighborhood] = useState("");
 	const [stops, setStops] = useState<string[]>([]);
 
-	const driversQuery = useDrivers();
+	// So busca depois de abrir: o dialogo fica montado no cabecalho da tela.
+	const driversQuery = useDrivers(open);
 	const drivers = driversQuery.data ?? [];
 
-	const citiesQuery = useSpCities();
+	const citiesQuery = useSpCities(open);
 	const cities = citiesQuery.data ?? [];
 	const cityId = useMemo(
 		() => cities.find((item) => item.nome === city)?.id,

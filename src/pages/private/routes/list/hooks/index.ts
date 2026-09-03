@@ -21,9 +21,13 @@ export function useRoutesList(params: IListRoutesRequest) {
 	});
 }
 
-export function useDrivers() {
+// `enabled` existe porque o dialogo de criar rota fica montado no cabecalho da
+// tela: sem isso, a lista de motoristas e as 645 cidades do IBGE eram buscadas
+// em toda visita a /rotas, mesmo sem ninguem abrir o dialogo.
+export function useDrivers(enabled = true) {
 	return useQuery({
 		queryKey: ["drivers"],
+		enabled,
 		queryFn: async () => {
 			const { data } = await services.user.list({
 				page: 1,
@@ -61,9 +65,10 @@ type IbgeLocality = {
 	nome: string;
 };
 
-export function useSpCities() {
+export function useSpCities(enabled = true) {
 	return useQuery({
 		queryKey: ["sp-cities"],
+		enabled,
 		queryFn: async () => {
 			const response = await fetch(
 				"https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/municipios?orderBy=nome",

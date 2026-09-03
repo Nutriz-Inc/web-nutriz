@@ -1,6 +1,7 @@
 import { Check, Plus, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { SectionLabel } from "@/components/full/SectionLabel";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { cn } from "@/lib/utils";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
 import { formatDateBR } from "@/utils/formatter";
@@ -29,14 +30,18 @@ export function StopsPicker({
 }: StopsPickerProps) {
 	const [busca, setBusca] = useState("");
 
+	// Cidade e bairro sao digitados: sem atraso, cada tecla vira uma consulta.
+	const cidadeAtrasada = useDebouncedValue(city);
+	const bairroAtrasado = useDebouncedValue(neighborhood);
+
 	const { data, isLoading } = useDonationStepsList({
 		page: 1,
 		page_size: 50,
 		status: EnumDonationStepStatus.Pending,
 		has_address: true,
 		available_for_route: true,
-		city: city || undefined,
-		neighborhood: neighborhood || undefined,
+		city: cidadeAtrasada || undefined,
+		neighborhood: bairroAtrasado || undefined,
 	});
 	const steps = data?.data ?? [];
 

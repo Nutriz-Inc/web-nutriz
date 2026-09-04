@@ -31,7 +31,8 @@ export function HomePage() {
 	const { isLoading: loading, data } = useQueryUserInfo(auth?.id_user);
 
 	const firstName = auth?.name?.split(" ")[0];
-	const currentStepDonation = data?.current_donation?.steps?.at(-1);
+	const currentDonation = data?.current_donation;
+	const currentStepDonation = currentDonation?.steps?.at(-1);
 
 	useStepAlerts(data?.current_donation?.steps);
 
@@ -88,7 +89,7 @@ export function HomePage() {
 		},
 	];
 
-	const donationSteps = data?.current_donation?.steps;
+	const donationSteps = currentDonation?.steps;
 	const hasDonationInProgress = !!donationSteps && donationSteps.length > 0;
 
 	return (
@@ -112,6 +113,7 @@ export function HomePage() {
 											status={currentStepDonation.status}
 											onConsult={goToDonationDetails}
 											stepName={currentStepDonation.name}
+											isRecurrent={currentDonation?.is_recurrent}
 											className="shadow-lift"
 										/>
 									)
@@ -129,7 +131,10 @@ export function HomePage() {
 								<hr className="mt-6 border-0 border-t border-blue-tint-2/60" />
 
 								<Reveal className="mt-6 block">
-									<DonationStatusCard steps={donationSteps} />
+									<DonationStatusCard
+										steps={donationSteps}
+										isRecurrent={currentDonation?.is_recurrent}
+									/>
 								</Reveal>
 							</section>
 						)}

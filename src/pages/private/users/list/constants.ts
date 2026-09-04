@@ -6,6 +6,8 @@ export type ProfileFilter = "all" | EnumUserType;
 
 export type UserSearchFieldKey = "name" | "cpf" | "internal_identifier";
 
+export type RecurrentFilter = "all" | "recurrent" | "first";
+
 export const USER_SEARCH_FIELDS: {
 	key: UserSearchFieldKey;
 	label: string;
@@ -26,6 +28,12 @@ export const PROFILE_FILTER_OPTIONS: FilterChipOption<ProfileFilter>[] = [
 	{ key: EnumUserType.Nurse, label: "Enfermeiro" },
 	{ key: EnumUserType.Common, label: "Doadora" },
 	{ key: EnumUserType.Driver, label: "Motorista" },
+];
+
+export const RECURRENT_FILTER_OPTIONS: FilterChipOption<RecurrentFilter>[] = [
+	{ key: "all", label: "Todas" },
+	{ key: "recurrent", label: "Recorrentes" },
+	{ key: "first", label: "Não recorrentes" },
 ];
 
 export const PROFILE_TYPE_OPTIONS = [

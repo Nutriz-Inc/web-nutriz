@@ -6,7 +6,7 @@ import { EnumUserType } from "@/services/types/i-user";
 import { DonationFeedbackCard } from "./components/DonationFeedbackCard";
 import { DonationSummaryCard } from "./components/DonationSummaryCard";
 import { DonationTimelineCard } from "./components/DonationTimelineCard";
-import { STEP_DEFINITIONS } from "./constants";
+import { getStepDefinitions } from "./constants";
 import { useDonation, useUpdateDonation } from "./hooks/use-donation";
 
 export function DonationInfoPage() {
@@ -17,6 +17,8 @@ export function DonationInfoPage() {
 	const { auth } = useAuth();
 
 	const steps = donationQuery.data?.steps ?? [];
+	const isRecurrent = donationQuery.data?.is_recurrent;
+	const stepDefinitions = getStepDefinitions(isRecurrent);
 
 	const hasFailedStep = steps.some(
 		(s) => s.status === EnumDonationStepStatus.Failed,
@@ -24,7 +26,7 @@ export function DonationInfoPage() {
 
 	const isFullyCompleted =
 		!hasFailedStep &&
-		STEP_DEFINITIONS.every((definition) => {
+		stepDefinitions.every((definition) => {
 			const step = steps.find((s) => s.name === definition.name);
 			return step?.status === EnumDonationStepStatus.Done;
 		});
@@ -63,6 +65,7 @@ export function DonationInfoPage() {
 
 				<DonationTimelineCard
 					steps={steps}
+					isRecurrent={isRecurrent}
 					highlightedSteps={etapasDestacadas}
 					onSelectStep={(idDonationStep) =>
 						navigate(`/doacao/${id_donation}/etapa/${idDonationStep}`)

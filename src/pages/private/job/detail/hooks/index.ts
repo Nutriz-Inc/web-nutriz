@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { STEP_DEFINITIONS } from "@/pages/private/donations/common/info/constants";
+import { getStepDefinitions } from "@/pages/private/donations/common/info/constants";
 import services from "@/services";
 import type { IGetJobResponse } from "@/services/types/i-job";
 import { EnumJobStatus } from "@/services/types/i-job";
+import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { isEndedStatus } from "../../list/utils";
 import type {
 	AppointmentDetail,
@@ -11,7 +12,6 @@ import type {
 	AppointmentStepItem,
 } from "../../types";
 import { formatLocation } from "../../utils";
-import { findStepDefinition } from "../utils";
 
 type UpdateAppointmentInput = {
 	status: EnumJobStatus;
@@ -52,10 +52,40 @@ async function fetchNurseName(id_user?: string): Promise<string> {
 	}
 }
 
-function toStepItems(job: IGetJobResponse): AppointmentStepItem[] {
-	const currentOrder = findStepDefinition(job.name)?.order;
+async function fetchJobDonationRecurrence(job: IGetJobResponse) {
+	if (!job.id_user_common) return false;
 
-	return STEP_DEFINITIONS.map((definition) => {
+	try {
+		const { data } = await services.job.list({
+			page: 1,
+			page_size: DEFAULT_PAGE_SIZE,
+			id_user_common: job.id_user_common,
+		});
+
+		const id_donation = data.find(
+			(item) => item.id_job === job.id_job,
+		)?.id_donation;
+
+		if (!id_donation) return false;
+
+		const donation = await services.donation.get(id_donation);
+
+		return donation.is_recurrent;
+	} catch {
+		return false;
+	}
+}
+
+function toStepItems(
+	job: IGetJobResponse,
+	isRecurrent: boolean,
+): AppointmentStepItem[] {
+	const definitions = getStepDefinitions(isRecurrent);
+	const currentOrder = definitions.find(
+		(definition) => definition.name === job.name,
+	)?.order;
+
+	return definitions.map((definition) => {
 		if (currentOrder === undefined || definition.order > currentOrder) {
 			return { name: definition.name, state: "locked" as const };
 		}
@@ -127,7 +157,7 @@ export function useAppointmentDetail(id_job: string) {
 			const job = await services.job.get(id_job);
 			const ended = isEndedStatus(job.status);
 
-			const [donor, address, nurseName] = await Promise.all([
+			const [donor, address, nurseName, isRecurrent] = await Promise.all([
 				job.id_user_common
 					? services.user.get(job.id_user_common, {
 							show_address: true,
@@ -138,6 +168,7 @@ export function useAppointmentDetail(id_job: string) {
 					: undefined,
 				job.id_address ? services.user.getAddresses(job.id_address) : undefined,
 				ended ? fetchNurseName(job.id_user) : "—",
+				fetchJobDonationRecurrence(job),
 			]);
 
 			return {
@@ -153,7 +184,7 @@ export function useAppointmentDetail(id_job: string) {
 				status: job.status,
 				hasReport: Boolean(job.user_feedback),
 				ended,
-				steps: toStepItems(job),
+				steps: toStepItems(job, isRecurrent),
 				reports: toReports(job, nurseName),
 				finalResult: ended ? toFinalResult(job, nurseName) : undefined,
 			};

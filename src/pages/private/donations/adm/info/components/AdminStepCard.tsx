@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
 	type BottleUpdateBase,
 	type DonationStep,
+	EnumDonationStepName,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
 import type { Job } from "@/services/types/i-job";
@@ -128,11 +129,15 @@ export function AdminStepCard({
 		);
 	}
 
+	const showAddress = definition.name !== EnumDonationStepName.MilkAnalysis;
+
 	const isDone = step?.status === EnumDonationStepStatus.Done;
 	const isFailed = step?.status === EnumDonationStepStatus.Failed;
 	const isLocked = isDone || isFailed;
 
 	function buildAddressPayload() {
+		if (!showAddress) return {};
+
 		if (addressMode === "new") {
 			if (!zipCode) return {};
 			return {
@@ -228,12 +233,16 @@ export function AdminStepCard({
 		removeJobMutation.mutate(id_job);
 	}
 
+	const addressChanged =
+		showAddress &&
+		((addressMode === "existing" && selectedAddressId !== step?.id_address) ||
+			(addressMode === "new" && Boolean(zipCode)));
+
 	const scheduleChanged =
 		Boolean(step) &&
 		(date !== toDateInputValue(step?.set_date) ||
 			time !== toTimeInputValue(step?.set_date) ||
-			(addressMode === "existing" && selectedAddressId !== step?.id_address) ||
-			(addressMode === "new" && Boolean(zipCode)));
+			addressChanged);
 
 	const descriptionChanged =
 		Boolean(step) && stepDescription !== (step?.description ?? "");
@@ -279,6 +288,7 @@ export function AdminStepCard({
 
 			{!step ? (
 				<StepCreateForm
+					showAddress={showAddress}
 					date={date}
 					onDateChange={setDate}
 					time={time}
@@ -315,6 +325,7 @@ export function AdminStepCard({
 							/>
 						) : (
 							<StepEditableForm
+								showAddress={showAddress}
 								date={date}
 								onDateChange={setDate}
 								time={time}

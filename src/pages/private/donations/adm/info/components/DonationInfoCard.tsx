@@ -2,6 +2,7 @@ import { Calendar, IdCardLanyard } from "lucide-react";
 import { BottleSummaryList } from "@/components/full/BottleSummaryList";
 import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
 import { StarRating } from "@/components/full/StarRating";
+import { Badge } from "@/components/ui/badge";
 import {
 	EnumDonationStepStatus,
 	type IGetDonationResponse,
@@ -23,10 +24,17 @@ export function DonationInfoCard({ donation }: Props) {
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center justify-between gap-2">
 					<p className="text-[16px] font-bold text-ink">Dados da doação</p>
-					<DonationStatusBadge
-						isActive={donation.is_active}
-						hasError={hasError}
-					/>
+					<div className="flex shrink-0 items-center gap-1.5">
+						{donation.is_recurrent && (
+							<Badge tone="teal" size="sm">
+								Recorrente
+							</Badge>
+						)}
+						<DonationStatusBadge
+							isActive={donation.is_active}
+							hasError={hasError}
+						/>
+					</div>
 				</div>
 				<p className="text-[12px] text-ink-2">
 					Informações de cadastro — somente leitura

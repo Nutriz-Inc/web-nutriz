@@ -1,6 +1,9 @@
 import { FlaskConical, Milk, Truck, Warehouse } from "lucide-react";
 import type { BadgeTone } from "@/components/ui/badge";
-import { EnumDonationStepName } from "@/services/types/i-donation";
+import {
+	EnumDonationStepName,
+} from "@/services/types/i-donation";
+import { RECURRENT_DONATION_STEP_NAMES } from "@/utils/donation";
 
 export type StepVisualStatus = "done" | "current" | "waiting";
 
@@ -49,3 +52,12 @@ export const STEP_DEFINITIONS: StepDefinition[] = [
 		icon: Warehouse,
 	},
 ];
+
+export const RECURRENT_STEP_DEFINITIONS: StepDefinition[] =
+	STEP_DEFINITIONS.filter((definition) =>
+		RECURRENT_DONATION_STEP_NAMES.includes(definition.name),
+	).map((definition, index) => ({ ...definition, order: index + 1 }));
+
+export function getStepDefinitions(isRecurrent?: boolean): StepDefinition[] {
+	return isRecurrent ? RECURRENT_STEP_DEFINITIONS : STEP_DEFINITIONS;
+}

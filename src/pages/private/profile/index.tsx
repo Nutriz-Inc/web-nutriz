@@ -4,6 +4,7 @@ import { Reveal } from "@/components/full/Reveal";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
+import { isRecurrentDonor } from "@/utils/donor";
 import { formatCep, maskPhoneNumber } from "@/utils/formatter";
 import { BabySection } from "./components/BabySection";
 import { BottomActionBar } from "./components/BottomActionBar";
@@ -43,6 +44,8 @@ export function ProfilePage() {
 	const removeBaby = useRemoveBaby(auth?.id_user);
 
 	const isCommon = auth?.type === EnumUserType.Common;
+
+	const isRecurrent = isRecurrentDonor(data);
 
 	const address = data?.addresses?.[0];
 	const babies = data?.babies ?? [];
@@ -239,6 +242,7 @@ export function ProfilePage() {
 						name={data?.name ?? ""}
 						email={data?.email ?? ""}
 						userType={auth?.type}
+						isRecurrentDonor={isRecurrent}
 						idUser={auth?.id_user}
 						tabsSlot={
 							isCommon ? (

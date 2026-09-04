@@ -2,6 +2,7 @@ import { Calendar, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
 import { getInitials } from "@/components/layout/utils";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { formatCpf, formatDateBR } from "@/utils/formatter";
 import type { AdminDonationRow } from "../hooks";
@@ -58,6 +59,11 @@ export function DonationManagementCard({
 					hasError={donation.hasError}
 				/>
 				<StatusBadge step={donation.currentStepName} />
+				{donation.isRecurrent && (
+					<Badge tone="teal" size="lg">
+						Recorrente
+					</Badge>
+				)}
 			</div>
 
 			<div className="h-px bg-blue-tint lg:hidden" />

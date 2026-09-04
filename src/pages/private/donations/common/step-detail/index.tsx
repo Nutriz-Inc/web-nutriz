@@ -5,7 +5,7 @@ import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { formatCep, formatCreatedAt } from "@/utils/formatter";
-import { STEP_DEFINITIONS } from "../info/constants";
+import { getStepDefinitions } from "../info/constants";
 import { useDonation } from "../info/hooks/use-donation";
 import { StepAboutCard } from "./components/StepAboutCard";
 import { StepHelpCard } from "./components/StepHelpCard";
@@ -23,7 +23,9 @@ export function DonationStepDetailPage() {
 
 	const steps = donationQuery.data?.steps ?? [];
 	const step = steps.find((s) => s.id_donation_step === id_donation_step);
-	const definition = STEP_DEFINITIONS.find((d) => d.name === step?.name)!;
+	const definition = getStepDefinitions(donationQuery.data?.is_recurrent).find(
+		(d) => d.name === step?.name,
+	)!;
 
 	const { addressQuery } = useStepAddress(step?.id_address);
 	const address = addressQuery.data;

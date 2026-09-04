@@ -18,6 +18,7 @@ type Props = {
 	onNumberChange: (value: string) => void;
 	complement: string;
 	onComplementChange: (value: string) => void;
+	showAddress?: boolean;
 	description: string;
 	onDescriptionChange: (value: string) => void;
 	isPending: boolean;
@@ -40,6 +41,7 @@ export function StepCreateForm({
 	onNumberChange,
 	complement,
 	onComplementChange,
+	showAddress = true,
 	description,
 	onDescriptionChange,
 	isPending,
@@ -83,19 +85,21 @@ export function StepCreateForm({
 				</label>
 			</div>
 
-			<StepAddressPicker
-				addresses={donorAddresses}
-				mode={addressMode}
-				selectedAddressId={selectedAddressId}
-				onSelectExisting={onSelectExisting}
-				onSelectNew={onSelectNew}
-				zipCode={zipCode}
-				onZipCodeChange={onZipCodeChange}
-				number={number}
-				onNumberChange={onNumberChange}
-				complement={complement}
-				onComplementChange={onComplementChange}
-			/>
+			{showAddress && (
+				<StepAddressPicker
+					addresses={donorAddresses}
+					mode={addressMode}
+					selectedAddressId={selectedAddressId}
+					onSelectExisting={onSelectExisting}
+					onSelectNew={onSelectNew}
+					zipCode={zipCode}
+					onZipCodeChange={onZipCodeChange}
+					number={number}
+					onNumberChange={onNumberChange}
+					complement={complement}
+					onComplementChange={onComplementChange}
+				/>
+			)}
 
 			<label className="flex flex-col gap-1.5">
 				<span className="text-[12px] font-semibold text-ink-2">

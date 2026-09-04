@@ -6,6 +6,7 @@ export interface Donation {
 	is_active: boolean;
 	user_feedback?: string;
 	score_feedback?: number;
+	is_recurrent: boolean;
 	created_at: string;
 	created_by: string;
 	updated_at?: string;
@@ -68,7 +69,6 @@ export enum EnumDonationStepName {
 	MilkAnalysis = "Análise de leite",
 }
 
-export const NUMBER_OF_DONATION_STEPS = 4;
 
 export enum EnumDonationStepStatus {
 	Pending = "pending",
@@ -84,6 +84,7 @@ export interface IListDonationsRequest extends IPaginationRequest {
 	user_name?: string;
 	id_user_common?: string;
 	current_step?: EnumDonationStepName;
+	is_recurrent?: boolean;
 }
 export interface IDonationResponse extends Donation {
 	user_document?: string;

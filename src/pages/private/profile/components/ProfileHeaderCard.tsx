@@ -4,13 +4,18 @@ import { getInitials } from "@/components/layout/utils";
 import { Badge } from "@/components/ui/badge";
 import { useAvatarColor } from "@/hooks/use-avatar-color";
 import { cn } from "@/lib/utils";
-import type { EnumUserType } from "@/services/types/i-user";
-import { USER_TYPE_LABEL, USER_TYPE_TONE } from "@/utils/constants";
+import { EnumUserType } from "@/services/types/i-user";
+import {
+	RECURRENT_DONOR_LABEL,
+	USER_TYPE_LABEL,
+	USER_TYPE_TONE,
+} from "@/utils/constants";
 
 type ProfileHeaderCardProps = {
 	name: string;
 	email: string;
 	userType?: EnumUserType;
+	isRecurrentDonor?: boolean;
 	idUser?: string;
 	tabsSlot?: ReactNode;
 };
@@ -19,10 +24,17 @@ export function ProfileHeaderCard({
 	name,
 	email,
 	userType,
+	isRecurrentDonor = false,
 	idUser,
 	tabsSlot,
 }: ProfileHeaderCardProps) {
 	const { cor } = useAvatarColor(idUser);
+
+	const typeLabel = userType
+		? isRecurrentDonor && userType === EnumUserType.Common
+			? RECURRENT_DONOR_LABEL
+			: USER_TYPE_LABEL[userType]
+		: null;
 
 	return (
 		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-surface p-5 shadow-soft sm:p-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
@@ -46,7 +58,7 @@ export function ProfileHeaderCard({
 						</p>
 						{userType && (
 							<Badge tone={USER_TYPE_TONE[userType]} size="sm">
-								{USER_TYPE_LABEL[userType]}
+								{typeLabel}
 							</Badge>
 						)}
 					</div>

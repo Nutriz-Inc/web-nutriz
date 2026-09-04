@@ -2,6 +2,7 @@ import { env } from "@/config/env";
 
 export enum EnumWhatsAppLinkContext {
 	NewDonation = "new-donation",
+	RecurrentDonation = "recurrent-donation",
 	NewDonor = "new-donor",
 	DonationHelp = "donation-help",
 }
@@ -13,6 +14,11 @@ export function buildLactareWhatsAppLink(context: EnumWhatsAppLinkContext) {
 		case EnumWhatsAppLinkContext.NewDonation:
 			message = encodeURIComponent(
 				"Olá! Gostaria de iniciar uma nova doação de leite materno.",
+			);
+			break;
+		case EnumWhatsAppLinkContext.RecurrentDonation:
+			message = encodeURIComponent(
+				"Olá! Sou doadora recorrente da Nutriz, estou com leite disponível e gostaria de solicitar a coleta da minha doação.",
 			);
 			break;
 		case EnumWhatsAppLinkContext.NewDonor:

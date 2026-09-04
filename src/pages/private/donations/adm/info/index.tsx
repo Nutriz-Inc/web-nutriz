@@ -4,7 +4,7 @@ import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";
-import { STEP_DEFINITIONS } from "../../common/info/constants";
+import { getStepDefinitions } from "../../common/info/constants";
 import { AdminStepCard } from "./components/AdminStepCard";
 import { DonationInfoCard } from "./components/DonationInfoCard";
 import { DonationStatusStepper } from "./components/DonationStatusStepper";
@@ -28,18 +28,19 @@ export function DonationManagementDetailPage() {
 	const jobsQuery = useDonationJobs(donation?.created_by);
 	const jobs = jobsQuery.data ?? [];
 	const steps = donation?.steps ?? [];
+	const stepDefinitions = getStepDefinitions(donation?.is_recurrent);
 	const hasFailedStep = steps.some(
 		(s) => s.status === EnumDonationStepStatus.Failed,
 	);
 
 	const isFullyCompleted =
 		!hasFailedStep &&
-		STEP_DEFINITIONS.every((definition) => {
+		stepDefinitions.every((definition) => {
 			const step = steps.find((s) => s.name === definition.name);
 			return step?.status === EnumDonationStepStatus.Done;
 		});
 
-	const firstPendingOrder = STEP_DEFINITIONS.find((definition) => {
+	const firstPendingOrder = stepDefinitions.find((definition) => {
 		const step = steps.find((s) => s.name === definition.name);
 		return step?.status !== EnumDonationStepStatus.Done;
 	})?.order;
@@ -52,14 +53,14 @@ export function DonationManagementDetailPage() {
 	}
 
 	function handleStepFinalized(order: number) {
-		const nextDefinition = STEP_DEFINITIONS.find(
+		const nextDefinition = stepDefinitions.find(
 			(definition) => definition.order === order + 1,
 		);
 		if (!nextDefinition) return;
 		if (steps.some((s) => s.name === nextDefinition.name)) return;
 
 		const description =
-			STEP_DEFINITIONS.find(
+			stepDefinitions.find(
 				(definition) => definition.name === nextDefinition.name,
 			)?.description ?? "";
 
@@ -86,6 +87,7 @@ export function DonationManagementDetailPage() {
 						<DonorInfoCard donor={donorQuery.data} />
 						<DonationStatusStepper
 							steps={steps}
+							definitions={stepDefinitions}
 							getVisualStatus={getVisualStatus}
 						/>
 					</div>
@@ -119,7 +121,7 @@ export function DonationManagementDetailPage() {
 							</div>
 						)}
 
-						{STEP_DEFINITIONS.map((definition) => {
+						{stepDefinitions.map((definition) => {
 							const step = steps.find((s) => s.name === definition.name);
 
 							return (
@@ -133,7 +135,7 @@ export function DonationManagementDetailPage() {
 									donorAddresses={donorQuery.data?.addresses ?? []}
 									onFinalized={() => handleStepFinalized(definition.order)}
 									donationEnded={hasFailedStep}
-									isLastStep={definition.order === STEP_DEFINITIONS.length}
+									isLastStep={definition.order === stepDefinitions.length}
 									jobs={jobs.filter(
 										(job) => job.id_step === step?.id_donation_step,
 									)}

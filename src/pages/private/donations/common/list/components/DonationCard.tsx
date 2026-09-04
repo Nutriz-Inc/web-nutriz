@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Calendar, ChevronRight, Heart, Lock } from "lucide-react";
 import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
+import { Badge } from "@/components/ui/badge";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
@@ -12,6 +13,7 @@ type DonationCardProps = {
 	createdAt: string;
 	currentStep: number;
 	totalSteps: number;
+	isRecurrent?: boolean;
 	stepLabel?: string;
 	isClickable?: boolean;
 	onClick?: () => void;
@@ -25,6 +27,7 @@ export function DonationCard({
 	createdAt,
 	currentStep,
 	totalSteps,
+	isRecurrent = false,
 	stepLabel,
 	isClickable = true,
 	onClick,
@@ -113,10 +116,17 @@ export function DonationCard({
 							>
 								Doação #{number}
 							</p>
-							<DonationStatusBadge
-								isActive={isInProgress}
-								hasError={hasError}
-							/>
+							<div className="flex shrink-0 items-center gap-1.5">
+								{isRecurrent && (
+									<Badge tone="teal" size="sm">
+										Recorrente
+									</Badge>
+								)}
+								<DonationStatusBadge
+									isActive={isInProgress}
+									hasError={hasError}
+								/>
+							</div>
 						</div>
 						{isClickable && (
 							<ChevronRight className="size-5 shrink-0 text-ink-3 lg:size-6" />

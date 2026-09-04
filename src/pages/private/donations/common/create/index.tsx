@@ -54,11 +54,17 @@ export function NewDonationPage() {
 	const { activeDonation, isLoading, refetchActiveDonation } =
 		useActiveDonation();
 
+	const isRecurrentDonor = Boolean(auth?.is_recurrent_donor);
+
 	function handleConfirm() {
 		createDonationMutation.mutate(undefined, {
 			onSuccess: () => {
 				window.open(
-					buildLactareWhatsAppLink(EnumWhatsAppLinkContext.NewDonation),
+					buildLactareWhatsAppLink(
+						isRecurrentDonor
+							? EnumWhatsAppLinkContext.RecurrentDonation
+							: EnumWhatsAppLinkContext.NewDonation,
+					),
 					"_blank",
 					"noopener",
 				);

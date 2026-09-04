@@ -24,6 +24,7 @@ type Props = {
 	onNumberChange: (value: string) => void;
 	complement: string;
 	onComplementChange: (value: string) => void;
+	showAddress?: boolean;
 	description: string;
 	onDescriptionChange: (value: string) => void;
 	onSave: () => void;
@@ -59,6 +60,7 @@ export function StepEditableForm({
 	onNumberChange,
 	complement,
 	onComplementChange,
+	showAddress = true,
 	description,
 	onDescriptionChange,
 	onSave,
@@ -126,19 +128,21 @@ export function StepEditableForm({
 				</select>
 			</label>
 
-			<StepAddressPicker
-				addresses={donorAddresses}
-				mode={addressMode}
-				selectedAddressId={selectedAddressId}
-				onSelectExisting={onSelectExisting}
-				onSelectNew={onSelectNew}
-				zipCode={zipCode}
-				onZipCodeChange={onZipCodeChange}
-				number={number}
-				onNumberChange={onNumberChange}
-				complement={complement}
-				onComplementChange={onComplementChange}
-			/>
+			{showAddress && (
+				<StepAddressPicker
+					addresses={donorAddresses}
+					mode={addressMode}
+					selectedAddressId={selectedAddressId}
+					onSelectExisting={onSelectExisting}
+					onSelectNew={onSelectNew}
+					zipCode={zipCode}
+					onZipCodeChange={onZipCodeChange}
+					number={number}
+					onNumberChange={onNumberChange}
+					complement={complement}
+					onComplementChange={onComplementChange}
+				/>
+			)}
 
 			<label className="flex flex-col gap-1.5">
 				<span className="text-[12px] font-semibold text-ink-2">

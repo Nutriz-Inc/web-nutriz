@@ -3,7 +3,7 @@ import {
 	type DonationStep,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
-import { STEP_DEFINITIONS } from "../../../common/info/constants";
+import type { StepDefinition } from "../../../common/info/constants";
 import {
 	ADMIN_STEP_STATUS_LABEL,
 	type AdminStepVisualStatus,
@@ -11,15 +11,20 @@ import {
 
 type Props = {
 	steps: DonationStep[];
+	definitions: StepDefinition[];
 	getVisualStatus: (order: number) => AdminStepVisualStatus;
 };
 
-export function DonationStatusStepper({ steps, getVisualStatus }: Props) {
+export function DonationStatusStepper({
+	steps,
+	definitions,
+	getVisualStatus,
+}: Props) {
 	const hasFailedStep = steps.some(
 		(s) => s.status === EnumDonationStepStatus.Failed,
 	);
 
-	const items: StepTrailItem[] = STEP_DEFINITIONS.map((definition) => {
+	const items: StepTrailItem[] = definitions.map((definition) => {
 		const step = steps.find((s) => s.name === definition.name);
 		const visualStatus = getVisualStatus(definition.order);
 		const isCurrent = visualStatus === "current";

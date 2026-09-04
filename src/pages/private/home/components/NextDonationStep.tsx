@@ -5,13 +5,14 @@ import { cn } from "@/lib/utils";
 import {
 	type EnumDonationStepName,
 	type EnumDonationStepStatus,
-	NUMBER_OF_DONATION_STEPS,
 } from "@/services/types/i-donation";
-import { STEP_NUMBER } from "@/utils/constants";
+import { getStepNumber } from "@/utils/constants";
+import { getNumberOfDonationSteps } from "@/utils/donation";
 import { formatCreatedAt } from "@/utils/formatter";
 
 interface Props {
 	stepName: EnumDonationStepName;
+	isRecurrent?: boolean;
 	datetime?: string;
 	status: EnumDonationStepStatus;
 	onConsult: () => void;
@@ -20,12 +21,14 @@ interface Props {
 
 export function NextDonationStep({
 	stepName,
+	isRecurrent,
 	datetime,
 	status,
 	onConsult,
 	className,
 }: Props) {
-	const stepNumber = STEP_NUMBER[stepName];
+	const stepNumber = getStepNumber(stepName, isRecurrent);
+	const totalSteps = getNumberOfDonationSteps(isRecurrent);
 	const formattedDate = datetime
 		? formatCreatedAt(datetime)
 		: "Sem data marcada";
@@ -55,12 +58,12 @@ export function NextDonationStep({
 				<span className="text-xs font-medium text-ink-2">Progresso</span>
 				<ProgressBar
 					current={stepNumber}
-					total={NUMBER_OF_DONATION_STEPS}
+					total={totalSteps}
 					size="sm"
 					className="flex-1"
 				/>
 				<span className="font-sans text-xs font-bold tabular-nums text-blue-deep">
-					{stepNumber} / {NUMBER_OF_DONATION_STEPS}
+					{stepNumber} / {totalSteps}
 				</span>
 			</div>
 

@@ -34,9 +34,7 @@ export interface RouteStats {
 	average_route_duration_hours: number | null;
 }
 
-export interface IGetAdmDashboardResponse
-	extends BottleStats,
-		RouteStats {
+export interface IGetAdmDashboardResponse extends BottleStats, RouteStats {
 	total_milk_collected: number;
 	milk_collected_by_month: MilkCollectedByMonth[];
 	feedback_by_score: FeedbackScoreCount[];

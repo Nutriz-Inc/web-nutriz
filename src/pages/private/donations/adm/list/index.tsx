@@ -14,6 +14,8 @@ import { DonationManagementCard } from "./components/DonationManagementCard";
 import {
 	ACTIVE_FILTER_OPTIONS,
 	type ActiveFilter,
+	RECURRENT_FILTER_OPTIONS,
+	type RecurrentFilter,
 	STEP_FILTER_OPTIONS,
 	type StepFilter,
 } from "./constants";
@@ -28,6 +30,8 @@ export function DonationsManagementPage() {
 	const [appliedCpf, setAppliedCpf] = useState("");
 	const [filter, setFilter] = useState<StepFilter>("all");
 	const [activeFilter, setActiveFilter] = useState<ActiveFilter>("all");
+	const [recurrentFilter, setRecurrentFilter] =
+		useState<RecurrentFilter>("all");
 	const [page, setPage] = useState(1);
 
 	function handleApplyFilters(event: FormEvent<HTMLFormElement>) {
@@ -45,6 +49,7 @@ export function DonationsManagementPage() {
 		setAppliedCpf("");
 		setFilter("all");
 		setActiveFilter("all");
+		setRecurrentFilter("all");
 		setPage(1);
 	}
 
@@ -58,6 +63,11 @@ export function DonationsManagementPage() {
 		setPage(1);
 	}
 
+	function handleRecurrentFilterChange(value: RecurrentFilter) {
+		setRecurrentFilter(value);
+		setPage(1);
+	}
+
 	const { data, isLoading, isPlaceholderData } = useAdminDonationsList({
 		page,
 		page_size: DEFAULT_PAGE_SIZE,
@@ -65,6 +75,8 @@ export function DonationsManagementPage() {
 		user_document: appliedCpf.replace(/\D/g, "") || undefined,
 		current_step: filter === "all" ? undefined : filter,
 		is_active: activeFilter === "all" ? undefined : activeFilter === "active",
+		is_recurrent:
+			recurrentFilter === "all" ? undefined : recurrentFilter === "recurrent",
 	});
 
 	const donations = data?.data ?? [];
@@ -122,6 +134,12 @@ export function DonationsManagementPage() {
 						options={ACTIVE_FILTER_OPTIONS}
 						value={activeFilter}
 						onChange={handleActiveFilterChange}
+					/>
+					<div className="h-6 w-px shrink-0 bg-blue-tint" />
+					<FilterChips
+						options={RECURRENT_FILTER_OPTIONS}
+						value={recurrentFilter}
+						onChange={handleRecurrentFilterChange}
 					/>
 					<div className="h-6 w-px shrink-0 bg-blue-tint" />
 					<FilterChips

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import {
 	BADGE_LABEL,
 	BADGE_TONE,
-	STEP_DEFINITIONS,
+	getStepDefinitions,
 	type StepVisualStatus,
 } from "@/pages/private/donations/common/info/constants";
 import {
@@ -14,11 +14,14 @@ import {
 
 type Props = {
 	steps: DonationStep[];
+	isRecurrent?: boolean;
 	className?: string;
 };
 
-export function DonationStatusCard({ steps, className }: Props) {
-	const firstPendingOrder = STEP_DEFINITIONS.find((definition) => {
+export function DonationStatusCard({ steps, isRecurrent, className }: Props) {
+	const stepDefinitions = getStepDefinitions(isRecurrent);
+
+	const firstPendingOrder = stepDefinitions.find((definition) => {
 		const step = steps.find((s) => s.name === definition.name);
 		return step?.status !== EnumDonationStepStatus.Done;
 	})?.order;
@@ -26,12 +29,12 @@ export function DonationStatusCard({ steps, className }: Props) {
 	const currentStep = steps.find(
 		(s) =>
 			s.name ===
-			STEP_DEFINITIONS.find(
+			stepDefinitions.find(
 				(definition) => definition.order === firstPendingOrder,
 			)?.name,
 	);
 
-	const lastOrder = STEP_DEFINITIONS.length;
+	const lastOrder = stepDefinitions.length;
 
 	return (
 		<div
@@ -44,8 +47,13 @@ export function DonationStatusCard({ steps, className }: Props) {
 				Status da sua doação atual
 			</p>
 
-			<ol className="grid gap-0 lg:grid-cols-4">
-				{STEP_DEFINITIONS.map((definition) => {
+			<ol
+				className={cn(
+					"grid gap-0",
+					lastOrder === 2 ? "lg:grid-cols-2" : "lg:grid-cols-4",
+				)}
+			>
+				{stepDefinitions.map((definition) => {
 					const step = steps.find((s) => s.name === definition.name);
 					const isDone = step?.status === EnumDonationStepStatus.Done;
 					const isCurrent = !isDone && definition.order === firstPendingOrder;

@@ -2,23 +2,26 @@ import {
 	type DonationStep,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
-import { STEP_DEFINITIONS, type StepVisualStatus } from "../constants";
+import { getStepDefinitions, type StepVisualStatus } from "../constants";
 import { DonationStepCard } from "./DonationStepCard";
 
 type Props = {
 	steps: DonationStep[];
+	isRecurrent?: boolean;
 	highlightedSteps: ReadonlySet<string>;
 	onSelectStep: (idDonationStep: string) => void;
 };
 
 export function DonationTimelineCard({
 	steps,
+	isRecurrent,
 	highlightedSteps,
 	onSelectStep,
 }: Props) {
-	const total = STEP_DEFINITIONS.length;
+	const stepDefinitions = getStepDefinitions(isRecurrent);
+	const total = stepDefinitions.length;
 
-	const firstPendingOrder = STEP_DEFINITIONS.find((definition) => {
+	const firstPendingOrder = stepDefinitions.find((definition) => {
 		const step = steps.find((s) => s.name === definition.name);
 		return step?.status !== EnumDonationStepStatus.Done;
 	})?.order;
@@ -37,7 +40,7 @@ export function DonationTimelineCard({
 			<div className="h-px bg-blue-tint" />
 
 			<div className="flex flex-col">
-				{STEP_DEFINITIONS.map((definition, index) => {
+				{stepDefinitions.map((definition, index) => {
 					const step = steps.find((s) => s.name === definition.name);
 
 					const visualStatus: StepVisualStatus =

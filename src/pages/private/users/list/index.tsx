@@ -17,6 +17,8 @@ import { UsersTableHeader } from "./components/UsersTableHeader";
 import {
 	PROFILE_FILTER_OPTIONS,
 	type ProfileFilter,
+	RECURRENT_FILTER_OPTIONS,
+	type RecurrentFilter,
 	type UserSearchFieldKey,
 } from "./constants";
 import { useCreateUser, useUsersList } from "./hooks";
@@ -31,7 +33,20 @@ export function UsersManagementPage() {
 	const [appliedTerm, setAppliedTerm] = useState("");
 	const [appliedField, setAppliedField] = useState<UserSearchFieldKey>("name");
 	const [profileFilter, setProfileFilter] = useState<ProfileFilter>("all");
+	const [recurrentFilter, setRecurrentFilter] =
+		useState<RecurrentFilter>("all");
 	const [isCreateUserOpen, setIsCreateUserOpen] = useState(false);
+
+	const showRecurrentFilter =
+		profileFilter === "all" || profileFilter === EnumUserType.Common;
+
+	function handleProfileFilterChange(value: ProfileFilter) {
+		setProfileFilter(value);
+
+		if (value !== "all" && value !== EnumUserType.Common) {
+			setRecurrentFilter("all");
+		}
+	}
 
 	function handleApplyFilters(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -64,6 +79,10 @@ export function UsersManagementPage() {
 				? appliedTerm || undefined
 				: undefined,
 		type: profileFilter === "all" ? undefined : profileFilter,
+		is_recurrent:
+			!showRecurrentFilter || recurrentFilter === "all"
+				? undefined
+				: recurrentFilter === "recurrent",
 	});
 	const { createUserMutation } = useCreateUser();
 
@@ -91,12 +110,23 @@ export function UsersManagementPage() {
 		>
 			<div className="flex flex-col gap-4 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6">
 				<div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-					<div className="sem-barra -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:px-0">
+					<div className="sem-barra -mx-4 flex items-center gap-2 overflow-x-auto px-4 lg:mx-0 lg:px-0">
 						<FilterChips
 							options={PROFILE_FILTER_OPTIONS}
 							value={profileFilter}
-							onChange={setProfileFilter}
+							onChange={handleProfileFilterChange}
 						/>
+
+						{showRecurrentFilter && (
+							<>
+								<div className="h-6 w-px shrink-0 bg-blue-tint" />
+								<FilterChips
+									options={RECURRENT_FILTER_OPTIONS}
+									value={recurrentFilter}
+									onChange={setRecurrentFilter}
+								/>
+							</>
+						)}
 					</div>
 					<NewUserButton
 						onClick={() => setIsCreateUserOpen(true)}

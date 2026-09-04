@@ -33,6 +33,7 @@ export interface User {
 	phone_number: string;
 	email: string;
 	milk_donated?: number;
+	blood_exam_valid_until?: string;
 	created_at: string;
 	created_by: string;
 	updated_at?: string;
@@ -141,6 +142,7 @@ export interface IListUsersRequest extends IPaginationRequest {
 	type?: EnumUserType;
 	internal_identifier?: string;
 	cpf?: string;
+	is_recurrent?: boolean;
 }
 export interface IListUsersResponse extends IPaginationResponse {
 	data: User[];

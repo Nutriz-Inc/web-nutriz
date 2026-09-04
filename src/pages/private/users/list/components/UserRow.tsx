@@ -2,8 +2,13 @@ import { ChevronRight, IdCard, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getInitials } from "@/components/layout/utils";
 import { Badge } from "@/components/ui/badge";
-import type { User } from "@/services/types/i-user";
-import { USER_TYPE_LABEL, USER_TYPE_TONE } from "@/utils/constants";
+import { EnumUserType, type User } from "@/services/types/i-user";
+import {
+	RECURRENT_DONOR_LABEL,
+	USER_TYPE_LABEL,
+	USER_TYPE_TONE,
+} from "@/utils/constants";
+import { isRecurrentDonor } from "@/utils/donor";
 import { formatCpf } from "@/utils/formatter";
 
 type Props = {
@@ -11,6 +16,11 @@ type Props = {
 };
 
 export function UserRow({ user }: Props) {
+	const typeLabel =
+		user.type === EnumUserType.Common && isRecurrentDonor(user)
+			? RECURRENT_DONOR_LABEL
+			: USER_TYPE_LABEL[user.type];
+
 	return (
 		<Link
 			to={`/usuarios/${user.id_user}`}
@@ -27,9 +37,7 @@ export function UserRow({ user }: Props) {
 			</div>
 
 			<div className="flex items-center justify-between gap-2 lg:order-last">
-				<Badge tone={USER_TYPE_TONE[user.type]}>
-					{USER_TYPE_LABEL[user.type]}
-				</Badge>
+				<Badge tone={USER_TYPE_TONE[user.type]}>{typeLabel}</Badge>
 				<ChevronRight className="hidden size-5 shrink-0 text-ink-3 lg:block" />
 			</div>
 

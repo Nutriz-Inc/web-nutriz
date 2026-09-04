@@ -7,7 +7,7 @@ import {
 	type IUpdateDonationRequest,
 } from "@/services/types/i-donation";
 import { intervaloAoVivo } from "@/utils/live-query";
-import { STEP_DEFINITIONS } from "../constants";
+import { getStepDefinitions } from "../constants";
 
 export function useDonation(id_donation: string) {
 	const donationQuery = useQuery({
@@ -22,7 +22,9 @@ export function useDonation(id_donation: string) {
 				(etapa) => etapa.status === EnumDonationStepStatus.Failed,
 			);
 
-			const todasConcluidas = STEP_DEFINITIONS.every((definicao) => {
+			const definicoes = getStepDefinitions(consulta.state.data?.is_recurrent);
+
+			const todasConcluidas = definicoes.every((definicao) => {
 				const etapa = etapas.find((item) => item.name === definicao.name);
 				return etapa?.status === EnumDonationStepStatus.Done;
 			});

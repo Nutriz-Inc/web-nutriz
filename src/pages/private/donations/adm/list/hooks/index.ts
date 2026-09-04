@@ -9,6 +9,7 @@ export type AdminDonationRow = {
 	createdAt: string;
 	currentStepName: EnumDonationStepName | null;
 	isActive: boolean;
+	isRecurrent: boolean;
 	hasError: boolean;
 };
 
@@ -19,6 +20,7 @@ type UseAdminDonationsListParams = {
 	user_document?: string;
 	current_step?: EnumDonationStepName;
 	is_active?: boolean;
+	is_recurrent?: boolean;
 };
 
 type AdminDonationsListResult = {
@@ -46,6 +48,7 @@ async function fetchAdminDonations(
 			createdAt: donation.created_at,
 			currentStepName: donation.current_step ?? null,
 			isActive: donation.is_active,
+			isRecurrent: donation.is_recurrent,
 			hasError: donation.has_error,
 		})),
 		page,

@@ -4,6 +4,7 @@ import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import type { IGetUserResponse } from "@/services/types/i-user";
 import { EnumUserType } from "@/services/types/i-user";
+import { isRecurrentDonor } from "@/utils/donor";
 import { UserTypeBadge } from "./UserTypeBadge";
 
 type UserDetailHeaderCardProps = {
@@ -36,11 +37,14 @@ export function UserDetailHeaderCard({
 					</span>
 				</div>
 				<div className="flex min-w-0 flex-col gap-1.5">
-					<p className="text-[18px] font-extrabold leading-tight text-ink lg:truncate lg:text-[22px] lg:leading-normal">
-						{user.name}
-					</p>
-					<div className="flex flex-wrap items-center gap-2">
-						<UserTypeBadge type={user.type} />
+					<div className="flex min-w-0 flex-wrap items-center gap-2">
+						<p className="min-w-0 break-words text-[18px] font-extrabold leading-tight text-ink lg:truncate lg:text-[22px] lg:leading-normal">
+							{user.name}
+						</p>
+						<UserTypeBadge
+							type={user.type}
+							isRecurrentDonor={isRecurrentDonor(user)}
+						/>
 					</div>
 					<CopyableId id={user.id_user} />
 				</div>

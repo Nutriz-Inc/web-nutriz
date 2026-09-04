@@ -4,11 +4,11 @@ import doacaoVazia from "@/assets/illustrations/doacao-vazia.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
-import { NUMBER_OF_DONATION_STEPS } from "@/services/types/i-donation";
 import { EnumUserType } from "@/services/types/i-user";
-import { STEP_NUMBER } from "@/utils/constants";
+import { getStepNumber } from "@/utils/constants";
 import { DonationCard } from "./components/DonationCard";
 import { useDonationsList } from "./hooks";
+import { getNumberOfDonationSteps } from "@/utils/donation";
 
 export function DonationsPage() {
 	const navigate = useNavigate();
@@ -91,8 +91,11 @@ export function DonationsPage() {
 							{orderedDonations.map(({ donation, number }) => {
 								const isInProgress = donation.is_active;
 								const hasCurrentStep = Boolean(donation.current_step);
+								const totalSteps = getNumberOfDonationSteps(
+									donation.is_recurrent,
+								);
 								const currentStepNumber = donation.current_step
-									? STEP_NUMBER[donation.current_step]
+									? getStepNumber(donation.current_step, donation.is_recurrent)
 									: 0;
 
 								return (
@@ -102,12 +105,9 @@ export function DonationsPage() {
 										isInProgress={isInProgress}
 										hasError={donation.has_error}
 										createdAt={donation.created_at}
-										currentStep={
-											isInProgress
-												? currentStepNumber
-												: NUMBER_OF_DONATION_STEPS
-										}
-										totalSteps={NUMBER_OF_DONATION_STEPS}
+										currentStep={isInProgress ? currentStepNumber : totalSteps}
+										totalSteps={totalSteps}
+										isRecurrent={donation.is_recurrent}
 										stepLabel={isInProgress ? donation.current_step : undefined}
 										isClickable={hasCurrentStep}
 										onClick={

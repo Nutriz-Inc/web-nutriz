@@ -10,6 +10,7 @@ export interface IAuthResponse {
 	id_user: string;
 	name: string;
 	type: EnumUserType;
+	is_recurrent_donor: boolean;
 }
 
 export interface IAuth {

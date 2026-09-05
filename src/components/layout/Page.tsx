@@ -1,4 +1,4 @@
-import { AlertCircle, ChevronLeft, LoaderCircle } from "lucide-react";
+import { AlertCircle, ChevronLeft } from "lucide-react";
 import type React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -99,11 +99,22 @@ export function Page({
 			)}
 
 			{loading ? (
-				<div className="flex w-full justify-center pt-8">
-					<LoaderCircle
-						data-testid="loader-page"
-						className="animate-spin text-muted-foreground"
-					/>
+				<div
+					data-testid="loader-page"
+					aria-busy="true"
+					aria-live="polite"
+					className={cn("flex w-full flex-col gap-4", titleClassName)}
+				>
+					<span className="sr-only">Carregando o conteúdo da página</span>
+
+					{[0, 1, 2].map((indice) => (
+						<div
+							key={indice}
+							aria-hidden="true"
+							style={{ animationDelay: `${indice * 120}ms` }}
+							className="h-28 w-full animate-pulse rounded-card bg-surface-2 motion-reduce:animate-none"
+						/>
+					))}
 				</div>
 			) : (
 				children

@@ -20,7 +20,8 @@ export function DateFilter({ value, onChange }: DateFilterProps) {
 					value={value}
 					onChange={(event) => onChange(maskDate(event.target.value))}
 					placeholder="__/__/____"
-					className="min-w-0 flex-1 bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-3"
+					aria-label="Filtrar por data"
+					className="min-h-6 min-w-0 flex-1 bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-3"
 				/>
 				{value && (
 					<button

@@ -23,10 +23,10 @@ export function DonationPointCard({
 			type="button"
 			onClick={onSelect}
 			className={cn(
-				"flex w-full items-start gap-3 rounded-xl border p-4 text-left transition-colors",
+				"flex w-full items-start gap-3 rounded-card-sm border p-4 text-left transition-colors",
 				selected
 					? "border-blue-bright bg-blue-bright/10"
-					: "border-line bg-surface",
+					: "border-line bg-surface hover:border-blue-tint-2 hover:bg-blue-tint/40",
 			)}
 		>
 			<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-bright/25">

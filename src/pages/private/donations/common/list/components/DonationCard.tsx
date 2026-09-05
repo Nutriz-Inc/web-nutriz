@@ -57,7 +57,7 @@ export function DonationCard({
 			whileTap={animar ? { x: 2 } : undefined}
 			transition={{ type: "spring", stiffness: 260, damping: 30 }}
 			className={cn(
-				"group relative flex w-full flex-col overflow-hidden rounded-2xl bg-surface text-left shadow-soft transition-[box-shadow,border-radius] lg:rounded-3xl",
+				"group relative flex w-full flex-col overflow-hidden rounded-card bg-surface text-left shadow-soft transition-[box-shadow,border-radius] lg:rounded-3xl",
 				isInProgress
 					? "gap-3 p-4 lg:gap-5 lg:p-8"
 					: "gap-2 p-3.5 lg:gap-2.5 lg:p-5",

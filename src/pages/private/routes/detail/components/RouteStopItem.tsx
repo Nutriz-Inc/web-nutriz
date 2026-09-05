@@ -56,9 +56,6 @@ export function RouteStopItem({
 
 	return (
 		<li className="flex gap-3">
-			{/* Trilha lateral so no desktop. No celular o marcador entra no cartao,
-			    ao lado do endereco: da mais espaco ao texto e o cartao da parada
-			    atual cresce para abraçar a bolinha que anima. */}
 			<div className="hidden flex-col items-center sm:flex">
 				{marcador()}
 
@@ -149,7 +146,7 @@ export function RouteStopItem({
 								type="button"
 								onClick={onMarcar}
 								className={cn(
-									"flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-[13px] font-bold outline-none transition-[transform,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
+									"flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-[13px] font-bold outline-none transition-[transform,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
 									atual
 										? "bg-blue-deep-fill text-white hover:bg-blue-fill"
 										: "border border-blue-tint-2 bg-surface text-blue-deep hover:bg-blue-tint",
@@ -162,7 +159,7 @@ export function RouteStopItem({
 							<button
 								type="button"
 								onClick={onReportarProblema}
-								className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-danger-tint bg-surface px-3 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40"
+								className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full border border-danger-tint bg-surface px-3 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40"
 							>
 								<CircleAlert className="size-4 shrink-0" />
 								Imprevisto

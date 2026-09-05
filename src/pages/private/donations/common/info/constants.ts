@@ -1,8 +1,6 @@
 import { FlaskConical, Milk, Truck, Warehouse } from "lucide-react";
 import type { BadgeTone } from "@/components/ui/badge";
-import {
-	EnumDonationStepName,
-} from "@/services/types/i-donation";
+import { EnumDonationStepName } from "@/services/types/i-donation";
 import { RECURRENT_DONATION_STEP_NAMES } from "@/utils/donation";
 
 export type StepVisualStatus = "done" | "current" | "waiting";

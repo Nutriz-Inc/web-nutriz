@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import rotaAguardando from "@/assets/illustrations/rota-aguardando.png";
 import rotaEmAndamento from "@/assets/illustrations/rota-em-andamento.png";
 import rotaFinalizada from "@/assets/illustrations/rota-finalizada.png";
@@ -8,8 +9,6 @@ import type { EstadoDaRota } from "../utils";
 import { estadoDaParada, indiceDaParadaAtual } from "../utils";
 import { RouteStopItem } from "./RouteStopItem";
 
-// Uma arte por momento da rota, para o motorista reconhecer de relance em que
-// pe ele esta sem precisar ler nada.
 const ARTE: Record<EstadoDaRota, { src: string; alt: string }> = {
 	aguardando: {
 		src: rotaAguardando,
@@ -24,6 +23,9 @@ const ARTE: Record<EstadoDaRota, { src: string; alt: string }> = {
 		alt: "Motorista comemorando com todas as paradas da rota concluídas",
 	},
 };
+
+const RESPIRO_DA_ARTE = 32;
+const ALTURA_MINIMA_DA_ARTE = 132;
 
 type Props = {
 	stops: IRouteStop[];
@@ -49,6 +51,28 @@ export function RouteStopList({
 	onReportarProblema,
 }: Props) {
 	const arte = ARTE[estadoRota];
+	const sobraRef = useRef<HTMLDivElement>(null);
+	const [sobra, setSobra] = useState(0);
+
+	useEffect(() => {
+		const elemento = sobraRef.current;
+
+		if (!elemento || typeof ResizeObserver === "undefined") {
+			return;
+		}
+
+		const medir = () => setSobra(elemento.clientHeight);
+
+		medir();
+
+		const observador = new ResizeObserver(medir);
+		observador.observe(elemento);
+
+		return () => observador.disconnect();
+	}, []);
+
+	const alturaDaArte = sobra - RESPIRO_DA_ARTE;
+	const cabeArte = alturaDaArte >= ALTURA_MINIMA_DA_ARTE;
 
 	const indiceAtual = rotaIniciada ? indiceDaParadaAtual(stops) : -1;
 
@@ -68,7 +92,6 @@ export function RouteStopList({
 					}
 				/>
 			) : (
-				// O cartao tem altura fixa, igual a do mapa: a lista rola por dentro.
 				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
 					<ol className="flex shrink-0 flex-col gap-1.5 p-3 sm:gap-0 sm:p-5">
 						{stops.map((stop, index) => (
@@ -79,7 +102,6 @@ export function RouteStopList({
 								estado={estadoDaParada(stop, index, indiceAtual)}
 								isLast={index === stops.length - 1}
 								podeRemover={podeGerenciar}
-								// Parada com erro nao volta atras: marcou, marcou.
 								podeMarcar={
 									podeMarcar &&
 									!["concluida", "erro"].includes(
@@ -93,21 +115,22 @@ export function RouteStopList({
 						))}
 					</ol>
 
-					{/* Ocupa o que sobrar quando a lista e curta e colapsa sozinha
-					    (flex-1) quando as paradas passam da altura do cartao. */}
-					<div className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-6 pt-2 sm:pb-10">
-						{/* Largura solta e altura travada: com `w-full` a imagem mantinha
-						    os 3:2 dela e passava da altura que sobrava, e o `overflow`
-						    do pai cortava o topo. Assim ela encolhe inteira. */}
-						<img
-							src={arte.src}
-							alt={arte.alt}
-							loading="lazy"
-							decoding="async"
-							width={1536}
-							height={1024}
-							className="h-auto max-h-[110px] w-auto max-w-[240px] select-none object-contain sm:max-h-full sm:max-w-[280px]"
-						/>
+					<div
+						ref={sobraRef}
+						className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5"
+					>
+						{cabeArte && (
+							<img
+								src={arte.src}
+								alt={arte.alt}
+								loading="lazy"
+								decoding="async"
+								width={1536}
+								height={1024}
+								style={{ maxHeight: alturaDaArte }}
+								className="h-auto w-auto max-w-[240px] select-none object-contain pb-4 sm:max-w-[280px]"
+							/>
+						)}
 					</div>
 				</div>
 			)}

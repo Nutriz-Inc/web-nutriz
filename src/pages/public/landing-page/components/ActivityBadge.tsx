@@ -8,7 +8,7 @@ type ActivityBadgeProps = {
 
 export function ActivityBadge({
 	label,
-	dotColor = "#2fd9c5",
+	dotColor = "var(--mint)",
 	className,
 }: ActivityBadgeProps) {
 	return (

@@ -97,14 +97,12 @@ export interface IGetRouteResponse extends Route {
 }
 
 export interface IUpdateRouteRequest {
-	// adm fields
 	name?: string;
 	city?: string;
 	neighborhood?: string;
 	description?: string;
 	date_set?: string;
 	status?: EnumRouteStatus.Canceled | EnumRouteStatus.Error;
-	// driver fields
 	date_start?: boolean;
 	date_end?: boolean;
 	mileage?: number;

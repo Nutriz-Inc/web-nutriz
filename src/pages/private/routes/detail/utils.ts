@@ -10,10 +10,6 @@ export type EstadoDaParada = "concluida" | "erro" | "atual" | "proxima";
 
 export type EstadoDaRota = "aguardando" | "andamento" | "finalizada";
 
-/**
- * Em que pe a rota esta, do ponto de vista de quem opera. Cancelada e com erro
- * contam como encerradas: nao ha mais o que rodar nelas.
- */
 export function estadoDaRota(route: {
 	status: EnumRouteStatus;
 	date_start?: string;
@@ -34,7 +30,6 @@ export function ehRotaEncerrada(status: EnumRouteStatus): boolean {
 	);
 }
 
-// Rota com erro tambem acabou: nao se marca parada, nao se finaliza, nao se edita.
 export function ehRotaAlteravel(status: EnumRouteStatus): boolean {
 	return !ehRotaEncerrada(status);
 }

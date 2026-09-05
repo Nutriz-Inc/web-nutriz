@@ -2,9 +2,9 @@ import { Status } from "@/components/full/Status";
 import { Button } from "@/components/ui/button";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { cn } from "@/lib/utils";
-import {
-	type EnumDonationStepName,
-	type EnumDonationStepStatus,
+import type {
+	EnumDonationStepName,
+	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
 import { getStepNumber } from "@/utils/constants";
 import { getNumberOfDonationSteps } from "@/utils/donation";

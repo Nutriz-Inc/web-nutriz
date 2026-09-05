@@ -6,9 +6,9 @@ import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { getStepNumber } from "@/utils/constants";
+import { getNumberOfDonationSteps } from "@/utils/donation";
 import { DonationCard } from "./components/DonationCard";
 import { useDonationsList } from "./hooks";
-import { getNumberOfDonationSteps } from "@/utils/donation";
 
 export function DonationsPage() {
 	const navigate = useNavigate();
@@ -66,7 +66,7 @@ export function DonationsPage() {
 							))}
 						</div>
 					) : isError ? (
-						<div className="flex flex-col items-center gap-3 rounded-2xl bg-surface p-6 text-center shadow-soft">
+						<div className="flex flex-col items-center gap-3 rounded-card bg-surface p-6 text-center shadow-soft">
 							<p className="text-[14px] text-ink-2">
 								Não foi possível carregar as suas doações.
 							</p>

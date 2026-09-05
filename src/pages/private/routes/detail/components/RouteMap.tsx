@@ -15,9 +15,6 @@ import {
 import { FitRouteBounds } from "./FitRouteBounds";
 import { MapInteractionToggle } from "./MapInteractionToggle";
 
-// O mapa das rotas fica no tile claro mesmo no tema escuro: o World_Topo_Map
-// mostra nome de rua, quadra e ponto de referencia que o Dark Gray Base nao tem,
-// e aqui o mapa e ferramenta de trabalho do motorista, nao enfeite.
 const TILE_ROTA =
 	"https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}";
 
@@ -26,17 +23,14 @@ const ZOOM_MINIMO = 3;
 const ZOOM_MAXIMO = 18;
 const ZOOM_MAXIMO_COM_DADOS = 16;
 
-// O marcador conta o mesmo que a lista de paradas: verde quando o motorista
-// registrou a chegada, vermelho quando marcou imprevisto, azul enquanto nao
-// aconteceu nenhum dos dois.
 const COR_DA_PARADA: Record<EstadoDaParada, string> = {
 	concluida: "var(--success-fill)",
 	erro: "var(--danger-fill)",
-	atual: "#246cb9",
-	proxima: "#246cb9",
+	atual: "var(--blue-bright)",
+	proxima: "var(--blue-bright)",
 };
 
-const COR_TRACADO = "#246cb9";
+const COR_TRACADO = "var(--blue-bright)";
 
 function stopIcon(numero: number, estado: EstadoDaParada) {
 	const cor = COR_DA_PARADA[estado];
@@ -66,9 +60,6 @@ export function RouteMap({ stops, interativo = true, className }: Props) {
 
 	const centro = posicoes[0] ?? CENTRO_PADRAO;
 
-	// O indice da parada atual e calculado sobre a lista inteira, nao so sobre as
-	// que tem coordenada: se uma parada sem endereco esta pendente, ela ainda e a
-	// vez dela, e as seguintes continuam azuis.
 	const indiceAtual = indiceDaParadaAtual(stops);
 
 	return (

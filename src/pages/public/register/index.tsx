@@ -211,7 +211,11 @@ export function RegisterScreen() {
 				</div>
 			</header>
 
-			<main className="relative -mt-16 mx-auto w-full max-w-[680px] flex-1 px-4 pb-[calc(3rem+env(safe-area-inset-bottom))] sm:-mt-20 sm:px-6">
+			<main
+				id="conteudo"
+				tabIndex={-1}
+				className="relative -mt-16 mx-auto w-full max-w-[680px] flex-1 px-4 pb-[calc(3rem+env(safe-area-inset-bottom))] sm:-mt-20 sm:px-6"
+			>
 				<Page>
 					{success ? (
 						<SuccessCard />

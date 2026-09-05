@@ -26,11 +26,11 @@ const ZOOM_MAXIMO_COM_DADOS = 16;
 const COR_DA_PARADA: Record<EstadoDaParada, string> = {
 	concluida: "var(--success-fill)",
 	erro: "var(--danger-fill)",
-	atual: "#246cb9",
-	proxima: "#246cb9",
+	atual: "var(--blue-bright)",
+	proxima: "var(--blue-bright)",
 };
 
-const COR_TRACADO = "#246cb9";
+const COR_TRACADO = "var(--blue-bright)";
 
 function stopIcon(numero: number, estado: EstadoDaParada) {
 	const cor = COR_DA_PARADA[estado];

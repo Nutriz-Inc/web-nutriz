@@ -12,7 +12,7 @@ const marcador = divIcon({
 	className: "",
 	iconSize: [18, 18],
 	iconAnchor: [9, 9],
-	html: '<span style="display:block;width:18px;height:18px;border-radius:9999px;background:#00549e;border:3px solid #fff;box-shadow:0 2px 5px rgba(15,31,61,.35)"></span>',
+	html: '<span style="display:block;width:18px;height:18px;border-radius:9999px;background:var(--blue);border:3px solid #fff;box-shadow:0 2px 5px rgba(15,31,61,.35)"></span>',
 });
 
 const RECORTES: [number, number][] = [

@@ -7,13 +7,7 @@ type StepDotProps = {
 	status: StepDotStatus;
 	order: number;
 	celebrate?: boolean;
-	/** Classe do circulo: tamanho, tipografia. */
 	className?: string;
-	/**
-	 * Classe do envoltorio, que e quem ocupa espaco no layout e ancora as ondas
-	 * e o arco em rotacao. Margem, visibilidade e posicionamento vao aqui - no
-	 * `className` elas escondem o circulo e deixam a animacao orfa.
-	 */
 	wrapperClassName?: string;
 	iconClassName?: string;
 };

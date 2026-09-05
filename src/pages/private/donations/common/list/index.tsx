@@ -6,9 +6,9 @@ import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { getStepNumber } from "@/utils/constants";
+import { getNumberOfDonationSteps } from "@/utils/donation";
 import { DonationCard } from "./components/DonationCard";
 import { useDonationsList } from "./hooks";
-import { getNumberOfDonationSteps } from "@/utils/donation";
 
 export function DonationsPage() {
 	const navigate = useNavigate();

@@ -56,9 +56,6 @@ export function RouteStopItem({
 
 	return (
 		<li className="flex gap-3">
-			{/* Trilha lateral so no desktop. No celular o marcador entra no cartao,
-			    ao lado do endereco: da mais espaco ao texto e o cartao da parada
-			    atual cresce para abraçar a bolinha que anima. */}
 			<div className="hidden flex-col items-center sm:flex">
 				{marcador()}
 

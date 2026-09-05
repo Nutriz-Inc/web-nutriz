@@ -16,17 +16,12 @@ const MESH = [
 ].join(", ");
 
 type Props = {
-	/**
-	 * Troca o fundo pelo loop em vídeo, com o degradê ficando por baixo como
-	 * primeira pintura e como reserva se o vídeo não tocar.
-	 */
 	comVideo?: boolean;
 };
 
 export function HeroBackground({ comVideo = false }: Props) {
 	const shouldReduceMotion = useReducedMotion();
 
-	// Quem pediu menos movimento não recebe vídeo nenhum: fica o degradê parado.
 	const mostrarVideo = comVideo && !shouldReduceMotion;
 
 	const drift = (x: number, y: number, scale = 1.1, duration = 20) =>
@@ -61,16 +56,11 @@ export function HeroBackground({ comVideo = false }: Props) {
 						className="absolute inset-0 size-full object-cover"
 					/>
 
-					{/* O título é branco em cima disso: o véu garante o contraste do
-					    texto sem apagar as partículas do vídeo. Mais fechado à
-					    esquerda, onde o texto fica. */}
 					<div className="absolute inset-0 bg-[#062247]/35" />
 					<div className="absolute inset-0 bg-gradient-to-r from-[#04193a]/80 via-[#062247]/35 to-transparent" />
 				</>
 			)}
 
-			{/* Os borrões acompanham o degradê; com o vídeo eles competiriam com as
-			    partículas dele. */}
 			{!mostrarVideo && (
 				<>
 					<motion.div

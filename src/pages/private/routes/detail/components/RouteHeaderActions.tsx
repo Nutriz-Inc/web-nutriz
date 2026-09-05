@@ -7,9 +7,6 @@ type Props = {
 	onReportar: () => void;
 };
 
-// Sao acoes de excecao: no celular ficam discretas, sem contorno e sem ocupar a
-// largura toda, para nao competir com o que o motorista usa a cada parada. Do
-// `sm` para cima voltam a ser pilulas contornadas.
 const PERIGO =
 	"flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-full px-2 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40 sm:h-11 sm:gap-2 sm:border-[1.5px] sm:border-danger/35 sm:bg-surface sm:px-5 sm:text-[14px] sm:hover:border-danger";
 

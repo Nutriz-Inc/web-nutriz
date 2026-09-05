@@ -14,7 +14,6 @@ type StopsPickerProps = {
 	neighborhood?: string;
 };
 
-// Busca sem acento: "sao paulo" acha "São Paulo".
 function normalizar(texto: string): string {
 	return texto
 		.normalize("NFD")
@@ -30,7 +29,6 @@ export function StopsPicker({
 }: StopsPickerProps) {
 	const [busca, setBusca] = useState("");
 
-	// Cidade e bairro sao digitados: sem atraso, cada tecla vira uma consulta.
 	const cidadeAtrasada = useDebouncedValue(city);
 	const bairroAtrasado = useDebouncedValue(neighborhood);
 
@@ -62,8 +60,6 @@ export function StopsPicker({
 		return mapa;
 	}, [steps]);
 
-	// A busca so filtra o que ja veio: nao muda a consulta nem os filtros que o
-	// backend espera.
 	const visiveis = useMemo(() => {
 		const termo = normalizar(busca.trim());
 

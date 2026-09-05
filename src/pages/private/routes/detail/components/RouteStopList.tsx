@@ -8,8 +8,6 @@ import type { EstadoDaRota } from "../utils";
 import { estadoDaParada, indiceDaParadaAtual } from "../utils";
 import { RouteStopItem } from "./RouteStopItem";
 
-// Uma arte por momento da rota, para o motorista reconhecer de relance em que
-// pe ele esta sem precisar ler nada.
 const ARTE: Record<EstadoDaRota, { src: string; alt: string }> = {
 	aguardando: {
 		src: rotaAguardando,
@@ -68,7 +66,6 @@ export function RouteStopList({
 					}
 				/>
 			) : (
-				// O cartao tem altura fixa, igual a do mapa: a lista rola por dentro.
 				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
 					<ol className="flex shrink-0 flex-col gap-1.5 p-3 sm:gap-0 sm:p-5">
 						{stops.map((stop, index) => (
@@ -79,7 +76,6 @@ export function RouteStopList({
 								estado={estadoDaParada(stop, index, indiceAtual)}
 								isLast={index === stops.length - 1}
 								podeRemover={podeGerenciar}
-								// Parada com erro nao volta atras: marcou, marcou.
 								podeMarcar={
 									podeMarcar &&
 									!["concluida", "erro"].includes(
@@ -93,12 +89,7 @@ export function RouteStopList({
 						))}
 					</ol>
 
-					{/* Ocupa o que sobrar quando a lista e curta e colapsa sozinha
-					    (flex-1) quando as paradas passam da altura do cartao. */}
 					<div className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-6 pt-2 sm:pb-10">
-						{/* Largura solta e altura travada: com `w-full` a imagem mantinha
-						    os 3:2 dela e passava da altura que sobrava, e o `overflow`
-						    do pai cortava o topo. Assim ela encolhe inteira. */}
 						<img
 							src={arte.src}
 							alt={arte.alt}

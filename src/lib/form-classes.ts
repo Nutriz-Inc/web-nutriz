@@ -1,10 +1,3 @@
-/**
- * Aparência de campo e de botão de formulário, num lugar só. Nasceu dentro da
- * tela de detalhe da rota e subiu para cá quando o formulário de criar rota
- * precisou da mesma linguagem — dois formulários com o mesmo desenho não devem
- * carregar duas cópias da mesma string de classes.
- */
-
 export const CLASSE_CAMPO =
 	"w-full resize-y rounded-xl border border-blue-tint bg-surface px-3.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-blue-bright disabled:cursor-not-allowed disabled:opacity-60";
 

@@ -418,3 +418,90 @@ significa que nenhum print meu vai mostrar o hero com vídeo.
 As telas privadas (home, minhas doações, timeline, pontos de coleta, perfil,
 rotas nas 3 roles, EVA) exigem login. Sem credencial de teste, tudo acima vale
 só para as 4 telas públicas.
+
+---
+
+# Validação final — os 35 itens
+
+Medido com Chromium headless autenticado nas 4 roles, em 390px e 1440px.
+As telas privadas cobertas: home, minhas doações, pontos de coleta, conteúdo
+educativo, perfil, nova doação, dashboard, gestão de doações, gestão de
+agendamentos, rotas, usuários, agendamentos.
+
+## Código
+
+| # | Item | Estado |
+|---|---|---|
+| 1 | Zero comentários no src | ✅ 110 removidos; restam 12 pragmas (8 `eslint-disable`, 2 `biome-ignore`) |
+| 2 | Zero `console.log` de debug | ✅ o único `console.warn` é guarda do token da EVA |
+| 3 | Zero imports/variáveis não usados | ✅ 5 arquivos órfãos removidos |
+| 4 | Zero `any` desnecessário | ✅ o projeto já tinha zero |
+
+## Visual
+
+| # | Item | Estado |
+|---|---|---|
+| 5 | Imagens da listagem de paradas | ✅ medidas por `ResizeObserver`; somem abaixo de 132px |
+| 6 | Cores via tokens | ⚠️ 4 convertidas; **restam justificadas** (verde do WhatsApp, gradiente do hero, marcadores do Leaflet) |
+| 7 | Contraste AA medido | ✅ 18 pares medidos; `teal` 4,49 → **4,58** |
+| 8 | Espaçamentos, raios e sombras | ⚠️ 5 cartões unificados; tabela no documento |
+| 9 | Estados uniformes | ⚠️ skeleton no gate do `Page`; 11 spinners de lista pendentes |
+| 10 | Header consistente | ✅ confirmado nas 12 telas privadas |
+
+## Animações
+
+| # | Item | Estado |
+|---|---|---|
+| 11 | 60fps | ❌ **não verificado** — exige DevTools Performance |
+| 12 | Só `transform` e `opacity` | ⚠️ 3 exceções justificadas (2 barras de progresso, 1 acordeão) |
+| 13 | Reveals com `once: true` | ✅ os 4 já usavam `viewportOnce` |
+| 14 | Timing padronizado | ✅ 150/200/300ms + 0,45-0,6s; 700ms deliberados |
+| 15 | Nenhum elemento invisível | ✅ nenhuma tela veio vazia na varredura |
+
+## Responsividade
+
+| # | Item | Estado |
+|---|---|---|
+| 16 | 390px sem overflow | ✅ **0px em 32 combinações** |
+| 17 | Desktop correto | ✅ 16 telas conferidas |
+| 18 | Alvos ≥ 44px | ⚠️ **todos ≥ 24px** (WCAG 2.5.8 AA); os de uso repetido do motorista a 44px |
+
+## Acessibilidade
+
+| # | Item | Estado |
+|---|---|---|
+| 19 | Landmarks | ✅ `<main>` em todas |
+| 20 | Headings hierárquicos | ✅ **zero saltos** em 16 telas |
+| 21 | Labels nos inputs | ✅ 6 corrigidos |
+| 22 | Alt em imagens | ✅ zero sem alt |
+| 23 | Foco visível | ⚠️ `focus-visible` presente; não conferido um a um |
+| 24 | Foco preso em modais | ✅ por Radix (Dialog/AlertDialog/Sheet) |
+| 25 | `aria-live` | ⚠️ adicionado no carregamento do `Page` |
+| 26 | Skip link | ✅ corrigido — `#conteudo` agora existe |
+
+## Regressão funcional
+
+| # | Item | Estado |
+|---|---|---|
+| 27-28 | EVA anônima e logada | ⚠️ **presença** confirmada; streaming/RAG não exercitados |
+| 29 | Staff sem EVA | ✅ adm, enfermeiro e motorista: FAB ausente |
+| 30 | Motorista vê rotas | ✅ tela carrega |
+| 31 | Login e cadastro | ✅ 4 logins OK |
+| 32 | Navegação sem link quebrado | ✅ zero links fora das rotas |
+| 33-34 | Formulários e CTAs | ⚠️ **não exercitados** — não criei nem editei dado real |
+| 35 | Build e Biome | ✅ `tsc` e `build` verdes; Biome **8 → 2 erros** |
+
+## O que não foi verificado, e por quê
+
+- **60fps (item 11):** exige DevTools Performance com interação humana.
+- **Escrita real (itens 33-34):** criar, editar e excluir mexeriam em dado de
+  produção no banco compartilhado. A missão proíbe quebrar o que está no ar.
+- **Chat da EVA de ponta a ponta:** o serviço no Render hiberna e levou 32s para
+  acordar; exercitar streaming, RAG e recusa de PII fugiria do escopo visual.
+
+## Bugs encontrados e não corrigidos
+
+- Créditos do Leaflet/Esri com 51×14 e 21×14 — markup da biblioteca.
+- `suggestion-chips.tsx` sem referência, mantido por ser da EVA.
+- Chip "Erro" da listagem de rotas depende de filtro no cliente (pendência do
+  backend, não do front).

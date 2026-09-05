@@ -355,3 +355,66 @@ o raio — é que **só os semânticos crescem em tela grande**.
 | central de conteúdos | `p-4` / `p-5` |
 
 Referência da home: **`p-6`**. Divergência real está em `p-3.5` e `p-4`.
+
+---
+
+# Fases 4 a 6 — medido no navegador
+
+A partir daqui a auditoria deixou de ser só leitura de código: subi o Vite e
+rodei Chromium headless (Playwright via `npx`, **sem entrar no package.json**)
+em **390px** e **1440px** nas quatro telas públicas.
+
+## Responsividade — item 16 da validação
+
+| Tela | 390px | 1440px |
+|---|---|---|
+| landing | **0px** de overflow | **0px** |
+| login | **0px** | **0px** |
+| cadastro | **0px** | **0px** |
+| artigos | **0px** | **0px** |
+
+**Zero scroll horizontal em todas as combinações.** Os elementos que o script
+apontou "fora da viewport" são os `ink-blob` (borrões decorativos posicionados
+em negativo de propósito, com o pai em `overflow-hidden`) e o trilho do
+carrossel de depoimentos — nenhum gera overflow real.
+
+## Estrutura — itens 19, 20 e 26
+
+| Tela | `<main>` | `<h1>` | `#conteudo` | Salto de heading |
+|---|---|---|---|---|
+| landing | ✅ | ✅ | ✅ | nenhum |
+| login | ✅ | ✅ | ✅ | nenhum |
+| cadastro | ✅ | ✅ | ✅ | nenhum |
+| artigos | ✅ | ✅ | ✅ | nenhum |
+
+Hierarquia da landing medida no DOM: `[1,2,3,3,3,3,2,2,2,3,3,3,3,2,2,3,3]` —
+sem pular nível. O `#conteudo` confirma que o skip link tem alvo real agora.
+
+## Alvos de toque — medidos, antes e depois
+
+| Elemento | Antes | Depois |
+|---|---|---|
+| "Ler artigo" (landing) | 78×20 | **min-h-6** |
+| "Entrar" (cadastro) | 42×18 | **min-h-6** |
+| links do rodapé | 97×21 | **min-h-6** |
+| pontinhos do carrossel | 8×8 | **≥24px** via `::before` |
+| Leaflet / Esri | 51×14 e 21×14 | não corrigidos — markup da biblioteca |
+
+Nos pontinhos, verificado com `elementFromPoint`: o clique pega 12px acima e 8px
+para cada lado, com o ponto visual ainda em 8px.
+
+## O vídeo do hero — falso alarme
+
+Nos prints o vídeo não aparece, e cheguei a suspeitar de bug em produção.
+Investigado: `video.error = 4` (`MEDIA_ERR_SRC_NOT_SUPPORTED`), mas o arquivo é
+**H.264** (`ftypisom…avc1mp41`) e chega com HTTP 200/206.
+
+A causa é o Chromium do Playwright, que vem **sem codecs proprietários**. Em
+Chrome, Edge, Firefox ou Safari o vídeo toca normalmente. **Não há bug** — mas
+significa que nenhum print meu vai mostrar o hero com vídeo.
+
+## Ainda não verificado
+
+As telas privadas (home, minhas doações, timeline, pontos de coleta, perfil,
+rotas nas 3 roles, EVA) exigem login. Sem credencial de teste, tudo acima vale
+só para as 4 telas públicas.

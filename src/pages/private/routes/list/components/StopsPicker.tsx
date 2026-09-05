@@ -149,7 +149,7 @@ export function StopsPicker({
 				</p>
 			)}
 
-			<div className="flex flex-col gap-2 rounded-xl border border-line bg-surface-2 p-2.5">
+			<div className="flex flex-col gap-2 rounded-card-sm border border-line bg-surface-2 p-2.5">
 				<div className="relative">
 					<Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ink-3" />
 					<input

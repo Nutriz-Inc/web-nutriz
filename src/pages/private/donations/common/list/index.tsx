@@ -66,7 +66,7 @@ export function DonationsPage() {
 							))}
 						</div>
 					) : isError ? (
-						<div className="flex flex-col items-center gap-3 rounded-2xl bg-surface p-6 text-center shadow-soft">
+						<div className="flex flex-col items-center gap-3 rounded-card bg-surface p-6 text-center shadow-soft">
 							<p className="text-[14px] text-ink-2">
 								Não foi possível carregar as suas doações.
 							</p>

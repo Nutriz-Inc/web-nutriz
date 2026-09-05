@@ -351,7 +351,7 @@ export function RegisterScreen() {
 						Já tem uma conta?{" "}
 						<Link
 							to="/login"
-							className="font-semibold text-blue-deep underline-offset-2 hover:underline"
+							className="inline-flex min-h-6 items-center font-semibold text-blue-deep underline-offset-2 hover:underline"
 						>
 							Entrar
 						</Link>

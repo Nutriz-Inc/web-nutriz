@@ -30,7 +30,7 @@ export function FilterChips<T extends string>({
 							"shrink-0 whitespace-nowrap rounded-full px-5 py-2 text-[13px] font-semibold transition-colors",
 							active
 								? "bg-blue-deep-fill text-white"
-								: "border border-line bg-surface text-ink-2",
+								: "border border-line bg-surface text-ink-2 hover:border-blue-tint-2 hover:bg-blue-tint hover:text-blue-deep",
 						)}
 					>
 						{option.label}

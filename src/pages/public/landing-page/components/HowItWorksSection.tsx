@@ -35,7 +35,7 @@ export function HowItWorksSection() {
 					<img
 						src={bancoLeite}
 						alt="Profissional de banco de leite processando leite humano doado"
-						className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+						className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
 					/>
 					<div
 						aria-hidden

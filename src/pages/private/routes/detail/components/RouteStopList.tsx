@@ -69,7 +69,7 @@ export function RouteStopList({
 		observador.observe(elemento);
 
 		return () => observador.disconnect();
-	}, [stops.length, estadoRota]);
+	}, []);
 
 	const alturaDaArte = sobra - RESPIRO_DA_ARTE;
 	const cabeArte = alturaDaArte >= ALTURA_MINIMA_DA_ARTE;

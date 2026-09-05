@@ -62,7 +62,7 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 							e.stopPropagation();
 							goToArticle();
 						}}
-						className="text-[13px] font-semibold"
+						className="inline-flex min-h-6 items-center text-[13px] font-semibold"
 						style={{ color: article.accent }}
 					>
 						Ler artigo →

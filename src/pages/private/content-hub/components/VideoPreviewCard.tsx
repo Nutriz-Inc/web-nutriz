@@ -59,7 +59,7 @@ export function VideoPreviewCard({ article }: VideoPreviewCardProps) {
 				<button
 					type="button"
 					onClick={goToArticle}
-					className="text-left text-[14px] font-bold leading-snug text-ink"
+					className="min-h-6 text-left text-[14px] font-bold leading-snug text-ink"
 				>
 					{article.videoTitle}
 				</button>

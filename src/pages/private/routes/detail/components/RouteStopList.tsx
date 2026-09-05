@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import rotaAguardando from "@/assets/illustrations/rota-aguardando.png";
 import rotaEmAndamento from "@/assets/illustrations/rota-em-andamento.png";
 import rotaFinalizada from "@/assets/illustrations/rota-finalizada.png";
@@ -22,6 +23,9 @@ const ARTE: Record<EstadoDaRota, { src: string; alt: string }> = {
 		alt: "Motorista comemorando com todas as paradas da rota concluídas",
 	},
 };
+
+const RESPIRO_DA_ARTE = 32;
+const ALTURA_MINIMA_DA_ARTE = 132;
 
 type Props = {
 	stops: IRouteStop[];
@@ -47,6 +51,28 @@ export function RouteStopList({
 	onReportarProblema,
 }: Props) {
 	const arte = ARTE[estadoRota];
+	const sobraRef = useRef<HTMLDivElement>(null);
+	const [sobra, setSobra] = useState(0);
+
+	useEffect(() => {
+		const elemento = sobraRef.current;
+
+		if (!elemento || typeof ResizeObserver === "undefined") {
+			return;
+		}
+
+		const medir = () => setSobra(elemento.clientHeight);
+
+		medir();
+
+		const observador = new ResizeObserver(medir);
+		observador.observe(elemento);
+
+		return () => observador.disconnect();
+	}, [stops.length, estadoRota]);
+
+	const alturaDaArte = sobra - RESPIRO_DA_ARTE;
+	const cabeArte = alturaDaArte >= ALTURA_MINIMA_DA_ARTE;
 
 	const indiceAtual = rotaIniciada ? indiceDaParadaAtual(stops) : -1;
 
@@ -89,16 +115,22 @@ export function RouteStopList({
 						))}
 					</ol>
 
-					<div className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5 pb-6 pt-2 sm:pb-10">
-						<img
-							src={arte.src}
-							alt={arte.alt}
-							loading="lazy"
-							decoding="async"
-							width={1536}
-							height={1024}
-							className="h-auto max-h-[110px] w-auto max-w-[240px] select-none object-contain sm:max-h-full sm:max-w-[280px]"
-						/>
+					<div
+						ref={sobraRef}
+						className="pointer-events-none flex min-h-0 flex-1 items-end justify-center overflow-hidden px-5"
+					>
+						{cabeArte && (
+							<img
+								src={arte.src}
+								alt={arte.alt}
+								loading="lazy"
+								decoding="async"
+								width={1536}
+								height={1024}
+								style={{ maxHeight: alturaDaArte }}
+								className="h-auto w-auto max-w-[240px] select-none object-contain pb-4 sm:max-w-[280px]"
+							/>
+						)}
 					</div>
 				</div>
 			)}

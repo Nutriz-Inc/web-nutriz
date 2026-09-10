@@ -1,4 +1,5 @@
 import { Droplet } from "lucide-react";
+import { CountUp } from "@/components/full/CountUp";
 import type { MilkCollectedByMonth } from "@/services/types/i-dashboard";
 import { DashboardCardHeader } from "./DashboardCardHeader";
 
@@ -22,11 +23,8 @@ export function MilkCollectedCard({ total, byMonth }: MilkCollectedCardProps) {
 				/>
 
 				<div className="flex shrink-0 flex-col items-start gap-1 lg:items-end">
-					<p className="text-[28px] font-bold text-blue-deep lg:text-[32px]">
-						{(total / 1000).toLocaleString("pt-BR", {
-							maximumFractionDigits: 1,
-						})}{" "}
-						L
+					<p className="text-[28px] font-bold tabular-nums text-blue-deep lg:text-[32px]">
+						<CountUp value={total / 1000} decimals={1} suffix=" L" />
 					</p>
 					<p className="text-[12px] text-ink-3">Total no período</p>
 				</div>

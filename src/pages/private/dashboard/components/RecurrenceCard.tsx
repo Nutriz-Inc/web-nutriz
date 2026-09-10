@@ -1,4 +1,5 @@
 import { RefreshCcw } from "lucide-react";
+import { CountUp } from "@/components/full/CountUp";
 import { toPercent } from "../utils";
 import { DashboardCardHeader } from "./DashboardCardHeader";
 
@@ -19,7 +20,9 @@ export function RecurrenceCard({ rate }: RecurrenceCardProps) {
 			/>
 
 			<div className="flex flex-col gap-3">
-				<p className="text-[28px] font-medium text-ink">{percent}%</p>
+				<p className="text-[28px] font-medium tabular-nums text-ink">
+					<CountUp value={percent} suffix="%" />
+				</p>
 
 				<div className="h-8 w-full overflow-hidden rounded-md bg-ink-3/[0.13]">
 					<div

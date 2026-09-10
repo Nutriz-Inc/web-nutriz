@@ -18,6 +18,8 @@ export function StatsBar() {
 						iconBg={metric.iconBg}
 						icon={<Icon className={iconClassName} />}
 						value={metric.value}
+						decimals={metric.decimals}
+						suffix={metric.suffix}
 						valueColor={metric.valueColor}
 						label={metric.label}
 						sublabel={metric.sublabel}

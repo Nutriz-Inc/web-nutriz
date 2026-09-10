@@ -78,7 +78,9 @@ export type Metric = {
 	Icon: LucideIcon;
 	iconClassName: string;
 	iconBg: string;
-	value: string;
+	value: number;
+	decimals?: number;
+	suffix?: string;
 	valueColor: string;
 	label: string;
 	sublabel: string;
@@ -89,7 +91,8 @@ export const METRICS: Metric[] = [
 		Icon: Users,
 		iconClassName: "size-6 text-blue-deep",
 		iconBg: "bg-blue-tint",
-		value: "4.200+",
+		value: 4200,
+		suffix: "+",
 		valueColor: "text-blue-deep",
 		label: "Doadoras ativas",
 		sublabel: "Em todo o Brasil",
@@ -98,7 +101,8 @@ export const METRICS: Metric[] = [
 		Icon: Droplet,
 		iconClassName: "size-6 text-teal",
 		iconBg: "bg-success-tint",
-		value: "12 mil L",
+		value: 12,
+		suffix: " mil L",
 		valueColor: "text-teal",
 		label: "Leite coletado",
 		sublabel: "Doados aos bancos de leite",
@@ -107,7 +111,8 @@ export const METRICS: Metric[] = [
 		Icon: Heart,
 		iconClassName: "size-6 fill-eva text-eva",
 		iconBg: "bg-eva-tint",
-		value: "98%",
+		value: 98,
+		suffix: "%",
 		valueColor: "text-eva",
 		label: "Satisfação",
 		sublabel: "Das nossas doadoras",

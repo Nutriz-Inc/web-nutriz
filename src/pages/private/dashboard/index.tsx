@@ -13,7 +13,7 @@ import { SatisfactionCard } from "./components/SatisfactionCard";
 import { StatCard } from "./components/StatCard";
 import type { PeriodPreset } from "./constants";
 import { useQueryAdmDashboard } from "./hooks";
-import { formatOptionalDecimal, getPeriodPresetRange } from "./utils";
+import { getPeriodPresetRange } from "./utils";
 
 export function AdmDashboardPage() {
 	const { auth } = useAuth();
@@ -94,7 +94,9 @@ export function AdmDashboardPage() {
 						iconBg="bg-blue-tint"
 						title="Tempo Médio de Resposta"
 						subtitle="Triagem até a 1ª coleta agendada"
-						value={formatOptionalDecimal(data?.average_service_time_hours, "h")}
+						value={data?.average_service_time_hours ?? null}
+						decimals={1}
+						suffix="h"
 						footnote="Média de horas até o primeiro agendamento"
 					/>
 					<StatCard
@@ -102,7 +104,7 @@ export function AdmDashboardPage() {
 						iconBg="bg-danger-tint"
 						title="Doações não concluídas"
 						subtitle="Ocorrências no período selecionado"
-						value={String(data?.donations_with_error ?? 0)}
+						value={data?.donations_with_error ?? 0}
 						valueColor="text-eva-deep"
 						footnote="Doações que não puderam ser completadas"
 					/>

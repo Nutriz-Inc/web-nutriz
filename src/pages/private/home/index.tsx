@@ -64,7 +64,7 @@ export function HomePage() {
 			icon: Gift,
 			tone: "blue" as const,
 			featured: true,
-			value: donationsCompleted === null ? EMPTY : String(donationsCompleted),
+			value: donationsCompleted,
 			label: "Doações realizadas",
 			hint: donorSince ? `Desde ${donorSince}` : "Sem doações ainda",
 		},
@@ -72,7 +72,9 @@ export function HomePage() {
 			icon: Droplet,
 			tone: "bright" as const,
 			featured: false,
-			value: liters === null ? EMPTY : `${liters} L`,
+			value: milkDonatedMl === null ? null : milkDonatedMl / 1000,
+			decimals: 1,
+			suffix: " L",
 			label: "Leite doado",
 			hint:
 				milkDonatedMl === null
@@ -83,7 +85,7 @@ export function HomePage() {
 			icon: Heart,
 			tone: "eva" as const,
 			featured: false,
-			value: babiesFed === null ? EMPTY : String(babiesFed),
+			value: babiesFed,
 			label: "Bebês alimentados",
 			hint: "Estimativa rBLH (~200 ml/bebê·dia)",
 		},

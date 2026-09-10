@@ -28,6 +28,7 @@ export function useUpdateProfile(id?: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Perfil salvo." },
 		mutationFn: (data: IUpdateUserRequest) => services.user.update(id!, data),
 		onSuccess: () =>
 			queryClient.invalidateQueries({ queryKey: [PROFILE_QUERY_KEY, id] }),
@@ -38,6 +39,7 @@ export function useSaveAddress(id?: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Endereço salvo." },
 		mutationFn: ({
 			id_address,
 			data,
@@ -57,6 +59,7 @@ export function useUpdateBaby(id?: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Dados do bebê salvos." },
 		mutationFn: ({
 			id_user_baby,
 			data,
@@ -73,6 +76,7 @@ export function useCreateBaby(id?: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Bebê cadastrado." },
 		mutationFn: (data: ICreateUserBabyRequest) =>
 			services.user.createBaby(data),
 		onSuccess: () =>
@@ -84,6 +88,7 @@ export function useRemoveBaby(id?: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Bebê removido." },
 		mutationFn: (id_user_baby: string) =>
 			services.user.removeBaby(id_user_baby),
 		onSuccess: () =>

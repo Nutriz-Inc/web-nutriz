@@ -50,6 +50,7 @@ export function useCreateRoute() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Rota criada." },
 		mutationFn: (data: ICreateRouteRequest) => services.route.create(data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["routes-list"] });

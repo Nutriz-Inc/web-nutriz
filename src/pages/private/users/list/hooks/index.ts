@@ -26,6 +26,7 @@ export function useCreateUser() {
 	const queryClient = useQueryClient();
 
 	const createUserMutation = useMutation({
+		meta: { sucesso: "Usuário criado." },
 		mutationFn: (data: ICreateUserRequest) =>
 			services.user.createInternal(data),
 		onSuccess: async () => {

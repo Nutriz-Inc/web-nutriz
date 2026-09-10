@@ -50,6 +50,7 @@ export function useCreateDonationStep(id_donation: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Etapa criada." },
 		mutationFn: (data: ICreateDonationStepRequest) =>
 			services.donation.createStep(data),
 		onSuccess: async (newStep) => {
@@ -67,6 +68,7 @@ export function useUpdateDonationStep(id_donation: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Etapa atualizada." },
 		mutationFn: ({
 			id_donation_step,
 			data,
@@ -96,6 +98,7 @@ export function useUpdateDonation(id_donation: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Doação atualizada." },
 		mutationFn: (data: IUpdateDonationRequest) =>
 			services.donation.update(id_donation, data),
 		onSuccess: async (updatedDonation) => {
@@ -128,6 +131,7 @@ export function useAddStepToRoute() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Etapa adicionada à rota." },
 		mutationFn: ({
 			id_route,
 			id_donation_step,
@@ -230,6 +234,7 @@ export function useCreateStepJob(id_user_common?: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Agendamento criado." },
 		mutationFn: (data: ICreateJobRequest) => services.job.create(data),
 		onSuccess: async (newJob) => {
 			await queryClient.cancelQueries({
@@ -247,6 +252,7 @@ export function useUpdateStepJob(id_user_common?: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Agendamento atualizado." },
 		mutationFn: ({
 			id_job,
 			data,
@@ -273,6 +279,7 @@ export function useRemoveStepJob(id_user_common?: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Agendamento removido." },
 		mutationFn: (id_job: string) => services.job.remove(id_job),
 		onSuccess: async (_data, id_job) => {
 			await queryClient.cancelQueries({

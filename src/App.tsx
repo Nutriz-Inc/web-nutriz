@@ -12,9 +12,9 @@ import { SkipLink } from "./components/full/SkipLink";
 import { useAuth } from "./hooks/use-auth";
 import { useThemeColor } from "./hooks/use-theme-color";
 import { registerAppRouter } from "./lib/app-navigation";
-import { getErrorMessage } from "./utils/error-message";
 import { EvaWidget } from "./pages/private/eva/widget/eva-widget";
 import { publicRouter, routerPrivate } from "./router";
+import { getErrorMessage } from "./utils/error-message";
 
 const queryClient = new QueryClient({
 	queryCache: new QueryCache({
@@ -27,8 +27,12 @@ const queryClient = new QueryClient({
 		},
 	}),
 	mutationCache: new MutationCache({
-		onSuccess: () => {
-			toast.success("Ação realizada com sucesso.");
+		onSuccess: (_data, _variables, _context, mutation) => {
+			const mensagem = mutation.meta?.sucesso;
+
+			toast.success(
+				typeof mensagem === "string" ? mensagem : "Tudo certo por aqui.",
+			);
 		},
 		onError: (error, _variables, _context, mutation) => {
 			if (mutation.meta?.silenciarErro) {

@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, LoaderCircle, Play } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { formatTimeBR } from "@/utils/formatter";
 
 export type EstadoCheckIn = "pronto" | "enviando" | "concluido" | "oculto";
 
@@ -9,10 +10,7 @@ const DURACAO_COMEMORACAO_MS = 1700;
 const ONDAS = [0, 1300, 2600];
 
 function horaAgora(): string {
-	return new Date().toLocaleTimeString("pt-BR", {
-		hour: "2-digit",
-		minute: "2-digit",
-	});
+	return formatTimeBR(new Date());
 }
 
 type Props = {

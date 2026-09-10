@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { formatTimeBR } from "@/utils/formatter";
 import { env, evaApiUrl, evaWsUrl } from "../../../../config/env";
 import { useAuth } from "../../../../hooks/use-auth";
 import {
@@ -48,10 +49,7 @@ async function fetchAnonymousToken(): Promise<string | null> {
 }
 
 function formatTime(date: Date) {
-	return date.toLocaleTimeString("pt-BR", {
-		hour: "2-digit",
-		minute: "2-digit",
-	});
+	return formatTimeBR(date);
 }
 
 function splitParagraphs(text: string) {

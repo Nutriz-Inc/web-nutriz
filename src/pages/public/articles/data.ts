@@ -379,7 +379,7 @@ export const ARTICLES: Article[] = [
 		softBorder: "#fadbe7",
 		title: "Diário de uma doadora: a história da Juliana e do Theo",
 		coverImage: diarioDoadora,
-		coverAlt: "Mãos servindo leite materno em um recipiente",
+		coverAlt: "Mãos servindo leite humano em um frasco",
 		coverWidth: 776,
 		coverHeight: 486,
 		author: "Camila Duarte",

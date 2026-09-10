@@ -4,10 +4,10 @@ import { StatusBadge } from "@/components/full/StatusBadge";
 import { StepBadge } from "@/components/full/StepBadge";
 import { getInitials } from "@/components/layout/utils";
 import type { IJobResponse } from "@/services/types/i-job";
-import { formatDateBR } from "@/utils/formatter";
+import { formatDateBR, formatTimeBR } from "@/utils/formatter";
 import { jobToken } from "@/utils/status";
 import { APPOINTMENTS_GRID_COLS } from "../constants";
-import { formatJobLocation, formatTimeHM, toStepName } from "../utils";
+import { formatJobLocation, toStepName } from "../utils";
 
 type NurseAppointmentRowProps = {
 	job: IJobResponse;
@@ -51,7 +51,7 @@ export function NurseAppointmentRow({ job }: NurseAppointmentRowProps) {
 			</span>
 			<span className="text-[14px] text-ink-2">
 				<span className="lg:hidden">Horário: </span>
-				{job.date_set ? formatTimeHM(job.date_set) : "—"}
+				{job.date_set ? formatTimeBR(job.date_set) : "—"}
 			</span>
 			<span className="min-w-0 text-[14px] text-ink-2 lg:truncate">
 				<span className="lg:hidden">Local: </span>

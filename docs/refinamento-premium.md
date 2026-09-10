@@ -96,8 +96,15 @@ Um commit por assunto, na ordem em que foram aplicados.
 
 ## Decisões que exigiram cuidado
 
-**Transição de página só com opacidade.** A primeira versão tinha `translateY`
-de 8px. Um elemento com `transform` vira bloco de contenção para
+**Transição de página: só entrada, e só opacidade.** A primeira versão usava
+`AnimatePresence mode="wait"` e travava — `f13f61f`. Como o `Outlet` é
+compartilhado, o filho em saída já renderiza a rota **nova**: a animação de
+saída fazia sumir a tela que acabou de chegar, e o callback que libera a
+remoção não chegava a rodar ao voltar para a landing. O wrapper ficava em
+`opacity: 0` para sempre e a tela virava um retângulo azul (o fundo do `html`).
+Ficou só a entrada, com a `motion.div` chaveada pelo `pathname`.
+
+Sobre a opacidade: a primeira versão tinha `translateY` de 8px. Um elemento com `transform` vira bloco de contenção para
 `position: fixed` nos descendentes, e há dois `fixed` dentro de rota — o
 cabeçalho da landing e a barra de CTA do celular em minhas doações. Os dois
 passariam a se posicionar pelo wrapper em vez da viewport e rolariam junto com a
@@ -162,7 +169,7 @@ botões do widget da EVA, que tem folha de estilo própria.
 | Duração | Uso |
 |---|---|
 | 150 ms | hover, foco, toggle, véu de fundo |
-| 180 ms | transição de página (`mode="wait"`) |
+| 180 ms | transição de página (só entrada, chaveada pelo pathname) |
 | 200 ms | transição curta de estado |
 | 260 ms | bolha da EVA (scale 0,95 → 1 + opacidade + 6px) |
 | 300 ms | hover de imagem, abertura de menu |

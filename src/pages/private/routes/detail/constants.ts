@@ -1,9 +1,7 @@
 import { CLASSE_SHEET_CONTEUDO } from "@/components/ui/sheet";
 import { CLASSE_CAMPO } from "@/lib/form-classes";
 
-export const LIMITE_ROTA_MS = 6 * 60 * 60 * 1000;
-
-export const AVISO_ROTA_MS = 5 * 60 * 60 * 1000;
+export { AVISO_ROTA_MS, LIMITE_ROTA_MS } from "@/utils/route-time";
 
 export const TEMPO_SEGURANCA_PARADA_MIN = 15;
 

@@ -170,8 +170,16 @@ export function UsersManagementPage() {
 						{users.length === 0 ? (
 							<EmptyState
 								illustration={usuariosVazio}
-								title="Nenhum usuário encontrado"
-								description="Ajuste a busca ou o filtro selecionado."
+								title={
+									appliedTerm
+										? `Nenhum resultado para "${appliedTerm}"`
+										: "Nenhum usuário encontrado"
+								}
+								description={
+									appliedTerm
+										? "Confira a grafia ou troque o campo da busca."
+										: "Ajuste o filtro selecionado."
+								}
 							/>
 						) : (
 							users.map((user) => <UserRow key={user.id_user} user={user} />)

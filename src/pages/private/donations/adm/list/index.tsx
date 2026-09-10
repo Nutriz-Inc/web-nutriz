@@ -69,6 +69,8 @@ export function DonationsManagementPage() {
 		setPage(1);
 	}
 
+	const termoBuscado = appliedName || appliedCpf;
+
 	const { data, isLoading, isPlaceholderData, isError, error, refetch } =
 		useAdminDonationsList({
 			page,
@@ -162,8 +164,16 @@ export function DonationsManagementPage() {
 						<div className="rounded-card-sm bg-surface">
 							<EmptyState
 								illustration={buscaSemResultado}
-								title="Nenhuma doação encontrada"
-								description="Ajuste a busca ou o filtro selecionado."
+								title={
+									termoBuscado
+										? `Nenhum resultado para "${termoBuscado}"`
+										: "Nenhuma doação encontrada"
+								}
+								description={
+									termoBuscado
+										? "Confira a grafia ou limpe a busca."
+										: "Ajuste os filtros selecionados."
+								}
 							/>
 						</div>
 					) : (

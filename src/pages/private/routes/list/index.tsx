@@ -52,6 +52,14 @@ export function RoutesListPage() {
 		setPage(1);
 	}
 
+	const temFiltro = !!(
+		appliedName ||
+		appliedDriverName ||
+		appliedCity ||
+		appliedNeighborhood ||
+		dateSet
+	);
+
 	function handleClearFilters() {
 		setDriverName("");
 		setAppliedDriverName("");
@@ -201,8 +209,20 @@ export function RoutesListPage() {
 						<div className="rounded-card-sm bg-surface">
 							<EmptyState
 								illustration={buscaSemResultado}
-								title="Nenhuma rota encontrada"
-								description="Ajuste a busca ou o filtro selecionado."
+								title={
+									temFiltro
+										? "Nenhuma rota encontrada"
+										: ehMotorista
+											? "Nenhuma rota atribuída a você"
+											: "Nenhuma rota criada ainda"
+								}
+								description={
+									temFiltro
+										? "Ajuste a busca ou o filtro selecionado."
+										: ehMotorista
+											? "Quando o time montar uma rota para você, ela aparece aqui. Aproveite o descanso."
+											: "Crie a primeira rota para começar a organizar as coletas."
+								}
 							/>
 						</div>
 					) : (

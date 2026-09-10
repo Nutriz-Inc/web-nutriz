@@ -73,8 +73,18 @@ export function DonationsPage() {
 						<div className="rounded-card-sm bg-surface shadow-soft">
 							<EmptyState
 								illustration={doacaoVazia}
-								title="Você ainda não tem doações"
-								description="Comece a sua jornada criando a sua primeira doação."
+								title="Sua jornada de doação começa aqui"
+								description="Cada gota conta. Crie a sua primeira doação e a gente cuida do resto."
+								action={
+									<Button
+										type="button"
+										variant="primary"
+										size="pill"
+										onClick={goToCreation}
+									>
+										Fazer minha primeira doação
+									</Button>
+								}
 							/>
 						</div>
 					) : (

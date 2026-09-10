@@ -69,16 +69,17 @@ export function DonationsManagementPage() {
 		setPage(1);
 	}
 
-	const { data, isLoading, isPlaceholderData } = useAdminDonationsList({
-		page,
-		page_size: DEFAULT_PAGE_SIZE,
-		user_name: appliedName || undefined,
-		user_document: appliedCpf.replace(/\D/g, "") || undefined,
-		current_step: filter === "all" ? undefined : filter,
-		is_active: activeFilter === "all" ? undefined : activeFilter === "active",
-		is_recurrent:
-			recurrentFilter === "all" ? undefined : recurrentFilter === "recurrent",
-	});
+	const { data, isLoading, isPlaceholderData, isError, error, refetch } =
+		useAdminDonationsList({
+			page,
+			page_size: DEFAULT_PAGE_SIZE,
+			user_name: appliedName || undefined,
+			user_document: appliedCpf.replace(/\D/g, "") || undefined,
+			current_step: filter === "all" ? undefined : filter,
+			is_active: activeFilter === "all" ? undefined : activeFilter === "active",
+			is_recurrent:
+				recurrentFilter === "all" ? undefined : recurrentFilter === "recurrent",
+		});
 
 	const donations = data?.data ?? [];
 	const total = data?.total ?? 0;
@@ -89,6 +90,8 @@ export function DonationsManagementPage() {
 			title="Doações"
 			description={`${total} doações cadastradas`}
 			loading={isLoading}
+			error={isError ? error : undefined}
+			onRetry={() => refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>

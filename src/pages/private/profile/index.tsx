@@ -27,7 +27,9 @@ import { createDraft, PROFILE_TABS_ID } from "./utils";
 
 export function ProfilePage() {
 	const { auth } = useAuth();
-	const { data, isLoading } = useQueryProfile(auth?.id_user);
+	const { data, isLoading, isError, error, refetch } = useQueryProfile(
+		auth?.id_user,
+	);
 
 	const [tab, setTab] = useState<ProfileTabKey>("dados");
 	const [myData, setMyData] = useState<MyDataFormValues | null>(null);
@@ -233,6 +235,8 @@ export function ProfilePage() {
 	return (
 		<Page
 			loading={isLoading}
+			error={isError ? error : undefined}
+			onRetry={() => refetch()}
 			title="Perfil"
 			description={`Gerencie suas informações pessoais${isCommon ? " e de seu bebê" : ""}.`}
 		>

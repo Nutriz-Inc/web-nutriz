@@ -100,6 +100,8 @@ export function UsersManagementPage() {
 			title="Usuários"
 			description="Gerencie os acessos do Nutriz"
 			loading={usersQuery.isLoading}
+			error={usersQuery.isError ? usersQuery.error : undefined}
+			onRetry={() => usersQuery.refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={

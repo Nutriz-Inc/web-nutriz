@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import doacaoVazia from "@/assets/illustrations/doacao-vazia.svg";
 import { EmptyState } from "@/components/full/EmptyState";
+import { ErrorState } from "@/components/full/ErrorState";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -15,7 +16,7 @@ export function DonationsPage() {
 	const navigate = useNavigate();
 	const { auth } = useAuth();
 
-	const { data, isLoading, isError, refetch } = useDonationsList();
+	const { data, isLoading, isError, error, refetch } = useDonationsList();
 
 	const donations = data?.data ?? [];
 
@@ -67,18 +68,7 @@ export function DonationsPage() {
 							))}
 						</div>
 					) : isError ? (
-						<div className="flex flex-col items-center gap-3 rounded-card bg-surface p-6 text-center shadow-soft">
-							<p className="text-[14px] text-ink-2">
-								Não foi possível carregar as suas doações.
-							</p>
-							<button
-								type="button"
-								onClick={() => refetch()}
-								className="rounded-full border-[1.5px] border-blue-deep px-5 py-2 text-[13px] font-semibold text-blue-deep transition-[transform,background-color] hover:bg-blue-tint active:scale-[0.98]"
-							>
-								Tentar novamente
-							</button>
-						</div>
+						<ErrorState error={error} onRetry={() => refetch()} />
 					) : donations.length === 0 ? (
 						<div className="rounded-card-sm bg-surface shadow-soft">
 							<EmptyState

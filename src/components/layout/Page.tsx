@@ -3,6 +3,7 @@ import type React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Breadcrumb } from "@/components/full/Breadcrumb";
+import { ErrorState } from "@/components/full/ErrorState";
 import { SkeletonList } from "@/components/full/SkeletonList";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,8 @@ export type IPage = {
 	actionSlot?: React.ReactNode;
 	loading?: boolean;
 	skeleton?: React.ReactNode;
+	error?: unknown;
+	onRetry?: () => void;
 	hasPermission?: boolean;
 	titleClassName?: string;
 	backTo?: string;
@@ -28,6 +31,8 @@ export function Page({
 	actionSlot,
 	loading,
 	skeleton,
+	error,
+	onRetry,
 	hasPermission = true,
 	titleClassName,
 	backTo,
@@ -101,7 +106,9 @@ export function Page({
 				</div>
 			)}
 
-			{loading ? (
+			{error ? (
+				<ErrorState error={error} onRetry={onRetry} />
+			) : loading ? (
 				<div data-testid="loader-page" className={cn(titleClassName)}>
 					{skeleton ?? (
 						<SkeletonList rows={3} label="Carregando o conteúdo da página" />

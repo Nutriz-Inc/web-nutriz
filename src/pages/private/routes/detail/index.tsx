@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { ErrorState } from "@/components/full/ErrorState";
 import { SectionLabel } from "@/components/full/SectionLabel";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -192,18 +193,10 @@ export function RouteDetailPage() {
 				hasPermission={auth?.type !== EnumUserType.Common}
 				backTo="/rotas"
 			>
-				<div className="flex flex-col items-center gap-3 rounded-card bg-surface p-6 text-center shadow-soft">
-					<p className="text-[14px] text-ink-2">
-						Não foi possível carregar esta rota.
-					</p>
-					<button
-						type="button"
-						onClick={() => routeQuery.refetch()}
-						className="h-11 rounded-full border-[1.5px] border-blue-deep px-5 text-[14px] font-semibold text-blue-deep transition-colors hover:bg-blue-tint"
-					>
-						Tentar novamente
-					</button>
-				</div>
+				<ErrorState
+					error={routeQuery.error}
+					onRetry={() => routeQuery.refetch()}
+				/>
 			</Page>
 		);
 	}

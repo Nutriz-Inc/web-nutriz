@@ -12,18 +12,9 @@ import { SkipLink } from "./components/full/SkipLink";
 import { useAuth } from "./hooks/use-auth";
 import { useThemeColor } from "./hooks/use-theme-color";
 import { registerAppRouter } from "./lib/app-navigation";
+import { getErrorMessage } from "./utils/error-message";
 import { EvaWidget } from "./pages/private/eva/widget/eva-widget";
 import { publicRouter, routerPrivate } from "./router";
-
-function getErrorMessage(error: unknown): string {
-	const responseMessage = (
-		error as { response?: { data?: { message?: string } } }
-	)?.response?.data?.message;
-
-	return typeof responseMessage === "string"
-		? responseMessage
-		: "Ocorreu um erro. Tente novamente.";
-}
 
 const queryClient = new QueryClient({
 	queryCache: new QueryCache({

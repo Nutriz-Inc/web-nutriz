@@ -52,6 +52,8 @@ export function AdmDashboardPage() {
 			title="Dashboard"
 			description="Indicadores consolidados de todas as doadoras · atualizado em tempo real"
 			loading={dashboardQuery.isLoading}
+			error={dashboardQuery.isError ? dashboardQuery.error : undefined}
+			onRetry={() => dashboardQuery.refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>

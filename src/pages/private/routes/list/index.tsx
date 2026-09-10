@@ -80,17 +80,18 @@ export function RoutesListPage() {
 	const statusParaApi =
 		status === "all" || filtrarErroLocalmente ? undefined : status;
 
-	const { data, isLoading, isPlaceholderData } = useRoutesList({
-		page,
-		page_size: DEFAULT_PAGE_SIZE,
-		id_driver: ehMotorista ? auth?.id_user : undefined,
-		driver_name: (ehAdm && appliedDriverName) || undefined,
-		name: appliedName || undefined,
-		city: (ehAdm && appliedCity) || undefined,
-		neighborhood: (ehAdm && appliedNeighborhood) || undefined,
-		date_set: dateSet || undefined,
-		status: statusParaApi,
-	});
+	const { data, isLoading, isPlaceholderData, isError, error, refetch } =
+		useRoutesList({
+			page,
+			page_size: DEFAULT_PAGE_SIZE,
+			id_driver: ehMotorista ? auth?.id_user : undefined,
+			driver_name: (ehAdm && appliedDriverName) || undefined,
+			name: appliedName || undefined,
+			city: (ehAdm && appliedCity) || undefined,
+			neighborhood: (ehAdm && appliedNeighborhood) || undefined,
+			date_set: dateSet || undefined,
+			status: statusParaApi,
+		});
 
 	const todasAsRotas = data?.data ?? [];
 	const routes = ordenarPorPrioridade(
@@ -109,6 +110,8 @@ export function RoutesListPage() {
 			title="Rotas"
 			description={`${total} rotas cadastradas`}
 			loading={isLoading}
+			error={isError ? error : undefined}
+			onRetry={() => refetch()}
 			hasPermission={auth?.type !== EnumUserType.Common}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={auth?.type === EnumUserType.Admin && <CreateRouteDialog />}

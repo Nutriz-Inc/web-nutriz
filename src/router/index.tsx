@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { ContentHubPage } from "@/pages/private/content-hub";
@@ -23,6 +23,7 @@ import { UsersManagementPage } from "../pages/private/users/list";
 import { ArticlesScreen } from "../pages/public/articles";
 import { LandingPageScreen } from "../pages/public/landing-page";
 import { LoginScreen } from "../pages/public/login";
+import { NotFoundScreen } from "../pages/public/not-found";
 import { RegisterScreen } from "../pages/public/register";
 import { DefaultRedirect } from "./DefaultRedirect";
 
@@ -45,7 +46,7 @@ export function routerPrivate() {
 				{
 					id: "private-fallback",
 					path: "/*",
-					element: <DefaultRedirect />,
+					element: <NotFoundScreen />,
 				},
 			],
 		},
@@ -183,7 +184,7 @@ export function publicRouter() {
 				{
 					id: "public-fallback",
 					path: "*",
-					element: <Navigate to="/" replace />,
+					element: <NotFoundScreen />,
 				},
 			],
 		},

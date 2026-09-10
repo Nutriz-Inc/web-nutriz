@@ -8,6 +8,7 @@ import {
 	FilterChips,
 } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
+import { SkeletonList } from "@/components/full/SkeletonList";
 import { Button } from "@/components/ui/button";
 import {
 	Sheet,
@@ -115,9 +116,11 @@ export function AddStopSheet({
 
 				<div className="flex min-h-0 flex-1 flex-col gap-2.5 overflow-y-auto pr-0.5">
 					{carregando ? (
-						<div className="flex justify-center py-8">
-							<LoaderCircle className="size-5 animate-spin text-blue-bright" />
-						</div>
+						<SkeletonList
+							rows={4}
+							avatar={false}
+							label="Carregando as etapas disponíveis"
+						/>
 					) : opcoes.length === 0 ? (
 						<EmptyState
 							size="sm"

@@ -1,8 +1,8 @@
-import { LoaderCircle } from "lucide-react";
 import { Fragment, useState } from "react";
 import nadaPorAqui from "@/assets/illustrations/nada-por-aqui.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
+import { SkeletonList } from "@/components/full/SkeletonList";
 import {
 	ROUTE_STATUS_FILTER_OPTIONS,
 	type RouteStatusFilter,
@@ -41,9 +41,7 @@ export function DriverRoutesCard({ routes, loading }: DriverRoutesCardProps) {
 			}
 		>
 			{loading ? (
-				<div className="flex w-full justify-center py-6">
-					<LoaderCircle className="animate-spin text-ink-3" />
-				</div>
+				<SkeletonList rows={3} avatar={false} label="Carregando as rotas" />
 			) : filtered.length === 0 ? (
 				<EmptyState
 					size="sm"

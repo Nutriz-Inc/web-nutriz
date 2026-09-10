@@ -3,6 +3,7 @@ import { useState } from "react";
 import agendaVazia from "@/assets/illustrations/agenda-vazia.svg";
 import semEnfermeiro from "@/assets/illustrations/sem-enfermeiro.svg";
 import { EmptyState } from "@/components/full/EmptyState";
+import { SkeletonList } from "@/components/full/SkeletonList";
 import { Button } from "@/components/ui/button";
 import {
 	Sheet,
@@ -97,9 +98,11 @@ export function CreateAppointmentSheet({
 						</div>
 
 						{isLoadingSteps ? (
-							<div className="flex justify-center py-6">
-								<LoaderCircle className="size-5 animate-spin text-ink-3" />
-							</div>
+							<SkeletonList
+								rows={3}
+								avatar={false}
+								label="Carregando as etapas pendentes"
+							/>
 						) : steps.length === 0 ? (
 							<EmptyState
 								size="sm"
@@ -130,9 +133,11 @@ export function CreateAppointmentSheet({
 						</label>
 
 						{isLoadingNurses ? (
-							<div className="flex justify-center py-4">
-								<LoaderCircle className="size-5 animate-spin text-ink-3" />
-							</div>
+							<SkeletonList
+								rows={2}
+								avatar={false}
+								label="Carregando os enfermeiros"
+							/>
 						) : nurses.length === 0 ? (
 							<EmptyState
 								size="sm"

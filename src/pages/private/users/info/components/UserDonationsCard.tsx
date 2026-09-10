@@ -1,4 +1,3 @@
-import { LoaderCircle } from "lucide-react";
 import { Fragment } from "react";
 import semRegistro from "@/assets/illustrations/sem-registro.svg";
 import { EmptyState } from "@/components/full/EmptyState";
@@ -6,6 +5,7 @@ import {
 	type FilterChipOption,
 	FilterChips,
 } from "@/components/full/FilterChips";
+import { SkeletonList } from "@/components/full/SkeletonList";
 import type { IDonationResponse } from "@/services/types/i-donation";
 import { DONATIONS_GRID_COLS } from "../constants";
 import { InfoCard } from "./InfoCard";
@@ -52,9 +52,7 @@ export function UserDonationsCard({
 			}
 		>
 			{loading ? (
-				<div className="flex w-full justify-center py-6">
-					<LoaderCircle className="animate-spin text-ink-3" />
-				</div>
+				<SkeletonList rows={3} avatar={false} label="Carregando as doações" />
 			) : sorted.length === 0 ? (
 				<EmptyState
 					size="sm"

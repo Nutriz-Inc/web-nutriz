@@ -684,3 +684,35 @@ body {
 @utility onda-checkin {
 	animation: onda-checkin 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
+
+@keyframes nz-brilho {
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+@utility esqueleto {
+	position: relative;
+	overflow: hidden;
+	background-color: var(--surface-2);
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		transform: translateX(-100%);
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			color-mix(in oklch, var(--surface), transparent 35%) 50%,
+			transparent 100%
+		);
+		animation: nz-brilho 1.6s ease-in-out infinite;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.esqueleto::after {
+		animation: none;
+	}
+}

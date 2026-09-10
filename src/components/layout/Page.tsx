@@ -3,6 +3,7 @@ import type React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Breadcrumb } from "@/components/full/Breadcrumb";
+import { SkeletonList } from "@/components/full/SkeletonList";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { getBreadcrumb } from "@/utils/breadcrumb";
@@ -14,6 +15,7 @@ export type IPage = {
 	description?: React.ReactNode;
 	actionSlot?: React.ReactNode;
 	loading?: boolean;
+	skeleton?: React.ReactNode;
 	hasPermission?: boolean;
 	titleClassName?: string;
 	backTo?: string;
@@ -25,6 +27,7 @@ export function Page({
 	description,
 	actionSlot,
 	loading,
+	skeleton,
 	hasPermission = true,
 	titleClassName,
 	backTo,
@@ -99,22 +102,10 @@ export function Page({
 			)}
 
 			{loading ? (
-				<div
-					data-testid="loader-page"
-					aria-busy="true"
-					aria-live="polite"
-					className={cn("flex w-full flex-col gap-4", titleClassName)}
-				>
-					<span className="sr-only">Carregando o conteúdo da página</span>
-
-					{[0, 1, 2].map((indice) => (
-						<div
-							key={indice}
-							aria-hidden="true"
-							style={{ animationDelay: `${indice * 120}ms` }}
-							className="h-28 w-full animate-pulse rounded-card bg-surface-2 motion-reduce:animate-none"
-						/>
-					))}
+				<div data-testid="loader-page" className={cn(titleClassName)}>
+					{skeleton ?? (
+						<SkeletonList rows={3} label="Carregando o conteúdo da página" />
+					)}
 				</div>
 			) : (
 				children

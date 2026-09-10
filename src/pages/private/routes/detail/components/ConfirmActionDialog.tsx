@@ -10,12 +10,9 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-	CLASSE_BOTAO_PERIGO,
-	CLASSE_BOTAO_PRIMARIO,
-	CLASSE_BOTAO_SECUNDARIO,
-} from "../constants";
+import {} from "../constants";
 
 type Props = {
 	open: boolean;
@@ -68,7 +65,10 @@ export function ConfirmActionDialog({
 				<AlertDialogFooter className="gap-2.5">
 					<AlertDialogCancel
 						disabled={carregando}
-						className={cn(CLASSE_BOTAO_SECUNDARIO, "mt-0")}
+						className={cn(
+							buttonVariants({ variant: "neutral", size: "pill" }),
+							"mt-0",
+						)}
 					>
 						Voltar
 					</AlertDialogCancel>
@@ -78,9 +78,10 @@ export function ConfirmActionDialog({
 							event.preventDefault();
 							onConfirmar();
 						}}
-						className={
-							tom === "perigo" ? CLASSE_BOTAO_PERIGO : CLASSE_BOTAO_PRIMARIO
-						}
+						className={buttonVariants({
+							variant: tom === "perigo" ? "danger" : "primary",
+							size: "pill",
+						})}
 					>
 						{carregando && <LoaderCircle className="size-4 animate-spin" />}
 						{rotuloConfirmar}

@@ -8,6 +8,7 @@ import {
 	FilterChips,
 } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
+import { Button } from "@/components/ui/button";
 import {
 	Sheet,
 	SheetContent,
@@ -19,11 +20,7 @@ import { cn } from "@/lib/utils";
 import type { IDonationStepResponse } from "@/services/types/i-donation";
 import { EnumDonationStepName } from "@/services/types/i-donation";
 import { formatCreatedAt } from "@/utils/formatter";
-import {
-	CLASSE_BOTAO_PRIMARIO,
-	CLASSE_BOTAO_SECUNDARIO,
-	CLASSE_SHEET,
-} from "../constants";
+import { CLASSE_SHEET } from "../constants";
 
 type EtapaFiltro = "all" | EnumDonationStepName;
 
@@ -176,23 +173,25 @@ export function AddStopSheet({
 				</div>
 
 				<div className="flex shrink-0 flex-col-reverse gap-2.5 sm:flex-row sm:justify-end">
-					<button
+					<Button
+						variant="neutral"
+						size="pill"
 						type="button"
 						onClick={() => onOpenChange(false)}
 						disabled={salvando}
-						className={CLASSE_BOTAO_SECUNDARIO}
 					>
 						Cancelar
-					</button>
-					<button
+					</Button>
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						disabled={!selecionada || salvando}
 						onClick={() => selecionada && onConfirmar(selecionada)}
-						className={CLASSE_BOTAO_PRIMARIO}
 					>
 						{salvando && <LoaderCircle className="size-4 animate-spin" />}
 						Adicionar parada
-					</button>
+					</Button>
 				</div>
 			</SheetContent>
 		</Sheet>

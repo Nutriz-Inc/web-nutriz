@@ -5,6 +5,7 @@ import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
@@ -148,14 +149,16 @@ export function UsersManagementPage() {
 						onClear={handleClearSearch}
 						className="flex-1"
 					/>
-					<button
+					<Button
+						variant="primary"
+						size="pill"
 						type="submit"
 						aria-label="Buscar"
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill px-4 text-[14px] font-semibold text-white transition-transform hover:bg-blue-fill active:scale-[0.98] sm:px-5"
+						className="shrink-0"
 					>
 						<Search className="size-4" />
 						<span className="hidden sm:inline">Buscar</span>
-					</button>
+					</Button>
 				</form>
 
 				<RefreshableList updating={usersQuery.isPlaceholderData}>

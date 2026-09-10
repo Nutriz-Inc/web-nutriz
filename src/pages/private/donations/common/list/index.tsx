@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import doacaoVazia from "@/assets/illustrations/doacao-vazia.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { Page } from "@/components/layout/Page";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { getStepNumber } from "@/utils/constants";
@@ -123,15 +124,17 @@ export function DonationsPage() {
 				</div>
 
 				<div className="fixed inset-x-0 bottom-0 z-20 border-t border-blue-tint bg-surface-3 px-5 pb-5 pt-3 lg:hidden">
-					<button
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						onClick={goToCreation}
 						disabled={false}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep-fill text-[15px] font-semibold text-white transition-[transform,background-color] hover:bg-blue-fill active:scale-[0.98] disabled:opacity-60"
+						className="w-full"
 					>
 						<Plus className="size-5" />
 						Nova Doação
-					</button>
+					</Button>
 				</div>
 			</div>
 		</Page>

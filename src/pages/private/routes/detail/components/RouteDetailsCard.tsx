@@ -1,5 +1,6 @@
 import { Pencil } from "lucide-react";
 import { ExpandableText } from "@/components/full/ExpandableText";
+import { Button } from "@/components/ui/button";
 import type { IGetRouteResponse } from "@/services/types/i-route";
 
 type Props = {
@@ -25,14 +26,16 @@ export function RouteDetailsCard({ route, podeEditar, onEditar }: Props) {
 				)}
 
 				{podeEditar && (
-					<button
+					<Button
+						variant="ghost"
+						size="icon-pill-sm"
 						type="button"
 						onClick={onEditar}
 						aria-label="Editar nome e descrição da rota"
-						className="-mt-1 flex size-9 shrink-0 items-center justify-center rounded-full text-ink-2 outline-none transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:ring-4 focus-visible:ring-blue-bright/50"
+						className="-mt-1 shrink-0 text-ink-2 hover:bg-blue-tint hover:text-blue-deep"
 					>
 						<Pencil className="size-4" />
-					</button>
+					</Button>
 				)}
 			</div>
 		</section>

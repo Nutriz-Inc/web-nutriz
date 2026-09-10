@@ -21,6 +21,18 @@ const buttonVariants = cva(
 				destructive:
 					"bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
 				link: "text-primary underline-offset-4 hover:underline",
+
+				primary:
+					"bg-blue-deep-fill font-semibold text-white shadow-soft hover:bg-blue-fill disabled:opacity-60",
+				neutral:
+					"border-line bg-surface font-semibold text-ink-2 hover:bg-surface-3 disabled:opacity-60",
+				soft: "bg-blue-tint font-semibold text-blue-deep hover:bg-blue-tint-2 disabled:opacity-60",
+				danger:
+					"bg-danger-fill font-semibold text-white shadow-soft hover:bg-danger disabled:opacity-60",
+				"danger-soft":
+					"bg-danger-tint font-semibold text-danger hover:bg-danger-tint/70 disabled:opacity-60",
+				"on-fill":
+					"bg-surface-on-fill font-semibold text-ink-on-fill shadow-soft hover:bg-blue-tint-2 disabled:opacity-60",
 			},
 			size: {
 				default:
@@ -37,6 +49,9 @@ const buttonVariants = cva(
 				pill: "h-11 gap-2 rounded-full px-6 text-[0.9375rem] [&_svg:not([class*='size-'])]:size-4",
 				"icon-pill":
 					"size-11 rounded-full [&_svg:not([class*='size-'])]:size-5",
+				"pill-xl":
+					"h-14 gap-2.5 rounded-full px-8 text-[0.9375rem] [&_svg:not([class*='size-'])]:size-5",
+				"icon-pill-sm": "size-9 rounded-full",
 			},
 		},
 		defaultVariants: {
@@ -45,13 +60,6 @@ const buttonVariants = cva(
 		},
 	},
 );
-
-export interface ButtonProps
-	extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-		VariantProps<typeof buttonVariants> {
-	asChild?: boolean;
-	loading?: boolean;
-}
 
 function Button({
 	className,

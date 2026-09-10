@@ -1,4 +1,5 @@
 import { ChevronDown, Search, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -66,14 +67,16 @@ export function UserSearchField({
 			/>
 
 			{value && (
-				<button
+				<Button
+					variant="ghost"
+					size="icon-pill-sm"
 					type="button"
 					onClick={onClear}
 					aria-label="Limpar busca"
-					className="mr-2 flex size-8 shrink-0 items-center justify-center rounded-full text-ink-3 transition-colors hover:bg-surface-2 hover:text-ink-2"
+					className="mr-2 size-8 shrink-0 text-ink-3 hover:bg-surface-2 hover:text-ink-2"
 				>
 					<X className="size-4" />
-				</button>
+				</Button>
 			)}
 		</div>
 	);

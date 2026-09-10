@@ -1,4 +1,5 @@
 import { CircleCheckBig } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Props = {
 	pendentes: number;
@@ -27,14 +28,16 @@ export function RouteStopsFooter({
 
 	return (
 		<div className="mt-auto border-t border-line p-5">
-			<button
+			<Button
+				variant="primary"
+				size="pill-xl"
 				type="button"
 				onClick={onFinalizar}
-				className="flex h-14 w-full items-center justify-center gap-2.5 rounded-full bg-blue-deep-fill text-[17px] font-bold text-white outline-none transition-[transform,background-color] hover:bg-blue-fill focus-visible:ring-4 focus-visible:ring-blue-bright/60 active:scale-[0.98]"
+				className="w-full"
 			>
 				<CircleCheckBig className="size-6" strokeWidth={2.2} />
 				Finalizar rota
-			</button>
+			</Button>
 
 			<p className="mt-2.5 text-center text-[12px] text-ink-2">
 				Todas as paradas foram marcadas.

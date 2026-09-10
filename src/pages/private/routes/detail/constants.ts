@@ -59,10 +59,5 @@ export const ERRO_GENERICO =
 export const CLASSE_SHEET = CLASSE_SHEET_CONTEUDO;
 
 export const CLASSE_CAMPO_TEXTO = CLASSE_CAMPO;
-export {
-	CLASSE_BOTAO_PERIGO,
-	CLASSE_BOTAO_PRIMARIO,
-	CLASSE_BOTAO_SECUNDARIO,
-} from "@/lib/form-classes";
 
 export const CLASSE_ALTURA_PAINEL = "h-[380px] sm:h-[420px] xl:h-[560px]";

@@ -1,5 +1,6 @@
 import { Trash2 } from "lucide-react";
 import { FormField } from "@/components/full/FormField";
+import { Button } from "@/components/ui/button";
 import { ProfileSectionCard } from "./ProfileSectionCard";
 
 export type BabyDraft = {
@@ -22,14 +23,16 @@ export function NewBabyCard({ draft, onChange, onRemove }: NewBabyCardProps) {
 			label="Novo"
 			title="Novo bebê"
 			action={
-				<button
+				<Button
+					variant="neutral"
+					size="pill"
 					type="button"
 					onClick={onRemove}
-					className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-semibold text-ink-2 outline-none transition-colors hover:bg-surface-3 focus-visible:ring-3 focus-visible:ring-blue-bright/50 motion-reduce:transition-none"
+					className="shrink-0"
 				>
 					<Trash2 className="size-4" aria-hidden="true" />
 					Descartar
-				</button>
+				</Button>
 			}
 		>
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

@@ -1,4 +1,5 @@
 import { ChevronDown, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type LoadMoreButtonProps = {
 	remaining: number;
@@ -12,11 +13,13 @@ export function LoadMoreButton({
 	onClick,
 }: LoadMoreButtonProps) {
 	return (
-		<button
+		<Button
+			variant="neutral"
+			size="pill"
 			type="button"
 			onClick={onClick}
 			disabled={loading}
-			className="mx-auto flex h-[46px] w-full items-center justify-center gap-2 rounded-xl border border-blue-tint-2 bg-surface px-6 text-[14px] font-semibold text-blue-deep transition-transform active:scale-[0.98] disabled:opacity-60 lg:w-fit"
+			className="mx-auto w-full text-blue-deep lg:w-fit"
 		>
 			{loading ? (
 				<>
@@ -30,6 +33,6 @@ export function LoadMoreButton({
 					{remaining > 0 ? ` (${remaining} restantes)` : ""}
 				</>
 			)}
-		</button>
+		</Button>
 	);
 }

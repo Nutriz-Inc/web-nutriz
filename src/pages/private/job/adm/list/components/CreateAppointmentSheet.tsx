@@ -3,6 +3,7 @@ import { useState } from "react";
 import agendaVazia from "@/assets/illustrations/agenda-vazia.svg";
 import semEnfermeiro from "@/assets/illustrations/sem-enfermeiro.svg";
 import { EmptyState } from "@/components/full/EmptyState";
+import { Button } from "@/components/ui/button";
 import {
 	Sheet,
 	SheetContent,
@@ -180,19 +181,23 @@ export function CreateAppointmentSheet({
 				{error && <p className="text-[12px] text-danger">{error}</p>}
 
 				<div className="flex shrink-0 items-center justify-between gap-3">
-					<button
+					<Button
+						variant="neutral"
+						size="pill"
 						type="button"
 						onClick={() => handleOpenChange(false)}
 						disabled={isPending}
-						className="flex h-11 w-full items-center justify-center rounded-full border border-line bg-surface text-[14px] font-semibold text-ink transition-colors hover:bg-surface-3 disabled:opacity-60"
+						className="w-full"
 					>
 						Cancelar
-					</button>
-					<button
+					</Button>
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						onClick={handleSubmit}
 						disabled={isPending || !canSubmit}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep-fill text-[14px] font-semibold text-white transition-colors hover:bg-blue-fill disabled:opacity-60"
+						className="w-full"
 					>
 						{isPending ? (
 							<LoaderCircle className="size-[18px] animate-spin" />
@@ -200,7 +205,7 @@ export function CreateAppointmentSheet({
 							<Plus className="size-[18px]" />
 						)}
 						{isPending ? "Criando..." : "Criar agendamento"}
-					</button>
+					</Button>
 				</div>
 			</SheetContent>
 		</Sheet>

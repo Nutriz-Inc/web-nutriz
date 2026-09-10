@@ -80,7 +80,7 @@ export function BabyConsentStep({
 									label="Nome do bebê"
 									value={baby.name}
 									onChange={(value) => onBabyChange(index, "name", value)}
-									placeholder="Nome do bebê"
+									placeholder="Ex.: Alice Ribeiro"
 									error={errors[`baby-${index}-name`]}
 									optional
 								/>

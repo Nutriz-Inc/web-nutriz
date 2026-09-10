@@ -104,7 +104,7 @@ export function CreateUserSheet({
 						icon={UserIcon}
 						value={form.name}
 						onChange={(value) => handleChange("name", value)}
-						placeholder="Digite o nome do usuário"
+						placeholder="Ex.: Maria Ribeiro da Silva"
 						error={errors.name}
 					/>
 

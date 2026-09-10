@@ -40,7 +40,7 @@ export function NewBabyCard({ draft, onChange, onRemove }: NewBabyCardProps) {
 					id={`novo-bebe-nome-${draft.key}`}
 					label="Nome do bebê"
 					value={draft.name}
-					placeholder="Nome completo do bebê"
+					placeholder="Ex.: Alice Ribeiro"
 					onChange={(value) => onChange({ ...draft, name: value })}
 				/>
 				<FormField

@@ -31,7 +31,7 @@ export function ContentHubPage() {
 		<div className="w-full">
 			<Page
 				title="Conteúdo educativo"
-				description="Artigos, vídeos e guias práticos para acompanhar você em cada etapa da doação de leite materno."
+				description="Artigos, vídeos e guias práticos para acompanhar você em cada etapa da doação de leite humano."
 				hasPermission={auth?.type === EnumUserType.Common}
 				titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 				actionSlot={

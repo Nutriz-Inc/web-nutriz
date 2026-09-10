@@ -10,6 +10,7 @@ import { useStepAlerts } from "@/hooks/use-step-alerts";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EnumUserType } from "@/services/types/i-user";
 import { BABY_ML_PER_DAY } from "@/utils/constants";
+import { formatMl } from "@/utils/formatter";
 import { DonationStatusCard } from "./components/DonationStatusCard";
 import { GreetingHero } from "./components/GreetingHero";
 import { ImpactCard } from "./components/ImpactCard";
@@ -79,7 +80,7 @@ export function HomePage() {
 			hint:
 				milkDonatedMl === null
 					? "Sem registro"
-					: `${milkDonatedMl} ml no total`,
+					: `${formatMl(milkDonatedMl)} no total`,
 		},
 		{
 			icon: Heart,

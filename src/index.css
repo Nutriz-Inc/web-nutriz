@@ -144,6 +144,7 @@
 	--success: oklch(0.79 0.09 170);
 	--danger: oklch(0.755 0.11 25);
 	--warning: oklch(0.815 0.095 64);
+	--orange: oklch(0.8 0.11 45);
 	--amber: oklch(0.83 0.12 85);
 	--purple: oklch(0.76 0.11 293);
 	--magenta: oklch(0.755 0.12 319);
@@ -163,6 +164,7 @@
 	--success-tint: oklch(0.295 0.03 170);
 	--danger-tint: oklch(0.3 0.034 18);
 	--warning-tint: oklch(0.3 0.032 81);
+	--orange-tint: oklch(0.3 0.034 40);
 	--amber-tint: oklch(0.3 0.034 91);
 	--purple-tint: oklch(0.305 0.036 295);
 	--magenta-tint: oklch(0.3 0.036 316);
@@ -255,6 +257,8 @@
 	--danger-tint: oklch(0.954 0.019 17.5);
 	--warning: oklch(0.48 0.104 64.4);
 	--warning-tint: oklch(0.953 0.029 80.7);
+	--orange: oklch(0.48 0.15 45);
+	--orange-tint: oklch(0.954 0.028 50);
 
 	--nz-gradient-blue: linear-gradient(
 		150deg,
@@ -328,6 +332,8 @@
 	--color-danger-tint: var(--danger-tint);
 	--color-warning: var(--warning);
 	--color-warning-tint: var(--warning-tint);
+	--color-orange: var(--orange);
+	--color-orange-tint: var(--orange-tint);
 
 	--shadow-soft: var(--nz-shadow-soft);
 	--shadow-lift: var(--nz-shadow-lift);

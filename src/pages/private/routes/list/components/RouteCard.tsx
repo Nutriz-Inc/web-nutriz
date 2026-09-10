@@ -1,9 +1,10 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Calendar, ChevronRight, Gauge, MapPin, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { RouteStatusBadge } from "@/components/full/RouteStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { EnumRouteStatus, type IRouteResponse } from "@/services/types/i-route";
 import { formatDateBR } from "@/utils/formatter";
+import { routeToken } from "@/utils/status";
 import { RouteMiniMap } from "./RouteMiniMap";
 
 type RouteCardProps = {
@@ -61,7 +62,11 @@ export function RouteCard({ route }: RouteCardProps) {
 						{route.name}
 					</p>
 					<div className="flex shrink-0 items-center gap-2">
-						<RouteStatusBadge status={route.status} />
+						<StatusBadge
+							token={routeToken(route.status)}
+							gender="f"
+							size="lg"
+						/>
 						<ChevronRight className="size-5 shrink-0 text-ink-2 transition-transform duration-300 group-hover:translate-x-0.5" />
 					</div>
 				</div>

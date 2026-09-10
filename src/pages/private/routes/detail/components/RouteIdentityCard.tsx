@@ -1,9 +1,10 @@
 import { CalendarClock, MapPin } from "lucide-react";
 import { CopyableId } from "@/components/full/CopyableId";
 import { DataGrid } from "@/components/full/DataGrid";
-import { RouteStatusBadge } from "@/components/full/RouteStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import type { IGetRouteResponse } from "@/services/types/i-route";
 import { formatDateTimeParts } from "@/utils/formatter";
+import { routeToken } from "@/utils/status";
 
 type Props = {
 	route: IGetRouteResponse;
@@ -32,7 +33,7 @@ export function RouteIdentityCard({ route }: Props) {
 	return (
 		<section className="flex flex-col lg:flex-row lg:items-stretch">
 			<div className="flex min-w-0 flex-1 flex-wrap items-center gap-3 p-5">
-				<RouteStatusBadge status={route.status} />
+				<StatusBadge token={routeToken(route.status)} gender="f" size="lg" />
 				<CopyableId id={route.id_route} className="text-[13px] text-ink-2" />
 			</div>
 

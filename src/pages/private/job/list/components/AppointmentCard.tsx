@@ -1,11 +1,12 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, FileText, Stethoscope } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { AppointmentStatusBadge } from "@/components/full/AppointmentStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { getInitials } from "@/components/layout/utils";
 import { cn } from "@/lib/utils";
 import { EnumJobStatus } from "@/services/types/i-job";
 import { formatDateTimeParts } from "@/utils/formatter";
+import { jobToken } from "@/utils/status";
 import type { Appointment } from "../../types";
 import { getReportHint } from "../utils";
 
@@ -65,8 +66,9 @@ export function AppointmentCard({
 						<span className="text-[13px] text-ink-3">Doadora</span>
 					</div>
 				</div>
-				<AppointmentStatusBadge
-					status={appointment.status}
+				<StatusBadge
+					token={jobToken(appointment.status)}
+					size="lg"
 					className="shrink-0"
 				/>
 			</div>

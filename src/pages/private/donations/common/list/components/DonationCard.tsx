@@ -1,10 +1,11 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Calendar, ChevronRight, Heart, Lock } from "lucide-react";
-import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { Badge } from "@/components/ui/badge";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
+import { donationToken } from "@/utils/status";
 
 type DonationCardProps = {
 	number: number;
@@ -122,9 +123,10 @@ export function DonationCard({
 										Recorrente
 									</Badge>
 								)}
-								<DonationStatusBadge
-									isActive={isInProgress}
-									hasError={hasError}
+								<StatusBadge
+									token={donationToken(isInProgress, hasError)}
+									gender="f"
+									size="lg"
 								/>
 							</div>
 						</div>

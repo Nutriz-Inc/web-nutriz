@@ -1,6 +1,7 @@
 import { Calendar, User } from "lucide-react";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { formatDateBR } from "@/utils/formatter";
-import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
+import { jobToken } from "@/utils/status";
 import type { AppointmentReport } from "../../types";
 
 type ReportHistoryItemProps = {
@@ -12,7 +13,11 @@ export function ReportHistoryItem({ report }: ReportHistoryItemProps) {
 		<div className="flex flex-col gap-2.5 rounded-xl border border-surface-3 bg-surface-2 p-4">
 			<div className="flex items-start justify-between gap-3">
 				<p className="text-[15px] font-bold text-ink">{report.stepName}</p>
-				<AppointmentStatusBadge status={report.status} className="shrink-0" />
+				<StatusBadge
+					token={jobToken(report.status)}
+					size="lg"
+					className="shrink-0"
+				/>
 			</div>
 
 			<div className="flex flex-wrap items-center gap-x-4 gap-y-1">

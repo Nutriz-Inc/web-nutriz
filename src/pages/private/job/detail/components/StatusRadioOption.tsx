@@ -1,6 +1,6 @@
-import { APPOINTMENT_STATUS_DISPLAY } from "@/components/full/AppointmentStatusBadge";
 import { BADGE_TONES } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { getStatusLabel, jobToken, STATUS_VOCABULARY } from "@/utils/status";
 import type { AppointmentStatus } from "../../types";
 import { STATUS_OPTION_DESCRIPTION } from "../constants";
 
@@ -15,7 +15,8 @@ export function StatusRadioOption({
 	selected,
 	onSelect,
 }: StatusRadioOptionProps) {
-	const display = APPOINTMENT_STATUS_DISPLAY[status];
+	const token = jobToken(status);
+	const display = STATUS_VOCABULARY[token];
 
 	return (
 		<button
@@ -46,7 +47,7 @@ export function StatusRadioOption({
 						)}
 					/>
 					<span className="text-[14px] font-semibold text-ink">
-						{display.label}
+						{getStatusLabel(token)}
 					</span>
 				</div>
 				<span className="text-[13px] text-ink-2">

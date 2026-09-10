@@ -1,9 +1,10 @@
 import { ChevronRight } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
-import { StatusBadge } from "@/pages/private/donations/adm/list/components/StatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
+import { StepBadge } from "@/components/full/StepBadge";
 import type { IDonationResponse } from "@/services/types/i-donation";
 import { formatDateBR } from "@/utils/formatter";
+import { donationToken } from "@/utils/status";
 import { DONATIONS_GRID_COLS } from "../constants";
 
 type UserDonationRowProps = {
@@ -30,14 +31,15 @@ export function UserDonationRow({ donation }: UserDonationRowProps) {
 				</span>
 				<ChevronRight className="size-4 text-ink-3 lg:hidden" />
 			</div>
-			<StatusBadge step={donation.current_step ?? null} />
+			<StepBadge step={donation.current_step ?? null} />
 			<span className="text-[14px] text-ink-2">
 				<span className="lg:hidden">Data: </span>
 				{formatDateBR(donation.created_at)}
 			</span>
-			<DonationStatusBadge
-				isActive={donation.is_active}
-				hasError={donation.has_error}
+			<StatusBadge
+				token={donationToken(donation.is_active, donation.has_error)}
+				gender="f"
+				size="lg"
 			/>
 			<ChevronRight className="hidden size-4 text-ink-3 lg:block" />
 		</button>

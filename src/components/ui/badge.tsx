@@ -11,6 +11,7 @@ export type BadgeTone =
 	| "brand"
 	| "success"
 	| "warning"
+	| "orange"
 	| "error"
 	| "teal"
 	| "pink"
@@ -26,6 +27,7 @@ export const BADGE_TONES: Record<
 	brand: { bg: "bg-blue-tint", text: "text-blue-deep", dot: "bg-blue-deep" },
 	success: { bg: "bg-success-tint", text: "text-success", dot: "bg-success" },
 	warning: { bg: "bg-warning-tint", text: "text-warning", dot: "bg-warning" },
+	orange: { bg: "bg-orange-tint", text: "text-orange", dot: "bg-orange" },
 	error: { bg: "bg-danger-tint", text: "text-danger", dot: "bg-danger" },
 	teal: { bg: "bg-teal-tint", text: "text-teal", dot: "bg-teal" },
 	pink: { bg: "bg-eva-tint", text: "text-eva-deep", dot: "bg-eva" },

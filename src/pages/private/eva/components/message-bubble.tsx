@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import type { ChatMessage } from "../types";
 import { AvatarEva } from "./avatar-eva";
 
@@ -5,10 +6,20 @@ type MessageBubbleProps = {
 	message: ChatMessage;
 };
 
+const SURGE = {
+	initial: { opacity: 0, scale: 0.95, y: 6 },
+	animate: { opacity: 1, scale: 1, y: 0 },
+	transition: { duration: 0.26, ease: [0.22, 1, 0.36, 1] as const },
+};
+
 export function MessageBubble({ message }: MessageBubbleProps) {
+	const semMovimento = useReducedMotion();
+	const surge = semMovimento ? {} : SURGE;
+
 	if (message.role === "nutriz") {
 		return (
-			<div
+			<motion.div
+				{...surge}
 				style={{
 					display: "flex",
 					flexDirection: "column",
@@ -34,7 +45,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 						{message.time}
 					</span>
 				)}
-			</div>
+			</motion.div>
 		);
 	}
 
@@ -44,7 +55,8 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 	}));
 
 	return (
-		<div
+		<motion.div
+			{...surge}
 			style={{
 				display: "flex",
 				alignItems: "flex-end",
@@ -85,6 +97,6 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 					</span>
 				)}
 			</div>
-		</div>
+		</motion.div>
 	);
 }

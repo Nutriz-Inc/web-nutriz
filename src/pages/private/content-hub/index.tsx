@@ -1,4 +1,6 @@
 import conteudoTopo from "@/assets/illustrations/conteudo-topo.svg";
+import { StaggerGroup } from "@/components/full/StaggerGroup";
+import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { ARTICLES, getArticleById } from "@/pages/public/articles/data";
@@ -53,10 +55,14 @@ export function ContentHubPage() {
 
 					<FeaturedVideosSection videos={videos} />
 
-					<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-						<QuickTipsCard />
-						<FaqCard />
-					</div>
+					<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+						<StaggerItem>
+							<QuickTipsCard />
+						</StaggerItem>
+						<StaggerItem>
+							<FaqCard />
+						</StaggerItem>
+					</StaggerGroup>
 				</div>
 			</Page>
 		</div>

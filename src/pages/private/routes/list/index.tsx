@@ -5,6 +5,8 @@ import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
+import { StaggerGroup } from "@/components/full/StaggerGroup";
+import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -202,11 +204,16 @@ export function RoutesListPage() {
 						</div>
 					) : (
 						<>
-							<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+							<StaggerGroup
+								key={page}
+								className="grid grid-cols-1 gap-4 lg:grid-cols-2"
+							>
 								{routes.map((route) => (
-									<RouteCard key={route.id_route} route={route} />
+									<StaggerItem key={route.id_route} className="h-full">
+										<RouteCard route={route} />
+									</StaggerItem>
 								))}
-							</div>
+							</StaggerGroup>
 
 							{totalPages > 1 && (
 								<div className="flex items-center justify-center gap-3 lg:justify-end">

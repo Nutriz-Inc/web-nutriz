@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { StaggerGroup } from "@/components/full/StaggerGroup";
+import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumJobStatus } from "@/services/types/i-job";
@@ -187,12 +189,16 @@ export function UserManagementDetailPage() {
 						}
 					/>
 
-					<div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-						<ContactInfoCard user={user} />
+					<StaggerGroup className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+						<StaggerItem>
+							<ContactInfoCard user={user} />
+						</StaggerItem>
 						{user.type === EnumUserType.Common && (
-							<CollectionAddressCard user={user} />
+							<StaggerItem>
+								<CollectionAddressCard user={user} />
+							</StaggerItem>
 						)}
-					</div>
+					</StaggerGroup>
 
 					{user.type === EnumUserType.Common && (
 						<UserDonationsCard

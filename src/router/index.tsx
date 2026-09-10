@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { PageTransition } from "@/components/layout/PageTransition";
 import { ContentHubPage } from "@/pages/private/content-hub";
 import { AdmDashboardPage } from "@/pages/private/dashboard";
 import { DonationManagementDetailPage } from "@/pages/private/donations/adm/info";
@@ -28,19 +29,25 @@ import { DefaultRedirect } from "./DefaultRedirect";
 export function routerPrivate() {
 	return createBrowserRouter([
 		{
-			id: "private-home",
-			path: "/home",
-			element: <HomePage />,
-		},
-		{
-			id: "private-artigos",
-			path: "/artigos",
-			element: <ArticlesScreen />,
-		},
-		{
-			id: "private-fallback",
-			path: "/*",
-			element: <DefaultRedirect />,
+			id: "private-sem-chrome",
+			element: <PageTransition />,
+			children: [
+				{
+					id: "private-home",
+					path: "/home",
+					element: <HomePage />,
+				},
+				{
+					id: "private-artigos",
+					path: "/artigos",
+					element: <ArticlesScreen />,
+				},
+				{
+					id: "private-fallback",
+					path: "/*",
+					element: <DefaultRedirect />,
+				},
+			],
 		},
 		{
 			id: "private-layout",
@@ -150,29 +157,35 @@ export function routerPrivate() {
 export function publicRouter() {
 	return createBrowserRouter([
 		{
-			id: "public-landing",
-			path: "/",
-			element: <LandingPageScreen />,
-		},
-		{
-			id: "public-login",
-			path: "/login",
-			element: <LoginScreen />,
-		},
-		{
-			id: "public-registro",
-			path: "/registro",
-			element: <RegisterScreen />,
-		},
-		{
-			id: "public-artigos",
-			path: "/artigos",
-			element: <ArticlesScreen />,
-		},
-		{
-			id: "public-fallback",
-			path: "*",
-			element: <Navigate to="/" replace />,
+			id: "public-shell",
+			element: <PageTransition />,
+			children: [
+				{
+					id: "public-landing",
+					path: "/",
+					element: <LandingPageScreen />,
+				},
+				{
+					id: "public-login",
+					path: "/login",
+					element: <LoginScreen />,
+				},
+				{
+					id: "public-registro",
+					path: "/registro",
+					element: <RegisterScreen />,
+				},
+				{
+					id: "public-artigos",
+					path: "/artigos",
+					element: <ArticlesScreen />,
+				},
+				{
+					id: "public-fallback",
+					path: "*",
+					element: <Navigate to="/" replace />,
+				},
+			],
 		},
 	]);
 }

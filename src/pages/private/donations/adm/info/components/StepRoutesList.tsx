@@ -1,6 +1,7 @@
 import { Route as RouteIcon } from "lucide-react";
-import { RouteStatusBadge } from "@/components/full/RouteStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { formatDateBR } from "@/utils/formatter";
+import { routeToken } from "@/utils/status";
 import { useRoutesForDonationStep } from "../hooks";
 
 type Props = {
@@ -36,7 +37,11 @@ export function StepRoutesList({ idDonationStep }: Props) {
 								</span>
 							</span>
 						</span>
-						<RouteStatusBadge status={route.status} />
+						<StatusBadge
+							token={routeToken(route.status)}
+							gender="f"
+							size="lg"
+						/>
 					</div>
 				))}
 			</div>

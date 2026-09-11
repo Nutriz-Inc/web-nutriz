@@ -6,6 +6,7 @@ import { FilterChips } from "@/components/full/FilterChips";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
@@ -68,16 +69,19 @@ export function DonationsManagementPage() {
 		setPage(1);
 	}
 
-	const { data, isLoading, isPlaceholderData } = useAdminDonationsList({
-		page,
-		page_size: DEFAULT_PAGE_SIZE,
-		user_name: appliedName || undefined,
-		user_document: appliedCpf.replace(/\D/g, "") || undefined,
-		current_step: filter === "all" ? undefined : filter,
-		is_active: activeFilter === "all" ? undefined : activeFilter === "active",
-		is_recurrent:
-			recurrentFilter === "all" ? undefined : recurrentFilter === "recurrent",
-	});
+	const termoBuscado = appliedName || appliedCpf;
+
+	const { data, isLoading, isPlaceholderData, isError, error, refetch } =
+		useAdminDonationsList({
+			page,
+			page_size: DEFAULT_PAGE_SIZE,
+			user_name: appliedName || undefined,
+			user_document: appliedCpf.replace(/\D/g, "") || undefined,
+			current_step: filter === "all" ? undefined : filter,
+			is_active: activeFilter === "all" ? undefined : activeFilter === "active",
+			is_recurrent:
+				recurrentFilter === "all" ? undefined : recurrentFilter === "recurrent",
+		});
 
 	const donations = data?.data ?? [];
 	const total = data?.total ?? 0;
@@ -88,6 +92,8 @@ export function DonationsManagementPage() {
 			title="Doações"
 			description={`${total} doações cadastradas`}
 			loading={isLoading}
+			error={isError ? error : undefined}
+			onRetry={() => refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
@@ -111,21 +117,25 @@ export function DonationsManagementPage() {
 						/>
 					</div>
 					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0 lg:gap-2.5">
-						<button
+						<Button
+							variant="primary"
+							size="pill"
 							type="submit"
-							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+							className="shrink-0"
 						>
 							<Search className="size-4" />
 							Aplicar filtro
-						</button>
-						<button
+						</Button>
+						<Button
+							variant="neutral"
+							size="pill"
 							type="button"
 							onClick={handleClearFilters}
-							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-surface px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
+							className="shrink-0"
 						>
 							<X className="size-4" />
 							Limpar filtro
-						</button>
+						</Button>
 					</div>
 				</form>
 
@@ -154,8 +164,16 @@ export function DonationsManagementPage() {
 						<div className="rounded-card-sm bg-surface">
 							<EmptyState
 								illustration={buscaSemResultado}
-								title="Nenhuma doação encontrada"
-								description="Ajuste a busca ou o filtro selecionado."
+								title={
+									termoBuscado
+										? `Nenhum resultado para "${termoBuscado}"`
+										: "Nenhuma doação encontrada"
+								}
+								description={
+									termoBuscado
+										? "Confira a grafia ou limpe a busca."
+										: "Ajuste os filtros selecionados."
+								}
 							/>
 						</div>
 					) : (

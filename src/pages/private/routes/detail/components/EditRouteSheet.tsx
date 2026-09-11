@@ -1,5 +1,6 @@
 import { LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
 	Sheet,
 	SheetContent,
@@ -7,12 +8,7 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import {
-	CLASSE_BOTAO_PRIMARIO,
-	CLASSE_BOTAO_SECUNDARIO,
-	CLASSE_CAMPO_TEXTO,
-	CLASSE_SHEET,
-} from "../constants";
+import { CLASSE_CAMPO_TEXTO, CLASSE_SHEET } from "../constants";
 
 type Props = {
 	open: boolean;
@@ -114,23 +110,25 @@ export function EditRouteSheet({
 				</div>
 
 				<div className="flex shrink-0 flex-col-reverse gap-2.5 sm:flex-row sm:justify-end">
-					<button
+					<Button
+						variant="neutral"
+						size="pill"
 						type="button"
 						onClick={() => onOpenChange(false)}
 						disabled={salvando}
-						className={CLASSE_BOTAO_SECUNDARIO}
 					>
 						Cancelar
-					</button>
-					<button
+					</Button>
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						onClick={handleSubmit}
 						disabled={salvando}
-						className={CLASSE_BOTAO_PRIMARIO}
 					>
 						{salvando && <LoaderCircle className="size-4 animate-spin" />}
 						Salvar alterações
-					</button>
+					</Button>
 				</div>
 			</SheetContent>
 		</Sheet>

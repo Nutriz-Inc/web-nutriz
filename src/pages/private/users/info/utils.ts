@@ -22,35 +22,6 @@ export function formatJobLocation(address?: Address): string {
 	return [street, address.neighborhood, region].filter(Boolean).join(" - ");
 }
 
-export function formatML(value?: number): string {
-	if (value === undefined || value === null) return "—";
-
-	return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} ml`;
-}
-
-export function formatShortDateTime(iso: string): string {
-	const date = new Date(iso);
-	const dayMonth = date.toLocaleDateString("pt-BR", {
-		day: "2-digit",
-		month: "2-digit",
-	});
-	const time = date.toLocaleTimeString("pt-BR", {
-		hour: "2-digit",
-		minute: "2-digit",
-		hour12: false,
-	});
-
-	return `${dayMonth} · ${time}`;
-}
-
-export function formatTimeHM(iso: string): string {
-	return new Date(iso).toLocaleTimeString("pt-BR", {
-		hour: "2-digit",
-		minute: "2-digit",
-		hour12: false,
-	});
-}
-
 export function toStepName(name: string): EnumDonationStepName | null {
 	const normalized = name.trim().toLowerCase();
 

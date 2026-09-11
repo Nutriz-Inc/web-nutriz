@@ -1,11 +1,14 @@
 import type { LucideIcon } from "lucide-react";
+import { CountUp } from "@/components/full/CountUp";
 import { cn } from "@/lib/utils";
 
 type ImpactTone = "blue" | "bright" | "eva";
 
 type ImpactCardProps = {
 	icon: LucideIcon;
-	value: string;
+	value: number | null;
+	decimals?: number;
+	suffix?: string;
 	label: string;
 	hint: string;
 	tone?: ImpactTone;
@@ -52,6 +55,8 @@ const TONE_MAP: Record<
 export function ImpactCard({
 	icon: Icon,
 	value,
+	decimals = 0,
+	suffix = "",
 	label,
 	hint,
 	tone = "blue",
@@ -106,7 +111,11 @@ export function ImpactCard({
 					t.valor,
 				)}
 			>
-				{value}
+				{value === null ? (
+					"—"
+				) : (
+					<CountUp value={value} decimals={decimals} suffix={suffix} />
+				)}
 			</p>
 
 			<p className="mt-2 text-xs leading-relaxed text-ink-2">{hint}</p>

@@ -78,19 +78,7 @@ export function formatarCronometro(ms: number): string {
 		.join(":");
 }
 
-export function formatarDuracaoCurta(ms: number): string {
-	const totalMinutos = Math.max(Math.round(ms / 60000), 0);
-	const horas = Math.floor(totalMinutos / 60);
-	const minutos = totalMinutos % 60;
-
-	if (horas === 0) {
-		return `${minutos} min`;
-	}
-	if (minutos === 0) {
-		return `${horas}h`;
-	}
-	return `${horas}h ${minutos}min`;
-}
+export { formatarDuracaoCurta } from "@/utils/route-time";
 
 export function formatarEndereco(stop: IRouteStop): string {
 	const address = stop.address;

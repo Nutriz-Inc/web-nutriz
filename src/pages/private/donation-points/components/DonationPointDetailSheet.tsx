@@ -1,6 +1,7 @@
 import { CalendarClock, Mail, MapPin, Navigation, Phone } from "lucide-react";
 import { useState } from "react";
 import { DetailRow } from "@/components/full/DetailRow";
+import { Button } from "@/components/ui/button";
 import {
 	Sheet,
 	SheetContent,
@@ -123,14 +124,16 @@ export function DonationPointDetailSheet({
 
 					<div className="h-px bg-blue-tint-2" />
 
-					<button
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						onClick={handleTraceRoute}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-bright-fill text-[12px] font-bold text-white"
+						className="w-full"
 					>
 						<Navigation className="size-4" />
 						Traçar Rota
-					</button>
+					</Button>
 				</div>
 			</SheetContent>
 		</Sheet>

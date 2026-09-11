@@ -4,12 +4,3 @@ export const CLASSE_CAMPO =
 export const CLASSE_ROTULO = "text-[13px] font-semibold text-ink";
 
 export const CLASSE_AJUDA = "text-[12px] leading-relaxed text-ink-2";
-
-export const CLASSE_BOTAO_PRIMARIO =
-	"flex h-11 items-center justify-center gap-2 rounded-full bg-blue-deep-fill px-6 text-[15px] font-semibold text-white outline-none transition-[transform,background-color] hover:bg-blue-fill focus-visible:ring-3 focus-visible:ring-blue-bright/50 active:scale-[0.98] disabled:opacity-60";
-
-export const CLASSE_BOTAO_SECUNDARIO =
-	"flex h-11 items-center justify-center gap-2 rounded-full border border-blue-tint-2 bg-surface px-6 text-[15px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50 disabled:opacity-60";
-
-export const CLASSE_BOTAO_PERIGO =
-	"flex h-11 items-center justify-center gap-2 rounded-full bg-danger-fill px-6 text-[15px] font-semibold text-white outline-none transition-[transform,background-color] hover:opacity-90 focus-visible:ring-3 focus-visible:ring-danger/40 active:scale-[0.98] disabled:opacity-60";

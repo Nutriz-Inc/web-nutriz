@@ -15,12 +15,20 @@ import { useAppointmentDetail } from "./hooks";
 export function AppointmentDetailPage() {
 	const { id_job = "" } = useParams();
 	const { auth } = useAuth();
-	const { data: appointment, isLoading } = useAppointmentDetail(id_job);
+	const {
+		data: appointment,
+		isLoading,
+		isError,
+		error,
+		refetch,
+	} = useAppointmentDetail(id_job);
 
 	return (
 		<Page
 			hasPermission={auth?.type === EnumUserType.Nurse}
 			loading={isLoading}
+			error={isError ? error : undefined}
+			onRetry={() => refetch()}
 			backTo="/agendamentos"
 			title={`Agendamento #${id_job.slice(0, 8)}`}
 			description="Acompanhe cada etapa do processo do agendamento."

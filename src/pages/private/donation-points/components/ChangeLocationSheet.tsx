@@ -1,5 +1,6 @@
 import { LoaderCircle, LocateFixed, Search } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
 	Sheet,
 	SheetContent,
@@ -152,15 +153,17 @@ export function ChangeLocationSheet({
 						<p className="text-[11px] text-danger">{locationError}</p>
 					)}
 
-					<button
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						onClick={handleSearch}
 						disabled={zipCodeDigits.length !== 8 || isSearching}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-blue-bright-fill text-[12px] font-bold text-white transition-opacity disabled:opacity-60"
+						className="w-full"
 					>
 						{isSearching && <LoaderCircle className="size-4 animate-spin" />}
 						{isSearching ? "Buscando..." : "Buscar"}
-					</button>
+					</Button>
 				</div>
 			</SheetContent>
 		</Sheet>

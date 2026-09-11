@@ -1,4 +1,3 @@
-import { LoaderCircle } from "lucide-react";
 import buscaPontosVazia from "@/assets/illustrations/busca-pontos-vazia.svg";
 import pontosTopo from "@/assets/illustrations/pontos-topo.svg";
 import { EmptyState } from "@/components/full/EmptyState";
@@ -8,6 +7,7 @@ import {
 } from "@/components/full/FilterChips";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
+import { SkeletonList } from "@/components/full/SkeletonList";
 import { Page } from "@/components/layout/Page";
 import { ChangeLocationSheet } from "./components/ChangeLocationSheet";
 import { DonationPointCard } from "./components/DonationPointCard";
@@ -86,9 +86,12 @@ export function DonationPointsPage() {
 					<div className="mx-auto mb-3 h-1 w-9 rounded-full bg-blue-tint-2 lg:hidden" />
 
 					{isLoading ? (
-						<div className="flex justify-center py-8">
-							<LoaderCircle className="size-5 animate-spin text-blue-bright" />
-						</div>
+						<SkeletonList
+							rows={4}
+							avatar={false}
+							className="px-1 py-2"
+							label="Carregando os pontos de coleta"
+						/>
 					) : points.length === 0 ? (
 						<EmptyState
 							size="sm"

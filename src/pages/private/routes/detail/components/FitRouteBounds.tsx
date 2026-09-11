@@ -21,11 +21,11 @@ export function FitRouteBounds({ posicoes }: Props) {
 		assinaturaAnterior.current = assinatura;
 
 		if (posicoes.length === 1) {
-			map.setView(posicoes[0], 15);
+			map.setView(posicoes[0], 15, { animate: false });
 			return;
 		}
 
-		map.fitBounds(posicoes, { padding: [40, 40], maxZoom: 15 });
+		map.fitBounds(posicoes, { padding: [40, 40], maxZoom: 15, animate: false });
 	}, [map, posicoes]);
 
 	return null;

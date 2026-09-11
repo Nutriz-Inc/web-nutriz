@@ -33,6 +33,7 @@ export function useRemoveUser(id_user: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Usuário desativado." },
 		mutationFn: () => services.user.remove(id_user),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: ["users"] });

@@ -57,6 +57,7 @@ export function useUpdateRoute(id_route: string) {
 	const invalidar = useInvalidarRota(id_route);
 
 	return useMutation({
+		meta: { sucesso: "Rota atualizada." },
 		mutationFn: (body: IUpdateRouteRequest) =>
 			services.route.update(id_route, body),
 		onSuccess: async (rotaAtualizada) => {
@@ -74,6 +75,7 @@ export function useCreateRouteStop(id_route: string) {
 	const invalidar = useInvalidarRota(id_route);
 
 	return useMutation({
+		meta: { sucesso: "Parada adicionada à rota." },
 		mutationFn: (body: ICreateRouteStopRequest) =>
 			services.route.createStop(id_route, body),
 		onSuccess: invalidar,
@@ -84,6 +86,7 @@ export function useRemoveRouteStop(id_route: string) {
 	const invalidar = useInvalidarRota(id_route);
 
 	return useMutation({
+		meta: { sucesso: "Parada removida da rota." },
 		mutationFn: (id_stop: string) => services.route.removeStop(id_stop),
 		onSuccess: invalidar,
 	});
@@ -93,6 +96,7 @@ export function useMarkStopArrival(id_route: string) {
 	const invalidar = useInvalidarRota(id_route);
 
 	return useMutation({
+		meta: { sucesso: "Chegada registrada." },
 		mutationFn: (id_stop: string) =>
 			services.route.updateStop(id_stop, { date_start: true }),
 		onSuccess: invalidar,
@@ -117,6 +121,7 @@ export function useMarkStopError(id_route: string) {
 	const invalidar = useInvalidarRota(id_route);
 
 	return useMutation({
+		meta: { sucesso: "Problema registrado na parada." },
 		mutationFn: async ({ id_stop, relato }: RegistrarImprevistoParams) => {
 			const resposta = await services.route.updateStop(id_stop, {
 				has_error: true,

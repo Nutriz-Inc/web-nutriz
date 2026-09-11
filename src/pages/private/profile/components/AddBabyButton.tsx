@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type AddBabyButtonProps = {
 	onClick: () => void;
@@ -10,13 +11,15 @@ export function AddBabyButton({
 	label = "Novo bebê",
 }: AddBabyButtonProps) {
 	return (
-		<button
+		<Button
+			variant="primary"
+			size="pill"
 			type="button"
 			onClick={onClick}
-			className="inline-flex h-11 shrink-0 items-center gap-2 rounded-full bg-blue-deep-fill px-5 text-[14px] font-semibold text-white outline-none transition-[background-color,transform] hover:bg-blue-fill focus-visible:ring-3 focus-visible:ring-blue-bright/50 active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100"
+			className="shrink-0"
 		>
 			<Plus className="size-4" aria-hidden="true" />
 			{label}
-		</button>
+		</Button>
 	);
 }

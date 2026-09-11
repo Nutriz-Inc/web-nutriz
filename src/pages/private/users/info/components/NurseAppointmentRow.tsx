@@ -1,12 +1,13 @@
 import { ChevronRight } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AppointmentStatusBadge } from "@/components/full/AppointmentStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
+import { StepBadge } from "@/components/full/StepBadge";
 import { getInitials } from "@/components/layout/utils";
-import { StatusBadge } from "@/pages/private/donations/adm/list/components/StatusBadge";
 import type { IJobResponse } from "@/services/types/i-job";
-import { formatDateBR } from "@/utils/formatter";
+import { formatDateBR, formatTimeBR } from "@/utils/formatter";
+import { jobToken } from "@/utils/status";
 import { APPOINTMENTS_GRID_COLS } from "../constants";
-import { formatJobLocation, formatTimeHM, toStepName } from "../utils";
+import { formatJobLocation, toStepName } from "../utils";
 
 type NurseAppointmentRowProps = {
 	job: IJobResponse;
@@ -43,20 +44,20 @@ export function NurseAppointmentRow({ job }: NurseAppointmentRowProps) {
 				</div>
 				<ChevronRight className="size-4 text-ink-3 lg:hidden" />
 			</div>
-			<StatusBadge step={stepName} label={stepName ?? job.name} />
+			<StepBadge step={stepName} label={stepName ?? job.name} />
 			<span className="text-[14px] text-ink-2">
 				<span className="lg:hidden">Data: </span>
 				{job.date_set ? formatDateBR(job.date_set) : "—"}
 			</span>
 			<span className="text-[14px] text-ink-2">
 				<span className="lg:hidden">Horário: </span>
-				{job.date_set ? formatTimeHM(job.date_set) : "—"}
+				{job.date_set ? formatTimeBR(job.date_set) : "—"}
 			</span>
 			<span className="min-w-0 text-[14px] text-ink-2 lg:truncate">
 				<span className="lg:hidden">Local: </span>
 				{formatJobLocation(job.address)}
 			</span>
-			<AppointmentStatusBadge status={job.status} />
+			<StatusBadge token={jobToken(job.status)} size="lg" />
 			<ChevronRight className="hidden size-4 text-ink-3 lg:block" />
 		</button>
 	);

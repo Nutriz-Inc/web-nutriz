@@ -1,5 +1,7 @@
 import { AlertTriangle, Clock } from "lucide-react";
 import { useState } from "react";
+import { StaggerGroup } from "@/components/full/StaggerGroup";
+import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
@@ -13,7 +15,7 @@ import { SatisfactionCard } from "./components/SatisfactionCard";
 import { StatCard } from "./components/StatCard";
 import type { PeriodPreset } from "./constants";
 import { useQueryAdmDashboard } from "./hooks";
-import { formatOptionalDecimal, getPeriodPresetRange } from "./utils";
+import { getPeriodPresetRange } from "./utils";
 
 export function AdmDashboardPage() {
 	const { auth } = useAuth();
@@ -50,6 +52,8 @@ export function AdmDashboardPage() {
 			title="Dashboard"
 			description="Indicadores consolidados de todas as doadoras · atualizado em tempo real"
 			loading={dashboardQuery.isLoading}
+			error={dashboardQuery.isError ? dashboardQuery.error : undefined}
+			onRetry={() => dashboardQuery.refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
@@ -69,44 +73,58 @@ export function AdmDashboardPage() {
 					byMonth={data?.milk_collected_by_month ?? []}
 				/>
 
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<ActiveDonationsByStepCard
-						activeDonationsByStep={data?.active_donations_by_step ?? []}
-					/>
-					<SatisfactionCard feedbackByScore={data?.feedback_by_score ?? []} />
-				</div>
+				<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+					<StaggerItem>
+						<ActiveDonationsByStepCard
+							activeDonationsByStep={data?.active_donations_by_step ?? []}
+						/>
+					</StaggerItem>
+					<StaggerItem>
+						<SatisfactionCard feedbackByScore={data?.feedback_by_score ?? []} />
+					</StaggerItem>
+				</StaggerGroup>
 
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<BottlesCard
-						stats={{
-							bottles_count: data?.bottles_count ?? 0,
-							discarded_bottles_count: data?.discarded_bottles_count ?? 0,
-							average_bottles_per_donor: data?.average_bottles_per_donor ?? 0,
-							bottles_utilization_rate: data?.bottles_utilization_rate ?? 0,
-						}}
-					/>
-					<RecurrenceCard rate={data?.donor_recurrence_rate ?? 0} />
-				</div>
+				<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+					<StaggerItem>
+						<BottlesCard
+							stats={{
+								bottles_count: data?.bottles_count ?? 0,
+								discarded_bottles_count: data?.discarded_bottles_count ?? 0,
+								average_bottles_per_donor: data?.average_bottles_per_donor ?? 0,
+								bottles_utilization_rate: data?.bottles_utilization_rate ?? 0,
+							}}
+						/>
+					</StaggerItem>
+					<StaggerItem>
+						<RecurrenceCard rate={data?.donor_recurrence_rate ?? 0} />
+					</StaggerItem>
+				</StaggerGroup>
 
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<StatCard
-						icon={<Clock className="size-4 text-blue-deep" />}
-						iconBg="bg-blue-tint"
-						title="Tempo Médio de Resposta"
-						subtitle="Triagem até a 1ª coleta agendada"
-						value={formatOptionalDecimal(data?.average_service_time_hours, "h")}
-						footnote="Média de horas até o primeiro agendamento"
-					/>
-					<StatCard
-						icon={<AlertTriangle className="size-4 text-eva-deep" />}
-						iconBg="bg-danger-tint"
-						title="Doações não concluídas"
-						subtitle="Ocorrências no período selecionado"
-						value={String(data?.donations_with_error ?? 0)}
-						valueColor="text-eva-deep"
-						footnote="Doações que não puderam ser completadas"
-					/>
-				</div>
+				<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+					<StaggerItem>
+						<StatCard
+							icon={<Clock className="size-4 text-blue-deep" />}
+							iconBg="bg-blue-tint"
+							title="Tempo Médio de Resposta"
+							subtitle="Triagem até a 1ª coleta agendada"
+							value={data?.average_service_time_hours ?? null}
+							decimals={1}
+							suffix="h"
+							footnote="Média de horas até o primeiro agendamento"
+						/>
+					</StaggerItem>
+					<StaggerItem>
+						<StatCard
+							icon={<AlertTriangle className="size-4 text-eva-deep" />}
+							iconBg="bg-danger-tint"
+							title="Doações não concluídas"
+							subtitle="Ocorrências no período selecionado"
+							value={data?.donations_with_error ?? 0}
+							valueColor="text-eva-deep"
+							footnote="Doações que não puderam ser completadas"
+						/>
+					</StaggerItem>
+				</StaggerGroup>
 
 				<RouteStatsCard
 					stats={{

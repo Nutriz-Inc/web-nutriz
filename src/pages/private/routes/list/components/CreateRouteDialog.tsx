@@ -19,6 +19,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
 	useCreateRoute,
@@ -205,13 +206,15 @@ export function CreateRouteDialog() {
 	return (
 		<AlertDialog open={open} onOpenChange={handleOpenChange}>
 			<AlertDialogTrigger asChild>
-				<button
+				<Button
+					variant="primary"
+					size="pill"
 					type="button"
-					className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill px-5 text-[14px] font-semibold text-white transition-transform hover:bg-blue-fill active:scale-[0.98]"
+					className="shrink-0"
 				>
 					<Plus className="size-4" />
 					Criar rota
-				</button>
+				</Button>
 			</AlertDialogTrigger>
 
 			<AlertDialogContent className="flex max-h-[88vh] w-[calc(100%-1.5rem)] max-w-3xl flex-col overflow-hidden p-0">
@@ -413,14 +416,16 @@ export function CreateRouteDialog() {
 				</div>
 
 				<div className="flex flex-col gap-2.5 border-t border-line px-6 py-5 sm:flex-row-reverse sm:items-center sm:px-8">
-					<button
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						onClick={handleSubmit}
 						disabled={!canSubmit || createRoute.isPending}
-						className="flex h-12 w-full items-center justify-center rounded-2xl bg-blue-deep-fill text-[15px] font-bold text-white outline-none transition-[transform,background-color] hover:bg-blue-fill focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.99] disabled:opacity-60 sm:w-auto sm:px-8"
+						className="w-full sm:w-auto"
 					>
 						{createRoute.isPending ? "Criando…" : "Criar rota"}
-					</button>
+					</Button>
 
 					<AlertDialogCancel
 						disabled={createRoute.isPending}

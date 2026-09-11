@@ -22,6 +22,7 @@ export function useUpdateAppointment(id_job: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Agendamento atualizado." },
 		mutationFn: ({ status, report }: UpdateAppointmentInput) =>
 			services.job.update(id_job, {
 				status,

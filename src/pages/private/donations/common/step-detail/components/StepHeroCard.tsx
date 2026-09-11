@@ -1,7 +1,8 @@
 import type { LucideIcon } from "lucide-react";
 import { History } from "lucide-react";
-import { Status } from "@/components/full/Status";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import type { EnumDonationStepStatus } from "@/services/types/i-donation";
+import { donationStepToken } from "@/utils/status";
 
 type Props = {
 	icon?: LucideIcon;
@@ -39,7 +40,12 @@ export function StepHeroCard({
 				<p className="text-center text-[18px] font-bold text-ink">{title}</p>
 				<p className="text-center text-[13px] text-ink-2">{description}</p>
 
-				<Status status={status} size="lg" dot />
+				<StatusBadge
+					token={donationStepToken(status)}
+					gender="f"
+					size="md"
+					caps
+				/>
 			</div>
 		</div>
 	);

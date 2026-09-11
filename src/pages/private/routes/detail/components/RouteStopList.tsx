@@ -4,6 +4,7 @@ import rotaAguardando from "@/assets/illustrations/rota-aguardando.png";
 import rotaEmAndamento from "@/assets/illustrations/rota-em-andamento.png";
 import rotaFinalizada from "@/assets/illustrations/rota-finalizada.png";
 import { EmptyState } from "@/components/full/EmptyState";
+import { Button } from "@/components/ui/button";
 import type { IRouteStop } from "@/services/types/i-route";
 import type { EstadoDaRota } from "../utils";
 import { estadoDaParada, indiceDaParadaAtual } from "../utils";
@@ -137,14 +138,16 @@ export function RouteStopList({
 
 			{podeGerenciar && (
 				<div className="mt-auto border-t border-line p-4">
-					<button
+					<Button
+						variant="neutral"
+						size="pill"
 						type="button"
 						onClick={onAdicionar}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-full border border-dashed border-blue-tint-2 bg-surface text-[14px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-4 focus-visible:ring-blue-bright/50"
+						className="w-full border-dashed border-blue-tint-2 text-blue-deep hover:bg-blue-tint"
 					>
 						<Plus className="size-4" />
 						Adicionar parada
-					</button>
+					</Button>
 				</div>
 			)}
 		</section>

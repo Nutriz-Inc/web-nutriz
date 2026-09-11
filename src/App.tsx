@@ -14,16 +14,7 @@ import { useThemeColor } from "./hooks/use-theme-color";
 import { registerAppRouter } from "./lib/app-navigation";
 import { EvaWidget } from "./pages/private/eva/widget/eva-widget";
 import { publicRouter, routerPrivate } from "./router";
-
-function getErrorMessage(error: unknown): string {
-	const responseMessage = (
-		error as { response?: { data?: { message?: string } } }
-	)?.response?.data?.message;
-
-	return typeof responseMessage === "string"
-		? responseMessage
-		: "Ocorreu um erro. Tente novamente.";
-}
+import { getErrorMessage } from "./utils/error-message";
 
 const queryClient = new QueryClient({
 	queryCache: new QueryCache({
@@ -36,8 +27,12 @@ const queryClient = new QueryClient({
 		},
 	}),
 	mutationCache: new MutationCache({
-		onSuccess: () => {
-			toast.success("Ação realizada com sucesso.");
+		onSuccess: (_data, _variables, _context, mutation) => {
+			const mensagem = mutation.meta?.sucesso;
+
+			toast.success(
+				typeof mensagem === "string" ? mensagem : "Tudo certo por aqui.",
+			);
 		},
 		onError: (error, _variables, _context, mutation) => {
 			if (mutation.meta?.silenciarErro) {

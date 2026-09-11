@@ -86,7 +86,7 @@ export function LoginScreen() {
 								autoComplete="email"
 								value={email}
 								onChange={setEmail}
-								placeholder="Digite seu e-mail"
+								placeholder="voce@email.com"
 								error={errors.email}
 								leading={<Mail />}
 							/>
@@ -98,7 +98,7 @@ export function LoginScreen() {
 								autoComplete="current-password"
 								value={password}
 								onChange={setPassword}
-								placeholder="Digite sua senha"
+								placeholder="Sua senha de acesso"
 								error={errors.password}
 								leading={<Lock />}
 								trailing={

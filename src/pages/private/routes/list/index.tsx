@@ -5,7 +5,10 @@ import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
+import { StaggerGroup } from "@/components/full/StaggerGroup";
+import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { EnumRouteStatus } from "@/services/types/i-route";
@@ -49,6 +52,14 @@ export function RoutesListPage() {
 		setPage(1);
 	}
 
+	const temFiltro = !!(
+		appliedName ||
+		appliedDriverName ||
+		appliedCity ||
+		appliedNeighborhood ||
+		dateSet
+	);
+
 	function handleClearFilters() {
 		setDriverName("");
 		setAppliedDriverName("");
@@ -77,17 +88,18 @@ export function RoutesListPage() {
 	const statusParaApi =
 		status === "all" || filtrarErroLocalmente ? undefined : status;
 
-	const { data, isLoading, isPlaceholderData } = useRoutesList({
-		page,
-		page_size: DEFAULT_PAGE_SIZE,
-		id_driver: ehMotorista ? auth?.id_user : undefined,
-		driver_name: (ehAdm && appliedDriverName) || undefined,
-		name: appliedName || undefined,
-		city: (ehAdm && appliedCity) || undefined,
-		neighborhood: (ehAdm && appliedNeighborhood) || undefined,
-		date_set: dateSet || undefined,
-		status: statusParaApi,
-	});
+	const { data, isLoading, isPlaceholderData, isError, error, refetch } =
+		useRoutesList({
+			page,
+			page_size: DEFAULT_PAGE_SIZE,
+			id_driver: ehMotorista ? auth?.id_user : undefined,
+			driver_name: (ehAdm && appliedDriverName) || undefined,
+			name: appliedName || undefined,
+			city: (ehAdm && appliedCity) || undefined,
+			neighborhood: (ehAdm && appliedNeighborhood) || undefined,
+			date_set: dateSet || undefined,
+			status: statusParaApi,
+		});
 
 	const todasAsRotas = data?.data ?? [];
 	const routes = ordenarPorPrioridade(
@@ -106,6 +118,8 @@ export function RoutesListPage() {
 			title="Rotas"
 			description={`${total} rotas cadastradas`}
 			loading={isLoading}
+			error={isError ? error : undefined}
+			onRetry={() => refetch()}
 			hasPermission={auth?.type !== EnumUserType.Common}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={auth?.type === EnumUserType.Admin && <CreateRouteDialog />}
@@ -155,21 +169,25 @@ export function RoutesListPage() {
 							className="h-[43px] w-full rounded-card-sm border border-line bg-surface px-4 text-[15px] text-ink outline-none placeholder:text-ink-3 lg:w-[180px] lg:shrink-0"
 						/>
 						<div className="grid grid-cols-2 gap-2.5 lg:ml-auto lg:flex lg:shrink-0 lg:gap-2.5">
-							<button
+							<Button
+								variant="primary"
+								size="pill"
 								type="submit"
-								className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+								className="shrink-0"
 							>
 								<Search className="size-4" />
 								Aplicar filtro
-							</button>
-							<button
+							</Button>
+							<Button
+								variant="neutral"
+								size="pill"
 								type="button"
 								onClick={handleClearFilters}
-								className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-surface px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
+								className="shrink-0"
 							>
 								<X className="size-4" />
 								Limpar filtro
-							</button>
+							</Button>
 						</div>
 					</div>
 				</form>
@@ -191,17 +209,34 @@ export function RoutesListPage() {
 						<div className="rounded-card-sm bg-surface">
 							<EmptyState
 								illustration={buscaSemResultado}
-								title="Nenhuma rota encontrada"
-								description="Ajuste a busca ou o filtro selecionado."
+								title={
+									temFiltro
+										? "Nenhuma rota encontrada"
+										: ehMotorista
+											? "Nenhuma rota atribuída a você"
+											: "Nenhuma rota criada ainda"
+								}
+								description={
+									temFiltro
+										? "Ajuste a busca ou o filtro selecionado."
+										: ehMotorista
+											? "Quando o time montar uma rota para você, ela aparece aqui. Aproveite o descanso."
+											: "Crie a primeira rota para começar a organizar as coletas."
+								}
 							/>
 						</div>
 					) : (
 						<>
-							<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+							<StaggerGroup
+								key={page}
+								className="grid grid-cols-1 gap-4 lg:grid-cols-2"
+							>
 								{routes.map((route) => (
-									<RouteCard key={route.id_route} route={route} />
+									<StaggerItem key={route.id_route} className="h-full">
+										<RouteCard route={route} />
+									</StaggerItem>
 								))}
-							</div>
+							</StaggerGroup>
 
 							{totalPages > 1 && (
 								<div className="flex items-center justify-center gap-3 lg:justify-end">

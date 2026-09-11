@@ -1,6 +1,6 @@
 import type { FilterChipOption } from "@/components/full/FilterChips";
 import { EnumDonationStepName } from "@/services/types/i-donation";
-import { STEP_DISPLAY } from "./components/StatusBadge";
+import { STEP_DISPLAY } from "@/utils/status";
 
 export type StepFilter = "all" | EnumDonationStepName;
 export type ActiveFilter = "all" | "active" | "inactive";

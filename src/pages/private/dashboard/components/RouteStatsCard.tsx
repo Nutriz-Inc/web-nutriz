@@ -1,5 +1,6 @@
 import { MapPin, Navigation, Route, Timer } from "lucide-react";
 import type { RouteStats } from "@/services/types/i-dashboard";
+import { LIMITE_ROTA_HORAS } from "@/utils/route-time";
 import { formatOptionalDecimal } from "../utils";
 import { DashboardCardHeader } from "./DashboardCardHeader";
 import { RouteStatItem } from "./RouteStatItem";
@@ -51,7 +52,13 @@ export function RouteStatsCard({ stats }: RouteStatsCardProps) {
 						icon={<Timer className="size-4 shrink-0 text-teal" />}
 						label="Duração média"
 						value={formatOptionalDecimal(average_route_duration_hours, "h")}
-						hint="Tempo entre início e fim da rota"
+						hint={
+							average_route_duration_hours == null
+								? `Tempo entre início e fim, no limite de ${LIMITE_ROTA_HORAS}h`
+								: average_route_duration_hours > LIMITE_ROTA_HORAS
+									? `Acima do limite de ${LIMITE_ROTA_HORAS}h por rota`
+									: `Dentro do limite de ${LIMITE_ROTA_HORAS}h por rota`
+						}
 					/>
 				</div>
 			)}

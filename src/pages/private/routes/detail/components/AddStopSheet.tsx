@@ -8,6 +8,8 @@ import {
 	FilterChips,
 } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
+import { SkeletonList } from "@/components/full/SkeletonList";
+import { Button } from "@/components/ui/button";
 import {
 	Sheet,
 	SheetContent,
@@ -19,11 +21,7 @@ import { cn } from "@/lib/utils";
 import type { IDonationStepResponse } from "@/services/types/i-donation";
 import { EnumDonationStepName } from "@/services/types/i-donation";
 import { formatCreatedAt } from "@/utils/formatter";
-import {
-	CLASSE_BOTAO_PRIMARIO,
-	CLASSE_BOTAO_SECUNDARIO,
-	CLASSE_SHEET,
-} from "../constants";
+import { CLASSE_SHEET } from "../constants";
 
 type EtapaFiltro = "all" | EnumDonationStepName;
 
@@ -118,9 +116,11 @@ export function AddStopSheet({
 
 				<div className="flex min-h-0 flex-1 flex-col gap-2.5 overflow-y-auto pr-0.5">
 					{carregando ? (
-						<div className="flex justify-center py-8">
-							<LoaderCircle className="size-5 animate-spin text-blue-bright" />
-						</div>
+						<SkeletonList
+							rows={4}
+							avatar={false}
+							label="Carregando as etapas disponíveis"
+						/>
 					) : opcoes.length === 0 ? (
 						<EmptyState
 							size="sm"
@@ -176,23 +176,25 @@ export function AddStopSheet({
 				</div>
 
 				<div className="flex shrink-0 flex-col-reverse gap-2.5 sm:flex-row sm:justify-end">
-					<button
+					<Button
+						variant="neutral"
+						size="pill"
 						type="button"
 						onClick={() => onOpenChange(false)}
 						disabled={salvando}
-						className={CLASSE_BOTAO_SECUNDARIO}
 					>
 						Cancelar
-					</button>
-					<button
+					</Button>
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						disabled={!selecionada || salvando}
 						onClick={() => selecionada && onConfirmar(selecionada)}
-						className={CLASSE_BOTAO_PRIMARIO}
 					>
 						{salvando && <LoaderCircle className="size-4 animate-spin" />}
 						Adicionar parada
-					</button>
+					</Button>
 				</div>
 			</SheetContent>
 		</Sheet>

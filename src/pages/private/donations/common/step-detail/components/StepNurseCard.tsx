@@ -1,6 +1,7 @@
 import { UserRound } from "lucide-react";
-import { AppointmentStatusBadge } from "@/components/full/AppointmentStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import type { EnumJobStatus } from "@/services/types/i-job";
+import { jobToken } from "@/utils/status";
 
 type Props = {
 	nurseName: string;
@@ -21,7 +22,7 @@ export function StepNurseCard({ nurseName, status }: Props) {
 					</span>
 				</div>
 			</div>
-			<AppointmentStatusBadge status={status} className="shrink-0" />
+			<StatusBadge token={jobToken(status)} size="lg" className="shrink-0" />
 		</div>
 	);
 }

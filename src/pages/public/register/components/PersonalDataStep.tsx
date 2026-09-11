@@ -28,7 +28,7 @@ export function PersonalDataStep({
 				label="Nome completo"
 				value={form.name}
 				onChange={(value) => onChange("name", value)}
-				placeholder="Digite seu nome completo"
+				placeholder="Ex.: Maria Ribeiro da Silva"
 				error={errors.name}
 				autoComplete="name"
 			/>

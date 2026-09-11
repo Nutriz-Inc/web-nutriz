@@ -1,13 +1,14 @@
 import { Calendar, IdCardLanyard } from "lucide-react";
 import { BottleSummaryList } from "@/components/full/BottleSummaryList";
-import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
 import { StarRating } from "@/components/full/StarRating";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { Badge } from "@/components/ui/badge";
 import {
 	EnumDonationStepStatus,
 	type IGetDonationResponse,
 } from "@/services/types/i-donation";
 import { formatDateBR } from "@/utils/formatter";
+import { donationToken } from "@/utils/status";
 import { DonorInfoRow } from "./DonorInfoRow";
 
 type Props = {
@@ -30,9 +31,10 @@ export function DonationInfoCard({ donation }: Props) {
 								Recorrente
 							</Badge>
 						)}
-						<DonationStatusBadge
-							isActive={donation.is_active}
-							hasError={hasError}
+						<StatusBadge
+							token={donationToken(donation.is_active, hasError)}
+							gender="f"
+							size="lg"
 						/>
 					</div>
 				</div>

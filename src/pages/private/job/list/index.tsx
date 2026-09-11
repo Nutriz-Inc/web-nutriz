@@ -55,8 +55,20 @@ export function AppointmentsPage() {
 						<div className="rounded-card-sm border border-line bg-surface">
 							<EmptyState
 								illustration={agendaVazia}
-								title="Nenhum agendamento encontrado"
-								description="Ajuste o período ou a aba selecionada."
+								title={
+									dateFilter
+										? "Nenhum agendamento nesse período"
+										: status === EnumJobStatus.Pending
+											? "Tudo em dia por aqui"
+											: "Nenhum agendamento nesta aba"
+								}
+								description={
+									dateFilter
+										? "Escolha outra data ou limpe o filtro."
+										: status === EnumJobStatus.Pending
+											? "Você não tem visitas pendentes no momento."
+											: "Os agendamentos aparecem aqui conforme você os conclui."
+								}
 							/>
 						</div>
 					) : (

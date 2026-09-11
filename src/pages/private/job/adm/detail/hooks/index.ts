@@ -6,6 +6,7 @@ export function useUpdateAppointmentDescription(id_job: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Descrição do agendamento salva." },
 		mutationFn: (description: string) =>
 			services.job.update(id_job, { description: description.trim() }),
 		onSuccess: () => {

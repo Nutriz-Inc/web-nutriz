@@ -50,7 +50,7 @@ See `pages/private/donation-points` and `pages/private/home` as the two fullest 
 Shared, cross-page components go in `src/components/` instead, split by intent:
 - `components/ui/` — low-level primitives (shadcn/radix-based: `button.tsx`, `sheet.tsx`, `input.tsx`, `label.tsx`, `alert.tsx`)
 - `components/layout/` — app chrome (`Layout.tsx`, `AppHeader.tsx`, `Footer.tsx`, `AppDrawer.tsx`, `Page.tsx`)
-- `components/full/` — composed, ready-to-use widgets shared across pages (e.g. `Status.tsx`, a donation-step status badge)
+- `components/full/` — composed, ready-to-use widgets shared across pages (e.g. `StatusBadge.tsx`, the single status badge for the whole app)
 
 **One component per file** is a hard convention across the whole codebase — don't merge multiple exported components into a single file, even small ones (see `DetailRow.tsx`, `CollectionType.tsx`, `LocateButton.tsx` as examples of single-purpose files).
 
@@ -65,7 +65,7 @@ Shared, cross-page components go in `src/components/` instead, split by intent:
 
 This is a Tailwind v4 project (`@theme inline` + CSS variables in `src/index.css`, shadcn-flavored `components/ui`). In practice, almost none of the app code uses the theme's semantic color tokens (`bg-primary`, `text-muted-foreground`, etc.) — components hardcode arbitrary hex values inline instead, e.g. `bg-[#387ccd]`, `text-[#00458b]`, `text-[13px]`. This is the actual, consistent pattern throughout the app (brand blue `#387ccd`/`#00458b`, teal `#0e9e94`, pink `#f2579f` for "selected" states) — match it in new UI rather than introducing theme-token usage that the rest of the app doesn't follow.
 
-Use `cn()` from `@/lib/utils` (clsx + tailwind-merge) when a className has conditional branches; plain template-literal className strings are also used for simple two-state badges (see `Status.tsx`, `CollectionType.tsx`) — either is fine, `cn()` is preferred once there's more than one condition.
+Use `cn()` from `@/lib/utils` (clsx + tailwind-merge) when a className has conditional branches; plain template-literal className strings are also used for simple two-state badges (see `CollectionType.tsx`) — either is fine, `cn()` is preferred once there's more than one condition.
 
 ### Responsiveness is mobile-first — base classes are always the mobile layout
 

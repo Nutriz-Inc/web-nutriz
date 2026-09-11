@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import heroLoop from "@/assets/videos/hero-loop.mp4";
 import { cn } from "@/lib/utils";
 
@@ -21,8 +22,48 @@ type Props = {
 
 export function HeroBackground({ comVideo = false }: Props) {
 	const shouldReduceMotion = useReducedMotion();
+	const videoRef = useRef<HTMLVideoElement>(null);
+	const [videoTocando, setVideoTocando] = useState(false);
+	const [videoRecusado, setVideoRecusado] = useState(false);
 
-	const mostrarVideo = comVideo && !shouldReduceMotion;
+	const mostrarVideo = comVideo && !shouldReduceMotion && !videoRecusado;
+
+	useEffect(() => {
+		if (!mostrarVideo) {
+			return;
+		}
+
+		const elemento = videoRef.current;
+		if (!elemento) {
+			return;
+		}
+
+		elemento.defaultMuted = true;
+		elemento.muted = true;
+		elemento.setAttribute("muted", "");
+		elemento.disableRemotePlayback = true;
+
+		let cancelado = false;
+		const tentativa = elemento.play();
+
+		if (tentativa !== undefined) {
+			tentativa
+				.then(() => {
+					if (!cancelado) {
+						setVideoTocando(true);
+					}
+				})
+				.catch(() => {
+					if (!cancelado) {
+						setVideoRecusado(true);
+					}
+				});
+		}
+
+		return () => {
+			cancelado = true;
+		};
+	}, [mostrarVideo]);
 
 	const drift = (x: number, y: number, scale = 1.1, duration = 20) =>
 		shouldReduceMotion
@@ -46,6 +87,7 @@ export function HeroBackground({ comVideo = false }: Props) {
 			{mostrarVideo && (
 				<>
 					<video
+						ref={videoRef}
 						src={heroLoop}
 						autoPlay
 						loop
@@ -53,7 +95,16 @@ export function HeroBackground({ comVideo = false }: Props) {
 						playsInline
 						preload="auto"
 						tabIndex={-1}
-						className="absolute inset-0 size-full object-cover"
+						controls={false}
+						disablePictureInPicture
+						data-video-ambiente=""
+						onPlaying={() => setVideoTocando(true)}
+						onError={() => setVideoRecusado(true)}
+						onStalled={() => setVideoRecusado(true)}
+						className={cn(
+							"absolute inset-0 size-full object-cover transition-opacity duration-500",
+							videoTocando ? "opacity-100" : "opacity-0",
+						)}
 					/>
 
 					<div className="absolute inset-0 bg-[#062247]/35" />

@@ -502,6 +502,18 @@ body {
 	}
 }
 
+video[data-video-ambiente]::-webkit-media-controls,
+video[data-video-ambiente]::-webkit-media-controls-enclosure,
+video[data-video-ambiente]::-webkit-media-controls-panel,
+video[data-video-ambiente]::-webkit-media-controls-overlay-play-button,
+video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
+	display: none !important;
+	-webkit-appearance: none;
+	appearance: none;
+	opacity: 0;
+	pointer-events: none;
+}
+
 @keyframes pulso-etapa {
 	0% {
 		transform: scale(1);

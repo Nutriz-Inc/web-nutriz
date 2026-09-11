@@ -1,6 +1,8 @@
 import { Droplet } from "lucide-react";
 import { CountUp } from "@/components/full/CountUp";
 import type { MilkCollectedByMonth } from "@/services/types/i-dashboard";
+import { formatMonthBR } from "@/utils/formatter";
+import { formatDecimal } from "../utils";
 import { DashboardCardHeader } from "./DashboardCardHeader";
 
 type MilkCollectedCardProps = {
@@ -53,15 +55,15 @@ export function MilkCollectedCard({ total, byMonth }: MilkCollectedCardProps) {
 									key={item.month}
 									className="flex h-full w-10 shrink-0 flex-col items-center justify-end gap-2 lg:w-14"
 								>
-									<p className="text-[12px] font-medium text-ink">
-										{item.total}
+									<p className="text-[12px] font-medium tabular-nums text-ink">
+										{formatDecimal(item.total / 1000)} L
 									</p>
 									<div
 										className={`w-full rounded-t-[4px] ${isCurrent ? "bg-blue-deep" : "bg-blue-tint-2"}`}
 										style={{ height: `${heightPercent}%` }}
 									/>
 									<p className="text-[11px] uppercase text-ink-2">
-										{item.month}
+										{formatMonthBR(item.month)}
 									</p>
 								</div>
 							);

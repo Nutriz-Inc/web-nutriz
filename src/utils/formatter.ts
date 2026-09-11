@@ -132,6 +132,28 @@ export function formatDateBR(isoDate: string): string {
 	return montarData(dataPura, new Date(isoDate));
 }
 
+const mesAno = new Intl.DateTimeFormat("pt-BR", {
+	month: "short",
+	year: "2-digit",
+	timeZone: "UTC",
+});
+
+export function formatMonthBR(valor: string): string {
+	const casa = /^(\d{4})-(\d{2})$/.exec(valor);
+
+	if (!casa) {
+		return valor;
+	}
+
+	return mesAno
+		.formatToParts(new Date(`${valor}-01T00:00:00Z`))
+		.filter((parte) => parte.type === "month" || parte.type === "year")
+		.map((parte) =>
+			parte.type === "month" ? parte.value.replace(".", "") : parte.value,
+		)
+		.join(" ");
+}
+
 export function formatTimeBR(valor: string | Date): string {
 	const data = valor instanceof Date ? valor : new Date(valor);
 

@@ -17,7 +17,6 @@ type Props = {
 	rotulo?: string;
 };
 
-// Tailwind precisa da classe inteira escrita no fonte para gerar o CSS.
 const CORTE = {
 	2: "line-clamp-2",
 	3: "line-clamp-3",
@@ -26,11 +25,6 @@ const CORTE = {
 	6: "line-clamp-6",
 } as const;
 
-/**
- * Texto de tamanho imprevisivel dentro de um cartao. Fica sempre cortado em N
- * linhas e o texto inteiro abre num sheet — assim o cartao tem altura fixa e o
- * vizinho da mesma faixa nunca e esticado por ele.
- */
 export function ExpandableText({
 	texto,
 	titulo,
@@ -57,8 +51,6 @@ export function ExpandableText({
 
 		if (!elemento || typeof ResizeObserver === "undefined") return;
 
-		// A largura do cartao muda com a janela: o que cabia em 4 linhas no desktop
-		// pode passar disso no celular.
 		const observador = new ResizeObserver(medir);
 		observador.observe(elemento);
 

@@ -6,6 +6,7 @@ import {
 	Save,
 } from "lucide-react";
 import { type FormEvent, useState } from "react";
+import { Button } from "@/components/ui/button";
 import type { AppointmentStatus } from "../../types";
 import { STATUS_OPTION_ORDER } from "../constants";
 import { useUpdateAppointment } from "../hooks";
@@ -102,10 +103,12 @@ export function UpdateStepStatusForm({
 				</div>
 			)}
 
-			<button
+			<Button
+				variant="primary"
+				size="pill"
 				type="submit"
 				disabled={isPending}
-				className="flex h-[46px] w-fit items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-6 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="w-fit"
 			>
 				{isPending ? (
 					<Loader2 className="size-4 animate-spin" />
@@ -113,7 +116,7 @@ export function UpdateStepStatusForm({
 					<Save className="size-4" />
 				)}
 				{isPending ? "Salvando..." : "Salvar Alterações"}
-			</button>
+			</Button>
 		</form>
 	);
 }

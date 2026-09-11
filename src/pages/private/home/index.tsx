@@ -10,6 +10,7 @@ import { useStepAlerts } from "@/hooks/use-step-alerts";
 import { openEva } from "@/pages/private/eva/widget/eva-widget-bus";
 import { EnumUserType } from "@/services/types/i-user";
 import { BABY_ML_PER_DAY } from "@/utils/constants";
+import { formatMl } from "@/utils/formatter";
 import { DonationStatusCard } from "./components/DonationStatusCard";
 import { GreetingHero } from "./components/GreetingHero";
 import { ImpactCard } from "./components/ImpactCard";
@@ -64,7 +65,7 @@ export function HomePage() {
 			icon: Gift,
 			tone: "blue" as const,
 			featured: true,
-			value: donationsCompleted === null ? EMPTY : String(donationsCompleted),
+			value: donationsCompleted,
 			label: "Doações realizadas",
 			hint: donorSince ? `Desde ${donorSince}` : "Sem doações ainda",
 		},
@@ -72,18 +73,20 @@ export function HomePage() {
 			icon: Droplet,
 			tone: "bright" as const,
 			featured: false,
-			value: liters === null ? EMPTY : `${liters} L`,
+			value: milkDonatedMl === null ? null : milkDonatedMl / 1000,
+			decimals: 1,
+			suffix: " L",
 			label: "Leite doado",
 			hint:
 				milkDonatedMl === null
 					? "Sem registro"
-					: `${milkDonatedMl} ml no total`,
+					: `${formatMl(milkDonatedMl)} no total`,
 		},
 		{
 			icon: Heart,
 			tone: "eva" as const,
 			featured: false,
-			value: babiesFed === null ? EMPTY : String(babiesFed),
+			value: babiesFed,
 			label: "Bebês alimentados",
 			hint: "Estimativa rBLH (~200 ml/bebê·dia)",
 		},
@@ -98,7 +101,7 @@ export function HomePage() {
 				<AppHeader />
 
 				<div className="relative mx-auto w-full max-w-[1400px] grow px-4 pb-16 sm:px-6 sm:pb-20 lg:px-10">
-					<main>
+					<main id="conteudo" tabIndex={-1}>
 						<div className="mt-4 sm:mt-6">
 							<GreetingHero
 								firstName={firstName}

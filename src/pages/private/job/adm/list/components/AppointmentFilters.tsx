@@ -2,6 +2,7 @@ import { Search, X } from "lucide-react";
 import type { FormEvent } from "react";
 import { FilterChips } from "@/components/full/FilterChips";
 import { SearchBar } from "@/components/full/SearchBar";
+import { Button } from "@/components/ui/button";
 import { DateFilter } from "../../../list/components/DateFilter";
 import { STATUS_FILTER_OPTIONS, type StatusFilter } from "../constants";
 
@@ -62,21 +63,25 @@ export function AppointmentFilters({
 						/>
 					</div>
 					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0 lg:gap-2.5">
-						<button
+						<Button
+							variant="primary"
+							size="pill"
 							type="submit"
-							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+							className="shrink-0"
 						>
 							<Search className="size-4" />
 							Aplicar filtro
-						</button>
-						<button
+						</Button>
+						<Button
+							variant="neutral"
+							size="pill"
 							type="button"
 							onClick={onClear}
-							className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-card-sm border border-line bg-surface px-5 text-[14px] font-semibold text-ink-2 transition-transform active:scale-[0.98]"
+							className="shrink-0"
 						>
 							<X className="size-4" />
 							Limpar filtro
-						</button>
+						</Button>
 					</div>
 				</div>
 

@@ -45,6 +45,7 @@ export function useUpdateDonation(id_donation: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Doação atualizada." },
 		mutationFn: (data: IUpdateDonationRequest) =>
 			services.donation.update(id_donation, data),
 		onSuccess: async (updatedDonation) => {

@@ -1,5 +1,6 @@
 import { Plus, X } from "lucide-react";
 import { FormField } from "@/components/full/FormField";
+import { Button } from "@/components/ui/button";
 import { maskDate } from "@/utils/formatter";
 import type {
 	RegisterFieldName,
@@ -79,7 +80,7 @@ export function BabyConsentStep({
 									label="Nome do bebê"
 									value={baby.name}
 									onChange={(value) => onBabyChange(index, "name", value)}
-									placeholder="Nome do bebê"
+									placeholder="Ex.: Alice Ribeiro"
 									error={errors[`baby-${index}-name`]}
 									optional
 								/>
@@ -99,14 +100,16 @@ export function BabyConsentStep({
 						</div>
 					))}
 
-					<button
+					<Button
+						variant="neutral"
+						size="pill"
 						type="button"
 						onClick={onAddBaby}
-						className="flex min-h-11 w-fit items-center gap-2 rounded-md border border-dashed border-eva px-4 text-sm font-semibold text-eva-deep transition-colors hover:bg-eva-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
+						className="w-fit border-dashed border-eva text-eva-deep hover:bg-eva-tint"
 					>
 						<Plus className="size-4" aria-hidden />
 						Adicionar outro bebê
-					</button>
+					</Button>
 				</div>
 			)}
 

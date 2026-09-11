@@ -1,12 +1,13 @@
 import { Calendar, Clock } from "lucide-react";
 import { useLayoutEffect, useRef, useState } from "react";
-import { Status } from "@/components/full/Status";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { cn } from "@/lib/utils";
 import {
 	type DonationStepTimeline,
 	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
 import { formatCreatedAt } from "@/utils/formatter";
+import { donationStepToken } from "@/utils/status";
 
 const DOT_CLASSNAME: Record<EnumDonationStepStatus, string> = {
 	[EnumDonationStepStatus.Pending]: "bg-warning",
@@ -58,7 +59,11 @@ export function TimelineEntry({ entry, isLast }: Props) {
 			</div>
 
 			<div className={cn("min-w-0 flex-1", !isLast && "pb-4")}>
-				<Status status={entry.status} />
+				<StatusBadge
+					token={donationStepToken(entry.status)}
+					gender="f"
+					size="sm"
+				/>
 
 				<p
 					ref={descriptionRef}

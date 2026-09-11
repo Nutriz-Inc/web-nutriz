@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { CountUp } from "@/components/full/CountUp";
 import { DashboardCardHeader } from "./DashboardCardHeader";
 
 type StatCardProps = {
@@ -6,7 +7,9 @@ type StatCardProps = {
 	iconBg: string;
 	title: string;
 	subtitle: string;
-	value: string;
+	value: number | null;
+	decimals?: number;
+	suffix?: string;
 	valueColor?: string;
 	footnote: string;
 };
@@ -17,6 +20,8 @@ export function StatCard({
 	title,
 	subtitle,
 	value,
+	decimals = 0,
+	suffix = "",
 	valueColor = "text-ink",
 	footnote,
 }: StatCardProps) {
@@ -30,8 +35,14 @@ export function StatCard({
 			/>
 
 			<div className="flex flex-col gap-1">
-				<p className={`text-[36px] font-bold leading-none ${valueColor}`}>
-					{value}
+				<p
+					className={`text-[36px] font-bold leading-none tabular-nums ${valueColor}`}
+				>
+					{value === null ? (
+						"—"
+					) : (
+						<CountUp value={value} decimals={decimals} suffix={suffix} />
+					)}
 				</p>
 				<p className="text-[12px] text-ink-3">{footnote}</p>
 			</div>

@@ -34,7 +34,7 @@ export function BabyCard({
 					id={`bebe-nome-${baby.id_user_baby}`}
 					label="Nome do bebê"
 					value={name}
-					placeholder="Nome completo do bebê"
+					placeholder="Ex.: Alice Ribeiro"
 					onChange={onChangeName}
 				/>
 				<FormField

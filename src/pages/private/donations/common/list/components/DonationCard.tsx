@@ -1,10 +1,11 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Calendar, ChevronRight, Heart, Lock } from "lucide-react";
-import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { Badge } from "@/components/ui/badge";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
+import { donationToken } from "@/utils/status";
 
 type DonationCardProps = {
 	number: number;
@@ -57,7 +58,7 @@ export function DonationCard({
 			whileTap={animar ? { x: 2 } : undefined}
 			transition={{ type: "spring", stiffness: 260, damping: 30 }}
 			className={cn(
-				"group relative flex w-full flex-col overflow-hidden rounded-2xl bg-surface text-left shadow-soft transition-[box-shadow,border-radius] lg:rounded-3xl",
+				"group relative flex w-full flex-col overflow-hidden rounded-card bg-surface text-left shadow-soft transition-[box-shadow,border-radius] lg:rounded-3xl",
 				isInProgress
 					? "gap-3 p-4 lg:gap-5 lg:p-8"
 					: "gap-2 p-3.5 lg:gap-2.5 lg:p-5",
@@ -122,9 +123,10 @@ export function DonationCard({
 										Recorrente
 									</Badge>
 								)}
-								<DonationStatusBadge
-									isActive={isInProgress}
-									hasError={hasError}
+								<StatusBadge
+									token={donationToken(isInProgress, hasError)}
+									gender="f"
+									size="lg"
 								/>
 							</div>
 						</div>

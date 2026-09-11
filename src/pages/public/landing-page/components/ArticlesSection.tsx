@@ -84,7 +84,7 @@ export function ArticlesSection() {
 										navigate(`/artigos?a=${article.id}`);
 									}}
 									aria-label={`Ler artigo: ${article.title}`}
-									className="inline-flex items-center gap-1 rounded-lg text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+									className="inline-flex min-h-6 items-center gap-1 rounded-lg py-1 text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
 									style={{ color: article.categoryColor }}
 								>
 									Ler artigo

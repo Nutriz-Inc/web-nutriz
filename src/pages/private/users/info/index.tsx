@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { StaggerGroup } from "@/components/full/StaggerGroup";
+import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumJobStatus } from "@/services/types/i-job";
 import { EnumRouteStatus } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
-import { formatDateBR } from "@/utils/formatter";
+import { formatDateBR, formatMl, formatShortDateTime } from "@/utils/formatter";
 import { CollectionAddressCard } from "./components/CollectionAddressCard";
 import { ContactInfoCard } from "./components/ContactInfoCard";
 import { DeactivateUserSheet } from "./components/DeactivateUserSheet";
@@ -22,7 +24,6 @@ import {
 	useRemoveUser,
 	useUserDonations,
 } from "./hooks";
-import { formatML, formatShortDateTime } from "./utils";
 
 export function UserManagementDetailPage() {
 	const { id_user = "" } = useParams();
@@ -136,7 +137,7 @@ export function UserManagementDetailPage() {
 							user.type === EnumUserType.Common ? (
 								<>
 									<HeaderStat
-										value={formatML(user.milk_donated ?? 0)}
+										value={formatMl(user.milk_donated ?? 0)}
 										label="Total doado"
 									/>
 									<HeaderStat
@@ -187,12 +188,16 @@ export function UserManagementDetailPage() {
 						}
 					/>
 
-					<div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-						<ContactInfoCard user={user} />
+					<StaggerGroup className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+						<StaggerItem>
+							<ContactInfoCard user={user} />
+						</StaggerItem>
 						{user.type === EnumUserType.Common && (
-							<CollectionAddressCard user={user} />
+							<StaggerItem>
+								<CollectionAddressCard user={user} />
+							</StaggerItem>
 						)}
-					</div>
+					</StaggerGroup>
 
 					{user.type === EnumUserType.Common && (
 						<UserDonationsCard

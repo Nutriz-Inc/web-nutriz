@@ -21,9 +21,6 @@ export function useRoutesList(params: IListRoutesRequest) {
 	});
 }
 
-// `enabled` existe porque o dialogo de criar rota fica montado no cabecalho da
-// tela: sem isso, a lista de motoristas e as 645 cidades do IBGE eram buscadas
-// em toda visita a /rotas, mesmo sem ninguem abrir o dialogo.
 export function useDrivers(enabled = true) {
 	return useQuery({
 		queryKey: ["drivers"],
@@ -53,6 +50,7 @@ export function useCreateRoute() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Rota criada." },
 		mutationFn: (data: ICreateRouteRequest) => services.route.create(data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["routes-list"] });

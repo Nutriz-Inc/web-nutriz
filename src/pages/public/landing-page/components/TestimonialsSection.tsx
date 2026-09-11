@@ -72,7 +72,7 @@ export function TestimonialsSection() {
 							aria-label={`Ir para depoimento ${dotIndex + 1}`}
 							aria-current={dotIndex === index}
 							className={cn(
-								"h-2 cursor-pointer rounded-full transition-all",
+								"relative h-2 cursor-pointer rounded-full transition-all before:absolute before:-inset-2 before:content-['']",
 								dotIndex === index
 									? "w-6 bg-blue-bright"
 									: "w-2 bg-blue-tint-2 hover:bg-blue-tint-2",

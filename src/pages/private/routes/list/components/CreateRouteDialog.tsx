@@ -19,6 +19,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
 	useCreateRoute,
@@ -33,8 +34,6 @@ const CAMPO =
 
 const LIMITE_NOME = 150;
 
-// Uma cor por seção, só no selo do título. Serve para o olho achar o bloco de
-// relance ao rolar o formulário — o resto da tela segue no azul da marca.
 const TOM_DA_SECAO = {
 	identificacao: "bg-blue-tint text-blue-deep",
 	motorista: "bg-teal-tint text-teal",
@@ -134,8 +133,6 @@ export function CreateRouteDialog() {
 	const [open, setOpen] = useState(false);
 
 	const [idDriver, setIdDriver] = useState("");
-	// Data e hora ficam separadas na tela; o backend segue recebendo um instante
-	// só, montado no envio.
 	const [data, setData] = useState("");
 	const [hora, setHora] = useState("");
 	const [name, setName] = useState("");
@@ -144,7 +141,6 @@ export function CreateRouteDialog() {
 	const [neighborhood, setNeighborhood] = useState("");
 	const [stops, setStops] = useState<string[]>([]);
 
-	// So busca depois de abrir: o dialogo fica montado no cabecalho da tela.
 	const driversQuery = useDrivers(open);
 	const drivers = driversQuery.data ?? [];
 
@@ -161,8 +157,6 @@ export function CreateRouteDialog() {
 
 	const dateSet = data && hora ? `${data}T${hora}` : "";
 
-	// Mesma exigencia de antes: o `datetime-local` so entregava valor com data e
-	// hora preenchidas, entao separar os campos nao afrouxou nem apertou a regra.
 	const faltando = [
 		name.trim().length === 0 && "nome",
 		description.trim().length === 0 && "descrição",
@@ -212,13 +206,15 @@ export function CreateRouteDialog() {
 	return (
 		<AlertDialog open={open} onOpenChange={handleOpenChange}>
 			<AlertDialogTrigger asChild>
-				<button
+				<Button
+					variant="primary"
+					size="pill"
 					type="button"
-					className="flex h-[43px] shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill px-5 text-[14px] font-semibold text-white transition-transform hover:bg-blue-fill active:scale-[0.98]"
+					className="shrink-0"
 				>
 					<Plus className="size-4" />
 					Criar rota
-				</button>
+				</Button>
 			</AlertDialogTrigger>
 
 			<AlertDialogContent className="flex max-h-[88vh] w-[calc(100%-1.5rem)] max-w-3xl flex-col overflow-hidden p-0">
@@ -420,14 +416,16 @@ export function CreateRouteDialog() {
 				</div>
 
 				<div className="flex flex-col gap-2.5 border-t border-line px-6 py-5 sm:flex-row-reverse sm:items-center sm:px-8">
-					<button
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						onClick={handleSubmit}
 						disabled={!canSubmit || createRoute.isPending}
-						className="flex h-12 w-full items-center justify-center rounded-2xl bg-blue-deep-fill text-[15px] font-bold text-white outline-none transition-[transform,background-color] hover:bg-blue-fill focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.99] disabled:opacity-60 sm:w-auto sm:px-8"
+						className="w-full sm:w-auto"
 					>
 						{createRoute.isPending ? "Criando…" : "Criar rota"}
-					</button>
+					</Button>
 
 					<AlertDialogCancel
 						disabled={createRoute.isPending}

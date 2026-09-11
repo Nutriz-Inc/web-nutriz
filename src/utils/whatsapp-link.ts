@@ -13,7 +13,7 @@ export function buildLactareWhatsAppLink(context: EnumWhatsAppLinkContext) {
 	switch (context) {
 		case EnumWhatsAppLinkContext.NewDonation:
 			message = encodeURIComponent(
-				"Olá! Gostaria de iniciar uma nova doação de leite materno.",
+				"Olá! Gostaria de iniciar uma nova doação de leite humano.",
 			);
 			break;
 		case EnumWhatsAppLinkContext.RecurrentDonation:

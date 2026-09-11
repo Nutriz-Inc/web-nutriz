@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import { FilterChips } from "@/components/full/FilterChips";
+import { Button } from "@/components/ui/button";
 import { PERIOD_PRESET_OPTIONS, type PeriodPreset } from "../constants";
 
 type PeriodFilterProps = {
@@ -61,14 +62,16 @@ export function PeriodFilter({
 							/>
 						</label>
 					</div>
-					<button
+					<Button
+						variant="primary"
+						size="pill"
 						type="submit"
 						disabled={!customStart || !customEnd}
-						className="flex h-[43px] shrink-0 items-center justify-center gap-2 self-end rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-50"
+						className="shrink-0 self-end"
 					>
 						<Search className="size-4" />
 						Aplicar filtro
-					</button>
+					</Button>
 				</form>
 			)}
 		</div>

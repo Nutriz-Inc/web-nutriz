@@ -62,6 +62,7 @@ export function StepAddressPicker({
 							onZipCodeChange(formatZipCode(event.target.value))
 						}
 						placeholder="CEP"
+						aria-label="CEP do endereço da etapa"
 						inputMode="numeric"
 						className="flex-1 rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
 					/>
@@ -69,12 +70,14 @@ export function StepAddressPicker({
 						value={number}
 						onChange={(event) => onNumberChange(event.target.value)}
 						placeholder="Número"
+						aria-label="Número do endereço"
 						className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3 lg:w-32"
 					/>
 					<input
 						value={complement}
 						onChange={(event) => onComplementChange(event.target.value)}
 						placeholder="Complemento"
+						aria-label="Complemento do endereço"
 						className="flex-1 rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
 					/>
 				</div>

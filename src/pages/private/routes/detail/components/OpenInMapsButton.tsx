@@ -5,7 +5,6 @@ import { urlDoGoogleMaps } from "../utils";
 
 type Props = {
 	stops: IRouteStop[];
-	/** Versao miuda, para caber ao lado do rotulo da secao. */
 	compacto?: boolean;
 	className?: string;
 };

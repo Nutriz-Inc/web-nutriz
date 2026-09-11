@@ -1,8 +1,9 @@
 import { ChevronRight, Route as RouteIcon } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RouteStatusBadge } from "@/components/full/RouteStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { EnumRouteStatus, type IRouteResponse } from "@/services/types/i-route";
 import { formatDateBR } from "@/utils/formatter";
+import { routeToken } from "@/utils/status";
 import { ROUTES_GRID_COLS } from "../constants";
 
 type DriverRouteRowProps = {
@@ -50,7 +51,7 @@ export function DriverRouteRow({ route }: DriverRouteRowProps) {
 				<span className="lg:hidden">Quilometragem: </span>
 				{showMileage ? `${route.mileage} km` : "—"}
 			</span>
-			<RouteStatusBadge status={route.status} />
+			<StatusBadge token={routeToken(route.status)} gender="f" size="lg" />
 			<ChevronRight className="hidden size-4 text-ink-3 lg:block" />
 		</button>
 	);

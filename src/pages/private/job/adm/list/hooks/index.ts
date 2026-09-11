@@ -89,6 +89,7 @@ export function useCreateAppointment() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
+		meta: { sucesso: "Agendamento criado." },
 		mutationFn: (data: ICreateJobRequest) => services.job.create(data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["admin-appointments-list"] });

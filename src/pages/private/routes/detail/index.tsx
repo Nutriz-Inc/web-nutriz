@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { ErrorState } from "@/components/full/ErrorState";
 import { SectionLabel } from "@/components/full/SectionLabel";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -118,10 +119,6 @@ export function RouteDetailPage() {
 		(route?.status === EnumRouteStatus.Pending ||
 			route?.status === EnumRouteStatus.InProgress);
 
-	// No celular o motorista trabalha de cima para baixo, entao a tela abre pelo
-	// que ele toca: antes de comecar, o check-in que mora no mapa; depois de
-	// comecar, o cronometro e as paradas. O que e so leitura desce. Adm e
-	// enfermeiro ficam com a ordem natural do DOM.
 	const ordem = !podeOperar
 		? undefined
 		: podeIniciar
@@ -196,18 +193,10 @@ export function RouteDetailPage() {
 				hasPermission={auth?.type !== EnumUserType.Common}
 				backTo="/rotas"
 			>
-				<div className="flex flex-col items-center gap-3 rounded-2xl bg-surface p-6 text-center shadow-soft">
-					<p className="text-[14px] text-ink-2">
-						Não foi possível carregar esta rota.
-					</p>
-					<button
-						type="button"
-						onClick={() => routeQuery.refetch()}
-						className="h-11 rounded-full border-[1.5px] border-blue-deep px-5 text-[14px] font-semibold text-blue-deep transition-colors hover:bg-blue-tint"
-					>
-						Tentar novamente
-					</button>
-				</div>
+				<ErrorState
+					error={routeQuery.error}
+					onRetry={() => routeQuery.refetch()}
+				/>
 			</Page>
 		);
 	}
@@ -228,9 +217,6 @@ export function RouteDetailPage() {
 			hasPermission={auth?.type !== EnumUserType.Common}
 			loading={routeQuery.isLoading}
 			backTo="/rotas"
-			// `lg:mb-5` encurta o respiro de 32px que o `Page` da por padrao: sem a
-			// linha de descricao, que virou cartao, sobrava um vazio grande entre o
-			// titulo e o primeiro cartao no desktop.
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px] lg:mb-5"
 		>
 			{route && (
@@ -239,9 +225,6 @@ export function RouteDetailPage() {
 						<RouteStartBanner dateSet={route.date_set} />
 					)}
 
-					{/* As sete secoes sao irmas de propósito: so assim o `order` do
-					    celular consegue reordena-las entre si. No desktop o `order`
-					    e zerado e a grade de 12 colunas recompoe as faixas. */}
 					<div className="flex flex-col gap-5 lg:grid lg:grid-cols-12 lg:gap-6">
 						<div
 							style={{ animationDelay: "20ms" }}
@@ -364,10 +347,6 @@ export function RouteDetailPage() {
 								ordem?.trajeto,
 							)}
 						>
-							{/* No celular o atalho fica no cantinho do rotulo, perto do mapa.
-							    A partir do `lg` ele desce para baixo do mapa: la em cima ele
-							    deixaria o rotulo mais alto que o de "Paradas" e os dois
-							    cartoes da faixa nao fechariam. */}
 							<SectionLabel
 								trailing={
 									<OpenInMapsButton

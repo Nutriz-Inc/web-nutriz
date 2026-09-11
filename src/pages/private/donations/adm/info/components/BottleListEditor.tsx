@@ -88,7 +88,7 @@ export function BottleListEditor({ bottles, onChange, disabled }: Props) {
 									})
 								}
 								disabled={disabled}
-								placeholder="Ex: 250"
+								placeholder="Ex.: 250"
 								className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
 							/>
 						</div>

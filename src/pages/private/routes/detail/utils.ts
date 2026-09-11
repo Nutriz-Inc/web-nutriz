@@ -10,10 +10,6 @@ export type EstadoDaParada = "concluida" | "erro" | "atual" | "proxima";
 
 export type EstadoDaRota = "aguardando" | "andamento" | "finalizada";
 
-/**
- * Em que pe a rota esta, do ponto de vista de quem opera. Cancelada e com erro
- * contam como encerradas: nao ha mais o que rodar nelas.
- */
 export function estadoDaRota(route: {
 	status: EnumRouteStatus;
 	date_start?: string;
@@ -34,7 +30,6 @@ export function ehRotaEncerrada(status: EnumRouteStatus): boolean {
 	);
 }
 
-// Rota com erro tambem acabou: nao se marca parada, nao se finaliza, nao se edita.
 export function ehRotaAlteravel(status: EnumRouteStatus): boolean {
 	return !ehRotaEncerrada(status);
 }
@@ -83,19 +78,7 @@ export function formatarCronometro(ms: number): string {
 		.join(":");
 }
 
-export function formatarDuracaoCurta(ms: number): string {
-	const totalMinutos = Math.max(Math.round(ms / 60000), 0);
-	const horas = Math.floor(totalMinutos / 60);
-	const minutos = totalMinutos % 60;
-
-	if (horas === 0) {
-		return `${minutos} min`;
-	}
-	if (minutos === 0) {
-		return `${horas}h`;
-	}
-	return `${horas}h ${minutos}min`;
-}
+export { formatarDuracaoCurta } from "@/utils/route-time";
 
 export function formatarEndereco(stop: IRouteStop): string {
 	const address = stop.address;

@@ -10,6 +10,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 type RemoveBabyButtonProps = {
 	onConfirm: () => void;
@@ -23,11 +24,13 @@ export function RemoveBabyButton({
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<button
+				<Button
+					variant="danger-soft"
+					size="pill"
 					type="button"
 					disabled={loading}
 					aria-busy={loading}
-					className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-danger/30 px-4 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-3 focus-visible:ring-danger/40 disabled:opacity-60 motion-reduce:transition-none"
+					className="shrink-0"
 				>
 					{loading ? (
 						<LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
@@ -35,7 +38,7 @@ export function RemoveBabyButton({
 						<Trash2 className="size-4" aria-hidden="true" />
 					)}
 					Remover
-				</button>
+				</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>

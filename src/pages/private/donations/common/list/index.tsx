@@ -2,19 +2,21 @@ import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import doacaoVazia from "@/assets/illustrations/doacao-vazia.svg";
 import { EmptyState } from "@/components/full/EmptyState";
+import { ErrorState } from "@/components/full/ErrorState";
 import { Page } from "@/components/layout/Page";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { getStepNumber } from "@/utils/constants";
+import { getNumberOfDonationSteps } from "@/utils/donation";
 import { DonationCard } from "./components/DonationCard";
 import { useDonationsList } from "./hooks";
-import { getNumberOfDonationSteps } from "@/utils/donation";
 
 export function DonationsPage() {
 	const navigate = useNavigate();
 	const { auth } = useAuth();
 
-	const { data, isLoading, isError, refetch } = useDonationsList();
+	const { data, isLoading, isError, error, refetch } = useDonationsList();
 
 	const donations = data?.data ?? [];
 
@@ -66,24 +68,23 @@ export function DonationsPage() {
 							))}
 						</div>
 					) : isError ? (
-						<div className="flex flex-col items-center gap-3 rounded-2xl bg-surface p-6 text-center shadow-soft">
-							<p className="text-[14px] text-ink-2">
-								Não foi possível carregar as suas doações.
-							</p>
-							<button
-								type="button"
-								onClick={() => refetch()}
-								className="rounded-full border-[1.5px] border-blue-deep px-5 py-2 text-[13px] font-semibold text-blue-deep transition-[transform,background-color] hover:bg-blue-tint active:scale-[0.98]"
-							>
-								Tentar novamente
-							</button>
-						</div>
+						<ErrorState error={error} onRetry={() => refetch()} />
 					) : donations.length === 0 ? (
 						<div className="rounded-card-sm bg-surface shadow-soft">
 							<EmptyState
 								illustration={doacaoVazia}
-								title="Você ainda não tem doações"
-								description="Comece a sua jornada criando a sua primeira doação."
+								title="Sua jornada de doação começa aqui"
+								description="Cada gota conta. Crie a sua primeira doação e a gente cuida do resto."
+								action={
+									<Button
+										type="button"
+										variant="primary"
+										size="pill"
+										onClick={goToCreation}
+									>
+										Fazer minha primeira doação
+									</Button>
+								}
 							/>
 						</div>
 					) : (
@@ -123,15 +124,17 @@ export function DonationsPage() {
 				</div>
 
 				<div className="fixed inset-x-0 bottom-0 z-20 border-t border-blue-tint bg-surface-3 px-5 pb-5 pt-3 lg:hidden">
-					<button
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						onClick={goToCreation}
 						disabled={false}
-						className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-blue-deep-fill text-[15px] font-semibold text-white transition-[transform,background-color] hover:bg-blue-fill active:scale-[0.98] disabled:opacity-60"
+						className="w-full"
 					>
 						<Plus className="size-5" />
 						Nova Doação
-					</button>
+					</Button>
 				</div>
 			</div>
 		</Page>

@@ -1,4 +1,5 @@
 import { FlaskConical } from "lucide-react";
+import { CountUp } from "@/components/full/CountUp";
 import type { BottleStats } from "@/services/types/i-dashboard";
 import { formatDecimal, toPercent } from "../utils";
 import { DashboardCardHeader } from "./DashboardCardHeader";
@@ -36,8 +37,8 @@ export function BottlesCard({ stats }: BottlesCardProps) {
 				<>
 					<div className="flex flex-col gap-3">
 						<div className="flex items-baseline justify-between gap-3">
-							<p className="text-[28px] font-medium text-ink">
-								{utilizationPercent}%
+							<p className="text-[28px] font-medium tabular-nums text-ink">
+								<CountUp value={utilizationPercent} suffix="%" />
 							</p>
 							<p className="text-[12px] text-ink-3">Taxa de aproveitamento</p>
 						</div>

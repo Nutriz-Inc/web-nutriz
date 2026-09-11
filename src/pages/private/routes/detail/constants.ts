@@ -1,9 +1,7 @@
 import { CLASSE_SHEET_CONTEUDO } from "@/components/ui/sheet";
 import { CLASSE_CAMPO } from "@/lib/form-classes";
 
-export const LIMITE_ROTA_MS = 6 * 60 * 60 * 1000;
-
-export const AVISO_ROTA_MS = 5 * 60 * 60 * 1000;
+export { AVISO_ROTA_MS, LIMITE_ROTA_MS } from "@/utils/route-time";
 
 export const TEMPO_SEGURANCA_PARADA_MIN = 15;
 
@@ -58,16 +56,6 @@ export const ERRO_GENERICO =
 
 export const CLASSE_SHEET = CLASSE_SHEET_CONTEUDO;
 
-// A aparencia dos campos e botoes mora em `lib/form-classes`, compartilhada com
-// o formulario de criar rota. Estes nomes ficam para nao mexer nos oito sheets
-// que ja importam daqui.
 export const CLASSE_CAMPO_TEXTO = CLASSE_CAMPO;
-export {
-	CLASSE_BOTAO_PERIGO,
-	CLASSE_BOTAO_PRIMARIO,
-	CLASSE_BOTAO_SECUNDARIO,
-} from "@/lib/form-classes";
 
-// Altura compartilhada do mapa e do cartao de paradas: os dois ficam do mesmo
-// tamanho na faixa, cheios ou vazios.
 export const CLASSE_ALTURA_PAINEL = "h-[380px] sm:h-[420px] xl:h-[560px]";

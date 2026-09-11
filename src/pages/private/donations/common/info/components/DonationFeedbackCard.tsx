@@ -50,7 +50,7 @@ export function DonationFeedbackCard({
 				value={value}
 				onChange={(event) => setValue(event.target.value)}
 				rows={3}
-				placeholder="Escreva aqui o seu feedback"
+				placeholder="Ex.: a coleta foi pontual e a equipe explicou cada etapa."
 				className="rounded-xl border border-line bg-surface-2 px-3 py-2 text-[14px] text-ink outline-none placeholder:text-ink-3"
 			/>
 

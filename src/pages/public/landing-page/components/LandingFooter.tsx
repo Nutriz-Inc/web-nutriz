@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { FOOTER_COLUMNS, FOOTER_SOCIALS, type FooterLink } from "../constants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
 import { Wordmark } from "./Wordmark";
@@ -32,14 +33,16 @@ export function LandingFooter() {
 
 						<div className="mt-5 flex gap-2.5">
 							{FOOTER_SOCIALS.map(({ label, Icon }) => (
-								<button
+								<Button
+									variant="ghost"
+									size="icon-lg"
 									key={label}
 									type="button"
 									aria-label={`Nutriz no ${label}`}
-									className="inline-flex size-9 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
+									className="bg-white/10 text-white hover:bg-white/20 hover:text-white"
 								>
 									<Icon className="size-[18px]" />
-								</button>
+								</Button>
 							))}
 						</div>
 					</div>
@@ -59,7 +62,7 @@ export function LandingFooter() {
 										key={link.label}
 										type="button"
 										onClick={() => handleLink(link)}
-										className="w-fit text-left text-[14px] text-blue-tint-2 transition-colors hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
+										className="flex min-h-6 w-fit items-center text-left text-[14px] text-blue-tint-2 transition-colors hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
 									>
 										{link.label}
 									</button>

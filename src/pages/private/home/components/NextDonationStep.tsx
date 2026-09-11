@@ -1,14 +1,15 @@
-import { Status } from "@/components/full/Status";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { cn } from "@/lib/utils";
-import {
-	type EnumDonationStepName,
-	type EnumDonationStepStatus,
+import type {
+	EnumDonationStepName,
+	EnumDonationStepStatus,
 } from "@/services/types/i-donation";
 import { getStepNumber } from "@/utils/constants";
 import { getNumberOfDonationSteps } from "@/utils/donation";
 import { formatCreatedAt } from "@/utils/formatter";
+import { donationStepToken } from "@/utils/status";
 
 interface Props {
 	stepName: EnumDonationStepName;
@@ -51,7 +52,7 @@ export function NextDonationStep({
 					</p>
 				</div>
 
-				<Status status={status} />
+				<StatusBadge token={donationStepToken(status)} gender="f" size="sm" />
 			</div>
 
 			<div className="flex items-center gap-3">

@@ -6,11 +6,6 @@ import { cn } from "@/lib/utils";
 
 type EmptyStateProps = {
 	illustration?: string;
-	/**
-	 * Mesma arte redesenhada para o tema escuro. Quando existe, a ilustracao
-	 * dispensa a placa clara que o `[data-ilustracao]` desenha atras dela e fica
-	 * com fundo transparente.
-	 */
 	illustrationDark?: string;
 	title: string;
 	description?: string;

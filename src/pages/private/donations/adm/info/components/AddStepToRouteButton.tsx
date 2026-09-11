@@ -10,6 +10,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { formatDateBR } from "@/utils/formatter";
 import {
 	useAddStepToRoute,
@@ -110,14 +111,16 @@ export function AddStepToRouteButton({ idDonation, idDonationStep }: Props) {
 				</div>
 
 				<AlertDialogFooter>
-					<button
+					<Button
+						variant="primary"
+						size="pill"
 						type="button"
 						onClick={handleConfirm}
 						disabled={!idRoute || addMutation.isPending}
-						className="h-12 w-full rounded-2xl bg-blue-deep-fill text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+						className="w-full"
 					>
 						{addMutation.isPending ? "Adicionando…" : "Adicionar à rota"}
-					</button>
+					</Button>
 					<AlertDialogCancel>Cancelar</AlertDialogCancel>
 				</AlertDialogFooter>
 			</AlertDialogContent>

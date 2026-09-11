@@ -1,62 +1,51 @@
-import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-export function useCountUp(label: string, durationMs = 1400) {
-	const reduzirMovimento = useReducedMotion();
-	const [texto, setTexto] = useState(() => (reduzirMovimento ? label : null));
-	const alvoRef = useRef<HTMLElement | null>(null);
+const DURACAO_PADRAO = 1500;
+
+function desacelera(t: number): number {
+	return 1 - (1 - t) ** 3;
+}
+
+export function useCountUp(alvo: number, duracao = DURACAO_PADRAO) {
+	const ref = useRef<HTMLSpanElement | null>(null);
+	const [valor, setValor] = useState(0);
 
 	useEffect(() => {
-		const elemento = alvoRef.current;
+		const elemento = ref.current;
 
-		if (reduzirMovimento || !elemento) {
-			setTexto(label);
+		if (!elemento) return;
+
+		const semMovimento = window.matchMedia(
+			"(prefers-reduced-motion: reduce)",
+		).matches;
+
+		if (semMovimento || alvo === 0) {
+			setValor(alvo);
 			return;
 		}
-
-		const encontrado = label.match(/[\d.]+/);
-
-		if (!encontrado) {
-			setTexto(label);
-			return;
-		}
-
-		const bruto = encontrado[0];
-		const destino = Number(bruto.replace(/\./g, ""));
-
-		if (!Number.isFinite(destino)) {
-			setTexto(label);
-			return;
-		}
-
-		const formatar = (valor: number) =>
-			label.replace(bruto, valor.toLocaleString("pt-BR"));
-
-		setTexto(formatar(0));
 
 		let quadro = 0;
-		let inicio = 0;
+		let inicio: number | null = null;
+
+		function anima(agora: number) {
+			if (inicio === null) inicio = agora;
+
+			const progresso = Math.min((agora - inicio) / duracao, 1);
+			setValor(alvo * desacelera(progresso));
+
+			if (progresso < 1) {
+				quadro = requestAnimationFrame(anima);
+			}
+		}
 
 		const observador = new IntersectionObserver(
 			(entradas) => {
 				if (!entradas[0]?.isIntersecting) return;
 
 				observador.disconnect();
-
-				const passo = (agora: number) => {
-					if (!inicio) inicio = agora;
-
-					const progresso = Math.min((agora - inicio) / durationMs, 1);
-					const suave = 1 - (1 - progresso) ** 3;
-
-					setTexto(formatar(Math.round(destino * suave)));
-
-					if (progresso < 1) quadro = requestAnimationFrame(passo);
-				};
-
-				quadro = requestAnimationFrame(passo);
+				quadro = requestAnimationFrame(anima);
 			},
-			{ threshold: 0.4 },
+			{ threshold: 0.3 },
 		);
 
 		observador.observe(elemento);
@@ -65,7 +54,7 @@ export function useCountUp(label: string, durationMs = 1400) {
 			observador.disconnect();
 			cancelAnimationFrame(quadro);
 		};
-	}, [label, durationMs, reduzirMovimento]);
+	}, [alvo, duracao]);
 
-	return { alvoRef, texto: texto ?? label };
+	return { ref, valor };
 }

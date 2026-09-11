@@ -87,33 +87,93 @@ export function formatMl(value?: number | null): string {
 	return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} ml`;
 }
 
-export function formatDateBR(isoDate: string): string {
-	return new Date(isoDate).toLocaleDateString("pt-BR", { timeZone: "UTC" });
-}
-
-const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
+// Campos de data pura (data de nascimento, data prevista) chegam como
+// "2026-08-12" e precisam de UTC, senao o fuso do Brasil joga para o dia 11.
+// Carimbos de tempo, ao contrario, sao lidos no fuso local -- e a data
+// precisa acompanhar a hora, senao aparece o dia em UTC ao lado da hora local.
+const OPCOES_DATA = {
 	day: "2-digit",
-	month: "2-digit",
+	month: "short",
 	year: "numeric",
+} as const;
+
+const dataPura = new Intl.DateTimeFormat("pt-BR", {
+	...OPCOES_DATA,
+	timeZone: "UTC",
 });
-const timeFormatter = new Intl.DateTimeFormat("pt-BR", {
+
+const dataLocal = new Intl.DateTimeFormat("pt-BR", OPCOES_DATA);
+
+const diaMesLocal = new Intl.DateTimeFormat("pt-BR", {
+	day: "2-digit",
+	month: "short",
+});
+
+const horaMinuto = new Intl.DateTimeFormat("pt-BR", {
 	hour: "2-digit",
 	minute: "2-digit",
 	hour12: false,
 });
 
+function montarData(formatador: Intl.DateTimeFormat, data: Date): string {
+	return formatador
+		.formatToParts(data)
+		.filter(
+			(parte) =>
+				parte.type === "day" || parte.type === "month" || parte.type === "year",
+		)
+		.map((parte) =>
+			parte.type === "month" ? parte.value.replace(".", "") : parte.value,
+		)
+		.join(" ");
+}
+
+export function formatDateBR(isoDate: string): string {
+	return montarData(dataPura, new Date(isoDate));
+}
+
+const mesAno = new Intl.DateTimeFormat("pt-BR", {
+	month: "short",
+	year: "2-digit",
+	timeZone: "UTC",
+});
+
+export function formatMonthBR(valor: string): string {
+	const casa = /^(\d{4})-(\d{2})$/.exec(valor);
+
+	if (!casa) {
+		return valor;
+	}
+
+	return mesAno
+		.formatToParts(new Date(`${valor}-01T00:00:00Z`))
+		.filter((parte) => parte.type === "month" || parte.type === "year")
+		.map((parte) =>
+			parte.type === "month" ? parte.value.replace(".", "") : parte.value,
+		)
+		.join(" ");
+}
+
+export function formatTimeBR(valor: string | Date): string {
+	const data = valor instanceof Date ? valor : new Date(valor);
+
+	return horaMinuto.format(data).replace(":", "h");
+}
+
 export function formatCreatedAt(createdAt: string) {
-	const date = new Date(createdAt);
-	return `${dateFormatter.format(date)} - ${timeFormatter.format(date)}`;
+	return `${montarData(dataLocal, new Date(createdAt))} · ${formatTimeBR(createdAt)}`;
+}
+
+export function formatShortDateTime(isoDate: string): string {
+	return `${montarData(diaMesLocal, new Date(isoDate))} · ${formatTimeBR(isoDate)}`;
 }
 
 export function formatDateTimeParts(value: string): {
 	date: string;
 	time: string;
 } {
-	const parsed = new Date(value);
 	return {
-		date: dateFormatter.format(parsed),
-		time: timeFormatter.format(parsed),
+		date: montarData(dataLocal, new Date(value)),
+		time: formatTimeBR(value),
 	};
 }

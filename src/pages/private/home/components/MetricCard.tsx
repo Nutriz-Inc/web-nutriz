@@ -1,7 +1,11 @@
+import { CountUp } from "@/components/full/CountUp";
+
 type MetricCardProps = {
 	iconBg: string;
 	icon: React.ReactNode;
-	value: string;
+	value: number;
+	decimals?: number;
+	suffix?: string;
 	valueColor: string;
 	label: string;
 	sublabel: string;
@@ -11,6 +15,8 @@ export function MetricCard({
 	iconBg,
 	icon,
 	value,
+	decimals = 0,
+	suffix = "",
 	valueColor,
 	label,
 	sublabel,
@@ -25,7 +31,7 @@ export function MetricCard({
 			<p
 				className={`font-extrabold text-[40px] leading-none lg:text-[46px] ${valueColor}`}
 			>
-				{value}
+				<CountUp value={value} decimals={decimals} suffix={suffix} />
 			</p>
 			<div className="flex flex-col gap-1">
 				<p className="font-semibold text-ink text-[18px]">{label}</p>

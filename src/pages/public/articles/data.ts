@@ -51,7 +51,7 @@ export const ARTICLES: Article[] = [
 		softBorder: "#99f6e4",
 		title: "Como armazenar e transportar seu leite com segurança",
 		coverImage: armazenamentoLeite,
-		coverAlt: "Frascos de leite materno identificados e organizados em freezer",
+		coverAlt: "Frascos de leite humano ordenhado identificados e organizados em freezer",
 		coverWidth: 772,
 		coverHeight: 960,
 		author: "Dra. Mariana Costa",
@@ -70,7 +70,7 @@ export const ARTICLES: Article[] = [
 		videoDuration: "3:42",
 		blocks: [
 			{
-				p: "Armazenar o leite materno corretamente é essencial para preservar seus nutrientes e garantir que ele chegue em segurança aos bebês que precisam. A boa notícia: com poucos cuidados, o processo é simples e pode fazer parte da sua rotina.",
+				p: "Armazenar o leite humano corretamente é essencial para preservar seus nutrientes e garantir que ele chegue em segurança aos bebês que precisam. A boa notícia: com poucos cuidados, o processo é simples e pode fazer parte da sua rotina.",
 			},
 			{ h: "O frasco ideal" },
 			{
@@ -94,7 +94,7 @@ export const ARTICLES: Article[] = [
 			},
 			{ h: "O transporte até o banco de leite" },
 			{
-				p: "O transporte deve ser feito em caixa térmica com gelo. Muitos bancos de leite oferecem busca domiciliar — consulte o posto de coleta mais próximo. O importante é que o leite não descongele no caminho.",
+				p: "O transporte deve ser feito em caixa térmica com gelo. Muitos bancos de leite oferecem busca domiciliar — consulte o ponto de coleta mais próximo. O importante é que o leite não descongele no caminho.",
 			},
 		],
 	},
@@ -106,7 +106,7 @@ export const ARTICLES: Article[] = [
 		softBorder: "#d9f99d",
 		title: "Alimentação da nutriz: o que comer durante a doação",
 		coverImage: alimentacaoNutriz,
-		coverAlt: "Mulher segurando bomba manual de extração de leite materno",
+		coverAlt: "Mulher segurando bomba manual de ordenha",
 		coverWidth: 678,
 		coverHeight: 452,
 		author: "Carla Menezes",
@@ -185,7 +185,7 @@ export const ARTICLES: Article[] = [
 			},
 			{ h: "Doe frascos de vidro" },
 			{
-				p: "Os bancos de leite precisam constantemente de frascos de vidro com tampa plástica, como os de café solúvel. Higienize os frascos e entregue no posto de coleta mais próximo.",
+				p: "Os bancos de leite precisam constantemente de frascos de vidro com tampa plástica, como os de café solúvel. Higienize os frascos e entregue no ponto de coleta mais próximo.",
 			},
 			{ h: "Espalhe a informação" },
 			{
@@ -268,7 +268,7 @@ export const ARTICLES: Article[] = [
 		title: "Excesso de leite: transforme o que sobra em doação",
 		coverImage: excessoDeLeite,
 		coverAlt:
-			"Bomba de extração de leite materno com mamadeira, mãe amamentando ao fundo",
+			"Bomba de ordenha com mamadeira, mãe amamentando ao fundo",
 		coverWidth: 1200,
 		coverHeight: 675,
 		author: "Dra. Beatriz Nogueira",
@@ -311,7 +311,7 @@ export const ARTICLES: Article[] = [
 			},
 			{ h: "O primeiro contato com o banco de leite" },
 			{
-				p: "Basta procurar o posto de coleta mais próximo ou entrar em contato pelo Disque Saúde (136) para iniciar o processo e saber se você pode se tornar doadora.",
+				p: "Basta procurar o ponto de coleta mais próximo ou entrar em contato pelo Disque Saúde (136) para iniciar o processo e saber se você pode se tornar doadora.",
 			},
 		],
 	},
@@ -379,7 +379,7 @@ export const ARTICLES: Article[] = [
 		softBorder: "#fadbe7",
 		title: "Diário de uma doadora: a história da Juliana e do Theo",
 		coverImage: diarioDoadora,
-		coverAlt: "Mãos servindo leite materno em um recipiente",
+		coverAlt: "Mãos servindo leite humano em um frasco",
 		coverWidth: 776,
 		coverHeight: 486,
 		author: "Camila Duarte",

@@ -131,9 +131,6 @@ export async function geocodeRegion(
 
 	if (estruturada) return estruturada;
 
-	// A busca estruturada e exigente: bairro que o OSM nao conhece como `suburb`
-	// derruba a consulta inteira e o card fica sem mapa. Tenta em texto livre e,
-	// por ultimo, so a cidade — melhor a regiao aproximada do que nenhum mapa.
 	const livre = await buscaNominatim(
 		{ q: [neighborhood, city, "Brasil"].filter(Boolean).join(", ") },
 		signal,

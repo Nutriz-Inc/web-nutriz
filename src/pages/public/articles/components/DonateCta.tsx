@@ -9,7 +9,7 @@ export function DonateCta() {
 		<section className="rounded-xl bg-blue-deep-fill p-5 shadow-soft">
 			<h2 className="text-[15px] font-bold text-white">Pronta para doar?</h2>
 			<p className="mt-1.5 text-[13px] leading-relaxed text-white/75">
-				Crie sua conta e comece a ajudar bebês que precisam de leite materno.
+				Crie sua conta e comece a ajudar bebês que precisam de leite humano.
 			</p>
 			<Button
 				onClick={() => navigate("/registro")}

@@ -1,12 +1,13 @@
 import { Calendar, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { DonationStatusBadge } from "@/components/full/DonationStatusBadge";
+import { StatusBadge } from "@/components/full/StatusBadge";
+import { StepBadge } from "@/components/full/StepBadge";
 import { getInitials } from "@/components/layout/utils";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { formatCpf, formatDateBR } from "@/utils/formatter";
+import { donationToken } from "@/utils/status";
 import type { AdminDonationRow } from "../hooks";
-import { StatusBadge } from "./StatusBadge";
 
 type DonationManagementCardProps = {
 	donation: AdminDonationRow;
@@ -54,11 +55,12 @@ export function DonationManagementCard({
 			</div>
 
 			<div className="flex flex-wrap items-center gap-2 lg:w-[260px] lg:shrink-0">
-				<DonationStatusBadge
-					isActive={donation.isActive}
-					hasError={donation.hasError}
+				<StatusBadge
+					token={donationToken(donation.isActive, donation.hasError)}
+					gender="f"
+					size="lg"
 				/>
-				<StatusBadge step={donation.currentStepName} />
+				<StepBadge step={donation.currentStepName} />
 				{donation.isRecurrent && (
 					<Badge tone="teal" size="lg">
 						Recorrente

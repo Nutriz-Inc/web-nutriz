@@ -1,8 +1,9 @@
 import { Bookmark, Calendar, Mail, MapPin, Phone } from "lucide-react";
+import { StatusBadge } from "@/components/full/StatusBadge";
 import { getInitials } from "@/components/layout/utils";
 import { formatCreatedAt, formatPhoneNumber } from "@/utils/formatter";
+import { jobToken } from "@/utils/status";
 import { AppointmentInfoRow } from "../../../../../components/full/AppointmentInfoRow";
-import { AppointmentStatusBadge } from "../../../../../components/full/AppointmentStatusBadge";
 import type { AppointmentDetail } from "../../types";
 import { getStepLabel } from "../utils";
 
@@ -29,8 +30,9 @@ export function AppointmentSummaryCard({
 						<span className="text-[13px] text-ink-3">Doadora</span>
 					</div>
 				</div>
-				<AppointmentStatusBadge
-					status={appointment.status}
+				<StatusBadge
+					token={jobToken(appointment.status)}
+					size="lg"
 					className="mt-0.5 shrink-0"
 				/>
 			</div>

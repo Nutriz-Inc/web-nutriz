@@ -1,5 +1,6 @@
 import { Check, CircleAlert, MapPinOff, Trash2 } from "lucide-react";
 import { Badge, type BadgeTone } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { StepDot } from "@/components/ui/step-dot";
 import { cn } from "@/lib/utils";
 import type { IRouteStop } from "@/services/types/i-route";
@@ -56,9 +57,6 @@ export function RouteStopItem({
 
 	return (
 		<li className="flex gap-3">
-			{/* Trilha lateral so no desktop. No celular o marcador entra no cartao,
-			    ao lado do endereco: da mais espaco ao texto e o cartao da parada
-			    atual cresce para abraçar a bolinha que anima. */}
 			<div className="hidden flex-col items-center sm:flex">
 				{marcador()}
 
@@ -111,14 +109,16 @@ export function RouteStopItem({
 						</p>
 
 						{podeRemover && (
-							<button
+							<Button
+								variant="ghost"
+								size="icon-pill-sm"
 								type="button"
 								onClick={onRemover}
 								aria-label={`Remover a parada em ${linha}`}
-								className="-my-1 flex size-7 shrink-0 items-center justify-center rounded-full text-ink-2 outline-none transition-colors hover:bg-danger-tint hover:text-danger focus-visible:ring-4 focus-visible:ring-danger/40"
+								className="-my-1 size-7 shrink-0 text-ink-2 hover:bg-danger-tint hover:text-danger"
 							>
 								<Trash2 className="size-3.5" />
-							</button>
+							</Button>
 						)}
 					</div>
 
@@ -149,7 +149,7 @@ export function RouteStopItem({
 								type="button"
 								onClick={onMarcar}
 								className={cn(
-									"flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-[13px] font-bold outline-none transition-[transform,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
+									"flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-[13px] font-bold outline-none transition-[transform,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
 									atual
 										? "bg-blue-deep-fill text-white hover:bg-blue-fill"
 										: "border border-blue-tint-2 bg-surface text-blue-deep hover:bg-blue-tint",
@@ -159,14 +159,16 @@ export function RouteStopItem({
 								Cheguei
 							</button>
 
-							<button
+							<Button
+								variant="danger-soft"
+								size="pill"
 								type="button"
 								onClick={onReportarProblema}
-								className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-danger-tint bg-surface px-3 text-[13px] font-semibold text-danger outline-none transition-colors hover:bg-danger-tint focus-visible:ring-4 focus-visible:ring-danger/40"
+								className="flex-1"
 							>
 								<CircleAlert className="size-4 shrink-0" />
 								Imprevisto
-							</button>
+							</Button>
 						</div>
 					)}
 				</div>

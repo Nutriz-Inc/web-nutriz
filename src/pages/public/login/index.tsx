@@ -59,7 +59,11 @@ export function LoginScreen() {
 		<div className="flex min-h-dvh flex-col bg-canvas font-body lg:flex-row">
 			<BrandPanel />
 
-			<main className="flex flex-1 items-center justify-center px-5 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-9 sm:px-8 lg:px-10 lg:py-12">
+			<main
+				id="conteudo"
+				tabIndex={-1}
+				className="flex flex-1 items-center justify-center px-5 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-9 sm:px-8 lg:px-10 lg:py-12"
+			>
 				<div className="w-full max-w-[420px]">
 					<div className="rounded-card border border-line bg-surface p-6 shadow-lift sm:p-8">
 						<h2 className="text-center font-display text-[24px] font-extrabold tracking-tight text-ink lg:text-[26px]">

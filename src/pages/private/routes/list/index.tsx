@@ -73,8 +73,6 @@ export function RoutesListPage() {
 		setPage(1);
 	}
 
-	// O backend recusa `status=error` (o validador so aceita pending, in_progress,
-	// done e canceled), entao esse chip e o unico filtrado aqui. Ver [[backend-rotas]].
 	const filtrarErroLocalmente = status === EnumRouteStatus.Error;
 	const statusParaApi =
 		status === "all" || filtrarErroLocalmente ? undefined : status;
@@ -82,8 +80,6 @@ export function RoutesListPage() {
 	const { data, isLoading, isPlaceholderData } = useRoutesList({
 		page,
 		page_size: DEFAULT_PAGE_SIZE,
-		// O motorista so enxerga as rotas dele; o enfermeiro o backend ja recorta
-		// pelos agendamentos dele.
 		id_driver: ehMotorista ? auth?.id_user : undefined,
 		driver_name: (ehAdm && appliedDriverName) || undefined,
 		name: appliedName || undefined,

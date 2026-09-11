@@ -1,7 +1,5 @@
 import type { BadgeTone } from "@/components/ui/badge";
-import {
-	EnumDonationStepName,
-} from "@/services/types/i-donation";
+import { EnumDonationStepName } from "@/services/types/i-donation";
 
 import { EnumUserType } from "@/services/types/i-user";
 import { RECURRENT_DONATION_STEP_NAMES } from "./donation";

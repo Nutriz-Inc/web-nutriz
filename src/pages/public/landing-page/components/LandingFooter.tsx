@@ -59,7 +59,7 @@ export function LandingFooter() {
 										key={link.label}
 										type="button"
 										onClick={() => handleLink(link)}
-										className="w-fit text-left text-[14px] text-blue-tint-2 transition-colors hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
+										className="flex min-h-6 w-fit items-center text-left text-[14px] text-blue-tint-2 transition-colors hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
 									>
 										{link.label}
 									</button>

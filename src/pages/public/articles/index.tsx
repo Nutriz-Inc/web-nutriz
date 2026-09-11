@@ -61,7 +61,11 @@ export function ArticlesScreen() {
 						{isAuthenticated ? "Voltar para conteúdos" : "Voltar para o início"}
 					</Link>
 
-					<main className="flex flex-col gap-6 lg:grid lg:grid-cols-[1fr_320px] lg:items-start">
+					<main
+						id="conteudo"
+						tabIndex={-1}
+						className="flex flex-col gap-6 lg:grid lg:grid-cols-[1fr_320px] lg:items-start"
+					>
 						<article>
 							<AnimatePresence mode="wait">
 								<motion.div key={article.id} {...articleSwap}>

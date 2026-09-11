@@ -1,7 +1,5 @@
 import { EnumRouteStatus, type IRouteResponse } from "@/services/types/i-route";
 
-// Rota viva vem primeiro, seja qual for o perfil: em andamento, depois pendente,
-// depois o resto. Dentro de cada grupo a ordem do backend e mantida.
 const PESO_POR_STATUS: Record<EnumRouteStatus, number> = {
 	[EnumRouteStatus.InProgress]: 0,
 	[EnumRouteStatus.Pending]: 1,

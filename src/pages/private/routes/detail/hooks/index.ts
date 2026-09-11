@@ -158,10 +158,6 @@ export function useDonationStepOptions({
 				neighborhood,
 				name,
 				id_donation,
-				// Filtro fixo, nao e escolha do adm: a etapa precisa ter endereco
-				// (`has_address`), nao pode ja estar em outra rota
-				// (`available_for_route`) e so entra em rota quem ainda esta
-				// pendente. Definido com o Leo.
 				has_address: true,
 				available_for_route: true,
 				status: EnumDonationStepStatus.Pending,

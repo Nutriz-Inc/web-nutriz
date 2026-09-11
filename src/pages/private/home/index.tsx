@@ -98,7 +98,7 @@ export function HomePage() {
 				<AppHeader />
 
 				<div className="relative mx-auto w-full max-w-[1400px] grow px-4 pb-16 sm:px-6 sm:pb-20 lg:px-10">
-					<main>
+					<main id="conteudo" tabIndex={-1}>
 						<div className="mt-4 sm:mt-6">
 							<GreetingHero
 								firstName={firstName}

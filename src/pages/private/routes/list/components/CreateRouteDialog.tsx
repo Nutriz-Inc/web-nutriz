@@ -33,8 +33,6 @@ const CAMPO =
 
 const LIMITE_NOME = 150;
 
-// Uma cor por seção, só no selo do título. Serve para o olho achar o bloco de
-// relance ao rolar o formulário — o resto da tela segue no azul da marca.
 const TOM_DA_SECAO = {
 	identificacao: "bg-blue-tint text-blue-deep",
 	motorista: "bg-teal-tint text-teal",
@@ -134,8 +132,6 @@ export function CreateRouteDialog() {
 	const [open, setOpen] = useState(false);
 
 	const [idDriver, setIdDriver] = useState("");
-	// Data e hora ficam separadas na tela; o backend segue recebendo um instante
-	// só, montado no envio.
 	const [data, setData] = useState("");
 	const [hora, setHora] = useState("");
 	const [name, setName] = useState("");
@@ -144,7 +140,6 @@ export function CreateRouteDialog() {
 	const [neighborhood, setNeighborhood] = useState("");
 	const [stops, setStops] = useState<string[]>([]);
 
-	// So busca depois de abrir: o dialogo fica montado no cabecalho da tela.
 	const driversQuery = useDrivers(open);
 	const drivers = driversQuery.data ?? [];
 
@@ -161,8 +156,6 @@ export function CreateRouteDialog() {
 
 	const dateSet = data && hora ? `${data}T${hora}` : "";
 
-	// Mesma exigencia de antes: o `datetime-local` so entregava valor com data e
-	// hora preenchidas, entao separar os campos nao afrouxou nem apertou a regra.
 	const faltando = [
 		name.trim().length === 0 && "nome",
 		description.trim().length === 0 && "descrição",

@@ -14,6 +14,7 @@ export function SearchBar({ value, onChange, placeholder }: SearchBarProps) {
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				placeholder={placeholder}
+				aria-label={placeholder}
 				className="h-[43px] w-full rounded-card-sm border border-line bg-surface pl-11 pr-4 text-[15px] text-ink outline-none placeholder:text-ink-3"
 			/>
 		</div>

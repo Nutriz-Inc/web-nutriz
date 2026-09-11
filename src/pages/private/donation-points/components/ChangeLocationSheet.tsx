@@ -114,6 +114,7 @@ export function ChangeLocationSheet({
 								if (e.key === "Enter") handleSearch();
 							}}
 							placeholder="00000-000"
+							aria-label="CEP para buscar pontos de coleta"
 							className="h-11 w-full rounded-xl border border-line bg-surface-2 pl-10 pr-4 text-[13px] text-ink outline-none placeholder:text-ink-3/65"
 						/>
 					</div>

@@ -56,17 +56,13 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 						<span className="font-semibold text-ink-2">{article.author}</span>
 					</span>
 
-					<button
-						type="button"
-						onClick={(e) => {
-							e.stopPropagation();
-							goToArticle();
-						}}
+					<span
+						aria-hidden="true"
 						className="inline-flex min-h-6 items-center text-[13px] font-semibold"
 						style={{ color: article.accent }}
 					>
 						Ler artigo →
-					</button>
+					</span>
 				</div>
 			</div>
 		</InteractiveCard>

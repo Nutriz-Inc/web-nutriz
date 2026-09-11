@@ -262,6 +262,53 @@ exato que a varredura devolveu — e o commit que o zerou.
 
 ---
 
+# Bateria de navegação nas 4 roles
+
+Feita depois do relato da tela azul, com Chrome headless dirigido por CDP.
+
+**Método.** Sessão semeada em `localStorage` por papel; a API é interceptada e
+respondida localmente (`Fetch.requestPaused` → `fulfillRequest`), com fixtures
+que cobrem rota, parada, agendamento, dashboard, usuário, doação e ponto de
+coleta. **Nenhuma requisição sai da máquina** — o backend de produção nunca é
+tocado. Para cada rota do papel: marca o nó do wrapper de transição, navega,
+espera a tela renderizar, volta pelo botão do navegador e confere que o wrapper
+é um **nó novo** com **opacidade 1**. Console capturado com um `console.error`
+e um `window.onerror` injetados antes do app subir.
+
+| Papel | Rotas percorridas | Ida e volta | Resultado |
+|---|---|---|---|
+| common | home, minhas doações, pontos de coleta, conteúdo educativo, perfil, artigos | 5 | sem falha |
+| adm | dashboard, usuários, gestão de doações, gestão de agendamentos, rotas, detalhe da rota, perfil | 6 | sem falha |
+| nurse | agendamentos, detalhe do agendamento, pontos de coleta, conteúdo educativo, perfil | 4 | sem falha |
+| driver | rotas, detalhe da rota, perfil | 2 | sem falha |
+
+17 pares de ida e volta, todos com nó novo e opacidade 1, **zero erro de
+console** na execução final.
+
+## O que a bateria achou
+
+| Achado | Onde | Correção |
+|---|---|---|
+| **Tela azul ao voltar para a landing** — o `AnimatePresence mode="wait"` travava: o filho em saída nunca era removido e ficava em `opacity: 0` para sempre, e toda navegação seguinte herdava o nó morto | `PageTransition` | `f13f61f` — só entrada, chaveada pelo `pathname` |
+| **`<button>` dentro de `<button>`** — o cartão em destaque é um `InteractiveCard` (que já é um botão) e trazia outro botão dentro | `FeaturedMainCard` | `6430c27` — virou `span aria-hidden`; a ação fica no cartão |
+| **`TypeError: ... reading '_leaflet_pos'`**, intermitente — o mapa era destruído no meio da animação de zoom e o `transitionend` chegava depois. Pilha: `_onZoomTransitionEnd → _move → _getNewPixelOrigin → _getMapPanePos` | `FitRouteBounds`, `FitMapView` | `d107227` — `animate: false` no enquadramento inicial |
+| **Mês e volume crus no gráfico** — `2026-04` e `1800`, sem unidade nem separador, num cartão cujo total ao lado já sai `12,5 L` | `MilkCollectedCard` | `aafc9fb` — `formatMonthBR` (`abr 26`) e litros com uma casa |
+
+Os dois últimos não apareceriam numa varredura de código: um é uma corrida de
+desmontagem, o outro vem de valor de API interpolado direto, sem literal no
+código.
+
+## Limites desta bateria
+
+- A API é **mockada**. Streaming da EVA, RAG, rate limit, login, cadastro e as
+  mutações do fluxo do motorista continuam **não verificados** — dependem do
+  backend real.
+- As idas usam `pushState` + `popstate`; as voltas usam o botão do navegador,
+  que é o caso do relato original.
+- Sem perfilagem de quadro: 60fps continua não medido.
+
+---
+
 # Validação final
 
 | # | Item | Estado |
@@ -286,7 +333,7 @@ exato que a varredura devolveu — e o commit que o zerou.
 | 18 | Status consistentes | ✅ tabela única |
 | 19 | Datas/horas/volumes | ✅ formatadores únicos |
 | 20 | Regra das 6h onde relevante | ✅ 5 pontos no front; RAG da EVA fora de escopo |
-| 21 | Permissões por papel | ✅ 404 respeita `useEvaAccess`; gates do `Page` intactos |
+| 21 | Permissões por papel | ✅ 404 respeita `useEvaAccess`; gates do `Page` intactos; as 4 roles percorridas na bateria |
 | 22 | Estados vazios com ilustração e texto contextualizado | ✅ separados por situação real |
 | 23 | Loading com esqueleto | ✅ exceto o `RefreshableList`, deliberado |
 | 24 | Erro com mensagem amigável + retry | ✅ 16 telas |
@@ -300,7 +347,7 @@ exato que a varredura devolveu — e o commit que o zerou.
 | 32 | EVA anônima (streaming, RAG, PII, rate limit) | ⚠️ **não verificado** — exige backend |
 | 33 | EVA logada (personalização, botões) | ⚠️ **não verificado** — exige backend |
 | 34 | Widget conforme permissão de cada papel | ✅ por código (`useEvaAccess`) |
-| 35 | Login, cadastro, formulários, navegação | ⚠️ **não verificado** — exige backend |
+| 35 | Login, cadastro, formulários, navegação | ⚠️ navegação verificada nas 4 roles (bateria); login, cadastro e envio de formulário **não verificados** — exigem backend |
 | 36 | Rota do motorista de ponta a ponta | ⚠️ **não verificado** — exige backend |
 | 37 | `pnpm build` + Biome | ✅ build verde; Biome em 3 erros / 19 avisos, todos pré-existentes (linha de base da `develop` era 5 / 19) |
 

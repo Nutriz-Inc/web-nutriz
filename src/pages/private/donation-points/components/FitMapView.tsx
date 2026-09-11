@@ -64,13 +64,14 @@ export function FitMapView({
 			);
 
 			if (!maisProximo) {
-				map.setView(origem, 14);
+				map.setView(origem, 14, { animate: false });
 				return;
 			}
 
 			map.fitBounds([origem, maisProximo], {
 				padding: [48, 48],
 				maxZoom: 15,
+				animate: false,
 			});
 			return;
 		}
@@ -78,11 +79,11 @@ export function FitMapView({
 		if (coords.length === 0) return;
 
 		if (coords.length === 1) {
-			map.setView(coords[0], 15);
+			map.setView(coords[0], 15, { animate: false });
 			return;
 		}
 
-		map.fitBounds(coords, { padding: [36, 36], maxZoom: 15 });
+		map.fitBounds(coords, { padding: [36, 36], maxZoom: 15, animate: false });
 	}, [map, userLocation, points, ready, refitVersion]);
 
 	return null;

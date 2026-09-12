@@ -1,14 +1,26 @@
 import { useAuth } from "../../../../hooks/use-auth";
 import { EnumUserType } from "../../../../services/types/i-user";
 
-export type EvaAccessMode = "anonymous" | "nutriz";
+export type EvaAccessMode =
+	| "anonymous"
+	| "nutriz"
+	| "adm"
+	| "nurse"
+	| "driver";
+
+const MODO_POR_PAPEL: Record<EnumUserType, EvaAccessMode> = {
+	[EnumUserType.Common]: "nutriz",
+	[EnumUserType.Admin]: "adm",
+	[EnumUserType.Nurse]: "nurse",
+	[EnumUserType.Driver]: "driver",
+};
 
 export function useEvaAccess() {
 	const { auth, isAuthenticated } = useAuth();
 
-	const allowed = !isAuthenticated || auth?.type === EnumUserType.Common;
+	const mode: EvaAccessMode = !isAuthenticated
+		? "anonymous"
+		: (MODO_POR_PAPEL[auth?.type as EnumUserType] ?? "nutriz");
 
-	const mode: EvaAccessMode = isAuthenticated ? "nutriz" : "anonymous";
-
-	return { allowed, mode, userId: auth?.id_user ?? null };
+	return { allowed: true, mode, userId: auth?.id_user ?? null };
 }

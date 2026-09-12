@@ -17,6 +17,7 @@ import {
 	subscribeEvaOpen,
 } from "./eva-widget-bus";
 import "./eva-widget.css";
+import { EVA_PERSONAS } from "../constants";
 import { useEvaAccess } from "./use-eva-access";
 
 const HIDDEN_ROUTES = new Set(["/login", "/registro"]);
@@ -80,6 +81,8 @@ function markWelcomeSeen(userId: string | null) {
 
 export function EvaWidget() {
 	const { allowed, mode, userId } = useEvaAccess();
+	const rotuloDoModo = EVA_PERSONAS[mode].rotuloDoModo;
+	const lembraDasBoasVindas = mode !== "anonymous";
 	const pathname = useSyncExternalStore(
 		subscribeAppPath,
 		getAppPathname,
@@ -103,35 +106,35 @@ export function EvaWidget() {
 
 	const startChat = useCallback(
 		(message?: string) => {
-			if (mode === "nutriz") {
+			if (lembraDasBoasVindas) {
 				markWelcomeSeen(userId);
 			}
 
 			setInitialMessage((previous) => message ?? previous);
 			setView("chat");
 		},
-		[mode, userId],
+		[lembraDasBoasVindas, userId],
 	);
 
 	const handleOpenChange = useCallback(
 		(next: boolean) => {
 			if (next) {
-				const skipWelcome = mode === "nutriz" && hasSeenWelcome(userId);
+				const skipWelcome = lembraDasBoasVindas && hasSeenWelcome(userId);
 				setInitialMessage(undefined);
 				setView(skipWelcome ? "chat" : "welcome");
 			}
 
 			setOpen(next);
 		},
-		[mode, userId],
+		[lembraDasBoasVindas, userId],
 	);
 
 	useEffect(() => {
 		return subscribeEvaOpen((message?: string) => {
 			const skipWelcome =
-				mode === "nutriz" && (hasSeenWelcome(userId) || Boolean(message));
+				lembraDasBoasVindas && (hasSeenWelcome(userId) || Boolean(message));
 
-			if (skipWelcome && mode === "nutriz") {
+			if (skipWelcome) {
 				markWelcomeSeen(userId);
 			}
 
@@ -139,7 +142,7 @@ export function EvaWidget() {
 			setView(skipWelcome ? "chat" : "welcome");
 			setOpen(true);
 		});
-	}, [mode, userId]);
+	}, [lembraDasBoasVindas, userId]);
 
 	if (!allowed || HIDDEN_ROUTES.has(pathname)) {
 		return null;
@@ -215,6 +218,9 @@ export function EvaWidget() {
 										<span className="eva-widget-header-spacer" aria-hidden />
 										<Dialog.Title className="eva-widget-header-title">
 											EVA
+											{rotuloDoModo ? (
+												<span className="eva-widget-modo">{rotuloDoModo}</span>
+											) : null}
 										</Dialog.Title>
 										<CloseButton />
 									</div>

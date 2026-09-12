@@ -1,15 +1,24 @@
 import { motion, useReducedMotion } from "framer-motion";
 import {
+	AlertTriangle,
+	BookOpen,
 	CalendarCheck,
+	ChartColumn,
+	CheckCircle2,
 	Droplet,
+	FlaskConical,
+	ListChecks,
 	type LucideIcon,
+	MapPin,
+	Route,
 	Snowflake,
 	Sparkles,
+	Timer,
 } from "lucide-react";
 import { useState } from "react";
 import { AvatarEva } from "../components/avatar-eva";
 import { ChatInput } from "../components/chat-input";
-import { EVA_SUGGESTIONS } from "../constants";
+import { EVA_PERSONAS } from "../constants";
 import "../eva.css";
 import type { EvaAccessMode } from "./use-eva-access";
 
@@ -18,10 +27,25 @@ type EvaWelcomePanelProps = {
 	onStart: (initialMessage?: string) => void;
 };
 
-const ICONES: LucideIcon[] = [Droplet, Sparkles, Snowflake, CalendarCheck];
+const ICONES: Record<string, LucideIcon> = {
+	gota: Droplet,
+	brilho: Sparkles,
+	floco: Snowflake,
+	agenda: CalendarCheck,
+	etapas: ListChecks,
+	mapa: MapPin,
+	grafico: ChartColumn,
+	frasco: FlaskConical,
+	rota: Route,
+	check: CheckCircle2,
+	guia: BookOpen,
+	relogio: Timer,
+	alerta: AlertTriangle,
+};
 
 export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 	const isAnonymous = mode === "anonymous";
+	const persona = EVA_PERSONAS[mode];
 	const [text, setText] = useState("");
 	const reduzirMovimento = useReducedMotion();
 
@@ -53,10 +77,13 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 				<AvatarEva size={76} squircle />
 
 				<div className="eva-welcome-id-text">
-					<p className="eva-welcome-name">Assistente EVA</p>
-					<p className="eva-welcome-sub">
-						Tire dúvidas sobre doação de leite, ordenha e amamentação.
+					<p className="eva-welcome-name">
+						Assistente EVA
+						{persona.rotuloDoModo ? (
+							<span className="eva-widget-modo">{persona.rotuloDoModo}</span>
+						) : null}
 					</p>
+					<p className="eva-welcome-sub">{persona.descricao}</p>
 				</div>
 			</motion.div>
 
@@ -73,8 +100,8 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 			<span className="eva-welcome-meio" aria-hidden="true" />
 
 			<div className="eva-welcome-pills">
-				{EVA_SUGGESTIONS.map((suggestion, indice) => {
-					const Icone = ICONES[indice] ?? Sparkles;
+				{persona.sugestoes.map((suggestion, indice) => {
+					const Icone = ICONES[persona.icones[indice]] ?? Sparkles;
 
 					return (
 						<motion.button

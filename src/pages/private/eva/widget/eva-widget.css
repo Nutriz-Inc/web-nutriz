@@ -635,3 +635,22 @@
 :root[data-fonte="dislexia"] .eva-welcome-espaco {
 	min-height: 8px;
 }
+
+.eva-widget-modo {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 8px;
+	padding: 3px 9px;
+	border-radius: 999px;
+	border: 1px solid var(--eva-tint-borda, rgba(209, 91, 116, 0.28));
+	background: var(--eva-tint);
+	color: var(--eva-deep);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	vertical-align: middle;
+	white-space: nowrap;
+	-webkit-background-clip: border-box;
+	background-clip: border-box;
+	-webkit-text-fill-color: var(--eva-deep);
+}

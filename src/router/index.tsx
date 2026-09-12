@@ -44,6 +44,16 @@ export function routerPrivate() {
 					element: <ArticlesScreen />,
 				},
 				{
+					id: "private-login",
+					path: "/login",
+					element: <DefaultRedirect />,
+				},
+				{
+					id: "private-registro",
+					path: "/registro",
+					element: <DefaultRedirect />,
+				},
+				{
 					id: "private-fallback",
 					path: "/*",
 					element: <NotFoundScreen />,

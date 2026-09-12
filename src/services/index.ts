@@ -43,7 +43,7 @@ httpClient.interceptors.response.use(
 				localStorage.setItem(CHAVE_ACESSIBILIDADE, acessibilidade);
 			}
 
-			window.location.reload();
+			window.location.replace("/");
 		}
 
 		return Promise.reject(error);

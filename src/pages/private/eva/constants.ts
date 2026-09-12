@@ -42,6 +42,68 @@ export const EVA_SUGGESTIONS = [
 	"Como agendar a coleta?",
 ] as const;
 
+export type EvaPersona = {
+	rotuloDoModo: string | null;
+	descricao: string;
+	sugestoes: readonly string[];
+	icones: readonly string[];
+};
+
+export const EVA_PERSONAS = {
+	anonymous: {
+		rotuloDoModo: null,
+		descricao: "Tire dúvidas sobre doação de leite, ordenha e amamentação.",
+		sugestoes: EVA_SUGGESTIONS,
+		icones: ["gota", "brilho", "floco", "agenda"],
+	},
+	nutriz: {
+		rotuloDoModo: null,
+		descricao:
+			"Tire dúvidas sobre sua doação, ordenha, amamentação ou a plataforma.",
+		sugestoes: [
+			"Posso doar leite?",
+			"Como fazer a ordenha?",
+			"Status da minha doação",
+			"Pontos de coleta perto de mim",
+		],
+		icones: ["gota", "brilho", "etapas", "mapa"],
+	},
+	adm: {
+		rotuloDoModo: "Modo operacional",
+		descricao:
+			"Métricas, indicadores e dúvidas sobre o funcionamento do sistema.",
+		sugestoes: [
+			"Doações este mês?",
+			"Taxa de descarte de frascos?",
+			"Rotas ativas hoje?",
+			"Gargalos nas etapas?",
+		],
+		icones: ["grafico", "frasco", "rota", "etapas"],
+	},
+	nurse: {
+		rotuloDoModo: "Modo enfermagem",
+		descricao: "Seus agendamentos, procedimentos e dúvidas sobre a plataforma.",
+		sugestoes: [
+			"Meus agendamentos pendentes?",
+			"Como concluir um agendamento?",
+			"Protocolo de ordenha",
+			"Dúvida sobre uma etapa",
+		],
+		icones: ["agenda", "check", "guia", "etapas"],
+	},
+	driver: {
+		rotuloDoModo: "Modo motorista",
+		descricao: "Sua rota, suas paradas e dúvidas sobre a coleta.",
+		sugestoes: [
+			"Minha rota de hoje?",
+			"Próxima parada?",
+			"Como iniciar a rota?",
+			"O frasco está danificado",
+		],
+		icones: ["rota", "mapa", "relogio", "alerta"],
+	},
+} as const satisfies Record<string, EvaPersona>;
+
 export const CONNECTION_ERROR_MESSAGE =
 	"Não foi possível conectar à EVA. Verifique sua conexão.";
 

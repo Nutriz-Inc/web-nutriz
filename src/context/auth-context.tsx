@@ -56,6 +56,10 @@ export function AuthProvider({ children }: IAuthProvider) {
 	}
 
 	function handleLogout() {
+		if (window.location.pathname !== "/") {
+			window.history.replaceState(null, "", "/");
+		}
+
 		setAuth(null);
 
 		localStorage.removeItem(CONTEXT_KEY);

@@ -54,7 +54,7 @@ export function AdmDashboardPage() {
 	const { dashboardQuery } = useQueryAdmDashboard(requestParams);
 	const data = dashboardQuery.data;
 
-	const { emitidoEm, gerarRelatorio } = useRelatorio();
+	const { emitidoEm, gerarRelatorio } = useRelatorio(!!data);
 
 	return (
 		<Page

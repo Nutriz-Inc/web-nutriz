@@ -1,8 +1,39 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import {
+	consumirPedidoDeRelatorio,
+	subscribePedidoDeRelatorio,
+} from "../relatorio-bus";
 
-export function useRelatorio() {
+export function useRelatorio(pronto: boolean) {
 	const [emitidoEm, setEmitidoEm] = useState<Date | null>(null);
+	const [pedido, setPedido] = useState(false);
 	const aguardando = useRef(false);
+
+	const gerarRelatorio = useCallback(() => {
+		aguardando.current = true;
+		setEmitidoEm(new Date());
+	}, []);
+
+	useEffect(() => {
+		if (consumirPedidoDeRelatorio()) {
+			setPedido(true);
+		}
+
+		return subscribePedidoDeRelatorio(() => {
+			if (consumirPedidoDeRelatorio()) {
+				setPedido(true);
+			}
+		});
+	}, []);
+
+	useEffect(() => {
+		if (!pedido || !pronto) {
+			return;
+		}
+
+		setPedido(false);
+		gerarRelatorio();
+	}, [pedido, pronto, gerarRelatorio]);
 
 	useEffect(() => {
 		function encerrar() {
@@ -27,11 +58,6 @@ export function useRelatorio() {
 
 		return () => cancelAnimationFrame(quadro);
 	}, [emitidoEm]);
-
-	const gerarRelatorio = useCallback(() => {
-		aguardando.current = true;
-		setEmitidoEm(new Date());
-	}, []);
 
 	return { emitidoEm, gerarRelatorio };
 }

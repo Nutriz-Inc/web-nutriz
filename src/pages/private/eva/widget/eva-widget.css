@@ -678,7 +678,7 @@
 	height: 34px;
 	border-radius: 999px;
 	border: none;
-	background: var(--eva-surface-2);
+	background: var(--surface-3);
 	color: var(--eva-ink);
 	cursor: pointer;
 	transition: background-color 150ms ease;
@@ -846,7 +846,7 @@
 	height: 34px;
 	border-radius: 999px;
 	border: none;
-	background: var(--eva-surface-2);
+	background: var(--surface-3);
 	color: var(--eva-ink-3);
 	font-size: 15px;
 	font-weight: 700;

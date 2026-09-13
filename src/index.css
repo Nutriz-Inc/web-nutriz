@@ -751,3 +751,31 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 		animation: none;
 	}
 }
+
+@media print {
+	@page {
+		size: A4 portrait;
+		margin: 0;
+	}
+
+	html,
+	body {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		background: #ffffff;
+		color: #1b2733;
+	}
+
+	header:not(.relatorio-topo),
+	.eva-fab,
+	[data-sonner-toaster],
+	[data-radix-popper-content-wrapper] {
+		display: none !important;
+	}
+
+	main#conteudo {
+		max-width: none;
+		padding: 0;
+		overflow: visible;
+	}
+}

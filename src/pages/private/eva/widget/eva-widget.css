@@ -642,7 +642,7 @@
 	margin-left: 8px;
 	padding: 3px 9px;
 	border-radius: 999px;
-	border: 1px solid var(--eva-tint-borda, rgba(209, 91, 116, 0.28));
+	border: 1px solid var(--eva-tint-borda);
 	background: var(--eva-tint);
 	color: var(--eva-deep);
 	font-size: 11px;
@@ -678,7 +678,7 @@
 	height: 34px;
 	border-radius: 999px;
 	border: none;
-	background: var(--eva-surface-2, rgba(15, 31, 61, 0.05));
+	background: var(--eva-surface-2);
 	color: var(--eva-ink);
 	cursor: pointer;
 	transition: background-color 150ms ease;
@@ -711,7 +711,7 @@
 	gap: 14px;
 	padding: 16px;
 	border-radius: 20px;
-	background: var(--gradient-eva, linear-gradient(140deg, #fdf0f4, #f191a8));
+	background: var(--eva-marca);
 }
 
 .eva-help-capa-texto {
@@ -724,7 +724,7 @@
 .eva-help-capa-modo {
 	margin-left: 0;
 	align-self: flex-start;
-	background: rgba(255, 255, 255, 0.82);
+	background: color-mix(in oklch, var(--eva-surface) 86%, transparent);
 }
 
 .eva-help-capa-descricao {
@@ -750,7 +750,7 @@
 	font-weight: 700;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
-	color: var(--eva-ink-3, #626e82);
+	color: var(--eva-ink-3);
 }
 
 .eva-help-secao--cartao {
@@ -771,8 +771,8 @@
 	width: 100%;
 	padding: 12px 14px;
 	border-radius: 14px;
-	border: 1px solid var(--eva-linha, rgba(15, 31, 61, 0.08));
-	background: #fff;
+	border: 1px solid var(--eva-linha);
+	background: var(--eva-surface-2);
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 1.4;
@@ -786,8 +786,8 @@
 }
 
 .eva-help-pergunta:hover {
-	border-color: var(--eva-bright, #f191a8);
-	box-shadow: 0 6px 18px rgba(209, 91, 116, 0.12);
+	border-color: var(--eva-bright);
+	box-shadow: 0 6px 18px color-mix(in oklch, var(--eva-deep) 16%, transparent);
 	transform: translateY(-1px);
 }
 
@@ -803,7 +803,8 @@
 }
 
 .eva-help-cartao--limite {
-	background: var(--eva-surface-2, rgba(15, 31, 61, 0.035));
+	border: 1px solid var(--eva-linha);
+	background: transparent;
 }
 
 .eva-help-cartao--dica {
@@ -822,11 +823,11 @@
 .eva-help-item {
 	font-size: 13.5px;
 	line-height: 1.5;
-	color: var(--eva-ink-2, #42506b);
+	color: var(--eva-ink-2);
 }
 
 .eva-help-item::marker {
-	color: var(--eva-bright, #f191a8);
+	color: var(--eva-bright);
 }
 
 .eva-help-rodape {
@@ -834,7 +835,7 @@
 	font-size: 11.5px;
 	line-height: 1.5;
 	text-align: center;
-	color: var(--eva-ink-3, #626e82);
+	color: var(--eva-ink-3);
 }
 
 .eva-widget-ajuda {
@@ -845,8 +846,8 @@
 	height: 34px;
 	border-radius: 999px;
 	border: none;
-	background: var(--eva-surface-2, rgba(15, 31, 61, 0.05));
-	color: var(--eva-ink-3, #626e82);
+	background: var(--eva-surface-2);
+	color: var(--eva-ink-3);
 	font-size: 15px;
 	font-weight: 700;
 	line-height: 1;
@@ -875,6 +876,6 @@
 	flex: 0 0 auto;
 	padding: 6px;
 	border-radius: 18px;
-	background: #fff;
-	box-shadow: 0 4px 14px rgba(209, 91, 116, 0.18);
+	background: var(--eva-surface);
+	box-shadow: 0 4px 14px color-mix(in oklch, var(--eva-deep) 22%, transparent);
 }

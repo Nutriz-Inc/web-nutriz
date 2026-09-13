@@ -7,15 +7,22 @@ import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { ActiveDonationsByStepCard } from "./components/ActiveDonationsByStepCard";
 import { BottlesCard } from "./components/BottlesCard";
+import { GerarRelatorioButton } from "./components/GerarRelatorioButton";
 import { MilkCollectedCard } from "./components/MilkCollectedCard";
 import { PeriodFilter } from "./components/PeriodFilter";
 import { RecurrenceCard } from "./components/RecurrenceCard";
 import { RouteStatsCard } from "./components/RouteStatsCard";
+import { RelatorioDoDashboard } from "./components/report/RelatorioDoDashboard";
 import { SatisfactionCard } from "./components/SatisfactionCard";
 import { StatCard } from "./components/StatCard";
 import type { PeriodPreset } from "./constants";
 import { useQueryAdmDashboard } from "./hooks";
-import { getPeriodPresetRange } from "./utils";
+import { useRelatorio } from "./hooks/use-relatorio";
+import {
+	descreverEmissao,
+	descreverPeriodo,
+	getPeriodPresetRange,
+} from "./utils";
 
 export function AdmDashboardPage() {
 	const { auth } = useAuth();
@@ -47,6 +54,8 @@ export function AdmDashboardPage() {
 	const { dashboardQuery } = useQueryAdmDashboard(requestParams);
 	const data = dashboardQuery.data;
 
+	const { emitidoEm, gerarRelatorio } = useRelatorio();
+
 	return (
 		<Page
 			title="Dashboard"
@@ -55,9 +64,24 @@ export function AdmDashboardPage() {
 			error={dashboardQuery.isError ? dashboardQuery.error : undefined}
 			onRetry={() => dashboardQuery.refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}
-			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			titleClassName="print:hidden lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			actionSlot={
+				<GerarRelatorioButton
+					onGerar={gerarRelatorio}
+					disabled={!data || dashboardQuery.isFetching}
+				/>
+			}
 		>
-			<div className="flex flex-col gap-6 lg:mx-auto lg:w-full lg:max-w-[1400px]">
+			{emitidoEm ? (
+				<RelatorioDoDashboard
+					data={data}
+					periodo={descreverPeriodo(requestParams)}
+					emissao={descreverEmissao(emitidoEm)}
+					emitidoPor={auth?.name ?? "—"}
+				/>
+			) : null}
+
+			<div className="flex flex-col gap-6 print:hidden lg:mx-auto lg:w-full lg:max-w-[1400px]">
 				<PeriodFilter
 					preset={preset}
 					onPresetChange={handlePresetChange}

@@ -1,0 +1,484 @@
+.relatorio {
+	display: none;
+}
+
+@media print {
+	.relatorio {
+		--r-marca: #00458b;
+		--r-marca-2: #387ccd;
+		--r-tint: #eaf1fa;
+		--r-tint-2: #f6f9fd;
+		--r-linha: #cfdcea;
+		--r-tinta: #16222e;
+		--r-tinta-2: #41525f;
+		--r-tinta-3: #6a7a88;
+		--r-roxo: #662e9b;
+		--r-ciano: #43bccd;
+		--r-laranja: #f86624;
+		--r-trilho: #dde8f3;
+
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		gap: 8mm;
+		width: 210mm;
+		height: 297mm;
+		padding: 10mm 14mm 9mm;
+		margin: 0;
+		overflow: hidden;
+		background: #ffffff;
+		color: var(--r-tinta);
+		font-size: 9pt;
+		line-height: 1.35;
+	}
+
+	.relatorio *,
+	.relatorio *::before,
+	.relatorio *::after {
+		box-sizing: border-box;
+	}
+
+	/* ---------- topo ---------- */
+
+	.relatorio-topo {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 10mm;
+		padding-bottom: 3.5mm;
+		border-bottom: 0.7mm solid var(--r-marca);
+	}
+
+	.relatorio-topo-marca {
+		display: flex;
+		align-items: center;
+		gap: 4mm;
+		min-width: 0;
+	}
+
+	.relatorio-topo-titulos {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+	}
+
+	.relatorio-logo {
+		height: 8mm;
+		width: auto;
+		flex-shrink: 0;
+		opacity: 0.32;
+	}
+
+	.relatorio-titulo {
+		margin: 0;
+		font-size: 15pt;
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: -0.015em;
+		color: var(--r-marca);
+	}
+
+	.relatorio-subtitulo {
+		margin: 1.2mm 0 0;
+		font-size: 8.5pt;
+		color: var(--r-tinta-3);
+	}
+
+	.relatorio-topo-meta {
+		display: grid;
+		grid-template-columns: auto auto;
+		align-content: end;
+		gap: 1.2mm 3mm;
+		margin: 0;
+		flex-shrink: 0;
+	}
+
+	.relatorio-topo-meta dt {
+		font-size: 7pt;
+		font-weight: 500;
+		text-align: right;
+		white-space: nowrap;
+		color: #9aa8b5;
+	}
+
+	.relatorio-topo-meta dd {
+		margin: 0;
+		font-size: 7.5pt;
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+		color: #8b99a6;
+	}
+
+	.relatorio-topo-meta {
+		gap: 1.2mm 3mm;
+	}
+
+	/* ---------- faixa de dados ---------- */
+
+	.relatorio-faixa {
+		width: 100%;
+		border-collapse: collapse;
+		table-layout: fixed;
+	}
+
+	.relatorio-faixa th {
+		padding: 2mm 3mm;
+		border: 0.25mm solid var(--r-linha);
+		background: var(--r-tint);
+		font-size: 7.5pt;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		text-align: left;
+		color: var(--r-marca);
+	}
+
+	.relatorio-faixa td {
+		padding: 2.6mm 3mm;
+		border: 0.25mm solid var(--r-linha);
+		font-size: 12pt;
+		font-weight: 800;
+		font-variant-numeric: tabular-nums;
+		color: var(--r-tinta);
+	}
+
+	/* ---------- cartões de indicador ---------- */
+
+	.relatorio-cartoes {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 4mm;
+	}
+
+	.relatorio-cartao {
+		display: flex;
+		align-items: center;
+		gap: 3.5mm;
+		padding: 4.5mm 4mm;
+		border: 0.25mm solid var(--r-linha);
+		border-radius: 2mm;
+		background: var(--r-tint-2);
+		break-inside: avoid;
+	}
+
+	.relatorio-cartao-texto {
+		display: flex;
+		flex-direction: column;
+		gap: 0.8mm;
+		min-width: 0;
+	}
+
+	.relatorio-cartao-rotulo {
+		margin: 0;
+		font-size: 8pt;
+		font-weight: 700;
+		line-height: 1.25;
+		color: var(--r-tinta);
+	}
+
+	.relatorio-cartao-detalhe {
+		margin: 0;
+		font-size: 7.5pt;
+		line-height: 1.3;
+		color: var(--r-tinta-3);
+	}
+
+	.relatorio-cartao-valor {
+		margin: 0;
+		font-size: 22pt;
+		font-weight: 800;
+		line-height: 1;
+		font-variant-numeric: tabular-nums;
+		color: var(--r-laranja);
+	}
+
+	.relatorio-rosca {
+		position: relative;
+		flex-shrink: 0;
+		width: 19mm;
+		height: 19mm;
+	}
+
+	.relatorio-rosca svg {
+		width: 100%;
+		height: 100%;
+		transform: rotate(-90deg);
+	}
+
+	.relatorio-rosca-centro {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12pt;
+		font-weight: 800;
+		font-variant-numeric: tabular-nums;
+		color: var(--r-tinta);
+	}
+
+	/* ---------- seções ---------- */
+
+	.relatorio-secao {
+		display: flex;
+		flex-direction: column;
+		gap: 2.2mm;
+		break-inside: avoid;
+	}
+
+	.relatorio-secao-topo {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 6mm;
+		padding-bottom: 1mm;
+		border-bottom: 0.25mm solid var(--r-linha);
+	}
+
+	.relatorio-secao-titulo {
+		margin: 0;
+		font-size: 8.5pt;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--r-marca);
+	}
+
+	.relatorio-secao-nota {
+		margin: 0;
+		font-size: 8pt;
+		color: var(--r-tinta-3);
+	}
+
+	/* ---------- barras por mês ---------- */
+
+	.relatorio-meses {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 2mm;
+		height: 36mm;
+	}
+
+	.relatorio-mes {
+		display: flex;
+		flex: 1 1 0;
+		min-width: 0;
+		height: 100%;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 0.8mm;
+	}
+
+	.relatorio-mes-valor {
+		margin: 0;
+		font-size: 7pt;
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+		color: var(--r-tinta);
+	}
+
+	.relatorio-mes-barra {
+		width: 100%;
+		max-width: 10mm;
+		border-radius: 0.6mm 0.6mm 0 0;
+		background: #b9cde4;
+	}
+
+	.relatorio-mes-barra[data-destaque="sim"] {
+		background: var(--r-marca);
+	}
+
+	.relatorio-mes-rotulo {
+		margin: 0;
+		font-size: 7pt;
+		text-transform: uppercase;
+		white-space: nowrap;
+		color: var(--r-tinta-3);
+	}
+
+	.relatorio-legenda {
+		display: flex;
+		align-items: center;
+		gap: 4mm;
+		margin: 0;
+		font-size: 7.5pt;
+		color: var(--r-tinta-3);
+	}
+
+	.relatorio-legenda span {
+		display: inline-flex;
+		align-items: center;
+		gap: 1.5mm;
+	}
+
+	.relatorio-legenda i {
+		display: inline-block;
+		width: 2.4mm;
+		height: 2.4mm;
+		border-radius: 0.5mm;
+		background: #b9cde4;
+	}
+
+	.relatorio-legenda i[data-destaque="sim"] {
+		background: var(--r-marca);
+	}
+
+	.relatorio-colunas {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 5mm;
+	}
+
+	/* ---------- tabela ---------- */
+
+	.relatorio-tabela {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 8.5pt;
+	}
+
+	.relatorio-tabela th:not(:first-child),
+	.relatorio-tabela td:not(:first-child) {
+		width: 1%;
+		white-space: nowrap;
+	}
+
+	.relatorio-tabela th {
+		padding: 2mm 3mm;
+		border: 0.25mm solid var(--r-linha);
+		background: var(--r-tint);
+		font-size: 7.5pt;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		text-align: left;
+		color: var(--r-marca);
+	}
+
+	.relatorio-tabela th:not(:first-child),
+	.relatorio-tabela td:not(:first-child) {
+		text-align: right;
+	}
+
+	.relatorio-tabela td {
+		padding: 1.9mm 3mm;
+		border: 0.25mm solid var(--r-linha);
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+		color: var(--r-tinta);
+	}
+
+	.relatorio-tabela tbody tr:nth-child(even) td {
+		background: var(--r-tint-2);
+	}
+
+	.relatorio-tabela td:first-child {
+		font-weight: 500;
+		color: var(--r-tinta-2);
+	}
+
+	.relatorio-tabela tbody tr:last-child td {
+		background: var(--r-tint);
+		font-weight: 800;
+		color: var(--r-tinta);
+	}
+
+	.relatorio-tabela-marca {
+		display: inline-flex;
+		align-items: center;
+		gap: 2mm;
+	}
+
+	.relatorio-tabela-marca i {
+		display: inline-block;
+		width: 2.2mm;
+		height: 2.2mm;
+		border-radius: 50%;
+		background: #b9cde4;
+	}
+
+	.relatorio-tabela-marca i[data-destaque="sim"] {
+		background: var(--r-laranja);
+	}
+
+	.relatorio-tabela-marca i[data-tom="positivo"] {
+		background: var(--r-marca-2);
+	}
+
+	/* ---------- blocos finais ---------- */
+
+	.relatorio-notas {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4mm;
+	}
+
+	.relatorio-nota {
+		display: flex;
+		flex-direction: column;
+		gap: 3mm;
+		padding: 5mm;
+		border: 0.25mm solid var(--r-linha);
+		border-left: 1mm solid var(--r-marca);
+		border-radius: 1mm;
+		background: var(--r-tint-2);
+		break-inside: avoid;
+	}
+
+	.relatorio-nota-titulo {
+		margin: 0;
+		font-size: 8.5pt;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		color: var(--r-marca);
+	}
+
+	.relatorio-nota-lista {
+		display: flex;
+		flex-direction: column;
+		gap: 1.8mm;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.relatorio-nota-item {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 4mm;
+		font-size: 8.5pt;
+		line-height: 1.35;
+		color: var(--r-tinta-2);
+	}
+
+	.relatorio-nota-item strong {
+		font-weight: 800;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+		color: var(--r-tinta);
+	}
+
+	/* ---------- rodapé ---------- */
+
+	.relatorio-rodape {
+		margin: auto 0 0;
+		padding-top: 2.5mm;
+		border-top: 0.25mm solid var(--r-linha);
+		font-size: 7pt;
+		line-height: 1.4;
+		color: var(--r-tinta-3);
+	}
+
+	.relatorio-vazio {
+		margin: 0;
+		padding: 2mm 0;
+		font-size: 8.5pt;
+		color: var(--r-tinta-3);
+	}
+}

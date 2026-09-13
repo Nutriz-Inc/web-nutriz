@@ -51,7 +51,8 @@ export const ARTICLES: Article[] = [
 		softBorder: "#99f6e4",
 		title: "Como armazenar e transportar seu leite com segurança",
 		coverImage: armazenamentoLeite,
-		coverAlt: "Frascos de leite humano ordenhado identificados e organizados em freezer",
+		coverAlt:
+			"Frascos de leite humano ordenhado identificados e organizados em freezer",
 		coverWidth: 772,
 		coverHeight: 960,
 		author: "Dra. Mariana Costa",
@@ -267,8 +268,7 @@ export const ARTICLES: Article[] = [
 		softBorder: "#99f6e4",
 		title: "Excesso de leite: transforme o que sobra em doação",
 		coverImage: excessoDeLeite,
-		coverAlt:
-			"Bomba de ordenha com mamadeira, mãe amamentando ao fundo",
+		coverAlt: "Bomba de ordenha com mamadeira, mãe amamentando ao fundo",
 		coverWidth: 1200,
 		coverHeight: 675,
 		author: "Dra. Beatriz Nogueira",

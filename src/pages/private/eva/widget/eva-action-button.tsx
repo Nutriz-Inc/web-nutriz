@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { env } from "@/config/env";
 import { navigateApp } from "@/lib/app-navigation";
+import { pedirRelatorio } from "@/pages/private/dashboard/relatorio-bus";
 import type { EvaMessageAction } from "../types";
 
 type EvaActionButtonProps = {
@@ -11,6 +12,7 @@ type EvaActionButtonProps = {
 
 type Target =
 	| { kind: "route"; to: string; scrollTo?: string }
+	| { kind: "relatorio"; to: string }
 	| { kind: "external"; href: string };
 
 function resolveTarget(slug: string, isAnonymous: boolean): Target | null {
@@ -31,6 +33,8 @@ function resolveTarget(slug: string, isAnonymous: boolean): Target | null {
 			return isAnonymous ? null : { kind: "route", to: "/conteudo-educativo" };
 		case "profile":
 			return isAnonymous ? null : { kind: "route", to: "/perfil" };
+		case "dashboard_report":
+			return isAnonymous ? null : { kind: "relatorio", to: "/dashboard" };
 		case "collection_points":
 			return isAnonymous
 				? { kind: "route", to: "/", scrollTo: "pontos-de-coleta" }
@@ -111,8 +115,14 @@ export function EvaActionButton({
 			className="eva-action-btn"
 			onClick={() => {
 				onNavigate();
+
+				if (target.kind === "relatorio") {
+					pedirRelatorio();
+				}
+
 				navigateApp(target.to);
-				if (target.scrollTo) {
+
+				if (target.kind === "route" && target.scrollTo) {
 					scrollToSection(target.scrollTo);
 				}
 			}}

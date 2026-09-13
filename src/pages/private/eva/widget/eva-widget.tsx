@@ -155,7 +155,7 @@ export function EvaWidget() {
 		return null;
 	}
 
-	const fabObstruido = !open && menuOpen;
+	const fabObstruido = open || menuOpen;
 
 	const modalMotion = reduce
 		? {

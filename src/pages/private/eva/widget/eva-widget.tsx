@@ -18,11 +18,12 @@ import {
 } from "./eva-widget-bus";
 import "./eva-widget.css";
 import { EVA_PERSONAS } from "../constants";
+import { EvaHelpPanel } from "./eva-help-panel";
 import { useEvaAccess } from "./use-eva-access";
 
 const HIDDEN_ROUTES = new Set(["/login", "/registro"]);
 
-type WidgetView = "welcome" | "chat";
+type WidgetView = "welcome" | "chat" | "ajuda";
 
 function CloseButton() {
 	return (
@@ -100,6 +101,12 @@ export function EvaWidget() {
 	const fabRef = useRef<HTMLButtonElement>(null);
 	const tomDoFundo = useBackdropTone(fabRef, !open);
 	const [view, setView] = useState<WidgetView>("welcome");
+	const [viewAnterior, setViewAnterior] = useState<WidgetView>("welcome");
+
+	function abrirAjuda() {
+		setViewAnterior(view === "ajuda" ? "welcome" : view);
+		setView("ajuda");
+	}
 	const [initialMessage, setInitialMessage] = useState<string | undefined>(
 		undefined,
 	);
@@ -206,8 +213,16 @@ export function EvaWidget() {
 								style={{ transformOrigin: "bottom right" }}
 								{...modalMotion}
 							>
-								{view === "welcome" ? (
+								{view === "ajuda" ? null : view === "welcome" ? (
 									<div className="eva-widget-header eva-widget-header--bare">
+										<button
+											type="button"
+											className="eva-widget-ajuda"
+											onClick={abrirAjuda}
+											aria-label="Como usar a EVA"
+										>
+											?
+										</button>
 										<CloseButton />
 										<Dialog.Title className="sr-only">
 											Assistente EVA
@@ -222,11 +237,29 @@ export function EvaWidget() {
 												<span className="eva-widget-modo">{rotuloDoModo}</span>
 											) : null}
 										</Dialog.Title>
+										<button
+											type="button"
+											className="eva-widget-ajuda"
+											onClick={abrirAjuda}
+											aria-label="Como usar a EVA"
+										>
+											?
+										</button>
 										<CloseButton />
 									</div>
 								)}
 
-								{view === "welcome" ? (
+								{view === "ajuda" ? (
+									<>
+										<Dialog.Title className="sr-only">
+											Como usar a EVA
+										</Dialog.Title>
+										<EvaHelpPanel
+											mode={mode}
+											onBack={() => setView(viewAnterior)}
+										/>
+									</>
+								) : view === "welcome" ? (
 									<EvaWelcomePanel mode={mode} onStart={startChat} />
 								) : (
 									<EvaChatPanel

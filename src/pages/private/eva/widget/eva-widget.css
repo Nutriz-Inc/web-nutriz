@@ -654,3 +654,154 @@
 	background-clip: border-box;
 	-webkit-text-fill-color: var(--eva-deep);
 }
+
+.eva-help {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 0;
+	background: var(--eva-surface, #fff);
+}
+
+.eva-help-topo {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 18px 16px 12px;
+	border-bottom: 1px solid var(--eva-linha, rgba(15, 31, 61, 0.08));
+}
+
+.eva-help-voltar {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 999px;
+	border: 1px solid var(--eva-linha, rgba(15, 31, 61, 0.1));
+	background: transparent;
+	color: var(--eva-ink);
+	cursor: pointer;
+	transition: background-color 150ms ease;
+}
+
+.eva-help-voltar:hover {
+	background: var(--eva-tint);
+}
+
+.eva-help-titulo {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--eva-ink);
+}
+
+.eva-help-corpo {
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	padding: 18px 18px 8px;
+}
+
+.eva-help-bloco {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.eva-help-secao {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	color: var(--eva-deep);
+}
+
+.eva-help-lista {
+	display: flex;
+	flex-direction: column;
+	gap: 9px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.eva-help-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 9px;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--eva-ink-2, #42506b);
+}
+
+.eva-help-marca {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: 18px;
+	height: 18px;
+	margin-top: 2px;
+	border-radius: 999px;
+}
+
+.eva-help-marca--ok {
+	background: rgba(14, 110, 86, 0.12);
+	color: #0e6e56;
+}
+
+.eva-help-marca--nao {
+	background: rgba(163, 45, 45, 0.12);
+	color: #a32d2d;
+}
+
+.eva-help-marca--dica {
+	background: var(--eva-tint);
+	color: var(--eva-deep);
+}
+
+.eva-help-rodape {
+	margin: 0 0 4px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: var(--eva-ink-3, #626e82);
+}
+
+.eva-help-cta {
+	margin: 0 18px 18px;
+}
+
+.eva-widget-ajuda {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 999px;
+	border: 1px solid var(--eva-linha, rgba(15, 31, 61, 0.1));
+	background: var(--eva-surface-2, rgba(15, 31, 61, 0.04));
+	color: var(--eva-ink-3, #626e82);
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1;
+	cursor: pointer;
+	transition:
+		background-color 150ms ease,
+		color 150ms ease;
+}
+
+.eva-widget-ajuda:hover {
+	background: var(--eva-tint);
+	color: var(--eva-deep);
+}
+
+.eva-widget-header--bare {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}

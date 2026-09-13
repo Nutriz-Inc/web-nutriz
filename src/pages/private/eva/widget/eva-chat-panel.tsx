@@ -5,19 +5,14 @@ import { TypingIndicator } from "../components/typing-indicator";
 import {
 	BLOCKED_MESSAGES,
 	CONNECTION_ERROR_MESSAGE,
-	EVA_GREETING_TEXT,
+	EVA_PERSONAS,
 } from "../constants";
 import "../eva.css";
 import { env } from "@/config/env";
 import { useEvaChat } from "../hooks/use-eva-chat";
 import type { ChatMessage, EvaMessageAction } from "../types";
 import { EvaActionButton } from "./eva-action-button";
-
-const GREETING: ChatMessage = {
-	id: "greeting",
-	role: "eva",
-	paragraphs: [EVA_GREETING_TEXT],
-};
+import { useEvaAccess } from "./use-eva-access";
 
 function buildConsentSupportHref(): string | null {
 	const number = env.VITE_LACTARE_WHATSAPP_NUMBER?.trim();
@@ -57,6 +52,13 @@ type EvaChatPanelProps = {
 };
 
 export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
+	const { mode } = useEvaAccess();
+	const saudacao: ChatMessage = {
+		id: "greeting",
+		role: "eva",
+		paragraphs: [EVA_PERSONAS[mode].saudacao],
+	};
+
 	const {
 		messages,
 		isTyping,
@@ -155,7 +157,7 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 				aria-live="polite"
 			>
 				<span className="eva-date-pill">Hoje</span>
-				<MessageBubble message={GREETING} />
+				<MessageBubble message={saudacao} />
 				{messages.map((message) => {
 					const action = messageAction(message, isAnonymous);
 					if (!action) {

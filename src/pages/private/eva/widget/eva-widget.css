@@ -654,3 +654,227 @@
 	background-clip: border-box;
 	-webkit-text-fill-color: var(--eva-deep);
 }
+
+.eva-help {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 0;
+}
+
+.eva-help-topo {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 14px 16px;
+	flex-shrink: 0;
+}
+
+.eva-help-voltar {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: 999px;
+	border: none;
+	background: var(--eva-surface-2, rgba(15, 31, 61, 0.05));
+	color: var(--eva-ink);
+	cursor: pointer;
+	transition: background-color 150ms ease;
+}
+
+.eva-help-voltar:hover {
+	background: var(--eva-tint);
+	color: var(--eva-deep);
+}
+
+.eva-help-topo-titulo {
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--eva-ink);
+}
+
+.eva-help-corpo {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	padding: 2px 16px 20px;
+}
+
+.eva-help-capa {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 16px;
+	border-radius: 20px;
+	background: var(--gradient-eva, linear-gradient(140deg, #fdf0f4, #f191a8));
+}
+
+.eva-help-capa-texto {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	min-width: 0;
+}
+
+.eva-help-capa-modo {
+	margin-left: 0;
+	align-self: flex-start;
+	background: rgba(255, 255, 255, 0.82);
+}
+
+.eva-help-capa-descricao {
+	margin: 0;
+	font-size: 13.5px;
+	line-height: 1.5;
+	font-weight: 500;
+	color: var(--eva-ink);
+}
+
+.eva-help-bloco {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.eva-help-secao {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin: 0;
+	font-size: 11.5px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--eva-ink-3, #626e82);
+}
+
+.eva-help-secao--cartao {
+	color: var(--eva-deep);
+}
+
+.eva-help-perguntas {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.eva-help-pergunta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	width: 100%;
+	padding: 12px 14px;
+	border-radius: 14px;
+	border: 1px solid var(--eva-linha, rgba(15, 31, 61, 0.08));
+	background: #fff;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.4;
+	text-align: left;
+	color: var(--eva-ink);
+	cursor: pointer;
+	transition:
+		border-color 150ms ease,
+		box-shadow 150ms ease,
+		transform 150ms ease;
+}
+
+.eva-help-pergunta:hover {
+	border-color: var(--eva-bright, #f191a8);
+	box-shadow: 0 6px 18px rgba(209, 91, 116, 0.12);
+	transform: translateY(-1px);
+}
+
+.eva-help-pergunta-seta {
+	flex: 0 0 auto;
+	color: var(--eva-deep);
+	opacity: 0.5;
+}
+
+.eva-help-cartao {
+	padding: 14px;
+	border-radius: 16px;
+}
+
+.eva-help-cartao--limite {
+	background: var(--eva-surface-2, rgba(15, 31, 61, 0.035));
+}
+
+.eva-help-cartao--dica {
+	background: var(--eva-tint);
+}
+
+.eva-help-lista {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	margin: 0;
+	padding: 0 0 0 16px;
+	list-style: disc;
+}
+
+.eva-help-item {
+	font-size: 13.5px;
+	line-height: 1.5;
+	color: var(--eva-ink-2, #42506b);
+}
+
+.eva-help-item::marker {
+	color: var(--eva-bright, #f191a8);
+}
+
+.eva-help-rodape {
+	margin: 2px 0 0;
+	font-size: 11.5px;
+	line-height: 1.5;
+	text-align: center;
+	color: var(--eva-ink-3, #626e82);
+}
+
+.eva-widget-ajuda {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: 999px;
+	border: none;
+	background: var(--eva-surface-2, rgba(15, 31, 61, 0.05));
+	color: var(--eva-ink-3, #626e82);
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1;
+	cursor: pointer;
+	transition:
+		background-color 150ms ease,
+		color 150ms ease;
+}
+
+.eva-widget-ajuda:hover {
+	background: var(--eva-tint);
+	color: var(--eva-deep);
+}
+
+.eva-widget-ajuda--solto {
+	position: absolute;
+	top: 27px;
+	left: 16px;
+	z-index: 2;
+}
+
+.eva-help-capa-placa {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	padding: 6px;
+	border-radius: 18px;
+	background: #fff;
+	box-shadow: 0 4px 14px rgba(209, 91, 116, 0.18);
+}

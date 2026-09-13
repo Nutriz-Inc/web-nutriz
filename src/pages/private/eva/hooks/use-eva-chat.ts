@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { formatTimeBR } from "@/utils/formatter";
+import { randomId } from "@/utils/random-id";
 import { env, evaApiUrl, evaWsUrl } from "../../../../config/env";
 import { useAuth } from "../../../../hooks/use-auth";
 import {
@@ -85,6 +86,7 @@ export function useEvaChat(initialMessage?: string) {
 	const sendingRef = useRef(false);
 	const pendingInitialRef = useRef(initialMessage ?? null);
 	const nextIdRef = useRef(0);
+	const idDaMontagemRef = useRef(randomId());
 	const tokenRef = useRef(auth?.token);
 	const isAnonymousRef = useRef(!isAuthenticated);
 	const anonTokenRef = useRef<string | null>(null);
@@ -100,7 +102,7 @@ export function useEvaChat(initialMessage?: string) {
 
 	const nextId = useCallback(() => {
 		nextIdRef.current += 1;
-		return `msg-${nextIdRef.current}`;
+		return `msg-${idDaMontagemRef.current}-${nextIdRef.current}`;
 	}, []);
 
 	const finishSending = useCallback(() => {
@@ -247,9 +249,11 @@ export function useEvaChat(initialMessage?: string) {
 
 					setIsTyping(false);
 					setMessages((previous) => {
-						const exists = previous.some((message) => message.id === streamId);
+						const jaExiste = previous.some(
+							(message) => message.id === streamId && message.role === "eva",
+						);
 
-						if (exists) {
+						if (jaExiste) {
 							return previous.map((message) =>
 								message.id === streamId ? { ...message, paragraphs } : message,
 							);

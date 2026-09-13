@@ -1,12 +1,7 @@
 import { useAuth } from "../../../../hooks/use-auth";
 import { EnumUserType } from "../../../../services/types/i-user";
 
-export type EvaAccessMode =
-	| "anonymous"
-	| "nutriz"
-	| "adm"
-	| "nurse"
-	| "driver";
+export type EvaAccessMode = "anonymous" | "nutriz" | "adm" | "nurse" | "driver";
 
 const MODO_POR_PAPEL: Record<EnumUserType, EvaAccessMode> = {
 	[EnumUserType.Common]: "nutriz",

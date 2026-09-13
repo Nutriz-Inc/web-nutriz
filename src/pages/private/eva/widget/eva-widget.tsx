@@ -214,7 +214,24 @@ export function EvaWidget() {
 								{...modalMotion}
 							>
 								{view === "ajuda" ? null : view === "welcome" ? (
-									<div className="eva-widget-header eva-widget-header--bare">
+									<>
+										<button
+											type="button"
+											className="eva-widget-ajuda eva-widget-ajuda--solto"
+											onClick={abrirAjuda}
+											aria-label="Como usar a EVA"
+										>
+											?
+										</button>
+										<div className="eva-widget-header eva-widget-header--bare">
+											<CloseButton />
+											<Dialog.Title className="sr-only">
+												Assistente EVA
+											</Dialog.Title>
+										</div>
+									</>
+								) : (
+									<div className="eva-widget-header eva-widget-header--chat">
 										<button
 											type="button"
 											className="eva-widget-ajuda"
@@ -223,28 +240,12 @@ export function EvaWidget() {
 										>
 											?
 										</button>
-										<CloseButton />
-										<Dialog.Title className="sr-only">
-											Assistente EVA
-										</Dialog.Title>
-									</div>
-								) : (
-									<div className="eva-widget-header eva-widget-header--chat">
-										<span className="eva-widget-header-spacer" aria-hidden />
 										<Dialog.Title className="eva-widget-header-title">
 											EVA
 											{rotuloDoModo ? (
 												<span className="eva-widget-modo">{rotuloDoModo}</span>
 											) : null}
 										</Dialog.Title>
-										<button
-											type="button"
-											className="eva-widget-ajuda"
-											onClick={abrirAjuda}
-											aria-label="Como usar a EVA"
-										>
-											?
-										</button>
 										<CloseButton />
 									</div>
 								)}
@@ -257,6 +258,7 @@ export function EvaWidget() {
 										<EvaHelpPanel
 											mode={mode}
 											onBack={() => setView(viewAnterior)}
+											onPerguntar={(pergunta) => startChat(pergunta)}
 										/>
 									</>
 								) : view === "welcome" ? (

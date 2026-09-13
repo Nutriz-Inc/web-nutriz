@@ -660,26 +660,25 @@
 	flex-direction: column;
 	height: 100%;
 	min-height: 0;
-	background: var(--eva-surface, #fff);
 }
 
 .eva-help-topo {
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	padding: 18px 16px 12px;
-	border-bottom: 1px solid var(--eva-linha, rgba(15, 31, 61, 0.08));
+	padding: 14px 16px;
+	flex-shrink: 0;
 }
 
 .eva-help-voltar {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 36px;
-	height: 36px;
+	width: 34px;
+	height: 34px;
 	border-radius: 999px;
-	border: 1px solid var(--eva-linha, rgba(15, 31, 61, 0.1));
-	background: transparent;
+	border: none;
+	background: var(--eva-surface-2, rgba(15, 31, 61, 0.05));
 	color: var(--eva-ink);
 	cursor: pointer;
 	transition: background-color 150ms ease;
@@ -687,11 +686,11 @@
 
 .eva-help-voltar:hover {
 	background: var(--eva-tint);
+	color: var(--eva-deep);
 }
 
-.eva-help-titulo {
-	margin: 0;
-	font-size: 16px;
+.eva-help-topo-titulo {
+	font-size: 15px;
 	font-weight: 700;
 	color: var(--eva-ink);
 }
@@ -699,11 +698,41 @@
 .eva-help-corpo {
 	display: flex;
 	flex-direction: column;
-	gap: 22px;
+	gap: 18px;
 	flex: 1;
 	min-height: 0;
 	overflow-y: auto;
-	padding: 18px 18px 8px;
+	padding: 2px 16px 20px;
+}
+
+.eva-help-capa {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 16px;
+	border-radius: 20px;
+	background: var(--gradient-eva, linear-gradient(140deg, #fdf0f4, #f191a8));
+}
+
+.eva-help-capa-texto {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	min-width: 0;
+}
+
+.eva-help-capa-modo {
+	margin-left: 0;
+	align-self: flex-start;
+	background: rgba(255, 255, 255, 0.82);
+}
+
+.eva-help-capa-descricao {
+	margin: 0;
+	font-size: 13.5px;
+	line-height: 1.5;
+	font-weight: 500;
+	color: var(--eva-ink);
 }
 
 .eva-help-bloco {
@@ -713,78 +742,110 @@
 }
 
 .eva-help-secao {
+	display: flex;
+	align-items: center;
+	gap: 6px;
 	margin: 0;
-	font-size: 13px;
+	font-size: 11.5px;
 	font-weight: 700;
-	letter-spacing: 0.02em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
+	color: var(--eva-ink-3, #626e82);
+}
+
+.eva-help-secao--cartao {
 	color: var(--eva-deep);
+}
+
+.eva-help-perguntas {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.eva-help-pergunta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	width: 100%;
+	padding: 12px 14px;
+	border-radius: 14px;
+	border: 1px solid var(--eva-linha, rgba(15, 31, 61, 0.08));
+	background: #fff;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.4;
+	text-align: left;
+	color: var(--eva-ink);
+	cursor: pointer;
+	transition:
+		border-color 150ms ease,
+		box-shadow 150ms ease,
+		transform 150ms ease;
+}
+
+.eva-help-pergunta:hover {
+	border-color: var(--eva-bright, #f191a8);
+	box-shadow: 0 6px 18px rgba(209, 91, 116, 0.12);
+	transform: translateY(-1px);
+}
+
+.eva-help-pergunta-seta {
+	flex: 0 0 auto;
+	color: var(--eva-deep);
+	opacity: 0.5;
+}
+
+.eva-help-cartao {
+	padding: 14px;
+	border-radius: 16px;
+}
+
+.eva-help-cartao--limite {
+	background: var(--eva-surface-2, rgba(15, 31, 61, 0.035));
+}
+
+.eva-help-cartao--dica {
+	background: var(--eva-tint);
 }
 
 .eva-help-lista {
 	display: flex;
 	flex-direction: column;
-	gap: 9px;
+	gap: 7px;
 	margin: 0;
-	padding: 0;
-	list-style: none;
+	padding: 0 0 0 16px;
+	list-style: disc;
 }
 
 .eva-help-item {
-	display: flex;
-	align-items: flex-start;
-	gap: 9px;
-	font-size: 14px;
+	font-size: 13.5px;
 	line-height: 1.5;
 	color: var(--eva-ink-2, #42506b);
 }
 
-.eva-help-marca {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	flex: 0 0 auto;
-	width: 18px;
-	height: 18px;
-	margin-top: 2px;
-	border-radius: 999px;
-}
-
-.eva-help-marca--ok {
-	background: rgba(14, 110, 86, 0.12);
-	color: #0e6e56;
-}
-
-.eva-help-marca--nao {
-	background: rgba(163, 45, 45, 0.12);
-	color: #a32d2d;
-}
-
-.eva-help-marca--dica {
-	background: var(--eva-tint);
-	color: var(--eva-deep);
+.eva-help-item::marker {
+	color: var(--eva-bright, #f191a8);
 }
 
 .eva-help-rodape {
-	margin: 0 0 4px;
-	font-size: 12px;
+	margin: 2px 0 0;
+	font-size: 11.5px;
 	line-height: 1.5;
+	text-align: center;
 	color: var(--eva-ink-3, #626e82);
-}
-
-.eva-help-cta {
-	margin: 0 18px 18px;
 }
 
 .eva-widget-ajuda {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 30px;
-	height: 30px;
+	width: 34px;
+	height: 34px;
 	border-radius: 999px;
-	border: 1px solid var(--eva-linha, rgba(15, 31, 61, 0.1));
-	background: var(--eva-surface-2, rgba(15, 31, 61, 0.04));
+	border: none;
+	background: var(--eva-surface-2, rgba(15, 31, 61, 0.05));
 	color: var(--eva-ink-3, #626e82);
 	font-size: 15px;
 	font-weight: 700;
@@ -800,8 +861,20 @@
 	color: var(--eva-deep);
 }
 
-.eva-widget-header--bare {
-	display: flex;
+.eva-widget-ajuda--solto {
+	position: absolute;
+	top: 27px;
+	left: 16px;
+	z-index: 2;
+}
+
+.eva-help-capa-placa {
+	display: inline-flex;
 	align-items: center;
-	gap: 8px;
+	justify-content: center;
+	flex: 0 0 auto;
+	padding: 6px;
+	border-radius: 18px;
+	background: #fff;
+	box-shadow: 0 4px 14px rgba(209, 91, 116, 0.18);
 }

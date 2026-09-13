@@ -7,15 +7,22 @@ import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { ActiveDonationsByStepCard } from "./components/ActiveDonationsByStepCard";
 import { BottlesCard } from "./components/BottlesCard";
+import { GerarRelatorioButton } from "./components/GerarRelatorioButton";
 import { MilkCollectedCard } from "./components/MilkCollectedCard";
 import { PeriodFilter } from "./components/PeriodFilter";
 import { RecurrenceCard } from "./components/RecurrenceCard";
 import { RouteStatsCard } from "./components/RouteStatsCard";
+import { RelatorioDoDashboard } from "./components/report/RelatorioDoDashboard";
 import { SatisfactionCard } from "./components/SatisfactionCard";
 import { StatCard } from "./components/StatCard";
 import type { PeriodPreset } from "./constants";
 import { useQueryAdmDashboard } from "./hooks";
-import { getPeriodPresetRange } from "./utils";
+import { useRelatorio } from "./hooks/use-relatorio";
+import {
+	descreverEmissao,
+	descreverPeriodo,
+	getPeriodPresetRange,
+} from "./utils";
 
 export function AdmDashboardPage() {
 	const { auth } = useAuth();
@@ -47,6 +54,8 @@ export function AdmDashboardPage() {
 	const { dashboardQuery } = useQueryAdmDashboard(requestParams);
 	const data = dashboardQuery.data;
 
+	const { emitidoEm, gerarRelatorio } = useRelatorio(!!data);
+
 	return (
 		<Page
 			title="Dashboard"
@@ -55,9 +64,24 @@ export function AdmDashboardPage() {
 			error={dashboardQuery.isError ? dashboardQuery.error : undefined}
 			onRetry={() => dashboardQuery.refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}
-			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			titleClassName="print:hidden lg:mx-auto lg:w-full lg:max-w-[1400px]"
+			actionSlot={
+				<GerarRelatorioButton
+					onGerar={gerarRelatorio}
+					disabled={!data || dashboardQuery.isFetching}
+				/>
+			}
 		>
-			<div className="flex flex-col gap-6 lg:mx-auto lg:w-full lg:max-w-[1400px]">
+			{emitidoEm ? (
+				<RelatorioDoDashboard
+					data={data}
+					periodo={descreverPeriodo(requestParams)}
+					emissao={descreverEmissao(emitidoEm)}
+					emitidoPor={auth?.name ?? "—"}
+				/>
+			) : null}
+
+			<div className="flex flex-col gap-6 print:hidden lg:mx-auto lg:w-full lg:max-w-[1400px]">
 				<PeriodFilter
 					preset={preset}
 					onPresetChange={handlePresetChange}
@@ -73,19 +97,19 @@ export function AdmDashboardPage() {
 					byMonth={data?.milk_collected_by_month ?? []}
 				/>
 
-				<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<StaggerItem>
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+					<StaggerItem className="h-full">
 						<ActiveDonationsByStepCard
 							activeDonationsByStep={data?.active_donations_by_step ?? []}
 						/>
 					</StaggerItem>
-					<StaggerItem>
+					<StaggerItem className="h-full">
 						<SatisfactionCard feedbackByScore={data?.feedback_by_score ?? []} />
 					</StaggerItem>
 				</StaggerGroup>
 
-				<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<StaggerItem>
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+					<StaggerItem className="h-full">
 						<BottlesCard
 							stats={{
 								bottles_count: data?.bottles_count ?? 0,
@@ -95,13 +119,13 @@ export function AdmDashboardPage() {
 							}}
 						/>
 					</StaggerItem>
-					<StaggerItem>
+					<StaggerItem className="h-full">
 						<RecurrenceCard rate={data?.donor_recurrence_rate ?? 0} />
 					</StaggerItem>
 				</StaggerGroup>
 
-				<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<StaggerItem>
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+					<StaggerItem className="h-full">
 						<StatCard
 							icon={<Clock className="size-4 text-blue-deep" />}
 							iconBg="bg-blue-tint"
@@ -113,7 +137,7 @@ export function AdmDashboardPage() {
 							footnote="Média de horas até o primeiro agendamento"
 						/>
 					</StaggerItem>
-					<StaggerItem>
+					<StaggerItem className="h-full">
 						<StatCard
 							icon={<AlertTriangle className="size-4 text-eva-deep" />}
 							iconBg="bg-danger-tint"

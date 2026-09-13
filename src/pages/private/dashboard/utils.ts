@@ -1,3 +1,4 @@
+import { formatDateBR } from "@/utils/formatter";
 import type { PeriodPreset } from "./constants";
 
 function toIsoDate(date: Date): string {
@@ -58,4 +59,25 @@ export function formatOptionalDecimal(
 	if (value == null) return "—";
 
 	return `${formatDecimal(value, fractionDigits)}${suffix}`;
+}
+
+export function descreverPeriodo(params: {
+	start_date?: string;
+	end_date?: string;
+}): string {
+	if (!params.start_date || !params.end_date) {
+		return "Todo o histórico";
+	}
+
+	return `${formatDateBR(params.start_date)} a ${formatDateBR(params.end_date)}`;
+}
+
+export function descreverEmissao(data: Date): string {
+	const dia = data.toLocaleDateString("pt-BR");
+	const hora = data.toLocaleTimeString("pt-BR", {
+		hour: "2-digit",
+		minute: "2-digit",
+	});
+
+	return `${dia} às ${hora}`;
 }

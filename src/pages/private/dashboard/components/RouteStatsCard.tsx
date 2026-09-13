@@ -22,10 +22,9 @@ export function RouteStatsCard({ stats }: RouteStatsCardProps) {
 		average_route_duration_hours != null;
 
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
+		<div className="flex h-full w-full flex-col gap-[22px] rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
-				icon={<Route className="size-4 text-teal" />}
-				iconBg="bg-teal-tint"
+				icon={<Route className="size-[15px]" strokeWidth={1.6} />}
 				title="Eficiência das Rotas"
 				subtitle="Médias por rota concluída no período"
 			/>
@@ -37,19 +36,19 @@ export function RouteStatsCard({ stats }: RouteStatsCardProps) {
 			) : (
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
 					<RouteStatItem
-						icon={<Navigation className="size-4 shrink-0 text-teal" />}
+						icon={<Navigation className="size-[15px]" strokeWidth={1.6} />}
 						label="Quilometragem média"
 						value={formatOptionalDecimal(average_mileage_per_route, " km")}
 						hint="Distância percorrida por rota"
 					/>
 					<RouteStatItem
-						icon={<MapPin className="size-4 shrink-0 text-teal" />}
+						icon={<MapPin className="size-[15px]" strokeWidth={1.6} />}
 						label="Paradas por rota"
 						value={formatOptionalDecimal(average_stops_per_route)}
 						hint="Etapas atendidas em cada saída"
 					/>
 					<RouteStatItem
-						icon={<Timer className="size-4 shrink-0 text-teal" />}
+						icon={<Timer className="size-[15px]" strokeWidth={1.6} />}
 						label="Duração média"
 						value={formatOptionalDecimal(average_route_duration_hours, "h")}
 						hint={

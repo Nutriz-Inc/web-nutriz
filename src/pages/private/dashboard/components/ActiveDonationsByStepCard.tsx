@@ -1,13 +1,24 @@
 import { ListChecks } from "lucide-react";
+import { Bar, BarChart, Cell, LabelList, XAxis, YAxis } from "recharts";
+import {
+	type ChartConfig,
+	ChartContainer,
+	ChartTooltip,
+	ChartTooltipContent,
+} from "@/components/ui/chart";
 import type { ActiveDonationsByStep } from "@/services/types/i-dashboard";
 import { STEP_NUMBER } from "@/utils/constants";
 import { STEP_DISPLAY } from "@/utils/status";
-import { BAR_SHADES } from "../constants";
+import { CORES_DO_GRAFICO } from "./charts/paleta";
 import { DashboardCardHeader } from "./DashboardCardHeader";
 
 type ActiveDonationsByStepCardProps = {
 	activeDonationsByStep: ActiveDonationsByStep[];
 };
+
+const configuracao = {
+	count: { label: "Doações" },
+} satisfies ChartConfig;
 
 export function ActiveDonationsByStepCard({
 	activeDonationsByStep,
@@ -16,14 +27,23 @@ export function ActiveDonationsByStepCard({
 		(a, b) => STEP_NUMBER[a.step] - STEP_NUMBER[b.step],
 	);
 	const total = sorted.reduce((sum, item) => sum + item.count, 0);
+	const gargalo = sorted.reduce(
+		(acumulado, item) => (item.count > acumulado.count ? item : acumulado),
+		sorted[0],
+	);
+
+	const dados = sorted.map((item) => ({
+		etapa: STEP_DISPLAY[item.step]?.label ?? item.step,
+		count: item.count,
+		ehGargalo: item.step === gargalo?.step,
+	}));
 
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
+		<div className="flex h-full w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
-				icon={<ListChecks className="size-4 text-blue-deep" />}
-				iconBg="bg-canvas"
+				icon={<ListChecks className="size-[15px]" strokeWidth={1.6} />}
 				title="Doações Ativas por Etapa"
-				subtitle="Distribuição das doações em andamento no período"
+				subtitle="Onde as doações em andamento estão paradas"
 			/>
 
 			{total === 0 ? (
@@ -32,41 +52,72 @@ export function ActiveDonationsByStepCard({
 				</p>
 			) : (
 				<>
-					<div className="flex flex-col gap-3.5">
-						{sorted.map((item, index) => {
-							const display = STEP_DISPLAY[item.step] ?? {
-								label: item.step,
-							};
-							const percentage = Math.max(
-								0,
-								Math.min(100, Math.round(item.percentage)),
-							);
+					<ChartContainer
+						config={configuracao}
+						className="aspect-auto h-[168px] w-full"
+					>
+						<BarChart
+							accessibilityLayer
+							data={dados}
+							layout="vertical"
+							margin={{ left: 0, right: 32, top: 0, bottom: 0 }}
+							barCategoryGap={6}
+						>
+							<XAxis type="number" dataKey="count" hide />
+							<YAxis
+								dataKey="etapa"
+								type="category"
+								tickLine={false}
+								axisLine={false}
+								width={116}
+								tick={{ fontSize: 12 }}
+							/>
+							<ChartTooltip
+								cursor={false}
+								content={<ChartTooltipContent hideLabel />}
+							/>
+							<Bar dataKey="count" radius={6} barSize={20}>
+								{dados.map((item) => (
+									<Cell
+										key={item.etapa}
+										fill={
+											item.ehGargalo
+												? CORES_DO_GRAFICO.roxo
+												: CORES_DO_GRAFICO.trilho
+										}
+									/>
+								))}
+								<LabelList
+									dataKey="count"
+									position="right"
+									offset={10}
+									className="fill-ink text-[12px] font-bold"
+								/>
+							</Bar>
+						</BarChart>
+					</ChartContainer>
 
-							return (
-								<div key={item.step} className="flex items-center gap-3">
-									<p className="w-10 shrink-0 text-right text-[13px] font-bold text-ink-2">
-										{percentage}%
-									</p>
-									<div className="h-6 flex-1 overflow-hidden rounded-md bg-surface-3">
-										<div
-											className={`h-full rounded-md ${BAR_SHADES[index % BAR_SHADES.length]}`}
-											style={{ width: `${percentage}%` }}
-										/>
-									</div>
-									<p className="flex w-[160px] shrink-0 items-baseline gap-1 text-[12px]">
-										<span className="truncate text-ink">{display.label}</span>
-										<span className="shrink-0 text-ink-3">({item.count})</span>
-									</p>
-								</div>
-							);
-						})}
-					</div>
-
-					<div className="h-px w-full bg-blue-tint" />
-
-					<div className="flex flex-col gap-0.5">
-						<p className="text-[11px] text-ink-3">Total de doações ativas</p>
-						<p className="text-[16px] font-bold text-ink">{total}</p>
+					<div className="mt-auto flex flex-col gap-3">
+						<div className="h-px w-full bg-blue-tint" />
+						<div className="flex items-end justify-between gap-4">
+							<div className="flex flex-col gap-0.5">
+								<p className="text-[11px] text-ink-3">
+									Total de doações ativas
+								</p>
+								<p className="text-[16px] font-bold tabular-nums text-ink">
+									{total}
+								</p>
+							</div>
+							{gargalo ? (
+								<p className="max-w-[60%] text-right text-[12px] leading-snug text-ink-2">
+									A maior fila está em{" "}
+									<span className="font-semibold text-ink">
+										{STEP_DISPLAY[gargalo.step]?.label ?? gargalo.step}
+									</span>
+									.
+								</p>
+							) : null}
+						</div>
 					</div>
 				</>
 			)}

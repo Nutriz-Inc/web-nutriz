@@ -73,19 +73,19 @@ export function AdmDashboardPage() {
 					byMonth={data?.milk_collected_by_month ?? []}
 				/>
 
-				<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<StaggerItem>
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+					<StaggerItem className="h-full">
 						<ActiveDonationsByStepCard
 							activeDonationsByStep={data?.active_donations_by_step ?? []}
 						/>
 					</StaggerItem>
-					<StaggerItem>
+					<StaggerItem className="h-full">
 						<SatisfactionCard feedbackByScore={data?.feedback_by_score ?? []} />
 					</StaggerItem>
 				</StaggerGroup>
 
-				<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<StaggerItem>
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+					<StaggerItem className="h-full">
 						<BottlesCard
 							stats={{
 								bottles_count: data?.bottles_count ?? 0,
@@ -95,13 +95,13 @@ export function AdmDashboardPage() {
 							}}
 						/>
 					</StaggerItem>
-					<StaggerItem>
+					<StaggerItem className="h-full">
 						<RecurrenceCard rate={data?.donor_recurrence_rate ?? 0} />
 					</StaggerItem>
 				</StaggerGroup>
 
-				<StaggerGroup className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<StaggerItem>
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+					<StaggerItem className="h-full">
 						<StatCard
 							icon={<Clock className="size-4 text-blue-deep" />}
 							iconBg="bg-blue-tint"
@@ -113,7 +113,7 @@ export function AdmDashboardPage() {
 							footnote="Média de horas até o primeiro agendamento"
 						/>
 					</StaggerItem>
-					<StaggerItem>
+					<StaggerItem className="h-full">
 						<StatCard
 							icon={<AlertTriangle className="size-4 text-eva-deep" />}
 							iconBg="bg-danger-tint"

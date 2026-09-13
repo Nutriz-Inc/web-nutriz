@@ -1,12 +1,20 @@
 import { FlaskConical } from "lucide-react";
-import { CountUp } from "@/components/full/CountUp";
+import type { ChartConfig } from "@/components/ui/chart";
 import type { BottleStats } from "@/services/types/i-dashboard";
 import { formatDecimal, toPercent } from "../utils";
+import { LegendaDeSeries } from "./charts/LegendaDeSeries";
+import { CORES_DO_GRAFICO } from "./charts/paleta";
+import { RoscaComCentro } from "./charts/RoscaComCentro";
 import { DashboardCardHeader } from "./DashboardCardHeader";
 
 type BottlesCardProps = {
 	stats: BottleStats;
 };
+
+const configuracao = {
+	aproveitados: { label: "Aproveitados", color: CORES_DO_GRAFICO.roxo },
+	descartados: { label: "Descartados", color: CORES_DO_GRAFICO.vermelho },
+} satisfies ChartConfig;
 
 export function BottlesCard({ stats }: BottlesCardProps) {
 	const {
@@ -18,13 +26,24 @@ export function BottlesCard({ stats }: BottlesCardProps) {
 
 	const utilizationPercent = toPercent(bottles_utilization_rate);
 	const usedCount = Math.max(bottles_count - discarded_bottles_count, 0);
-	const usedPercent = bottles_count ? (usedCount / bottles_count) * 100 : 0;
+
+	const fatias = [
+		{
+			chave: "aproveitados",
+			valor: usedCount,
+			cor: CORES_DO_GRAFICO.roxo,
+		},
+		{
+			chave: "descartados",
+			valor: discarded_bottles_count,
+			cor: CORES_DO_GRAFICO.vermelho,
+		},
+	];
 
 	return (
-		<div className="flex w-full flex-col gap-[22px] rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
+		<div className="flex h-full w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
-				icon={<FlaskConical className="size-4 text-blue-deep" />}
-				iconBg="bg-canvas"
+				icon={<FlaskConical className="size-[15px]" strokeWidth={1.6} />}
 				title="Aproveitamento dos Frascos"
 				subtitle="Frascos utilizados e descartados no período"
 			/>
@@ -35,51 +54,45 @@ export function BottlesCard({ stats }: BottlesCardProps) {
 				</p>
 			) : (
 				<>
-					<div className="flex flex-col gap-3">
-						<div className="flex items-baseline justify-between gap-3">
-							<p className="text-[28px] font-medium tabular-nums text-ink">
-								<CountUp value={utilizationPercent} suffix="%" />
-							</p>
-							<p className="text-[12px] text-ink-3">Taxa de aproveitamento</p>
-						</div>
+					<div className="flex items-center gap-4 sm:gap-6">
+						<RoscaComCentro
+							config={configuracao}
+							fatias={fatias}
+							destaque={`${utilizationPercent}%`}
+							legenda="aproveitados"
+						/>
 
-						<div className="flex h-8 w-full overflow-hidden rounded-md bg-ink-3/[0.13]">
-							<div
-								className="h-full bg-blue-deep"
-								style={{ width: `${usedPercent}%` }}
-							/>
-							<div
-								className="h-full bg-eva/70"
-								style={{ width: `${100 - usedPercent}%` }}
-							/>
-						</div>
-
-						<div className="flex items-center gap-2.5">
-							<span className="size-[9px] rounded-full bg-blue-deep" />
-							<p className="text-[12px] text-ink-2">Aproveitados</p>
-							<span className="size-[9px] rounded-full bg-eva/70" />
-							<p className="text-[12px] text-ink-2">Descartados</p>
-						</div>
+						<LegendaDeSeries
+							itens={[
+								{
+									rotulo: "Aproveitados",
+									valor: usedCount,
+									cor: CORES_DO_GRAFICO.roxo,
+								},
+								{
+									rotulo: "Descartados",
+									valor: discarded_bottles_count,
+									cor: CORES_DO_GRAFICO.vermelho,
+								},
+							]}
+						/>
 					</div>
 
-					<div className="h-px w-full bg-blue-tint" />
-
-					<div className="flex gap-8">
-						<div className="flex flex-col gap-0.5">
-							<p className="text-[11px] text-ink-3">Frascos coletados</p>
-							<p className="text-[16px] font-bold text-ink">{bottles_count}</p>
-						</div>
-						<div className="flex flex-col gap-0.5">
-							<p className="text-[11px] text-ink-3">Descartados</p>
-							<p className="text-[16px] font-bold text-eva-deep">
-								{discarded_bottles_count}
-							</p>
-						</div>
-						<div className="flex flex-col gap-0.5">
-							<p className="text-[11px] text-ink-3">Média por doadora</p>
-							<p className="text-[16px] font-bold text-ink">
-								{formatDecimal(average_bottles_per_donor)}
-							</p>
+					<div className="mt-auto flex flex-col gap-3">
+						<div className="h-px w-full bg-blue-tint" />
+						<div className="flex gap-8">
+							<div className="flex flex-col gap-0.5">
+								<p className="text-[11px] text-ink-3">Frascos coletados</p>
+								<p className="text-[16px] font-bold tabular-nums text-ink">
+									{bottles_count}
+								</p>
+							</div>
+							<div className="flex flex-col gap-0.5">
+								<p className="text-[11px] text-ink-3">Média por doadora</p>
+								<p className="text-[16px] font-bold tabular-nums text-ink">
+									{formatDecimal(average_bottles_per_donor)}
+								</p>
+							</div>
 						</div>
 					</div>
 				</>

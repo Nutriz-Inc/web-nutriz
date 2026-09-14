@@ -24,15 +24,17 @@ export function LandingPageScreen() {
 				<SectionRibbon
 					nome="passos-pontos"
 					fundoClassName="bg-surface-2"
+					corDeCimaClassName="text-surface-2"
 					corDeBaixoClassName="text-surface"
-					className="h-24 sm:h-28 lg:h-32"
+					className="h-36 sm:h-44 lg:h-52"
 				/>
 				<CollectionPointsSection />
 				<SectionRibbon
 					nome="pontos-eva"
 					fundoClassName="bg-surface"
+					corDeCimaClassName="text-surface"
 					corDeBaixoClassName="text-surface"
-					className="h-24 sm:h-28 lg:h-32"
+					className="h-36 sm:h-44 lg:h-52"
 				/>
 				<EvaSection />
 				<SectionWave

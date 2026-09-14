@@ -3,6 +3,7 @@ import { SectionWave } from "./SectionWave";
 
 type SectionRibbonProps = {
 	nome: string;
+	corDeCimaClassName: string;
 	corDeBaixoClassName: string;
 	fundoClassName: string;
 	className?: string;
@@ -10,6 +11,7 @@ type SectionRibbonProps = {
 
 export function SectionRibbon({
 	nome,
+	corDeCimaClassName,
 	corDeBaixoClassName,
 	fundoClassName,
 	className,
@@ -39,6 +41,12 @@ export function SectionRibbon({
 				nome={nome}
 				corDeBaixoClassName={corDeBaixoClassName}
 				className="absolute inset-0"
+			/>
+			<SectionWave
+				nome={`${nome}-topo`}
+				corDeBaixoClassName={corDeCimaClassName}
+				velocidade={0.8}
+				className="absolute inset-x-0 top-0 h-[38%] rotate-180"
 			/>
 		</div>
 	);

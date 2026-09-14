@@ -6,6 +6,7 @@ import { HeroSection } from "./components/HeroSection";
 import { HowItWorksSection } from "./components/HowItWorksSection";
 import { LandingFooter } from "./components/LandingFooter";
 import { LandingHeader } from "./components/LandingHeader";
+import { SectionRibbon } from "./components/SectionRibbon";
 import { SectionWave } from "./components/SectionWave";
 import { TestimonialsSection } from "./components/TestimonialsSection";
 
@@ -20,13 +21,19 @@ export function LandingPageScreen() {
 				<div className="flex flex-col bg-surface-2">
 					<HowItWorksSection />
 				</div>
-				<SectionWave
+				<SectionRibbon
 					nome="passos-pontos"
 					fundoClassName="bg-surface-2"
 					corDeBaixoClassName="text-surface"
-					className={ALTURA_DA_ONDA}
+					className="h-20 sm:h-24 lg:h-28"
 				/>
 				<CollectionPointsSection />
+				<SectionRibbon
+					nome="pontos-eva"
+					fundoClassName="bg-surface"
+					corDeBaixoClassName="text-surface"
+					className="h-20 sm:h-24 lg:h-28"
+				/>
 				<EvaSection />
 				<SectionWave
 					nome="eva-artigos"

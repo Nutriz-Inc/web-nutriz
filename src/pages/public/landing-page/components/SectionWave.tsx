@@ -22,8 +22,11 @@ const cristaDaOnda = (
 		`${deslocamento + LARGURA},${altura}`,
 	].join(" ");
 
+const linhaDaOnda = (altura: number, amplitude: number) =>
+	`M${cristaDaOnda(altura, amplitude, 0)} L${cristaDaOnda(altura, amplitude, LARGURA)}`;
+
 const faixaDaOnda = (altura: number, amplitude: number) =>
-	`M${cristaDaOnda(altura, amplitude, 0)} L${cristaDaOnda(altura, amplitude, LARGURA)} L${LARGURA * 2},${ALTURA} L0,${ALTURA} Z`;
+	`${linhaDaOnda(altura, amplitude)} L${LARGURA * 2},${ALTURA} L0,${ALTURA} Z`;
 
 type CamadaProps = {
 	id: string;
@@ -32,6 +35,8 @@ type CamadaProps = {
 	duracao: number;
 	opacidadeDaCrista: number;
 	parado: boolean;
+	traco?: boolean;
+	espessura?: number;
 };
 
 function Camada({
@@ -41,6 +46,8 @@ function Camada({
 	duracao,
 	opacidadeDaCrista,
 	parado,
+	traco = false,
+	espessura = 2,
 }: CamadaProps) {
 	return (
 		<motion.svg
@@ -74,7 +81,19 @@ function Camada({
 					<stop offset="100%" stopColor="currentColor" stopOpacity="1" />
 				</linearGradient>
 			</defs>
-			<path d={faixaDaOnda(altura, amplitude)} fill={`url(#${id})`} />
+			{traco ? (
+				<path
+					d={linhaDaOnda(altura, amplitude)}
+					fill="none"
+					stroke="currentColor"
+					strokeWidth={espessura}
+					strokeLinecap="round"
+					opacity={opacidadeDaCrista}
+					vectorEffect="non-scaling-stroke"
+				/>
+			) : (
+				<path d={faixaDaOnda(altura, amplitude)} fill={`url(#${id})`} />
+			)}
 		</motion.svg>
 	);
 }
@@ -84,6 +103,8 @@ type SectionWaveProps = {
 	corDeBaixoClassName: string;
 	fundoClassName?: string;
 	className?: string;
+	modo?: "preenchido" | "traco";
+	velocidade?: number;
 };
 
 export function SectionWave({
@@ -91,6 +112,8 @@ export function SectionWave({
 	corDeBaixoClassName,
 	fundoClassName,
 	className,
+	modo = "preenchido",
+	velocidade = 1,
 }: SectionWaveProps) {
 	const shouldReduceMotion = useReducedMotion();
 	const parado = shouldReduceMotion ?? false;
@@ -105,30 +128,67 @@ export function SectionWave({
 				className,
 			)}
 		>
-			<Camada
-				id={`${nome}-fundo`}
-				altura={150}
-				amplitude={62}
-				duracao={26}
-				opacidadeDaCrista={0.12}
-				parado={parado}
-			/>
-			<Camada
-				id={`${nome}-meio`}
-				altura={118}
-				amplitude={48}
-				duracao={18}
-				opacidadeDaCrista={0.22}
-				parado={parado}
-			/>
-			<Camada
-				id={`${nome}-frente`}
-				altura={86}
-				amplitude={34}
-				duracao={12}
-				opacidadeDaCrista={0.4}
-				parado={parado}
-			/>
+			{modo === "traco" ? (
+				<>
+					<Camada
+						id={`${nome}-traco-fundo`}
+						altura={150}
+						amplitude={44}
+						duracao={30 / velocidade}
+						opacidadeDaCrista={0.3}
+						espessura={1}
+						traco
+						parado={parado}
+					/>
+					<Camada
+						id={`${nome}-traco-meio`}
+						altura={128}
+						amplitude={32}
+						duracao={20 / velocidade}
+						opacidadeDaCrista={0.55}
+						espessura={1.5}
+						traco
+						parado={parado}
+					/>
+					<Camada
+						id={`${nome}-traco-frente`}
+						altura={110}
+						amplitude={22}
+						duracao={13 / velocidade}
+						opacidadeDaCrista={0.9}
+						espessura={2}
+						traco
+						parado={parado}
+					/>
+				</>
+			) : (
+				<>
+					<Camada
+						id={`${nome}-fundo`}
+						altura={150}
+						amplitude={62}
+						duracao={26 / velocidade}
+						opacidadeDaCrista={0.12}
+						parado={parado}
+					/>
+					<Camada
+						id={`${nome}-meio`}
+						altura={118}
+						amplitude={48}
+						duracao={18 / velocidade}
+						opacidadeDaCrista={0.22}
+						parado={parado}
+					/>
+					<Camada
+						id={`${nome}-frente`}
+						altura={86}
+						amplitude={34}
+						duracao={12 / velocidade}
+						opacidadeDaCrista={0.4}
+						parado={parado}
+					/>
+				</>
+			)}
 		</div>
 	);
 }

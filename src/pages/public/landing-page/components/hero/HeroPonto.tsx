@@ -4,7 +4,7 @@ export function HeroPonto() {
 			<span className="sr-only">.</span>
 			<span
 				aria-hidden="true"
-				className="ml-[0.035em] inline-block size-[0.115em] rounded-full bg-amber align-baseline"
+				className="ml-[0.035em] inline-block size-[0.115em] rounded-full bg-current align-baseline"
 			/>
 		</>
 	);

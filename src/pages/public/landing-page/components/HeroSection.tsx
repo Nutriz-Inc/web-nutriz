@@ -64,8 +64,10 @@ export function HeroSection() {
 						Doar <HeroDourado>Amor</HeroDourado>
 						<HeroPonto />
 						<br />
-						Multiplica <HeroDourado>Vidas</HeroDourado>
-						<HeroPonto />
+						<span className="text-amber">
+							Multiplica <HeroDourado>Vidas</HeroDourado>
+							<HeroPonto />
+						</span>
 					</motion.h1>
 
 					<motion.p

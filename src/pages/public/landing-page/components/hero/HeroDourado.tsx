@@ -14,7 +14,7 @@ type HeroDouradoProps = {
 
 export function HeroDourado({ children }: HeroDouradoProps) {
 	return (
-		<span style={SERIFA} className="inline-block px-[0.02em] text-amber">
+		<span style={SERIFA} className="inline-block px-[0.02em]">
 			{children}
 		</span>
 	);

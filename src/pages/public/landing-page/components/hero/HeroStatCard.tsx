@@ -45,7 +45,7 @@ export function HeroStatCard({
 					className="whitespace-nowrap font-display text-[24px] font-bold leading-none text-ink-on-fill"
 				/>
 			</span>
-			<span className="relative mt-2.5 block text-[13px] font-semibold text-ink-on-fill">
+			<span className="relative mt-2.5 block text-[13px] font-semibold text-white lg:text-ink-on-fill">
 				{label}
 			</span>
 			<span className="relative block text-[12px] text-ink-on-fill/75">

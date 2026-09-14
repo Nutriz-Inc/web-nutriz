@@ -84,7 +84,6 @@ type SectionWaveProps = {
 	corDeBaixoClassName: string;
 	fundoClassName?: string;
 	className?: string;
-	semEntrada?: boolean;
 };
 
 export function SectionWave({
@@ -92,24 +91,12 @@ export function SectionWave({
 	corDeBaixoClassName,
 	fundoClassName,
 	className,
-	semEntrada = false,
 }: SectionWaveProps) {
 	const shouldReduceMotion = useReducedMotion();
 	const parado = shouldReduceMotion ?? false;
 
-	const entrada =
-		parado || semEntrada
-			? {}
-			: ({
-					initial: { y: "55%", opacity: 0 },
-					whileInView: { y: 0, opacity: 1 },
-					viewport: { once: true, margin: "-40px" },
-					transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as const },
-				} as const);
-
 	return (
-		<motion.div
-			{...entrada}
+		<div
 			aria-hidden="true"
 			className={cn(
 				"pointer-events-none relative overflow-hidden",
@@ -142,6 +129,6 @@ export function SectionWave({
 				opacidadeDaCrista={0.4}
 				parado={parado}
 			/>
-		</motion.div>
+		</div>
 	);
 }

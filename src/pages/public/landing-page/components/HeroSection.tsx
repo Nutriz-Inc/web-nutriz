@@ -1,5 +1,4 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { fadeScale, fadeUp, heroStagger } from "../animations/variants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
@@ -79,17 +78,11 @@ export function HeroSection() {
 						className="mt-9 flex flex-row flex-wrap items-center gap-3 sm:gap-5"
 					>
 						<HeroCta label="Quero doar" onClick={() => navigate("/registro")} />
-						<button
-							type="button"
+						<HeroCta
+							label="Saiba mais"
+							variante="contorno"
 							onClick={() => scrollToSection("como-funciona")}
-							className="group inline-flex h-12 items-center gap-2 rounded-full px-2 text-[15px] font-medium text-white outline-none transition-opacity hover:opacity-80 focus-visible:ring-3 focus-visible:ring-mint/60"
-						>
-							Saiba mais
-							<ArrowRight
-								aria-hidden="true"
-								className="size-4 transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1"
-							/>
-						</button>
+						/>
 					</motion.div>
 
 					<motion.span variants={fadeUp} className="mt-7 inline-flex">

@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 const FAIXA_DE_LUZ = [
 	"linear-gradient(100deg,",
 	"transparent 40%,",
-	"color-mix(in srgb, var(--amber) 45%, white) 47%,",
-	"color-mix(in srgb, var(--amber) 10%, white) 50%,",
-	"color-mix(in srgb, var(--amber) 45%, white) 53%,",
+	"color-mix(in srgb, var(--eva-bright) 45%, white) 47%,",
+	"color-mix(in srgb, var(--eva-bright) 10%, white) 50%,",
+	"color-mix(in srgb, var(--eva-bright) 45%, white) 53%,",
 	"transparent 60%)",
 ].join(" ");
 
@@ -35,7 +35,7 @@ export function HeroBrilho({ children, className }: HeroBrilhoProps) {
 	return (
 		<span
 			style={{ textShadow: SOMBRA }}
-			className={cn("relative inline-block text-amber", className)}
+			className={cn("relative inline-block text-eva-bright", className)}
 		>
 			{children}
 			{!shouldReduceMotion && (

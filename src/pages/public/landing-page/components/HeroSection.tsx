@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { fadeScale, fadeUp, heroStagger } from "../animations/variants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
+import { HeroBrilho } from "./hero/HeroBrilho";
 import { HeroCta } from "./hero/HeroCta";
 import { HeroEyebrow } from "./hero/HeroEyebrow";
 import { HeroPhoto } from "./hero/HeroPhoto";
@@ -61,7 +62,7 @@ export function HeroSection() {
 					>
 						Doar Amor.
 						<br />
-						<span className="font-semibold text-amber">Multiplica Vidas.</span>
+						<HeroBrilho className="font-semibold">Multiplica Vidas.</HeroBrilho>
 					</motion.h1>
 
 					<motion.p

@@ -51,11 +51,12 @@ export function LandingPageScreen() {
 					className={ALTURA_DA_ONDA}
 				/>
 				<TestimonialsSection />
-				<SectionWave
+				<SectionRibbon
 					nome="depoimentos-final"
 					fundoClassName="bg-surface"
+					corDeCimaClassName="text-surface"
 					corDeBaixoClassName="text-surface-2"
-					className={ALTURA_DA_ONDA}
+					className="h-36 sm:h-44 lg:h-52"
 				/>
 				<FinalCtaSection />
 			</main>

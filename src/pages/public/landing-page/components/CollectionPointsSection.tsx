@@ -56,7 +56,7 @@ export function CollectionPointsSection() {
 			align="center"
 			description="Busque pelo CEP ou use sua localização — a rota até o ponto mais próximo abre no mapa."
 			surfaceClassName="bg-surface"
-			className="pt-4 pb-4 sm:pt-6 sm:pb-6 lg:pt-8 lg:pb-8"
+			className="-mt-12 pt-0 pb-4 sm:-mt-16 sm:pb-6 lg:-mt-24 lg:pb-8"
 		>
 			<motion.div
 				{...painelReveal}

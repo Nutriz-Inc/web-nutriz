@@ -38,7 +38,7 @@ export function EvaSection() {
 			tone="eva"
 			description="A EVA acolhe você a qualquer hora — doação de leite, ordenha, armazenamento e amamentação. Sem fila, sem espera."
 			surfaceClassName="bg-surface"
-			className="pt-4 sm:pt-6 lg:pt-8"
+			className="-mt-12 pt-0 sm:-mt-16 lg:-mt-24"
 			semDivisoria
 		>
 			<motion.div {...reveal}>

@@ -13,7 +13,7 @@ export function HeroStats() {
 	return (
 		<motion.div
 			variants={statsStagger}
-			className="relative mt-20 grid grid-cols-2 gap-3 lg:absolute lg:inset-x-0 lg:bottom-8 lg:mx-auto lg:mt-0 lg:w-[56rem] lg:grid-cols-3 lg:gap-5"
+			className="relative mt-20 grid grid-cols-2 gap-3 lg:absolute lg:inset-x-0 lg:bottom-16 lg:mx-auto lg:mt-0 lg:w-[56rem] lg:grid-cols-3 lg:gap-5"
 		>
 			{METRICS.map((metric, indice) => (
 				<HeroStatCard

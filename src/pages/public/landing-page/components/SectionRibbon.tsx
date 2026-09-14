@@ -5,7 +5,6 @@ type SectionRibbonProps = {
 	nome: string;
 	corDeBaixoClassName: string;
 	fundoClassName: string;
-	fitaClassName?: string;
 	className?: string;
 };
 
@@ -13,7 +12,6 @@ export function SectionRibbon({
 	nome,
 	corDeBaixoClassName,
 	fundoClassName,
-	fitaClassName = "text-blue-tint",
 	className,
 }: SectionRibbonProps) {
 	return (
@@ -26,10 +24,16 @@ export function SectionRibbon({
 			)}
 		>
 			<SectionWave
+				nome={`${nome}-fita-funda`}
+				corDeBaixoClassName="text-blue-tint-2/70"
+				velocidade={0.4}
+				className="absolute inset-x-0 bottom-[52%] h-full"
+			/>
+			<SectionWave
 				nome={`${nome}-fita`}
-				corDeBaixoClassName={fitaClassName}
-				velocidade={0.55}
-				className="absolute inset-x-0 bottom-[34%] h-full"
+				corDeBaixoClassName="text-blue-tint"
+				velocidade={0.62}
+				className="absolute inset-x-0 bottom-[26%] h-full"
 			/>
 			<SectionWave
 				nome={nome}

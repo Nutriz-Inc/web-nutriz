@@ -1,9 +1,9 @@
+import "@fontsource/playfair-display/latin-500.css";
+import "@fontsource/playfair-display/latin-600.css";
 import { motion, useReducedMotion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { fadeScale, fadeUp, heroStagger } from "../animations/variants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
-import { HeroBrilho } from "./hero/HeroBrilho";
-import { HeroCta } from "./hero/HeroCta";
 import { HeroEyebrow } from "./hero/HeroEyebrow";
 import { HeroPhoto } from "./hero/HeroPhoto";
 import { HeroStats } from "./hero/HeroStats";
@@ -14,6 +14,9 @@ import {
 	HERO_OVERLAY_MOBILE,
 	HERO_OVERLAY_TOPO,
 } from "./hero/tokens";
+import { SlideButton } from "./SlideButton";
+
+const FONTE_DA_HEADLINE = '"Playfair Display", Georgia, serif';
 
 export function HeroSection() {
 	const navigate = useNavigate();
@@ -58,11 +61,12 @@ export function HeroSection() {
 
 					<motion.h1
 						variants={fadeUp}
-						className="mt-5 font-display text-[36px] font-medium leading-[1.08] tracking-[-0.02em] text-white min-[420px]:text-[42px] sm:text-[52px] lg:text-[56px] xl:text-[64px]"
+						style={{ fontFamily: FONTE_DA_HEADLINE }}
+						className="mt-5 text-[38px] font-medium leading-[1.1] tracking-[-0.01em] text-white min-[420px]:text-[44px] sm:text-[54px] lg:text-[58px] xl:text-[68px]"
 					>
 						Doar Amor.
 						<br />
-						<HeroBrilho className="font-semibold">Multiplica Vidas.</HeroBrilho>
+						Multiplica Vidas.
 					</motion.h1>
 
 					<motion.p
@@ -77,12 +81,17 @@ export function HeroSection() {
 						variants={fadeScale}
 						className="mt-9 flex flex-row flex-wrap items-center gap-3 sm:gap-5"
 					>
-						<HeroCta label="Quero doar" onClick={() => navigate("/registro")} />
-						<HeroCta
-							label="Saiba mais"
-							variante="contorno"
-							onClick={() => scrollToSection("como-funciona")}
+						<SlideButton
+							label="Quero doar"
+							onClick={() => navigate("/registro")}
 						/>
+						<button
+							type="button"
+							onClick={() => scrollToSection("como-funciona")}
+							className="inline-flex h-10 items-center rounded-full border border-white/30 px-5 text-[14px] font-medium text-white/90 outline-none transition-colors duration-300 hover:border-white/60 hover:bg-white/10 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
+						>
+							Saiba mais
+						</button>
 					</motion.div>
 
 					<motion.span variants={fadeUp} className="mt-7 inline-flex">

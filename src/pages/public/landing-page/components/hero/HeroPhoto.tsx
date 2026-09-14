@@ -1,39 +1,48 @@
-import { type MotionValue, motion } from "framer-motion";
-import heroPequena from "@/assets/images/hero/hero-ordenha-640.webp";
-import heroMedia from "@/assets/images/hero/hero-ordenha-1024.webp";
-import heroLarga from "@/assets/images/hero/hero-ordenha-1600.webp";
-import heroMaxima from "@/assets/images/hero/hero-ordenha-2400.webp";
+import heroPequena from "@/assets/images/hero/hero-nenem-640.webp";
+import heroMedia from "@/assets/images/hero/hero-nenem-1024.webp";
+import heroGrande from "@/assets/images/hero/hero-nenem-1600.webp";
+import heroMaxima from "@/assets/images/hero/hero-nenem-2400.webp";
 
 const SRCSET = [
 	`${heroPequena} 640w`,
 	`${heroMedia} 1024w`,
-	`${heroLarga} 1600w`,
+	`${heroGrande} 1600w`,
 	`${heroMaxima} 2400w`,
 ].join(", ");
 
-const SIZES = "(max-width: 1023px) 100vw, min(1400px, 100vw)";
+const MASCARA_DO_FOCO =
+	"linear-gradient(to right, transparent 34%, rgba(0,0,0,0.35) 48%, #000 62%)";
 
-type HeroPhotoProps = {
-	deslocamento?: MotionValue<string>;
-};
+const ALT = "Bebê recebendo leite humano em mamadeira, segurada por um adulto";
 
-export function HeroPhoto({ deslocamento }: HeroPhotoProps) {
+export function HeroPhoto() {
 	return (
-		<motion.div
-			style={{ scale: 1.08, originY: 1, y: deslocamento }}
-			className="absolute inset-0 -z-10 will-change-transform"
-		>
+		<div className="absolute inset-0 -z-10 overflow-hidden">
 			<img
-				src={heroLarga}
+				src={heroGrande}
 				srcSet={SRCSET}
-				sizes={SIZES}
+				sizes="100vw"
 				width={2400}
-				height={1350}
+				height={1792}
 				decoding="async"
 				fetchPriority="high"
-				alt="Mãe amamentando o bebê ao fundo e frascos de leite humano ordenhado em primeiro plano"
-				className="size-full select-none object-cover object-[72%_center] lg:object-bottom"
+				alt={ALT}
+				className="absolute inset-0 size-full scale-105 select-none object-cover object-[68%_center] blur-[7px] lg:object-center"
 			/>
-		</motion.div>
+			<img
+				src={heroGrande}
+				srcSet={SRCSET}
+				sizes="100vw"
+				width={2400}
+				height={1792}
+				decoding="async"
+				alt=""
+				style={{
+					maskImage: MASCARA_DO_FOCO,
+					WebkitMaskImage: MASCARA_DO_FOCO,
+				}}
+				className="absolute inset-0 size-full select-none object-cover object-[68%_center] lg:object-center"
+			/>
+		</div>
 	);
 }

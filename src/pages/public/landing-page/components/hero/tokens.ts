@@ -1,12 +1,30 @@
 const navy = (porcentagem: number) =>
-	`color-mix(in srgb, var(--blue-deep-fill) ${porcentagem}%, transparent)`;
+	`color-mix(in srgb, var(--ink-on-fill) ${Number(porcentagem.toFixed(1))}%, transparent)`;
 
-export const HERO_GLASS = navy(72);
-export const HERO_GLASS_SOFT = navy(58);
+const suave = (t: number) => t * t * (3 - 2 * t);
+
+const rampa = (
+	alfa: number,
+	de: number,
+	ate: number,
+	unidade: "%" | "px",
+	subindo = false,
+	passos = 14,
+) =>
+	Array.from({ length: passos + 1 }, (_, i) => {
+		const t = i / passos;
+		const fator = subindo ? suave(t) : 1 - suave(t);
+		const posicao = Number((de + (ate - de) * t).toFixed(1));
+		return `${navy(alfa * fator)} ${posicao}${unidade}`;
+	}).join(", ");
+
+export const HERO_GLASS = navy(58);
 
 export const HERO_OVERLAY_DESKTOP = [
-	`linear-gradient(180deg, ${navy(8)} 0%, transparent 60%, ${navy(24)} 100%)`,
-	`linear-gradient(to right, ${navy(95)} 0px, ${navy(92)} 620px, ${navy(50)} 740px, ${navy(12)} 860px, transparent 950px)`,
+	`linear-gradient(180deg, ${rampa(26, 48, 100, "%", true)})`,
+	`linear-gradient(to right, ${navy(85)} 0%, ${rampa(85, 46, 88, "%")})`,
 ].join(", ");
 
-export const HERO_OVERLAY_MOBILE = `linear-gradient(to top, ${navy(8)} 0px, ${navy(15)} 80px, ${navy(50)} 165px, ${navy(93)} 224px, ${navy(95)} 100%)`;
+export const HERO_OVERLAY_MOBILE = `linear-gradient(${navy(76)}, ${navy(76)})`;
+
+export const HERO_OVERLAY_TOPO = `linear-gradient(180deg, ${navy(42)} 0%, ${rampa(42, 6, 100, "%")})`;

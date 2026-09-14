@@ -6,8 +6,10 @@ import { HeroSection } from "./components/HeroSection";
 import { HowItWorksSection } from "./components/HowItWorksSection";
 import { LandingFooter } from "./components/LandingFooter";
 import { LandingHeader } from "./components/LandingHeader";
-import { StatsBar } from "./components/StatsBar";
+import { SectionWave } from "./components/SectionWave";
 import { TestimonialsSection } from "./components/TestimonialsSection";
+
+const ALTURA_DA_ONDA = "h-24 sm:h-32 lg:h-40";
 
 export function LandingPageScreen() {
 	return (
@@ -16,13 +18,36 @@ export function LandingPageScreen() {
 			<main id="conteudo" tabIndex={-1}>
 				<HeroSection />
 				<div className="flex flex-col bg-surface-2">
-					<StatsBar />
 					<HowItWorksSection />
 				</div>
+				<SectionWave
+					nome="passos-pontos"
+					fundoClassName="bg-surface-2"
+					corDeBaixoClassName="text-surface"
+					className={ALTURA_DA_ONDA}
+				/>
 				<CollectionPointsSection />
 				<EvaSection />
+				<SectionWave
+					nome="eva-artigos"
+					fundoClassName="bg-surface"
+					corDeBaixoClassName="text-blue-deep-fill"
+					className={ALTURA_DA_ONDA}
+				/>
 				<ArticlesSection />
+				<SectionWave
+					nome="artigos-depoimentos"
+					fundoClassName="bg-blue-deep-fill"
+					corDeBaixoClassName="text-surface"
+					className={ALTURA_DA_ONDA}
+				/>
 				<TestimonialsSection />
+				<SectionWave
+					nome="depoimentos-final"
+					fundoClassName="bg-surface"
+					corDeBaixoClassName="text-surface-2"
+					className={ALTURA_DA_ONDA}
+				/>
 				<FinalCtaSection />
 			</main>
 			<LandingFooter />

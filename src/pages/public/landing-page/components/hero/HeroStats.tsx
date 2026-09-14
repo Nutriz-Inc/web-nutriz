@@ -4,14 +4,16 @@ import { HeroStatCard } from "./HeroStatCard";
 
 const statsStagger = {
 	hidden: {},
-	show: { transition: { staggerChildren: 0.09, delayChildren: 0.28 } },
+	show: { transition: { staggerChildren: 0.09, delayChildren: 0.3 } },
 };
 
 export function HeroStats() {
+	const ultimo = METRICS.length - 1;
+
 	return (
 		<motion.div
 			variants={statsStagger}
-			className="hidden lg:absolute lg:right-12 lg:bottom-12 lg:flex lg:w-[15.5rem] lg:flex-col lg:gap-2.5"
+			className="relative mt-20 grid grid-cols-2 gap-3 lg:absolute lg:inset-x-0 lg:bottom-8 lg:mx-auto lg:mt-0 lg:w-[56rem] lg:grid-cols-3 lg:gap-5"
 		>
 			{METRICS.map((metric, indice) => (
 				<HeroStatCard
@@ -22,7 +24,7 @@ export function HeroStats() {
 					suffix={metric.suffix}
 					label={metric.label}
 					sublabel={metric.sublabel}
-					destaque={indice === 0}
+					className={indice === ultimo ? "max-lg:col-span-2" : undefined}
 				/>
 			))}
 		</motion.div>

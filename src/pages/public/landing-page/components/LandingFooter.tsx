@@ -1,6 +1,8 @@
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FOOTER_COLUMNS, FOOTER_SOCIALS, type FooterLink } from "../constants";
+import { useReveal } from "../hooks/use-reveal";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
 import { Wordmark } from "./Wordmark";
 
@@ -16,10 +18,15 @@ export function LandingFooter() {
 		}
 	};
 
+	const rodapeReveal = useReveal();
+
 	return (
 		<footer className="bg-blue-deep-fill text-blue-tint-2">
 			<div className="mx-auto w-full max-w-[1200px] px-5 py-14 lg:px-8">
-				<div className="flex flex-col gap-10 md:flex-row md:justify-between">
+				<motion.div
+					{...rodapeReveal}
+					className="flex flex-col gap-10 md:flex-row md:justify-between"
+				>
 					<div className="max-w-sm">
 						<div className="flex items-center gap-2">
 							<Wordmark className="h-6" />
@@ -70,7 +77,7 @@ export function LandingFooter() {
 							</nav>
 						))}
 					</div>
-				</div>
+				</motion.div>
 
 				<div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-[13px] text-blue-tint-2 sm:flex-row sm:items-center sm:justify-between">
 					<span>© 2026 Nutriz por Lactare</span>

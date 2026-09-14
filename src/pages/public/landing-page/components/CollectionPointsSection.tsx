@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import buscaPontosVazia from "@/assets/illustrations/busca-pontos-vazia.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import {
@@ -15,6 +16,7 @@ import {
 	type DonationPointsFilter,
 	useDonationPointsSearch,
 } from "@/pages/private/donation-points/hooks/use-donation-points-search";
+import { useReveal } from "../hooks/use-reveal";
 import { LandingSection } from "./LandingSection";
 
 const FILTER_OPTIONS: FilterChipOption<DonationPointsFilter>[] = [
@@ -43,6 +45,8 @@ export function CollectionPointsSection() {
 		applyCurrentLocation,
 	} = useDonationPointsSearch();
 
+	const painelReveal = useReveal();
+
 	return (
 		<LandingSection
 			id="pontos-de-coleta"
@@ -53,7 +57,10 @@ export function CollectionPointsSection() {
 			description="Busque pelo CEP ou use sua localização — a rota até o ponto mais próximo abre no mapa."
 			surfaceClassName="bg-surface"
 		>
-			<div className="rounded-card overflow-hidden border border-line bg-surface-2 shadow-soft">
+			<motion.div
+				{...painelReveal}
+				className="rounded-card overflow-hidden border border-line bg-surface-2 shadow-soft"
+			>
 				<div className="flex flex-col gap-3 p-4">
 					<SearchBar
 						value={search}
@@ -118,7 +125,7 @@ export function CollectionPointsSection() {
 						)}
 					</div>
 				</div>
-			</div>
+			</motion.div>
 
 			<ChangeLocationSheet
 				open={isLocationSheetOpen}

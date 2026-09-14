@@ -24,6 +24,7 @@ export function HeroWave() {
 			<SectionWave
 				nome="hero"
 				corDeBaixoClassName="text-surface-2"
+				semEntrada
 				className="absolute inset-0"
 			/>
 		</motion.div>

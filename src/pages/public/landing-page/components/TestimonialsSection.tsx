@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useReveal } from "../hooks/use-reveal";
 import { TESTIMONIALS } from "../mock";
 import { LandingSection } from "./LandingSection";
 import { TestimonialCard } from "./TestimonialCard";
@@ -16,6 +17,8 @@ export function TestimonialsSection() {
 	const arrowClass =
 		"inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-line bg-surface text-blue-bright shadow-soft outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50";
 
+	const carrosselReveal = useReveal();
+
 	return (
 		<LandingSection
 			id="depoimentos"
@@ -25,7 +28,7 @@ export function TestimonialsSection() {
 			align="center"
 			surfaceClassName="bg-surface"
 		>
-			<div className="mx-auto w-full max-w-[760px]">
+			<motion.div {...carrosselReveal} className="mx-auto w-full max-w-[760px]">
 				<div className="flex items-center gap-3 sm:gap-4">
 					<button
 						type="button"
@@ -80,7 +83,7 @@ export function TestimonialsSection() {
 						/>
 					))}
 				</div>
-			</div>
+			</motion.div>
 		</LandingSection>
 	);
 }

@@ -27,7 +27,7 @@ export function TestimonialsSection() {
 			tone="blue"
 			align="center"
 			surfaceClassName="bg-surface"
-			className="pb-4 sm:pb-6 lg:pb-8"
+			className="-mt-12 pt-0 pb-4 sm:-mt-16 sm:pb-6 lg:-mt-24 lg:pb-8"
 		>
 			<motion.div {...carrosselReveal} className="mx-auto w-full max-w-[760px]">
 				<div className="flex items-center gap-3 sm:gap-4">

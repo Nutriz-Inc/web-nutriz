@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import heroPequena from "@/assets/images/hero/hero-nenem-640.webp";
 import heroMedia from "@/assets/images/hero/hero-nenem-1024.webp";
 import heroGrande from "@/assets/images/hero/hero-nenem-1600.webp";
@@ -16,8 +17,21 @@ const MASCARA_DO_FOCO =
 const ALT = "Bebê recebendo leite humano em mamadeira, segurada por um adulto";
 
 export function HeroPhoto() {
+	const shouldReduceMotion = useReducedMotion();
+
+	const acomodar = shouldReduceMotion
+		? {}
+		: ({
+				initial: { scale: 1.06, opacity: 0 },
+				animate: { scale: 1, opacity: 1 },
+				transition: { duration: 1.5, ease: [0.22, 1, 0.36, 1] as const },
+			} as const);
+
 	return (
-		<div className="absolute inset-0 -z-10 overflow-hidden">
+		<motion.div
+			{...acomodar}
+			className="absolute inset-0 -z-10 overflow-hidden will-change-transform"
+		>
 			<img
 				src={heroGrande}
 				srcSet={SRCSET}
@@ -43,6 +57,6 @@ export function HeroPhoto() {
 				}}
 				className="absolute inset-0 size-full select-none object-cover object-[68%_center] lg:object-center"
 			/>
-		</div>
+		</motion.div>
 	);
 }

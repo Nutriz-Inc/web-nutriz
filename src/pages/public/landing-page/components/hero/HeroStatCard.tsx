@@ -27,9 +27,8 @@ export function HeroStatCard({
 		<motion.div
 			variants={fadeScale}
 			className={cn(
-				"relative isolate overflow-hidden rounded-card border border-white/50 bg-white/20 px-5 py-4 shadow-lift backdrop-blur-2xl backdrop-brightness-[0.35] backdrop-saturate-150 transition-transform duration-300 ease-out motion-safe:hover:-translate-y-1",
-				"lg:border-white/55 lg:bg-white/50 lg:shadow-soft lg:backdrop-brightness-150",
-				"before:pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/35 before:via-white/10 before:to-transparent lg:before:from-white/55",
+				"relative isolate overflow-hidden rounded-card border border-white/55 bg-white/72 px-5 py-4 shadow-soft backdrop-blur-2xl backdrop-brightness-150 backdrop-saturate-150 lg:bg-white/50 transition-transform duration-300 ease-out motion-safe:hover:-translate-y-1",
+				"before:pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/55 before:via-white/10 before:to-transparent",
 				className,
 			)}
 		>
@@ -37,19 +36,19 @@ export function HeroStatCard({
 				<Icon
 					aria-hidden="true"
 					strokeWidth={1.5}
-					className="size-5 shrink-0 text-white/70 lg:text-ink-on-fill/45"
+					className="size-5 shrink-0 text-ink-on-fill/45"
 				/>
 				<CountUp
 					value={value}
 					decimals={decimals}
 					suffix={suffix}
-					className="whitespace-nowrap font-display text-[24px] font-bold leading-none text-white lg:text-ink-on-fill"
+					className="whitespace-nowrap font-display text-[24px] font-bold leading-none text-ink-on-fill"
 				/>
 			</span>
-			<span className="relative mt-2.5 block text-[13px] font-semibold text-white lg:text-ink-on-fill">
+			<span className="relative mt-2.5 block text-[13px] font-semibold text-ink-on-fill">
 				{label}
 			</span>
-			<span className="relative block text-[12px] text-white/80 lg:text-ink-on-fill/75">
+			<span className="relative block text-[12px] text-ink-on-fill/75">
 				{sublabel}
 			</span>
 		</motion.div>

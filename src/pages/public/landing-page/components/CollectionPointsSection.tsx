@@ -51,7 +51,8 @@ export function CollectionPointsSection() {
 			tone="blue"
 			align="center"
 			description="Busque pelo CEP ou use sua localização — a rota até o ponto mais próximo abre no mapa."
-			surfaceClassName="bg-surface"
+			onDark
+			surfaceClassName="bg-blue-deep-fill"
 		>
 			<div className="rounded-card overflow-hidden border border-line bg-surface-2 shadow-soft">
 				<div className="flex flex-col gap-3 p-4">

@@ -23,10 +23,16 @@ export function LandingPageScreen() {
 				<SectionWave
 					nome="passos-pontos"
 					fundoClassName="bg-surface-2"
-					corDeBaixoClassName="text-surface"
+					corDeBaixoClassName="text-blue-deep-fill"
 					className={ALTURA_DA_ONDA}
 				/>
 				<CollectionPointsSection />
+				<SectionWave
+					nome="pontos-eva"
+					fundoClassName="bg-blue-deep-fill"
+					corDeBaixoClassName="text-surface"
+					className={ALTURA_DA_ONDA}
+				/>
 				<EvaSection />
 				<SectionWave
 					nome="eva-artigos"

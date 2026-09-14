@@ -1,11 +1,11 @@
-import "@fontsource/playfair-display/latin-500.css";
-import "@fontsource/playfair-display/latin-600.css";
 import { motion, useReducedMotion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { fadeScale, fadeUp, heroStagger } from "../animations/variants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
+import { HeroDourado } from "./hero/HeroDourado";
 import { HeroEyebrow } from "./hero/HeroEyebrow";
 import { HeroPhoto } from "./hero/HeroPhoto";
+import { HeroPonto } from "./hero/HeroPonto";
 import { HeroStats } from "./hero/HeroStats";
 import { HeroTrustSeal } from "./hero/HeroTrustSeal";
 import { HeroWave } from "./hero/HeroWave";
@@ -15,8 +15,6 @@ import {
 	HERO_OVERLAY_TOPO,
 } from "./hero/tokens";
 import { SlideButton } from "./SlideButton";
-
-const FONTE_DA_HEADLINE = '"Playfair Display", Georgia, serif';
 
 export function HeroSection() {
 	const navigate = useNavigate();
@@ -61,12 +59,13 @@ export function HeroSection() {
 
 					<motion.h1
 						variants={fadeUp}
-						style={{ fontFamily: FONTE_DA_HEADLINE }}
-						className="mt-5 text-[38px] font-medium leading-[1.1] tracking-[-0.01em] text-white min-[420px]:text-[44px] sm:text-[54px] lg:text-[58px] xl:text-[68px]"
+						className="mt-5 font-display text-[36px] font-medium leading-[1.08] tracking-[-0.02em] text-white min-[420px]:text-[42px] sm:text-[52px] lg:text-[56px] xl:text-[64px]"
 					>
-						Doar Amor.
+						Doar <HeroDourado>Amor</HeroDourado>
+						<HeroPonto />
 						<br />
-						Multiplica Vidas.
+						Multiplica <HeroDourado>Vidas</HeroDourado>
+						<HeroPonto />
 					</motion.h1>
 
 					<motion.p

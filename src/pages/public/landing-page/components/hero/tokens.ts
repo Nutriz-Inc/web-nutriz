@@ -18,6 +18,9 @@ const rampa = (
 		return `${navy(alfa * fator)} ${posicao}${unidade}`;
 	}).join(", ");
 
+export const HERO_DESTAQUE =
+	"color-mix(in srgb, var(--blue-bright-fill) 20%, white)";
+
 export const HERO_GLASS = navy(58);
 
 export const HERO_OVERLAY_DESKTOP = [

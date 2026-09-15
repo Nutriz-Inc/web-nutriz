@@ -14,7 +14,7 @@ export function FinalCtaSection() {
 	const reveal = useReveal();
 
 	return (
-		<section className="bg-surface-2 py-16 sm:py-20 lg:py-24">
+		<section className="bg-surface-2 pt-4 pb-16 sm:pt-6 sm:pb-20 lg:pt-8 lg:pb-24">
 			<div className="mx-auto w-full max-w-[1200px] px-5 sm:px-6 lg:px-8">
 				<motion.div
 					{...reveal}

@@ -122,6 +122,8 @@
 }
 
 :root[data-tema="escuro"] {
+	--onda-funda: oklch(0.335 0.04 254 / 0.75);
+	--onda-rasa: oklch(0.3 0.032 254);
 	--canvas: oklch(0.205 0.02 258);
 	--surface: oklch(0.245 0.022 258);
 	--surface-2: oklch(0.285 0.024 258);
@@ -235,6 +237,8 @@
 	--chart-trilho: oklch(0.93 0.008 258.3);
 	--blue-tint: oklch(0.952 0.015 251.2);
 	--blue-tint-2: oklch(0.9 0.034 253.7);
+	--onda-funda: oklch(0.9 0.034 253.7 / 0.7);
+	--onda-rasa: oklch(0.952 0.015 251.2);
 	--eva: oklch(0.626 0.15 9.4);
 	--eva-bright: oklch(0.763 0.118 4.8);
 	--eva-tint: oklch(0.966 0.015 356.6);
@@ -338,6 +342,8 @@
 	--color-teal-fill: var(--teal-fill);
 	--color-blue-tint: var(--blue-tint);
 	--color-blue-tint-2: var(--blue-tint-2);
+	--color-onda-funda: var(--onda-funda);
+	--color-onda-rasa: var(--onda-rasa);
 	--color-eva: var(--eva);
 	--color-eva-bright: var(--eva-bright);
 	--color-eva-tint: var(--eva-tint);
@@ -482,6 +488,27 @@ body {
 :root[data-trocando-tema] *::before,
 :root[data-trocando-tema] *::after {
 	transition: none;
+}
+
+.onda-camada {
+	animation: onda-deslizar linear infinite;
+	will-change: transform;
+}
+
+:root[data-trocando-tema] .onda-camada {
+	animation-play-state: paused;
+}
+
+@keyframes onda-deslizar {
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.onda-camada {
+		animation: none;
+	}
 }
 
 ::view-transition-old(root),

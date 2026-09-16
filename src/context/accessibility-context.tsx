@@ -70,8 +70,19 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 			return;
 		}
 
-		document.startViewTransition(() => {
+		const raiz = document.documentElement;
+		raiz.dataset.trocandoTema = "";
+
+		const transicao = document.startViewTransition(() => {
 			flushSync(aplicar);
+			aplicarNoDocumento({
+				tema,
+				fonteDislexia: raiz.dataset.fonte === "dislexia",
+			});
+		});
+
+		transicao.finished.finally(() => {
+			delete raiz.dataset.trocandoTema;
 		});
 	}, []);
 

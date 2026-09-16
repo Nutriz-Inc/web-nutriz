@@ -84,6 +84,7 @@ export function EvaWidget() {
 	const { allowed, mode, userId } = useEvaAccess();
 	const rotuloDoModo = EVA_PERSONAS[mode].rotuloDoModo;
 	const lembraDasBoasVindas = mode !== "anonymous";
+	const mostrarAjuda = mode !== "anonymous";
 	const pathname = useSyncExternalStore(
 		subscribeAppPath,
 		getAppPathname,
@@ -215,14 +216,16 @@ export function EvaWidget() {
 							>
 								{view === "ajuda" ? null : view === "welcome" ? (
 									<>
-										<button
-											type="button"
-											className="eva-widget-ajuda eva-widget-ajuda--solto"
-											onClick={abrirAjuda}
-											aria-label="Como usar a EVA"
-										>
-											?
-										</button>
+										{mostrarAjuda ? (
+											<button
+												type="button"
+												className="eva-widget-ajuda eva-widget-ajuda--solto"
+												onClick={abrirAjuda}
+												aria-label="Como usar a EVA"
+											>
+												?
+											</button>
+										) : null}
 										<div className="eva-widget-header eva-widget-header--bare">
 											<CloseButton />
 											<Dialog.Title className="sr-only">
@@ -232,14 +235,18 @@ export function EvaWidget() {
 									</>
 								) : (
 									<div className="eva-widget-header eva-widget-header--chat">
-										<button
-											type="button"
-											className="eva-widget-ajuda"
-											onClick={abrirAjuda}
-											aria-label="Como usar a EVA"
-										>
-											?
-										</button>
+										{mostrarAjuda ? (
+											<button
+												type="button"
+												className="eva-widget-ajuda"
+												onClick={abrirAjuda}
+												aria-label="Como usar a EVA"
+											>
+												?
+											</button>
+										) : (
+											<span className="eva-widget-ajuda-vazio" />
+										)}
 										<Dialog.Title className="eva-widget-header-title">
 											EVA
 											{rotuloDoModo ? (

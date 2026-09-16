@@ -9,8 +9,8 @@ import { useEffect, useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { SkipLink } from "./components/full/SkipLink";
+import { ThemeColorSync } from "./components/full/ThemeColorSync";
 import { useAuth } from "./hooks/use-auth";
-import { useThemeColor } from "./hooks/use-theme-color";
 import { registerAppRouter } from "./lib/app-navigation";
 import { EvaWidget } from "./pages/private/eva/widget/eva-widget";
 import { publicRouter, routerPrivate } from "./router";
@@ -55,10 +55,9 @@ function App() {
 		registerAppRouter(routes);
 	}, [routes]);
 
-	useThemeColor(isAuthenticated);
-
 	return (
 		<QueryClientProvider client={queryClient}>
+			<ThemeColorSync isAuthenticated={isAuthenticated} />
 			<SkipLink />
 			<RouterProvider
 				key={isAuthenticated ? "private" : "public"}

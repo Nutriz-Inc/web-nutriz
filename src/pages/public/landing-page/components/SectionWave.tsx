@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const LARGURA = 1440;
@@ -34,7 +33,6 @@ type CamadaProps = {
 	amplitude: number;
 	duracao: number;
 	opacidadeDaCrista: number;
-	parado: boolean;
 	traco?: boolean;
 	espessura?: number;
 };
@@ -45,23 +43,13 @@ function Camada({
 	amplitude,
 	duracao,
 	opacidadeDaCrista,
-	parado,
 	traco = false,
 	espessura = 2,
 }: CamadaProps) {
 	return (
-		<motion.div
-			className="absolute bottom-0 left-0 h-full w-[200%] will-change-transform"
-			animate={parado ? undefined : { x: ["0%", "-50%"] }}
-			transition={
-				parado
-					? undefined
-					: {
-							duration: duracao,
-							repeat: Number.POSITIVE_INFINITY,
-							ease: "linear",
-						}
-			}
+		<div
+			className="onda-camada absolute bottom-0 left-0 h-full w-[200%]"
+			style={{ animationDuration: `${duracao}s` }}
 		>
 			<svg
 				viewBox={`0 0 ${LARGURA * 2} ${ALTURA}`}
@@ -98,7 +86,7 @@ function Camada({
 					<path d={faixaDaOnda(altura, amplitude)} fill={`url(#${id})`} />
 				)}
 			</svg>
-		</motion.div>
+		</div>
 	);
 }
 
@@ -119,9 +107,6 @@ export function SectionWave({
 	modo = "preenchido",
 	velocidade = 1,
 }: SectionWaveProps) {
-	const shouldReduceMotion = useReducedMotion();
-	const parado = shouldReduceMotion ?? false;
-
 	return (
 		<div
 			aria-hidden="true"
@@ -142,7 +127,6 @@ export function SectionWave({
 						opacidadeDaCrista={0.3}
 						espessura={1}
 						traco
-						parado={parado}
 					/>
 					<Camada
 						id={`${nome}-traco-meio`}
@@ -152,7 +136,6 @@ export function SectionWave({
 						opacidadeDaCrista={0.55}
 						espessura={1.5}
 						traco
-						parado={parado}
 					/>
 					<Camada
 						id={`${nome}-traco-frente`}
@@ -162,7 +145,6 @@ export function SectionWave({
 						opacidadeDaCrista={0.9}
 						espessura={2}
 						traco
-						parado={parado}
 					/>
 				</>
 			) : (
@@ -173,7 +155,6 @@ export function SectionWave({
 						amplitude={62}
 						duracao={26 / velocidade}
 						opacidadeDaCrista={0.12}
-						parado={parado}
 					/>
 					<Camada
 						id={`${nome}-meio`}
@@ -181,7 +162,6 @@ export function SectionWave({
 						amplitude={48}
 						duracao={18 / velocidade}
 						opacidadeDaCrista={0.22}
-						parado={parado}
 					/>
 					<Camada
 						id={`${nome}-frente`}
@@ -189,7 +169,6 @@ export function SectionWave({
 						amplitude={34}
 						duracao={12 / velocidade}
 						opacidadeDaCrista={0.4}
-						parado={parado}
 					/>
 				</>
 			)}

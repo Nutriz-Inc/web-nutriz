@@ -27,13 +27,13 @@ export function SectionRibbon({
 		>
 			<SectionWave
 				nome={`${nome}-fita-funda`}
-				corDeBaixoClassName="text-blue-tint-2/70"
+				corDeBaixoClassName="text-onda-funda"
 				velocidade={0.4}
 				className="absolute inset-x-0 bottom-[52%] h-full"
 			/>
 			<SectionWave
 				nome={`${nome}-fita`}
-				corDeBaixoClassName="text-blue-tint"
+				corDeBaixoClassName="text-onda-rasa"
 				velocidade={0.62}
 				className="absolute inset-x-0 bottom-[26%] h-full"
 			/>

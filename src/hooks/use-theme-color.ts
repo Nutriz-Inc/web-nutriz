@@ -1,6 +1,7 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { useAccessibility } from "@/context/accessibility-context";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
+import { pintarFundoDaPagina } from "@/utils/fundo-da-pagina";
 
 const AZUL_PROFUNDO = "#00325c";
 const CANVAS_CLARO = "#eef3fa";
@@ -38,7 +39,11 @@ export function useThemeColor(isAuthenticated: boolean): void {
 			meta.content = cor;
 		}
 
-		document.documentElement.style.backgroundColor = cor;
-		document.body.style.backgroundColor = cor;
+		const raiz = document.documentElement;
+		raiz.dataset.corDaRota = cor;
+
+		if (raiz.dataset.corNaTroca === undefined) {
+			pintarFundoDaPagina(cor);
+		}
 	}, [cor]);
 }

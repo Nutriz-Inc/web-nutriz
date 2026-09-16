@@ -23,11 +23,11 @@ export function ArticlesSection() {
 		>
 			<span
 				aria-hidden="true"
-				className="pointer-events-none absolute -top-24 left-[8%] -z-10 h-72 w-[55%] rounded-full bg-mint/12 blur-[130px]"
+				className="pointer-events-none absolute top-28 left-[8%] -z-10 h-72 w-[55%] rounded-full bg-mint/12 blur-[130px]"
 			/>
 			<span
 				aria-hidden="true"
-				className="pointer-events-none absolute -bottom-24 right-[6%] -z-10 h-72 w-[55%] rounded-full bg-blue-bright/18 blur-[130px]"
+				className="pointer-events-none absolute bottom-28 right-[6%] -z-10 h-72 w-[55%] rounded-full bg-blue-bright/18 blur-[130px]"
 			/>
 
 			<div className="mb-8 flex justify-center">

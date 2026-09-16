@@ -23,6 +23,7 @@ export function HowItWorksSection() {
 			tone="teal"
 			description="Do cadastro à doação, cuidamos de cada etapa com você — simples, seguro e acolhedor."
 			surfaceClassName="bg-surface-2"
+			className="pb-4 sm:pb-6 lg:pb-8"
 		>
 			<motion.div
 				{...gridReveal}

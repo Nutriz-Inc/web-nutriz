@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { fadeScale, fadeUp, heroStagger } from "../animations/variants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
 import { HeroDourado } from "./hero/HeroDourado";
-import { HeroEyebrow } from "./hero/HeroEyebrow";
 import { HeroPhoto } from "./hero/HeroPhoto";
 import { HeroPonto } from "./hero/HeroPonto";
 import { HeroStats } from "./hero/HeroStats";
@@ -50,16 +49,12 @@ export function HeroSection() {
 
 			<motion.div
 				{...conteudoReveal}
-				className="relative z-10 mx-auto flex min-h-[min(88svh,720px)] w-full max-w-[1400px] flex-col justify-start px-5 pt-[calc(11rem+env(safe-area-inset-top))] pb-40 sm:px-6 lg:min-h-[min(94svh,980px)] lg:px-10 lg:pt-[calc(15rem+env(safe-area-inset-top))] lg:pb-32"
+				className="relative z-10 mx-auto flex min-h-[min(88svh,720px)] w-full max-w-[1400px] flex-col justify-between gap-y-6 px-5 pt-[calc(clamp(5rem,12svh,8rem)+2.3125rem+env(safe-area-inset-top))] pb-32 sm:px-6 lg:min-h-[min(94svh,980px)] lg:gap-y-16 lg:px-10 lg:pt-[calc(clamp(7.5rem,22svh,15rem)+2.5rem+env(safe-area-inset-top))] lg:pb-16"
 			>
 				<div className="relative flex max-w-[34rem] flex-col items-start">
-					<motion.span variants={fadeScale} className="inline-flex">
-						<HeroEyebrow label="Faça sua doação" />
-					</motion.span>
-
 					<motion.h1
 						variants={fadeUp}
-						className="mt-5 font-display text-[36px] font-medium leading-[1.08] tracking-[-0.02em] text-white min-[420px]:text-[42px] sm:text-[52px] lg:text-[56px] xl:text-[64px]"
+						className="font-display text-[40px] font-medium leading-[1.08] tracking-[-0.02em] text-white min-[420px]:text-[46px] sm:text-[52px] lg:text-[56px] xl:text-[64px]"
 					>
 						Doar <HeroDourado>Amor</HeroDourado>
 						<HeroPonto />

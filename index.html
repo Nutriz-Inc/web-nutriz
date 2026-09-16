@@ -27,9 +27,10 @@
         try {
           const logado = !!localStorage.getItem("data");
           const naRaiz = location.pathname === "/" || location.pathname === "";
-          document.documentElement.style.backgroundColor = "#eef3fa";
+          const cor = !logado && naRaiz ? "#00325c" : "#eef3fa";
+          document.documentElement.style.backgroundColor = cor;
           const meta = document.querySelector('meta[name="theme-color"]');
-          if (meta) meta.content = !logado && naRaiz ? "#00325c" : "#eef3fa";
+          if (meta) meta.content = cor;
         } catch {}
       })();
     </script>

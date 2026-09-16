@@ -27,7 +27,7 @@ export function HeroSection() {
 		<section
 			id="topo"
 			data-fundo="claro"
-			className="relative isolate overflow-hidden bg-blue-deep-fill"
+			className="relative isolate overflow-hidden bg-blue-deep-fill [--cor-da-base:var(--surface-2)]"
 		>
 			<HeroPhoto />
 

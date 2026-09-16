@@ -478,25 +478,23 @@ body {
 	color: var(--blue-tint-2);
 }
 
+:root[data-trocando-tema] *,
+:root[data-trocando-tema] *::before,
+:root[data-trocando-tema] *::after {
+	transition: none;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
-	animation-duration: 220ms;
-	animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	mix-blend-mode: normal;
 }
 
 ::view-transition-old(root) {
-	animation-name: sumir-na-troca;
+	animation: none;
 }
 
 ::view-transition-new(root) {
-	animation-name: surgir-na-troca;
-}
-
-@keyframes sumir-na-troca {
-	to {
-		opacity: 0;
-	}
+	animation: surgir-na-troca 420ms cubic-bezier(0.33, 0, 0.2, 1) both;
 }
 
 @keyframes surgir-na-troca {

@@ -63,12 +63,12 @@ export function HeroStatCard({
 					className="whitespace-nowrap font-display text-[24px] font-bold leading-none text-ink-on-fill lg:text-[28px]"
 				/>
 			</span>
-			<span className="relative mx-auto mt-2.5 block w-fit text-[13px] font-semibold text-ink-on-fill lg:mx-0 lg:mt-3 lg:w-auto lg:text-[14px]">
+			<span className="relative mx-auto mt-2.5 block w-fit text-center text-[13px] font-semibold text-ink-on-fill lg:mx-0 lg:mt-3 lg:w-auto lg:text-left lg:text-[14px]">
 				{label}
 			</span>
 			<span
 				className={cn(
-					"relative mx-auto block w-fit text-[12px] leading-snug text-ink-on-fill/75 lg:mx-0 lg:min-h-0 lg:w-auto lg:text-[13px]",
+					"relative mx-auto block w-fit text-center text-[12px] leading-snug text-ink-on-fill/75 lg:mx-0 lg:min-h-0 lg:w-auto lg:text-left lg:text-[13px]",
 					compacto ? undefined : "min-h-[2.125rem]",
 				)}
 			>

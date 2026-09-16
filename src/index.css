@@ -495,7 +495,8 @@ body {
 	will-change: transform;
 }
 
-:root[data-trocando-tema] .onda-camada {
+:root[data-pausando-animacoes] .onda-camada,
+:root[data-pausando-animacoes] .eva-fab::before {
 	animation-play-state: paused;
 }
 

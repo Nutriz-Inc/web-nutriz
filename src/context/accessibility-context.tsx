@@ -71,18 +71,22 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 		}
 
 		const raiz = document.documentElement;
-		raiz.dataset.trocandoTema = "";
+		raiz.dataset.pausandoAnimacoes = "";
 
 		const transicao = document.startViewTransition(() => {
-			flushSync(aplicar);
+			raiz.dataset.trocandoTema = "";
 			aplicarNoDocumento({
 				tema,
 				fonteDislexia: raiz.dataset.fonte === "dislexia",
 			});
+			flushSync(aplicar);
 		});
 
 		transicao.finished.finally(() => {
-			delete raiz.dataset.trocandoTema;
+			delete raiz.dataset.pausandoAnimacoes;
+			window.setTimeout(() => {
+				delete raiz.dataset.trocandoTema;
+			}, 60);
 		});
 	}, []);
 

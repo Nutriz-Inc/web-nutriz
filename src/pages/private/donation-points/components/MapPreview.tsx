@@ -2,12 +2,13 @@ import "leaflet/dist/leaflet.css";
 
 import { divIcon } from "leaflet";
 
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapContainer, Marker } from "react-leaflet";
 import { MapResizeHandler } from "@/components/full/MapResizeHandler";
 import { useAccessibility } from "@/context/accessibility-context";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { type Coordinates, FitMapView } from "./FitMapView";
 import { LocateButton } from "./LocateButton";
+import { ThemedTileLayer } from "./ThemedTileLayer";
 
 const DEFAULT_CENTER: [number, number] = [-23.5505, -46.6333];
 
@@ -102,13 +103,10 @@ export function MapPreview({
 					maxBoundsViscosity={1}
 					className="size-full"
 				>
-					<TileLayer
-						key={temaEfetivo}
-						attribution='Tiles &copy; <a href="https://www.esri.com">Esri</a> &mdash; Esri, DeLorme, NAVTEQ'
-						url={`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${escuro ? "Dark" : "Light"}_Gray_Base/MapServer/tile/{z}/{y}/{x}`}
+					<ThemedTileLayer
+						escuro={escuro}
 						maxZoom={ZOOM_MAXIMO}
 						maxNativeZoom={ZOOM_MAXIMO_COM_DADOS}
-						noWrap
 					/>
 
 					<FitMapView

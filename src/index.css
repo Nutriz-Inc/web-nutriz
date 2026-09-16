@@ -162,6 +162,11 @@
 	--blue-fill: oklch(0.44 0.1 253);
 	--blue-bright-fill: oklch(0.5 0.105 253);
 	--eva-fill: oklch(0.53 0.13 9);
+	--eva-deep-fill: oklch(0.56 0.17 8);
+	--eva-bright-fill: oklch(0.763 0.118 4.8);
+	--eva-tint-fill: oklch(0.966 0.015 356.6);
+	--purple-fill: oklch(0.491 0.241 292.6);
+	--purple-tint-fill: oklch(0.943 0.028 294.6);
 	--danger-fill: oklch(0.49 0.12 25);
 	--success-fill: oklch(0.47 0.08 170);
 	--teal-fill: oklch(0.48 0.08 186);
@@ -252,6 +257,11 @@
 	--blue-fill: var(--blue);
 	--blue-bright-fill: var(--blue-bright);
 	--eva-fill: var(--eva);
+	--eva-deep-fill: var(--eva-deep);
+	--eva-bright-fill: var(--eva-bright);
+	--eva-tint-fill: var(--eva-tint);
+	--purple-fill: var(--purple);
+	--purple-tint-fill: var(--purple-tint);
 	--danger-fill: var(--danger);
 	--success-fill: var(--success);
 	--teal-fill: var(--teal);
@@ -318,6 +328,11 @@
 	--color-blue-fill: var(--blue-fill);
 	--color-blue-bright-fill: var(--blue-bright-fill);
 	--color-eva-fill: var(--eva-fill);
+	--color-eva-deep-fill: var(--eva-deep-fill);
+	--color-eva-bright-fill: var(--eva-bright-fill);
+	--color-eva-tint-fill: var(--eva-tint-fill);
+	--color-purple-fill: var(--purple-fill);
+	--color-purple-tint-fill: var(--purple-tint-fill);
 	--color-danger-fill: var(--danger-fill);
 	--color-success-fill: var(--success-fill);
 	--color-teal-fill: var(--teal-fill);
@@ -463,23 +478,38 @@ body {
 	color: var(--blue-tint-2);
 }
 
-:root[data-trocando-tema] *,
-:root[data-trocando-tema] *::before,
-:root[data-trocando-tema] *::after {
-	transition:
-		background-color 320ms ease,
-		border-color 320ms ease,
-		color 320ms ease,
-		fill 320ms ease,
-		stroke 320ms ease,
-		box-shadow 320ms ease !important;
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 220ms;
+	animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+	animation-name: sumir-na-troca;
+}
+
+::view-transition-new(root) {
+	animation-name: surgir-na-troca;
+}
+
+@keyframes sumir-na-troca {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes surgir-na-troca {
+	from {
+		opacity: 0;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	:root[data-trocando-tema] *,
-	:root[data-trocando-tema] *::before,
-	:root[data-trocando-tema] *::after {
-		transition: none !important;
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation-name: none;
+		animation-duration: 1ms;
 	}
 }
 

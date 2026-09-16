@@ -65,7 +65,7 @@ export function HowItWorksSection() {
 							<div className="flex items-start justify-between">
 								<span
 									className={cn(
-										"rounded-card-sm grid size-11 place-items-center font-display text-[16px] font-bold text-white",
+										"grid size-11 place-items-center rounded-full font-display text-[16px] font-bold text-white",
 										step.badge,
 									)}
 								>
@@ -97,12 +97,12 @@ export function HowItWorksSection() {
 					/>
 					<div className="relative">
 						<span className="flex items-center gap-2">
-							<span className="flex size-6 items-center justify-center rounded-full bg-[#25d366]">
+							<span className="flex size-9 items-center justify-center rounded-full bg-[#25d366]">
 								<img
 									src={whatsappIcone}
 									alt=""
 									aria-hidden="true"
-									className="size-4"
+									className="size-5"
 								/>
 							</span>
 							<span className="text-[15px] font-bold text-ink">WhatsApp</span>

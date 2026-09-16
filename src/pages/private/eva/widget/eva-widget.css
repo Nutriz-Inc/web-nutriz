@@ -11,11 +11,11 @@
 	-webkit-backdrop-filter: blur(14px) saturate(150%);
 	background: linear-gradient(
 		180deg,
-		color-mix(in oklch, var(--purple-tint) 96%, transparent) 0%,
-		color-mix(in oklch, var(--eva-tint) 96%, transparent) 55%,
+		color-mix(in oklch, var(--purple-tint-fill) 96%, transparent) 0%,
+		color-mix(in oklch, var(--eva-tint-fill) 96%, transparent) 55%,
 		color-mix(
 				in oklch,
-				color-mix(in oklch, var(--eva-bright) 45%, white) 96%,
+				color-mix(in oklch, var(--eva-bright-fill) 45%, white) 96%,
 				transparent
 			)
 			100%
@@ -26,7 +26,7 @@
 	cursor: pointer;
 	box-shadow:
 		inset 0 0 0 1px color-mix(in oklch, white 45%, transparent),
-		0 12px 30px -12px color-mix(in oklch, var(--ink) 45%, transparent);
+		0 12px 30px -12px color-mix(in oklch, var(--ink-on-fill) 45%, transparent);
 	transition:
 		transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1),
 		box-shadow 0.55s ease;
@@ -39,11 +39,11 @@
 	border-radius: inherit;
 	background: linear-gradient(
 		180deg,
-		color-mix(in oklch, var(--eva-bright) 92%, transparent) 0%,
-		color-mix(in oklch, var(--eva) 92%, transparent) 28%,
-		color-mix(in oklch, var(--eva-deep) 92%, transparent) 55%,
-		color-mix(in oklch, var(--eva) 92%, transparent) 80%,
-		color-mix(in oklch, var(--eva-bright) 92%, transparent) 100%
+		color-mix(in oklch, var(--eva-bright-fill) 92%, transparent) 0%,
+		color-mix(in oklch, var(--eva-fill) 92%, transparent) 28%,
+		color-mix(in oklch, var(--eva-deep-fill) 92%, transparent) 55%,
+		color-mix(in oklch, var(--eva-fill) 92%, transparent) 80%,
+		color-mix(in oklch, var(--eva-bright-fill) 92%, transparent) 100%
 	);
 	background-size: 100% 200%;
 	opacity: 0;
@@ -85,8 +85,8 @@
 
 .eva-fab[data-fundo="claro"] {
 	box-shadow:
-		inset 0 0 0 1.5px color-mix(in oklch, var(--eva-deep) 55%, transparent),
-		0 14px 34px -12px color-mix(in oklch, var(--eva-deep) 50%, transparent);
+		inset 0 0 0 1.5px color-mix(in oklch, var(--eva-deep-fill) 55%, transparent),
+		0 14px 34px -12px color-mix(in oklch, var(--eva-deep-fill) 50%, transparent);
 }
 
 .eva-fab-mark {
@@ -108,12 +108,16 @@
 }
 
 .eva-fab-mark-cor--forte {
-	background: linear-gradient(180deg, var(--eva) 0%, var(--purple) 100%);
+	background: linear-gradient(
+		180deg,
+		var(--eva-fill) 0%,
+		var(--purple-fill) 100%
+	);
 	opacity: 1;
 }
 
 .eva-fab-mark-cor--clara {
-	background: linear-gradient(180deg, white 0%, var(--eva-tint) 100%);
+	background: linear-gradient(180deg, white 0%, var(--eva-tint-fill) 100%);
 	opacity: 0;
 }
 
@@ -149,7 +153,7 @@
 .eva-fab:focus-visible {
 	outline: none;
 	box-shadow:
-		0 12px 30px -12px color-mix(in oklch, var(--ink) 45%, transparent),
+		0 12px 30px -12px color-mix(in oklch, var(--ink-on-fill) 45%, transparent),
 		0 0 0 4px color-mix(in oklch, var(--eva) 40%, transparent);
 }
 
@@ -547,7 +551,7 @@
 		145deg,
 		var(--purple-tint) 0%,
 		var(--eva-tint) 55%,
-		color-mix(in oklch, var(--eva-bright) 45%, white) 100%
+		color-mix(in oklch, var(--eva-bright-fill) 45%, white) 100%
 	);
 	transform: scaleX(0);
 	transform-origin: left;
@@ -557,7 +561,8 @@
 .eva-action-btn:hover {
 	transform: translateX(6px);
 	background: color-mix(in oklch, var(--eva) 4%, var(--surface));
-	box-shadow: 0 10px 22px -12px color-mix(in oklch, var(--ink) 45%, transparent);
+	box-shadow: 0 10px 22px -12px
+		color-mix(in oklch, var(--ink-on-fill) 45%, transparent);
 }
 
 .eva-action-btn:hover::before {

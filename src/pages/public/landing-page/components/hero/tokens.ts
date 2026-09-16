@@ -23,13 +23,14 @@ const rampaEntre = (
 	alfaFinal: number,
 	de: number,
 	ate: number,
+	unidade: "%" | "px" = "%",
 	passos = 10,
 ) =>
 	Array.from({ length: passos + 1 }, (_, i) => {
 		const t = i / passos;
 		const alfa = alfaInicial + (alfaFinal - alfaInicial) * suave(t);
 		const posicao = Number((de + (ate - de) * t).toFixed(1));
-		return `${navy(alfa)} ${posicao}%`;
+		return `${navy(alfa)} ${posicao}${unidade}`;
 	}).join(", ");
 
 export const HERO_DESTAQUE =
@@ -44,4 +45,6 @@ export const HERO_OVERLAY_DESKTOP = [
 
 export const HERO_OVERLAY_MOBILE = `linear-gradient(180deg, ${navy(88)} 0%, ${navy(82)} 32%, ${rampaEntre(82, 44, 32, 58)}, ${rampaEntre(44, 74, 58, 100)})`;
 
-export const HERO_OVERLAY_TOPO = `linear-gradient(180deg, ${navy(42)} 0%, ${rampa(42, 6, 100, "%")})`;
+const ALTURA_DO_TOPO = 240;
+
+export const HERO_OVERLAY_TOPO = `linear-gradient(180deg, ${navy(100)} 0px, ${navy(100)} 12px, ${rampaEntre(100, 42, 12, 72, "px")}, ${rampaEntre(42, 0, 72, ALTURA_DO_TOPO, "px")})`;

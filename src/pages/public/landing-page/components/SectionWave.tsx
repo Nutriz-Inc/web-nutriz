@@ -50,10 +50,8 @@ function Camada({
 	espessura = 2,
 }: CamadaProps) {
 	return (
-		<motion.svg
-			viewBox={`0 0 ${LARGURA * 2} ${ALTURA}`}
-			preserveAspectRatio="none"
-			className="absolute bottom-0 left-0 h-full w-[200%]"
+		<motion.div
+			className="absolute bottom-0 left-0 h-full w-[200%] will-change-transform"
 			animate={parado ? undefined : { x: ["0%", "-50%"] }}
 			transition={
 				parado
@@ -65,36 +63,42 @@ function Camada({
 						}
 			}
 		>
-			<title>Transição em ondas</title>
-			<defs>
-				<linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
-					<stop
-						offset="0%"
-						stopColor="currentColor"
-						stopOpacity={opacidadeDaCrista}
+			<svg
+				viewBox={`0 0 ${LARGURA * 2} ${ALTURA}`}
+				preserveAspectRatio="none"
+				className="h-full w-full"
+			>
+				<title>Transição em ondas</title>
+				<defs>
+					<linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+						<stop
+							offset="0%"
+							stopColor="currentColor"
+							stopOpacity={opacidadeDaCrista}
+						/>
+						<stop
+							offset="45%"
+							stopColor="currentColor"
+							stopOpacity={Math.min(1, opacidadeDaCrista + 0.35)}
+						/>
+						<stop offset="100%" stopColor="currentColor" stopOpacity="1" />
+					</linearGradient>
+				</defs>
+				{traco ? (
+					<path
+						d={linhaDaOnda(altura, amplitude)}
+						fill="none"
+						stroke="currentColor"
+						strokeWidth={espessura}
+						strokeLinecap="round"
+						opacity={opacidadeDaCrista}
+						vectorEffect="non-scaling-stroke"
 					/>
-					<stop
-						offset="45%"
-						stopColor="currentColor"
-						stopOpacity={Math.min(1, opacidadeDaCrista + 0.35)}
-					/>
-					<stop offset="100%" stopColor="currentColor" stopOpacity="1" />
-				</linearGradient>
-			</defs>
-			{traco ? (
-				<path
-					d={linhaDaOnda(altura, amplitude)}
-					fill="none"
-					stroke="currentColor"
-					strokeWidth={espessura}
-					strokeLinecap="round"
-					opacity={opacidadeDaCrista}
-					vectorEffect="non-scaling-stroke"
-				/>
-			) : (
-				<path d={faixaDaOnda(altura, amplitude)} fill={`url(#${id})`} />
-			)}
-		</motion.svg>
+				) : (
+					<path d={faixaDaOnda(altura, amplitude)} fill={`url(#${id})`} />
+				)}
+			</svg>
+		</motion.div>
 	);
 }
 

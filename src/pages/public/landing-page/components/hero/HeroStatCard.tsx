@@ -41,12 +41,12 @@ export function HeroStatCard({
 			variants={fadeScale}
 			onMouseEnter={repetirUmaVez}
 			className={cn(
-				"relative isolate overflow-hidden rounded-card border border-white/55 bg-white/72 px-6 py-5 shadow-soft backdrop-blur-2xl backdrop-brightness-150 backdrop-saturate-150 lg:bg-white/50 transition-transform duration-300 ease-out motion-safe:hover:-translate-y-1",
+				"relative isolate flex min-h-[8.875rem] flex-col justify-center overflow-hidden rounded-card border border-white/55 bg-white/72 px-6 py-5 shadow-soft lg:block lg:min-h-0 backdrop-blur-2xl backdrop-brightness-150 backdrop-saturate-150 lg:bg-white/50 transition-transform duration-300 ease-out motion-safe:hover:-translate-y-1",
 				"before:pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/55 before:via-white/10 before:to-transparent",
 				className,
 			)}
 		>
-			<span className="relative flex items-center gap-2">
+			<span className="relative mx-auto flex w-fit items-center gap-2 lg:mx-0 lg:w-auto">
 				<Icon
 					aria-hidden="true"
 					strokeWidth={1.5}
@@ -60,10 +60,10 @@ export function HeroStatCard({
 					className="whitespace-nowrap font-display text-[28px] font-bold leading-none text-ink-on-fill"
 				/>
 			</span>
-			<span className="relative mt-3 block text-[14px] font-semibold text-ink-on-fill">
+			<span className="relative mx-auto mt-3 block w-fit text-[14px] font-semibold text-ink-on-fill lg:mx-0 lg:w-auto">
 				{label}
 			</span>
-			<span className="relative block text-[13px] text-ink-on-fill/75">
+			<span className="relative mx-auto block w-fit text-[13px] text-ink-on-fill/75 lg:mx-0 lg:w-auto">
 				{sublabel}
 			</span>
 		</motion.div>

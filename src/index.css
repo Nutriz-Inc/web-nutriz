@@ -463,23 +463,38 @@ body {
 	color: var(--blue-tint-2);
 }
 
-:root[data-trocando-tema] *,
-:root[data-trocando-tema] *::before,
-:root[data-trocando-tema] *::after {
-	transition:
-		background-color 320ms ease,
-		border-color 320ms ease,
-		color 320ms ease,
-		fill 320ms ease,
-		stroke 320ms ease,
-		box-shadow 320ms ease !important;
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 220ms;
+	animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+	animation-name: sumir-na-troca;
+}
+
+::view-transition-new(root) {
+	animation-name: surgir-na-troca;
+}
+
+@keyframes sumir-na-troca {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes surgir-na-troca {
+	from {
+		opacity: 0;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	:root[data-trocando-tema] *,
-	:root[data-trocando-tema] *::before,
-	:root[data-trocando-tema] *::after {
-		transition: none !important;
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation-name: none;
+		animation-duration: 1ms;
 	}
 }
 

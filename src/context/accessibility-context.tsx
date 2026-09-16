@@ -6,9 +6,9 @@ import {
 	useContext,
 	useEffect,
 	useMemo,
-	useRef,
 	useState,
 } from "react";
+import { flushSync } from "react-dom";
 import {
 	aplicarNoDocumento,
 	gravarPreferencias,
@@ -27,6 +27,16 @@ type AccessibilityContextValue = {
 	restaurarPadroes: () => void;
 };
 
+const NUCLEOS_MINIMOS = 4;
+
+function podeAnimarATroca() {
+	return (
+		typeof document.startViewTransition === "function" &&
+		!window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+		(navigator.hardwareConcurrency ?? NUCLEOS_MINIMOS) >= NUCLEOS_MINIMOS
+	);
+}
+
 const AccessibilityContext = createContext<AccessibilityContextValue | null>(
 	null,
 );
@@ -35,7 +45,6 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 	const [preferencias, setPreferencias] = useState<Preferencias>(() =>
 		lerPreferencias(),
 	);
-	const relogioDaTroca = useRef<number | undefined>(undefined);
 
 	const temaEfetivo = preferencias.tema;
 
@@ -54,15 +63,16 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 	}, [preferencias.fonteDislexia]);
 
 	const definirTema = useCallback((tema: PreferenciaTema) => {
-		const raiz = document.documentElement;
-		raiz.dataset.trocandoTema = "";
+		const aplicar = () => setPreferencias((atual) => ({ ...atual, tema }));
 
-		window.clearTimeout(relogioDaTroca.current);
-		relogioDaTroca.current = window.setTimeout(() => {
-			delete raiz.dataset.trocandoTema;
-		}, 380);
+		if (!podeAnimarATroca()) {
+			aplicar();
+			return;
+		}
 
-		setPreferencias((atual) => ({ ...atual, tema }));
+		document.startViewTransition(() => {
+			flushSync(aplicar);
+		});
 	}, []);
 
 	const definirFonteDislexia = useCallback((fonteDislexia: boolean) => {

@@ -18,6 +18,11 @@ import {
 	type PreferenciaTema,
 } from "@/utils/accessibility-storage";
 import { carregarFonteLeituraFacil } from "@/utils/dyslexia-font";
+import {
+	corDeFundoVisivel,
+	elementoNaBaseDaTela,
+	pintarFundoDaPagina,
+} from "@/utils/fundo-da-pagina";
 
 type AccessibilityContextValue = {
 	preferencias: Preferencias;
@@ -72,6 +77,7 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 
 		const raiz = document.documentElement;
 		raiz.dataset.pausandoAnimacoes = "";
+		const elementoNaBase = elementoNaBaseDaTela();
 
 		const transicao = document.startViewTransition(() => {
 			raiz.dataset.trocandoTema = "";
@@ -80,9 +86,21 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 				fonteDislexia: raiz.dataset.fonte === "dislexia",
 			});
 			flushSync(aplicar);
+
+			const corNaTroca = corDeFundoVisivel(elementoNaBase);
+			if (corNaTroca) {
+				raiz.dataset.corNaTroca = corNaTroca;
+				pintarFundoDaPagina(corNaTroca);
+			}
 		});
 
 		transicao.finished.finally(() => {
+			if (raiz.dataset.corNaTroca !== undefined) {
+				delete raiz.dataset.corNaTroca;
+				if (raiz.dataset.corDaRota) {
+					pintarFundoDaPagina(raiz.dataset.corDaRota);
+				}
+			}
 			delete raiz.dataset.pausandoAnimacoes;
 			window.setTimeout(() => {
 				delete raiz.dataset.trocandoTema;

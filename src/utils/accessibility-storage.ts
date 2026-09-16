@@ -12,8 +12,6 @@ export const PREFERENCIAS_PADRAO: Preferencias = {
 	fonteDislexia: false,
 };
 
-const TEMAS: PreferenciaTema[] = ["claro", "escuro"];
-
 export function lerPreferencias(): Preferencias {
 	try {
 		const salvo = localStorage.getItem(CHAVE_ACESSIBILIDADE);
@@ -24,9 +22,7 @@ export function lerPreferencias(): Preferencias {
 		const bruto = JSON.parse(salvo) as Partial<Preferencias>;
 
 		return {
-			tema: TEMAS.includes(bruto?.tema as PreferenciaTema)
-				? (bruto.tema as PreferenciaTema)
-				: PREFERENCIAS_PADRAO.tema,
+			tema: PREFERENCIAS_PADRAO.tema,
 			fonteDislexia:
 				typeof bruto?.fonteDislexia === "boolean"
 					? bruto.fonteDislexia
@@ -39,7 +35,10 @@ export function lerPreferencias(): Preferencias {
 
 export function gravarPreferencias(preferencias: Preferencias) {
 	try {
-		localStorage.setItem(CHAVE_ACESSIBILIDADE, JSON.stringify(preferencias));
+		localStorage.setItem(
+			CHAVE_ACESSIBILIDADE,
+			JSON.stringify({ fonteDislexia: preferencias.fonteDislexia }),
+		);
 	} catch {}
 }
 

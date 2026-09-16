@@ -139,7 +139,7 @@
 }
 
 .eva-fab--oculto {
-	display: none;
+	pointer-events: none;
 }
 
 .eva-fab:hover {

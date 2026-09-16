@@ -167,16 +167,23 @@ export function EvaWidget() {
 				transition: { duration: 0.15 },
 			}
 		: {
-				initial: { opacity: 0, scale: 0.8 },
+				initial: { opacity: 0, scale: 0.6, y: 16 },
 				animate: {
 					opacity: 1,
 					scale: 1,
-					transition: { type: "spring" as const, stiffness: 260, damping: 18 },
+					y: 0,
+					transition: {
+						type: "spring" as const,
+						bounce: 0.14,
+						visualDuration: 0.42,
+						opacity: { duration: 0.22, ease: "easeOut" as const },
+					},
 				},
 				exit: {
 					opacity: 0,
-					scale: 0.85,
-					transition: { duration: 0.18, ease: "easeIn" as const },
+					scale: 0.7,
+					y: 12,
+					transition: { duration: 0.22, ease: [0.4, 0, 1, 1] as const },
 				},
 			};
 

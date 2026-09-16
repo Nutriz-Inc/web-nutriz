@@ -10,6 +10,7 @@ import {
 import { useBackdropTone } from "@/hooks/use-backdrop-tone";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
 import { EvaChatPanel } from "./eva-chat-panel";
+import { EvaFab } from "./eva-fab";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
 import {
 	getAppMenuOpen,
@@ -181,20 +182,13 @@ export function EvaWidget() {
 
 	return (
 		<Dialog.Root open={open} onOpenChange={handleOpenChange}>
-			<Dialog.Trigger asChild>
-				<button
-					ref={fabRef}
-					type="button"
-					className={fabObstruido ? "eva-fab eva-fab--oculto" : "eva-fab"}
-					data-fundo={tomDoFundo}
-					aria-label="Abrir chat com a EVA"
-				>
-					<span className="eva-fab-mark" aria-hidden="true">
-						<span className="eva-fab-mark-cor eva-fab-mark-cor--forte" />
-						<span className="eva-fab-mark-cor eva-fab-mark-cor--clara" />
-					</span>
-				</button>
-			</Dialog.Trigger>
+			<EvaFab
+				botaoRef={fabRef}
+				tom={tomDoFundo}
+				oculto={fabObstruido}
+				aberto={open}
+				aoAbrir={() => handleOpenChange(true)}
+			/>
 
 			<AnimatePresence>
 				{open ? (
@@ -208,7 +202,15 @@ export function EvaWidget() {
 								transition={{ duration: 0.2 }}
 							/>
 						</Dialog.Overlay>
-						<Dialog.Content asChild forceMount aria-describedby={undefined}>
+						<Dialog.Content
+							asChild
+							forceMount
+							aria-describedby={undefined}
+							onCloseAutoFocus={(evento) => {
+								evento.preventDefault();
+								fabRef.current?.focus({ preventScroll: true });
+							}}
+						>
 							<motion.div
 								className="eva-widget-modal"
 								style={{ transformOrigin: "bottom right" }}

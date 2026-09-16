@@ -25,7 +25,13 @@ export function corDeFundoVisivel(inicio: Element | null): string | null {
 	let elemento = inicio;
 
 	while (elemento && elemento !== document.documentElement) {
-		const cor = getComputedStyle(elemento).backgroundColor;
+		const estilo = getComputedStyle(elemento);
+		const declarada = estilo.getPropertyValue("--cor-da-base").trim();
+		if (declarada) {
+			return declarada;
+		}
+
+		const cor = estilo.backgroundColor;
 		if (opaca(cor)) {
 			return cor;
 		}

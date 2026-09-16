@@ -8,6 +8,7 @@ import { LandingFooter } from "./components/LandingFooter";
 import { LandingHeader } from "./components/LandingHeader";
 import { SectionRibbon } from "./components/SectionRibbon";
 import { SectionWave } from "./components/SectionWave";
+import { StatusBarStrip } from "./components/StatusBarStrip";
 import { TestimonialsSection } from "./components/TestimonialsSection";
 
 const ALTURA_DA_ONDA = "h-24 sm:h-32 lg:h-40";
@@ -15,6 +16,7 @@ const ALTURA_DA_ONDA = "h-24 sm:h-32 lg:h-40";
 export function LandingPageScreen() {
 	return (
 		<div className="min-h-dvh bg-surface [&_button]:cursor-pointer">
+			<StatusBarStrip />
 			<LandingHeader />
 			<main id="conteudo" tabIndex={-1}>
 				<HeroSection />

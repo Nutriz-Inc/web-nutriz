@@ -5,19 +5,18 @@ import { pintarFundoDaPagina } from "@/utils/fundo-da-pagina";
 
 const AZUL_PROFUNDO = "#00325c";
 const CANVAS_CLARO = "#eef3fa";
-
 const CANVAS_ESCURO = "#111720";
 
-function corDaRota(
+function corDaBarra(
 	pathname: string,
 	isAuthenticated: boolean,
-	temaEscuro: boolean,
+	corDoFundo: string,
 ): string {
 	if (!isAuthenticated && (pathname === "/" || pathname === "")) {
 		return AZUL_PROFUNDO;
 	}
 
-	return temaEscuro ? CANVAS_ESCURO : CANVAS_CLARO;
+	return corDoFundo;
 }
 
 export function useThemeColor(isAuthenticated: boolean): void {
@@ -28,22 +27,25 @@ export function useThemeColor(isAuthenticated: boolean): void {
 	);
 
 	const { temaEfetivo } = useAccessibility();
-	const cor = corDaRota(pathname, isAuthenticated, temaEfetivo === "escuro");
+	const corDoFundo = temaEfetivo === "escuro" ? CANVAS_ESCURO : CANVAS_CLARO;
+	const barra = corDaBarra(pathname, isAuthenticated, corDoFundo);
 
 	useEffect(() => {
 		const meta = document.querySelector<HTMLMetaElement>(
 			'meta[name="theme-color"]',
 		);
 
-		if (meta && meta.content !== cor) {
-			meta.content = cor;
+		if (meta && meta.content !== barra) {
+			meta.content = barra;
 		}
+	}, [barra]);
 
+	useEffect(() => {
 		const raiz = document.documentElement;
-		raiz.dataset.corDaRota = cor;
+		raiz.dataset.corDaRota = corDoFundo;
 
 		if (raiz.dataset.corNaTroca === undefined) {
-			pintarFundoDaPagina(cor);
+			pintarFundoDaPagina(corDoFundo);
 		}
-	}, [cor]);
+	}, [corDoFundo]);
 }

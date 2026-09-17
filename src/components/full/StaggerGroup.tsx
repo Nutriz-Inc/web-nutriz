@@ -1,5 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { type ReactNode, useRef } from "react";
 
 type StaggerGroupProps = {
 	children: ReactNode;
@@ -13,6 +13,8 @@ export function StaggerGroup({
 	gap = 0.06,
 }: StaggerGroupProps) {
 	const semMovimento = useReducedMotion();
+	const ref = useRef<HTMLDivElement>(null);
+	const visto = useInView(ref, { once: true, amount: 0.15 });
 
 	if (semMovimento) {
 		return <div className={className}>{children}</div>;
@@ -20,10 +22,10 @@ export function StaggerGroup({
 
 	return (
 		<motion.div
+			ref={ref}
 			className={className}
 			initial="oculto"
-			whileInView="visivel"
-			viewport={{ once: true, amount: 0.15 }}
+			animate={visto ? "visivel" : "oculto"}
 			variants={{
 				oculto: {},
 				visivel: { transition: { staggerChildren: gap, delayChildren: 0.04 } },

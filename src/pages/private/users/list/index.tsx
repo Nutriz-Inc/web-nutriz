@@ -3,6 +3,8 @@ import { type FormEvent, useState } from "react";
 import usuariosVazio from "@/assets/illustrations/usuarios-vazio.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
+import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
+import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
@@ -113,24 +115,25 @@ export function UsersManagementPage() {
 		>
 			<div className="flex flex-col gap-4 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6">
 				<div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-					<div className="sem-barra -mx-4 flex items-center gap-2 overflow-x-auto px-4 lg:mx-0 lg:px-0">
-						<FilterChips
-							options={PROFILE_FILTER_OPTIONS}
-							value={profileFilter}
-							onChange={handleProfileFilterChange}
-						/>
+					<PainelDeFiltros className="lg:flex-1">
+						<GrupoDeFiltro rotulo="Perfil">
+							<FilterChips
+								options={PROFILE_FILTER_OPTIONS}
+								value={profileFilter}
+								onChange={handleProfileFilterChange}
+							/>
+						</GrupoDeFiltro>
 
 						{showRecurrentFilter && (
-							<>
-								<div className="h-6 w-px shrink-0 bg-blue-tint" />
+							<GrupoDeFiltro rotulo="Recorrência">
 								<FilterChips
 									options={RECURRENT_FILTER_OPTIONS}
 									value={recurrentFilter}
 									onChange={setRecurrentFilter}
 								/>
-							</>
+							</GrupoDeFiltro>
 						)}
-					</div>
+					</PainelDeFiltros>
 					<NewUserButton
 						onClick={() => setIsCreateUserOpen(true)}
 						className="hidden lg:flex"

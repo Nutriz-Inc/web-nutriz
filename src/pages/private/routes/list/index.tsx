@@ -3,6 +3,8 @@ import { type FormEvent, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
+import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
+import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
 import { StaggerGroup } from "@/components/full/StaggerGroup";
@@ -192,17 +194,19 @@ export function RoutesListPage() {
 					</div>
 				</form>
 
-				<div className="sem-barra flex items-center gap-2.5 overflow-x-auto">
-					<FilterChips
-						options={
-							ehAdm
-								? ROUTE_STATUS_FILTER_OPTIONS
-								: ROUTE_STATUS_FILTER_OPTIONS_OPERACAO
-						}
-						value={status}
-						onChange={handleStatusChange}
-					/>
-				</div>
+				<PainelDeFiltros>
+					<GrupoDeFiltro rotulo="Situação da rota">
+						<FilterChips
+							options={
+								ehAdm
+									? ROUTE_STATUS_FILTER_OPTIONS
+									: ROUTE_STATUS_FILTER_OPTIONS_OPERACAO
+							}
+							value={status}
+							onChange={handleStatusChange}
+						/>
+					</GrupoDeFiltro>
+				</PainelDeFiltros>
 
 				<RefreshableList updating={isPlaceholderData}>
 					{routes.length === 0 ? (

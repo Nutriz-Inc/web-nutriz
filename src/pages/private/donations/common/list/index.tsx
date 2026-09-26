@@ -29,7 +29,7 @@ export function DonationsPage() {
 			if (a.donation.is_active !== b.donation.is_active) {
 				return Number(b.donation.is_active) - Number(a.donation.is_active);
 			}
-			return a.donation.created_at.localeCompare(b.donation.created_at);
+			return b.donation.created_at.localeCompare(a.donation.created_at);
 		});
 
 	function goToCreation() {

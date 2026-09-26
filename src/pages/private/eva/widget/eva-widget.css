@@ -304,13 +304,20 @@
 	justify-content: center;
 	cursor: pointer;
 	transition:
-		background-color 0.2s ease,
-		color 0.2s ease;
+		background-color 0.15s ease,
+		color 0.15s ease,
+		transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .eva-widget-close:hover {
 	background: var(--surface-3);
 	color: var(--ink);
+}
+
+.eva-widget-close:active,
+.eva-widget-ajuda:active,
+.eva-help-voltar:active {
+	transform: scale(0.92);
 }
 
 .eva-widget-welcome {
@@ -692,7 +699,9 @@
 	background: var(--surface-3);
 	color: var(--eva-ink);
 	cursor: pointer;
-	transition: background-color 150ms ease;
+	transition:
+		background-color 150ms ease,
+		transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .eva-help-voltar:hover {
@@ -865,7 +874,8 @@
 	cursor: pointer;
 	transition:
 		background-color 150ms ease,
-		color 150ms ease;
+		color 150ms ease,
+		transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .eva-widget-ajuda:hover {

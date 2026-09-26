@@ -28,6 +28,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 					flexDirection: "column",
 					alignItems: "flex-end",
 					gap: 5,
+					transformOrigin: "bottom right",
 				}}
 			>
 				<div
@@ -65,6 +66,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 				display: "flex",
 				alignItems: "flex-end",
 				gap: 8,
+				transformOrigin: "bottom left",
 			}}
 		>
 			<AvatarEva size={28} />

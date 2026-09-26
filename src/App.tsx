@@ -20,7 +20,7 @@ import { getErrorMessage } from "./utils/error-message";
 const queryClient = new QueryClient({
 	queryCache: new QueryCache({
 		onError: (error, query) => {
-			if (query.state.data !== undefined) {
+			if (query.state.data !== undefined || query.meta?.silenciarErro) {
 				return;
 			}
 

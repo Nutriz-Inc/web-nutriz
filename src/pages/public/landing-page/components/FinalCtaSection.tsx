@@ -54,7 +54,7 @@ export function FinalCtaSection() {
 									/>
 									<Button
 										onClick={() => navigate("/login")}
-										className="h-12 w-full rounded-full border border-white/40 bg-transparent px-7 text-[15px] font-semibold text-white transition-colors hover:bg-white/10 sm:w-auto"
+										className="h-12 w-full rounded-full border border-white/40 bg-transparent px-7 text-[15px] font-semibold text-white transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] hover:bg-white/10 sm:w-auto"
 									>
 										Já sou doadora — fazer login
 									</Button>

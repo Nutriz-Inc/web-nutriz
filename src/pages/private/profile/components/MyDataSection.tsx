@@ -1,6 +1,5 @@
 import { FormField } from "@/components/full/FormField";
 import { Reveal } from "@/components/full/Reveal";
-import { cn } from "@/lib/utils";
 import { EnumUserType } from "@/services/types/i-user";
 import {
 	formatCep,
@@ -48,13 +47,28 @@ export function MyDataSection({
 		onChange({ ...values, [key]: value });
 	}
 
+	const campoEmail = (
+		<FormField
+			id="perfil-email"
+			label="E-mail"
+			value={values.email}
+			type="email"
+			inputMode="email"
+			autoComplete="email"
+			onChange={(value) => setField("email", value)}
+		/>
+	);
+
+	const campoSenha = (
+		<PasswordField
+			value={values.password}
+			onChange={(value) => setField("password", value)}
+			className="sm:col-span-2"
+		/>
+	);
+
 	return (
-		<div
-			className={cn(
-				"grid gap-5",
-				showAddress ? "lg:grid-cols-2 lg:items-start" : "lg:max-w-2xl",
-			)}
-		>
+		<div className="grid gap-5 lg:grid-cols-2 lg:items-start">
 			<Reveal>
 				<ProfileSectionCard label="Conta" title="Dados pessoais">
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -82,6 +96,11 @@ export function MyDataSection({
 							value={values.birth_date ? formatDateBR(values.birth_date) : ""}
 						/>
 
+						<p className="-mt-1 text-rotulo text-ink-3 sm:col-span-2">
+							Os campos com cadeado não mudam por aqui. Para corrigir, fale com
+							a equipe Lactare.
+						</p>
+
 						<FormField
 							id="perfil-telefone"
 							label="Telefone"
@@ -95,24 +114,22 @@ export function MyDataSection({
 							}
 						/>
 
-						<FormField
-							id="perfil-email"
-							label="E-mail"
-							value={values.email}
-							type="email"
-							inputMode="email"
-							autoComplete="email"
-							onChange={(value) => setField("email", value)}
-						/>
-
-						<PasswordField
-							value={values.password}
-							onChange={(value) => setField("password", value)}
-							className="sm:col-span-2"
-						/>
+						{showAddress && campoEmail}
+						{showAddress && campoSenha}
 					</div>
 				</ProfileSectionCard>
 			</Reveal>
+
+			{!showAddress && (
+				<Reveal delay={0.06}>
+					<ProfileSectionCard label="Acesso" title="E-mail e senha">
+						<div className="grid grid-cols-1 gap-4">
+							{campoEmail}
+							{campoSenha}
+						</div>
+					</ProfileSectionCard>
+				</Reveal>
+			)}
 
 			{showAddress && (
 				<Reveal delay={0.06}>

@@ -2,12 +2,14 @@ import "leaflet/dist/leaflet.css";
 
 import { divIcon } from "leaflet";
 
+import { useMemo } from "react";
 import { MapContainer, Marker } from "react-leaflet";
 import { MapResizeHandler } from "@/components/full/MapResizeHandler";
 import { useAccessibility } from "@/context/accessibility-context";
 import type { IDonationPointResponse } from "@/services/types/i-donation";
 import { type Coordinates, FitMapView } from "./FitMapView";
 import { LocateButton } from "./LocateButton";
+import { type FaseDoMapa, PinoDeColeta } from "./PinoDeColeta";
 import { ThemedTileLayer } from "./ThemedTileLayer";
 
 const DEFAULT_CENTER: [number, number] = [-23.5505, -46.6333];
@@ -21,33 +23,31 @@ const ZOOM_MINIMO = 3;
 const ZOOM_MAXIMO = 18;
 const ZOOM_MAXIMO_COM_DADOS = 16;
 
-const pointIcon = (selected: boolean) => {
-	const largura = selected ? 34 : 26;
-	const altura = selected ? 46 : 35;
-	const cor = selected ? "#e0457a" : "#d92b3f";
+const ATRASO_MINIMO = 180;
+const ATRASO_MAXIMO = 1300;
 
+function iconeDoUsuario(radar: boolean) {
 	return divIcon({
 		className: "",
-		iconSize: [largura, altura],
-		iconAnchor: [largura / 2, altura],
-		html: `<svg width="${largura}" height="${altura}" viewBox="0 0 26 35" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 2px 3px rgba(15,31,61,.35))">
-			<path d="M13 0C5.82 0 0 5.82 0 13c0 9.75 13 22 13 22s13-12.25 13-22c0-7.18-5.82-13-13-13z" fill="${cor}"/>
-			<path d="M11.4 7.6h3.2v3.2h3.2v3.2h-3.2v3.2h-3.2v-3.2H8.2v-3.2h3.2z" fill="#ffffff"/>
-		</svg>`,
-	});
-};
-
-const userIcon = divIcon({
-	className: "",
-	iconSize: [18, 18],
-	iconAnchor: [9, 9],
-	html: `
+		iconSize: [18, 18],
+		iconAnchor: [9, 9],
+		html: `
 		<span class="relative flex size-[18px]">
+			${radar ? '<span class="radar-onda" aria-hidden="true"></span><span class="radar-onda radar-onda--eco" aria-hidden="true"></span>' : ""}
 			<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-bright-fill opacity-60"></span>
 			<span class="relative inline-flex size-[18px] rounded-full border-2 border-white bg-blue-bright-fill"></span>
 		</span>
 	`,
-});
+	});
+}
+
+function distanciaRelativa(
+	origem: [number, number],
+	destino: [number, number],
+) {
+	const cosseno = Math.cos((origem[0] * Math.PI) / 180);
+	return Math.hypot(destino[0] - origem[0], (destino[1] - origem[1]) * cosseno);
+}
 
 type MapPreviewProps = {
 	points: IDonationPointResponse[];
@@ -59,6 +59,8 @@ type MapPreviewProps = {
 	selectedId: string | null;
 	onSelectPoint?: (id: string) => void;
 	onRequestChangeLocation: () => void;
+	fase?: FaseDoMapa;
+	destaqueId?: string | null;
 };
 
 export function MapPreview({
@@ -71,6 +73,8 @@ export function MapPreview({
 	selectedId,
 	onSelectPoint,
 	onRequestChangeLocation,
+	fase = "pronto",
+	destaqueId = null,
 }: MapPreviewProps) {
 	const { temaEfetivo } = useAccessibility();
 	const escuro = temaEfetivo === "escuro";
@@ -88,6 +92,23 @@ export function MapPreview({
 					primeiroComCoordenada.address.longitude!,
 				]
 			: DEFAULT_CENTER;
+
+	const comCoordenada = points.filter(
+		(point) =>
+			point.address.latitude != null && point.address.longitude != null,
+	);
+
+	const distancias = comCoordenada.map((point) =>
+		distanciaRelativa(center, [
+			point.address.latitude ?? 0,
+			point.address.longitude ?? 0,
+		]),
+	);
+	const menorDistancia = Math.min(...distancias.filter((d) => d > 0), 1);
+	const alcance = menorDistancia * 4;
+
+	const radar = fase === "revelando";
+	const iconeUsuario = useMemo(() => iconeDoUsuario(radar), [radar]);
 
 	return (
 		<div className="flex h-full w-full flex-col gap-3 lg:mx-auto lg:max-w-[1200px]">
@@ -121,26 +142,28 @@ export function MapPreview({
 					{userLocation && (
 						<Marker
 							position={[userLocation.latitude, userLocation.longitude]}
-							icon={userIcon}
+							icon={iconeUsuario}
 						/>
 					)}
 
-					{points
-						.filter(
-							(point) =>
-								point.address.latitude != null &&
-								point.address.longitude != null,
-						)
-						.map((point) => (
-							<Marker
+					{comCoordenada.map((point, indice) => {
+						const proporcao = Math.min(1, distancias[indice] / alcance);
+
+						return (
+							<PinoDeColeta
 								key={point.id_donation_point}
-								position={[point.address.latitude!, point.address.longitude!]}
-								icon={pointIcon(point.id_donation_point === selectedId)}
-								eventHandlers={{
-									click: () => onSelectPoint?.(point.id_donation_point),
-								}}
+								posicao={[point.address.latitude!, point.address.longitude!]}
+								selecionado={point.id_donation_point === selectedId}
+								destaque={point.id_donation_point === destaqueId}
+								fase={fase}
+								atraso={Math.round(
+									ATRASO_MINIMO +
+										(ATRASO_MAXIMO - ATRASO_MINIMO) * proporcao ** 1.6,
+								)}
+								aoSelecionar={() => onSelectPoint?.(point.id_donation_point)}
 							/>
-						))}
+						);
+					})}
 				</MapContainer>
 
 				{!escuro && (

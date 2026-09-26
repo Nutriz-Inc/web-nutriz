@@ -53,7 +53,7 @@ export function Segmented<T extends string>({
 						className={cn(
 							"shrink-0 whitespace-nowrap rounded-full px-5 text-[13px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
 							size === "lg" ? "min-h-11 py-2.5" : "py-2",
-							fullWidth && "flex-1 shrink",
+							fullWidth && "min-w-0 flex-1 shrink truncate px-2 sm:px-5",
 							active
 								? "bg-blue-deep-fill text-white shadow-soft"
 								: "text-ink-2 hover:text-ink",

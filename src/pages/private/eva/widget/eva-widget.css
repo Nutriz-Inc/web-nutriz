@@ -194,6 +194,14 @@
 	}
 }
 
+.eva-widget-vista {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+}
+
 .eva-widget-header {
 	display: flex;
 	align-items: center;

@@ -2,6 +2,7 @@ import { LoaderCircle, Plus, Stethoscope } from "lucide-react";
 import { useState } from "react";
 import agendaVazia from "@/assets/illustrations/agenda-vazia.svg";
 import semEnfermeiro from "@/assets/illustrations/sem-enfermeiro.svg";
+import { AcoesDoSheet } from "@/components/full/AcoesDoSheet";
 import { EmptyState } from "@/components/full/EmptyState";
 import { SkeletonList } from "@/components/full/SkeletonList";
 import { Button } from "@/components/ui/button";
@@ -185,14 +186,13 @@ export function CreateAppointmentSheet({
 
 				{error && <p className="text-[12px] text-danger">{error}</p>}
 
-				<div className="flex shrink-0 items-center justify-between gap-3">
+				<AcoesDoSheet>
 					<Button
 						variant="neutral"
 						size="pill"
 						type="button"
 						onClick={() => handleOpenChange(false)}
 						disabled={isPending}
-						className="w-full"
 					>
 						Cancelar
 					</Button>
@@ -202,7 +202,6 @@ export function CreateAppointmentSheet({
 						type="button"
 						onClick={handleSubmit}
 						disabled={isPending || !canSubmit}
-						className="w-full"
 					>
 						{isPending ? (
 							<LoaderCircle className="size-[18px] animate-spin" />
@@ -211,7 +210,7 @@ export function CreateAppointmentSheet({
 						)}
 						{isPending ? "Criando..." : "Criar agendamento"}
 					</Button>
-				</div>
+				</AcoesDoSheet>
 			</SheetContent>
 		</Sheet>
 	);

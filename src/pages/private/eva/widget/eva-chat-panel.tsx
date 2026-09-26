@@ -9,7 +9,9 @@ import {
 	EVA_PERSONAS,
 } from "../constants";
 import "../eva.css";
+import { AnimatePresence, motion } from "framer-motion";
 import { env } from "@/config/env";
+import { EASE_OUT } from "@/lib/easing";
 import type { EvaChat } from "../hooks/use-eva-chat";
 import type { ChatMessage, EvaMessageAction } from "../types";
 import { EvaActionButton } from "./eva-action-button";
@@ -114,6 +116,12 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 	const consentSupportHref =
 		blockedReason === "consent" ? buildConsentSupportHref() : null;
 
+	const chaveDoAviso = blocked
+		? `bloqueio-${blockedReason}`
+		: status === "failed" || errorMessage
+			? "falha"
+			: status;
+
 	const statusNotice = blocked ? (
 		blockedReason === "consent" ? (
 			<div className="eva-widget-notice-group">
@@ -181,8 +189,24 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 						</div>
 					);
 				})}
-				{isTyping && <TypingIndicator rotulo={etapaAtual} />}
-				{statusNotice}
+				<AnimatePresence initial={false}>
+					{isTyping ? (
+						<TypingIndicator key="digitando" rotulo={etapaAtual} />
+					) : null}
+				</AnimatePresence>
+				<AnimatePresence initial={false}>
+					{statusNotice ? (
+						<motion.div
+							key={chaveDoAviso}
+							initial={{ opacity: 0, y: 6 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, transition: { duration: 0.12 } }}
+							transition={{ duration: 0.24, ease: EASE_OUT }}
+						>
+							{statusNotice}
+						</motion.div>
+					) : null}
+				</AnimatePresence>
 			</div>
 
 			<div className="eva-widget-input-area">

@@ -4,14 +4,20 @@ import { StaggerGroup } from "@/components/full/StaggerGroup";
 import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import type { FiltroDeIndicadores } from "@/services/types/i-analytics";
 import { EnumUserType } from "@/services/types/i-user";
 import { ActiveDonationsByStepCard } from "./components/ActiveDonationsByStepCard";
 import { BottlesCard } from "./components/BottlesCard";
+import { CadeiaFriaCard } from "./components/CadeiaFriaCard";
+import { FunilCard } from "./components/FunilCard";
 import { GerarRelatorioButton } from "./components/GerarRelatorioButton";
+import { LogisticaCard } from "./components/LogisticaCard";
 import { MilkCollectedCard } from "./components/MilkCollectedCard";
+import { MotoristasCard } from "./components/MotoristasCard";
+import { OperacaoAgoraCard } from "./components/OperacaoAgoraCard";
 import { PeriodFilter } from "./components/PeriodFilter";
 import { RecurrenceCard } from "./components/RecurrenceCard";
-import { RouteStatsCard } from "./components/RouteStatsCard";
+import { RegioesCard } from "./components/RegioesCard";
 import { RelatorioDoDashboard } from "./components/report/RelatorioDoDashboard";
 import { SatisfactionCard } from "./components/SatisfactionCard";
 import { StatCard } from "./components/StatCard";
@@ -52,6 +58,11 @@ export function AdmDashboardPage() {
 			: getPeriodPresetRange(preset);
 
 	const { dashboardQuery } = useQueryAdmDashboard(requestParams);
+	const intervalo: { start_date?: string; end_date?: string } = requestParams;
+	const filtroDeIndicadores: FiltroDeIndicadores =
+		intervalo.start_date && intervalo.end_date
+			? { inicio: intervalo.start_date, fim: intervalo.end_date }
+			: { periodo: "tudo" };
 	const data = dashboardQuery.data;
 
 	const { emitidoEm, gerarRelatorio } = useRelatorio(!!data);
@@ -82,6 +93,8 @@ export function AdmDashboardPage() {
 			) : null}
 
 			<div className="flex flex-col gap-6 print:hidden lg:mx-auto lg:w-full lg:max-w-[1400px]">
+				<OperacaoAgoraCard />
+
 				<PeriodFilter
 					preset={preset}
 					onPresetChange={handlePresetChange}
@@ -91,6 +104,17 @@ export function AdmDashboardPage() {
 					onCustomEndChange={setCustomEnd}
 					onApplyCustom={handleApplyCustom}
 				/>
+
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+					<StaggerItem className="h-full">
+						<CadeiaFriaCard filtro={filtroDeIndicadores} />
+					</StaggerItem>
+					<StaggerItem className="h-full">
+						<LogisticaCard filtro={filtroDeIndicadores} />
+					</StaggerItem>
+				</StaggerGroup>
+
+				<FunilCard filtro={filtroDeIndicadores} />
 
 				<MilkCollectedCard
 					total={data?.total_milk_collected ?? 0}
@@ -150,14 +174,14 @@ export function AdmDashboardPage() {
 					</StaggerItem>
 				</StaggerGroup>
 
-				<RouteStatsCard
-					stats={{
-						average_mileage_per_route: data?.average_mileage_per_route ?? null,
-						average_stops_per_route: data?.average_stops_per_route ?? null,
-						average_route_duration_hours:
-							data?.average_route_duration_hours ?? null,
-					}}
-				/>
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+					<StaggerItem className="h-full">
+						<MotoristasCard filtro={filtroDeIndicadores} />
+					</StaggerItem>
+					<StaggerItem className="h-full">
+						<RegioesCard filtro={filtroDeIndicadores} />
+					</StaggerItem>
+				</StaggerGroup>
 			</div>
 		</Page>
 	);

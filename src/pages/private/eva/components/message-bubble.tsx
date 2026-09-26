@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { EASE_OUT } from "@/lib/easing";
 import type { ChatMessage } from "../types";
 import { AvatarEva } from "./avatar-eva";
+import { CopiarMensagem } from "./copiar-mensagem";
 import { TextoDaEva } from "./texto-da-eva";
 
 type MessageBubbleProps = {
@@ -88,8 +89,11 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 					<TextoDaEva texto={texto} />
 				</div>
 				{message.time && (
-					<span className="eva-msg-time" style={{ paddingLeft: 6 }}>
-						{message.time}
+					<span className="eva-msg-meta">
+						<span className="eva-msg-time" style={{ paddingLeft: 6 }}>
+							{message.time}
+						</span>
+						<CopiarMensagem texto={texto} />
 					</span>
 				)}
 			</div>

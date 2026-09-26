@@ -392,6 +392,60 @@
 	color: var(--ink-3);
 }
 
+.eva-msg-meta {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.eva-copiar {
+	position: relative;
+	display: inline-grid;
+	place-items: center;
+	width: 26px;
+	height: 26px;
+	border: none;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--ink-3);
+	cursor: pointer;
+	transition:
+		background-color 0.15s ease,
+		color 0.15s ease,
+		transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.eva-copiar::before {
+	content: "";
+	position: absolute;
+	inset: -8px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.eva-copiar:hover {
+		background: var(--surface-3);
+		color: var(--eva-deep);
+	}
+}
+
+.eva-copiar:active {
+	transform: scale(0.9);
+}
+
+.eva-copiar[data-copiado] {
+	color: var(--success);
+}
+
+.eva-copiar:focus-visible {
+	outline: 2px solid color-mix(in oklch, var(--eva-deep) 60%, transparent);
+	outline-offset: 1px;
+}
+
+.eva-copiar-icone {
+	display: grid;
+	place-items: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.eva-scope *,
 	.eva-scope *::before,

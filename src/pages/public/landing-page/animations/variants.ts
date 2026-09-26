@@ -63,3 +63,11 @@ export const assentarImagem: Variants = {
 		transition: { duration: 1.4, ease: EASE_IN_OUT },
 	},
 };
+
+export const desenharLinha: Variants = {
+	hidden: { scaleX: 0 },
+	show: {
+		scaleX: 1,
+		transition: { duration: 0.9, delay: 0.15, ease: EASE_IN_OUT },
+	},
+};

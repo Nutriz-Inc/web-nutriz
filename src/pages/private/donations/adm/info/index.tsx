@@ -75,9 +75,11 @@ export function DonationManagementDetailPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={donationQuery.isLoading}
+			error={donationQuery.isError ? donationQuery.error : undefined}
+			onRetry={() => donationQuery.refetch()}
 			backTo={backTo}
-			title={id_donation.slice(0, 16)}
-			description="Informações cadastrais e histórico da doação na plataforma"
+			title={donorQuery.data?.name ?? "Doação"}
+			description="Etapas, frascos e histórico desta doação"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
 			{donation && (

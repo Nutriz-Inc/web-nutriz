@@ -113,7 +113,7 @@ export function StepJobCard({
 					value={nurseId}
 					onChange={(event) => setNurseId(event.target.value)}
 					disabled={disabled}
-					className="w-full rounded-xl border-[1.5px] border-blue-bright bg-surface px-3 py-2 text-[13px] text-ink outline-none disabled:opacity-60"
+					className="w-full rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-[13px] text-ink outline-none disabled:opacity-60"
 				>
 					{nurses.map((nurse) => (
 						<option key={nurse.id_user} value={nurse.id_user}>
@@ -129,7 +129,7 @@ export function StepJobCard({
 				rows={2}
 				disabled={disabled}
 				placeholder="Descrição do atendimento"
-				className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
+				className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
 			/>
 
 			<div className="flex gap-2">

@@ -13,6 +13,7 @@ type HeroStatCardProps = {
 	label: string;
 	sublabel: string;
 	compacto?: boolean;
+	ordem?: number;
 	className?: string;
 };
 
@@ -24,6 +25,7 @@ export function HeroStatCard({
 	label,
 	sublabel,
 	compacto = false,
+	ordem = 0,
 	className,
 }: HeroStatCardProps) {
 	const [ciclo, setCiclo] = useState(0);
@@ -49,6 +51,11 @@ export function HeroStatCard({
 				className,
 			)}
 		>
+			<span
+				aria-hidden="true"
+				style={{ animationDelay: `${1.9 + ordem * 0.12}s` }}
+				className="pointer-events-none absolute inset-y-0 left-0 w-1/2 -translate-x-[140%] -skew-x-12 bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 motion-safe:brilho-vidro"
+			/>
 			<span className="relative mx-auto flex w-fit items-center gap-2 lg:mx-0 lg:w-auto">
 				<Icon
 					aria-hidden="true"

@@ -183,11 +183,17 @@
 	font-weight: 500;
 	color: var(--eva-chip-text);
 	cursor: pointer;
-	transition: background-color 0.2s ease;
+	transition:
+		background-color 0.15s ease,
+		transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .eva-chip:hover {
 	background: var(--surface-2);
+}
+
+.eva-chip:active {
+	transform: scale(0.97);
 }
 
 .eva-btn-primary {
@@ -213,7 +219,7 @@
 }
 
 .eva-btn-primary:active {
-	transform: scale(0.985);
+	transform: scale(0.97);
 }
 
 .eva-link {
@@ -296,17 +302,38 @@
 		var(--eva-acao-anel, none),
 		0 10px 24px -10px color-mix(in oklch, var(--eva-deep) 55%, transparent);
 	cursor: pointer;
+	overflow: hidden;
 	transition:
-		transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1),
+		transform 0.16s cubic-bezier(0.23, 1, 0.32, 1),
+		background-color 0.2s ease,
+		color 0.2s ease,
+		box-shadow 0.2s ease,
 		opacity 0.2s ease;
 }
 
-.eva-send-btn:hover:not(:disabled) {
-	transform: scale(1.06);
+@media (hover: hover) and (pointer: fine) {
+	.eva-send-btn:hover:not(:disabled) {
+		transform: scale(1.06);
+	}
 }
 
 .eva-send-btn:active:not(:disabled) {
-	transform: scale(0.92);
+	transform: scale(0.94);
+}
+
+.eva-send-icone {
+	display: grid;
+	place-items: center;
+}
+
+.eva-send-giro {
+	animation: eva-giro-envio 0.7s linear infinite;
+}
+
+@keyframes eva-giro-envio {
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .eva-send-btn:disabled {
@@ -365,6 +392,60 @@
 	color: var(--ink-3);
 }
 
+.eva-msg-meta {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.eva-copiar {
+	position: relative;
+	display: inline-grid;
+	place-items: center;
+	width: 26px;
+	height: 26px;
+	border: none;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--ink-3);
+	cursor: pointer;
+	transition:
+		background-color 0.15s ease,
+		color 0.15s ease,
+		transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.eva-copiar::before {
+	content: "";
+	position: absolute;
+	inset: -8px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.eva-copiar:hover {
+		background: var(--surface-3);
+		color: var(--eva-deep);
+	}
+}
+
+.eva-copiar:active {
+	transform: scale(0.9);
+}
+
+.eva-copiar[data-copiado] {
+	color: var(--success);
+}
+
+.eva-copiar:focus-visible {
+	outline: 2px solid color-mix(in oklch, var(--eva-deep) 60%, transparent);
+	outline-offset: 1px;
+}
+
+.eva-copiar-icone {
+	display: grid;
+	place-items: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.eva-scope *,
 	.eva-scope *::before,
@@ -380,6 +461,7 @@
 
 	.eva-pill:hover,
 	.eva-pill:active,
+	.eva-chip:active,
 	.eva-btn-primary:active,
 	.eva-outline-btn:hover,
 	.eva-outline-btn:active,
@@ -387,4 +469,206 @@
 	.eva-send-btn:active:not(:disabled) {
 		transform: none;
 	}
+}
+
+.eva-texto {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.eva-texto p {
+	margin: 0;
+}
+
+.eva-texto strong {
+	font-weight: 650;
+	color: var(--eva-ink);
+}
+
+.eva-texto ul,
+.eva-texto ol {
+	margin: 0;
+	padding-left: 1.15rem;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.eva-texto ul {
+	list-style: disc;
+}
+
+.eva-texto ol {
+	list-style: decimal;
+}
+
+.eva-texto li::marker {
+	color: var(--eva-deep);
+}
+
+.eva-texto-tabela {
+	overflow-x: auto;
+	border-radius: 12px;
+	border: 1px solid var(--eva-linha);
+	background: var(--surface);
+}
+
+.eva-texto-tabela table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.eva-texto-tabela th {
+	text-align: left;
+	font-weight: 600;
+	color: var(--eva-ink-2);
+	background: var(--surface-2);
+	padding: 8px 10px;
+	white-space: nowrap;
+}
+
+.eva-texto-tabela td {
+	padding: 7px 10px;
+	border-top: 1px solid var(--eva-linha);
+	font-variant-numeric: tabular-nums;
+}
+
+.eva-relatorio {
+	margin-left: 36px;
+	max-width: calc(100% - 36px);
+	min-width: 0;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 14px;
+	border-radius: 18px;
+	border: 1px solid var(--eva-linha);
+	background: var(--surface);
+	box-shadow: 0 10px 24px -18px color-mix(in oklch, var(--ink) 45%, transparent);
+}
+
+.eva-relatorio-topo {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.eva-relatorio-icone {
+	display: grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	flex: none;
+	border-radius: 10px;
+	background: var(--blue-tint);
+	color: var(--blue-deep);
+}
+
+.eva-relatorio-titulo {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 650;
+	color: var(--eva-ink);
+	line-height: 1.3;
+}
+
+.eva-relatorio-sub {
+	margin: 2px 0 0;
+	font-size: 12px;
+	color: var(--eva-ink-2);
+}
+
+.eva-relatorio-previa {
+	overflow-x: auto;
+	border-radius: 12px;
+	background: var(--surface-2);
+}
+
+.eva-relatorio-previa table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 12px;
+}
+
+.eva-relatorio-previa th {
+	text-align: left;
+	font-weight: 600;
+	color: var(--eva-ink-2);
+	padding: 8px 10px 6px;
+	white-space: nowrap;
+}
+
+.eva-relatorio-previa td {
+	padding: 6px 10px;
+	border-top: 1px solid var(--eva-linha);
+	color: var(--eva-ink);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.eva-relatorio-mais {
+	margin: 0;
+	padding: 8px 10px;
+	font-size: 11.5px;
+	color: var(--eva-ink-2);
+}
+
+.eva-relatorio-acoes {
+	display: flex;
+	gap: 8px;
+}
+
+.eva-relatorio-botao {
+	flex: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 7px;
+	min-height: 40px;
+	border-radius: 999px;
+	border: 1px solid var(--line-strong);
+	background: var(--surface);
+	color: var(--ink);
+	font: inherit;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		background-color 150ms var(--ease-out, ease),
+		transform 150ms var(--ease-out, ease);
+}
+
+.eva-relatorio-botao:active {
+	transform: scale(0.97);
+}
+
+.eva-relatorio-botao--forte {
+	border-color: transparent;
+	background: var(--blue-deep-fill);
+	color: var(--surface-on-fill);
+}
+
+@media (hover: hover) {
+	.eva-relatorio-botao:hover {
+		background: var(--surface-2);
+	}
+
+	.eva-relatorio-botao--forte:hover {
+		background: var(--blue);
+	}
+}
+
+.eva-relatorio-botao:focus-visible {
+	outline: 2px solid var(--blue-bright);
+	outline-offset: 2px;
+}
+
+.eva-typing-rotulo {
+	margin-left: 6px;
+	font-size: 12.5px;
+	color: var(--eva-ink-2);
 }

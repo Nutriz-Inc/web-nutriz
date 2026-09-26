@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { EASE_OUT } from "@/lib/easing";
 
 type StaggerItemProps = {
 	children: ReactNode;
@@ -15,7 +16,7 @@ export function StaggerItem({ children, className }: StaggerItemProps) {
 				visivel: {
 					opacity: 1,
 					y: 0,
-					transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+					transition: { duration: 0.4, ease: EASE_OUT },
 				},
 			}}
 		>

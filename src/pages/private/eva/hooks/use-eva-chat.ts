@@ -73,6 +73,7 @@ export function useEvaChat(initialMessage?: string) {
 	const [status, setStatus] = useState<EvaChatStatus>("connecting");
 	const [blockedReason, setBlockedReason] = useState<EvaBlockedReason>(null);
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+	const [etapaAtual, setEtapaAtual] = useState<string | null>(null);
 
 	const wsRef = useRef<WebSocket | null>(null);
 	const disposedRef = useRef(false);
@@ -109,6 +110,7 @@ export function useEvaChat(initialMessage?: string) {
 		sendingRef.current = false;
 		setIsSending(false);
 		setIsTyping(false);
+		setEtapaAtual(null);
 	}, []);
 
 	const finalizeStream = useCallback((withTime: boolean) => {
@@ -248,6 +250,7 @@ export function useEvaChat(initialMessage?: string) {
 					const paragraphs = splitParagraphs(streamTextRef.current);
 
 					setIsTyping(false);
+					setEtapaAtual(null);
 					setMessages((previous) => {
 						const jaExiste = previous.some(
 							(message) => message.id === streamId && message.role === "eva",
@@ -260,6 +263,34 @@ export function useEvaChat(initialMessage?: string) {
 						}
 
 						return [...previous, { id: streamId, role: "eva", paragraphs }];
+					});
+					break;
+				}
+				case "status": {
+					setEtapaAtual(frame.message ?? null);
+					break;
+				}
+				case "report": {
+					const streamId = streamIdRef.current;
+					const relatorio = frame.report;
+
+					if (!streamId || !relatorio) {
+						break;
+					}
+
+					setMessages((previous) => {
+						const existe = previous.some((message) => message.id === streamId);
+
+						if (existe) {
+							return previous.map((message) =>
+								message.id === streamId ? { ...message, relatorio } : message,
+							);
+						}
+
+						return [
+							...previous,
+							{ id: streamId, role: "eva", paragraphs: [], relatorio },
+						];
 					});
 					break;
 				}
@@ -357,6 +388,19 @@ export function useEvaChat(initialMessage?: string) {
 		[sendRaw],
 	);
 
+	const enviarAoConectar = useCallback(
+		(text: string) => {
+			const trimmed = text.trim();
+
+			if (!trimmed || sendRaw(trimmed)) {
+				return;
+			}
+
+			pendingInitialRef.current = trimmed;
+		},
+		[sendRaw],
+	);
+
 	const retry = useCallback(() => {
 		attemptsRef.current = 0;
 		setErrorMessage(null);
@@ -368,11 +412,15 @@ export function useEvaChat(initialMessage?: string) {
 		messages,
 		isTyping,
 		isSending,
+		etapaAtual,
 		status,
 		blockedReason,
 		errorMessage,
 		sendMessage,
+		enviarAoConectar,
 		retry,
 		isAnonymous: !isAuthenticated,
 	};
 }
+
+export type EvaChat = ReturnType<typeof useEvaChat>;

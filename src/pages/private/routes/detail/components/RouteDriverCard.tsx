@@ -65,7 +65,7 @@ export function RouteDriverCard({
 						{identidade}
 						<ChevronRight
 							className={cn(
-								"size-5 shrink-0 text-ink-2 transition-transform duration-300",
+								"size-5 shrink-0 text-ink-2 transition-transform duration-200 ease-out",
 								"group-hover:translate-x-0.5",
 							)}
 						/>

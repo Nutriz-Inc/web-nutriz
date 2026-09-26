@@ -5,6 +5,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import { EASE_OUT } from "@/lib/easing";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { ArticleCard } from "./components/ArticleCard";
 import { DonateCta } from "./components/DonateCta";
@@ -34,7 +35,7 @@ export function ArticlesScreen() {
 				initial: { opacity: 0, y: 14 },
 				animate: { opacity: 1, y: 0 },
 				exit: { opacity: 0, y: 14 },
-				transition: { duration: 0.45, ease: "easeOut" as const },
+				transition: { duration: 0.45, ease: EASE_OUT },
 			};
 
 	const sidebarReveal = shouldReduceMotion

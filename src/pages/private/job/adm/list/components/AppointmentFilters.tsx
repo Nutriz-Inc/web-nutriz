@@ -1,6 +1,8 @@
 import { Search, X } from "lucide-react";
 import type { FormEvent } from "react";
 import { FilterChips } from "@/components/full/FilterChips";
+import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
+import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Button } from "@/components/ui/button";
 import { DateFilter } from "../../../list/components/DateFilter";
@@ -38,15 +40,23 @@ export function AppointmentFilters({
 
 	return (
 		<div className="flex flex-col gap-[18px] lg:gap-5">
-			<div className="sem-barra flex items-center gap-2.5 overflow-x-auto">
-				<FilterChips
-					options={STATUS_FILTER_OPTIONS}
-					value={status}
-					onChange={onStatusChange}
-				/>
-			</div>
-
 			<form onSubmit={handleSubmit} className="flex flex-col gap-[18px]">
+				<PainelDeFiltros>
+					<GrupoDeFiltro rotulo="Situação do agendamento">
+						<FilterChips
+							options={STATUS_FILTER_OPTIONS}
+							value={status}
+							onChange={onStatusChange}
+						/>
+					</GrupoDeFiltro>
+					<GrupoDeFiltro rotulo="Data do agendamento">
+						<DateFilter
+							value={dateFilter}
+							onChange={onDateFilterChange}
+							semRotulo
+						/>
+					</GrupoDeFiltro>
+				</PainelDeFiltros>
 				<div className="flex flex-col gap-2.5 lg:flex-row lg:items-center">
 					<div className="lg:flex-1">
 						<SearchBar
@@ -84,8 +94,6 @@ export function AppointmentFilters({
 						</Button>
 					</div>
 				</div>
-
-				<DateFilter value={dateFilter} onChange={onDateFilterChange} />
 			</form>
 		</div>
 	);

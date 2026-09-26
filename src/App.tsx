@@ -10,6 +10,7 @@ import { RouterProvider } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { SkipLink } from "./components/full/SkipLink";
 import { ThemeColorSync } from "./components/full/ThemeColorSync";
+import { useAquecerServicos } from "./hooks/use-aquecer-servicos";
 import { useAuth } from "./hooks/use-auth";
 import { registerAppRouter } from "./lib/app-navigation";
 import { EvaWidget } from "./pages/private/eva/widget/eva-widget";
@@ -19,7 +20,7 @@ import { getErrorMessage } from "./utils/error-message";
 const queryClient = new QueryClient({
 	queryCache: new QueryCache({
 		onError: (error, query) => {
-			if (query.state.data !== undefined) {
+			if (query.state.data !== undefined || query.meta?.silenciarErro) {
 				return;
 			}
 
@@ -46,6 +47,7 @@ const queryClient = new QueryClient({
 
 function App() {
 	const { isAuthenticated } = useAuth();
+	useAquecerServicos();
 
 	const routes = useMemo(() => {
 		return isAuthenticated ? routerPrivate() : publicRouter();

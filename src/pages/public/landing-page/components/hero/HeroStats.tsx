@@ -25,6 +25,7 @@ export function HeroStats() {
 					label={metric.label}
 					sublabel={metric.sublabel}
 					compacto={indice === ultimo}
+					ordem={indice}
 					className={indice === ultimo ? "max-lg:col-span-2" : undefined}
 				/>
 			))}

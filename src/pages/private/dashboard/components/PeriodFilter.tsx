@@ -24,7 +24,7 @@ export function PeriodFilter({
 }: PeriodFilterProps) {
 	return (
 		<div className="flex flex-col gap-3">
-			<div className="sem-barra flex gap-2 overflow-x-auto">
+			<div className="flex flex-wrap gap-2">
 				<FilterChips
 					options={PERIOD_PRESET_OPTIONS}
 					value={preset}

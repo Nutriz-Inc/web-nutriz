@@ -106,14 +106,14 @@ export function StopsPicker({
 			</SectionLabel>
 
 			{value.length > 0 ? (
-				<ol className="flex flex-col gap-1.5 rounded-xl border border-blue-tint bg-blue-tint/40 p-2.5">
+				<ol className="flex flex-col gap-1.5 rounded-xl bg-surface-2 p-2">
 					{value.map((id, index) => {
 						const dados = dadosPorId.get(id);
 
 						return (
 							<li
 								key={id}
-								className="flex items-center gap-2.5 rounded-lg bg-surface px-2.5 py-2"
+								className="flex items-center gap-2.5 rounded-lg border border-line bg-surface px-2.5 py-2"
 							>
 								<span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-blue-deep-fill text-[11px] font-bold tabular-nums text-white">
 									{index + 1}
@@ -143,21 +143,21 @@ export function StopsPicker({
 					})}
 				</ol>
 			) : (
-				<p className="rounded-xl border border-dashed border-blue-tint-2 px-3.5 py-3 text-[12px] leading-relaxed text-ink-2">
+				<p className="text-[12px] leading-relaxed text-ink-2">
 					Nenhuma parada escolhida ainda. Toque nas etapas abaixo para montar o
 					trajeto — a ordem de visita é otimizada depois.
 				</p>
 			)}
 
-			<div className="flex flex-col gap-2 rounded-card-sm border border-line bg-surface-2 p-2.5">
+			<div className="flex flex-col gap-2">
 				<div className="relative">
-					<Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ink-3" />
+					<Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-ink-3" />
 					<input
 						value={busca}
 						onChange={(evento) => setBusca(evento.target.value)}
 						placeholder="Buscar etapa por nome, bairro ou cidade"
 						aria-label="Buscar etapa disponível"
-						className="w-full rounded-lg border border-line bg-surface py-2 pl-9 pr-3 text-[13px] text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-blue-bright"
+						className="h-11 w-full rounded-full border border-line bg-surface-2 pl-10 pr-4 text-[14px] text-ink outline-none transition-colors placeholder:text-ink-3/70 focus:border-blue-bright focus:bg-surface focus:ring-3 focus:ring-blue-bright/25"
 					/>
 				</div>
 
@@ -188,7 +188,7 @@ export function StopsPicker({
 									aria-pressed={escolhida}
 									onClick={() => alternar(step.id_donation_step)}
 									className={cn(
-										"flex items-center gap-2.5 rounded-lg border px-2.5 py-2 text-left outline-none transition-colors focus-visible:ring-4 focus-visible:ring-blue-bright/40",
+										"flex items-center gap-2.5 rounded-xl border px-3 py-2.5 text-left outline-none transition-colors focus-visible:ring-4 focus-visible:ring-blue-bright/40",
 										escolhida
 											? "border-blue-deep bg-blue-tint"
 											: "border-line bg-surface hover:border-blue-tint-2 hover:bg-blue-tint/40",

@@ -3,15 +3,28 @@
 }
 
 @media print {
+	html:has(.relatorio),
+	body:has(> .relatorio) {
+		height: auto;
+		min-height: 0;
+		margin: 0;
+		padding: 0;
+	}
+
+	body:has(> .relatorio) > :not(.relatorio) {
+		display: none;
+	}
+
 	.relatorio {
-		--r-marca: #00458b;
-		--r-marca-2: #387ccd;
-		--r-tint: #eaf1fa;
-		--r-tint-2: #f6f9fd;
-		--r-linha: #cfdcea;
-		--r-tinta: #16222e;
-		--r-tinta-2: #41525f;
-		--r-tinta-3: #6a7a88;
+		--r-marca: #00325c;
+		--r-marca-2: #246cb9;
+		--r-tint: #e8f0f9;
+		--r-tint-2: #f5f8fc;
+		--r-linha: #cfe0f5;
+		--r-tinta: #0f1f3d;
+		--r-tinta-2: #42506b;
+		--r-tinta-3: #626e82;
+		--r-raio: 3.5mm;
 		--r-roxo: #662e9b;
 		--r-ciano: #43bccd;
 		--r-laranja: #f86624;
@@ -20,9 +33,11 @@
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
-		gap: 8mm;
+		gap: 6mm;
 		width: 210mm;
-		height: 297mm;
+		height: 296mm;
+		break-after: avoid;
+		page-break-after: avoid;
 		padding: 10mm 14mm 9mm;
 		margin: 0;
 		overflow: hidden;
@@ -42,11 +57,13 @@
 
 	.relatorio-topo {
 		display: flex;
-		align-items: flex-end;
+		align-items: center;
 		justify-content: space-between;
 		gap: 10mm;
-		padding-bottom: 3.5mm;
-		border-bottom: 0.7mm solid var(--r-marca);
+		padding: 5mm 6mm;
+		border-radius: var(--r-raio);
+		background: linear-gradient(135deg, #00325c 0%, #00549e 60%, #246cb9 100%);
+		color: #ffffff;
 	}
 
 	.relatorio-topo-marca {
@@ -63,7 +80,11 @@
 	}
 
 	.relatorio-logo {
-		height: 8mm;
+		box-sizing: content-box;
+		padding: 1.6mm 3mm;
+		border-radius: 999px;
+		background: #ffffff;
+		height: 6.5mm;
 		width: auto;
 		flex-shrink: 0;
 	}
@@ -74,13 +95,13 @@
 		font-weight: 800;
 		line-height: 1.05;
 		letter-spacing: -0.015em;
-		color: var(--r-marca);
+		color: #ffffff;
 	}
 
 	.relatorio-subtitulo {
 		margin: 1.2mm 0 0;
 		font-size: 8.5pt;
-		color: var(--r-tinta-3);
+		color: rgba(255, 255, 255, 0.82);
 	}
 
 	.relatorio-topo-meta {
@@ -97,7 +118,7 @@
 		font-weight: 500;
 		text-align: right;
 		white-space: nowrap;
-		color: #9aa8b5;
+		color: rgba(255, 255, 255, 0.7);
 	}
 
 	.relatorio-topo-meta dd {
@@ -106,7 +127,7 @@
 		font-weight: 600;
 		font-variant-numeric: tabular-nums;
 		white-space: nowrap;
-		color: #8b99a6;
+		color: #ffffff;
 	}
 
 	.relatorio-topo-meta {
@@ -116,30 +137,37 @@
 	/* ---------- faixa de dados ---------- */
 
 	.relatorio-faixa {
-		width: 100%;
-		border-collapse: collapse;
-		table-layout: fixed;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 3mm;
+		margin: 0;
 	}
 
-	.relatorio-faixa th {
-		padding: 2mm 3mm;
+	.relatorio-faixa-item {
+		display: flex;
+		flex-direction: column;
+		gap: 1.2mm;
+		padding: 3.2mm 4mm;
 		border: 0.25mm solid var(--r-linha);
+		border-radius: var(--r-raio);
 		background: var(--r-tint);
-		font-size: 7.5pt;
+	}
+
+	.relatorio-faixa-item dt {
+		font-size: 7pt;
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
-		text-align: left;
-		color: var(--r-marca);
+		color: var(--r-tinta-2);
 	}
 
-	.relatorio-faixa td {
-		padding: 2.6mm 3mm;
-		border: 0.25mm solid var(--r-linha);
-		font-size: 12pt;
+	.relatorio-faixa-item dd {
+		margin: 0;
+		font-size: 15pt;
 		font-weight: 800;
+		line-height: 1;
 		font-variant-numeric: tabular-nums;
-		color: var(--r-tinta);
+		color: var(--r-marca);
 	}
 
 	/* ---------- cartões de indicador ---------- */
@@ -156,7 +184,7 @@
 		gap: 3.5mm;
 		padding: 4.5mm 4mm;
 		border: 0.25mm solid var(--r-linha);
-		border-radius: 2mm;
+		border-radius: var(--r-raio);
 		background: var(--r-tint-2);
 		break-inside: avoid;
 	}
@@ -336,7 +364,11 @@
 
 	.relatorio-tabela {
 		width: 100%;
-		border-collapse: collapse;
+		border-collapse: separate;
+		border-spacing: 0;
+		border: 0.25mm solid var(--r-linha);
+		border-radius: var(--r-raio);
+		overflow: hidden;
 		font-size: 8.5pt;
 	}
 
@@ -348,7 +380,7 @@
 
 	.relatorio-tabela th {
 		padding: 2mm 3mm;
-		border: 0.25mm solid var(--r-linha);
+		border: 0;
 		background: var(--r-tint);
 		font-size: 7.5pt;
 		font-weight: 700;
@@ -365,7 +397,8 @@
 
 	.relatorio-tabela td {
 		padding: 1.9mm 3mm;
-		border: 0.25mm solid var(--r-linha);
+		border: 0;
+		border-top: 0.25mm solid var(--r-linha);
 		font-weight: 700;
 		font-variant-numeric: tabular-nums;
 		color: var(--r-tinta);
@@ -422,8 +455,7 @@
 		gap: 3mm;
 		padding: 5mm;
 		border: 0.25mm solid var(--r-linha);
-		border-left: 1mm solid var(--r-marca);
-		border-radius: 1mm;
+		border-radius: var(--r-raio);
 		background: var(--r-tint-2);
 		break-inside: avoid;
 	}

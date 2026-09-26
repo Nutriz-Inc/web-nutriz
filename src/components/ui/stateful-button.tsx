@@ -36,23 +36,23 @@ export function StatefulButton({
 
 		await animar(
 			".loader",
-			{ width: 20, scale: 1, display: "block" },
+			{ width: 20, scale: 1, opacity: 1, display: "block" },
 			{ duration: 0.2 },
 		);
 		await acao;
 		await animar(
 			".loader",
-			{ width: 0, scale: 0, display: "none" },
+			{ width: 0, scale: 0.6, opacity: 0, display: "none" },
 			{ duration: 0.2 },
 		);
 		await animar(
 			".check",
-			{ width: 20, scale: 1, display: "block" },
+			{ width: 20, scale: 1, opacity: 1, display: "block" },
 			{ duration: 0.2 },
 		);
 		await animar(
 			".check",
-			{ width: 0, scale: 0, display: "none" },
+			{ width: 0, scale: 0.6, opacity: 0, display: "none" },
 			{ delay: 1.6, duration: 0.2 },
 		);
 	}
@@ -65,7 +65,7 @@ export function StatefulButton({
 			{...props}
 			onClick={handleClick}
 			className={cn(
-				"flex min-h-[46px] min-w-[150px] items-center justify-center gap-2 rounded-full px-5 text-[14px] font-semibold outline-none transition-[filter,transform] duration-200 hover:brightness-105 focus-visible:ring-3 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
+				"flex min-h-[46px] min-w-[150px] items-center justify-center gap-2 rounded-full px-5 text-[14px] font-semibold outline-none transition-[filter,transform] duration-200 hover:brightness-105 focus-visible:ring-3 focus-visible:ring-blue-bright/50 active:scale-[0.97]",
 				className,
 			)}
 		>
@@ -91,7 +91,7 @@ function Giro() {
 			strokeWidth="2"
 			strokeLinecap="round"
 			strokeLinejoin="round"
-			initial={{ scale: 0, width: 0, display: "none" }}
+			initial={{ scale: 0.6, opacity: 0, width: 0, display: "none" }}
 			animate={{ rotate: [0, 360] }}
 			transition={{
 				duration: 0.8,
@@ -117,7 +117,7 @@ function Certo() {
 			strokeWidth="2"
 			strokeLinecap="round"
 			strokeLinejoin="round"
-			initial={{ scale: 0, width: 0, display: "none" }}
+			initial={{ scale: 0.6, opacity: 0, width: 0, display: "none" }}
 			style={{ height: 20 }}
 		>
 			<path d="M5 12l5 5L20 7" />

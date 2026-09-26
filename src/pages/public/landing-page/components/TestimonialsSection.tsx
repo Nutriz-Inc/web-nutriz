@@ -15,7 +15,7 @@ export function TestimonialsSection() {
 	const go = (next: number) => setIndex((next + total) % total);
 
 	const arrowClass =
-		"inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-line bg-surface text-blue-bright shadow-soft outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50";
+		"inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-line bg-surface text-blue-bright shadow-soft outline-none transition-[background-color,transform] duration-150 ease-out active:scale-[0.95] hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50";
 
 	const carrosselReveal = useReveal();
 
@@ -76,7 +76,7 @@ export function TestimonialsSection() {
 							aria-label={`Ir para depoimento ${dotIndex + 1}`}
 							aria-current={dotIndex === index}
 							className={cn(
-								"relative h-2 cursor-pointer rounded-full transition-all before:absolute before:-inset-2 before:content-['']",
+								"relative h-2 cursor-pointer rounded-full transition-[width,background-color] duration-200 ease-out before:absolute before:-inset-2 before:content-['']",
 								dotIndex === index
 									? "w-6 bg-blue-bright"
 									: "w-2 bg-blue-tint-2 hover:bg-blue-tint-2",

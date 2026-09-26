@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { EASE_OUT } from "@/lib/easing";
 import { cn } from "@/lib/utils";
 
 type RevealProps = {
@@ -20,7 +21,7 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
 			initial={{ opacity: 0, y: 16 }}
 			whileInView={{ opacity: 1, y: 0 }}
 			viewport={{ once: true, amount: 0.2 }}
-			transition={{ duration: 0.5, delay, ease: "easeOut" }}
+			transition={{ duration: 0.5, delay, ease: EASE_OUT }}
 		>
 			{children}
 		</motion.div>

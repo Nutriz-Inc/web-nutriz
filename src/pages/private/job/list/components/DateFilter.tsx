@@ -4,15 +4,22 @@ import { maskDate } from "@/utils/formatter";
 type DateFilterProps = {
 	value: string;
 	onChange: (value: string) => void;
+	semRotulo?: boolean;
 };
 
-export function DateFilter({ value, onChange }: DateFilterProps) {
+export function DateFilter({
+	value,
+	onChange,
+	semRotulo = false,
+}: DateFilterProps) {
 	return (
 		<div className="flex flex-col gap-2">
-			<span className="text-[13px] font-medium text-ink-2">
-				Período do Agendamento
-			</span>
-			<div className="flex h-[46px] w-full max-w-[220px] items-center gap-2.5 rounded-xl border border-blue-tint bg-surface px-3.5">
+			{semRotulo ? null : (
+				<span className="text-[13px] font-medium text-ink-2">
+					Período do Agendamento
+				</span>
+			)}
+			<div className="flex h-10 w-full max-w-[220px] items-center gap-2.5 rounded-full border border-line bg-surface px-3.5">
 				<Calendar className="size-[18px] shrink-0 text-ink-3" />
 				<input
 					type="text"

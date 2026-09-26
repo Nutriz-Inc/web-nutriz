@@ -1,5 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
 import { Calendar, ChevronRight, Heart, Lock } from "lucide-react";
+import { InteractiveCard } from "@/components/full/InteractiveCard";
 import { StatusBadge } from "@/components/full/StatusBadge";
 import { Badge } from "@/components/ui/badge";
 import { ProgressBar } from "@/components/ui/progress-bar";
@@ -35,45 +35,18 @@ export function DonationCard({
 	className,
 }: DonationCardProps) {
 	const formattedDate = formatCreatedAt(createdAt);
-	const reduzirMovimento = useReducedMotion();
-	const animar = isClickable && !reduzirMovimento;
-
-	function handleClick() {
-		if (!onClick) {
-			return;
-		}
-		if (!animar) {
-			onClick();
-			return;
-		}
-		window.setTimeout(onClick, 140);
-	}
-
 	return (
-		<motion.button
-			type="button"
-			onClick={handleClick}
+		<InteractiveCard
+			onClick={onClick}
 			disabled={!isClickable}
-			whileHover={animar ? { x: 6 } : undefined}
-			whileTap={animar ? { x: 2 } : undefined}
-			transition={{ type: "spring", stiffness: 260, damping: 30 }}
 			className={cn(
-				"group relative flex w-full flex-col overflow-hidden rounded-card bg-surface text-left shadow-soft transition-[box-shadow,border-radius] lg:rounded-3xl",
+				"flex flex-col rounded-card bg-surface shadow-soft transition-[box-shadow,border-radius] lg:rounded-3xl",
 				isInProgress
 					? "gap-3 p-4 lg:gap-5 lg:p-8"
 					: "gap-2 p-3.5 lg:gap-2.5 lg:p-5",
-				isClickable
-					? "hover:rounded-l-none focus-visible:rounded-l-none"
-					: "cursor-default",
 				className,
 			)}
 		>
-			{isClickable && (
-				<span
-					aria-hidden="true"
-					className="absolute inset-y-0 left-0 w-1.5 origin-left scale-x-0 bg-blue-deep transition-transform duration-200 group-hover:scale-x-100 group-focus-visible:scale-x-100"
-				/>
-			)}
 			{!isClickable && (
 				<span className="absolute right-3 top-3 flex size-6 items-center justify-center rounded-full bg-surface-3 text-ink-3 lg:right-4 lg:top-4 lg:size-7">
 					<Lock className="size-3.5 lg:size-4" />
@@ -181,6 +154,6 @@ export function DonationCard({
 					</div>
 				</>
 			)}
-		</motion.button>
+		</InteractiveCard>
 	);
 }

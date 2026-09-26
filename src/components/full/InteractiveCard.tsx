@@ -21,25 +21,14 @@ export function InteractiveCard({
 	const reduzirMovimento = useReducedMotion();
 	const animar = !disabled && !reduzirMovimento && !!onClick;
 
-	function handleClick() {
-		if (!onClick || disabled) {
-			return;
-		}
-		if (!animar) {
-			onClick();
-			return;
-		}
-		window.setTimeout(onClick, 140);
-	}
-
 	return (
 		<motion.button
 			type="button"
-			onClick={handleClick}
+			onClick={disabled ? undefined : onClick}
 			disabled={disabled}
 			aria-label={ariaLabel}
 			whileHover={animar ? { x: 6 } : undefined}
-			whileTap={animar ? { x: 2 } : undefined}
+			whileTap={animar ? { scale: 0.99 } : undefined}
 			transition={{ type: "spring", stiffness: 260, damping: 30 }}
 			className={cn(
 				"group relative w-full overflow-hidden text-left transition-[border-radius] outline-none disabled:cursor-default",

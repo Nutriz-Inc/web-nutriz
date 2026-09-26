@@ -1,6 +1,6 @@
-import { motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import { Check, ChevronRight } from "lucide-react";
+import { InteractiveCard } from "@/components/full/InteractiveCard";
 import { Badge } from "@/components/ui/badge";
 import { StepDot } from "@/components/ui/step-dot";
 import { cn } from "@/lib/utils";
@@ -39,20 +39,6 @@ export function DonationStepCard({
 	const stampSource = completedAt ?? (isCurrent ? setDate : undefined);
 	const stamp = stampSource ? formatDateTimeParts(stampSource) : undefined;
 
-	const reduzirMovimento = useReducedMotion();
-	const animar = isClickable && !reduzirMovimento;
-
-	function handleClick() {
-		if (!onClick) {
-			return;
-		}
-		if (!animar) {
-			onClick();
-			return;
-		}
-		window.setTimeout(onClick, 140);
-	}
-
 	return (
 		<div className="flex gap-3.5 lg:gap-4">
 			<div className="flex flex-col items-center">
@@ -75,30 +61,18 @@ export function DonationStepCard({
 				)}
 			</div>
 
-			<motion.button
-				type="button"
-				onClick={handleClick}
+			<InteractiveCard
+				onClick={onClick}
 				disabled={!isClickable}
-				whileHover={animar ? { x: 6 } : undefined}
-				whileTap={animar ? { x: 2 } : undefined}
-				transition={{ type: "spring", stiffness: 260, damping: 30 }}
 				className={cn(
-					"group relative mb-4 flex-1 overflow-hidden rounded-xl p-3.5 text-left transition-[border-radius] disabled:cursor-default lg:rounded-2xl lg:p-5",
+					"mb-4 w-auto flex-1 rounded-xl p-3.5 lg:rounded-2xl lg:p-5",
 					isCurrent
 						? "bg-blue-tint/70"
 						: isDone
 							? "bg-surface-3"
 							: "bg-surface-2",
-					isClickable && "hover:rounded-l-none focus-visible:rounded-l-none",
 				)}
 			>
-				{isClickable && (
-					<span
-						aria-hidden="true"
-						className="absolute inset-y-0 left-0 w-1.5 origin-left scale-x-0 bg-blue-deep transition-transform duration-200 group-hover:scale-x-100 group-focus-visible:scale-x-100"
-					/>
-				)}
-
 				{justChanged && (
 					<>
 						<span
@@ -182,7 +156,7 @@ export function DonationStepCard({
 						)}
 					</div>
 				</div>
-			</motion.button>
+			</InteractiveCard>
 		</div>
 	);
 }

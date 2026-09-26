@@ -60,7 +60,7 @@ export function StepDot({
 
 			<span
 				className={cn(
-					"relative flex shrink-0 items-center justify-center rounded-full font-sans font-bold tabular-nums transition-all duration-300",
+					"relative flex shrink-0 items-center justify-center rounded-full font-sans font-bold tabular-nums transition-[background-color,color,border-color,box-shadow] duration-200 ease-out",
 					isCurrent &&
 						"bg-surface text-blue-bright ring-2 ring-blue-bright/45 ring-inset",
 					isDone && "bg-blue-bright-fill text-white shadow-soft",

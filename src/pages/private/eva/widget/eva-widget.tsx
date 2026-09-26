@@ -18,6 +18,7 @@ import {
 	subscribeEvaOpen,
 } from "./eva-widget-bus";
 import "./eva-widget.css";
+import { EASE_OUT } from "@/lib/easing";
 import { useEvaAccess } from "./use-eva-access";
 
 const HIDDEN_ROUTES = new Set(["/login", "/registro"]);
@@ -91,7 +92,7 @@ export function EvaWidget() {
 				transition: { duration: 0.15 },
 			}
 		: {
-				initial: { opacity: 0, scale: 0.6, y: 16 },
+				initial: { opacity: 0, scale: 0.9, y: 12 },
 				animate: {
 					opacity: 1,
 					scale: 1,
@@ -100,14 +101,14 @@ export function EvaWidget() {
 						type: "spring" as const,
 						bounce: 0.14,
 						visualDuration: 0.42,
-						opacity: { duration: 0.22, ease: "easeOut" as const },
+						opacity: { duration: 0.2, ease: EASE_OUT },
 					},
 				},
 				exit: {
 					opacity: 0,
-					scale: 0.7,
-					y: 12,
-					transition: { duration: 0.22, ease: [0.4, 0, 1, 1] as const },
+					scale: 0.95,
+					y: 8,
+					transition: { duration: 0.16, ease: EASE_OUT },
 				},
 			};
 

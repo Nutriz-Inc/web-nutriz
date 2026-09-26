@@ -6,6 +6,7 @@ import { marcarBoasVindasVistas } from "./eva-boas-vindas";
 import { EvaBotaoFechar } from "./eva-botao-fechar";
 import { EvaChatPanel } from "./eva-chat-panel";
 import { EvaHelpPanel } from "./eva-help-panel";
+import { EvaTransicaoDeVisao } from "./eva-transicao-de-visao";
 import { EvaWelcomePanel } from "./eva-welcome-panel";
 import type { EvaAccessMode } from "./use-eva-access";
 
@@ -57,7 +58,7 @@ export function EvaModalConteudo({
 	);
 
 	return (
-		<>
+		<EvaTransicaoDeVisao visao={view}>
 			{view === "ajuda" ? null : view === "welcome" ? (
 				<>
 					{mostrarAjuda ? (
@@ -113,6 +114,6 @@ export function EvaModalConteudo({
 			) : (
 				<EvaChatPanel chat={chat} onClose={onFechar} />
 			)}
-		</>
+		</EvaTransicaoDeVisao>
 	);
 }

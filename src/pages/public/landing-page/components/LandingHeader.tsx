@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { setAppMenuOpen } from "@/pages/private/eva/widget/eva-widget-bus";
 import { NAV_LINKS } from "../constants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
+import { useSecaoAtiva } from "../hooks/use-secao-ativa";
 import { LandingDrawer } from "./LandingDrawer";
 import { Wordmark } from "./Wordmark";
 
@@ -17,6 +18,7 @@ export function LandingHeader() {
 	const shouldReduceMotion = useReducedMotion();
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
+	const secaoAtiva = useSecaoAtiva(NAV_LINKS.map((link) => link.targetId));
 
 	useEffect(() => {
 		const handleScroll = () => setScrolled(window.scrollY > 16);
@@ -65,18 +67,38 @@ export function LandingHeader() {
 
 				<nav
 					aria-label="Navegação principal"
-					className="hidden items-center gap-1 rounded-full border border-white/15 bg-white/10 px-2 py-1.5 backdrop-blur-sm lg:flex"
+					className="isolate hidden items-center gap-1 rounded-full border border-white/15 bg-white/10 px-2 py-1.5 backdrop-blur-sm lg:flex"
 				>
-					{NAV_LINKS.map((link) => (
-						<button
-							key={link.targetId}
-							type="button"
-							onClick={() => handleNavClick(link.targetId)}
-							className="rounded-full px-4 py-2 text-[14px] font-medium text-blue-tint-2 transition-colors hover:bg-white/15 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
-						>
-							{link.label}
-						</button>
-					))}
+					{NAV_LINKS.map((link) => {
+						const ativa = secaoAtiva === link.targetId;
+
+						return (
+							<button
+								key={link.targetId}
+								type="button"
+								onClick={() => handleNavClick(link.targetId)}
+								aria-current={ativa ? "location" : undefined}
+								className={cn(
+									"relative rounded-full px-4 py-2 text-[14px] font-medium transition-[color,background-color] duration-200 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60",
+									ativa ? "text-white" : "text-blue-tint-2 hover:bg-white/10",
+								)}
+							>
+								{ativa ? (
+									<motion.span
+										layoutId="landing-nav-ativa"
+										aria-hidden="true"
+										className="absolute inset-0 -z-10 rounded-full bg-white/18"
+										transition={
+											shouldReduceMotion
+												? { duration: 0 }
+												: { type: "spring", duration: 0.4, bounce: 0.15 }
+										}
+									/>
+								) : null}
+								{link.label}
+							</button>
+						);
+					})}
 				</nav>
 
 				<div className="hidden items-center gap-2 lg:flex">
@@ -84,7 +106,7 @@ export function LandingHeader() {
 					<button
 						type="button"
 						onClick={() => navigate("/login")}
-						className="inline-flex h-11 items-center rounded-full border border-white/15 bg-white/10 px-5 text-[14px] font-semibold text-white transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
+						className="inline-flex h-11 items-center rounded-full border border-white/15 bg-white/10 px-5 text-[14px] font-semibold text-white transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
 					>
 						Login
 					</button>
@@ -104,7 +126,7 @@ export function LandingHeader() {
 						onClick={() => setMenuOpen(true)}
 						aria-label="Abrir menu"
 						aria-expanded={menuOpen}
-						className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
+						className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-[background-color,transform] duration-150 ease-out active:scale-[0.94] hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
 					>
 						<Menu className="size-[18px]" aria-hidden="true" />
 					</button>

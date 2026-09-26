@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fadeScale, fadeUp, heroStagger } from "../animations/variants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
 import { HeroDourado } from "./hero/HeroDourado";
+import { HeroPalavra } from "./hero/HeroPalavra";
 import { HeroPhoto } from "./hero/HeroPhoto";
 import { HeroPonto } from "./hero/HeroPonto";
 import { HeroStats } from "./hero/HeroStats";
@@ -14,6 +15,11 @@ import {
 	HERO_OVERLAY_TOPO,
 } from "./hero/tokens";
 import { SlideButton } from "./SlideButton";
+
+const TITULO_EM_CASCATA = {
+	hidden: {},
+	show: { transition: { staggerChildren: 0.08 } },
+};
 
 export function HeroSection() {
 	const navigate = useNavigate();
@@ -53,14 +59,20 @@ export function HeroSection() {
 			>
 				<div className="relative flex max-w-[34rem] flex-col items-start">
 					<motion.h1
-						variants={fadeUp}
+						variants={TITULO_EM_CASCATA}
 						className="font-display text-[40px] font-medium leading-[1.08] tracking-[-0.02em] text-white min-[420px]:text-[46px] sm:text-[52px] lg:text-[56px] xl:text-[64px]"
 					>
-						Doar <HeroDourado>Amor</HeroDourado>
-						<HeroPonto />
+						<HeroPalavra>Doar</HeroPalavra>{" "}
+						<HeroPalavra>
+							<HeroDourado>Amor</HeroDourado>
+							<HeroPonto />
+						</HeroPalavra>
 						<br />
-						Multiplica <HeroDourado>Vidas</HeroDourado>
-						<HeroPonto />
+						<HeroPalavra>Multiplica</HeroPalavra>{" "}
+						<HeroPalavra>
+							<HeroDourado>Vidas</HeroDourado>
+							<HeroPonto />
+						</HeroPalavra>
 					</motion.h1>
 
 					<motion.p
@@ -82,7 +94,7 @@ export function HeroSection() {
 						<button
 							type="button"
 							onClick={() => scrollToSection("como-funciona")}
-							className="inline-flex h-10 items-center rounded-full border border-white/30 px-5 text-[14px] font-medium text-white/90 outline-none transition-colors duration-300 hover:border-white/60 hover:bg-white/10 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
+							className="inline-flex h-10 items-center rounded-full border border-white/30 px-5 text-[14px] font-medium text-white/90 outline-none transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.97] hover:border-white/60 hover:bg-white/10 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
 						>
 							Saiba mais
 						</button>

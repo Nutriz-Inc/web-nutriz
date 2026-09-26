@@ -9,10 +9,13 @@ import {
 	EVA_PERSONAS,
 } from "../constants";
 import "../eva.css";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { env } from "@/config/env";
+import { EASE_OUT } from "@/lib/easing";
 import type { EvaChat } from "../hooks/use-eva-chat";
 import type { ChatMessage, EvaMessageAction } from "../types";
 import { EvaActionButton } from "./eva-action-button";
+import { EvaIrParaOFim } from "./eva-ir-para-o-fim";
 import { useEvaAccess } from "./use-eva-access";
 
 function buildConsentSupportHref(): string | null {
@@ -27,6 +30,8 @@ function buildConsentSupportHref(): string | null {
 }
 
 const AUTO_SCROLL_THRESHOLD = 48;
+
+const DISTANCIA_PARA_O_ATALHO = 160;
 
 function messageAction(
 	message: ChatMessage,
@@ -76,6 +81,9 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 	const [input, setInput] = useState("");
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const stickToBottomRef = useRef(true);
+	const [longeDoFim, setLongeDoFim] = useState(false);
+	const [novidade, setNovidade] = useState(false);
+	const reduzirMovimento = useReducedMotion();
 
 	const handleScroll = useCallback(() => {
 		const container = scrollRef.current;
@@ -88,7 +96,27 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 			container.scrollHeight - container.scrollTop - container.clientHeight;
 
 		stickToBottomRef.current = distanceFromBottom <= AUTO_SCROLL_THRESHOLD;
+		setLongeDoFim(distanceFromBottom > DISTANCIA_PARA_O_ATALHO);
+
+		if (stickToBottomRef.current) {
+			setNovidade(false);
+		}
 	}, []);
+
+	const irParaOFim = useCallback(() => {
+		const container = scrollRef.current;
+
+		if (!container) {
+			return;
+		}
+
+		stickToBottomRef.current = true;
+		setNovidade(false);
+		container.scrollTo({
+			top: container.scrollHeight,
+			behavior: reduzirMovimento ? "auto" : "smooth",
+		});
+	}, [reduzirMovimento]);
 
 	useEffect(() => {
 		const container = scrollRef.current;
@@ -99,7 +127,10 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 
 		if (stickToBottomRef.current) {
 			container.scrollTop = container.scrollHeight;
+			return;
 		}
+
+		setNovidade(true);
 	}, [messages, isTyping]);
 
 	function handleSend() {
@@ -113,6 +144,12 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 	const inputDisabled = blocked || status === "failed";
 	const consentSupportHref =
 		blockedReason === "consent" ? buildConsentSupportHref() : null;
+
+	const chaveDoAviso = blocked
+		? `bloqueio-${blockedReason}`
+		: status === "failed" || errorMessage
+			? "falha"
+			: status;
 
 	const statusNotice = blocked ? (
 		blockedReason === "consent" ? (
@@ -181,9 +218,31 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 						</div>
 					);
 				})}
-				{isTyping && <TypingIndicator rotulo={etapaAtual} />}
-				{statusNotice}
+				<AnimatePresence initial={false}>
+					{isTyping ? (
+						<TypingIndicator key="digitando" rotulo={etapaAtual} />
+					) : null}
+				</AnimatePresence>
+				<AnimatePresence initial={false}>
+					{statusNotice ? (
+						<motion.div
+							key={chaveDoAviso}
+							initial={{ opacity: 0, y: 6 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, transition: { duration: 0.12 } }}
+							transition={{ duration: 0.24, ease: EASE_OUT }}
+						>
+							{statusNotice}
+						</motion.div>
+					) : null}
+				</AnimatePresence>
 			</div>
+
+			<EvaIrParaOFim
+				visivel={longeDoFim}
+				novidade={novidade}
+				aoClicar={irParaOFim}
+			/>
 
 			<div className="eva-widget-input-area">
 				<ChatInput

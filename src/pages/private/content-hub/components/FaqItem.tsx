@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useId } from "react";
+import { EASE_OUT } from "@/lib/easing";
 import type { FaqItem as FaqItemData } from "../constants";
 
 type FaqItemProps = {
@@ -39,7 +40,7 @@ export function FaqItem({ item, open, onToggle }: FaqItemProps) {
 						initial={shouldReduceMotion ? false : { height: 0, opacity: 0 }}
 						animate={{ height: "auto", opacity: 1 }}
 						exit={shouldReduceMotion ? undefined : { height: 0, opacity: 0 }}
-						transition={{ duration: 0.2, ease: "easeOut" }}
+						transition={{ duration: 0.2, ease: EASE_OUT }}
 						className="overflow-hidden"
 					>
 						<p className="pb-3 text-[13px] leading-relaxed text-ink-2">

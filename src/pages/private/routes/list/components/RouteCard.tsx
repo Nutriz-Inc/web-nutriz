@@ -67,7 +67,7 @@ export function RouteCard({ route }: RouteCardProps) {
 			whileHover={reduzirMovimento ? undefined : { y: -3 }}
 			whileTap={reduzirMovimento ? undefined : { scale: 0.99 }}
 			transition={{ type: "spring", stiffness: 320, damping: 28 }}
-			className="group flex h-full w-full overflow-hidden rounded-card-sm border border-line bg-surface text-left shadow-soft transition-[box-shadow,border-color] duration-300 hover:border-blue-tint-2 hover:shadow-lift"
+			className="group flex h-full w-full overflow-hidden rounded-card-sm border border-line bg-surface text-left shadow-soft transition-[box-shadow,border-color] duration-200 hover:border-blue-tint-2 hover:shadow-lift"
 		>
 			<div className="flex min-w-0 flex-1 flex-col gap-4 p-5">
 				<div className="flex items-start justify-between gap-3">
@@ -80,7 +80,7 @@ export function RouteCard({ route }: RouteCardProps) {
 							gender="f"
 							size="lg"
 						/>
-						<ChevronRight className="size-5 shrink-0 text-ink-2 transition-transform duration-300 group-hover:translate-x-0.5" />
+						<ChevronRight className="size-5 shrink-0 text-ink-2 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
 					</div>
 				</div>
 

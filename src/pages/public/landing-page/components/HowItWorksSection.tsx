@@ -7,7 +7,12 @@ import {
 	buildLactareWhatsAppLink,
 	EnumWhatsAppLinkContext,
 } from "@/utils/whatsapp-link";
-import { fadeUp, staggerContainer } from "../animations/variants";
+import {
+	assentarImagem,
+	fadeUp,
+	revelarPorRecorte,
+	staggerContainer,
+} from "../animations/variants";
 import { STEP_ICONS, STEPS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
 import { LandingSection } from "./LandingSection";
@@ -30,14 +35,16 @@ export function HowItWorksSection() {
 				className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:auto-rows-[196px] lg:grid-cols-4"
 			>
 				<motion.div
-					variants={fadeUp}
+					variants={revelarPorRecorte}
 					className="rounded-card group relative flex min-h-[300px] flex-col justify-end overflow-hidden sm:col-span-2 lg:col-span-2 lg:row-span-2 lg:min-h-0"
 				>
-					<img
-						src={bancoLeite}
-						alt="Profissional de banco de leite processando leite humano doado"
-						className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-					/>
+					<motion.div variants={assentarImagem} className="absolute inset-0">
+						<img
+							src={bancoLeite}
+							alt="Profissional de banco de leite processando leite humano doado"
+							className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+						/>
+					</motion.div>
 					<div
 						aria-hidden
 						className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent"

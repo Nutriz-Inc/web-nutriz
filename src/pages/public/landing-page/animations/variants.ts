@@ -1,4 +1,5 @@
 import type { Variants } from "framer-motion";
+import { EASE_IN_OUT } from "@/lib/easing";
 
 export * from "@/lib/motion";
 
@@ -46,3 +47,27 @@ export const heroStagger: Variants = {
 };
 
 export const viewportOnce = { once: true, margin: "-120px" } as const;
+
+export const revelarPorRecorte: Variants = {
+	hidden: { clipPath: "inset(0% 0% 100% 0%)" },
+	show: {
+		clipPath: "inset(0% 0% 0% 0%)",
+		transition: { duration: 1, ease: EASE_IN_OUT },
+	},
+};
+
+export const assentarImagem: Variants = {
+	hidden: { scale: 1.12 },
+	show: {
+		scale: 1,
+		transition: { duration: 1.4, ease: EASE_IN_OUT },
+	},
+};
+
+export const desenharLinha: Variants = {
+	hidden: { scaleX: 0 },
+	show: {
+		scaleX: 1,
+		transition: { duration: 0.9, delay: 0.15, ease: EASE_IN_OUT },
+	},
+};

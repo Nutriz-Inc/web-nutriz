@@ -194,6 +194,14 @@
 	}
 }
 
+.eva-widget-vista {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+}
+
 .eva-widget-header {
 	display: flex;
 	align-items: center;
@@ -296,13 +304,20 @@
 	justify-content: center;
 	cursor: pointer;
 	transition:
-		background-color 0.2s ease,
-		color 0.2s ease;
+		background-color 0.15s ease,
+		color 0.15s ease,
+		transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .eva-widget-close:hover {
 	background: var(--surface-3);
 	color: var(--ink);
+}
+
+.eva-widget-close:active,
+.eva-widget-ajuda:active,
+.eva-help-voltar:active {
+	transform: scale(0.92);
 }
 
 .eva-widget-welcome {
@@ -418,6 +433,7 @@
 }
 
 .eva-widget-chat {
+	position: relative;
 	flex: 1;
 	min-height: 0;
 	display: flex;
@@ -683,7 +699,9 @@
 	background: var(--surface-3);
 	color: var(--eva-ink);
 	cursor: pointer;
-	transition: background-color 150ms ease;
+	transition:
+		background-color 150ms ease,
+		transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .eva-help-voltar:hover {
@@ -856,7 +874,8 @@
 	cursor: pointer;
 	transition:
 		background-color 150ms ease,
-		color 150ms ease;
+		color 150ms ease,
+		transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .eva-widget-ajuda:hover {
@@ -880,4 +899,51 @@
 	border-radius: 18px;
 	background: var(--eva-surface);
 	box-shadow: 0 4px 14px color-mix(in oklch, var(--eva-deep) 22%, transparent);
+}
+
+.eva-ir-para-o-fim {
+	position: absolute;
+	left: 50%;
+	bottom: 108px;
+	z-index: 3;
+	display: grid;
+	place-items: center;
+	width: 38px;
+	height: 38px;
+	margin-left: -19px;
+	border: 1px solid var(--line);
+	border-radius: 999px;
+	background: var(--surface);
+	color: var(--eva-deep);
+	box-shadow: 0 10px 24px -12px color-mix(in oklch, var(--ink) 40%, transparent);
+	cursor: pointer;
+	transition:
+		background-color 0.15s ease,
+		transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.eva-ir-para-o-fim:hover {
+		background: var(--eva-tint);
+	}
+}
+
+.eva-ir-para-o-fim:active {
+	transform: scale(0.94);
+}
+
+.eva-ir-para-o-fim:focus-visible {
+	outline: 2px solid color-mix(in oklch, var(--eva-deep) 60%, transparent);
+	outline-offset: 2px;
+}
+
+.eva-ir-para-o-fim-ponto {
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	width: 10px;
+	height: 10px;
+	border: 2px solid var(--surface);
+	border-radius: 999px;
+	background: var(--eva-deep);
 }

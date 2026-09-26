@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import buscaPontosVazia from "@/assets/illustrations/busca-pontos-vazia.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import {
@@ -12,6 +13,7 @@ import { DonationPointCard } from "@/pages/private/donation-points/components/Do
 import { DonationPointDetailSheet } from "@/pages/private/donation-points/components/DonationPointDetailSheet";
 import { LocateButton } from "@/pages/private/donation-points/components/LocateButton";
 import { MapPreview } from "@/pages/private/donation-points/components/MapPreview";
+import type { FaseDoMapa } from "@/pages/private/donation-points/components/PinoDeColeta";
 import {
 	type DonationPointsFilter,
 	useDonationPointsSearch,
@@ -23,6 +25,10 @@ const FILTER_OPTIONS: FilterChipOption<DonationPointsFilter>[] = [
 	{ key: "all", label: "Todos" },
 	{ key: "home", label: "Coleta Domiciliar" },
 ];
+
+const INICIO_DO_RADAR = 250;
+
+const DURACAO_DO_RADAR = 2200;
 
 export function CollectionPointsSection() {
 	const {
@@ -46,6 +52,44 @@ export function CollectionPointsSection() {
 	} = useDonationPointsSearch();
 
 	const painelReveal = useReveal();
+	const reduzirMovimento = useReducedMotion();
+	const mapaRef = useRef<HTMLDivElement>(null);
+	const mapaVisivel = useInView(mapaRef, { once: true, amount: 0.5 });
+	const [fase, setFase] = useState<FaseDoMapa>(
+		reduzirMovimento ? "pronto" : "aguardando",
+	);
+	const dadosProntos = !isLoading && isLocationReady;
+
+	useEffect(() => {
+		if (fase !== "aguardando") {
+			return;
+		}
+		if (reduzirMovimento) {
+			setFase("pronto");
+			return;
+		}
+		if (!mapaVisivel || !dadosProntos) {
+			return;
+		}
+
+		const revelar = window.setTimeout(
+			() => setFase("revelando"),
+			INICIO_DO_RADAR,
+		);
+		return () => window.clearTimeout(revelar);
+	}, [fase, mapaVisivel, dadosProntos, reduzirMovimento]);
+
+	useEffect(() => {
+		if (fase !== "revelando") {
+			return;
+		}
+
+		const concluir = window.setTimeout(
+			() => setFase("pronto"),
+			DURACAO_DO_RADAR,
+		);
+		return () => window.clearTimeout(concluir);
+	}, [fase]);
 
 	return (
 		<LandingSection
@@ -86,8 +130,10 @@ export function CollectionPointsSection() {
 				</div>
 
 				<div className="grid lg:h-[520px] lg:grid-cols-[1fr_400px]">
-					<div className="px-4 pb-4 lg:h-full lg:p-4">
+					<div ref={mapaRef} className="px-4 pb-4 lg:h-full lg:p-4">
 						<MapPreview
+							fase={fase}
+							destaqueId={closestPointId}
 							points={points}
 							pointsReady={!isLoading}
 							userLocation={effectiveCoordinates}

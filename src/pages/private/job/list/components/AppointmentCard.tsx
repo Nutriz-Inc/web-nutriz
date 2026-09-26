@@ -62,7 +62,7 @@ export function AppointmentCard({
 			whileHover={reduzirMovimento ? undefined : { y: -3 }}
 			whileTap={reduzirMovimento ? undefined : { scale: 0.99 }}
 			transition={{ type: "spring", stiffness: 320, damping: 28 }}
-			className="group flex h-full w-full flex-col rounded-card border border-line bg-surface text-left shadow-soft transition-[box-shadow,border-color] duration-300 hover:border-blue-tint-2 hover:shadow-lift"
+			className="group flex h-full w-full flex-col rounded-card border border-line bg-surface text-left shadow-soft transition-[box-shadow,border-color] duration-200 hover:border-blue-tint-2 hover:shadow-lift"
 		>
 			<div className="flex items-start justify-between gap-3 px-5 pb-4 pt-5">
 				<div className="flex min-w-0 items-center gap-3">
@@ -114,7 +114,7 @@ export function AppointmentCard({
 			<div className="px-5 pb-5 pt-4">
 				<span
 					className={cn(
-						"flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-center text-[13px] font-semibold transition-colors duration-300",
+						"flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-center text-[13px] font-semibold transition-colors duration-150",
 						reportHint.highlighted
 							? "bg-blue-bright-fill text-white group-hover:bg-blue-deep-fill"
 							: "bg-surface-2 text-ink-3",
@@ -122,7 +122,7 @@ export function AppointmentCard({
 				>
 					<FileText className="size-4 shrink-0" />
 					{reportHint.text}
-					<ArrowUpRight className="size-4 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+					<ArrowUpRight className="size-4 shrink-0 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
 				</span>
 			</div>
 		</motion.button>

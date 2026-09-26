@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { SectionHeading } from "@/components/full/SectionHeading";
 import { cn } from "@/lib/utils";
+import { desenharLinha } from "../animations/variants";
 import { useReveal } from "../hooks/use-reveal";
 
 type LandingSectionProps = {
@@ -32,6 +33,7 @@ export function LandingSection({
 	children,
 }: LandingSectionProps) {
 	const headerReveal = useReveal();
+	const divisoriaReveal = useReveal(desenharLinha);
 
 	return (
 		<section
@@ -74,9 +76,11 @@ export function LandingSection({
 				</motion.div>
 
 				{!semDivisoria && (
-					<hr
+					<motion.hr
+						{...divisoriaReveal}
 						className={cn(
 							"mt-6 border-0 border-t",
+							align === "center" ? "origin-center" : "origin-left",
 							onDark ? "border-white/15" : "border-blue-tint-2/60",
 						)}
 					/>

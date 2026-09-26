@@ -39,7 +39,7 @@ export function DonationStatusCard({ steps, isRecurrent, className }: Props) {
 	return (
 		<div
 			className={cn(
-				"rounded-card-sm flex w-full flex-col gap-6 bg-card p-6 shadow-soft transition-shadow duration-300 hover:shadow-nudge sm:gap-7 sm:p-8 lg:p-10",
+				"rounded-card-sm flex w-full flex-col gap-6 bg-card p-6 shadow-soft transition-shadow duration-200 hover:shadow-nudge sm:gap-7 sm:p-8 lg:p-10",
 				className,
 			)}
 		>

@@ -40,17 +40,23 @@ export function AppointmentFilters({
 
 	return (
 		<div className="flex flex-col gap-[18px] lg:gap-5">
-			<PainelDeFiltros>
-				<GrupoDeFiltro rotulo="Situação do agendamento">
-					<FilterChips
-						options={STATUS_FILTER_OPTIONS}
-						value={status}
-						onChange={onStatusChange}
-					/>
-				</GrupoDeFiltro>
-			</PainelDeFiltros>
-
 			<form onSubmit={handleSubmit} className="flex flex-col gap-[18px]">
+				<PainelDeFiltros>
+					<GrupoDeFiltro rotulo="Situação do agendamento">
+						<FilterChips
+							options={STATUS_FILTER_OPTIONS}
+							value={status}
+							onChange={onStatusChange}
+						/>
+					</GrupoDeFiltro>
+					<GrupoDeFiltro rotulo="Data do agendamento">
+						<DateFilter
+							value={dateFilter}
+							onChange={onDateFilterChange}
+							semRotulo
+						/>
+					</GrupoDeFiltro>
+				</PainelDeFiltros>
 				<div className="flex flex-col gap-2.5 lg:flex-row lg:items-center">
 					<div className="lg:flex-1">
 						<SearchBar
@@ -88,8 +94,6 @@ export function AppointmentFilters({
 						</Button>
 					</div>
 				</div>
-
-				<DateFilter value={dateFilter} onChange={onDateFilterChange} />
 			</form>
 		</div>
 	);

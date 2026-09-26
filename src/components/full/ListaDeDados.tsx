@@ -9,6 +9,7 @@ export type ColunaDaLista<Item> = {
 	papel?: "principal" | "situacao" | "dado";
 	alinhar?: "inicio" | "fim";
 	ocultarNoCelular?: boolean;
+	larga?: boolean;
 	celula: (item: Item) => ReactNode;
 };
 
@@ -93,14 +94,15 @@ export function ListaDeDados<Item>({
 										"order-3 flex min-w-0 flex-col gap-0.5 lg:order-none",
 										coluna.alinhar === "fim" && "lg:items-end lg:text-right",
 										coluna.ocultarNoCelular && "hidden lg:flex",
+										coluna.larga && "col-span-2 lg:col-span-1",
 									)}
 								>
 									<span className="text-rotulo text-ink-3 lg:sr-only">
 										{coluna.titulo}
 									</span>
-									<span className="truncate text-apoio text-ink tabular-nums">
+									<div className="min-w-0 truncate text-apoio text-ink tabular-nums">
 										{coluna.celula(item)}
-									</span>
+									</div>
 								</div>
 							);
 						});

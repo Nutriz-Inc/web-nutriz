@@ -1,19 +1,26 @@
-import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import { type FormEvent, useState } from "react";
+import { X } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
+import {
+	BuscaPorCampo,
+	type CampoDeBusca,
+} from "@/components/full/BuscaPorCampo";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
+import { ListaDeDados } from "@/components/full/ListaDeDados";
+import { Paginacao } from "@/components/full/Paginacao";
 import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
 import { RefreshableList } from "@/components/full/RefreshableList";
-import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { formatCpf } from "@/utils/formatter";
-import { DonationManagementCard } from "./components/DonationManagementCard";
+import { COLUNAS_DA_DOACAO } from "./colunas";
 import {
 	ACTIVE_FILTER_OPTIONS,
 	type ActiveFilter,
@@ -24,32 +31,47 @@ import {
 } from "./constants";
 import { useAdminDonationsList } from "./hooks";
 
+type CampoDaDoacao = "nome" | "cpf";
+
+const CAMPOS_DA_DOACAO: CampoDeBusca<CampoDaDoacao>[] = [
+	{ chave: "nome", rotulo: "Nome", placeholder: "Buscar pelo nome da doadora" },
+	{ chave: "cpf", rotulo: "CPF", placeholder: "Buscar pelo CPF da doadora" },
+];
+
 export function DonationsManagementPage() {
 	const { auth } = useAuth();
+	const navigate = useNavigate();
 
-	const [name, setName] = useState("");
-	const [appliedName, setAppliedName] = useState("");
-	const [cpf, setCpf] = useState("");
-	const [appliedCpf, setAppliedCpf] = useState("");
+	const [campo, setCampo] = useState<CampoDaDoacao>("nome");
+	const [termo, setTermo] = useState("");
 	const [filter, setFilter] = useState<StepFilter>("all");
 	const [activeFilter, setActiveFilter] = useState<ActiveFilter>("all");
 	const [recurrentFilter, setRecurrentFilter] =
 		useState<RecurrentFilter>("all");
 	const [page, setPage] = useState(1);
 
-	function handleApplyFilters(event: FormEvent<HTMLFormElement>) {
-		event.preventDefault();
+	const termoAplicado = useDebouncedValue(termo.trim(), 400);
 
-		setAppliedName(name);
-		setAppliedCpf(cpf);
+	const temFiltro = !!(
+		termoAplicado ||
+		filter !== "all" ||
+		activeFilter !== "all" ||
+		recurrentFilter !== "all"
+	);
+
+	function handleTermoChange(valor: string) {
+		setTermo(campo === "cpf" ? formatCpf(valor) : valor);
+		setPage(1);
+	}
+
+	function handleCampoChange(proximo: CampoDaDoacao) {
+		setCampo(proximo);
+		setTermo("");
 		setPage(1);
 	}
 
 	function handleClearFilters() {
-		setName("");
-		setAppliedName("");
-		setCpf("");
-		setAppliedCpf("");
+		setTermo("");
 		setFilter("all");
 		setActiveFilter("all");
 		setRecurrentFilter("all");
@@ -71,14 +93,15 @@ export function DonationsManagementPage() {
 		setPage(1);
 	}
 
-	const termoBuscado = appliedName || appliedCpf;
-
 	const { data, isLoading, isPlaceholderData, isError, error, refetch } =
 		useAdminDonationsList({
 			page,
 			page_size: DEFAULT_PAGE_SIZE,
-			user_name: appliedName || undefined,
-			user_document: appliedCpf.replace(/\D/g, "") || undefined,
+			user_name: campo === "nome" ? termoAplicado || undefined : undefined,
+			user_document:
+				campo === "cpf"
+					? termoAplicado.replace(/\D/g, "") || undefined
+					: undefined,
 			current_step: filter === "all" ? undefined : filter,
 			is_active: activeFilter === "all" ? undefined : activeFilter === "active",
 			is_recurrent:
@@ -92,54 +115,21 @@ export function DonationsManagementPage() {
 	return (
 		<Page
 			title="Doações"
-			description={`${total} doações cadastradas`}
+			description={`${total} ${total === 1 ? "doação" : "doações"}${temFiltro ? " no filtro" : " cadastradas"}`}
 			loading={isLoading}
 			error={isError ? error : undefined}
 			onRetry={() => refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-canvas px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
-				<form
-					onSubmit={handleApplyFilters}
-					className="flex flex-col gap-2.5 lg:flex-row lg:items-center"
-				>
-					<div className="lg:flex-1">
-						<SearchBar
-							value={name}
-							onChange={setName}
-							placeholder="Buscar por nome..."
-						/>
-					</div>
-					<div className="lg:flex-1">
-						<SearchBar
-							value={cpf}
-							onChange={(value) => setCpf(formatCpf(value))}
-							placeholder="Buscar por CPF..."
-						/>
-					</div>
-					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0 lg:gap-2.5">
-						<Button
-							variant="primary"
-							size="pill"
-							type="submit"
-							className="shrink-0"
-						>
-							<Search className="size-4" />
-							Aplicar filtro
-						</Button>
-						<Button
-							variant="neutral"
-							size="pill"
-							type="button"
-							onClick={handleClearFilters}
-							className="shrink-0"
-						>
-							<X className="size-4" />
-							Limpar filtro
-						</Button>
-					</div>
-				</form>
+			<div className="flex flex-col gap-4 pb-24 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-5 lg:pb-8">
+				<BuscaPorCampo
+					campos={CAMPOS_DA_DOACAO}
+					campo={campo}
+					aoTrocarCampo={handleCampoChange}
+					valor={termo}
+					aoMudar={handleTermoChange}
+				/>
 
 				<PainelDeFiltros>
 					<GrupoDeFiltro rotulo="Situação">
@@ -163,67 +153,52 @@ export function DonationsManagementPage() {
 							onChange={handleFilterChange}
 						/>
 					</GrupoDeFiltro>
+					{temFiltro && (
+						<Button
+							variant="ghost"
+							size="pill"
+							type="button"
+							onClick={handleClearFilters}
+							className="self-start text-ink-2 lg:ml-auto lg:self-end"
+						>
+							<X className="size-4" />
+							Limpar filtros
+						</Button>
+					)}
 				</PainelDeFiltros>
 
 				<RefreshableList updating={isPlaceholderData}>
-					{donations.length === 0 ? (
-						<div className="rounded-card-sm bg-surface">
+					<ListaDeDados
+						itens={donations}
+						colunas={COLUNAS_DA_DOACAO}
+						chaveDoItem={(doacao) => doacao.id_donation}
+						rotuloDoItem={(doacao) => `Abrir a doação de ${doacao.userName}`}
+						aoAbrir={(doacao) =>
+							navigate(`/gestao-doacoes/${doacao.id_donation}`)
+						}
+						vazio={
 							<EmptyState
 								illustration={buscaSemResultado}
 								title={
-									termoBuscado
-										? `Nenhum resultado para "${termoBuscado}"`
+									termoAplicado
+										? `Nenhum resultado para "${termoAplicado}"`
 										: "Nenhuma doação encontrada"
 								}
 								description={
-									termoBuscado
-										? "Confira a grafia ou limpe a busca."
+									termoAplicado
+										? "Confira a grafia ou troque o campo da busca."
 										: "Ajuste os filtros selecionados."
 								}
 							/>
-						</div>
-					) : (
-						<>
-							<ul className="flex flex-col gap-2.5">
-								{donations.map((donation) => (
-									<li key={donation.id_donation}>
-										<DonationManagementCard donation={donation} />
-									</li>
-								))}
-							</ul>
-
-							{totalPages > 1 && (
-								<div className="flex items-center justify-center gap-3 lg:justify-end">
-									<button
-										type="button"
-										onClick={() =>
-											setPage((current) => Math.max(1, current - 1))
-										}
-										disabled={page === 1}
-										aria-label="Página anterior"
-										className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
-									>
-										<ChevronLeft className="size-4" />
-									</button>
-									<span className="text-apoio font-semibold text-ink">
-										Página {page} de {totalPages}
-									</span>
-									<button
-										type="button"
-										onClick={() =>
-											setPage((current) => Math.min(totalPages, current + 1))
-										}
-										disabled={page === totalPages}
-										aria-label="Próxima página"
-										className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
-									>
-										<ChevronRight className="size-4" />
-									</button>
-								</div>
-							)}
-						</>
-					)}
+						}
+					/>
 				</RefreshableList>
+
+				<Paginacao
+					pagina={page}
+					totalDePaginas={totalPages}
+					aoMudar={setPage}
+				/>
 			</div>
 		</Page>
 	);

@@ -357,6 +357,19 @@ export function useEvaChat(initialMessage?: string) {
 		[sendRaw],
 	);
 
+	const enviarAoConectar = useCallback(
+		(text: string) => {
+			const trimmed = text.trim();
+
+			if (!trimmed || sendRaw(trimmed)) {
+				return;
+			}
+
+			pendingInitialRef.current = trimmed;
+		},
+		[sendRaw],
+	);
+
 	const retry = useCallback(() => {
 		attemptsRef.current = 0;
 		setErrorMessage(null);
@@ -372,7 +385,10 @@ export function useEvaChat(initialMessage?: string) {
 		blockedReason,
 		errorMessage,
 		sendMessage,
+		enviarAoConectar,
 		retry,
 		isAnonymous: !isAuthenticated,
 	};
 }
+
+export type EvaChat = ReturnType<typeof useEvaChat>;

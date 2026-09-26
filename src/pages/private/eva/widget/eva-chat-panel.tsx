@@ -9,7 +9,7 @@ import {
 } from "../constants";
 import "../eva.css";
 import { env } from "@/config/env";
-import { useEvaChat } from "../hooks/use-eva-chat";
+import type { EvaChat } from "../hooks/use-eva-chat";
 import type { ChatMessage, EvaMessageAction } from "../types";
 import { EvaActionButton } from "./eva-action-button";
 import { useEvaAccess } from "./use-eva-access";
@@ -47,11 +47,11 @@ function messageAction(
 }
 
 type EvaChatPanelProps = {
-	initialMessage?: string;
+	chat: EvaChat;
 	onClose: () => void;
 };
 
-export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
+export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 	const { mode } = useEvaAccess();
 	const saudacao: ChatMessage = {
 		id: "greeting",
@@ -69,7 +69,7 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 		sendMessage,
 		retry,
 		isAnonymous,
-	} = useEvaChat(initialMessage);
+	} = chat;
 
 	const [input, setInput] = useState("");
 	const scrollRef = useRef<HTMLDivElement>(null);

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChatInput } from "../components/chat-input";
 import { MessageBubble } from "../components/message-bubble";
+import { RelatorioNoChat } from "../components/relatorio-no-chat";
 import { TypingIndicator } from "../components/typing-indicator";
 import {
 	BLOCKED_MESSAGES,
@@ -63,6 +64,7 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 		messages,
 		isTyping,
 		isSending,
+		etapaAtual,
 		status,
 		blockedReason,
 		errorMessage,
@@ -160,21 +162,26 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 				<MessageBubble message={saudacao} />
 				{messages.map((message) => {
 					const action = messageAction(message, isAnonymous);
-					if (!action) {
+					if (!action && !message.relatorio) {
 						return <MessageBubble key={message.id} message={message} />;
 					}
 					return (
 						<div key={message.id} className="eva-msg-with-action">
 							<MessageBubble message={message} />
-							<EvaActionButton
-								action={action}
-								isAnonymous={isAnonymous}
-								onNavigate={onClose}
-							/>
+							{message.relatorio ? (
+								<RelatorioNoChat relatorio={message.relatorio} />
+							) : null}
+							{action ? (
+								<EvaActionButton
+									action={action}
+									isAnonymous={isAnonymous}
+									onNavigate={onClose}
+								/>
+							) : null}
 						</div>
 					);
 				})}
-				{isTyping && <TypingIndicator />}
+				{isTyping && <TypingIndicator rotulo={etapaAtual} />}
 				{statusNotice}
 			</div>
 

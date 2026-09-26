@@ -10,6 +10,7 @@ import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
 import { ListaDeDados } from "@/components/full/ListaDeDados";
+import { ListaDeDadosEsqueleto } from "@/components/full/ListaDeDadosEsqueleto";
 import { Paginacao } from "@/components/full/Paginacao";
 import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
 import { RefreshableList } from "@/components/full/RefreshableList";
@@ -117,6 +118,7 @@ export function DonationsManagementPage() {
 			title="Doações"
 			description={`${total} ${total === 1 ? "doação" : "doações"}${temFiltro ? " no filtro" : " cadastradas"}`}
 			loading={isLoading}
+			skeleton={<ListaDeDadosEsqueleto rotulo="Carregando as doações" />}
 			error={isError ? error : undefined}
 			onRetry={() => refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}

@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
 import { ListaDeDados } from "@/components/full/ListaDeDados";
+import { ListaDeDadosEsqueleto } from "@/components/full/ListaDeDadosEsqueleto";
 import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
@@ -100,6 +101,7 @@ export function UsersManagementPage() {
 			title="Usuários"
 			description="Gerencie os acessos do Nutriz"
 			loading={usersQuery.isLoading}
+			skeleton={<ListaDeDadosEsqueleto rotulo="Carregando os usuários" />}
 			error={usersQuery.isError ? usersQuery.error : undefined}
 			onRetry={() => usersQuery.refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}

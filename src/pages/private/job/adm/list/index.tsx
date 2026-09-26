@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { ListaDeDados } from "@/components/full/ListaDeDados";
+import { ListaDeDadosEsqueleto } from "@/components/full/ListaDeDadosEsqueleto";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -74,6 +75,7 @@ export function AppointmentsManagementPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={isLoading}
+			skeleton={<ListaDeDadosEsqueleto rotulo="Carregando os agendamentos" />}
 			title="Agendamentos"
 			description="Abra um agendamento para ver os detalhes e o relatório."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"

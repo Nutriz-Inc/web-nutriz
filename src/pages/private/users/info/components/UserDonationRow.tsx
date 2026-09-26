@@ -26,13 +26,13 @@ export function UserDonationRow({ donation }: UserDonationRowProps) {
 			className={`flex w-full flex-wrap items-center gap-x-3 gap-y-2 p-4 text-left transition-colors hover:bg-surface-2 lg:grid ${DONATIONS_GRID_COLS} lg:items-center lg:gap-3 lg:px-4 lg:py-3`}
 		>
 			<div className="flex w-full items-center justify-between lg:block lg:w-auto">
-				<span className="font-mono text-[13px] font-semibold text-ink">
+				<span className="font-mono text-apoio font-semibold text-ink">
 					{donation.id_donation.slice(0, 16)}
 				</span>
 				<ChevronRight className="size-4 text-ink-3 lg:hidden" />
 			</div>
 			<StepBadge step={donation.current_step ?? null} />
-			<span className="text-[14px] text-ink-2">
+			<span className="text-apoio text-ink-2">
 				<span className="lg:hidden">Data: </span>
 				{formatDateBR(donation.created_at)}
 			</span>

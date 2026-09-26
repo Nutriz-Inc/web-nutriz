@@ -34,7 +34,7 @@ export function RouteIdentityCard({ route }: Props) {
 		<section className="flex flex-col lg:flex-row lg:items-stretch">
 			<div className="flex min-w-0 flex-1 flex-wrap items-center gap-3 p-5">
 				<StatusBadge token={routeToken(route.status)} gender="f" size="lg" />
-				<CopyableId id={route.id_route} className="text-[13px] text-ink-2" />
+				<CopyableId id={route.id_route} className="text-apoio text-ink-2" />
 			</div>
 
 			<DataGrid
@@ -45,11 +45,11 @@ export function RouteIdentityCard({ route }: Props) {
 					chave: item.chave,
 					conteudo: (
 						<div className="flex flex-col gap-1 px-5 py-4">
-							<span className="flex items-center gap-1.5 text-[11px] text-ink-2">
+							<span className="flex items-center gap-1.5 text-rotulo text-ink-2">
 								{item.icone}
 								{item.rotulo}
 							</span>
-							<span className="truncate text-[13px] font-semibold text-ink">
+							<span className="truncate text-apoio font-semibold text-ink">
 								{item.valor}
 								{item.complemento && (
 									<span className="ml-1.5 font-normal text-ink-2">

@@ -46,11 +46,11 @@ export function StatusRadioOption({
 							BADGE_TONES[display.tone].dot,
 						)}
 					/>
-					<span className="text-[14px] font-semibold text-ink">
+					<span className="text-apoio font-semibold text-ink">
 						{getStatusLabel(token)}
 					</span>
 				</div>
-				<span className="text-[13px] text-ink-2">
+				<span className="text-apoio text-ink-2">
 					{STATUS_OPTION_DESCRIPTION[status]}
 				</span>
 			</div>

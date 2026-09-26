@@ -34,13 +34,13 @@ export function GreetingHero({
 
 			<div className="relative flex flex-col gap-9 lg:flex-row lg:items-center lg:gap-12">
 				<div className="min-w-0 flex-1">
-					<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-blue-tint">
+					<p className="font-display text-rotulo font-bold uppercase tracking-[0.06em] text-blue-tint">
 						Painel da doadora
 					</p>
 
 					<h1
 						id="home-greeting"
-						className="mt-5 font-display text-[1.75rem] font-extrabold leading-[1.08] tracking-tight text-white sm:text-4xl lg:text-5xl"
+						className="mt-5 font-display text-titulo font-extrabold leading-[1.08] tracking-tight text-white sm:text-4xl lg:text-5xl"
 					>
 						Olá{firstName ? `, ${firstName}` : ""}.
 						<br />
@@ -75,18 +75,18 @@ export function GreetingHero({
 
 					<dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3 text-white">
 						<div>
-							<dt className="text-[0.7rem] uppercase tracking-[0.05em] text-blue-tint">
+							<dt className="text-rotulo uppercase tracking-[0.05em] text-blue-tint">
 								Doadora desde
 							</dt>
-							<dd className="mt-1 font-display text-base font-bold">
+							<dd className="mt-1 font-display text-corpo font-bold">
 								{donorSince ?? "—"}
 							</dd>
 						</div>
 						<div>
-							<dt className="text-[0.7rem] uppercase tracking-[0.05em] text-blue-tint">
+							<dt className="text-rotulo uppercase tracking-[0.05em] text-blue-tint">
 								Leite doado
 							</dt>
-							<dd className="mt-1 font-display text-base font-bold tabular-nums">
+							<dd className="mt-1 font-display text-corpo font-bold tabular-nums">
 								{milkDonatedLabel}
 							</dd>
 						</div>

@@ -96,7 +96,7 @@ export function ImpactCard({
 
 				<h3
 					className={cn(
-						"font-display text-[0.6875rem] font-bold uppercase tracking-[0.08em]",
+						"font-display text-rotulo font-bold uppercase tracking-[0.08em]",
 						t.rotulo,
 					)}
 				>
@@ -118,7 +118,7 @@ export function ImpactCard({
 				)}
 			</p>
 
-			<p className="mt-2 text-xs leading-relaxed text-ink-2">{hint}</p>
+			<p className="mt-2 text-rotulo leading-relaxed text-ink-2">{hint}</p>
 		</article>
 	);
 }

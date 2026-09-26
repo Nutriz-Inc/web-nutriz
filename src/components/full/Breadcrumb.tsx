@@ -16,7 +16,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
 
 	return (
 		<nav aria-label="Você está aqui" className={cn("mb-3", className)}>
-			<ol className="flex flex-wrap items-center gap-1 text-[12px]">
+			<ol className="flex flex-wrap items-center gap-1 text-rotulo">
 				{items.map((item, indice) => {
 					const ultimo = indice === items.length - 1;
 

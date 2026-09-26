@@ -48,7 +48,7 @@ export function LandingDrawer({
 							</SheetClose>
 						</div>
 
-						<SheetDescription className="text-[13px] text-white/75">
+						<SheetDescription className="text-apoio text-white/75">
 							Doe leite. Multiplique vidas.
 						</SheetDescription>
 					</div>
@@ -58,7 +58,7 @@ export function LandingDrawer({
 					aria-label="Navegação principal"
 					className="flex-1 overflow-y-auto px-3 py-4"
 				>
-					<p className="px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-3">
+					<p className="px-2 pb-2 text-rotulo font-semibold uppercase tracking-[0.12em] text-ink-3">
 						Navegação
 					</p>
 
@@ -71,7 +71,7 @@ export function LandingDrawer({
 									<button
 										type="button"
 										onClick={() => onNavigate(link.targetId)}
-										className="rounded-card-sm flex w-full items-center gap-3 px-3 py-3 text-left text-[15px] font-medium text-ink-2 outline-none transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+										className="rounded-card-sm flex w-full items-center gap-3 px-3 py-3 text-left text-corpo font-medium text-ink-2 outline-none transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 									>
 										<span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-surface text-blue-deep shadow-soft">
 											{Icon && (
@@ -101,7 +101,7 @@ export function LandingDrawer({
 							onOpenChange(false);
 							navigate("/registro");
 						}}
-						className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep-fill text-[15px] font-semibold text-white shadow-soft outline-none transition-colors hover:bg-blue-fill focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+						className="flex h-11 w-full items-center justify-center rounded-full bg-blue-deep-fill text-corpo font-semibold text-white shadow-soft outline-none transition-colors hover:bg-blue-fill focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 					>
 						Cadastrar-se
 					</button>
@@ -112,7 +112,7 @@ export function LandingDrawer({
 							onOpenChange(false);
 							navigate("/login");
 						}}
-						className="flex h-11 w-full items-center justify-center rounded-full border border-line bg-surface text-[15px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+						className="flex h-11 w-full items-center justify-center rounded-full border border-line bg-surface text-corpo font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 					>
 						Entrar
 					</button>

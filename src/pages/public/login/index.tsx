@@ -66,10 +66,10 @@ export function LoginScreen() {
 			>
 				<div className="w-full max-w-[420px]">
 					<div className="rounded-card border border-line bg-surface p-6 shadow-lift sm:p-8">
-						<h2 className="text-center font-display text-[24px] font-extrabold tracking-tight text-ink lg:text-[26px]">
+						<h2 className="text-center font-display text-secao font-extrabold tracking-tight text-ink lg:text-secao">
 							Bem-vinda(o) de volta
 						</h2>
-						<p className="mt-1.5 text-center text-[14px] text-ink-2">
+						<p className="mt-1.5 text-center text-apoio text-ink-2">
 							Use o e-mail e a senha do seu cadastro.
 						</p>
 
@@ -122,7 +122,7 @@ export function LoginScreen() {
 							{errors.general && (
 								<p
 									role="alert"
-									className="rounded-card-sm border border-danger/20 bg-danger-tint px-4 py-2.5 text-center text-[13px] text-danger"
+									className="rounded-card-sm border border-danger/20 bg-danger-tint px-4 py-2.5 text-center text-apoio text-danger"
 								>
 									{errors.general}
 								</p>
@@ -132,7 +132,7 @@ export function LoginScreen() {
 								type="submit"
 								size="pill"
 								disabled={isPending}
-								className="mt-2 h-12 w-full bg-blue-deep-fill text-[15px] font-semibold text-white shadow-soft hover:bg-blue-fill disabled:opacity-60"
+								className="mt-2 h-12 w-full bg-blue-deep-fill text-corpo font-semibold text-white shadow-soft hover:bg-blue-fill disabled:opacity-60"
 							>
 								{isPending ? (
 									<>
@@ -147,13 +147,13 @@ export function LoginScreen() {
 
 						<div className="my-6 flex items-center gap-3">
 							<span className="h-px flex-1 bg-line-strong/60" />
-							<span className="text-[12px] font-medium text-ink-3">ou</span>
+							<span className="text-rotulo font-medium text-ink-3">ou</span>
 							<span className="h-px flex-1 bg-line-strong/60" />
 						</div>
 
 						<Link
 							to="/registro"
-							className="flex h-12 w-full items-center justify-center rounded-full border border-line bg-blue-tint text-[15px] font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint-2/60 focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+							className="flex h-12 w-full items-center justify-center rounded-full border border-line bg-blue-tint text-corpo font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint-2/60 focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 						>
 							Criar minha conta
 						</Link>
@@ -161,7 +161,7 @@ export function LoginScreen() {
 
 					<Link
 						to="/"
-						className="mx-auto mt-5 flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-[14px] font-semibold text-ink-3 outline-none transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:ring-3 focus-visible:ring-blue-bright/50"
+						className="mx-auto mt-5 flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-apoio font-semibold text-ink-3 outline-none transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:ring-3 focus-visible:ring-blue-bright/50"
 					>
 						<ArrowLeft className="size-4" aria-hidden="true" />
 						Voltar para a página inicial

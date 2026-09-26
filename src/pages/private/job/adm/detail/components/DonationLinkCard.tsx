@@ -24,10 +24,10 @@ export function DonationLinkCard({ id_donation }: DonationLinkCardProps) {
 			</span>
 
 			<div className="flex min-w-0 flex-1 flex-col gap-0.5">
-				<span className="text-[12px] font-bold uppercase tracking-wide text-ink-2">
+				<span className="text-rotulo font-bold uppercase tracking-wide text-ink-2">
 					Doação vinculada
 				</span>
-				<span className="truncate font-mono text-[13px] font-semibold text-ink">
+				<span className="truncate font-mono text-apoio font-semibold text-ink">
 					{id_donation.slice(0, 16)}
 				</span>
 			</div>

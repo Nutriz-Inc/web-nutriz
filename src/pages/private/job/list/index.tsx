@@ -36,7 +36,7 @@ export function AppointmentsPage() {
 			description="Toque ou clique em um card para ver os detalhes e o relatório da consulta."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={
-				<span className="shrink-0 rounded-full bg-blue-tint px-3 py-1.5 text-[13px] font-semibold text-blue-bright">
+				<span className="shrink-0 rounded-full bg-blue-tint px-3 py-1.5 text-apoio font-semibold text-blue-bright">
 					{appointments.length}
 					{hasNextPage ? "+" : ""} <span className="lg:hidden">agend.</span>
 					<span className="hidden lg:inline">agendamentos</span>

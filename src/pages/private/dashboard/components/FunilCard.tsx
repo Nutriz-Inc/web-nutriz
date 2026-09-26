@@ -43,7 +43,7 @@ export function FunilCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 								)}
 							>
 								<div className="flex items-center justify-between gap-2">
-									<p className="text-[12px] font-semibold text-ink-2">
+									<p className="text-rotulo font-semibold text-ink-2">
 										{posicao + 1}. {etapa.etapa}
 									</p>
 									{maisLenta ? (
@@ -53,14 +53,14 @@ export function FunilCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 									) : null}
 								</div>
 								<div className="flex items-baseline gap-1.5">
-									<p className="text-[28px] font-bold leading-none tabular-nums text-ink">
+									<p className="text-titulo font-bold leading-none tabular-nums text-ink">
 										{formatOptionalDecimal(
 											etapa.conversao_da_etapa_pct,
 											"%",
 											0,
 										)}
 									</p>
-									<p className="text-[12px] text-ink-2">concluem</p>
+									<p className="text-rotulo text-ink-2">concluem</p>
 								</div>
 								<div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-3">
 									<div
@@ -71,7 +71,7 @@ export function FunilCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 										style={{ width: `${Math.min(conversao, 100)}%` }}
 									/>
 								</div>
-								<p className="text-[12px] leading-relaxed text-ink-2">
+								<p className="text-rotulo leading-relaxed text-ink-2">
 									{etapa.doacoes_que_concluiram} de {etapa.doacoes_que_chegaram}{" "}
 									·{" "}
 									{formatOptionalDecimal(

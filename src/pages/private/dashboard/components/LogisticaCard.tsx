@@ -23,20 +23,20 @@ export function LogisticaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 					onTentarDeNovo={() => consulta.refetch()}
 				/>
 			) : dados.rotas_concluidas === 0 ? (
-				<p className="py-8 text-center text-[13px] text-ink-3">
+				<p className="py-8 text-center text-apoio text-ink-3">
 					Nenhuma rota concluída no período.
 				</p>
 			) : (
 				<div className="flex flex-col gap-5">
 					<div className="flex flex-wrap items-end gap-x-3 gap-y-1">
-						<p className="text-[40px] font-bold leading-none tabular-nums text-blue-deep">
+						<p className="text-numero font-bold leading-none tabular-nums text-blue-deep">
 							{dados.km_por_litro_coletado == null ? (
 								"—"
 							) : (
 								<CountUp value={dados.km_por_litro_coletado} decimals={1} />
 							)}
 						</p>
-						<p className="pb-1 text-[13px] text-ink-2">
+						<p className="pb-1 text-apoio text-ink-2">
 							km por litro · {formatOptionalDecimal(dados.km_rodados, " km", 0)}{" "}
 							em {dados.rotas_concluidas} rotas
 						</p>

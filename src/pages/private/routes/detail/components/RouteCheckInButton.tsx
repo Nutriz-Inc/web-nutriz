@@ -127,11 +127,11 @@ export function RouteCheckInButton({ onIniciar, onEstadoChange, erro }: Props) {
 									: "bg-blue-deep-fill hover:bg-blue-fill focus-visible:ring-blue-bright/60 active:scale-[0.97]",
 							)}
 						>
-							<span className="font-sans text-[24px] font-extrabold leading-none tabular-nums sm:text-[26px]">
+							<span className="font-sans text-secao font-extrabold leading-none tabular-nums sm:text-secao">
 								{concluido ? (horaRegistrada ?? hora) : hora}
 							</span>
 
-							<span className="text-[13px] font-bold sm:text-[14px]">
+							<span className="text-apoio font-bold sm:text-apoio">
 								{concluido ? "Rota iniciada" : "Iniciar rota"}
 							</span>
 
@@ -152,7 +152,7 @@ export function RouteCheckInButton({ onIniciar, onEstadoChange, erro }: Props) {
 					</div>
 
 					{erro && !concluido && (
-						<p className="pointer-events-auto max-w-[280px] rounded-xl bg-danger-tint px-3.5 py-2.5 text-center text-[12px] font-semibold text-danger shadow-soft">
+						<p className="pointer-events-auto max-w-[280px] rounded-xl bg-danger-tint px-3.5 py-2.5 text-center text-rotulo font-semibold text-danger shadow-soft">
 							{erro}
 						</p>
 					)}

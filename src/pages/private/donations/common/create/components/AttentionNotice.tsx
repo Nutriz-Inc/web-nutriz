@@ -10,7 +10,7 @@ export function AttentionNotice() {
 				<Info className="size-4" />
 			</span>
 
-			<p className="min-w-0 text-[13px] leading-[19px] text-ink-2">
+			<p className="min-w-0 text-apoio leading-[19px] text-ink-2">
 				Ao confirmar, a doação é registrada no seu histórico e o WhatsApp da
 				equipe Lactare abre em uma nova aba para começar a triagem.
 			</p>

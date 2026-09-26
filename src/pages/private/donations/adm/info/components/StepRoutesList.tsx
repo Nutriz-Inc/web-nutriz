@@ -15,7 +15,7 @@ export function StepRoutesList({ idDonationStep }: Props) {
 
 	return (
 		<div className="flex flex-col gap-2">
-			<span className="text-[12px] font-semibold text-ink-2">
+			<span className="text-rotulo font-semibold text-ink-2">
 				Rotas associadas
 			</span>
 
@@ -28,10 +28,10 @@ export function StepRoutesList({ idDonationStep }: Props) {
 						<span className="flex min-w-0 items-center gap-2">
 							<RouteIcon className="size-4 shrink-0 text-ink-3" />
 							<span className="flex min-w-0 flex-col">
-								<span className="truncate text-[13px] font-semibold text-ink">
+								<span className="truncate text-apoio font-semibold text-ink">
 									{route.name}
 								</span>
-								<span className="truncate text-[11px] text-ink-3">
+								<span className="truncate text-rotulo text-ink-3">
 									{formatDateBR(route.date_set)}
 									{route.driver_name ? ` · ${route.driver_name}` : ""}
 								</span>

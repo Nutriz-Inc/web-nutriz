@@ -23,12 +23,12 @@ export function DonationFeedbackCard({
 		return (
 			<div className="flex flex-col gap-2 rounded-2xl bg-surface p-4 shadow-soft">
 				<div className="flex items-center gap-2">
-					<span className="text-[13px] font-bold text-ink">Seu feedback</span>
+					<span className="text-apoio font-bold text-ink">Seu feedback</span>
 				</div>
 				{scoreFeedback != null && (
 					<StarRating value={scoreFeedback} size="sm" />
 				)}
-				<p className="text-[14px] leading-6 text-ink-2">{feedback}</p>
+				<p className="text-apoio leading-6 text-ink-2">{feedback}</p>
 			</div>
 		);
 	}
@@ -36,10 +36,10 @@ export function DonationFeedbackCard({
 	return (
 		<div className="flex flex-col gap-3 rounded-2xl bg-surface p-4 shadow-soft">
 			<div className="flex flex-col gap-1">
-				<p className="text-[15px] font-bold text-ink">
+				<p className="text-corpo font-bold text-ink">
 					{hasError ? "Sua doação foi encerrada" : "Sua doação foi concluída"}
 				</p>
-				<p className="text-[13px] text-ink-2">
+				<p className="text-apoio text-ink-2">
 					Conte pra gente como foi a sua experiência.
 				</p>
 			</div>
@@ -51,14 +51,14 @@ export function DonationFeedbackCard({
 				onChange={(event) => setValue(event.target.value)}
 				rows={3}
 				placeholder="Ex.: a coleta foi pontual e a equipe explicou cada etapa."
-				className="rounded-xl border border-line bg-surface-2 px-3 py-2 text-[14px] text-ink outline-none placeholder:text-ink-3"
+				className="rounded-xl border border-line bg-surface-2 px-3 py-2 text-apoio text-ink outline-none placeholder:text-ink-3"
 			/>
 
 			<button
 				type="button"
 				onClick={() => onSubmit(value, score)}
 				disabled={!value || !score || isPending}
-				className="self-end rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="self-end rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-apoio font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				Enviar feedback
 			</button>

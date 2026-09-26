@@ -71,7 +71,7 @@ export function RouteCard({ route }: RouteCardProps) {
 		>
 			<div className="flex min-w-0 flex-1 flex-col gap-4 p-5">
 				<div className="flex items-start justify-between gap-3">
-					<p className="min-w-0 flex-1 break-words text-[16px] font-bold text-ink">
+					<p className="min-w-0 flex-1 break-words text-corpo font-bold text-ink">
 						{route.name}
 					</p>
 					<div className="flex shrink-0 items-center gap-2">
@@ -87,7 +87,7 @@ export function RouteCard({ route }: RouteCardProps) {
 				{limite && (
 					<p
 						className={cn(
-							"inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-semibold",
+							"inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-rotulo font-semibold",
 							limite.excedeu
 								? "bg-danger-tint text-danger"
 								: limite.emAviso
@@ -103,11 +103,11 @@ export function RouteCard({ route }: RouteCardProps) {
 				<dl className="mt-auto grid grid-cols-3 gap-3">
 					{dados.map((item) => (
 						<div key={item.chave} className="flex min-w-0 flex-col gap-1">
-							<dt className="flex items-center gap-1.5 text-[11px] text-ink-2">
+							<dt className="flex items-center gap-1.5 text-rotulo text-ink-2">
 								{item.icone}
 								{item.rotulo}
 							</dt>
-							<dd className="truncate text-[13px] font-semibold text-ink">
+							<dd className="truncate text-apoio font-semibold text-ink">
 								{item.valor}
 							</dd>
 						</div>

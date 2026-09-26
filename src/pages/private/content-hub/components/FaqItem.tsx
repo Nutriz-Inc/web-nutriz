@@ -22,7 +22,7 @@ export function FaqItem({ item, open, onToggle }: FaqItemProps) {
 					onClick={onToggle}
 					aria-expanded={open}
 					aria-controls={panelId}
-					className="flex min-h-11 w-full items-center justify-between gap-3 py-3 text-left text-[13px] font-medium text-ink transition-colors duration-150 hover:text-blue-deep focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-deep"
+					className="flex min-h-11 w-full items-center justify-between gap-3 py-3 text-left text-apoio font-medium text-ink transition-colors duration-150 hover:text-blue-deep focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-deep"
 				>
 					{item.question}
 					<ChevronDown
@@ -43,7 +43,7 @@ export function FaqItem({ item, open, onToggle }: FaqItemProps) {
 						transition={{ duration: 0.2, ease: EASE_OUT }}
 						className="overflow-hidden"
 					>
-						<p className="pb-3 text-[13px] leading-relaxed text-ink-2">
+						<p className="pb-3 text-apoio leading-relaxed text-ink-2">
 							{item.answer}
 						</p>
 					</motion.div>

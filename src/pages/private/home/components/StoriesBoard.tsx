@@ -28,14 +28,14 @@ export function StoriesBoard() {
 						key={story.author}
 						className="grid gap-3 py-6 sm:grid-cols-[5rem_1fr] sm:gap-4 sm:py-7 lg:grid-cols-[6rem_1fr]"
 					>
-						<span className="inline-flex h-fit w-fit items-center rounded-full bg-blue-tint px-3 py-1 font-display text-xs font-bold tracking-wider text-blue-deep">
+						<span className="inline-flex h-fit w-fit items-center rounded-full bg-blue-tint px-3 py-1 font-display text-rotulo font-bold tracking-wider text-blue-deep">
 							{story.tag}
 						</span>
 						<div>
-							<p className="font-display text-base leading-relaxed text-blue-deep sm:text-lg">
+							<p className="font-display text-corpo leading-relaxed text-blue-deep sm:text-destaque">
 								“{story.quote}”
 							</p>
-							<footer className="mt-3 text-xs uppercase tracking-[0.05em] text-ink-2">
+							<footer className="mt-3 text-rotulo uppercase tracking-[0.05em] text-ink-2">
 								{story.author}
 							</footer>
 						</div>
@@ -43,7 +43,7 @@ export function StoriesBoard() {
 				))}
 			</div>
 
-			<p className="relative text-xs leading-relaxed text-ink-2">
+			<p className="relative text-rotulo leading-relaxed text-ink-2">
 				{STORIES_TOTAL === null ? (
 					<>Relatos compartilhados pela rede de bancos de leite humano.</>
 				) : (

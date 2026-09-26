@@ -31,11 +31,11 @@ export function FeaturedMediumCard({ article }: FeaturedMediumCardProps) {
 					{article.category}
 				</Badge>
 
-				<h3 className="text-[14px] font-bold leading-snug text-ink">
+				<h3 className="text-apoio font-bold leading-snug text-ink">
 					{article.title}
 				</h3>
 
-				<span className="text-[11px] text-ink-2">
+				<span className="text-rotulo text-ink-2">
 					{article.readTimeMinutes} min de leitura
 				</span>
 			</div>

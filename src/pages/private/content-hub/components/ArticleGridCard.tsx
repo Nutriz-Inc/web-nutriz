@@ -35,15 +35,15 @@ export function ArticleGridCard({ article }: ArticleGridCardProps) {
 					{article.category}
 				</Badge>
 
-				<h3 className="text-[14px] font-bold leading-snug text-ink">
+				<h3 className="text-apoio font-bold leading-snug text-ink">
 					{article.title}
 				</h3>
 
-				<p className="line-clamp-2 text-[12px] leading-relaxed text-ink-2">
+				<p className="line-clamp-2 text-rotulo leading-relaxed text-ink-2">
 					{getArticleSummary(article)}
 				</p>
 
-				<span className="text-[11px] text-ink-3">
+				<span className="text-rotulo text-ink-3">
 					{article.readTimeMinutes} min de leitura
 				</span>
 			</div>

@@ -62,7 +62,7 @@ export function Stepper({
 								<span
 									aria-hidden="true"
 									className={cn(
-										"grid size-[18px] shrink-0 place-items-center rounded-full text-[10px] font-bold transition-colors",
+										"grid size-[18px] shrink-0 place-items-center rounded-full text-rotulo font-bold transition-colors",
 										concluida && "bg-blue-deep-fill text-white",
 										atual && "bg-blue-bright-fill text-white",
 										!concluida &&
@@ -79,7 +79,7 @@ export function Stepper({
 
 								<span
 									className={cn(
-										"hidden truncate text-[12px] sm:block",
+										"hidden truncate text-rotulo sm:block",
 										atual && "font-bold text-blue-deep",
 										concluida && "font-semibold text-ink-2",
 										!concluida && !atual && "font-medium text-ink-3",

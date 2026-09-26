@@ -24,24 +24,24 @@ export function MilkCollectedCard({ total, byMonth }: MilkCollectedCardProps) {
 				/>
 
 				<div className="flex shrink-0 flex-col items-start gap-1 lg:items-end">
-					<p className="text-[28px] font-bold tabular-nums text-chart-1 lg:text-[32px]">
+					<p className="text-titulo font-bold tabular-nums text-chart-1 lg:text-titulo">
 						<CountUp value={total / 1000} decimals={1} suffix=" L" />
 					</p>
-					<p className="text-[12px] text-ink-3">Total no período</p>
+					<p className="text-rotulo text-ink-3">Total no período</p>
 				</div>
 			</div>
 
 			{byMonth.length === 0 ? (
-				<p className="py-8 text-center text-[13px] text-ink-3">
+				<p className="py-8 text-center text-apoio text-ink-3">
 					Nenhum dado disponível para o período selecionado.
 				</p>
 			) : (
 				<>
 					<div className="flex items-center gap-2.5">
 						<span className="size-[9px] rounded-full bg-chart-1" />
-						<p className="text-[12px] text-ink-2">Mês vigente</p>
+						<p className="text-rotulo text-ink-2">Mês vigente</p>
 						<span className="size-[9px] rounded-full bg-chart-trilho" />
-						<p className="text-[12px] text-ink-2">Meses anteriores</p>
+						<p className="text-rotulo text-ink-2">Meses anteriores</p>
 					</div>
 
 					<div className="sem-barra flex h-[190px] items-end gap-3 overflow-x-auto lg:h-[230px] lg:gap-5">
@@ -54,14 +54,14 @@ export function MilkCollectedCard({ total, byMonth }: MilkCollectedCardProps) {
 									key={item.month}
 									className="flex h-full w-10 shrink-0 flex-col items-center justify-end gap-2 lg:w-14"
 								>
-									<p className="text-[12px] font-medium tabular-nums text-ink">
+									<p className="text-rotulo font-medium tabular-nums text-ink">
 										{formatDecimal(item.total / 1000)} L
 									</p>
 									<div
 										className={`w-full rounded-t-[4px] ${isCurrent ? "bg-chart-1" : "bg-chart-trilho"}`}
 										style={{ height: `${heightPercent}%` }}
 									/>
-									<p className="text-[11px] uppercase text-ink-2">
+									<p className="text-rotulo uppercase text-ink-2">
 										{formatMonthBR(item.month)}
 									</p>
 								</div>

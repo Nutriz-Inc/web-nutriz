@@ -42,11 +42,11 @@ export function BabyConsentStep({
 					onChange={(checked) => onToggle("hasBaby", checked)}
 					accent="pink"
 				>
-					<span className="text-sm font-semibold text-ink">
+					<span className="text-apoio font-semibold text-ink">
 						Já quero cadastrar meu bebê
 					</span>
 				</RoundCheckbox>
-				<p className="pl-[30px] text-[13px] text-ink-2">
+				<p className="pl-[30px] text-apoio text-ink-2">
 					Você pode adicionar os dados do seu bebê agora ou depois no seu
 					perfil.
 				</p>
@@ -60,14 +60,14 @@ export function BabyConsentStep({
 							className="rounded-xl border border-danger-tint bg-eva-tint p-[18px]"
 						>
 							<div className="mb-4 flex items-center justify-between">
-								<p className="text-xs font-bold uppercase tracking-[0.08em] text-eva-deep">
+								<p className="text-rotulo font-bold uppercase tracking-[0.08em] text-eva-deep">
 									Bebê {index + 1}
 								</p>
 								{form.babies.length > 1 && (
 									<button
 										type="button"
 										onClick={() => onRemoveBaby(index)}
-										className="flex min-h-11 items-center gap-1 rounded-md px-2 text-[13px] font-semibold text-eva-deep transition-colors hover:text-eva-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
+										className="flex min-h-11 items-center gap-1 rounded-md px-2 text-apoio font-semibold text-eva-deep transition-colors hover:text-eva-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
 									>
 										<X className="size-3.5" aria-hidden />
 										Remover
@@ -126,7 +126,7 @@ export function BabyConsentStep({
 					}
 					invalid={!!errors.acceptedTerms}
 				>
-					<span className="text-sm leading-relaxed text-ink">
+					<span className="text-apoio leading-relaxed text-ink">
 						Li e aceito os{" "}
 						<a
 							href="/termos-de-uso"
@@ -151,7 +151,7 @@ export function BabyConsentStep({
 				{errors.acceptedTerms && (
 					<p
 						id="register-consent-error"
-						className="pl-[30px] text-xs text-danger"
+						className="pl-[30px] text-rotulo text-danger"
 					>
 						{errors.acceptedTerms}
 					</p>

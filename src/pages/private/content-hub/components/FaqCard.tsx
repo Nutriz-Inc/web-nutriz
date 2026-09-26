@@ -8,7 +8,7 @@ export function FaqCard() {
 
 	return (
 		<section className="rounded-card-sm border border-line bg-surface p-5 shadow-soft">
-			<h2 className="flex items-center gap-2 text-[15px] font-bold text-ink">
+			<h2 className="flex items-center gap-2 text-corpo font-bold text-ink">
 				<HelpCircle className="size-4 text-blue-deep" aria-hidden />
 				Dúvidas frequentes
 			</h2>

@@ -56,7 +56,7 @@ export function LandingSection({
 						onDark={onDark}
 						actionSlot={
 							description && align === "left" ? (
-								<p className="max-w-sm text-[15px] leading-relaxed text-ink-2 md:text-right">
+								<p className="max-w-sm text-corpo leading-relaxed text-ink-2 md:text-right">
 									{description}
 								</p>
 							) : undefined
@@ -66,7 +66,7 @@ export function LandingSection({
 					{description && align === "center" && (
 						<p
 							className={cn(
-								"mx-auto mt-3 max-w-xl text-center text-[15px] leading-relaxed",
+								"mx-auto mt-3 max-w-xl text-center text-corpo leading-relaxed",
 								onDark ? "text-blue-tint-2" : "text-ink-2",
 							)}
 						>

@@ -37,10 +37,10 @@ export function AppointmentManagementDetailPage() {
 			{!appointment ? (
 				<div className="flex flex-col items-center gap-2 rounded-card-sm border border-line bg-surface p-10 text-center">
 					<CalendarX className="size-8 text-ink-3" />
-					<p className="text-[15px] font-semibold text-ink">
+					<p className="text-corpo font-semibold text-ink">
 						Agendamento não encontrado
 					</p>
-					<p className="text-[13px] text-ink-3">
+					<p className="text-apoio text-ink-3">
 						Ele pode ter sido removido ou o endereço está incorreto.
 					</p>
 				</div>

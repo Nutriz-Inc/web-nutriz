@@ -60,7 +60,7 @@ export function AddStepToRouteButton({ idDonation, idDonationStep }: Props) {
 			<AlertDialogTrigger asChild>
 				<button
 					type="button"
-					className="flex items-center gap-1.5 self-start rounded-full border border-line bg-surface px-3.5 py-2 text-[13px] font-semibold text-blue-deep transition-colors hover:bg-blue-tint"
+					className="flex items-center gap-1.5 self-start rounded-full border border-line bg-surface px-3.5 py-2 text-apoio font-semibold text-blue-deep transition-colors hover:bg-blue-tint"
 				>
 					<RouteIcon className="size-3.5" />
 					Adicionar a uma rota
@@ -81,7 +81,7 @@ export function AddStepToRouteButton({ idDonation, idDonationStep }: Props) {
 				<div className="mt-4 flex flex-col gap-1.5 text-left">
 					<label
 						htmlFor="add-step-route"
-						className="text-[12px] font-semibold text-ink-2"
+						className="text-rotulo font-semibold text-ink-2"
 					>
 						Rota pendente
 					</label>
@@ -89,7 +89,7 @@ export function AddStepToRouteButton({ idDonation, idDonationStep }: Props) {
 						id="add-step-route"
 						value={idRoute}
 						onChange={(event) => setIdRoute(event.target.value)}
-						className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none"
+						className="rounded-card-sm border border-line bg-surface px-3 py-2 text-apoio text-ink outline-none"
 					>
 						<option value="">
 							{routesQuery.isLoading
@@ -104,7 +104,7 @@ export function AddStepToRouteButton({ idDonation, idDonationStep }: Props) {
 						))}
 					</select>
 					{!routesQuery.isLoading && routes.length === 0 && (
-						<p className="text-[12px] text-ink-3">
+						<p className="text-rotulo text-ink-3">
 							Nenhuma rota pendente disponível.
 						</p>
 					)}

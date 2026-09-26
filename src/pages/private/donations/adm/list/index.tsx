@@ -205,7 +205,7 @@ export function DonationsManagementPage() {
 									>
 										<ChevronLeft className="size-4" />
 									</button>
-									<span className="text-[13px] font-semibold text-ink">
+									<span className="text-apoio font-semibold text-ink">
 										Página {page} de {totalPages}
 									</span>
 									<button

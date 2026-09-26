@@ -35,11 +35,11 @@ export function StepTimelineSheet({
 				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 px-5 pb-0 pt-3 text-left lg:px-8 lg:pt-6">
-					<SheetTitle className="text-[14px] font-bold text-ink lg:text-[18px]">
+					<SheetTitle className="text-apoio font-bold text-ink lg:text-destaque">
 						Linha do tempo{stepOrder ? ` — Etapa ${stepOrder}` : ""}
 						{stepTitle ? `: ${stepTitle}` : ""}
 					</SheetTitle>
-					<SheetDescription className="text-[11px] text-ink-3 lg:text-[13px]">
+					<SheetDescription className="text-rotulo text-ink-3 lg:text-apoio">
 						Histórico de atualizações desta etapa.
 					</SheetDescription>
 				</SheetHeader>
@@ -55,7 +55,7 @@ export function StepTimelineSheet({
 							))}
 						</div>
 					) : timelines.length === 0 ? (
-						<p className="py-4 text-center text-[13px] text-ink-3">
+						<p className="py-4 text-center text-apoio text-ink-3">
 							Nenhum registro encontrado para esta etapa ainda.
 						</p>
 					) : (

@@ -13,11 +13,11 @@ export function StepLockedCard({ label, donationEnded }: Props) {
 					<div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-danger-tint">
 						<AlertTriangle className="size-5 text-danger" />
 					</div>
-					<p className="text-[16px] font-bold text-danger">{label}</p>
+					<p className="text-corpo font-bold text-danger">{label}</p>
 				</div>
 				<div className="flex items-center gap-2.5 rounded-xl bg-danger-tint px-[18px] py-4">
 					<AlertTriangle className="size-[15px] shrink-0 text-danger" />
-					<p className="text-[13px] text-danger">
+					<p className="text-apoio text-danger">
 						Doação encerrada — uma etapa anterior foi marcada como erro.
 					</p>
 				</div>
@@ -31,11 +31,11 @@ export function StepLockedCard({ label, donationEnded }: Props) {
 				<div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-surface-3">
 					<Lock className="size-5 text-ink-3" />
 				</div>
-				<p className="text-[16px] font-bold text-ink-3">{label}</p>
+				<p className="text-corpo font-bold text-ink-3">{label}</p>
 			</div>
 			<div className="flex items-center gap-2.5 rounded-xl bg-surface-3 px-[18px] py-4">
 				<Lock className="size-[15px] shrink-0 text-ink-3" />
-				<p className="text-[13px] text-ink-2">
+				<p className="text-apoio text-ink-2">
 					Disponível automaticamente após a conclusão da etapa anterior.
 				</p>
 			</div>

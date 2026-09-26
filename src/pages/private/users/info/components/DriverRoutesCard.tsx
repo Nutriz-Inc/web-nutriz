@@ -57,7 +57,7 @@ export function DriverRoutesCard({ routes, loading }: DriverRoutesCardProps) {
 						{COLUMN_LABELS.map((label) => (
 							<span
 								key={label || "actions"}
-								className="text-[11px] font-semibold uppercase tracking-wide text-ink-3"
+								className="text-rotulo font-semibold uppercase tracking-wide text-ink-3"
 							>
 								{label}
 							</span>

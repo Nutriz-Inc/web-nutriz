@@ -166,7 +166,7 @@ export function RegisterScreen() {
 
 							<Link
 								to="/"
-								className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 text-[13px] font-semibold text-white outline-none transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-white/50 lg:h-10"
+								className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 text-apoio font-semibold text-white outline-none transition-colors hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-white/50 lg:h-10"
 							>
 								<ChevronLeft className="size-4" aria-hidden="true" />
 								Voltar
@@ -176,7 +176,7 @@ export function RegisterScreen() {
 
 					<div className="mt-5 flex items-center gap-5">
 						<div className="min-w-0 flex-1">
-							<h1 className="font-display text-[26px] font-extrabold leading-[1.1] tracking-tight sm:text-[34px]">
+							<h1 className="font-display text-secao font-extrabold leading-[1.1] tracking-tight sm:text-titulo">
 								{success ? (
 									<>
 										Conta criada.
@@ -193,7 +193,7 @@ export function RegisterScreen() {
 									</>
 								)}
 							</h1>
-							<p className="mt-3 max-w-sm text-[14px] leading-relaxed text-blue-tint-2 sm:text-[15px]">
+							<p className="mt-3 max-w-sm text-apoio leading-relaxed text-blue-tint-2 sm:text-corpo">
 								{success
 									? "Já pode entrar e acompanhar sua primeira doação por aqui."
 									: "São quatro etapas rápidas. A equipe Lactare cuida do resto — exames, kit de ordenha e coleta, tudo no seu endereço."}
@@ -285,12 +285,12 @@ export function RegisterScreen() {
 											role="alert"
 											className="rounded-card-sm mt-5 flex flex-col items-center gap-3 border border-danger/20 bg-danger-tint px-4 py-3 text-center"
 										>
-											<p className="text-sm text-danger">{errors.general}</p>
+											<p className="text-apoio text-danger">{errors.general}</p>
 											{alreadyRegistered && (
 												<Button
 													type="button"
 													onClick={() => navigate("/login")}
-													className="h-11 rounded-full bg-blue-deep-fill px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue-fill"
+													className="h-11 rounded-full bg-blue-deep-fill px-6 text-apoio font-semibold text-white shadow-soft hover:bg-blue-fill"
 												>
 													Fazer login
 												</Button>
@@ -304,7 +304,7 @@ export function RegisterScreen() {
 										<button
 											type="button"
 											onClick={() => navigate("/")}
-											className="min-h-11 rounded-full px-4 text-[14px] font-semibold text-ink-2 transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep"
+											className="min-h-11 rounded-full px-4 text-apoio font-semibold text-ink-2 transition-colors hover:bg-blue-tint hover:text-blue-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep"
 										>
 											Cancelar
 										</button>
@@ -313,7 +313,7 @@ export function RegisterScreen() {
 											type="button"
 											onClick={() => goToStep(step - 1)}
 											disabled={isPending}
-											className="h-11 rounded-full border border-line bg-surface px-5 text-[14px] font-semibold text-ink-2 hover:bg-blue-tint hover:text-blue-deep"
+											className="h-11 rounded-full border border-line bg-surface px-5 text-apoio font-semibold text-ink-2 hover:bg-blue-tint hover:text-blue-deep"
 										>
 											<ChevronLeft className="size-4" aria-hidden />
 											Voltar
@@ -323,7 +323,7 @@ export function RegisterScreen() {
 									<Button
 										type="submit"
 										disabled={isPending}
-										className="h-11 rounded-full bg-blue-deep-fill px-6 text-[14px] font-semibold text-white shadow-soft hover:bg-blue-fill disabled:opacity-60"
+										className="h-11 rounded-full bg-blue-deep-fill px-6 text-apoio font-semibold text-white shadow-soft hover:bg-blue-fill disabled:opacity-60"
 									>
 										{isPending ? (
 											<span className="flex items-center gap-2">
@@ -347,7 +347,7 @@ export function RegisterScreen() {
 						</>
 					)}
 
-					<p className="mt-4 text-center text-[14px] text-ink-2">
+					<p className="mt-4 text-center text-apoio text-ink-2">
 						Já tem uma conta?{" "}
 						<Link
 							to="/login"

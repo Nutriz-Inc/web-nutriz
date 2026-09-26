@@ -49,7 +49,7 @@ export function BottlesCard({ stats }: BottlesCardProps) {
 			/>
 
 			{bottles_count === 0 ? (
-				<p className="py-8 text-center text-[13px] text-ink-3">
+				<p className="py-8 text-center text-apoio text-ink-3">
 					Nenhum frasco registrado no período selecionado.
 				</p>
 			) : (
@@ -82,14 +82,14 @@ export function BottlesCard({ stats }: BottlesCardProps) {
 						<div className="h-px w-full bg-blue-tint" />
 						<div className="flex gap-8">
 							<div className="flex flex-col gap-0.5">
-								<p className="text-[11px] text-ink-3">Frascos coletados</p>
-								<p className="text-[16px] font-bold tabular-nums text-ink">
+								<p className="text-rotulo text-ink-3">Frascos coletados</p>
+								<p className="text-corpo font-bold tabular-nums text-ink">
 									{bottles_count}
 								</p>
 							</div>
 							<div className="flex flex-col gap-0.5">
-								<p className="text-[11px] text-ink-3">Média por doadora</p>
-								<p className="text-[16px] font-bold tabular-nums text-ink">
+								<p className="text-rotulo text-ink-3">Média por doadora</p>
+								<p className="text-corpo font-bold tabular-nums text-ink">
 									{formatDecimal(average_bottles_per_donor)}
 								</p>
 							</div>

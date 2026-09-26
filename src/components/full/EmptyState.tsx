@@ -56,9 +56,9 @@ export function EmptyState({
 			)}
 
 			<div className="flex flex-col gap-1">
-				<p className="text-[15px] font-semibold text-ink">{title}</p>
+				<p className="text-corpo font-semibold text-ink">{title}</p>
 				{description && (
-					<p className="max-w-[38ch] text-[13px] text-ink-2">{description}</p>
+					<p className="max-w-[38ch] text-apoio text-ink-2">{description}</p>
 				)}
 			</div>
 

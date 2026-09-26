@@ -62,7 +62,7 @@ export function ExpandableText({
 			<p
 				ref={referencia}
 				className={cn(
-					"whitespace-pre-line break-words text-[13px] leading-relaxed text-ink-2",
+					"whitespace-pre-line break-words text-apoio leading-relaxed text-ink-2",
 					CORTE[linhas],
 				)}
 			>
@@ -73,7 +73,7 @@ export function ExpandableText({
 				<button
 					type="button"
 					onClick={() => setAberto(true)}
-					className="flex items-center gap-1.5 self-start rounded-full text-[12px] font-semibold text-blue-deep outline-none transition-colors hover:text-blue-fill focus-visible:ring-4 focus-visible:ring-blue-bright/50"
+					className="flex items-center gap-1.5 self-start rounded-full text-rotulo font-semibold text-blue-deep outline-none transition-colors hover:text-blue-fill focus-visible:ring-4 focus-visible:ring-blue-bright/50"
 				>
 					{rotulo}
 					<Maximize2 className="size-3.5" />
@@ -83,12 +83,12 @@ export function ExpandableText({
 			<Sheet open={aberto} onOpenChange={setAberto}>
 				<SheetContent side="bottom" className={CLASSE_SHEET_CONTEUDO}>
 					<SheetHeader className="p-0">
-						<SheetTitle className="font-display text-[18px] font-extrabold text-blue-deep">
+						<SheetTitle className="font-display text-destaque font-extrabold text-blue-deep">
 							{titulo}
 						</SheetTitle>
 					</SheetHeader>
 
-					<p className="overflow-y-auto whitespace-pre-line break-words text-[14px] leading-relaxed text-ink">
+					<p className="overflow-y-auto whitespace-pre-line break-words text-apoio leading-relaxed text-ink">
 						{texto}
 					</p>
 				</SheetContent>

@@ -12,7 +12,7 @@ export function StepDoneFooter({ step }: Props) {
 	return (
 		<div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
 			<div className="flex items-center gap-2">
-				<span className="text-[13px] font-semibold text-ink-2">
+				<span className="text-apoio font-semibold text-ink-2">
 					Status da etapa:
 				</span>
 				<StatusBadge
@@ -24,7 +24,7 @@ export function StepDoneFooter({ step }: Props) {
 			{step.completed_at && (
 				<div className="flex items-center gap-1.5 text-success">
 					<Check className="size-3.5" />
-					<span className="text-[13px] font-semibold">
+					<span className="text-apoio font-semibold">
 						Etapa finalizada em {formatDateBR(step.completed_at)}
 					</span>
 				</div>

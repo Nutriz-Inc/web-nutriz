@@ -67,15 +67,15 @@ export function AppointmentCard({
 			<div className="flex items-start justify-between gap-3 px-5 pb-4 pt-5">
 				<div className="flex min-w-0 items-center gap-3">
 					<div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-tint">
-						<span className="text-[15px] font-bold text-blue-bright">
+						<span className="text-corpo font-bold text-blue-bright">
 							{getInitials(appointment.donorName)}
 						</span>
 					</div>
 					<div className="flex min-w-0 flex-col">
-						<p className="truncate text-[16px] font-bold text-ink">
+						<p className="truncate text-corpo font-bold text-ink">
 							{appointment.donorName}
 						</p>
-						<span className="text-[13px] text-ink-3">Doadora</span>
+						<span className="text-apoio text-ink-3">Doadora</span>
 					</div>
 				</div>
 				<StatusBadge
@@ -96,10 +96,10 @@ export function AppointmentCard({
 							field.wide && "col-span-2",
 						)}
 					>
-						<span className="text-[12px] text-ink-3">{field.label}</span>
-						<span className="flex min-w-0 items-center gap-2 text-[14px] font-semibold text-ink">
+						<span className="text-rotulo text-ink-3">{field.label}</span>
+						<span className="flex min-w-0 items-center gap-2 text-apoio font-semibold text-ink">
 							{"iniciais" in field && field.iniciais ? (
-								<span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-3 text-[10px] font-bold text-ink-2">
+								<span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-3 text-rotulo font-bold text-ink-2">
 									{field.iniciais}
 								</span>
 							) : null}
@@ -114,7 +114,7 @@ export function AppointmentCard({
 			<div className="px-5 pb-5 pt-4">
 				<span
 					className={cn(
-						"flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-center text-[13px] font-semibold transition-colors duration-150",
+						"flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-center text-apoio font-semibold transition-colors duration-150",
 						reportHint.highlighted
 							? "bg-blue-bright-fill text-white group-hover:bg-blue-deep-fill"
 							: "bg-surface-2 text-ink-3",

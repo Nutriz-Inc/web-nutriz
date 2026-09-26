@@ -38,7 +38,7 @@ export function DonationManagementCard({
 		>
 			<span
 				className={cn(
-					"flex size-10 shrink-0 items-center justify-center rounded-full text-[14px] font-bold",
+					"flex size-10 shrink-0 items-center justify-center rounded-full text-apoio font-bold",
 					donation.isActive
 						? "bg-blue-tint text-blue-deep"
 						: "bg-surface-3 text-ink-2",
@@ -49,16 +49,16 @@ export function DonationManagementCard({
 
 			<div className="flex min-w-0 flex-col gap-1">
 				<div className="flex min-w-0 items-center gap-2">
-					<p className="truncate text-[16px] font-semibold text-ink">
+					<p className="truncate text-corpo font-semibold text-ink">
 						{donation.userName}
 					</p>
 					{donation.isRecurrent ? (
-						<span className="shrink-0 rounded-full bg-teal-tint px-2 py-0.5 text-[11px] font-semibold text-teal">
+						<span className="shrink-0 rounded-full bg-teal-tint px-2 py-0.5 text-rotulo font-semibold text-teal">
 							Recorrente
 						</span>
 					) : null}
 				</div>
-				<p className="text-[12px] text-ink-2 lg:truncate">
+				<p className="text-rotulo text-ink-2 lg:truncate">
 					<span className={cn("font-semibold", estado.texto)}>
 						<span
 							className={cn(

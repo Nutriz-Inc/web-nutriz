@@ -74,7 +74,7 @@ export function EvaSection() {
 						<div className="min-w-0 lg:max-w-[460px]">
 							<motion.span
 								variants={fadeUp}
-								className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.06em] text-eva-deep shadow-soft"
+								className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 font-display text-rotulo font-bold uppercase tracking-[0.06em] text-eva-deep shadow-soft"
 							>
 								<span
 									aria-hidden
@@ -85,7 +85,7 @@ export function EvaSection() {
 
 							<motion.p
 								variants={fadeUp}
-								className="mt-6 max-w-[440px] text-[16px] font-semibold leading-relaxed text-ink lg:text-[18px]"
+								className="mt-6 max-w-[440px] text-corpo font-semibold leading-relaxed text-ink lg:text-destaque"
 							>
 								Pergunte o que quiser. Ela responde na hora, com conteúdo
 								validado pela rBLH.
@@ -118,7 +118,7 @@ export function EvaSection() {
 									/>
 								</div>
 
-								<span className="text-[14px] leading-snug text-ink lg:max-w-[150px]">
+								<span className="text-apoio leading-snug text-ink lg:max-w-[150px]">
 									Atendimento acolhedor, a qualquer hora
 								</span>
 							</motion.div>
@@ -135,7 +135,7 @@ export function EvaSection() {
 				{...reveal}
 				className="mt-10 flex flex-col gap-3 lg:mt-16 lg:flex-row lg:flex-wrap lg:items-center"
 			>
-				<span className="text-[15px] font-bold text-ink">Comece por aqui:</span>
+				<span className="text-corpo font-bold text-ink">Comece por aqui:</span>
 				<div className="eva-scope flex flex-wrap gap-2.5">
 					{EVA_SUGGESTIONS.map((suggestion, indice) => {
 						const Icone = ICONES_SUGESTAO[indice] ?? Sparkles;

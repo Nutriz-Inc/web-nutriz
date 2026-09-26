@@ -42,23 +42,23 @@ export function PeriodFilter({
 				>
 					<div className="grid grid-cols-2 gap-3 sm:flex-1">
 						<label className="flex flex-col gap-1">
-							<span className="text-[12px] font-medium text-ink-2">De</span>
+							<span className="text-rotulo font-medium text-ink-2">De</span>
 							<input
 								type="date"
 								value={customStart}
 								max={customEnd || undefined}
 								onChange={(event) => onCustomStartChange(event.target.value)}
-								className="h-[43px] rounded-card-sm border border-line bg-surface px-3 text-[14px] text-ink outline-none focus:border-blue-deep"
+								className="h-[43px] rounded-card-sm border border-line bg-surface px-3 text-apoio text-ink outline-none focus:border-blue-deep"
 							/>
 						</label>
 						<label className="flex flex-col gap-1">
-							<span className="text-[12px] font-medium text-ink-2">Até</span>
+							<span className="text-rotulo font-medium text-ink-2">Até</span>
 							<input
 								type="date"
 								value={customEnd}
 								min={customStart || undefined}
 								onChange={(event) => onCustomEndChange(event.target.value)}
-								className="h-[43px] rounded-card-sm border border-line bg-surface px-3 text-[14px] text-ink outline-none focus:border-blue-deep"
+								className="h-[43px] rounded-card-sm border border-line bg-surface px-3 text-apoio text-ink outline-none focus:border-blue-deep"
 							/>
 						</label>
 					</div>

@@ -94,7 +94,7 @@ export function StopsPicker({
 				trailing={
 					<span
 						className={cn(
-							"text-[12px] font-semibold",
+							"text-rotulo font-semibold",
 							value.length > 0 ? "text-blue-deep" : "text-ink-2",
 						)}
 					>
@@ -115,16 +115,16 @@ export function StopsPicker({
 								key={id}
 								className="flex items-center gap-2.5 rounded-lg border border-line bg-surface px-2.5 py-2"
 							>
-								<span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-blue-deep-fill text-[11px] font-bold tabular-nums text-white">
+								<span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-blue-deep-fill text-rotulo font-bold tabular-nums text-white">
 									{index + 1}
 								</span>
 
 								<span className="flex min-w-0 flex-1 flex-col">
-									<span className="truncate text-[13px] font-semibold text-ink">
+									<span className="truncate text-apoio font-semibold text-ink">
 										{dados?.nome ?? `${id.slice(0, 12)}…`}
 									</span>
 									{dados?.local && (
-										<span className="truncate text-[11px] text-ink-2">
+										<span className="truncate text-rotulo text-ink-2">
 											{dados.local}
 										</span>
 									)}
@@ -143,7 +143,7 @@ export function StopsPicker({
 					})}
 				</ol>
 			) : (
-				<p className="text-[12px] leading-relaxed text-ink-2">
+				<p className="text-rotulo leading-relaxed text-ink-2">
 					Nenhuma parada escolhida ainda. Toque nas etapas abaixo para montar o
 					trajeto — a ordem de visita é otimizada depois.
 				</p>
@@ -157,17 +157,17 @@ export function StopsPicker({
 						onChange={(evento) => setBusca(evento.target.value)}
 						placeholder="Buscar etapa por nome, bairro ou cidade"
 						aria-label="Buscar etapa disponível"
-						className="h-11 w-full rounded-full border border-line bg-surface-2 pl-10 pr-4 text-[14px] text-ink outline-none transition-colors placeholder:text-ink-3/70 focus:border-blue-bright focus:bg-surface focus:ring-3 focus:ring-blue-bright/25"
+						className="h-11 w-full rounded-full border border-line bg-surface-2 pl-10 pr-4 text-apoio text-ink outline-none transition-colors placeholder:text-ink-3/70 focus:border-blue-bright focus:bg-surface focus:ring-3 focus:ring-blue-bright/25"
 					/>
 				</div>
 
 				<div className="flex max-h-[240px] flex-col gap-1.5 overflow-y-auto">
 					{isLoading ? (
-						<p className="px-1 py-3 text-center text-[13px] text-ink-2">
+						<p className="px-1 py-3 text-center text-apoio text-ink-2">
 							Carregando etapas disponíveis…
 						</p>
 					) : visiveis.length === 0 ? (
-						<p className="px-3 py-3 text-center text-[13px] leading-relaxed text-ink-2">
+						<p className="px-3 py-3 text-center text-apoio leading-relaxed text-ink-2">
 							{busca.trim()
 								? "Nenhuma etapa encontrada para essa busca."
 								: city || neighborhood
@@ -212,13 +212,13 @@ export function StopsPicker({
 									<span className="flex min-w-0 flex-1 flex-col">
 										<span
 											className={cn(
-												"truncate text-[13px] font-semibold",
+												"truncate text-apoio font-semibold",
 												escolhida ? "text-blue-deep" : "text-ink",
 											)}
 										>
 											{step.name}
 										</span>
-										<span className="truncate text-[11px] text-ink-2">
+										<span className="truncate text-rotulo text-ink-2">
 											{step.set_date
 												? formatDateBR(step.set_date)
 												: "sem data prevista"}

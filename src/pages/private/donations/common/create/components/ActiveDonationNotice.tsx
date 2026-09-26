@@ -10,7 +10,7 @@ export function ActiveDonationNotice() {
 				<Heart className="size-4 fill-eva" />
 			</span>
 
-			<p className="min-w-0 text-[13px] leading-[19px] text-ink">
+			<p className="min-w-0 text-apoio leading-[19px] text-ink">
 				<strong className="font-bold">
 					Você já tem uma doação em andamento.
 				</strong>{" "}

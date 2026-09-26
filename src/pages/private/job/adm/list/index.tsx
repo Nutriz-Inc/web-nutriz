@@ -78,7 +78,7 @@ export function AppointmentsManagementPage() {
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={
 				<div className="flex items-center gap-2.5">
-					<span className="shrink-0 rounded-full bg-blue-tint px-3 py-1.5 text-[13px] font-semibold text-blue-bright">
+					<span className="shrink-0 rounded-full bg-blue-tint px-3 py-1.5 text-apoio font-semibold text-blue-bright">
 						{total} <span className="lg:hidden">agend.</span>
 						<span className="hidden lg:inline">agendamentos</span>
 					</span>

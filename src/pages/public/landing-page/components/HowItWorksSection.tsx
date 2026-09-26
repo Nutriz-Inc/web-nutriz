@@ -50,10 +50,10 @@ export function HowItWorksSection() {
 						className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent"
 					/>
 					<div className="relative p-7">
-						<span className="font-display text-[12px] font-bold uppercase tracking-[0.06em] text-white/80">
+						<span className="font-display text-rotulo font-bold uppercase tracking-[0.06em] text-white/80">
 							Banco de leite
 						</span>
-						<p className="mt-2 max-w-xs font-display text-[22px] font-bold leading-tight text-white">
+						<p className="mt-2 max-w-xs font-display text-secao font-bold leading-tight text-white">
 							Cada gota é processada com segurança
 						</p>
 					</div>
@@ -72,7 +72,7 @@ export function HowItWorksSection() {
 							<div className="flex items-start justify-between">
 								<span
 									className={cn(
-										"grid size-11 place-items-center rounded-full font-display text-[16px] font-bold text-white",
+										"grid size-11 place-items-center rounded-full font-display text-corpo font-bold text-white",
 										step.badge,
 									)}
 								>
@@ -83,10 +83,10 @@ export function HowItWorksSection() {
 								</span>
 							</div>
 							<div className="mt-5">
-								<h3 className="font-display text-[18px] font-bold text-ink">
+								<h3 className="font-display text-destaque font-bold text-ink">
 									{step.title}
 								</h3>
-								<p className="mt-2 text-[14px] leading-relaxed text-ink-2">
+								<p className="mt-2 text-apoio leading-relaxed text-ink-2">
 									{step.description}
 								</p>
 							</div>
@@ -112,12 +112,12 @@ export function HowItWorksSection() {
 									className="size-5"
 								/>
 							</span>
-							<span className="text-[15px] font-bold text-ink">WhatsApp</span>
+							<span className="text-corpo font-bold text-ink">WhatsApp</span>
 						</span>
-						<h3 className="mt-3 font-display text-[16px] font-bold leading-snug text-ink">
+						<h3 className="mt-3 font-display text-corpo font-bold leading-snug text-ink">
 							Fale com a nossa equipe
 						</h3>
-						<p className="mt-1 text-[13px] text-ink-2">
+						<p className="mt-1 text-apoio text-ink-2">
 							Tire dúvidas e comece a sua triagem.
 						</p>
 					</div>

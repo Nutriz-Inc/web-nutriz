@@ -38,7 +38,7 @@ export function UserSearchField({
 			)}
 		>
 			<DropdownMenu>
-				<DropdownMenuTrigger className="flex h-full shrink-0 items-center gap-1.5 rounded-l-card-sm border-r border-line px-3.5 text-[14px] font-semibold text-ink-2 outline-none transition-colors hover:bg-surface-2 focus-visible:bg-surface-2">
+				<DropdownMenuTrigger className="flex h-full shrink-0 items-center gap-1.5 rounded-l-card-sm border-r border-line px-3.5 text-apoio font-semibold text-ink-2 outline-none transition-colors hover:bg-surface-2 focus-visible:bg-surface-2">
 					{atual.label}
 					<ChevronDown className="size-4 shrink-0 text-ink-3" aria-hidden />
 				</DropdownMenuTrigger>
@@ -63,7 +63,7 @@ export function UserSearchField({
 				onChange={(evento) => onValueChange(evento.target.value)}
 				placeholder={atual.placeholder}
 				aria-label={atual.placeholder}
-				className="h-full min-w-0 flex-1 bg-transparent px-2.5 text-[15px] text-ink outline-none placeholder:text-ink-3"
+				className="h-full min-w-0 flex-1 bg-transparent px-2.5 text-corpo text-ink outline-none placeholder:text-ink-3"
 			/>
 
 			{value && (

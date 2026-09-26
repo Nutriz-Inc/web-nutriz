@@ -53,14 +53,14 @@ export function RecurrenceCard({ rate }: RecurrenceCardProps) {
 											<tspan
 												x={viewBox.cx}
 												y={viewBox.cy}
-												className="fill-ink text-[32px] font-bold"
+												className="fill-ink text-titulo font-bold"
 											>
 												{`${percent}%`}
 											</tspan>
 											<tspan
 												x={viewBox.cx}
 												y={(viewBox.cy ?? 0) + 26}
-												className="fill-ink-3 text-[12px]"
+												className="fill-ink-3 text-rotulo"
 											>
 												voltaram a doar
 											</tspan>
@@ -78,7 +78,7 @@ export function RecurrenceCard({ rate }: RecurrenceCardProps) {
 					</RadialBarChart>
 				</ChartContainer>
 
-				<p className="mt-1 text-center text-[13px] leading-snug text-ink-2">
+				<p className="mt-1 text-center text-apoio leading-snug text-ink-2">
 					De cada 100 doadoras,{" "}
 					<span className="font-semibold text-ink">{percent}</span> doaram mais
 					de uma vez no período.

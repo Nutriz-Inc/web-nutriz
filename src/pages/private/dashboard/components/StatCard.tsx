@@ -36,7 +36,7 @@ export function StatCard({
 
 			<div className="flex flex-col gap-1">
 				<p
-					className={`text-[36px] font-bold leading-none tabular-nums ${valueColor}`}
+					className={`text-numero font-bold leading-none tabular-nums ${valueColor}`}
 				>
 					{value === null ? (
 						"—"
@@ -44,7 +44,7 @@ export function StatCard({
 						<CountUp value={value} decimals={decimals} suffix={suffix} />
 					)}
 				</p>
-				<p className="text-[12px] text-ink-3">{footnote}</p>
+				<p className="text-rotulo text-ink-3">{footnote}</p>
 			</div>
 		</div>
 	);

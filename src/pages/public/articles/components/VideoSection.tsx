@@ -8,7 +8,7 @@ type VideoSectionProps = {
 export function VideoSection({ article }: VideoSectionProps) {
 	return (
 		<section className="mt-8">
-			<h2 className="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wide text-blue-deep">
+			<h2 className="flex items-center gap-1.5 text-rotulo font-bold uppercase tracking-wide text-blue-deep">
 				<Play className="size-3.5 fill-blue-deep" aria-hidden />
 				Assista e aprenda
 			</h2>
@@ -32,16 +32,16 @@ export function VideoSection({ article }: VideoSectionProps) {
 						className="absolute inset-0 h-full w-full object-cover brightness-[0.45]"
 					/>
 
-					<span className="relative inline-flex items-center gap-1.5 rounded-full bg-black/50 px-3 py-1.5 text-[12px] font-semibold text-white">
+					<span className="relative inline-flex items-center gap-1.5 rounded-full bg-black/50 px-3 py-1.5 text-rotulo font-semibold text-white">
 						<Clock className="size-3.5" aria-hidden />
 						Vídeo em breve
 					</span>
 
 					<div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10">
-						<p className="text-[13px] font-semibold text-white">
+						<p className="text-apoio font-semibold text-white">
 							{article.videoTitle}
 						</p>
-						<p className="text-[11px] text-white/80">{article.videoDuration}</p>
+						<p className="text-rotulo text-white/80">{article.videoDuration}</p>
 					</div>
 				</div>
 			)}

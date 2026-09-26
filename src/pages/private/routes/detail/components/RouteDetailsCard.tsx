@@ -20,7 +20,7 @@ export function RouteDetailsCard({ route, podeEditar, onEditar }: Props) {
 						className="flex-1"
 					/>
 				) : (
-					<p className="min-w-0 flex-1 text-[13px] leading-relaxed text-ink-2">
+					<p className="min-w-0 flex-1 text-apoio leading-relaxed text-ink-2">
 						Sem descrição.
 					</p>
 				)}

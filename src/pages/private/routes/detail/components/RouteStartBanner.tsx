@@ -48,7 +48,7 @@ export function RouteStartBanner({ dateSet }: Props) {
 			<div className="flex min-w-0 flex-col gap-0.5">
 				<p
 					className={cn(
-						"text-[14px] font-bold",
+						"text-apoio font-bold",
 						atrasada ? "text-danger" : "text-warning",
 					)}
 				>
@@ -56,7 +56,7 @@ export function RouteStartBanner({ dateSet }: Props) {
 						? "Rota não iniciada — o horário previsto já passou."
 						: "Esta rota está agendada para hoje."}
 				</p>
-				<p className="text-[13px] text-ink-2">
+				<p className="text-apoio text-ink-2">
 					{atrasada
 						? `Previsto para ${formatCreatedAt(dateSet)}. Inicie assim que puder.`
 						: "Não esqueça de iniciar a rota antes de sair."}

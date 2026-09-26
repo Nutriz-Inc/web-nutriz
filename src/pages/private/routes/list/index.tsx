@@ -168,7 +168,7 @@ export function RoutesListPage() {
 							value={dateSet}
 							onChange={(event) => handleDateSetChange(event.target.value)}
 							aria-label="Filtrar por data programada"
-							className="h-[43px] w-full rounded-card-sm border border-line bg-surface px-4 text-[15px] text-ink outline-none placeholder:text-ink-3 lg:w-[180px] lg:shrink-0"
+							className="h-[43px] w-full rounded-card-sm border border-line bg-surface px-4 text-corpo text-ink outline-none placeholder:text-ink-3 lg:w-[180px] lg:shrink-0"
 						/>
 						<div className="grid grid-cols-2 gap-2.5 lg:ml-auto lg:flex lg:shrink-0 lg:gap-2.5">
 							<Button
@@ -255,7 +255,7 @@ export function RoutesListPage() {
 									>
 										<ChevronLeft className="size-4" />
 									</button>
-									<span className="text-[13px] font-semibold text-ink">
+									<span className="text-apoio font-semibold text-ink">
 										Página {page} de {totalPages}
 									</span>
 									<button

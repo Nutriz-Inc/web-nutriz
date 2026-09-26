@@ -116,17 +116,17 @@ export function NewDonationPage() {
 							className="relative h-32 w-auto select-none sm:h-40 lg:h-56"
 						/>
 
-						<h1 className="relative mt-5 font-display text-[22px] font-extrabold tracking-tight text-ink sm:text-[26px] lg:mt-7 lg:text-[28px]">
+						<h1 className="relative mt-5 font-display text-secao font-extrabold tracking-tight text-ink sm:text-secao lg:mt-7 lg:text-titulo">
 							Iniciar nova doação
 						</h1>
-						<p className="relative mx-auto mt-2 max-w-[340px] text-[14px] leading-[20px] text-ink-2 lg:text-[15px] lg:leading-[21px]">
+						<p className="relative mx-auto mt-2 max-w-[340px] text-apoio leading-[20px] text-ink-2 lg:text-corpo lg:leading-[21px]">
 							Você está a um passo de ajudar um bebê que precisa de você.
 						</p>
 					</div>
 
 					<div className="flex flex-col gap-5 px-5 py-6 sm:px-7 lg:justify-center lg:px-9 lg:py-10">
 						<div>
-							<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-blue-bright">
+							<p className="font-display text-rotulo font-bold uppercase tracking-[0.06em] text-blue-bright">
 								Como funciona
 							</p>
 
@@ -146,7 +146,7 @@ export function NewDonationPage() {
 						{createDonationMutation.isError && !temDoacaoAberta && (
 							<p
 								role="alert"
-								className="rounded-card-sm bg-danger-tint px-4 py-3 text-center text-[13px] font-medium text-danger"
+								className="rounded-card-sm bg-danger-tint px-4 py-3 text-center text-apoio font-medium text-danger"
 							>
 								Não foi possível iniciar a doação. Tente novamente.
 							</p>

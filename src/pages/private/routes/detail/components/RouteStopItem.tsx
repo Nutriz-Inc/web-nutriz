@@ -50,7 +50,7 @@ export function RouteStopItem({
 				concluida ? "done" : comErro ? "failed" : atual ? "current" : "waiting"
 			}
 			order={numero}
-			className={cn("size-6 text-[11px]", atual && "sm:size-7 sm:text-[12px]")}
+			className={cn("size-6 text-rotulo", atual && "sm:size-7 sm:text-rotulo")}
 			wrapperClassName={wrapperClassName}
 		/>
 	);
@@ -85,7 +85,7 @@ export function RouteStopItem({
 					<div className="flex items-start justify-between gap-2">
 						<p
 							className={cn(
-								"min-w-0 flex-1 break-words text-[14px] font-bold",
+								"min-w-0 flex-1 break-words text-apoio font-bold",
 								comErro ? "text-danger" : "text-ink",
 							)}
 						>
@@ -97,14 +97,14 @@ export function RouteStopItem({
 							size="sm"
 							caps
 							dot={atual}
-							className="mt-px shrink-0 px-2 py-0.5 text-[10px] tracking-[0.06em]"
+							className="mt-px shrink-0 px-2 py-0.5 text-rotulo tracking-[0.06em]"
 						>
 							{BADGE[estado].rotulo}
 						</Badge>
 					</div>
 
 					<div className="mt-0.5 flex items-center justify-between gap-2">
-						<p className="min-w-0 flex-1 truncate text-[12px] text-ink-2">
+						<p className="min-w-0 flex-1 truncate text-rotulo text-ink-2">
 							{regiao}
 						</p>
 
@@ -123,21 +123,21 @@ export function RouteStopItem({
 					</div>
 
 					{stop.date_start && (
-						<p className="mt-1.5 flex items-center gap-1.5 text-[12px] font-semibold text-success">
+						<p className="mt-1.5 flex items-center gap-1.5 text-rotulo font-semibold text-success">
 							<Check className="size-3.5 shrink-0" strokeWidth={3} />
 							Chegou às {formatDateTimeParts(stop.date_start).time}
 						</p>
 					)}
 
 					{comErro && (
-						<p className="mt-1.5 flex items-center gap-1.5 text-[12px] font-semibold text-danger">
+						<p className="mt-1.5 flex items-center gap-1.5 text-rotulo font-semibold text-danger">
 							<CircleAlert className="size-3.5 shrink-0" />
 							Marcada como não realizada
 						</p>
 					)}
 
 					{semCoordenada && (
-						<p className="mt-1.5 flex items-center gap-1.5 text-[12px] text-warning">
+						<p className="mt-1.5 flex items-center gap-1.5 text-rotulo text-warning">
 							<MapPinOff className="size-3.5 shrink-0" />
 							Sem localização no mapa
 						</p>
@@ -149,7 +149,7 @@ export function RouteStopItem({
 								type="button"
 								onClick={onMarcar}
 								className={cn(
-									"flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-[13px] font-bold outline-none transition-[transform,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
+									"flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-apoio font-bold outline-none transition-[transform,background-color] focus-visible:ring-4 focus-visible:ring-blue-bright/50 active:scale-[0.98]",
 									atual
 										? "bg-blue-deep-fill text-white hover:bg-blue-fill"
 										: "border border-blue-tint-2 bg-surface text-blue-deep hover:bg-blue-tint",

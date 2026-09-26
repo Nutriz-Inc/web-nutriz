@@ -53,7 +53,7 @@ export function Page({
 				"inline-flex shrink-0 items-center justify-center text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50",
 				temTrilha
 					? "size-8 rounded-full border border-line bg-surface"
-					: "w-fit gap-1 rounded-full py-1.5 pl-2 pr-3 text-[13px] font-semibold",
+					: "w-fit gap-1 rounded-full py-1.5 pl-2 pr-3 text-apoio font-semibold",
 			)}
 		>
 			<ChevronLeft className={temTrilha ? "size-[18px]" : "size-4"} />
@@ -93,13 +93,13 @@ export function Page({
 			{title && (
 				<div className={cn("mb-8 flex flex-col gap-2", titleClassName)}>
 					<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-						<h1 className="font-display text-[1.625rem] font-extrabold leading-tight tracking-tight text-blue-deep lg:text-4xl">
+						<h1 className="font-display text-titulo font-bold tracking-tight text-blue-deep lg:text-pagina">
 							{title}
 						</h1>
 						{actionSlot}
 					</div>
 					{description && (
-						<div className="text-sm text-ink-2 lg:text-[15px]">
+						<div className="text-apoio text-ink-2 lg:text-corpo">
 							{description}
 						</div>
 					)}

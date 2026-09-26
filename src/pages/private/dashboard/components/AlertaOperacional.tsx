@@ -22,13 +22,13 @@ export function AlertaOperacional({
 		>
 			<span
 				className={cn(
-					"grid h-7 min-w-7 place-items-center rounded-full px-2 text-[13px] font-bold tabular-nums",
+					"grid h-7 min-w-7 place-items-center rounded-full px-2 text-apoio font-bold tabular-nums",
 					grave ? "bg-danger-tint text-danger" : "bg-orange-tint text-orange",
 				)}
 			>
 				{quantidade}
 			</span>
-			<span className="flex-1 text-[13px] text-ink">{rotulo}</span>
+			<span className="flex-1 text-apoio text-ink">{rotulo}</span>
 			<ChevronRight
 				className="size-4 text-ink-3 transition-transform duration-150 group-hover:translate-x-0.5"
 				aria-hidden="true"

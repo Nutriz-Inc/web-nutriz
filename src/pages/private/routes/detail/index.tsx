@@ -297,7 +297,7 @@ export function RouteDetailPage() {
 						>
 							<SectionLabel
 								trailing={
-									<span className="text-[12px] font-semibold text-ink-2">
+									<span className="text-rotulo font-semibold text-ink-2">
 										{paradasVisitadas} de {stops.length}
 									</span>
 								}
@@ -381,7 +381,7 @@ export function RouteDetailPage() {
 							</div>
 
 							<div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
-								<p className="text-[12px] leading-relaxed text-ink-2">
+								<p className="text-rotulo leading-relaxed text-ink-2">
 									Traçado ilustrativo. Início, chegadas e finalização continuam
 									sendo registrados aqui no sistema.
 								</p>

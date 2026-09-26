@@ -37,13 +37,13 @@ export function ProfileSectionCard({
 				<div className="flex min-w-0 flex-col gap-1">
 					<p
 						className={cn(
-							"font-display text-[11px] font-bold uppercase tracking-[0.06em]",
+							"font-display text-rotulo font-bold uppercase tracking-[0.06em]",
 							LABEL_TONE[tone],
 						)}
 					>
 						{label}
 					</p>
-					<Heading className="truncate text-[16px] font-bold text-ink">
+					<Heading className="truncate text-corpo font-bold text-ink">
 						{title}
 					</Heading>
 				</div>

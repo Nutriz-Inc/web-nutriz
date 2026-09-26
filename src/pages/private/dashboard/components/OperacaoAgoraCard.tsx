@@ -93,14 +93,14 @@ export function OperacaoAgoraCard() {
 								))}
 							</div>
 						) : (
-							<p className="rounded-card-sm bg-surface-2 px-4 py-3 text-[13px] text-ink-2">
+							<p className="rounded-card-sm bg-surface-2 px-4 py-3 text-apoio text-ink-2">
 								Nenhuma rota na rua agora.
 							</p>
 						)}
 					</div>
 
 					<div className="flex flex-col gap-1">
-						<p className="px-3 pb-1 text-xs font-bold uppercase tracking-[0.06em] text-ink-2">
+						<p className="px-3 pb-1 text-rotulo font-bold uppercase tracking-[0.06em] text-ink-2">
 							Pede atenção
 						</p>
 						{alertas.length > 0 ? (
@@ -108,7 +108,7 @@ export function OperacaoAgoraCard() {
 								<AlertaOperacional key={alerta.rotulo} {...alerta} />
 							))
 						) : (
-							<p className="px-3 py-2 text-[13px] text-success">
+							<p className="px-3 py-2 text-apoio text-success">
 								Tudo em dia por aqui.
 							</p>
 						)}

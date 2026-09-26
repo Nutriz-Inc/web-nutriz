@@ -14,13 +14,13 @@ export function NumeroDoDia({
 			<p
 				className={
 					atencao && valor > 0
-						? "text-[26px] font-bold leading-none tabular-nums text-orange"
-						: "text-[26px] font-bold leading-none tabular-nums text-ink"
+						? "text-secao font-bold leading-none tabular-nums text-orange"
+						: "text-secao font-bold leading-none tabular-nums text-ink"
 				}
 			>
 				{valor}
 			</p>
-			<p className="text-[12px] leading-snug text-ink-2">{rotulo}</p>
+			<p className="text-rotulo leading-snug text-ink-2">{rotulo}</p>
 		</div>
 	);
 }

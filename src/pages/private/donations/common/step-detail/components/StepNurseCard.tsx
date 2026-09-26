@@ -16,8 +16,8 @@ export function StepNurseCard({ nurseName, status }: Props) {
 					<UserRound className="size-[18px] text-blue-deep" />
 				</div>
 				<div className="flex min-w-0 flex-col gap-0.5">
-					<span className="text-[11px] text-ink-3">Enfermeiro responsável</span>
-					<span className="truncate text-[14px] font-semibold text-ink">
+					<span className="text-rotulo text-ink-3">Enfermeiro responsável</span>
+					<span className="truncate text-apoio font-semibold text-ink">
 						{nurseName}
 					</span>
 				</div>

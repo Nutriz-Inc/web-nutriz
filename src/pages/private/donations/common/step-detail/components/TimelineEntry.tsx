@@ -68,7 +68,7 @@ export function TimelineEntry({ entry, isLast }: Props) {
 				<p
 					ref={descriptionRef}
 					className={cn(
-						"mt-1.5 text-[12px] leading-[18px] text-ink-2",
+						"mt-1.5 text-rotulo leading-[18px] text-ink-2",
 						!expanded && "line-clamp-2",
 					)}
 				>
@@ -79,13 +79,13 @@ export function TimelineEntry({ entry, isLast }: Props) {
 					<button
 						type="button"
 						onClick={() => setExpanded((current) => !current)}
-						className="mt-0.5 text-[12px] font-semibold text-blue-bright"
+						className="mt-0.5 text-rotulo font-semibold text-blue-bright"
 					>
 						{expanded ? "Ver menos" : "Ver mais"}
 					</button>
 				)}
 
-				<div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-ink-3">
+				<div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-rotulo text-ink-3">
 					{entry.set_date && (
 						<span className="flex items-center gap-1">
 							<Calendar className="size-3.5" />

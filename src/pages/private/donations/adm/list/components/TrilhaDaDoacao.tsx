@@ -47,7 +47,7 @@ export function TrilhaDaDoacao({
 					);
 				})}
 			</div>
-			<p className="truncate text-[12px] text-ink-2">{legenda}</p>
+			<p className="truncate text-rotulo text-ink-2">{legenda}</p>
 		</div>
 	);
 }

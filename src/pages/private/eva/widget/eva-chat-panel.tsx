@@ -33,21 +33,12 @@ const AUTO_SCROLL_THRESHOLD = 48;
 
 const DISTANCIA_PARA_O_ATALHO = 160;
 
-function messageAction(
-	message: ChatMessage,
-	isAnonymous: boolean,
-): EvaMessageAction | null {
+function messageAction(message: ChatMessage): EvaMessageAction | null {
 	if (message.role !== "eva") {
 		return null;
 	}
 	if (message.action) {
 		return message.action;
-	}
-	if (
-		isAnonymous &&
-		message.paragraphs.join(" ").toLowerCase().includes("cadastr")
-	) {
-		return { slug: "signup", label: "Criar conta" };
 	}
 	return null;
 }
@@ -75,6 +66,8 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 		errorMessage,
 		sendMessage,
 		retry,
+		reenviarUltima,
+		perguntaPendente,
 		isAnonymous,
 	} = chat;
 
@@ -151,38 +144,79 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 			? "falha"
 			: status;
 
+	const podeTentarDeNovo =
+		blockedReason === "indisponivel" || (status === "failed" && !blocked);
+	const falhouAoResponder =
+		!blocked && status === "open" && errorMessage !== null;
+
 	const statusNotice = blocked ? (
-		blockedReason === "consent" ? (
-			<div className="eva-widget-notice-group">
-				<p className="eva-widget-notice">{BLOCKED_MESSAGES.consent}</p>
-				{consentSupportHref && (
-					<a
-						href={consentSupportHref}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="eva-outline-btn"
-					>
-						Falar com o suporte
-					</a>
-				)}
-			</div>
-		) : (
-			<p className="eva-widget-notice">{BLOCKED_MESSAGES[blockedReason]}</p>
-		)
-	) : status === "reconnecting" || status === "connecting" ? (
-		<p className="eva-widget-notice">
-			{status === "reconnecting" ? "Reconectando..." : "Conectando..."}
-		</p>
-	) : status === "failed" || errorMessage ? (
-		<div className="eva-widget-notice-group">
-			<p className="eva-widget-notice">
-				{errorMessage ?? CONNECTION_ERROR_MESSAGE}
+		<div className="eva-widget-notice-group" role="alert">
+			<p
+				className={`eva-widget-notice ${
+					blockedReason === "rate_limit" || blockedReason === "consent"
+						? "eva-widget-notice--alerta"
+						: "eva-widget-notice--erro"
+				}`}
+			>
+				{BLOCKED_MESSAGES[blockedReason]}
+				{perguntaPendente ? (
+					<span className="eva-widget-notice-pendente">
+						Sua pergunta: “{perguntaPendente}”
+					</span>
+				) : null}
 			</p>
-			{status === "failed" && !blocked && (
+			{consentSupportHref ? (
+				<a
+					href={consentSupportHref}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="eva-outline-btn"
+				>
+					Falar com o suporte
+				</a>
+			) : null}
+			{blockedReason === "rate_limit" && isAnonymous ? (
+				<a href="/registro" className="eva-outline-btn">
+					Criar conta
+				</a>
+			) : null}
+			{podeTentarDeNovo ? (
 				<button type="button" className="eva-outline-btn" onClick={retry}>
 					Tentar novamente
 				</button>
-			)}
+			) : null}
+		</div>
+	) : status === "reconnecting" || status === "connecting" ? (
+		<p className="eva-widget-notice eva-widget-notice--info" role="status">
+			{status === "reconnecting" ? "Reconectando…" : "Conectando à EVA…"}
+		</p>
+	) : status === "failed" || errorMessage ? (
+		<div className="eva-widget-notice-group" role="alert">
+			<p className="eva-widget-notice eva-widget-notice--erro">
+				{errorMessage ?? CONNECTION_ERROR_MESSAGE}
+				{perguntaPendente ? (
+					<span className="eva-widget-notice-pendente">
+						Sua pergunta: “{perguntaPendente}”
+					</span>
+				) : null}
+			</p>
+			{podeTentarDeNovo ? (
+				<button type="button" className="eva-outline-btn" onClick={retry}>
+					Tentar novamente
+				</button>
+			) : null}
+			{falhouAoResponder ? (
+				<button
+					type="button"
+					className="eva-outline-btn"
+					onClick={() => {
+						stickToBottomRef.current = true;
+						reenviarUltima();
+					}}
+				>
+					Perguntar de novo
+				</button>
+			) : null}
 		</div>
 	) : null;
 
@@ -198,7 +232,7 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 				<span className="eva-date-pill">Hoje</span>
 				<MessageBubble message={saudacao} />
 				{messages.map((message) => {
-					const action = messageAction(message, isAnonymous);
+					const action = messageAction(message);
 					if (!action && !message.relatorio) {
 						return <MessageBubble key={message.id} message={message} />;
 					}

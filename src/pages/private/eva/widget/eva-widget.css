@@ -499,6 +499,14 @@
 	color: var(--danger);
 }
 
+.eva-widget-notice-pendente {
+	display: block;
+	margin-top: 6px;
+	font-weight: 600;
+	color: inherit;
+	overflow-wrap: anywhere;
+}
+
 .eva-widget-notice-group {
 	display: flex;
 	flex-direction: column;

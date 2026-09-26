@@ -1,92 +1,100 @@
-import { ChevronRight } from "lucide-react";
+import { Calendar, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { StatusBadge } from "@/components/full/StatusBadge";
+import { StepBadge } from "@/components/full/StepBadge";
 import { getInitials } from "@/components/layout/utils";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { formatCpf, formatDateBR } from "@/utils/formatter";
+import { donationToken, STEP_DISPLAY } from "@/utils/status";
+import { getStepDefinitions } from "../../../common/info/constants";
 import type { AdminDonationRow } from "../hooks";
-import { TrilhaDaDoacao } from "./TrilhaDaDoacao";
 
 type DonationManagementCardProps = {
 	donation: AdminDonationRow;
 };
 
-function situacao(donation: AdminDonationRow) {
-	if (donation.hasError) {
-		return { rotulo: "Com erro", ponto: "bg-danger", texto: "text-danger" };
-	}
-	if (!donation.isActive) {
-		return { rotulo: "Concluída", ponto: "bg-success", texto: "text-success" };
-	}
-	return {
-		rotulo: "Em andamento",
-		ponto: "bg-blue-bright",
-		texto: "text-blue-deep",
-	};
+function rotuloDaEtapa(donation: AdminDonationRow) {
+	const etapa = donation.currentStepName;
+	if (!etapa) return undefined;
+
+	const etapas = getStepDefinitions(donation.isRecurrent);
+	const definicao = etapas.find((item) => item.name === etapa);
+	if (!definicao) return undefined;
+
+	return `${definicao.order}/${etapas.length} · ${STEP_DISPLAY[etapa].label}`;
 }
 
 export function DonationManagementCard({
 	donation,
 }: DonationManagementCardProps) {
 	const navigate = useNavigate();
-	const estado = situacao(donation);
 
 	return (
 		<button
 			type="button"
 			onClick={() => navigate(`/gestao-doacoes/${donation.id_donation}`)}
-			className="group grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-3.5 gap-y-3 rounded-card-sm border border-line bg-surface px-4 py-4 text-left transition-[border-color,box-shadow] duration-200 hover:border-line-strong hover:shadow-soft lg:grid-cols-[auto_minmax(0,1.2fr)_minmax(0,1fr)_auto] lg:gap-x-6 lg:px-5"
+			className={cn(
+				"flex w-full flex-col gap-3.5 rounded-card-sm border border-line bg-surface p-4 text-left transition-[border-color,box-shadow] duration-200 hover:border-line-strong hover:shadow-soft",
+				"lg:flex-row lg:items-center lg:gap-6 lg:px-5 lg:py-3.5",
+			)}
 		>
-			<span
-				className={cn(
-					"flex size-10 shrink-0 items-center justify-center rounded-full text-[14px] font-bold",
-					donation.isActive
-						? "bg-blue-tint text-blue-deep"
-						: "bg-surface-3 text-ink-2",
-				)}
-			>
-				{getInitials(donation.userName)}
-			</span>
-
-			<div className="flex min-w-0 flex-col gap-1">
-				<div className="flex min-w-0 items-center gap-2">
+			<div className="flex min-w-0 items-center gap-3 lg:w-[250px] lg:shrink-0">
+				<span
+					className={cn(
+						"flex size-10 shrink-0 items-center justify-center rounded-full text-[14px] font-bold",
+						donation.isActive
+							? "bg-blue-tint text-blue-deep"
+							: "bg-surface-3 text-ink-2",
+					)}
+				>
+					{getInitials(donation.userName)}
+				</span>
+				<div className="flex min-w-0 flex-col">
 					<p className="truncate text-[16px] font-semibold text-ink">
 						{donation.userName}
 					</p>
-					{donation.isRecurrent ? (
-						<span className="shrink-0 rounded-full bg-teal-tint px-2 py-0.5 text-[11px] font-semibold text-teal">
-							Recorrente
-						</span>
-					) : null}
-				</div>
-				<p className="text-[12px] text-ink-2 lg:truncate">
-					<span className={cn("font-semibold", estado.texto)}>
-						<span
-							className={cn(
-								"mr-1.5 inline-block size-1.5 rounded-full align-middle",
-								estado.ponto,
-							)}
-						/>
-						{estado.rotulo}
+					<span className="truncate text-[12px] text-ink-3">
+						{donation.id_donation}
 					</span>
-					{" · "}
-					CPF {donation.userCpf ? formatCpf(donation.userCpf) : "—"}
-					{" · "}
-					{formatDateBR(donation.createdAt)}
-				</p>
+				</div>
 			</div>
 
-			<ChevronRight
-				className="size-4 text-ink-3 transition-transform duration-200 group-hover:translate-x-0.5 lg:order-last"
-				aria-hidden="true"
-			/>
-
-			<div className="col-span-3 lg:col-span-1">
-				<TrilhaDaDoacao
-					etapaAtual={donation.currentStepName}
-					ativa={donation.isActive}
-					comErro={donation.hasError}
-					recorrente={donation.isRecurrent}
+			<div className="flex flex-wrap items-center gap-1.5 lg:w-[300px] lg:shrink-0">
+				<StatusBadge
+					token={donationToken(donation.isActive, donation.hasError)}
+					gender="f"
+					size="md"
 				/>
+				<StepBadge
+					step={donation.currentStepName}
+					label={rotuloDaEtapa(donation)}
+					size="md"
+				/>
+				{donation.isRecurrent && (
+					<Badge tone="teal" size="md">
+						Recorrente
+					</Badge>
+				)}
+			</div>
+
+			<div className="h-px bg-line lg:hidden" />
+
+			<div className="flex flex-wrap items-center gap-x-5 gap-y-2 lg:flex-1 lg:justify-end">
+				<div className="flex items-center gap-2">
+					<CreditCard className="size-4 shrink-0 text-ink-3" />
+					<span className="text-[13px] text-ink-2">CPF</span>
+					<span className="text-[14px] font-semibold tabular-nums text-ink">
+						{donation.userCpf ? formatCpf(donation.userCpf) : "—"}
+					</span>
+				</div>
+				<div className="flex items-center gap-2">
+					<Calendar className="size-4 shrink-0 text-ink-3" />
+					<span className="text-[13px] text-ink-2">Criada em</span>
+					<span className="text-[14px] font-semibold text-ink">
+						{formatDateBR(donation.createdAt)}
+					</span>
+				</div>
 			</div>
 		</button>
 	);

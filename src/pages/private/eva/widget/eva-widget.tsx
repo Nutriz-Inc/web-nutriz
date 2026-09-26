@@ -65,9 +65,9 @@ export function EvaWidget() {
 	useEffect(() => {
 		return subscribeEvaOpen((message?: string) => {
 			const skipWelcome =
-				lembraDasBoasVindas && (jaViuBoasVindas(userId) || Boolean(message));
+				Boolean(message) || (lembraDasBoasVindas && jaViuBoasVindas(userId));
 
-			if (skipWelcome) {
+			if (skipWelcome && lembraDasBoasVindas) {
 				marcarBoasVindasVistas(userId);
 			}
 

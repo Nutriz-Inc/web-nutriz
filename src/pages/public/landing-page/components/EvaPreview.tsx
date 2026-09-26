@@ -78,7 +78,7 @@ export function EvaPreview() {
 			<div className="relative mt-3">
 				<motion.div
 					{...surgir(faseVisivel === 2, "left")}
-					className="absolute bottom-[1.375rem] left-0 flex items-end gap-2"
+					className="absolute top-0 left-0 flex items-end gap-2"
 				>
 					<AvatarEva size={28} pulse />
 					<EvaPreviewDigitando />

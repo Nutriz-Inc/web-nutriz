@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { fadeScale, fadeUp, heroStagger } from "../animations/variants";
 import { useScrollToSection } from "../hooks/use-scroll-to-section";
 import { HeroDourado } from "./hero/HeroDourado";
-import { HeroGota } from "./hero/HeroGota";
 import { HeroPalavra } from "./hero/HeroPalavra";
 import { HeroPhoto } from "./hero/HeroPhoto";
 import { HeroPonto } from "./hero/HeroPonto";
@@ -110,7 +109,6 @@ export function HeroSection() {
 			</motion.div>
 
 			<HeroWave />
-			<HeroGota />
 		</section>
 	);
 }

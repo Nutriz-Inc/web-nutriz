@@ -54,7 +54,7 @@ export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 					<dl className="grid flex-1 grid-cols-2 gap-x-4 gap-y-3">
 						<div>
 							<dt className="text-[11px] text-ink-2">Duração média</dt>
-							<dd className="text-[18px] font-bold tabular-nums text-ink">
+							<dd className="text-[18px] font-semibold tabular-nums text-ink">
 								{formatOptionalDecimal(dados.duracao_media_horas, "h")}
 							</dd>
 						</div>
@@ -62,13 +62,13 @@ export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 							<dt className="text-[11px] text-ink-2">
 								Previsto no planejamento
 							</dt>
-							<dd className="text-[18px] font-bold tabular-nums text-ink">
+							<dd className="text-[18px] font-semibold tabular-nums text-ink">
 								{formatOptionalDecimal(dados.duracao_estimada_media_horas, "h")}
 							</dd>
 						</div>
 						<div>
 							<dt className="text-[11px] text-ink-2">Rotas medidas</dt>
-							<dd className="text-[18px] font-bold tabular-nums text-ink">
+							<dd className="text-[18px] font-semibold tabular-nums text-ink">
 								{dados.rotas_com_duracao_medida}
 							</dd>
 						</div>
@@ -77,8 +77,8 @@ export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 							<dd
 								className={
 									dados.rotas_acima_de_6h > 0
-										? "text-[18px] font-bold tabular-nums text-orange"
-										: "text-[18px] font-bold tabular-nums text-ink"
+										? "text-[18px] font-semibold tabular-nums text-orange"
+										: "text-[18px] font-semibold tabular-nums text-ink"
 								}
 							>
 								{dados.rotas_acima_de_6h}

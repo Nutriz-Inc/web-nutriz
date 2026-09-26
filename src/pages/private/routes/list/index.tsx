@@ -6,6 +6,7 @@ import {
 	BuscaPorCampo,
 	type CampoDeBusca,
 } from "@/components/full/BuscaPorCampo";
+import { DateFilter } from "@/components/full/DateFilter";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
@@ -20,6 +21,7 @@ import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { EnumRouteStatus } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
+import { toDateSetParam } from "@/utils/formatter";
 import { colunasDaRota } from "./colunas";
 import { CreateRouteSheet } from "./components/CreateRouteSheet";
 import {
@@ -64,7 +66,8 @@ export function RoutesListPage() {
 
 	const termoAplicado = useDebouncedValue(termo.trim(), 400);
 
-	const temFiltro = !!(termoAplicado || dateSet || status !== "all");
+	const dataAplicada = toDateSetParam(dateSet);
+	const temFiltro = !!(termoAplicado || dataAplicada || status !== "all");
 
 	function handleTermoChange(valor: string) {
 		setTermo(valor);
@@ -109,7 +112,7 @@ export function RoutesListPage() {
 			name: busca("name"),
 			city: ehAdm ? busca("city") : undefined,
 			neighborhood: ehAdm ? busca("neighborhood") : undefined,
-			date_set: dateSet || undefined,
+			date_set: dataAplicada,
 			status: statusParaApi,
 		});
 
@@ -158,12 +161,10 @@ export function RoutesListPage() {
 						/>
 					</GrupoDeFiltro>
 					<GrupoDeFiltro rotulo="Data programada">
-						<input
-							type="date"
+						<DateFilter
 							value={dateSet}
-							onChange={(event) => handleDateSetChange(event.target.value)}
-							aria-label="Filtrar por data programada"
-							className="h-10 w-full rounded-full border border-line bg-surface px-4 text-apoio text-ink outline-none transition-colors focus:border-blue-bright sm:w-[190px]"
+							onChange={handleDateSetChange}
+							semRotulo
 						/>
 					</GrupoDeFiltro>
 					{temFiltro && (

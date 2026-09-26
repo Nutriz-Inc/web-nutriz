@@ -1,11 +1,16 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, type PanInfo, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { EASE_OUT } from "@/lib/easing";
 import { cn } from "@/lib/utils";
 import { useReveal } from "../hooks/use-reveal";
 import { TESTIMONIALS } from "../mock";
 import { LandingSection } from "./LandingSection";
 import { TestimonialCard } from "./TestimonialCard";
+
+const VELOCIDADE_DE_ARREMESSO = 300;
+
+const DISTANCIA_PARA_TROCAR = 60;
 
 export function TestimonialsSection() {
 	const shouldReduceMotion = useReducedMotion();
@@ -13,6 +18,18 @@ export function TestimonialsSection() {
 
 	const total = TESTIMONIALS.length;
 	const go = (next: number) => setIndex((next + total) % total);
+
+	function aoSoltar(_: PointerEvent, gesto: PanInfo) {
+		const arremesso = Math.abs(gesto.velocity.x) > VELOCIDADE_DE_ARREMESSO;
+		const longe = Math.abs(gesto.offset.x) > DISTANCIA_PARA_TROCAR;
+
+		if (!arremesso && !longe) {
+			return;
+		}
+
+		const direcao = arremesso ? gesto.velocity.x : gesto.offset.x;
+		go(direcao < 0 ? index + 1 : index - 1);
+	}
 
 	const arrowClass =
 		"inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-line bg-surface text-blue-bright shadow-soft outline-none transition-[background-color,transform] duration-150 ease-out active:scale-[0.95] hover:bg-blue-tint focus-visible:ring-3 focus-visible:ring-blue-bright/50";
@@ -42,18 +59,27 @@ export function TestimonialsSection() {
 
 					<div className="flex-1 overflow-hidden">
 						<motion.div
-							className="flex"
-							animate={{ x: `-${index * 100}%` }}
-							transition={{
-								duration: shouldReduceMotion ? 0 : 0.4,
-								ease: [0.22, 1, 0.36, 1],
-							}}
+							drag={shouldReduceMotion ? false : "x"}
+							dragConstraints={{ left: 0, right: 0 }}
+							dragElastic={0.35}
+							dragSnapToOrigin
+							onDragEnd={aoSoltar}
+							className="cursor-grab active:cursor-grabbing"
 						>
-							{TESTIMONIALS.map((testimonial) => (
-								<div key={testimonial.name} className="w-full shrink-0">
-									<TestimonialCard testimonial={testimonial} />
-								</div>
-							))}
+							<motion.div
+								className="flex"
+								animate={{ x: `-${index * 100}%` }}
+								transition={{
+									duration: shouldReduceMotion ? 0 : 0.4,
+									ease: EASE_OUT,
+								}}
+							>
+								{TESTIMONIALS.map((testimonial) => (
+									<div key={testimonial.name} className="w-full shrink-0">
+										<TestimonialCard testimonial={testimonial} />
+									</div>
+								))}
+							</motion.div>
 						</motion.div>
 					</div>
 

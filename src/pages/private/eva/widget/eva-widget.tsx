@@ -9,9 +9,9 @@ import {
 } from "react";
 import { useBackdropTone } from "@/hooks/use-backdrop-tone";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
-import { EvaChatPanel } from "./eva-chat-panel";
+import { jaViuBoasVindas, marcarBoasVindasVistas } from "./eva-boas-vindas";
 import { EvaFab } from "./eva-fab";
-import { EvaWelcomePanel } from "./eva-welcome-panel";
+import { EvaModalConteudo, type EvaVisao } from "./eva-modal-conteudo";
 import {
 	getAppMenuOpen,
 	subscribeAppMenuOpen,
@@ -19,74 +19,13 @@ import {
 } from "./eva-widget-bus";
 import "./eva-widget.css";
 import { EASE_OUT } from "@/lib/easing";
-import { EVA_PERSONAS } from "../constants";
-import { EvaHelpPanel } from "./eva-help-panel";
 import { useEvaAccess } from "./use-eva-access";
 
 const HIDDEN_ROUTES = new Set(["/login", "/registro"]);
 
-type WidgetView = "welcome" | "chat" | "ajuda";
-
-function CloseButton() {
-	return (
-		<Dialog.Close asChild>
-			<button
-				type="button"
-				className="eva-widget-close"
-				aria-label="Fechar chat"
-			>
-				<svg
-					width="18"
-					height="18"
-					viewBox="0 0 20 20"
-					fill="none"
-					role="img"
-					aria-hidden="true"
-				>
-					<title>Fechar</title>
-					<path
-						d="M5 5l10 10M15 5L5 15"
-						stroke="currentColor"
-						strokeWidth="1.8"
-						strokeLinecap="round"
-					/>
-				</svg>
-			</button>
-		</Dialog.Close>
-	);
-}
-
-function welcomeSeenKey(userId: string) {
-	return `eva:welcome-seen:${userId}`;
-}
-
-function hasSeenWelcome(userId: string | null) {
-	if (!userId) {
-		return false;
-	}
-
-	try {
-		return localStorage.getItem(welcomeSeenKey(userId)) === "1";
-	} catch {
-		return false;
-	}
-}
-
-function markWelcomeSeen(userId: string | null) {
-	if (!userId) {
-		return;
-	}
-
-	try {
-		localStorage.setItem(welcomeSeenKey(userId), "1");
-	} catch {}
-}
-
 export function EvaWidget() {
 	const { allowed, mode, userId } = useEvaAccess();
-	const rotuloDoModo = EVA_PERSONAS[mode].rotuloDoModo;
 	const lembraDasBoasVindas = mode !== "anonymous";
-	const mostrarAjuda = mode !== "anonymous";
 	const pathname = useSyncExternalStore(
 		subscribeAppPath,
 		getAppPathname,
@@ -103,35 +42,19 @@ export function EvaWidget() {
 
 	const fabRef = useRef<HTMLButtonElement>(null);
 	const tomDoFundo = useBackdropTone(fabRef, !open);
-	const [view, setView] = useState<WidgetView>("welcome");
-	const [viewAnterior, setViewAnterior] = useState<WidgetView>("welcome");
-
-	function abrirAjuda() {
-		setViewAnterior(view === "ajuda" ? "welcome" : view);
-		setView("ajuda");
-	}
+	const [visaoInicial, setVisaoInicial] = useState<EvaVisao>("welcome");
 	const [initialMessage, setInitialMessage] = useState<string | undefined>(
 		undefined,
 	);
-
-	const startChat = useCallback(
-		(message?: string) => {
-			if (lembraDasBoasVindas) {
-				markWelcomeSeen(userId);
-			}
-
-			setInitialMessage((previous) => message ?? previous);
-			setView("chat");
-		},
-		[lembraDasBoasVindas, userId],
-	);
+	const [aberturas, setAberturas] = useState(0);
 
 	const handleOpenChange = useCallback(
 		(next: boolean) => {
 			if (next) {
-				const skipWelcome = lembraDasBoasVindas && hasSeenWelcome(userId);
+				const skipWelcome = lembraDasBoasVindas && jaViuBoasVindas(userId);
 				setInitialMessage(undefined);
-				setView(skipWelcome ? "chat" : "welcome");
+				setVisaoInicial(skipWelcome ? "chat" : "welcome");
+				setAberturas((total) => total + 1);
 			}
 
 			setOpen(next);
@@ -142,14 +65,15 @@ export function EvaWidget() {
 	useEffect(() => {
 		return subscribeEvaOpen((message?: string) => {
 			const skipWelcome =
-				lembraDasBoasVindas && (hasSeenWelcome(userId) || Boolean(message));
+				lembraDasBoasVindas && (jaViuBoasVindas(userId) || Boolean(message));
 
 			if (skipWelcome) {
-				markWelcomeSeen(userId);
+				marcarBoasVindasVistas(userId);
 			}
 
 			setInitialMessage(message);
-			setView(skipWelcome ? "chat" : "welcome");
+			setVisaoInicial(skipWelcome ? "chat" : "welcome");
+			setAberturas((total) => total + 1);
 			setOpen(true);
 		});
 	}, [lembraDasBoasVindas, userId]);
@@ -224,68 +148,14 @@ export function EvaWidget() {
 								style={{ transformOrigin: "bottom right" }}
 								{...modalMotion}
 							>
-								{view === "ajuda" ? null : view === "welcome" ? (
-									<>
-										{mostrarAjuda ? (
-											<button
-												type="button"
-												className="eva-widget-ajuda eva-widget-ajuda--solto"
-												onClick={abrirAjuda}
-												aria-label="Como usar a EVA"
-											>
-												?
-											</button>
-										) : null}
-										<div className="eva-widget-header eva-widget-header--bare">
-											<CloseButton />
-											<Dialog.Title className="sr-only">
-												Assistente EVA
-											</Dialog.Title>
-										</div>
-									</>
-								) : (
-									<div className="eva-widget-header eva-widget-header--chat">
-										{mostrarAjuda ? (
-											<button
-												type="button"
-												className="eva-widget-ajuda"
-												onClick={abrirAjuda}
-												aria-label="Como usar a EVA"
-											>
-												?
-											</button>
-										) : (
-											<span className="eva-widget-ajuda-vazio" />
-										)}
-										<Dialog.Title className="eva-widget-header-title">
-											EVA
-											{rotuloDoModo ? (
-												<span className="eva-widget-modo">{rotuloDoModo}</span>
-											) : null}
-										</Dialog.Title>
-										<CloseButton />
-									</div>
-								)}
-
-								{view === "ajuda" ? (
-									<>
-										<Dialog.Title className="sr-only">
-											Como usar a EVA
-										</Dialog.Title>
-										<EvaHelpPanel
-											mode={mode}
-											onBack={() => setView(viewAnterior)}
-											onPerguntar={(pergunta) => startChat(pergunta)}
-										/>
-									</>
-								) : view === "welcome" ? (
-									<EvaWelcomePanel mode={mode} onStart={startChat} />
-								) : (
-									<EvaChatPanel
-										initialMessage={initialMessage}
-										onClose={() => setOpen(false)}
-									/>
-								)}
+								<EvaModalConteudo
+									key={aberturas}
+									mode={mode}
+									userId={userId}
+									visaoInicial={visaoInicial}
+									mensagemInicial={initialMessage}
+									onFechar={() => setOpen(false)}
+								/>
 							</motion.div>
 						</Dialog.Content>
 					</Dialog.Portal>

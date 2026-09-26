@@ -1,6 +1,10 @@
 import { AvatarEva } from "./avatar-eva";
 
-export function TypingIndicator() {
+type TypingIndicatorProps = {
+	rotulo?: string | null;
+};
+
+export function TypingIndicator({ rotulo }: TypingIndicatorProps) {
 	return (
 		<div
 			style={{
@@ -11,7 +15,7 @@ export function TypingIndicator() {
 		>
 			<AvatarEva size={28} pulse />
 			<div
-				aria-label="EVA está digitando"
+				aria-label={rotulo ?? "EVA está digitando"}
 				role="status"
 				style={{
 					background: "var(--eva-bubble-eva)",
@@ -25,6 +29,7 @@ export function TypingIndicator() {
 				<span className="eva-typing-dot" />
 				<span className="eva-typing-dot" />
 				<span className="eva-typing-dot" />
+				{rotulo ? <span className="eva-typing-rotulo">{rotulo}…</span> : null}
 			</div>
 		</div>
 	);

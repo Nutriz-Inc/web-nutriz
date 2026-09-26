@@ -7,7 +7,9 @@ export function StatsCard() {
 			<div className="mt-3 grid grid-cols-2 gap-2.5">
 				{DONATION_STATS.map((stat) => (
 					<div key={stat.value} className="rounded-lg bg-surface-3 p-3">
-						<p className="text-destaque font-bold text-blue-deep">{stat.value}</p>
+						<p className="text-destaque font-bold text-blue-deep">
+							{stat.value}
+						</p>
 						<p className="mt-0.5 text-rotulo leading-snug text-ink-2">
 							{stat.label}
 						</p>

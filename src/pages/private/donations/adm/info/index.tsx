@@ -96,7 +96,9 @@ export function DonationManagementDetailPage() {
 
 					<div className="flex min-w-0 flex-1 flex-col gap-4">
 						<div className="flex flex-col gap-1">
-							<p className="text-destaque font-bold text-ink">Etapas da doação</p>
+							<p className="text-destaque font-bold text-ink">
+								Etapas da doação
+							</p>
 							<p className="text-apoio text-ink-2">
 								Gerencie o agendamento e o status de cada etapa. Finalize para
 								liberar a próxima.

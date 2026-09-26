@@ -13,9 +13,7 @@ export function DonationSummaryCard({ bottles }: Props) {
 				<div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-success-tint text-success">
 					<Milk className="size-5" />
 				</div>
-				<span className="text-corpo font-bold text-ink">
-					Frascos da doação
-				</span>
+				<span className="text-corpo font-bold text-ink">Frascos da doação</span>
 			</div>
 
 			<BottleSummaryList bottles={bottles} />

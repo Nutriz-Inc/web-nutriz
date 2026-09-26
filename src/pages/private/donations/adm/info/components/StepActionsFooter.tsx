@@ -49,9 +49,7 @@ export function StepActionsFooter({
 		<div className="flex flex-col gap-3 lg:flex-row">
 			<div className="flex flex-1 flex-col gap-3 rounded-xl border border-blue-deep/20 bg-blue-tint p-4 lg:flex-row lg:items-center lg:justify-between">
 				<div className="flex flex-col gap-0.5">
-					<p className="text-apoio font-bold text-blue-deep">
-						Finalizar etapa
-					</p>
+					<p className="text-apoio font-bold text-blue-deep">Finalizar etapa</p>
 					<p className="text-rotulo text-ink-2">
 						A próxima etapa é liberada automaticamente.
 					</p>

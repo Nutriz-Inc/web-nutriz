@@ -23,6 +23,7 @@ import { SatisfactionCard } from "./components/SatisfactionCard";
 import { StatCard } from "./components/StatCard";
 import type { PeriodPreset } from "./constants";
 import { useQueryAdmDashboard } from "./hooks";
+import { useIndicador } from "./hooks/use-indicadores";
 import { useRelatorio } from "./hooks/use-relatorio";
 import {
 	descreverEmissao,
@@ -65,6 +66,11 @@ export function AdmDashboardPage() {
 			: { periodo: "tudo" };
 	const data = dashboardQuery.data;
 
+	const cadeiaFriaDoRelatorio = useIndicador(
+		"cadeia_fria",
+		filtroDeIndicadores,
+	);
+	const logisticaDoRelatorio = useIndicador("logistica", filtroDeIndicadores);
 	const { emitidoEm, gerarRelatorio } = useRelatorio(!!data);
 
 	return (
@@ -86,6 +92,8 @@ export function AdmDashboardPage() {
 			{emitidoEm ? (
 				<RelatorioDoDashboard
 					data={data}
+					cadeiaFria={cadeiaFriaDoRelatorio.data}
+					logistica={logisticaDoRelatorio.data}
 					periodo={descreverPeriodo(requestParams)}
 					emissao={descreverEmissao(emitidoEm)}
 					emitidoPor={auth?.name ?? "—"}

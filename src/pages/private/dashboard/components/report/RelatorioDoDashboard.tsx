@@ -1,3 +1,5 @@
+import { createPortal } from "react-dom";
+import type { CadeiaFria, Logistica } from "@/services/types/i-analytics";
 import type { IGetAdmDashboardResponse } from "@/services/types/i-dashboard";
 import { STEP_NUMBER } from "@/utils/constants";
 import { formatDecimal, formatOptionalDecimal, toPercent } from "../../utils";
@@ -14,6 +16,8 @@ import "./relatorio.css";
 
 type RelatorioDoDashboardProps = {
 	data?: IGetAdmDashboardResponse;
+	cadeiaFria?: CadeiaFria;
+	logistica?: Logistica;
 	periodo: string;
 	emissao: string;
 	emitidoPor: string;
@@ -23,6 +27,8 @@ const MESES_NO_RELATORIO = 12;
 
 export function RelatorioDoDashboard({
 	data,
+	cadeiaFria,
+	logistica,
 	periodo,
 	emissao,
 	emitidoPor,
@@ -57,7 +63,7 @@ export function RelatorioDoDashboard({
 	const aproveitamento = toPercent(data?.bottles_utilization_rate ?? 0);
 	const recorrencia = toPercent(data?.donor_recurrence_rate ?? 0);
 
-	return (
+	return createPortal(
 		<article className="relatorio">
 			<RelatorioFaixaTopo
 				periodo={periodo}
@@ -203,32 +209,33 @@ export function RelatorioDoDashboard({
 					titulo="Operação de rotas"
 					notas={[
 						{
-							chave: "km",
-							rotulo: "Quilometragem média",
+							chave: "conformidade",
+							rotulo: "Rotas dentro de 6 horas",
 							valor: formatOptionalDecimal(
-								data?.average_mileage_per_route,
-								" km",
+								cadeiaFria?.conformidade_6h_pct,
+								"%",
+								0,
 							),
-						},
-						{
-							chave: "paradas",
-							rotulo: "Paradas por rota",
-							valor: formatOptionalDecimal(data?.average_stops_per_route),
 						},
 						{
 							chave: "duracao",
-							rotulo: "Duração média",
+							rotulo: "Duração média da rota",
 							valor: formatOptionalDecimal(
-								data?.average_route_duration_hours,
+								cadeiaFria?.duracao_media_horas,
 								" h",
 							),
 						},
 						{
-							chave: "resposta",
-							rotulo: "Tempo médio de resposta",
+							chave: "km-por-litro",
+							rotulo: "Km por litro coletado",
+							valor: formatOptionalDecimal(logistica?.km_por_litro_coletado),
+						},
+						{
+							chave: "imprevistos",
+							rotulo: "Paradas com imprevisto",
 							valor: formatOptionalDecimal(
-								data?.average_service_time_hours,
-								" h",
+								logistica?.taxa_de_imprevisto_pct,
+								"%",
 							),
 						},
 					]}
@@ -240,6 +247,7 @@ export function RelatorioDoDashboard({
 				números refletem o período {periodo}, conforme o filtro aplicado no
 				painel no momento da emissão.
 			</p>
-		</article>
+		</article>,
+		document.body,
 	);
 }

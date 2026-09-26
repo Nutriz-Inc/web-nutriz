@@ -44,7 +44,7 @@ export function DonationStepDetailPage() {
 			backTo={`/doacao/${id_donation}`}
 		>
 			{!donationQuery.isLoading && !step ? (
-				<div className="flex flex-col items-center gap-2 rounded-2xl bg-surface p-8 text-center shadow-soft lg:mx-auto lg:w-full lg:max-w-[640px]">
+				<div className="flex flex-col items-center gap-2 rounded-card-sm border border-line bg-surface p-8 text-center lg:mx-auto lg:w-full lg:max-w-[640px]">
 					<p className="text-corpo font-semibold text-ink">
 						Etapa ainda não iniciada
 					</p>
@@ -69,7 +69,7 @@ export function DonationStepDetailPage() {
 							/>
 
 							{(step.set_date || addressText) && (
-								<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface px-[18px] py-5 shadow-soft">
+								<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface px-[18px] py-5">
 									<p className="text-apoio font-bold text-ink">
 										Informações da etapa
 									</p>

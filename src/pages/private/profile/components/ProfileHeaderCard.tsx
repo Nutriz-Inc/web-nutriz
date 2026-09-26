@@ -37,7 +37,7 @@ export function ProfileHeaderCard({
 		: null;
 
 	return (
-		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-surface p-5 shadow-soft sm:p-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
+		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-surface p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
 			<div className="flex min-w-0 items-center gap-4">
 				<AvatarColorPicker idUser={idUser} className="shrink-0">
 					<span

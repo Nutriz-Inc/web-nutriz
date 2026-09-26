@@ -21,7 +21,7 @@ export function DonationFeedbackCard({
 
 	if (feedback) {
 		return (
-			<div className="flex flex-col gap-2 rounded-2xl bg-surface p-4 shadow-soft">
+			<div className="flex flex-col gap-2 rounded-card-sm border border-line bg-surface p-4">
 				<div className="flex items-center gap-2">
 					<span className="text-apoio font-bold text-ink">Seu feedback</span>
 				</div>
@@ -34,7 +34,7 @@ export function DonationFeedbackCard({
 	}
 
 	return (
-		<div className="flex flex-col gap-3 rounded-2xl bg-surface p-4 shadow-soft">
+		<div className="flex flex-col gap-3 rounded-card-sm border border-line bg-surface p-4">
 			<div className="flex flex-col gap-1">
 				<p className="text-corpo font-bold text-ink">
 					{hasError ? "Sua doação foi encerrada" : "Sua doação foi concluída"}

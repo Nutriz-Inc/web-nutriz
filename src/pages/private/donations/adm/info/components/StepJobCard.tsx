@@ -47,7 +47,7 @@ export function StepJobCard({
 
 	if (!isEditing) {
 		return (
-			<div className="flex flex-col gap-3 rounded-card-sm border border-line bg-surface p-4 shadow-soft">
+			<div className="flex flex-col gap-3 rounded-card-sm border border-line bg-surface p-4">
 				<div className="flex items-start justify-between gap-3">
 					<div className="flex items-center gap-3">
 						<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-tint text-apoio font-bold text-blue-deep">

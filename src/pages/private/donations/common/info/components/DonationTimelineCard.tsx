@@ -27,7 +27,7 @@ export function DonationTimelineCard({
 	})?.order;
 
 	return (
-		<section className="flex w-full flex-col gap-4 rounded-2xl bg-surface p-4 shadow-soft lg:gap-6 lg:rounded-3xl lg:p-8">
+		<section className="flex w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-4 lg:gap-6 lg:rounded-card lg:p-8">
 			<div className="flex items-center justify-between gap-3">
 				<h2 className="font-display text-rotulo font-bold uppercase tracking-[0.06em] text-blue-bright lg:text-apoio">
 					Etapas da doação

@@ -59,7 +59,7 @@ export function ImpactCard({
 	return (
 		<article
 			className={cn(
-				"relative isolate flex h-full flex-col overflow-hidden rounded-card-sm border p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
+				"relative isolate flex h-full flex-col overflow-hidden rounded-card-sm border p-6 sm:p-7",
 				t.fundo,
 				t.borda,
 				featured && "lg:p-8",

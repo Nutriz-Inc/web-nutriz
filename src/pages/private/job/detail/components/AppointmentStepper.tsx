@@ -25,7 +25,7 @@ export function AppointmentStepper({ steps, ended }: AppointmentStepperProps) {
 	}));
 
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm bg-surface p-5 shadow-soft">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-5">
 			<p className="font-display text-rotulo font-bold uppercase tracking-[0.06em] text-blue-bright">
 				Etapas da doação
 			</p>

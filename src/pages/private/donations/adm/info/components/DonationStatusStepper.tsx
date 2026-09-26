@@ -60,7 +60,7 @@ export function DonationStatusStepper({
 	});
 
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm bg-surface p-6 shadow-soft">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-6">
 			<div className="flex flex-col gap-1">
 				<p className="font-display text-rotulo font-bold uppercase tracking-[0.06em] text-blue-bright">
 					Status da doação

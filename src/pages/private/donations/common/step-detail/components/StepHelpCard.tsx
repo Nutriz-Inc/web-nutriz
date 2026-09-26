@@ -6,7 +6,7 @@ import {
 
 export function StepHelpCard() {
 	return (
-		<div className="flex flex-col gap-3 rounded-card-sm border border-line bg-surface px-[18px] py-5 shadow-soft">
+		<div className="flex flex-col gap-3 rounded-card-sm border border-line bg-surface px-[18px] py-5">
 			<div className="flex flex-col gap-1">
 				<p className="text-apoio font-bold text-ink">Precisa de ajuda?</p>
 				<p className="text-apoio text-ink-2">

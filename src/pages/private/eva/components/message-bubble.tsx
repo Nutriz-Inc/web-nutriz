@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { EASE_OUT } from "@/lib/easing";
 import type { ChatMessage } from "../types";
 import { AvatarEva } from "./avatar-eva";
 
@@ -9,7 +10,7 @@ type MessageBubbleProps = {
 const SURGE = {
 	initial: { opacity: 0, scale: 0.95, y: 6 },
 	animate: { opacity: 1, scale: 1, y: 0 },
-	transition: { duration: 0.26, ease: [0.22, 1, 0.36, 1] as const },
+	transition: { duration: 0.26, ease: EASE_OUT },
 };
 
 export function MessageBubble({ message }: MessageBubbleProps) {

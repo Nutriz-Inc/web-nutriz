@@ -166,6 +166,16 @@ export function MapPreview({
 					})}
 				</MapContainer>
 
+				{radar && !userLocation ? (
+					<span
+						aria-hidden="true"
+						className="pointer-events-none absolute inset-0 z-[450] overflow-hidden"
+					>
+						<span className="radar-onda" />
+						<span className="radar-onda radar-onda--eco" />
+					</span>
+				) : null}
+
 				{!escuro && (
 					<span
 						aria-hidden="true"

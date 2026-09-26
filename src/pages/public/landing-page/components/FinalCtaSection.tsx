@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import novaDoacao from "@/assets/illustrations/nova-doacao.svg";
 import { HeroBackground } from "@/components/full/HeroBackground";
@@ -7,11 +8,17 @@ import { cn } from "@/lib/utils";
 import { CTA_AVATARS } from "../constants";
 import { useReveal } from "../hooks/use-reveal";
 import { ActivityBadge } from "./ActivityBadge";
+import { LeiteSubindo } from "./LeiteSubindo";
 import { SlideButton } from "./SlideButton";
 
 export function FinalCtaSection() {
 	const navigate = useNavigate();
 	const reveal = useReveal();
+	const cartaoRef = useRef<HTMLDivElement>(null);
+	const { scrollYProgress } = useScroll({
+		target: cartaoRef,
+		offset: ["start end", "end 0.85"],
+	});
 
 	return (
 		<section className="bg-surface-2 pt-4 pb-16 sm:pt-6 sm:pb-20 lg:pt-8 lg:pb-24">
@@ -20,8 +27,12 @@ export function FinalCtaSection() {
 					{...reveal}
 					className="rounded-card bg-surface p-2 shadow-lift"
 				>
-					<div className="rounded-card relative isolate overflow-hidden">
+					<div
+						ref={cartaoRef}
+						className="rounded-card relative isolate overflow-hidden"
+					>
 						<HeroBackground />
+						<LeiteSubindo progresso={scrollYProgress} />
 
 						<div className="relative z-10 flex flex-col gap-8 p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:p-14">
 							<div className="max-w-lg">

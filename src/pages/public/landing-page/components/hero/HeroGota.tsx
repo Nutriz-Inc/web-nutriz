@@ -42,6 +42,7 @@ export function HeroGota() {
 			))}
 
 			<svg
+				aria-hidden="true"
 				className="gota-cai"
 				width="26"
 				height="36"

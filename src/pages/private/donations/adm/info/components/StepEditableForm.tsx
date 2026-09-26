@@ -81,7 +81,7 @@ export function StepEditableForm({
 					<span className="text-[12px] font-semibold text-ink-2">
 						Data do agendamento
 					</span>
-					<div className="flex items-center gap-2 rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3">
+					<div className="flex items-center gap-2 rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3.5 py-3">
 						<Calendar className="size-4 shrink-0 text-blue-deep" />
 						<input
 							type="date"
@@ -96,7 +96,7 @@ export function StepEditableForm({
 					<span className="text-[12px] font-semibold text-ink-2">
 						Horário do agendamento
 					</span>
-					<div className="flex items-center gap-2 rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3">
+					<div className="flex items-center gap-2 rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3.5 py-3">
 						<Clock className="size-4 shrink-0 text-blue-deep" />
 						<input
 							type="time"
@@ -118,7 +118,7 @@ export function StepEditableForm({
 						onStatusChange(event.target.value as EnumDonationStepStatus)
 					}
 					disabled={isPending}
-					className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none disabled:opacity-60"
+					className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3.5 py-3 text-[14px] text-ink outline-none disabled:opacity-60"
 				>
 					{EDITABLE_STATUSES.map((status) => (
 						<option key={status} value={status}>
@@ -153,7 +153,7 @@ export function StepEditableForm({
 					onChange={(event) => onDescriptionChange(event.target.value)}
 					rows={2}
 					placeholder="Descreva o que será feito nesta etapa"
-					className="rounded-xl border-[1.5px] border-blue-bright bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
+					className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
 				/>
 			</label>
 

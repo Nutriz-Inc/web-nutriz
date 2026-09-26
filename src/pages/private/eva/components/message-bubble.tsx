@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { ChatMessage } from "../types";
 import { AvatarEva } from "./avatar-eva";
+import { TextoDaEva } from "./texto-da-eva";
 
 type MessageBubbleProps = {
 	message: ChatMessage;
@@ -49,10 +50,11 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 		);
 	}
 
-	const paragraphs = message.paragraphs.map((text, index) => ({
-		key: `${message.id}-${index}`,
-		text,
-	}));
+	const texto = message.paragraphs.join("\n\n");
+
+	if (texto.trim() === "") {
+		return null;
+	}
 
 	return (
 		<motion.div
@@ -80,16 +82,9 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 						fontSize: 15,
 						lineHeight: 1.55,
 						color: "var(--eva-ink)",
-						display: "flex",
-						flexDirection: "column",
-						gap: 10,
 					}}
 				>
-					{paragraphs.map((paragraph) => (
-						<p key={paragraph.key} style={{ margin: 0 }}>
-							{paragraph.text}
-						</p>
-					))}
+					<TextoDaEva texto={texto} />
 				</div>
 				{message.time && (
 					<span className="eva-msg-time" style={{ paddingLeft: 6 }}>

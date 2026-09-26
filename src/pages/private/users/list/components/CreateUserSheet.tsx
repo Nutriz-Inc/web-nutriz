@@ -10,8 +10,10 @@ import {
 	User as UserIcon,
 } from "lucide-react";
 import { useState } from "react";
+import { AcoesDoSheet } from "@/components/full/AcoesDoSheet";
 import { PasswordToggle } from "@/components/full/PasswordToggle";
 import { Button } from "@/components/ui/button";
+import { Segmented } from "@/components/ui/segmented";
 import {
 	Sheet,
 	SheetContent,
@@ -19,7 +21,6 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
 import { USER_TYPE_LABEL } from "@/utils/constants";
 import { formatCpf, formatPhoneNumber } from "@/utils/formatter";
 import { EMPTY_FORM, PROFILE_TYPE_OPTIONS } from "../constants";
@@ -96,7 +97,7 @@ export function CreateUserSheet({
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="grid min-h-0 flex-1 gap-x-4 gap-y-5 overflow-y-auto pr-0.5 sm:grid-cols-2">
+				<div className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)] gap-x-4 gap-y-5 overflow-y-auto pr-0.5 sm:grid-cols-2">
 					<CreateUserField
 						id="create-user-name"
 						className="sm:col-span-2"
@@ -203,40 +204,28 @@ export function CreateUserSheet({
 								Perfil de acesso
 							</p>
 						</div>
-						<div className="flex items-center gap-2">
-							{PROFILE_TYPE_OPTIONS.map((type) => {
-								const active = form.type === type;
-
-								return (
-									<button
-										key={type}
-										type="button"
-										onClick={() => handleChange("type", type)}
-										className={cn(
-											"rounded-full px-5 py-2 text-[13px] font-semibold transition-colors",
-											active
-												? "bg-blue-deep-fill text-white"
-												: "border border-line bg-surface text-ink",
-										)}
-									>
-										{USER_TYPE_LABEL[type]}
-									</button>
-								);
-							})}
-						</div>
+						<Segmented
+							fullWidth
+							aria-label="Perfil de acesso"
+							value={form.type}
+							onChange={(type) => handleChange("type", type)}
+							options={PROFILE_TYPE_OPTIONS.map((type) => ({
+								key: type,
+								label: USER_TYPE_LABEL[type],
+							}))}
+						/>
 					</div>
 				</div>
 
 				{error && <p className="text-[12px] text-danger">{error}</p>}
 
-				<div className="flex shrink-0 items-center justify-between gap-3">
+				<AcoesDoSheet>
 					<Button
 						variant="neutral"
 						size="pill"
 						type="button"
 						onClick={() => handleOpenChange(false)}
 						disabled={isPending}
-						className="w-full"
 					>
 						Cancelar
 					</Button>
@@ -246,7 +235,6 @@ export function CreateUserSheet({
 						type="button"
 						onClick={handleSubmit}
 						disabled={isPending}
-						className="w-full"
 					>
 						{isPending ? (
 							<LoaderCircle className="size-[18px] animate-spin" />
@@ -255,7 +243,7 @@ export function CreateUserSheet({
 						)}
 						{isPending ? "Criando..." : "Criar usuário"}
 					</Button>
-				</div>
+				</AcoesDoSheet>
 			</SheetContent>
 		</Sheet>
 	);

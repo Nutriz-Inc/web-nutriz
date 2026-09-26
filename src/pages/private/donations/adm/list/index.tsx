@@ -1,8 +1,10 @@
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import { type FormEvent, Fragment, useState } from "react";
+import { type FormEvent, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
+import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
+import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Page } from "@/components/layout/Page";
@@ -139,25 +141,29 @@ export function DonationsManagementPage() {
 					</div>
 				</form>
 
-				<div className="sem-barra flex items-center gap-2.5 overflow-x-auto">
-					<FilterChips
-						options={ACTIVE_FILTER_OPTIONS}
-						value={activeFilter}
-						onChange={handleActiveFilterChange}
-					/>
-					<div className="h-6 w-px shrink-0 bg-blue-tint" />
-					<FilterChips
-						options={RECURRENT_FILTER_OPTIONS}
-						value={recurrentFilter}
-						onChange={handleRecurrentFilterChange}
-					/>
-					<div className="h-6 w-px shrink-0 bg-blue-tint" />
-					<FilterChips
-						options={STEP_FILTER_OPTIONS}
-						value={filter}
-						onChange={handleFilterChange}
-					/>
-				</div>
+				<PainelDeFiltros>
+					<GrupoDeFiltro rotulo="Situação">
+						<FilterChips
+							options={ACTIVE_FILTER_OPTIONS}
+							value={activeFilter}
+							onChange={handleActiveFilterChange}
+						/>
+					</GrupoDeFiltro>
+					<GrupoDeFiltro rotulo="Recorrência">
+						<FilterChips
+							options={RECURRENT_FILTER_OPTIONS}
+							value={recurrentFilter}
+							onChange={handleRecurrentFilterChange}
+						/>
+					</GrupoDeFiltro>
+					<GrupoDeFiltro rotulo="Etapa atual">
+						<FilterChips
+							options={STEP_FILTER_OPTIONS}
+							value={filter}
+							onChange={handleFilterChange}
+						/>
+					</GrupoDeFiltro>
+				</PainelDeFiltros>
 
 				<RefreshableList updating={isPlaceholderData}>
 					{donations.length === 0 ? (
@@ -178,14 +184,13 @@ export function DonationsManagementPage() {
 						</div>
 					) : (
 						<>
-							<div className="overflow-hidden rounded-2xl border border-line bg-canvas">
-								{donations.map((donation, index) => (
-									<Fragment key={donation.id_donation}>
-										{index > 0 && <div className="h-2 bg-canvas" />}
+							<ul className="flex flex-col gap-2.5">
+								{donations.map((donation) => (
+									<li key={donation.id_donation}>
 										<DonationManagementCard donation={donation} />
-									</Fragment>
+									</li>
 								))}
-							</div>
+							</ul>
 
 							{totalPages > 1 && (
 								<div className="flex items-center justify-center gap-3 lg:justify-end">

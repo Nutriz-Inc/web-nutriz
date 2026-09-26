@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChatInput } from "../components/chat-input";
 import { MessageBubble } from "../components/message-bubble";
+import { RelatorioNoChat } from "../components/relatorio-no-chat";
 import { TypingIndicator } from "../components/typing-indicator";
 import {
 	BLOCKED_MESSAGES,
@@ -9,7 +10,7 @@ import {
 } from "../constants";
 import "../eva.css";
 import { env } from "@/config/env";
-import { useEvaChat } from "../hooks/use-eva-chat";
+import type { EvaChat } from "../hooks/use-eva-chat";
 import type { ChatMessage, EvaMessageAction } from "../types";
 import { EvaActionButton } from "./eva-action-button";
 import { useEvaAccess } from "./use-eva-access";
@@ -47,11 +48,11 @@ function messageAction(
 }
 
 type EvaChatPanelProps = {
-	initialMessage?: string;
+	chat: EvaChat;
 	onClose: () => void;
 };
 
-export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
+export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 	const { mode } = useEvaAccess();
 	const saudacao: ChatMessage = {
 		id: "greeting",
@@ -63,13 +64,14 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 		messages,
 		isTyping,
 		isSending,
+		etapaAtual,
 		status,
 		blockedReason,
 		errorMessage,
 		sendMessage,
 		retry,
 		isAnonymous,
-	} = useEvaChat(initialMessage);
+	} = chat;
 
 	const [input, setInput] = useState("");
 	const scrollRef = useRef<HTMLDivElement>(null);
@@ -160,21 +162,26 @@ export function EvaChatPanel({ initialMessage, onClose }: EvaChatPanelProps) {
 				<MessageBubble message={saudacao} />
 				{messages.map((message) => {
 					const action = messageAction(message, isAnonymous);
-					if (!action) {
+					if (!action && !message.relatorio) {
 						return <MessageBubble key={message.id} message={message} />;
 					}
 					return (
 						<div key={message.id} className="eva-msg-with-action">
 							<MessageBubble message={message} />
-							<EvaActionButton
-								action={action}
-								isAnonymous={isAnonymous}
-								onNavigate={onClose}
-							/>
+							{message.relatorio ? (
+								<RelatorioNoChat relatorio={message.relatorio} />
+							) : null}
+							{action ? (
+								<EvaActionButton
+									action={action}
+									isAnonymous={isAnonymous}
+									onNavigate={onClose}
+								/>
+							) : null}
 						</div>
 					);
 				})}
-				{isTyping && <TypingIndicator />}
+				{isTyping && <TypingIndicator rotulo={etapaAtual} />}
 				{statusNotice}
 			</div>
 

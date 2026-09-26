@@ -9,23 +9,13 @@ type RelatorioFaixaDeDadosProps = {
 
 export function RelatorioFaixaDeDados({ colunas }: RelatorioFaixaDeDadosProps) {
 	return (
-		<table className="relatorio-faixa">
-			<thead>
-				<tr>
-					{colunas.map((coluna) => (
-						<th key={coluna.rotulo} scope="col">
-							{coluna.rotulo}
-						</th>
-					))}
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					{colunas.map((coluna) => (
-						<td key={coluna.rotulo}>{coluna.valor}</td>
-					))}
-				</tr>
-			</tbody>
-		</table>
+		<dl className="relatorio-faixa">
+			{colunas.map((coluna) => (
+				<div key={coluna.rotulo} className="relatorio-faixa-item">
+					<dt>{coluna.rotulo}</dt>
+					<dd>{coluna.valor}</dd>
+				</div>
+			))}
+		</dl>
 	);
 }

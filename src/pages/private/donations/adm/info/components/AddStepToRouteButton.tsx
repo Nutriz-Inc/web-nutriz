@@ -60,7 +60,7 @@ export function AddStepToRouteButton({ idDonation, idDonationStep }: Props) {
 			<AlertDialogTrigger asChild>
 				<button
 					type="button"
-					className="flex items-center gap-1.5 self-start rounded-lg border border-dashed border-blue-bright px-3 py-1.5 text-[12px] font-semibold text-blue-deep transition-colors hover:bg-blue-tint"
+					className="flex items-center gap-1.5 self-start rounded-full border border-line bg-surface px-3.5 py-2 text-[13px] font-semibold text-blue-deep transition-colors hover:bg-blue-tint"
 				>
 					<RouteIcon className="size-3.5" />
 					Adicionar a uma rota

@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, FileText, Stethoscope } from "lucide-react";
+import { ArrowUpRight, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { StatusBadge } from "@/components/full/StatusBadge";
 import { getInitials } from "@/components/layout/utils";
@@ -37,6 +37,18 @@ export function AppointmentCard({
 		: undefined;
 
 	const fields = [
+		...(highlightNurse
+			? [
+					{
+						label: "Enfermagem responsável",
+						value: appointment.nurseName ?? "Não atribuída",
+						wide: true,
+						iniciais: appointment.nurseName
+							? getInitials(appointment.nurseName)
+							: undefined,
+					},
+				]
+			: []),
 		{ label: stepLabel, value: appointment.stepName, wide: false },
 		{ label: "Horário", value: schedule?.time ?? "—", wide: false },
 		{ label: "Data", value: schedule?.date ?? "—", wide: false },
@@ -75,27 +87,6 @@ export function AppointmentCard({
 
 			<div className="mx-5 h-px bg-line" />
 
-			{highlightNurse && (
-				<div className="mx-5 mt-4 flex items-center gap-3 rounded-xl border border-blue-tint-2 bg-blue-tint px-3.5 py-3">
-					<span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-bright-fill text-[14px] font-bold text-white">
-						{appointment.nurseName ? (
-							getInitials(appointment.nurseName)
-						) : (
-							<Stethoscope className="size-[18px]" />
-						)}
-					</span>
-					<div className="flex min-w-0 flex-col">
-						<span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-blue-bright">
-							<Stethoscope className="size-3.5 shrink-0" />
-							Enfermeiro responsável
-						</span>
-						<span className="truncate text-[15px] font-bold text-blue-deep">
-							{appointment.nurseName ?? "Não atribuído"}
-						</span>
-					</div>
-				</div>
-			)}
-
 			<div className="grid flex-1 grid-cols-2 gap-x-4 gap-y-4 px-5 py-4">
 				{fields.map((field) => (
 					<div
@@ -106,8 +97,13 @@ export function AppointmentCard({
 						)}
 					>
 						<span className="text-[12px] text-ink-3">{field.label}</span>
-						<span className="line-clamp-2 text-[14px] font-semibold text-ink">
-							{field.value}
+						<span className="flex min-w-0 items-center gap-2 text-[14px] font-semibold text-ink">
+							{"iniciais" in field && field.iniciais ? (
+								<span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-3 text-[10px] font-bold text-ink-2">
+									{field.iniciais}
+								</span>
+							) : null}
+							<span className="line-clamp-2">{field.value}</span>
 						</span>
 					</div>
 				))}

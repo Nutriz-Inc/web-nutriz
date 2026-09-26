@@ -1,5 +1,6 @@
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useBarraInferior } from "@/hooks/use-barra-inferior";
 
 type BottomActionBarProps = {
 	onSave: () => void;
@@ -12,8 +13,13 @@ export function BottomActionBar({
 	onCancel,
 	saving,
 }: BottomActionBarProps) {
+	const barra = useBarraInferior();
+
 	return (
-		<div className="sticky bottom-0 z-20 -mx-4 mt-1 border-t border-line bg-surface/95 px-4 py-3 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:border-none lg:bg-transparent lg:px-0 lg:py-2 lg:backdrop-blur-none">
+		<div
+			ref={barra}
+			className="sticky bottom-0 z-20 -mx-4 mt-1 border-t border-line bg-surface/95 px-4 py-3 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:border-none lg:bg-transparent lg:px-0 lg:py-2 lg:backdrop-blur-none"
+		>
 			<div className="flex flex-col gap-2 sm:flex-row-reverse sm:items-center sm:justify-start sm:gap-3">
 				<Button
 					variant="primary"

@@ -63,6 +63,8 @@ export type Logistica = {
 	km_medio_por_rota: number | null;
 	litros_coletados_nas_rotas: number;
 	km_por_litro_coletado: number | null;
+	rotas_com_km_implausivel: number;
+	km_maximo_por_rota: number;
 	litros_por_rota: number | null;
 	paradas: number;
 	paradas_feitas: number;

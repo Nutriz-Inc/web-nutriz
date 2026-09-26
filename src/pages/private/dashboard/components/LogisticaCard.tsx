@@ -41,6 +41,12 @@ export function LogisticaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 							em {dados.rotas_concluidas} rotas
 						</p>
 					</div>
+					{dados.rotas_com_km_implausivel > 0 ? (
+						<p className="-mt-2 text-[12px] text-ink-2">
+							{dados.rotas_com_km_implausivel} rota(s) com mais de{" "}
+							{dados.km_maximo_por_rota} km registrados ficaram fora da conta.
+						</p>
+					) : null}
 					<div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
 						<RouteStatItem
 							icon={<Milk className="size-[15px]" strokeWidth={1.6} />}

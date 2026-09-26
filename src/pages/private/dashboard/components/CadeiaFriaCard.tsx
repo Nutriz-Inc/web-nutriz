@@ -9,8 +9,8 @@ import { IndicadorIndisponivel } from "./IndicadorIndisponivel";
 import { PainelCard } from "./PainelCard";
 
 const CONFIG = {
-	dentro: { label: "Dentro das 6h", color: CORES_DO_GRAFICO.azul },
-	acima: { label: "Acima das 6h", color: CORES_DO_GRAFICO.laranja },
+	dentro: { label: "Dentro das 6h", color: CORES_DO_GRAFICO.principal },
+	acima: { label: "Acima das 6h", color: CORES_DO_GRAFICO.atencao },
 };
 
 export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
@@ -40,12 +40,12 @@ export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 							{
 								chave: "dentro",
 								valor: dados.rotas_dentro_de_6h,
-								cor: CORES_DO_GRAFICO.azul,
+								cor: CORES_DO_GRAFICO.principal,
 							},
 							{
 								chave: "acima",
 								valor: dados.rotas_acima_de_6h,
-								cor: CORES_DO_GRAFICO.laranja,
+								cor: CORES_DO_GRAFICO.atencao,
 							},
 						]}
 						destaque={formatOptionalDecimal(dados.conformidade_6h_pct, "%", 0)}

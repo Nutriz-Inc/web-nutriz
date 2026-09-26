@@ -11,9 +11,9 @@ type SatisfactionCardProps = {
 const NOTAS = [5, 4, 3, 2, 1];
 
 function corDaNota(nota: number) {
-	if (nota >= 4) return CORES_DO_GRAFICO.azul;
+	if (nota >= 4) return CORES_DO_GRAFICO.principal;
 	if (nota === 3) return CORES_DO_GRAFICO.trilho;
-	return CORES_DO_GRAFICO.vermelho;
+	return CORES_DO_GRAFICO.negativo;
 }
 
 export function SatisfactionCard({ feedbackByScore }: SatisfactionCardProps) {
@@ -107,7 +107,7 @@ export function SatisfactionCard({ feedbackByScore }: SatisfactionCardProps) {
 						<div className="flex gap-7">
 							<div className="flex flex-col gap-0.5">
 								<p className="text-rotulo text-ink-3">Positivas</p>
-								<p className="text-corpo font-bold tabular-nums text-chart-2">
+								<p className="text-corpo font-bold tabular-nums text-chart-1">
 									{positiveRate}%
 								</p>
 							</div>
@@ -119,7 +119,7 @@ export function SatisfactionCard({ feedbackByScore }: SatisfactionCardProps) {
 							</div>
 							<div className="flex flex-col gap-0.5">
 								<p className="text-rotulo text-ink-3">Negativas</p>
-								<p className="text-corpo font-bold tabular-nums text-chart-3">
+								<p className="text-corpo font-bold tabular-nums text-danger">
 									{negativas}
 								</p>
 							</div>

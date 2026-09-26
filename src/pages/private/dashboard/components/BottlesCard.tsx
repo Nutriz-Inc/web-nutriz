@@ -12,8 +12,8 @@ type BottlesCardProps = {
 };
 
 const configuracao = {
-	aproveitados: { label: "Aproveitados", color: CORES_DO_GRAFICO.roxo },
-	descartados: { label: "Descartados", color: CORES_DO_GRAFICO.vermelho },
+	aproveitados: { label: "Aproveitados", color: CORES_DO_GRAFICO.principal },
+	descartados: { label: "Descartados", color: CORES_DO_GRAFICO.negativo },
 } satisfies ChartConfig;
 
 export function BottlesCard({ stats }: BottlesCardProps) {
@@ -31,12 +31,12 @@ export function BottlesCard({ stats }: BottlesCardProps) {
 		{
 			chave: "aproveitados",
 			valor: usedCount,
-			cor: CORES_DO_GRAFICO.roxo,
+			cor: CORES_DO_GRAFICO.principal,
 		},
 		{
 			chave: "descartados",
 			valor: discarded_bottles_count,
-			cor: CORES_DO_GRAFICO.vermelho,
+			cor: CORES_DO_GRAFICO.negativo,
 		},
 	];
 
@@ -67,12 +67,12 @@ export function BottlesCard({ stats }: BottlesCardProps) {
 								{
 									rotulo: "Aproveitados",
 									valor: usedCount,
-									cor: CORES_DO_GRAFICO.roxo,
+									cor: CORES_DO_GRAFICO.principal,
 								},
 								{
 									rotulo: "Descartados",
 									valor: discarded_bottles_count,
-									cor: CORES_DO_GRAFICO.vermelho,
+									cor: CORES_DO_GRAFICO.negativo,
 								},
 							]}
 						/>

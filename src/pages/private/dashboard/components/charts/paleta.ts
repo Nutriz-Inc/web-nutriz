@@ -1,9 +1,9 @@
 export const CORES_DO_GRAFICO = {
-	roxo: "var(--chart-1)",
-	azul: "var(--chart-2)",
-	vermelho: "var(--chart-3)",
-	laranja: "var(--chart-4)",
-	ambar: "var(--chart-5)",
+	principal: "var(--chart-1)",
+	secundaria: "var(--chart-2)",
+	negativo: "var(--chart-3)",
+	atencao: "var(--chart-4)",
+	estrela: "var(--chart-5)",
 	trilho: "var(--chart-trilho)",
 } as const;
 

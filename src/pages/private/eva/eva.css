@@ -183,11 +183,17 @@
 	font-weight: 500;
 	color: var(--eva-chip-text);
 	cursor: pointer;
-	transition: background-color 0.2s ease;
+	transition:
+		background-color 0.15s ease,
+		transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .eva-chip:hover {
 	background: var(--surface-2);
+}
+
+.eva-chip:active {
+	transform: scale(0.97);
 }
 
 .eva-btn-primary {
@@ -213,7 +219,7 @@
 }
 
 .eva-btn-primary:active {
-	transform: scale(0.985);
+	transform: scale(0.97);
 }
 
 .eva-link {
@@ -380,6 +386,7 @@
 
 	.eva-pill:hover,
 	.eva-pill:active,
+	.eva-chip:active,
 	.eva-btn-primary:active,
 	.eva-outline-btn:hover,
 	.eva-outline-btn:active,

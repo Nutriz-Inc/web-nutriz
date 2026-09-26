@@ -54,7 +54,7 @@ export function DonationsPage() {
 					className="hidden items-center gap-2 rounded-full bg-blue-deep-fill px-6 py-3 text-apoio font-semibold text-white transition-[transform,background-color] hover:bg-blue-fill active:scale-[0.98] disabled:opacity-60 lg:flex"
 				>
 					<Plus className="size-4" />
-					Nova Doação
+					Nova doação
 				</button>
 			}
 		>
@@ -138,7 +138,7 @@ export function DonationsPage() {
 						className="w-full"
 					>
 						<Plus className="size-5" />
-						Nova Doação
+						Nova doação
 					</Button>
 				</div>
 			</div>

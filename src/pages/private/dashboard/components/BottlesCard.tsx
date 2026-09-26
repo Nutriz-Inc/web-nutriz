@@ -44,7 +44,7 @@ export function BottlesCard({ stats }: BottlesCardProps) {
 		<div className="flex h-full w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
 				icon={<FlaskConical className="size-[15px]" strokeWidth={1.6} />}
-				title="Aproveitamento dos Frascos"
+				title="Aproveitamento dos frascos"
 				subtitle="Frascos utilizados e descartados no período"
 			/>
 

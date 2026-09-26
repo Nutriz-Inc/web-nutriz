@@ -43,7 +43,7 @@ export function SatisfactionCard({ feedbackByScore }: SatisfactionCardProps) {
 		<div className="flex h-full w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
 				icon={<Star className="size-[15px]" strokeWidth={1.6} />}
-				title="Nível de Satisfação"
+				title="Nível de satisfação"
 				subtitle="Distribuição das avaliações por estrela"
 			/>
 

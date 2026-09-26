@@ -21,7 +21,7 @@ export function RecurrenceCard({ rate }: RecurrenceCardProps) {
 		<div className="flex h-full w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
 				icon={<RefreshCcw className="size-[15px]" strokeWidth={1.6} />}
-				title="Taxa de Recorrência de Doadoras"
+				title="Recorrência de doadoras"
 				subtitle="Doadoras que ajudaram mais de uma vez"
 			/>
 

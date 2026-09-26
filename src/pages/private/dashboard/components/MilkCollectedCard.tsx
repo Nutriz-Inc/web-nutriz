@@ -19,7 +19,7 @@ export function MilkCollectedCard({ total, byMonth }: MilkCollectedCardProps) {
 			<div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
 				<DashboardCardHeader
 					icon={<Droplet className="size-[15px]" strokeWidth={1.6} />}
-					title="Litros Captados por Mês"
+					title="Litros captados por mês"
 					subtitle="Volume total de leite coletado, todas as doadoras"
 				/>
 

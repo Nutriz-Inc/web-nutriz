@@ -42,7 +42,7 @@ export function ActiveDonationsByStepCard({
 		<div className="flex h-full w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
 				icon={<ListChecks className="size-[15px]" strokeWidth={1.6} />}
-				title="Doações Ativas por Etapa"
+				title="Doações ativas por etapa"
 				subtitle="Onde as doações em andamento estão paradas"
 			/>
 

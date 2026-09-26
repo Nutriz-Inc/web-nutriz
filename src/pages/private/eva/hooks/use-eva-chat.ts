@@ -9,7 +9,12 @@ import {
 	MAX_RECONNECT_ATTEMPTS,
 	TERMINAL_CLOSE_REASONS,
 } from "../constants";
-import { getPrivateSession, savePrivateSession } from "../eva-session-store";
+import {
+	getAnonymousSession,
+	getPrivateSession,
+	saveAnonymousSession,
+	savePrivateSession,
+} from "../eva-session-store";
 import type {
 	ChatMessage,
 	EvaBlockedReason,
@@ -66,7 +71,12 @@ export function useEvaChat(initialMessage?: string) {
 	const { auth, isAuthenticated } = useAuth();
 
 	const [messages, setMessages] = useState<ChatMessage[]>(() =>
-		isAuthenticated ? getPrivateSession().messages : [],
+		isAuthenticated
+			? getPrivateSession().messages
+			: getAnonymousSession().messages,
+	);
+	const [perguntaPendente, setPerguntaPendente] = useState<string | null>(
+		initialMessage?.trim() || null,
 	);
 	const [isTyping, setIsTyping] = useState(false);
 	const [isSending, setIsSending] = useState(false);
@@ -90,7 +100,9 @@ export function useEvaChat(initialMessage?: string) {
 	const idDaMontagemRef = useRef(randomId());
 	const tokenRef = useRef(auth?.token);
 	const isAnonymousRef = useRef(!isAuthenticated);
-	const anonTokenRef = useRef<string | null>(null);
+	const anonTokenRef = useRef<string | null>(
+		isAuthenticated ? null : getAnonymousSession().token,
+	);
 
 	tokenRef.current = auth?.token;
 	isAnonymousRef.current = !isAuthenticated;
@@ -98,7 +110,10 @@ export function useEvaChat(initialMessage?: string) {
 	useEffect(() => {
 		if (isAuthenticated) {
 			savePrivateSession(messages, conversationIdRef.current);
+			return;
 		}
+
+		saveAnonymousSession(messages, anonTokenRef.current);
 	}, [messages, isAuthenticated]);
 
 	const nextId = useCallback(() => {
@@ -177,10 +192,12 @@ export function useEvaChat(initialMessage?: string) {
 			const anonToken = anonTokenRef.current;
 
 			if (!anonToken) {
-				setBlockedReason("session");
+				setBlockedReason("indisponivel");
 				setStatus("failed");
 				return;
 			}
+
+			saveAnonymousSession(getAnonymousSession().messages, anonToken);
 
 			wsUrl = `${evaWsUrl}/ws/chat-public?token=${encodeURIComponent(anonToken)}`;
 		} else {
@@ -214,6 +231,7 @@ export function useEvaChat(initialMessage?: string) {
 
 			if (pending) {
 				pendingInitialRef.current = null;
+				setPerguntaPendente(null);
 				sendRaw(pending, ws);
 			}
 		};
@@ -336,6 +354,18 @@ export function useEvaChat(initialMessage?: string) {
 
 			const terminalReason = TERMINAL_CLOSE_REASONS[event.code];
 
+			if (
+				terminalReason === "session" &&
+				isAnonymousRef.current &&
+				attemptsRef.current === 0
+			) {
+				anonTokenRef.current = null;
+				saveAnonymousSession(getAnonymousSession().messages, null);
+				attemptsRef.current += 1;
+				connect();
+				return;
+			}
+
 			if (terminalReason) {
 				setBlockedReason(terminalReason);
 				setStatus("failed");
@@ -397,9 +427,22 @@ export function useEvaChat(initialMessage?: string) {
 			}
 
 			pendingInitialRef.current = trimmed;
+			setPerguntaPendente(trimmed);
 		},
 		[sendRaw],
 	);
+
+	const reenviarUltima = useCallback(() => {
+		const ultima = [...messages]
+			.reverse()
+			.find((message) => message.role === "nutriz");
+
+		if (!ultima) {
+			return false;
+		}
+
+		return sendRaw(ultima.paragraphs.join("\n\n"));
+	}, [messages, sendRaw]);
 
 	const retry = useCallback(() => {
 		attemptsRef.current = 0;
@@ -418,6 +461,8 @@ export function useEvaChat(initialMessage?: string) {
 		errorMessage,
 		sendMessage,
 		enviarAoConectar,
+		reenviarUltima,
+		perguntaPendente,
 		retry,
 		isAnonymous: !isAuthenticated,
 	};

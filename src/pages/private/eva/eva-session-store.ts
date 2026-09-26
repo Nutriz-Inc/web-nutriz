@@ -18,6 +18,24 @@ export function savePrivateSession(
 	privateSession = { messages, conversationId };
 }
 
+type AnonymousSession = {
+	messages: ChatMessage[];
+	token: string | null;
+};
+
+let anonymousSession: AnonymousSession = { messages: [], token: null };
+
+export function getAnonymousSession(): AnonymousSession {
+	return anonymousSession;
+}
+
+export function saveAnonymousSession(
+	messages: ChatMessage[],
+	token: string | null,
+): void {
+	anonymousSession = { messages, token };
+}
+
 export function clearPrivateSession(): void {
 	privateSession = { messages: [], conversationId: null };
 }

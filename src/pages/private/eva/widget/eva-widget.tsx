@@ -23,6 +23,24 @@ import { useEvaAccess } from "./use-eva-access";
 
 const HIDDEN_ROUTES = new Set(["/login", "/registro"]);
 
+function focarPrimeiroControle() {
+	window.requestAnimationFrame(() => {
+		const modal = document.querySelector<HTMLElement>(".eva-widget-modal");
+
+		if (!modal) {
+			return;
+		}
+
+		const toqueGrosso = window.matchMedia("(pointer: coarse)").matches;
+		const seletor = toqueGrosso
+			? ".eva-pill, .eva-input:not(:disabled)"
+			: ".eva-input:not(:disabled), .eva-pill";
+		const alvo = modal.querySelector<HTMLElement>(seletor);
+
+		(alvo ?? modal).focus({ preventScroll: true });
+	});
+}
+
 export function EvaWidget() {
 	const { allowed, mode, userId } = useEvaAccess();
 	const lembraDasBoasVindas = mode !== "anonymous";
@@ -138,6 +156,10 @@ export function EvaWidget() {
 							asChild
 							forceMount
 							aria-describedby={undefined}
+							onOpenAutoFocus={(evento) => {
+								evento.preventDefault();
+								focarPrimeiroControle();
+							}}
 							onCloseAutoFocus={(evento) => {
 								evento.preventDefault();
 								fabRef.current?.focus({ preventScroll: true });

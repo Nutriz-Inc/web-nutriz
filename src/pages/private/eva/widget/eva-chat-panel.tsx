@@ -144,6 +144,13 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 			? "falha"
 			: status;
 
+	const ultimaResposta = [...messages]
+		.reverse()
+		.find((message) => message.role === "eva");
+	const ultimaRespostaPronta = ultimaResposta?.time
+		? ultimaResposta.paragraphs.join(" ")
+		: null;
+
 	const podeTentarDeNovo =
 		blockedReason === "indisponivel" || (status === "failed" && !blocked);
 	const falhouAoResponder =
@@ -227,7 +234,8 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 				onScroll={handleScroll}
 				className="eva-widget-scroll"
 				role="log"
-				aria-live="polite"
+				aria-live="off"
+				aria-label="Conversa com a EVA"
 			>
 				<span className="eva-date-pill">Hoje</span>
 				<MessageBubble message={saudacao} />
@@ -271,6 +279,10 @@ export function EvaChatPanel({ chat, onClose }: EvaChatPanelProps) {
 					) : null}
 				</AnimatePresence>
 			</div>
+
+			<p className="sr-only" aria-live="polite">
+				{ultimaRespostaPronta ? `EVA respondeu: ${ultimaRespostaPronta}` : ""}
+			</p>
 
 			<EvaIrParaOFim
 				visivel={longeDoFim}

@@ -61,14 +61,14 @@ export function DonationCard({
 						"flex shrink-0 items-center justify-center rounded-full",
 						isInProgress
 							? "size-10 bg-blue-tint lg:size-14"
-							: "size-9 bg-eva-tint lg:size-10",
+							: "size-9 bg-blue-tint lg:size-10",
 					)}
 				>
 					<Heart
 						className={cn(
 							isInProgress
 								? "size-5 text-blue-bright lg:size-7"
-								: "size-4 text-eva-deep lg:size-[18px]",
+								: "size-4 text-blue lg:size-[18px]",
 						)}
 					/>
 				</span>

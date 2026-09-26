@@ -144,7 +144,7 @@ export function RegisterScreen() {
 				/>
 				<span
 					aria-hidden="true"
-					className="ink-blob -bottom-24 -left-20 h-64 w-80 bg-eva/25 blur-3xl"
+					className="ink-blob -bottom-24 -left-20 h-64 w-80 bg-blue-bright/25 blur-3xl"
 				/>
 
 				<div className="relative mx-auto w-full max-w-[680px] px-4 sm:px-6">

@@ -84,7 +84,7 @@ export function HomePage() {
 		},
 		{
 			icon: Heart,
-			tone: "eva" as const,
+			tone: "bright" as const,
 			featured: false,
 			value: babiesFed,
 			label: "Bebês alimentados",

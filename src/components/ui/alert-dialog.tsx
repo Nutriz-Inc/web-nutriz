@@ -123,7 +123,7 @@ function AlertDialogAction({
 			data-slot="alert-dialog-action"
 			className={cn(
 				buttonVariants({ variant: "default" }),
-				"h-12 w-full rounded-2xl bg-eva-fill text-apoio font-semibold text-white hover:bg-eva-fill",
+				"h-12 w-full rounded-2xl bg-blue-deep-fill text-apoio font-semibold text-white hover:bg-blue-fill",
 				className,
 			)}
 			{...props}

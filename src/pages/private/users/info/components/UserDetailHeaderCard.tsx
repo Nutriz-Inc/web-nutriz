@@ -24,13 +24,13 @@ export function UserDetailHeaderCard({
 				<div
 					className={cn(
 						"flex size-[56px] shrink-0 items-center justify-center rounded-full",
-						isDonor ? "bg-eva-tint" : "bg-blue-tint",
+						isDonor ? "bg-blue-tint" : "bg-blue-tint",
 					)}
 				>
 					<span
 						className={cn(
 							"text-destaque font-bold",
-							isDonor ? "text-eva-deep" : "text-blue-deep",
+							isDonor ? "text-blue" : "text-blue-deep",
 						)}
 					>
 						{getInitials(user.name)}

@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { CountUp } from "@/components/full/CountUp";
 import { cn } from "@/lib/utils";
 
-type ImpactTone = "blue" | "bright" | "eva";
+type ImpactTone = "blue" | "bright";
 
 type ImpactCardProps = {
 	icon: LucideIcon;
@@ -41,14 +41,6 @@ const TONE_MAP: Record<
 		valor: "text-blue",
 		marca: "text-blue-tint-2/60",
 		chip: "bg-blue-tint text-blue-bright",
-	},
-	eva: {
-		fundo: "bg-gradient-to-br from-eva-tint via-surface to-surface",
-		borda: "border-eva-tint",
-		rotulo: "text-eva-deep",
-		valor: "text-eva-deep",
-		marca: "text-eva-tint",
-		chip: "bg-eva-tint text-eva-deep",
 	},
 };
 

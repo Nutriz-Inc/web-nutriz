@@ -57,17 +57,17 @@ export function BabyConsentStep({
 					{form.babies.map((baby, index) => (
 						<div
 							key={baby.id}
-							className="rounded-xl border border-danger-tint bg-eva-tint p-[18px]"
+							className="rounded-xl border border-blue-tint-2 bg-blue-tint p-[18px]"
 						>
 							<div className="mb-4 flex items-center justify-between">
-								<p className="text-rotulo font-bold uppercase tracking-[0.08em] text-eva-deep">
+								<p className="text-rotulo font-bold uppercase tracking-[0.08em] text-blue">
 									Bebê {index + 1}
 								</p>
 								{form.babies.length > 1 && (
 									<button
 										type="button"
 										onClick={() => onRemoveBaby(index)}
-										className="flex min-h-11 items-center gap-1 rounded-md px-2 text-apoio font-semibold text-eva-deep transition-colors hover:text-eva-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eva"
+										className="flex min-h-11 items-center gap-1 rounded-md px-2 text-apoio font-semibold text-blue transition-colors hover:text-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-bright"
 									>
 										<X className="size-3.5" aria-hidden />
 										Remover
@@ -105,7 +105,7 @@ export function BabyConsentStep({
 						size="pill"
 						type="button"
 						onClick={onAddBaby}
-						className="w-fit border-dashed border-eva text-eva-deep hover:bg-eva-tint"
+						className="w-fit border-dashed border-blue-bright text-blue hover:bg-blue-tint"
 					>
 						<Plus className="size-4" aria-hidden />
 						Adicionar outro bebê

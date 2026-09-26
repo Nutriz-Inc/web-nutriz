@@ -29,7 +29,7 @@ export function GreetingHero({
 			/>
 			<span
 				aria-hidden="true"
-				className="ink-blob -bottom-24 -left-10 h-56 w-72 bg-eva/25 blur-3xl"
+				className="ink-blob -bottom-24 -left-10 h-56 w-72 bg-blue-bright/25 blur-3xl"
 			/>
 
 			<div className="relative flex flex-col gap-9 lg:flex-row lg:items-center lg:gap-12">

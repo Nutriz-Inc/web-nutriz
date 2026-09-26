@@ -22,8 +22,8 @@ const ETAPAS = [
 	{
 		title: "Confirmação",
 		description: "Você confirma o interesse em fazer uma nova doação.",
-		icon: <Heart className="size-5 fill-eva text-eva-deep" />,
-		iconBg: "bg-eva-tint",
+		icon: <Heart className="size-5 fill-blue-bright text-blue" />,
+		iconBg: "bg-blue-tint",
 	},
 	{
 		title: "Redirecionamento",
@@ -42,8 +42,8 @@ const ETAPAS = [
 	{
 		title: "Acompanhamento",
 		description: "A doação fica registrada aqui para você acompanhar.",
-		icon: <Droplet className="size-5 text-eva-deep" />,
-		iconBg: "bg-eva-tint",
+		icon: <Droplet className="size-5 text-blue" />,
+		iconBg: "bg-blue-tint",
 	},
 ];
 
@@ -102,7 +102,7 @@ export function NewDonationPage() {
 							<span className="absolute -left-14 top-4 size-44 rounded-full bg-blue-tint-2/35 lg:-left-10 lg:top-2 lg:size-40" />
 							<span className="absolute left-10 -top-6 size-24 rounded-full bg-blue-tint-2/25" />
 							<span className="absolute -right-16 top-14 size-48 rounded-full bg-blue-tint-2/30 lg:-right-12 lg:top-6 lg:size-40" />
-							<span className="absolute right-8 top-40 size-16 rounded-full bg-eva-tint/45 lg:top-52" />
+							<span className="absolute right-8 top-40 size-16 rounded-full bg-blue-tint/45 lg:top-52" />
 							<span className="absolute -bottom-8 left-6 size-24 rounded-full bg-purple-tint/30" />
 							<span className="absolute -bottom-10 right-10 size-20 rounded-full bg-teal-tint/30" />
 						</span>

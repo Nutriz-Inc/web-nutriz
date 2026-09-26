@@ -171,12 +171,12 @@ export function AdmDashboardPage() {
 					</StaggerItem>
 					<StaggerItem className="h-full">
 						<StatCard
-							icon={<AlertTriangle className="size-4 text-eva-deep" />}
+							icon={<AlertTriangle className="size-4 text-danger" />}
 							iconBg="bg-danger-tint"
 							title="Doações não concluídas"
 							subtitle="Ocorrências no período selecionado"
 							value={data?.donations_with_error ?? 0}
-							valueColor="text-eva-deep"
+							valueColor="text-danger"
 							footnote="Doações que não puderam ser completadas"
 						/>
 					</StaggerItem>

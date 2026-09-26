@@ -19,7 +19,6 @@ export function NewBabyCard({ draft, onChange, onRemove }: NewBabyCardProps) {
 	return (
 		<ProfileSectionCard
 			as="h3"
-			tone="eva"
 			label="Novo"
 			title="Novo bebê"
 			action={

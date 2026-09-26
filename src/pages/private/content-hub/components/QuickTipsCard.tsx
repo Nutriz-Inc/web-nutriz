@@ -5,7 +5,7 @@ export function QuickTipsCard() {
 	return (
 		<section className="rounded-card-sm border border-line bg-surface p-5 shadow-soft">
 			<h2 className="flex items-center gap-2 text-corpo font-bold text-ink">
-				<Sparkles className="size-4 text-eva-deep" aria-hidden />
+				<Sparkles className="size-4 text-blue" aria-hidden />
 				Dicas rápidas
 			</h2>
 
@@ -14,7 +14,7 @@ export function QuickTipsCard() {
 					<li key={tip.title} className="flex items-start gap-3">
 						<span
 							aria-hidden
-							className="flex size-6 shrink-0 items-center justify-center rounded-full bg-eva-tint text-rotulo font-bold text-eva-deep"
+							className="flex size-6 shrink-0 items-center justify-center rounded-full bg-blue-tint text-rotulo font-bold text-blue"
 						>
 							{index + 1}
 						</span>

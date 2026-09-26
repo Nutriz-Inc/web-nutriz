@@ -20,7 +20,7 @@ export function BrandPanel() {
 			/>
 			<span
 				aria-hidden="true"
-				className="ink-blob -bottom-28 -left-16 h-72 w-80 bg-eva/25 blur-3xl"
+				className="ink-blob -bottom-28 -left-16 h-72 w-80 bg-blue-bright/25 blur-3xl"
 			/>
 
 			<img

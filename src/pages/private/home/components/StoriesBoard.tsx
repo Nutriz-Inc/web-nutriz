@@ -15,7 +15,7 @@ export function StoriesBoard() {
 			<SectionHeading
 				id="home-stories"
 				className="relative"
-				tone="eva"
+				tone="blue"
 				label="Rede de apoio"
 				title="Histórias que o seu leite escreve"
 			/>

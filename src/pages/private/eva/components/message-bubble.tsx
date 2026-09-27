@@ -42,6 +42,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 						color: "var(--eva-ink)",
 					}}
 				>
+					<span className="sr-only">Você: </span>
 					{message.paragraphs.join("\n\n")}
 				</div>
 				{message.time && (
@@ -88,6 +89,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 						color: "var(--eva-ink)",
 					}}
 				>
+					<span className="sr-only">EVA: </span>
 					<TextoDaEva texto={texto} />
 				</div>
 				{message.time && (

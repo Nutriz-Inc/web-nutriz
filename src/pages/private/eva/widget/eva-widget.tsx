@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useBackdropTone } from "@/hooks/use-backdrop-tone";
 import { getAppPathname, subscribeAppPath } from "@/lib/app-navigation";
+import { getAnonymousSession } from "../eva-session-store";
 import { jaViuBoasVindas, marcarBoasVindasVistas } from "./eva-boas-vindas";
 import { EvaFab } from "./eva-fab";
 import { EvaModalConteudo, type EvaVisao } from "./eva-modal-conteudo";
@@ -22,6 +23,28 @@ import { EASE_OUT } from "@/lib/easing";
 import { useEvaAccess } from "./use-eva-access";
 
 const HIDDEN_ROUTES = new Set(["/login", "/registro"]);
+
+function temConversaAnonima(mode: string) {
+	return mode === "anonymous" && getAnonymousSession().messages.length > 0;
+}
+
+function focarPrimeiroControle() {
+	window.requestAnimationFrame(() => {
+		const modal = document.querySelector<HTMLElement>(".eva-widget-modal");
+
+		if (!modal) {
+			return;
+		}
+
+		const toqueGrosso = window.matchMedia("(pointer: coarse)").matches;
+		const seletor = toqueGrosso
+			? ".eva-pill, .eva-input:not(:disabled)"
+			: ".eva-input:not(:disabled), .eva-pill";
+		const alvo = modal.querySelector<HTMLElement>(seletor);
+
+		(alvo ?? modal).focus({ preventScroll: true });
+	});
+}
 
 export function EvaWidget() {
 	const { allowed, mode, userId } = useEvaAccess();
@@ -51,7 +74,9 @@ export function EvaWidget() {
 	const handleOpenChange = useCallback(
 		(next: boolean) => {
 			if (next) {
-				const skipWelcome = lembraDasBoasVindas && jaViuBoasVindas(userId);
+				const skipWelcome =
+					temConversaAnonima(mode) ||
+					(lembraDasBoasVindas && jaViuBoasVindas(userId));
 				setInitialMessage(undefined);
 				setVisaoInicial(skipWelcome ? "chat" : "welcome");
 				setAberturas((total) => total + 1);
@@ -59,15 +84,17 @@ export function EvaWidget() {
 
 			setOpen(next);
 		},
-		[lembraDasBoasVindas, userId],
+		[lembraDasBoasVindas, userId, mode],
 	);
 
 	useEffect(() => {
 		return subscribeEvaOpen((message?: string) => {
 			const skipWelcome =
-				lembraDasBoasVindas && (jaViuBoasVindas(userId) || Boolean(message));
+				Boolean(message) ||
+				temConversaAnonima(mode) ||
+				(lembraDasBoasVindas && jaViuBoasVindas(userId));
 
-			if (skipWelcome) {
+			if (skipWelcome && lembraDasBoasVindas) {
 				marcarBoasVindasVistas(userId);
 			}
 
@@ -76,7 +103,7 @@ export function EvaWidget() {
 			setAberturas((total) => total + 1);
 			setOpen(true);
 		});
-	}, [lembraDasBoasVindas, userId]);
+	}, [lembraDasBoasVindas, userId, mode]);
 
 	if (!allowed || HIDDEN_ROUTES.has(pathname)) {
 		return null;
@@ -138,6 +165,10 @@ export function EvaWidget() {
 							asChild
 							forceMount
 							aria-describedby={undefined}
+							onOpenAutoFocus={(evento) => {
+								evento.preventDefault();
+								focarPrimeiroControle();
+							}}
 							onCloseAutoFocus={(evento) => {
 								evento.preventDefault();
 								fabRef.current?.focus({ preventScroll: true });

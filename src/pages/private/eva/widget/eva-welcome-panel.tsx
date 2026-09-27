@@ -118,31 +118,17 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 				})}
 			</div>
 
-			<div className="eva-welcome-espaco" aria-hidden="true">
-				<span className="eva-welcome-dots">
-					<span className="eva-typing-dot" />
-					<span className="eva-typing-dot" />
-					<span className="eva-typing-dot" />
-				</span>
-			</div>
+			<div className="eva-welcome-espaco" aria-hidden="true" />
 
 			<div className="eva-widget-welcome-foot-wrap">
-				{isAnonymous ? (
-					<button
-						type="button"
-						className="eva-btn-primary eva-widget-start"
-						onClick={() => onStart()}
-					>
-						Entendi, começar conversa
-					</button>
-				) : (
-					<ChatInput
-						value={text}
-						onChange={setText}
-						onSend={handleSend}
-						placeholder="Comece a conversar..."
-					/>
-				)}
+				<ChatInput
+					value={text}
+					onChange={setText}
+					onSend={handleSend}
+					placeholder={
+						isAnonymous ? "Escreva sua dúvida..." : "Comece a conversar..."
+					}
+				/>
 
 				<p className="eva-widget-welcome-foot">
 					A EVA não substitui avaliação médica.

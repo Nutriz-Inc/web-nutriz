@@ -1,4 +1,5 @@
 import { MessageCircle, Plus } from "lucide-react";
+import { OndaDeLeite } from "@/components/full/OndaDeLeite";
 import { Button } from "@/components/ui/button";
 
 type GreetingHeroProps = {
@@ -21,7 +22,7 @@ export function GreetingHero({
 	return (
 		<section
 			aria-labelledby="home-greeting"
-			className="rounded-card gradient-blue relative overflow-hidden p-6 shadow-lift sm:p-9 lg:p-11"
+			className="rounded-card gradient-blue relative isolate overflow-hidden p-6 shadow-lift sm:p-9 lg:p-11"
 		>
 			<span
 				aria-hidden="true"
@@ -31,6 +32,8 @@ export function GreetingHero({
 				aria-hidden="true"
 				className="ink-blob -bottom-24 -left-10 h-56 w-72 bg-blue-bright/25 blur-3xl"
 			/>
+
+			<OndaDeLeite className="h-24 opacity-25 sm:h-32" />
 
 			<div className="relative flex flex-col gap-9 lg:flex-row lg:items-center lg:gap-12">
 				<div className="min-w-0 flex-1">

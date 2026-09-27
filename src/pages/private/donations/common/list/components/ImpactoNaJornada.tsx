@@ -1,5 +1,6 @@
 import { Droplet } from "lucide-react";
 import { CountUp } from "@/components/full/CountUp";
+import { OndaDeLeite } from "@/components/full/OndaDeLeite";
 import { BABY_ML_PER_DAY } from "@/utils/constants";
 
 const METAS_EM_ML = [1000, 2000, 5000, 10000, 20000, 50000, 100000];
@@ -24,7 +25,12 @@ export function ImpactoNaJornada({ mlDoados }: ImpactoNaJornadaProps) {
 	const bebesNaMeta = Math.floor(meta / BABY_ML_PER_DAY) - bebes;
 
 	return (
-		<div className="flex flex-col gap-3 rounded-2xl bg-blue-tint p-4">
+		<div className="relative isolate flex flex-col gap-3 overflow-hidden rounded-2xl bg-blue-tint p-4">
+			<OndaDeLeite
+				corClassName="text-surface"
+				className="h-12 opacity-60"
+				velocidade={0.6}
+			/>
 			<div className="flex items-center gap-3">
 				<span
 					aria-hidden="true"

@@ -1,4 +1,5 @@
 import { ArrowRight, HeartHandshake } from "lucide-react";
+import { OndaDeLeite } from "@/components/full/OndaDeLeite";
 
 type ConviteParaDoarProps = {
 	onDoar: () => void;
@@ -16,6 +17,7 @@ export function ConviteParaDoar({ onDoar }: ConviteParaDoarProps) {
 				strokeWidth={1.1}
 				className="pointer-events-none absolute -right-8 -bottom-12 -z-10 size-60 text-white/[0.07] transition-transform duration-500 ease-out group-hover:-rotate-6 lg:size-72"
 			/>
+			<OndaDeLeite className="h-28 opacity-20 lg:h-36" />
 			<div className="flex max-w-[30rem] flex-col gap-2">
 				<p className="text-rotulo font-semibold uppercase tracking-[0.12em] text-white/65">
 					Nenhuma doação em andamento

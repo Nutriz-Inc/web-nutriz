@@ -1,5 +1,5 @@
+import { SectionWave } from "@/components/full/SectionWave";
 import { cn } from "@/lib/utils";
-import { SectionWave } from "./SectionWave";
 
 type SectionRibbonProps = {
 	nome: string;

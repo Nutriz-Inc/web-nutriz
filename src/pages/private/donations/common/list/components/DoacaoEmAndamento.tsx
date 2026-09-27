@@ -1,4 +1,5 @@
 import { ArrowRight, Calendar, HeartHandshake } from "lucide-react";
+import { OndaDeLeite } from "@/components/full/OndaDeLeite";
 import { cn } from "@/lib/utils";
 import { formatCreatedAt } from "@/utils/formatter";
 import { getStepDefinitions } from "../../info/constants";
@@ -36,6 +37,7 @@ export function DoacaoEmAndamento({ doacao, onAbrir }: DoacaoEmAndamentoProps) {
 				aria-hidden="true"
 				className="pointer-events-none absolute -top-24 -left-16 -z-10 size-72 rounded-full bg-white/[0.06] blur-2xl"
 			/>
+			<OndaDeLeite className="h-28 opacity-20 lg:h-36" />
 
 			<div className="flex flex-wrap items-center justify-between gap-3">
 				<span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-rotulo font-semibold backdrop-blur-sm">

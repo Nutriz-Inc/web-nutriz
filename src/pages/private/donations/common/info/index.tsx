@@ -49,7 +49,7 @@ export function DonationInfoPage() {
 			backTo="/minhas-doacoes"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>
-			<div className="flex flex-col pt-4 gap-5">
+			<div className="cascata flex flex-col gap-5 pt-4">
 				{donationQuery.data?.bottles &&
 					donationQuery.data.bottles.length > 0 && (
 						<DonationSummaryCard bottles={donationQuery.data.bottles} />

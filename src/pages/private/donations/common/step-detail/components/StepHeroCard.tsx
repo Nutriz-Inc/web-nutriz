@@ -84,8 +84,10 @@ export function StepHeroCard({
 						<li
 							// biome-ignore lint/suspicious/noArrayIndexKey: posicoes fixas da trilha
 							key={indice}
+							style={{ animationDelay: `${indice * 160 + 200}ms` }}
 							className={cn(
 								"h-1.5 rounded-full",
+								indice + 1 <= order && "motion-safe:preenche-barra",
 								indice + 1 < order
 									? "bg-blue-bright"
 									: indice + 1 === order

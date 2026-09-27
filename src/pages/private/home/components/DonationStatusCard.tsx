@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Badge } from "@/components/ui/badge";
 import { StepDot } from "@/components/ui/step-dot";
 import { cn } from "@/lib/utils";
@@ -77,9 +78,10 @@ export function DonationStatusCard({ steps, isRecurrent, className }: Props) {
 									className={cn(
 										"hidden lg:absolute lg:left-[calc(50%+1.875rem)] lg:right-[calc(-50%+1.875rem)] lg:top-5 lg:block lg:-translate-y-1/2",
 										isDone
-											? "lg:h-0.5 lg:rounded-full lg:bg-blue-bright-fill"
+											? "lg:h-0.5 lg:rounded-full lg:bg-blue-bright-fill lg:motion-safe:leite-corre"
 											: "lg:h-0 lg:border-t-2 lg:border-dashed lg:border-blue-tint-2",
 									)}
+									style={{ "--i": definition.order - 1 } as CSSProperties}
 								/>
 							)}
 
@@ -97,9 +99,10 @@ export function DonationStatusCard({ steps, isRecurrent, className }: Props) {
 										className={cn(
 											"my-1.5 flex-1 lg:hidden",
 											isDone
-												? "w-0.5 rounded-full bg-blue-bright-fill"
+												? "w-0.5 rounded-full bg-blue-bright-fill motion-safe:leite-desce"
 												: "w-0 border-l-2 border-dashed border-blue-tint-2",
 										)}
+										style={{ "--i": definition.order - 1 } as CSSProperties}
 									/>
 								)}
 							</div>

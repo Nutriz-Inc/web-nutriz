@@ -1,4 +1,6 @@
 import { Calendar, Clock } from "lucide-react";
+import { CapacidadeDaAgenda } from "@/components/full/CapacidadeDaAgenda";
+import type { CapacidadeDaAgenda as CapacidadeDaAgendaTipo } from "@/hooks/use-capacidade-da-agenda";
 import type { EnumDonationStepStatus } from "@/services/types/i-donation";
 import type { Job } from "@/services/types/i-job";
 import type { Address, User } from "@/services/types/i-user";
@@ -11,6 +13,7 @@ type Props = {
 	onDateChange: (value: string) => void;
 	time: string;
 	onTimeChange: (value: string) => void;
+	capacidade?: CapacidadeDaAgendaTipo;
 	selectedStatus: EnumDonationStepStatus;
 	onStatusChange: (value: EnumDonationStepStatus) => void;
 	donorAddresses: Address[];
@@ -47,6 +50,7 @@ export function StepEditableForm({
 	onDateChange,
 	time,
 	onTimeChange,
+	capacidade,
 	selectedStatus,
 	onStatusChange,
 	donorAddresses,
@@ -107,6 +111,13 @@ export function StepEditableForm({
 					</div>
 				</label>
 			</div>
+
+			{capacidade ? (
+				<CapacidadeDaAgenda
+					capacidade={capacidade}
+					onEscolherHora={onTimeChange}
+				/>
+			) : null}
 
 			<label className="flex flex-col gap-1.5">
 				<span className="text-rotulo font-semibold text-ink-2">

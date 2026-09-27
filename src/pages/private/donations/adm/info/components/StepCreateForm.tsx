@@ -1,4 +1,6 @@
 import { Calendar, Clock } from "lucide-react";
+import { CapacidadeDaAgenda } from "@/components/full/CapacidadeDaAgenda";
+import type { CapacidadeDaAgenda as CapacidadeDaAgendaTipo } from "@/hooks/use-capacidade-da-agenda";
 import type { Address } from "@/services/types/i-user";
 import { StepAddressPicker } from "./StepAddressPicker";
 
@@ -7,6 +9,8 @@ type Props = {
 	onDateChange: (value: string) => void;
 	time: string;
 	onTimeChange: (value: string) => void;
+	capacidade?: CapacidadeDaAgendaTipo;
+	bloqueadoPelaCapacidade?: boolean;
 	donorAddresses: Address[];
 	addressMode: "existing" | "new";
 	selectedAddressId: string;
@@ -30,6 +34,8 @@ export function StepCreateForm({
 	onDateChange,
 	time,
 	onTimeChange,
+	capacidade,
+	bloqueadoPelaCapacidade = false,
 	donorAddresses,
 	addressMode,
 	selectedAddressId,
@@ -85,6 +91,13 @@ export function StepCreateForm({
 				</label>
 			</div>
 
+			{capacidade ? (
+				<CapacidadeDaAgenda
+					capacidade={capacidade}
+					onEscolherHora={onTimeChange}
+				/>
+			) : null}
+
 			{showAddress && (
 				<StepAddressPicker
 					addresses={donorAddresses}
@@ -117,7 +130,7 @@ export function StepCreateForm({
 			<button
 				type="button"
 				onClick={onCreate}
-				disabled={isPending || !date || !description}
+				disabled={isPending || !date || !description || bloqueadoPelaCapacidade}
 				className="self-start rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-apoio font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				Agendar etapa

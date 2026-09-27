@@ -81,7 +81,7 @@
 :root[data-tema="escuro"] {
 	--onda-funda: oklch(0.335 0.04 254 / 0.75);
 	--onda-rasa: oklch(0.3 0.032 254);
-	--canvas: oklch(0.205 0.02 258);
+	--canvas: oklch(0.195 0.021 258);
 	--surface: oklch(0.245 0.022 258);
 	--surface-2: oklch(0.285 0.024 258);
 	--surface-3: oklch(0.33 0.026 258);
@@ -117,9 +117,9 @@
 	--purple: oklch(0.76 0.11 293);
 	--magenta: oklch(0.755 0.12 319);
 
-	--blue-deep-fill: oklch(0.36 0.075 251);
-	--blue-fill: oklch(0.44 0.1 253);
-	--blue-bright-fill: oklch(0.5 0.105 253);
+	--blue-deep-fill: oklch(0.47 0.115 253);
+	--blue-fill: oklch(0.52 0.12 253);
+	--blue-bright-fill: oklch(0.57 0.12 253);
 	--eva-fill: oklch(0.53 0.13 9);
 	--eva-deep-fill: oklch(0.56 0.17 8);
 	--eva-bright-fill: oklch(0.763 0.118 4.8);
@@ -162,9 +162,11 @@
 	);
 
 	--nz-shadow-soft:
-		0 1px 2px oklch(0 0 0 / 0.3), 0 12px 28px -18px oklch(0 0 0 / 0.55);
+		inset 0 1px 0 oklch(1 0 0 / 0.045), 0 1px 2px oklch(0 0 0 / 0.3),
+		0 12px 28px -18px oklch(0 0 0 / 0.55);
 	--nz-shadow-lift:
-		0 2px 4px oklch(0 0 0 / 0.35), 0 28px 56px -28px oklch(0 0 0 / 0.6);
+		inset 0 1px 0 oklch(1 0 0 / 0.06), 0 2px 4px oklch(0 0 0 / 0.35),
+		0 28px 56px -28px oklch(0 0 0 / 0.6);
 	--nz-shadow-nudge:
 		0 1px 2px oklch(0 0 0 / 0.32), 0 16px 34px -22px oklch(0 0 0 / 0.57);
 }
@@ -415,6 +417,11 @@ body {
 
 :root[data-tema="escuro"] .leaflet-container {
 	background: var(--surface-2);
+}
+
+:root[data-tema="escuro"] .leaflet-layer.mapa-sem-tema-escuro {
+	filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.88)
+		saturate(0.45);
 }
 
 :root[data-tema="escuro"] .leaflet-bar a,

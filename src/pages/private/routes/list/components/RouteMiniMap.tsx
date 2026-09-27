@@ -87,7 +87,12 @@ export function RouteMiniMap({ idRoute }: Props) {
 			attributionControl={false}
 			className="size-full"
 		>
-			<TileLayer url={TILE_ROTA} maxNativeZoom={16} noWrap />
+			<TileLayer
+				className="mapa-sem-tema-escuro"
+				url={TILE_ROTA}
+				maxNativeZoom={16}
+				noWrap
+			/>
 			<MapResizeHandler />
 			<Marker position={centro} icon={marcador} />
 		</MapContainer>

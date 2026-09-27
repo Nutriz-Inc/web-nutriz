@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { type FormEvent, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
+import { DateFilter } from "@/components/full/DateFilter";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
@@ -25,6 +26,12 @@ import {
 } from "./constants";
 import { useRoutesList } from "./hooks";
 import { ordenarPorPrioridade } from "./utils";
+
+function dataParaApi(valor: string) {
+	const partes = valor.split("/");
+	if (partes.length !== 3 || partes[2].length !== 4) return undefined;
+	return `${partes[2]}-${partes[1]}-${partes[0]}`;
+}
 
 export function RoutesListPage() {
 	const { auth } = useAuth();
@@ -99,7 +106,7 @@ export function RoutesListPage() {
 			name: appliedName || undefined,
 			city: (ehAdm && appliedCity) || undefined,
 			neighborhood: (ehAdm && appliedNeighborhood) || undefined,
-			date_set: dateSet || undefined,
+			date_set: dataParaApi(dateSet),
 			status: statusParaApi,
 		});
 
@@ -127,50 +134,66 @@ export function RoutesListPage() {
 			actionSlot={auth?.type === EnumUserType.Admin && <CreateRouteSheet />}
 		>
 			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-canvas px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
-				<form onSubmit={handleApplyFilters} className="flex flex-col gap-2.5">
-					<div
-						className={cn(
-							"grid gap-2.5",
-							ehAdm && "lg:grid-cols-2 xl:grid-cols-4",
-						)}
-					>
-						{ehAdm && (
-							<SearchBar
-								value={driverName}
-								onChange={setDriverName}
-								placeholder="Buscar por motorista..."
+				<form
+					onSubmit={handleApplyFilters}
+					className="flex flex-col gap-[18px]"
+				>
+					<PainelDeFiltros>
+						<GrupoDeFiltro rotulo="Situação da rota">
+							<FilterChips
+								options={
+									ehAdm
+										? ROUTE_STATUS_FILTER_OPTIONS
+										: ROUTE_STATUS_FILTER_OPTIONS_OPERACAO
+								}
+								value={status}
+								onChange={handleStatusChange}
 							/>
-						)}
-						<SearchBar
-							value={name}
-							onChange={setName}
-							placeholder="Buscar por nome da rota..."
-						/>
-						{ehAdm && (
-							<>
-								<SearchBar
-									value={city}
-									onChange={setCity}
-									placeholder="Buscar por cidade..."
-								/>
-								<SearchBar
-									value={neighborhood}
-									onChange={setNeighborhood}
-									placeholder="Buscar por bairro..."
-								/>
-							</>
-						)}
-					</div>
+						</GrupoDeFiltro>
+						<GrupoDeFiltro rotulo="Data programada">
+							<DateFilter
+								value={dateSet}
+								onChange={handleDateSetChange}
+								semRotulo
+							/>
+						</GrupoDeFiltro>
+					</PainelDeFiltros>
 
-					<div className="flex flex-col gap-2.5 lg:flex-row lg:items-center">
-						<input
-							type="date"
-							value={dateSet}
-							onChange={(event) => handleDateSetChange(event.target.value)}
-							aria-label="Filtrar por data programada"
-							className="h-[43px] w-full rounded-card-sm border border-line bg-surface px-4 text-corpo text-ink outline-none placeholder:text-ink-3 lg:w-[180px] lg:shrink-0"
-						/>
-						<div className="grid grid-cols-2 gap-2.5 lg:ml-auto lg:flex lg:shrink-0 lg:gap-2.5">
+					<div className="flex flex-col gap-2.5 xl:flex-row xl:items-center">
+						<div
+							className={cn(
+								"grid gap-2.5 xl:flex-1",
+								ehAdm && "sm:grid-cols-2 xl:grid-cols-4",
+							)}
+						>
+							{ehAdm && (
+								<SearchBar
+									value={driverName}
+									onChange={setDriverName}
+									placeholder="Buscar por motorista..."
+								/>
+							)}
+							<SearchBar
+								value={name}
+								onChange={setName}
+								placeholder="Buscar por rota..."
+							/>
+							{ehAdm && (
+								<>
+									<SearchBar
+										value={city}
+										onChange={setCity}
+										placeholder="Buscar por cidade..."
+									/>
+									<SearchBar
+										value={neighborhood}
+										onChange={setNeighborhood}
+										placeholder="Buscar por bairro..."
+									/>
+								</>
+							)}
+						</div>
+						<div className="grid grid-cols-2 gap-2.5 sm:flex sm:justify-end xl:shrink-0">
 							<Button
 								variant="primary"
 								size="pill"
@@ -193,20 +216,6 @@ export function RoutesListPage() {
 						</div>
 					</div>
 				</form>
-
-				<PainelDeFiltros>
-					<GrupoDeFiltro rotulo="Situação da rota">
-						<FilterChips
-							options={
-								ehAdm
-									? ROUTE_STATUS_FILTER_OPTIONS
-									: ROUTE_STATUS_FILTER_OPTIONS_OPERACAO
-							}
-							value={status}
-							onChange={handleStatusChange}
-						/>
-					</GrupoDeFiltro>
-				</PainelDeFiltros>
 
 				<RefreshableList updating={isPlaceholderData}>
 					{routes.length === 0 ? (

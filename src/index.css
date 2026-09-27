@@ -1052,3 +1052,14 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 		transform: scaleY(0);
 	}
 }
+
+:root[data-revelando-tema]::view-transition-new(root) {
+	animation: none;
+}
+
+@keyframes nz-trocar-icone {
+	from {
+		opacity: 0;
+		transform: rotate(-90deg) scale(0.6);
+	}
+}

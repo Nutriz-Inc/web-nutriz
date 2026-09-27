@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { History } from "lucide-react";
+import { OndaDeLeite } from "@/components/full/OndaDeLeite";
 import { StatusBadge } from "@/components/full/StatusBadge";
 import { cn } from "@/lib/utils";
 import type { EnumDonationStepStatus } from "@/services/types/i-donation";
@@ -35,6 +36,8 @@ export function StepHeroCard({
 					className="pointer-events-none absolute -right-8 -bottom-10 -z-10 size-48 text-blue-tint lg:size-60"
 				/>
 			) : null}
+
+			<OndaDeLeite corClassName="text-blue-tint" className="h-12 opacity-70" />
 
 			<div className="flex flex-wrap items-start justify-between gap-4">
 				<div className="flex items-center gap-4">

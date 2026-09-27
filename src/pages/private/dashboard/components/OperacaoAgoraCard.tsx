@@ -1,11 +1,23 @@
 import { Radio } from "lucide-react";
 import { formatTimeBR } from "@/utils/formatter";
 import { useIndicador } from "../hooks/use-indicadores";
-import { AlertaOperacional } from "./AlertaOperacional";
+import { CelulaDeNumero } from "./CelulaDeNumero";
+import { GradeDeNumeros } from "./GradeDeNumeros";
 import { IndicadorIndisponivel } from "./IndicadorIndisponivel";
-import { NumeroDoDia } from "./NumeroDoDia";
 import { PainelCard } from "./PainelCard";
 import { RotaEmAndamentoLinha } from "./RotaEmAndamentoLinha";
+
+function AoVivo({ horario }: { horario: string }) {
+	return (
+		<span className="inline-flex items-center gap-2">
+			<span className="relative flex size-1.5" aria-hidden="true">
+				<span className="absolute inline-flex size-full rounded-full bg-success opacity-50 motion-safe:animate-ping" />
+				<span className="relative inline-flex size-1.5 rounded-full bg-success" />
+			</span>
+			Atualizado às {horario}, a cada minuto
+		</span>
+	);
+}
 
 export function OperacaoAgoraCard() {
 	const consulta = useIndicador("operacao_agora", {}, true);
@@ -14,48 +26,52 @@ export function OperacaoAgoraCard() {
 	const alertas = dados
 		? [
 				{
-					quantidade: dados.alertas.rotas_passando_de_6h,
+					valor: dados.alertas.rotas_passando_de_6h,
 					rotulo: "Rotas acima de 6 horas",
-					destino: "/rotas",
+					para: "/rotas",
 					grave: true,
 				},
 				{
-					quantidade: dados.alertas.rotas_em_alerta_5h,
-					rotulo: "Rotas perto do limite de 6 horas",
-					destino: "/rotas",
+					valor: dados.alertas.rotas_em_alerta_5h,
+					rotulo: "Rotas perto das 6 horas",
+					para: "/rotas",
 				},
 				{
-					quantidade: dados.alertas.exames_vencidos_com_doacao_ativa,
-					rotulo: "Exames vencidos com doação ativa",
-					destino: "/gestao-doacoes",
-					grave: true,
-				},
-				{
-					quantidade: dados.alertas.exames_vencendo_em_30_dias,
-					rotulo: "Exames vencendo em 30 dias",
-					destino: "/gestao-doacoes",
-				},
-				{
-					quantidade: dados.alertas.doacoes_paradas_ha_mais_de_7_dias,
-					rotulo: "Doações paradas há mais de 7 dias",
-					destino: "/gestao-doacoes",
-				},
-				{
-					quantidade: dados.alertas.rotas_agendadas_que_nao_iniciaram,
+					valor: dados.alertas.rotas_agendadas_que_nao_iniciaram,
 					rotulo: "Rotas que não saíram no horário",
-					destino: "/rotas",
+					para: "/rotas",
 				},
-			].filter((alerta) => alerta.quantidade > 0)
+				{
+					valor: dados.alertas.exames_vencidos_com_doacao_ativa,
+					rotulo: "Exames vencidos com doação ativa",
+					para: "/gestao-doacoes",
+					grave: true,
+				},
+				{
+					valor: dados.alertas.exames_vencendo_em_30_dias,
+					rotulo: "Exames vencendo em 30 dias",
+					para: "/gestao-doacoes",
+				},
+				{
+					valor: dados.alertas.doacoes_paradas_ha_mais_de_7_dias,
+					rotulo: "Doações paradas há mais de 7 dias",
+					para: "/gestao-doacoes",
+				},
+			]
 		: [];
+
+	const pendencias = alertas.filter((alerta) => alerta.valor > 0).length;
 
 	return (
 		<PainelCard
 			icon={<Radio className="size-[15px]" strokeWidth={1.6} />}
 			title="Operação agora"
 			subtitle={
-				dados
-					? `Atualizado às ${formatTimeBR(new Date())} · a cada minuto`
-					: "O que está acontecendo neste momento"
+				dados ? (
+					<AoVivo horario={formatTimeBR(new Date())} />
+				) : (
+					"O que está acontecendo neste momento"
+				)
 			}
 		>
 			{!dados ? (
@@ -64,54 +80,72 @@ export function OperacaoAgoraCard() {
 					onTentarDeNovo={() => consulta.refetch()}
 				/>
 			) : (
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.35fr_1fr]">
-					<div className="flex flex-col gap-4">
-						<div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-							<NumeroDoDia
+				<div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-8">
+					<div className="flex min-w-0 flex-col gap-5">
+						<GradeDeNumeros className="grid-cols-2">
+							<CelulaDeNumero
 								valor={dados.rotas_em_andamento.length}
-								rotulo="Rotas em andamento"
+								rotulo="Rotas na rua"
 							/>
-							<NumeroDoDia
+							<CelulaDeNumero
 								valor={dados.rotas_agendadas_hoje}
 								rotulo="Rotas agendadas hoje"
 							/>
-							<NumeroDoDia
+							<CelulaDeNumero
 								valor={dados.agendamentos_pendentes_hoje}
 								rotulo="Agendamentos de hoje"
 							/>
-							<NumeroDoDia
+							<CelulaDeNumero
 								valor={dados.agendamentos_atrasados}
 								rotulo="Agendamentos atrasados"
-								atencao
+								tom={dados.agendamentos_atrasados > 0 ? "atencao" : "neutro"}
+								para="/gestao-agendamentos"
 							/>
-						</div>
+						</GradeDeNumeros>
 
-						{dados.rotas_em_andamento.length > 0 ? (
-							<div className="flex flex-col gap-2.5">
-								{dados.rotas_em_andamento.map((rota) => (
+						<div className="flex flex-col gap-2.5">
+							<p className="text-apoio font-semibold text-ink">Rotas na rua</p>
+							{dados.rotas_em_andamento.length > 0 ? (
+								dados.rotas_em_andamento.map((rota) => (
 									<RotaEmAndamentoLinha key={rota.id_rota} rota={rota} />
-								))}
-							</div>
-						) : (
-							<p className="rounded-card-sm bg-surface-2 px-4 py-3 text-apoio text-ink-2">
-								Nenhuma rota na rua agora.
-							</p>
-						)}
+								))
+							) : (
+								<p className="border-t border-line pt-2.5 text-apoio text-ink-2">
+									Nenhuma rota em andamento.{" "}
+									{dados.rotas_agendadas_hoje > 0
+										? `${dados.rotas_agendadas_hoje} agendada(s) para hoje.`
+										: "Nada agendado para hoje."}
+								</p>
+							)}
+						</div>
 					</div>
 
-					<div className="flex flex-col gap-1">
-						<p className="px-3 pb-1 text-rotulo font-bold uppercase tracking-[0.06em] text-ink-2">
-							Pede atenção
-						</p>
-						{alertas.length > 0 ? (
-							alertas.map((alerta) => (
-								<AlertaOperacional key={alerta.rotulo} {...alerta} />
-							))
-						) : (
-							<p className="px-3 py-2 text-apoio text-success">
-								Tudo em dia por aqui.
+					<div className="flex min-w-0 flex-col gap-2.5">
+						<div className="flex items-baseline justify-between gap-3">
+							<p className="text-apoio font-semibold text-ink">Pede atenção</p>
+							<p className="text-rotulo text-ink-2">
+								{pendencias === 0
+									? "Nenhuma pendência"
+									: `${pendencias} de ${alertas.length} com pendência`}
 							</p>
-						)}
+						</div>
+						<GradeDeNumeros className="grid-cols-2 sm:grid-cols-3">
+							{alertas.map((alerta) => (
+								<CelulaDeNumero
+									key={alerta.rotulo}
+									valor={alerta.valor}
+									rotulo={alerta.rotulo}
+									para={alerta.para}
+									tom={
+										alerta.valor === 0
+											? "em-dia"
+											: alerta.grave
+												? "grave"
+												: "atencao"
+									}
+								/>
+							))}
+						</GradeDeNumeros>
 					</div>
 				</div>
 			)}

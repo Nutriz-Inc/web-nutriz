@@ -1,6 +1,5 @@
 import { X } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import {
 	BuscaPorCampo,
@@ -9,7 +8,6 @@ import {
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
-import { ListaDeDados } from "@/components/full/ListaDeDados";
 import { ListaDeDadosEsqueleto } from "@/components/full/ListaDeDadosEsqueleto";
 import { Paginacao } from "@/components/full/Paginacao";
 import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
@@ -21,7 +19,7 @@ import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
 import { formatCpf } from "@/utils/formatter";
-import { COLUNAS_DA_DOACAO } from "./colunas";
+import { DonationManagementCard } from "./components/DonationManagementCard";
 import {
 	ACTIVE_FILTER_OPTIONS,
 	type ActiveFilter,
@@ -41,7 +39,6 @@ const CAMPOS_DA_DOACAO: CampoDeBusca<CampoDaDoacao>[] = [
 
 export function DonationsManagementPage() {
 	const { auth } = useAuth();
-	const navigate = useNavigate();
 
 	const [campo, setCampo] = useState<CampoDaDoacao>("nome");
 	const [termo, setTermo] = useState("");
@@ -170,15 +167,8 @@ export function DonationsManagementPage() {
 				</PainelDeFiltros>
 
 				<RefreshableList updating={isPlaceholderData}>
-					<ListaDeDados
-						itens={donations}
-						colunas={COLUNAS_DA_DOACAO}
-						chaveDoItem={(doacao) => doacao.id_donation}
-						rotuloDoItem={(doacao) => `Abrir a doação de ${doacao.userName}`}
-						aoAbrir={(doacao) =>
-							navigate(`/gestao-doacoes/${doacao.id_donation}`)
-						}
-						vazio={
+					{donations.length === 0 ? (
+						<div className="rounded-card-sm border border-line bg-surface">
 							<EmptyState
 								illustration={buscaSemResultado}
 								title={
@@ -192,8 +182,16 @@ export function DonationsManagementPage() {
 										: "Ajuste os filtros selecionados."
 								}
 							/>
-						}
-					/>
+						</div>
+					) : (
+						<ul className="flex flex-col gap-2.5">
+							{donations.map((donation) => (
+								<li key={donation.id_donation}>
+									<DonationManagementCard donation={donation} />
+								</li>
+							))}
+						</ul>
+					)}
 				</RefreshableList>
 
 				<Paginacao

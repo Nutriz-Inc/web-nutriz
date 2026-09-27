@@ -5,7 +5,7 @@ import { DashboardCardHeader } from "./DashboardCardHeader";
 type PainelCardProps = {
 	icon: ReactNode;
 	title: string;
-	subtitle: string;
+	subtitle: ReactNode;
 	acao?: ReactNode;
 	className?: string;
 	children: ReactNode;

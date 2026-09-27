@@ -4,7 +4,7 @@ type DashboardCardHeaderProps = {
 	icon: ReactNode;
 	iconBg?: string;
 	title: string;
-	subtitle: string;
+	subtitle: ReactNode;
 };
 
 export function DashboardCardHeader({

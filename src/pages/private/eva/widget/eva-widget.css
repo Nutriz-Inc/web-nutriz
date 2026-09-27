@@ -400,6 +400,13 @@
 	padding-left: 6px;
 }
 
+.eva-welcome-dots {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding-left: 6px;
+}
+
 .eva-widget-welcome-foot-wrap {
 	display: flex;
 	flex-direction: column;

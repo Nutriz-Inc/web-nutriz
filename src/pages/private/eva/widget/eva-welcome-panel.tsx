@@ -118,7 +118,13 @@ export function EvaWelcomePanel({ mode, onStart }: EvaWelcomePanelProps) {
 				})}
 			</div>
 
-			<div className="eva-welcome-espaco" aria-hidden="true" />
+			<div className="eva-welcome-espaco" aria-hidden="true">
+				<span className="eva-welcome-dots">
+					<span className="eva-typing-dot" />
+					<span className="eva-typing-dot" />
+					<span className="eva-typing-dot" />
+				</span>
+			</div>
 
 			<div className="eva-widget-welcome-foot-wrap">
 				<ChatInput

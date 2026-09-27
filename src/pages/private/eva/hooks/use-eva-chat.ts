@@ -87,6 +87,7 @@ export function useEvaChat(initialMessage?: string) {
 
 	const wsRef = useRef<WebSocket | null>(null);
 	const disposedRef = useRef(false);
+	const geracaoRef = useRef(0);
 	const attemptsRef = useRef(0);
 	const reconnectTimerRef = useRef<number | null>(null);
 	const conversationIdRef = useRef<string | null>(
@@ -178,6 +179,7 @@ export function useEvaChat(initialMessage?: string) {
 	);
 
 	const connect = useCallback(async () => {
+		const geracao = geracaoRef.current;
 		let wsUrl: string;
 
 		if (isAnonymousRef.current) {
@@ -185,7 +187,7 @@ export function useEvaChat(initialMessage?: string) {
 				anonTokenRef.current = await fetchAnonymousToken();
 			}
 
-			if (disposedRef.current) {
+			if (disposedRef.current || geracao !== geracaoRef.current) {
 				return;
 			}
 
@@ -389,11 +391,13 @@ export function useEvaChat(initialMessage?: string) {
 	}, [finalizeStream, finishSending, sendRaw]);
 
 	useEffect(() => {
+		geracaoRef.current += 1;
 		disposedRef.current = false;
 		attemptsRef.current = 0;
 		connect();
 
 		return () => {
+			geracaoRef.current += 1;
 			disposedRef.current = true;
 
 			if (reconnectTimerRef.current !== null) {

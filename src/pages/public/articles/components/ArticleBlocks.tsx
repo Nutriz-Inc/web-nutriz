@@ -1,4 +1,3 @@
-import { Info } from "lucide-react";
 import type { Article } from "../data";
 import { blockKey, headingId } from "../utils";
 
@@ -8,15 +7,15 @@ type ArticleBlocksProps = {
 
 export function ArticleBlocks({ article }: ArticleBlocksProps) {
 	return (
-		<div className="flex flex-col">
-			{article.blocks.map((block) => {
+		<div className="flex flex-col text-corpo leading-[1.8] text-ink-2">
+			{article.blocks.map((block, indice) => {
 				if ("h" in block) {
 					return (
 						<h2
 							key={blockKey(block)}
 							id={headingId(block.h)}
 							tabIndex={-1}
-							className="mb-2 mt-[22px] scroll-mt-20 text-corpo font-bold text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-deep"
+							className="mt-12 mb-1 scroll-mt-24 font-display text-secao font-bold leading-tight tracking-tight text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-deep"
 						>
 							{block.h}
 						</h2>
@@ -27,7 +26,9 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 					return (
 						<p
 							key={blockKey(block)}
-							className="mt-2 text-apoio leading-[1.7] text-ink-2"
+							className={
+								indice === 0 ? "text-destaque leading-[1.7] text-ink" : "mt-4"
+							}
 						>
 							{block.p}
 						</p>
@@ -36,38 +37,29 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 
 				if ("list" in block) {
 					return (
-						<ul
-							key={blockKey(block)}
-							className="mt-3 flex list-disc flex-col gap-1.5 pl-5 text-apoio leading-[1.7] text-ink-2"
-						>
+						<ul key={blockKey(block)} className="mt-4 flex flex-col gap-2">
 							{block.list.map((item) => (
-								<li key={item}>{item}</li>
+								<li key={item} className="flex gap-3">
+									<span
+										aria-hidden="true"
+										className="mt-[0.85em] h-px w-4 shrink-0 bg-blue-bright"
+									/>
+									{item}
+								</li>
 							))}
 						</ul>
 					);
 				}
 
 				return (
-					<div
+					<aside
 						key={blockKey(block)}
-						className="mt-4 flex items-start gap-2.5 rounded-xl border p-4"
-						style={{
-							backgroundColor: article.soft,
-							borderColor: article.softBorder,
-						}}
+						className="my-6 border-l-2 border-blue-bright py-1 pl-5"
 					>
-						<Info
-							className="mt-0.5 size-4 shrink-0"
-							style={{ color: article.accent }}
-							aria-hidden
-						/>
-						<p
-							className="text-apoio leading-[1.6]"
-							style={{ color: "oklch(0.244 0.061 261.8)" }}
-						>
+						<p className="font-display text-destaque font-semibold leading-snug text-ink">
 							{block.callout}
 						</p>
-					</div>
+					</aside>
 				);
 			})}
 		</div>

@@ -34,7 +34,7 @@ export function DonationManagementCard({
 			type="button"
 			onClick={() => navigate(`/gestao-doacoes/${donation.id_donation}`)}
 			className={cn(
-				"flex w-full flex-col gap-3.5 rounded-card-sm border border-line bg-surface p-4 text-left transition-[border-color,box-shadow] duration-200 hover:border-line-strong hover:shadow-soft",
+				"flex w-full flex-col gap-3.5 rounded-card-sm border border-line bg-surface p-4 text-left transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-line-strong hover:shadow-soft active:translate-y-0 active:scale-[0.995] motion-reduce:hover:translate-y-0",
 				"lg:flex-row lg:items-center lg:gap-6 lg:px-5 lg:py-3.5",
 			)}
 		>

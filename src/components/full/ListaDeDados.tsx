@@ -61,7 +61,7 @@ export function ListaDeDados<Item>({
 				vazio
 			) : (
 				<ul className="divide-y divide-line">
-					{itens.map((item) => {
+					{itens.map((item, indice) => {
 						const conteudo = colunas.map((coluna) => {
 							const papel = coluna.papel ?? "dado";
 
@@ -111,7 +111,11 @@ export function ListaDeDados<Item>({
 							"grid w-full grid-cols-2 items-start gap-x-4 gap-y-3 px-4 py-4 text-left lg:items-center lg:gap-y-0 lg:px-5 lg:py-3.5 lg:[grid-template-columns:var(--colunas)]";
 
 						return (
-							<li key={chaveDoItem(item)}>
+							<li
+								key={chaveDoItem(item)}
+								className="entra"
+								style={{ "--i": indice } as CSSProperties}
+							>
 								{aoAbrir ? (
 									<button
 										type="button"

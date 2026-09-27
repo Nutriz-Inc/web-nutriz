@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
@@ -18,6 +19,7 @@ type AppHeaderProps = {
 };
 
 export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
+	const semMovimento = useReducedMotion();
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const { auth, isAuthenticated } = useAuth();
 
@@ -54,7 +56,7 @@ export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
 					{comNavegacao && (
 						<nav
 							aria-label="Navegação principal"
-							className="hidden items-center gap-1 rounded-full border border-line bg-surface/70 px-2 py-1.5 backdrop-blur-sm lg:flex"
+							className="isolate hidden items-center gap-1 rounded-full border border-line bg-surface/70 px-2 py-1.5 backdrop-blur-sm lg:flex"
 						>
 							{itensNavegacao.map((item) => (
 								<NavLink
@@ -62,14 +64,30 @@ export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
 									to={item.to ?? "/"}
 									className={({ isActive }) =>
 										cn(
-											"rounded-full px-4 py-2 text-apoio outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
+											"relative rounded-full px-4 py-2 text-apoio outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
 											isActive
-												? "bg-blue-tint font-semibold text-blue-deep"
+												? "font-semibold text-blue-deep"
 												: "font-medium text-ink-2 hover:bg-blue-tint/60 hover:text-blue-deep",
 										)
 									}
 								>
-									{item.label}
+									{({ isActive }) => (
+										<>
+											{isActive ? (
+												<motion.span
+													layoutId="menu-app-ativo"
+													aria-hidden="true"
+													className="absolute inset-0 -z-10 rounded-full bg-blue-tint"
+													transition={
+														semMovimento
+															? { duration: 0 }
+															: { type: "spring", duration: 0.42, bounce: 0.14 }
+													}
+												/>
+											) : null}
+											{item.label}
+										</>
+									)}
 								</NavLink>
 							))}
 						</nav>

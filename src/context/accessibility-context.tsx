@@ -27,12 +27,37 @@ import {
 type AccessibilityContextValue = {
 	preferencias: Preferencias;
 	temaEfetivo: PreferenciaTema;
-	definirTema: (tema: PreferenciaTema) => void;
+	definirTema: (tema: PreferenciaTema, origem?: OrigemDaTroca) => void;
 	definirFonteDislexia: (ativa: boolean) => void;
 	restaurarPadroes: () => void;
 };
 
 const NUCLEOS_MINIMOS = 4;
+
+const DURACAO_DA_REVELACAO = 480;
+
+type OrigemDaTroca = { x: number; y: number };
+
+function revelarAPartirDe(origem: OrigemDaTroca) {
+	const raio = Math.hypot(
+		Math.max(origem.x, window.innerWidth - origem.x),
+		Math.max(origem.y, window.innerHeight - origem.y),
+	);
+
+	document.documentElement.animate(
+		{
+			clipPath: [
+				`circle(0px at ${origem.x}px ${origem.y}px)`,
+				`circle(${raio}px at ${origem.x}px ${origem.y}px)`,
+			],
+		},
+		{
+			duration: DURACAO_DA_REVELACAO,
+			easing: "cubic-bezier(0.65, 0, 0.35, 1)",
+			pseudoElement: "::view-transition-new(root)",
+		},
+	);
+}
 
 function podeAnimarATroca() {
 	return (
@@ -67,46 +92,57 @@ export function AccessibilityProvider({ children }: PropsWithChildren) {
 		}
 	}, [preferencias.fonteDislexia]);
 
-	const definirTema = useCallback((tema: PreferenciaTema) => {
-		const aplicar = () => setPreferencias((atual) => ({ ...atual, tema }));
+	const definirTema = useCallback(
+		(tema: PreferenciaTema, origem?: OrigemDaTroca) => {
+			const aplicar = () => setPreferencias((atual) => ({ ...atual, tema }));
 
-		if (!podeAnimarATroca()) {
-			aplicar();
-			return;
-		}
-
-		const raiz = document.documentElement;
-		raiz.dataset.pausandoAnimacoes = "";
-		const elementoNaBase = elementoNaBaseDaTela();
-
-		const transicao = document.startViewTransition(() => {
-			raiz.dataset.trocandoTema = "";
-			aplicarNoDocumento({
-				tema,
-				fonteDislexia: raiz.dataset.fonte === "dislexia",
-			});
-			flushSync(aplicar);
-
-			const corNaTroca = corDeFundoVisivel(elementoNaBase);
-			if (corNaTroca) {
-				raiz.dataset.corNaTroca = corNaTroca;
-				pintarFundoDaPagina(corNaTroca);
+			if (!podeAnimarATroca()) {
+				aplicar();
+				return;
 			}
-		});
 
-		transicao.finished.finally(() => {
-			if (raiz.dataset.corNaTroca !== undefined) {
-				delete raiz.dataset.corNaTroca;
-				if (raiz.dataset.corDaRota) {
-					pintarFundoDaPagina(raiz.dataset.corDaRota);
+			const raiz = document.documentElement;
+			raiz.dataset.pausandoAnimacoes = "";
+			if (origem) {
+				raiz.dataset.revelandoTema = "";
+			}
+			const elementoNaBase = elementoNaBaseDaTela();
+
+			const transicao = document.startViewTransition(() => {
+				raiz.dataset.trocandoTema = "";
+				aplicarNoDocumento({
+					tema,
+					fonteDislexia: raiz.dataset.fonte === "dislexia",
+				});
+				flushSync(aplicar);
+
+				const corNaTroca = corDeFundoVisivel(elementoNaBase);
+				if (corNaTroca) {
+					raiz.dataset.corNaTroca = corNaTroca;
+					pintarFundoDaPagina(corNaTroca);
 				}
+			});
+
+			if (origem) {
+				transicao.ready.then(() => revelarAPartirDe(origem)).catch(() => {});
 			}
-			delete raiz.dataset.pausandoAnimacoes;
-			window.setTimeout(() => {
-				delete raiz.dataset.trocandoTema;
-			}, 60);
-		});
-	}, []);
+
+			transicao.finished.finally(() => {
+				delete raiz.dataset.revelandoTema;
+				if (raiz.dataset.corNaTroca !== undefined) {
+					delete raiz.dataset.corNaTroca;
+					if (raiz.dataset.corDaRota) {
+						pintarFundoDaPagina(raiz.dataset.corDaRota);
+					}
+				}
+				delete raiz.dataset.pausandoAnimacoes;
+				window.setTimeout(() => {
+					delete raiz.dataset.trocandoTema;
+				}, 60);
+			});
+		},
+		[],
+	);
 
 	const definirFonteDislexia = useCallback((fonteDislexia: boolean) => {
 		setPreferencias((atual) => ({ ...atual, fonteDislexia }));

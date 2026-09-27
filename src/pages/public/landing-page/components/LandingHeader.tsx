@@ -55,7 +55,7 @@ export function LandingHeader() {
 					: "border-transparent bg-transparent",
 			)}
 		>
-			<div className="mx-auto flex h-20 w-full max-w-[1200px] items-center justify-between px-5 sm:px-6 lg:px-8">
+			<div className="relative mx-auto flex h-20 w-full max-w-[1400px] items-center justify-between px-5 sm:px-6 lg:px-8">
 				<button
 					type="button"
 					onClick={() => scrollToSection("topo")}
@@ -67,7 +67,7 @@ export function LandingHeader() {
 
 				<nav
 					aria-label="Navegação principal"
-					className="isolate hidden items-center gap-1 rounded-full border border-white/15 bg-white/10 px-2 py-1.5 backdrop-blur-sm lg:flex"
+					className="isolate hidden items-center gap-1 rounded-full border border-white/15 bg-white/10 px-2 py-1.5 backdrop-blur-sm lg:flex min-[1360px]:absolute min-[1360px]:left-1/2 min-[1360px]:-translate-x-1/2"
 				>
 					{NAV_LINKS.map((link) => {
 						const ativa = secaoAtiva === link.targetId;

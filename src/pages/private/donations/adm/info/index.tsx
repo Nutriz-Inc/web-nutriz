@@ -1,5 +1,6 @@
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { useLocation, useParams } from "react-router-dom";
+import { EsqueletoDeDetalhe } from "@/components/full/EsqueletoDeDetalhe";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
@@ -75,6 +76,12 @@ export function DonationManagementDetailPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={donationQuery.isLoading}
+			skeleton={
+				<EsqueletoDeDetalhe
+					rotulo="Carregando a doação"
+					className="lg:max-w-[1400px]"
+				/>
+			}
 			error={donationQuery.isError ? donationQuery.error : undefined}
 			onRetry={() => donationQuery.refetch()}
 			backTo={backTo}

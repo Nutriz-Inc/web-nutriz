@@ -1,6 +1,7 @@
 import { useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
+import { EsqueletoDeCartoes } from "@/components/full/EsqueletoDeCartoes";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -73,6 +74,12 @@ export function AppointmentsManagementPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={isLoading}
+			skeleton={
+				<EsqueletoDeCartoes
+					rotulo="Carregando os agendamentos"
+					className="lg:max-w-[1400px]"
+				/>
+			}
 			title="Agendamentos"
 			description="Filtre os agendamentos e clique em um card para ver os detalhes."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"

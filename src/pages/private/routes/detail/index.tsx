@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ErrorState } from "@/components/full/ErrorState";
+import { EsqueletoDeDetalhe } from "@/components/full/EsqueletoDeDetalhe";
 import { SectionLabel } from "@/components/full/SectionLabel";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -216,6 +217,12 @@ export function RouteDetailPage() {
 			}
 			hasPermission={auth?.type !== EnumUserType.Common}
 			loading={routeQuery.isLoading}
+			skeleton={
+				<EsqueletoDeDetalhe
+					rotulo="Carregando a rota"
+					className="lg:max-w-[1400px]"
+				/>
+			}
 			backTo="/rotas"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px] lg:mb-5"
 		>

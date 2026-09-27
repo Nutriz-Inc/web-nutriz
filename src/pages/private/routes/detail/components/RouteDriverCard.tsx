@@ -78,7 +78,7 @@ export function RouteDriverCard({
 
 				{carregando ? (
 					<div className="border-t border-line p-5">
-						<div className="h-10 w-full animate-pulse rounded-xl bg-surface-2" />
+						<div className="esqueleto h-10 w-full rounded-xl" />
 					</div>
 				) : dados.length > 0 ? (
 					<DataGrid

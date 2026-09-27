@@ -48,10 +48,7 @@ export function StepTimelineSheet({
 					{timelinesQuery.isLoading ? (
 						<div className="flex flex-col gap-3">
 							{[0, 1, 2].map((index) => (
-								<div
-									key={index}
-									className="h-14 w-full animate-pulse rounded-xl bg-surface-3"
-								/>
+								<div key={index} className="esqueleto h-14 w-full rounded-xl" />
 							))}
 						</div>
 					) : timelines.length === 0 ? (

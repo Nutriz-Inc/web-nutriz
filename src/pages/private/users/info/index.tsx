@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { EsqueletoDePerfil } from "@/components/full/EsqueletoDePerfil";
 import { StaggerGroup } from "@/components/full/StaggerGroup";
 import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
@@ -116,6 +117,12 @@ export function UserManagementDetailPage() {
 			backTo={backTo}
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={userQuery.isLoading}
+			skeleton={
+				<EsqueletoDePerfil
+					rotulo="Carregando o usuário"
+					className="lg:max-w-[1400px]"
+				/>
+			}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={
 				user && user.type !== EnumUserType.Common && !user.removed_at ? (

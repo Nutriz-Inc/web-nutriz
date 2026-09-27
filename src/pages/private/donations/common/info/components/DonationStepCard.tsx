@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { Check, ChevronRight } from "lucide-react";
+import type { CSSProperties } from "react";
 import { InteractiveCard } from "@/components/full/InteractiveCard";
 import { Badge } from "@/components/ui/badge";
 import { StepDot } from "@/components/ui/step-dot";
@@ -40,7 +41,10 @@ export function DonationStepCard({
 	const stamp = stampSource ? formatDateTimeParts(stampSource) : undefined;
 
 	return (
-		<div className="flex gap-3.5 lg:gap-4">
+		<div
+			className="entra flex gap-3.5 lg:gap-4"
+			style={{ "--i": order - 1 } as CSSProperties}
+		>
 			<div className="flex flex-col items-center">
 				<StepDot
 					status={visualStatus}
@@ -54,9 +58,10 @@ export function DonationStepCard({
 						className={cn(
 							"my-1.5 flex-1",
 							isDone
-								? "w-0.5 rounded-full bg-blue-bright-fill"
+								? "w-0.5 rounded-full bg-blue-bright-fill motion-safe:leite-desce"
 								: "w-0 border-l-2 border-dashed border-blue-tint-2",
 						)}
+						style={{ "--i": order - 1 } as CSSProperties}
 					/>
 				)}
 			</div>

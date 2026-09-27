@@ -64,7 +64,7 @@ export function DonationStepDetailPage() {
 			) : (
 				step && (
 					<>
-						<div className="flex flex-col gap-5 lg:mx-auto lg:w-full lg:max-w-[1200px] lg:gap-6">
+						<div className="cascata flex flex-col gap-5 lg:mx-auto lg:w-full lg:max-w-[1200px] lg:gap-6">
 							<StepHeroCard
 								icon={Icon}
 								eyebrow={

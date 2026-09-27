@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import buscaPontosVazia from "@/assets/illustrations/busca-pontos-vazia.svg";
 import pontosTopo from "@/assets/illustrations/pontos-topo.svg";
 import { EmptyState } from "@/components/full/EmptyState";
@@ -96,13 +97,19 @@ export function DonationPointsPage() {
 					) : (
 						<RefreshableList updating={isPlaceholderData}>
 							<div className="flex flex-col gap-3 px-4 lg:px-5">
-								{points.map((point) => (
-									<DonationPointCard
+								{points.map((point, indice) => (
+									<div
 										key={point.id_donation_point}
-										point={point}
-										selected={point.id_donation_point === selectedId}
-										onSelect={() => setSelectedId(point.id_donation_point)}
-									/>
+										className="entra"
+										style={{ "--i": indice } as CSSProperties}
+									>
+										<DonationPointCard
+											key={point.id_donation_point}
+											point={point}
+											selected={point.id_donation_point === selectedId}
+											onSelect={() => setSelectedId(point.id_donation_point)}
+										/>
+									</div>
 								))}
 
 								<img

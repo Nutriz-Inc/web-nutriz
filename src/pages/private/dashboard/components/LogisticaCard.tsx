@@ -42,7 +42,7 @@ export function LogisticaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 						</p>
 					</div>
 					{dados.rotas_com_km_implausivel > 0 ? (
-						<p className="-mt-2 text-[12px] text-ink-2">
+						<p className="-mt-2 text-rotulo text-ink-2">
 							{dados.rotas_com_km_implausivel} rota(s) com mais de{" "}
 							{dados.km_maximo_por_rota} km registrados ficaram fora da conta.
 						</p>

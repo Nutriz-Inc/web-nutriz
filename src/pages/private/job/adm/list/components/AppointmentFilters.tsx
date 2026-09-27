@@ -1,11 +1,11 @@
 import { Search, X } from "lucide-react";
 import type { FormEvent } from "react";
+import { DateFilter } from "@/components/full/DateFilter";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
 import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
 import { SearchBar } from "@/components/full/SearchBar";
 import { Button } from "@/components/ui/button";
-import { DateFilter } from "../../../list/components/DateFilter";
 import { STATUS_FILTER_OPTIONS, type StatusFilter } from "../constants";
 
 type AppointmentFiltersProps = {

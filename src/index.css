@@ -1076,8 +1076,8 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 	}
 }
 
-@keyframes nz-subir-leite {
+@keyframes nz-crescer {
 	from {
-		transform: translateY(160px);
+		transform: scaleY(0);
 	}
 }

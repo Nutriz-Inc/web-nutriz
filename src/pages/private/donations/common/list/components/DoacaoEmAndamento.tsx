@@ -22,7 +22,7 @@ export function DoacaoEmAndamento({ doacao, onAbrir }: DoacaoEmAndamentoProps) {
 			onClick={onAbrir}
 			disabled={!clicavel}
 			className={cn(
-				"group relative isolate flex w-full flex-col gap-7 overflow-hidden rounded-card gradient-blue p-6 text-left text-white shadow-lift sm:p-8 lg:gap-9 lg:p-10",
+				"group relative isolate flex w-full flex-col justify-between gap-7 overflow-hidden rounded-card gradient-blue p-6 text-left text-white shadow-lift sm:p-8 lg:gap-9 lg:p-10",
 				clicavel &&
 					"transition-transform duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.99]",
 			)}

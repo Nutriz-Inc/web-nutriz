@@ -1,22 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
-import { ListaDeDados } from "@/components/full/ListaDeDados";
-import { ListaDeDadosEsqueleto } from "@/components/full/ListaDeDadosEsqueleto";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
-import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import type { ICreateJobRequest } from "@/services/types/i-job";
 import { EnumUserType } from "@/services/types/i-user";
-import { toDateSetParam } from "@/utils/formatter";
-import { colunasDoAgendamento } from "../../list/colunas";
+import { AppointmentCard } from "../../list/components/AppointmentCard";
 import { LoadMoreButton } from "../../list/components/LoadMoreButton";
-import {
-	AppointmentFilters,
-	type CampoDoAgendamento,
-} from "./components/AppointmentFilters";
+import { toDateSetParam } from "../../list/utils";
+import { AppointmentFilters } from "./components/AppointmentFilters";
 import { CreateAppointmentSheet } from "./components/CreateAppointmentSheet";
 import { NewAppointmentButton } from "./components/NewAppointmentButton";
 import type { StatusFilter } from "./constants";
@@ -24,17 +17,19 @@ import { useAdminAppointmentsList, useCreateAppointment } from "./hooks";
 
 export function AppointmentsManagementPage() {
 	const { auth } = useAuth();
-	const navigate = useNavigate();
 
 	const [status, setStatus] = useState<StatusFilter>("all");
 	const [dateFilter, setDateFilter] = useState("");
-	const [campo, setCampo] = useState<CampoDoAgendamento>("doadora");
-	const [termo, setTermo] = useState("");
+	const [donorName, setDonorName] = useState("");
+	const [appliedDonorName, setAppliedDonorName] = useState("");
+	const [nurseName, setNurseName] = useState("");
+	const [appliedNurseName, setAppliedNurseName] = useState("");
 	const [isCreateOpen, setIsCreateOpen] = useState(false);
 
-	const termoAplicado = useDebouncedValue(termo.trim(), 400);
-	const dataAplicada = toDateSetParam(dateFilter);
-	const temFiltro = !!(termoAplicado || dataAplicada || status !== "all");
+	function handleApplyFilters() {
+		setAppliedDonorName(donorName.trim());
+		setAppliedNurseName(nurseName.trim());
+	}
 
 	function handleCreateOpenChange(open: boolean) {
 		setIsCreateOpen(open);
@@ -51,7 +46,10 @@ export function AppointmentsManagementPage() {
 	function handleClearFilters() {
 		setStatus("all");
 		setDateFilter("");
-		setTermo("");
+		setDonorName("");
+		setAppliedDonorName("");
+		setNurseName("");
+		setAppliedNurseName("");
 	}
 
 	const createAppointment = useCreateAppointment();
@@ -66,18 +64,17 @@ export function AppointmentsManagementPage() {
 		fetchNextPage,
 	} = useAdminAppointmentsList({
 		status: status === "all" ? undefined : status,
-		dateSet: dataAplicada,
-		donorName: campo === "doadora" ? termoAplicado || undefined : undefined,
-		nurseName: campo === "enfermagem" ? termoAplicado || undefined : undefined,
+		dateSet: toDateSetParam(dateFilter),
+		donorName: appliedDonorName || undefined,
+		nurseName: appliedNurseName || undefined,
 	});
 
 	return (
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={isLoading}
-			skeleton={<ListaDeDadosEsqueleto rotulo="Carregando os agendamentos" />}
 			title="Agendamentos"
-			description="Abra um agendamento para ver os detalhes e o relatório."
+			description="Filtre os agendamentos e clique em um card para ver os detalhes."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={
 				<div className="flex items-center gap-2.5">
@@ -89,45 +86,47 @@ export function AppointmentsManagementPage() {
 				</div>
 			}
 		>
-			<div className="flex flex-col gap-4 pb-24 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-5 lg:pb-8">
+			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-canvas px-4 pb-24 pt-5 lg:m-0 lg:mx-auto lg:min-h-0 lg:w-full lg:max-w-[1200px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
 				<AppointmentFilters
-					campo={campo}
-					onCampoChange={(proximo) => {
-						setCampo(proximo);
-						setTermo("");
-					}}
-					termo={termo}
-					onTermoChange={setTermo}
+					donorName={donorName}
+					onDonorNameChange={setDonorName}
+					nurseName={nurseName}
+					onNurseNameChange={setNurseName}
 					dateFilter={dateFilter}
 					onDateFilterChange={setDateFilter}
 					status={status}
 					onStatusChange={setStatus}
-					temFiltro={temFiltro}
+					onApply={handleApplyFilters}
 					onClear={handleClearFilters}
 				/>
 
 				<RefreshableList updating={isUpdating}>
-					<ListaDeDados
-						itens={appointments}
-						colunas={colunasDoAgendamento({
-							mostrarEnfermagem: true,
-							podePreencher: false,
-						})}
-						chaveDoItem={(appointment) => appointment.id}
-						rotuloDoItem={(appointment) =>
-							`Abrir o agendamento de ${appointment.donorName}`
-						}
-						aoAbrir={(appointment) =>
-							navigate(`/gestao-agendamentos/${appointment.id}`)
-						}
-						vazio={
+					{appointments.length === 0 ? (
+						<div className="rounded-card-sm border border-line bg-surface">
 							<EmptyState
 								illustration={buscaSemResultado}
 								title="Nenhum agendamento encontrado"
 								description="Ajuste a busca ou os filtros selecionados."
 							/>
-						}
-					/>
+						</div>
+					) : (
+						<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+							{appointments.map((appointment, index) => (
+								<div
+									key={appointment.id}
+									className="h-full motion-safe:surge-etapa"
+									style={{ animationDelay: `${Math.min(index, 7) * 55}ms` }}
+								>
+									<AppointmentCard
+										appointment={appointment}
+										basePath="/gestao-agendamentos"
+										canFillReport={false}
+										highlightNurse
+									/>
+								</div>
+							))}
+						</div>
+					)}
 				</RefreshableList>
 
 				{hasNextPage && (

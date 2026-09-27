@@ -80,72 +80,73 @@ export function OperacaoAgoraCard() {
 					onTentarDeNovo={() => consulta.refetch()}
 				/>
 			) : (
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-8">
-					<div className="flex min-w-0 flex-col gap-5">
-						<GradeDeNumeros className="grid-cols-2">
-							<CelulaDeNumero
-								valor={dados.rotas_em_andamento.length}
-								rotulo="Rotas na rua"
-							/>
-							<CelulaDeNumero
-								valor={dados.rotas_agendadas_hoje}
-								rotulo="Rotas agendadas hoje"
-							/>
-							<CelulaDeNumero
-								valor={dados.agendamentos_pendentes_hoje}
-								rotulo="Agendamentos de hoje"
-							/>
-							<CelulaDeNumero
-								valor={dados.agendamentos_atrasados}
-								rotulo="Agendamentos atrasados"
-								tom={dados.agendamentos_atrasados > 0 ? "atencao" : "neutro"}
-								para="/gestao-agendamentos"
-							/>
-						</GradeDeNumeros>
-
-						<div className="flex flex-col gap-2.5">
-							<p className="text-apoio font-semibold text-ink">Rotas na rua</p>
-							{dados.rotas_em_andamento.length > 0 ? (
-								dados.rotas_em_andamento.map((rota) => (
-									<RotaEmAndamentoLinha key={rota.id_rota} rota={rota} />
-								))
-							) : (
-								<p className="border-t border-line pt-2.5 text-apoio text-ink-2">
-									Nenhuma rota em andamento.{" "}
-									{dados.rotas_agendadas_hoje > 0
-										? `${dados.rotas_agendadas_hoje} agendada(s) para hoje.`
-										: "Nada agendado para hoje."}
-								</p>
-							)}
-						</div>
+				<div className="grid grid-cols-1 gap-x-8 gap-y-2.5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+					<div className="flex min-h-5 items-baseline justify-between gap-3 lg:col-start-1 lg:row-start-1">
+						<p className="text-apoio font-semibold text-ink">Hoje</p>
 					</div>
+					<GradeDeNumeros className="auto-rows-fr grid-cols-2 lg:col-start-1 lg:row-start-2">
+						<CelulaDeNumero
+							valor={dados.rotas_em_andamento.length}
+							rotulo="Rotas na rua"
+						/>
+						<CelulaDeNumero
+							valor={dados.rotas_agendadas_hoje}
+							rotulo="Rotas agendadas hoje"
+						/>
+						<CelulaDeNumero
+							valor={dados.agendamentos_pendentes_hoje}
+							rotulo="Agendamentos de hoje"
+						/>
+						<CelulaDeNumero
+							valor={dados.agendamentos_atrasados}
+							rotulo="Agendamentos atrasados"
+							tom={dados.agendamentos_atrasados > 0 ? "atencao" : "neutro"}
+							para="/gestao-agendamentos"
+						/>
+					</GradeDeNumeros>
 
-					<div className="flex min-w-0 flex-col gap-2.5">
-						<div className="flex items-baseline justify-between gap-3">
-							<p className="text-apoio font-semibold text-ink">Pede atenção</p>
-							<p className="text-rotulo text-ink-2">
-								{pendencias === 0
-									? "Nenhuma pendência"
-									: `${pendencias} de ${alertas.length} com pendência`}
+					<div className="mt-5 flex min-h-5 items-baseline justify-between gap-3 lg:col-start-2 lg:row-start-1 lg:mt-0">
+						<p className="text-apoio font-semibold text-ink">Pede atenção</p>
+						<p className="text-rotulo text-ink-2">
+							{pendencias === 0
+								? "Nenhuma pendência"
+								: `${pendencias} de ${alertas.length} com pendência`}
+						</p>
+					</div>
+					<GradeDeNumeros className="auto-rows-fr grid-cols-2 sm:grid-cols-3 lg:col-start-2 lg:row-start-2">
+						{alertas.map((alerta) => (
+							<CelulaDeNumero
+								key={alerta.rotulo}
+								valor={alerta.valor}
+								rotulo={alerta.rotulo}
+								para={alerta.para}
+								tom={
+									alerta.valor === 0
+										? "em-dia"
+										: alerta.grave
+											? "grave"
+											: "atencao"
+								}
+							/>
+						))}
+					</GradeDeNumeros>
+
+					<div className="mt-5 flex flex-col gap-2.5 lg:col-span-2 lg:row-start-3">
+						<p className="text-apoio font-semibold text-ink">Rotas na rua</p>
+						{dados.rotas_em_andamento.length > 0 ? (
+							<div className="grid grid-cols-1 gap-x-8 lg:grid-cols-2">
+								{dados.rotas_em_andamento.map((rota) => (
+									<RotaEmAndamentoLinha key={rota.id_rota} rota={rota} />
+								))}
+							</div>
+						) : (
+							<p className="border-t border-line pt-2.5 text-apoio text-ink-2">
+								Nenhuma rota em andamento.{" "}
+								{dados.rotas_agendadas_hoje > 0
+									? `${dados.rotas_agendadas_hoje} agendada(s) para hoje.`
+									: "Nada agendado para hoje."}
 							</p>
-						</div>
-						<GradeDeNumeros className="grid-cols-2 sm:grid-cols-3">
-							{alertas.map((alerta) => (
-								<CelulaDeNumero
-									key={alerta.rotulo}
-									valor={alerta.valor}
-									rotulo={alerta.rotulo}
-									para={alerta.para}
-									tom={
-										alerta.valor === 0
-											? "em-dia"
-											: alerta.grave
-												? "grave"
-												: "atencao"
-									}
-								/>
-							))}
-						</GradeDeNumeros>
+						)}
 					</div>
 				</div>
 			)}

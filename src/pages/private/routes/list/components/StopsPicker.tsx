@@ -161,7 +161,7 @@ export function StopsPicker({
 					/>
 				</div>
 
-				<div className="flex max-h-[240px] flex-col gap-1.5 overflow-y-auto">
+				<div className="flex max-h-[240px] flex-col gap-1.5 area-rolavel">
 					{isLoading ? (
 						<p className="px-1 py-3 text-center text-apoio text-ink-2">
 							Carregando etapas disponíveis…

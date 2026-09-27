@@ -68,7 +68,7 @@ export function EditRouteSheet({
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-0.5">
+				<div className="flex min-h-0 flex-1 flex-col gap-4 area-rolavel">
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="rota-nome"

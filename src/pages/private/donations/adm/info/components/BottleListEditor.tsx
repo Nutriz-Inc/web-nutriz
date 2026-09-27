@@ -42,7 +42,7 @@ export function BottleListEditor({ bottles, onChange, disabled }: Props) {
 				</button>
 			</div>
 
-			<div className="flex max-h-[300px] flex-col gap-2.5 overflow-y-auto pr-1">
+			<div className="flex max-h-[300px] flex-col gap-2.5 area-rolavel">
 				{bottles.map((bottle, index) => (
 					<div
 						// biome-ignore lint/suspicious/noArrayIndexKey: bottles have no id before creation

@@ -96,7 +96,7 @@ export function RelatorioDoDashboard({
 				>
 					<RelatorioRosca
 						percentual={aproveitamento}
-						corDoArco="#246cb9"
+						corDoArco="#662e9b"
 						corDoTrilho="#dde8f3"
 					/>
 				</RelatorioCartaoDestacado>
@@ -107,7 +107,7 @@ export function RelatorioDoDashboard({
 				>
 					<RelatorioRosca
 						percentual={recorrencia}
-						corDoArco="#00549e"
+						corDoArco="#43bccd"
 						corDoTrilho="#dde8f3"
 					/>
 				</RelatorioCartaoDestacado>

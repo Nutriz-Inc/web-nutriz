@@ -78,7 +78,7 @@ export function ReportProblemSheet({
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-0.5">
+				<div className="flex min-h-0 flex-1 flex-col gap-4 area-rolavel">
 					<fieldset className="flex flex-col gap-2">
 						<legend className="mb-2 text-apoio font-semibold text-ink-2">
 							Tipo do problema

@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/set-state-in-effect */
+import { useQueryClient } from "@tanstack/react-query";
 import { AlertTriangle } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useCapacidadeDaAgenda } from "@/hooks/use-capacidade-da-agenda";
 import {
 	type BottleUpdateBase,
 	type DonationStep,
@@ -66,6 +68,7 @@ export function AdminStepCard({
 	jobsLoading,
 	isLastStep,
 }: Props) {
+	const queryClient = useQueryClient();
 	const [timelineOpen, setTimelineOpen] = useState(false);
 	const [date, setDate] = useState(() => toDateInputValue(step?.set_date));
 	const [time, setTime] = useState(() => toTimeInputValue(step?.set_date));
@@ -109,6 +112,14 @@ export function AdminStepCard({
 		setSelectedAddressId(step?.id_address ?? pickerAddresses[0].id_address);
 	}, [pickerAddresses, step?.id_address]);
 
+	const controlaCapacidade =
+		definition.name !== EnumDonationStepName.MilkAnalysis;
+	const capacidade = useCapacidadeDaAgenda(
+		controlaCapacidade ? date : "",
+		time,
+		step?.id_donation_step,
+	);
+
 	const nursesQuery = useNurses();
 	const nurses = nursesQuery.data ?? [];
 	const nurseNames = jobs
@@ -151,17 +162,25 @@ export function AdminStepCard({
 		return selectedAddressId ? { id_address: selectedAddressId } : {};
 	}
 
+	function atualizarAgenda() {
+		queryClient.invalidateQueries({ queryKey: ["agenda"] });
+	}
+
 	function handleSaveSchedule() {
 		if (!step) return;
-		updateStepMutation.mutate({
-			id_donation_step: step.id_donation_step,
-			data: {
-				description: stepDescription,
-				set_date: combineDateTime(date, time),
-				status: selectedStatus,
-				...buildAddressPayload(),
+		if (controlaCapacidade && horarioMudou && capacidade.bloqueia) return;
+		updateStepMutation.mutate(
+			{
+				id_donation_step: step.id_donation_step,
+				data: {
+					description: stepDescription,
+					set_date: combineDateTime(date, time),
+					status: selectedStatus,
+					...buildAddressPayload(),
+				},
 			},
-		});
+			{ onSuccess: atualizarAgenda },
+		);
 	}
 
 	function handleFinalize() {
@@ -199,13 +218,17 @@ export function AdminStepCard({
 	}
 
 	function handleCreate() {
-		createStepMutation.mutate({
-			id_donation: idDonation,
-			name: definition.name,
-			description: stepDescription,
-			set_date: combineDateTime(date, time),
-			...buildAddressPayload(),
-		});
+		if (controlaCapacidade && capacidade.bloqueia) return;
+		createStepMutation.mutate(
+			{
+				id_donation: idDonation,
+				name: definition.name,
+				description: stepDescription,
+				set_date: combineDateTime(date, time),
+				...buildAddressPayload(),
+			},
+			{ onSuccess: atualizarAgenda },
+		);
 	}
 
 	function handleCreateJob(data: { id_user: string; description: string }) {
@@ -237,6 +260,11 @@ export function AdminStepCard({
 		showAddress &&
 		((addressMode === "existing" && selectedAddressId !== step?.id_address) ||
 			(addressMode === "new" && Boolean(zipCode)));
+
+	const horarioMudou =
+		!step ||
+		date !== toDateInputValue(step?.set_date) ||
+		time !== toTimeInputValue(step?.set_date);
 
 	const scheduleChanged =
 		Boolean(step) &&
@@ -293,6 +321,8 @@ export function AdminStepCard({
 					onDateChange={setDate}
 					time={time}
 					onTimeChange={setTime}
+					capacidade={controlaCapacidade ? capacidade : undefined}
+					bloqueadoPelaCapacidade={controlaCapacidade && capacidade.bloqueia}
 					{...addressPickerProps}
 					description={stepDescription}
 					onDescriptionChange={setStepDescription}
@@ -330,6 +360,7 @@ export function AdminStepCard({
 								onDateChange={setDate}
 								time={time}
 								onTimeChange={setTime}
+								capacidade={controlaCapacidade ? capacidade : undefined}
 								selectedStatus={selectedStatus}
 								onStatusChange={setSelectedStatus}
 								{...addressPickerProps}
@@ -337,7 +368,8 @@ export function AdminStepCard({
 								onDescriptionChange={setStepDescription}
 								onSave={handleSaveSchedule}
 								saveDisabled={
-									!(scheduleChanged || descriptionChanged || statusChanged)
+									!(scheduleChanged || descriptionChanged || statusChanged) ||
+									(controlaCapacidade && horarioMudou && capacidade.bloqueia)
 								}
 								isPending={updateStepMutation.isPending}
 								jobs={jobs}

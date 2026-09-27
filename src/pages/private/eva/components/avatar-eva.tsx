@@ -4,13 +4,15 @@ type AvatarEvaProps = {
 	size: number;
 	pulse?: boolean;
 	squircle?: boolean;
+	resposta?: boolean;
 };
 
-export function AvatarEva({ size, pulse, squircle }: AvatarEvaProps) {
+export function AvatarEva({ size, pulse, squircle, resposta }: AvatarEvaProps) {
 	const classes = ["eva-avatar"];
 
 	if (pulse) classes.push("eva-avatar--pulse");
 	if (squircle) classes.push("eva-avatar--squircle");
+	if (resposta) classes.push("eva-avatar--resposta");
 
 	return (
 		<div

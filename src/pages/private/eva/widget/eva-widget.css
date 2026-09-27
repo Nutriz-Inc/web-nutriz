@@ -973,3 +973,29 @@
 :root[data-tema="escuro"] .eva-widget-overlay {
 	background: oklch(0.12 0.02 258 / 0.55);
 }
+
+.eva-widget-scroll {
+	scrollbar-width: thin;
+	scrollbar-color: color-mix(in oklch, var(--eva-deep) 28%, transparent)
+		transparent;
+	mask-image: linear-gradient(
+		180deg,
+		transparent 0,
+		black 16px,
+		black calc(100% - 16px),
+		transparent 100%
+	);
+}
+
+.eva-widget-scroll::-webkit-scrollbar {
+	width: 6px;
+}
+
+.eva-widget-scroll::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.eva-widget-scroll::-webkit-scrollbar-thumb {
+	border-radius: 999px;
+	background: color-mix(in oklch, var(--eva-deep) 28%, transparent);
+}

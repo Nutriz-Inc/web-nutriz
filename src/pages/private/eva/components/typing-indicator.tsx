@@ -31,7 +31,7 @@ export function TypingIndicator({ rotulo }: TypingIndicatorProps) {
 				transformOrigin: "bottom left",
 			}}
 		>
-			<AvatarEva size={28} pulse />
+			<AvatarEva size={28} pulse resposta />
 			<motion.div
 				layout={!reduzirMovimento}
 				aria-label={rotulo ?? "EVA está digitando"}

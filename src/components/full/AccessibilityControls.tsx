@@ -28,7 +28,13 @@ export function AccessibilityControls({
 		<div className={cn("flex items-center gap-1.5", className)}>
 			<button
 				type="button"
-				onClick={() => definirTema(escuro ? "claro" : "escuro")}
+				onClick={(evento) => {
+					const caixa = evento.currentTarget.getBoundingClientRect();
+					definirTema(escuro ? "claro" : "escuro", {
+						x: caixa.left + caixa.width / 2,
+						y: caixa.top + caixa.height / 2,
+					});
+				}}
 				aria-pressed={escuro}
 				aria-label={
 					escuro ? "Mudar para o tema claro" : "Mudar para o tema escuro"
@@ -37,9 +43,17 @@ export function AccessibilityControls({
 				className={base}
 			>
 				{escuro ? (
-					<Sun className="size-[18px]" aria-hidden="true" />
+					<Sun
+						key="sol"
+						className="size-[18px] motion-safe:[animation:nz-trocar-icone_420ms_var(--ease-out)_both]"
+						aria-hidden="true"
+					/>
 				) : (
-					<Moon className="size-[18px]" aria-hidden="true" />
+					<Moon
+						key="lua"
+						className="size-[18px] motion-safe:[animation:nz-trocar-icone_420ms_var(--ease-out)_both]"
+						aria-hidden="true"
+					/>
 				)}
 			</button>
 

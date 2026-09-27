@@ -297,8 +297,8 @@
 }
 
 .eva-widget-close {
-	width: 40px;
-	height: 40px;
+	width: 44px;
+	height: 44px;
 	border: none;
 	border-radius: 50%;
 	background: var(--surface-2);
@@ -400,19 +400,6 @@
 	padding-left: 6px;
 }
 
-.eva-welcome-dots {
-	display: flex;
-	align-items: center;
-	gap: 6px;
-	padding-left: 6px;
-}
-
-.eva-widget-start {
-	width: 100%;
-	height: 48px;
-	font-size: 15px;
-}
-
 .eva-widget-welcome-foot-wrap {
 	display: flex;
 	flex-direction: column;
@@ -501,6 +488,14 @@
 	border-color: color-mix(in oklch, var(--danger) 20%, transparent);
 	background: var(--danger-tint);
 	color: var(--danger);
+}
+
+.eva-widget-notice-pendente {
+	display: block;
+	margin-top: 6px;
+	font-weight: 600;
+	color: inherit;
+	overflow-wrap: anywhere;
 }
 
 .eva-widget-notice-group {
@@ -907,14 +902,13 @@
 
 .eva-ir-para-o-fim {
 	position: absolute;
-	left: 50%;
+	right: 16px;
 	bottom: 108px;
 	z-index: 3;
 	display: grid;
 	place-items: center;
 	width: 38px;
 	height: 38px;
-	margin-left: -19px;
 	border: 1px solid var(--line);
 	border-radius: 999px;
 	background: var(--surface);
@@ -950,4 +944,16 @@
 	border: 2px solid var(--surface);
 	border-radius: 999px;
 	background: var(--eva-deep);
+}
+
+.eva-help-voltar,
+.eva-widget-ajuda:not(.eva-widget-ajuda--solto) {
+	position: relative;
+}
+
+.eva-widget-ajuda::before,
+.eva-help-voltar::before {
+	content: "";
+	position: absolute;
+	inset: -5px;
 }

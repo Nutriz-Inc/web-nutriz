@@ -23,10 +23,12 @@ export const BLOCKED_MESSAGES: Record<
 	Exclude<EvaBlockedReason, null>,
 	string
 > = {
-	session: "Sessão expirada. Recarregue a página para conversar novamente.",
+	session: "Sua sessão expirou. Recarregue a página para conversar novamente.",
+	indisponivel:
+		"A EVA não respondeu agora. Confira sua conexão e tente de novo — sua pergunta fica guardada.",
 	consent:
 		"Para conversar com a EVA, seu cadastro precisa ter o aceite dos termos de uso. Se você já aceitou e ainda vê isto, fale com o suporte que a gente resolve.",
-	forbidden: "O chat da EVA é exclusivo para nutrizes doadoras.",
+	forbidden: "A EVA não está disponível para o seu perfil de acesso.",
 	rate_limit:
 		"Você atingiu o limite deste chat público. Cadastre-se na Nutriz para um atendimento sem limites.",
 	jailbreak: "Sessão encerrada. Recarregue a página para começar de novo.",
@@ -140,6 +142,7 @@ export const EVA_AJUDA: Record<keyof typeof EVA_PERSONAS, AjudaDaEva> = {
 			"Não substitui avaliação médica ou de enfermagem",
 		],
 		dicas: [
+			"Em emergência, ligue 192 (SAMU)",
 			"Não compartilhe CPF, e-mail ou telefone por aqui",
 			"Cadastre-se para um atendimento que conhece a sua doação",
 		],

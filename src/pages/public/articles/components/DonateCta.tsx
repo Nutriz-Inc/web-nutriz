@@ -1,23 +1,35 @@
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 
 export function DonateCta() {
 	const navigate = useNavigate();
 
 	return (
-		<section className="rounded-xl bg-blue-deep-fill p-5 shadow-soft">
-			<h2 className="text-corpo font-bold text-white">Pronta para doar?</h2>
-			<p className="mt-1.5 text-apoio leading-relaxed text-white/75">
-				Crie sua conta e comece a ajudar bebês que precisam de leite humano.
-			</p>
-			<Button
+		<section className="relative isolate flex flex-col gap-6 overflow-hidden rounded-card gradient-blue p-7 text-white sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:p-12">
+			<span
+				aria-hidden="true"
+				className="pointer-events-none absolute -top-24 -right-16 -z-10 size-80 rounded-full bg-white/[0.06] blur-2xl"
+			/>
+			<div className="flex max-w-[36rem] flex-col gap-2">
+				<h2 className="font-display text-titulo font-bold leading-tight tracking-tight lg:text-pagina">
+					Seu leite pode ser o primeiro alimento de um prematuro.
+				</h2>
+				<p className="text-apoio text-white/75 lg:text-corpo">
+					Crie sua conta e a equipe do banco de leite agenda cada etapa com
+					você.
+				</p>
+			</div>
+			<button
+				type="button"
 				onClick={() => navigate("/registro")}
-				className="mt-4 h-11 w-full rounded-lg bg-surface-on-fill text-apoio font-semibold text-ink-on-fill hover:bg-blue-tint-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+				className="group inline-flex h-12 w-fit shrink-0 items-center gap-2 rounded-full bg-white px-6 text-apoio font-semibold text-blue-deep-fill shadow-soft transition-transform duration-150 ease-out active:scale-[0.97]"
 			>
 				Quero doar
-				<ArrowRight className="size-4" aria-hidden />
-			</Button>
+				<ArrowRight
+					className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+					aria-hidden="true"
+				/>
+			</button>
 		</section>
 	);
 }

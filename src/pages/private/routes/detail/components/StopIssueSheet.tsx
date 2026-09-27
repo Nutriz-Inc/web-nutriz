@@ -63,7 +63,7 @@ export function StopIssueSheet({
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-0.5">
+				<div className="flex min-h-0 flex-1 flex-col gap-4 area-rolavel">
 					<div className="flex items-start gap-2.5 rounded-xl bg-danger-tint px-3.5 py-3">
 						<CircleAlert className="mt-0.5 size-4 shrink-0 text-danger" />
 

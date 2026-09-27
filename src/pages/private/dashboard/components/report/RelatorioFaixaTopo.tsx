@@ -1,12 +1,16 @@
-import logoNutriz from "@/assets/images/nutriz-logo.svg";
+import logoNutriz from "@/assets/images/nutriz-logo-branco.svg";
 
 type RelatorioFaixaTopoProps = {
-	periodo: string;
+	titulo?: string;
+	subtitulo?: string;
+	periodo?: string | null;
 	emissao: string;
 	emitidoPor: string;
 };
 
 export function RelatorioFaixaTopo({
+	titulo = "Relatório de Indicadores",
+	subtitulo = "Painel administrativo · Banco de leite humano",
 	periodo,
 	emissao,
 	emitidoPor,
@@ -16,16 +20,18 @@ export function RelatorioFaixaTopo({
 			<div className="relatorio-topo-marca">
 				<img src={logoNutriz} alt="Nutriz" className="relatorio-logo" />
 				<div className="relatorio-topo-titulos">
-					<h1 className="relatorio-titulo">Relatório de Indicadores</h1>
-					<p className="relatorio-subtitulo">
-						Painel administrativo · Banco de leite humano
-					</p>
+					<h1 className="relatorio-titulo">{titulo}</h1>
+					<p className="relatorio-subtitulo">{subtitulo}</p>
 				</div>
 			</div>
 
 			<dl className="relatorio-topo-meta">
-				<dt>Período</dt>
-				<dd>{periodo}</dd>
+				{periodo ? (
+					<>
+						<dt>Período</dt>
+						<dd>{periodo}</dd>
+					</>
+				) : null}
 				<dt>Emitido em</dt>
 				<dd>{emissao}</dd>
 				<dt>Emitido por</dt>

@@ -1,8 +1,9 @@
 import { Download, FileText } from "lucide-react";
+import { useCallback, useState } from "react";
 import { baixarCsv } from "../relatorio/baixar-csv";
-import { baixarPdf } from "../relatorio/baixar-pdf";
 import { formatarCelula } from "../relatorio/formatar-celula";
 import type { RelatorioDaEva } from "../types";
+import { ImpressaoDoRelatorio } from "./impressao-do-relatorio";
 
 const COLUNAS_NA_PREVIA = 3;
 const LINHAS_NA_PREVIA = 4;
@@ -11,6 +12,8 @@ export function RelatorioNoChat({ relatorio }: { relatorio: RelatorioDaEva }) {
 	const colunas = relatorio.colunas.slice(0, COLUNAS_NA_PREVIA);
 	const linhas = relatorio.linhas.slice(0, LINHAS_NA_PREVIA);
 	const restantes = relatorio.linhas.length - linhas.length;
+	const [imprimindo, setImprimindo] = useState(false);
+	const encerrarImpressao = useCallback(() => setImprimindo(false), []);
 
 	return (
 		<section
@@ -77,12 +80,15 @@ export function RelatorioNoChat({ relatorio }: { relatorio: RelatorioDaEva }) {
 				<button
 					type="button"
 					className="eva-relatorio-botao eva-relatorio-botao--forte"
-					onClick={() => baixarPdf(relatorio)}
+					onClick={() => setImprimindo(true)}
 				>
 					<Download size={15} aria-hidden="true" />
 					Baixar PDF
 				</button>
 			</div>
+			{imprimindo ? (
+				<ImpressaoDoRelatorio relatorio={relatorio} onFim={encerrarImpressao} />
+			) : null}
 		</section>
 	);
 }

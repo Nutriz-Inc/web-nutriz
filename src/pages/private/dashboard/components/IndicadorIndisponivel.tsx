@@ -13,13 +13,13 @@ export function IndicadorIndisponivel({
 
 	return (
 		<div className="flex flex-col items-center gap-2 py-6 text-center">
-			<p className="text-[13px] text-ink-2">
+			<p className="text-apoio text-ink-2">
 				Não foi possível carregar este indicador agora.
 			</p>
 			<button
 				type="button"
 				onClick={onTentarDeNovo}
-				className="text-[13px] font-semibold text-blue underline-offset-4 hover:underline"
+				className="text-apoio font-semibold text-blue underline-offset-4 hover:underline"
 			>
 				Tentar de novo
 			</button>

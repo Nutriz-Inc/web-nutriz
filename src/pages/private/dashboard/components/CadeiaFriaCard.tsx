@@ -9,8 +9,8 @@ import { IndicadorIndisponivel } from "./IndicadorIndisponivel";
 import { PainelCard } from "./PainelCard";
 
 const CONFIG = {
-	dentro: { label: "Dentro das 6h", color: CORES_DO_GRAFICO.azul },
-	acima: { label: "Acima das 6h", color: CORES_DO_GRAFICO.laranja },
+	dentro: { label: "Dentro das 6h", color: CORES_DO_GRAFICO.principal },
+	acima: { label: "Acima das 6h", color: CORES_DO_GRAFICO.atencao },
 };
 
 export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
@@ -29,7 +29,7 @@ export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 					onTentarDeNovo={() => consulta.refetch()}
 				/>
 			) : dados.rotas_com_duracao_medida === 0 ? (
-				<p className="py-8 text-center text-[13px] text-ink-3">
+				<p className="py-8 text-center text-apoio text-ink-3">
 					Nenhuma rota encerrada no período.
 				</p>
 			) : (
@@ -40,12 +40,12 @@ export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 							{
 								chave: "dentro",
 								valor: dados.rotas_dentro_de_6h,
-								cor: CORES_DO_GRAFICO.azul,
+								cor: CORES_DO_GRAFICO.principal,
 							},
 							{
 								chave: "acima",
 								valor: dados.rotas_acima_de_6h,
-								cor: CORES_DO_GRAFICO.laranja,
+								cor: CORES_DO_GRAFICO.atencao,
 							},
 						]}
 						destaque={formatOptionalDecimal(dados.conformidade_6h_pct, "%", 0)}
@@ -53,32 +53,32 @@ export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 					/>
 					<dl className="grid flex-1 grid-cols-2 gap-x-4 gap-y-3">
 						<div>
-							<dt className="text-[11px] text-ink-2">Duração média</dt>
-							<dd className="text-[18px] font-semibold tabular-nums text-ink">
+							<dt className="text-rotulo text-ink-2">Duração média</dt>
+							<dd className="text-destaque font-semibold tabular-nums text-ink">
 								{formatOptionalDecimal(dados.duracao_media_horas, "h")}
 							</dd>
 						</div>
 						<div>
-							<dt className="text-[11px] text-ink-2">
+							<dt className="text-rotulo text-ink-2">
 								Previsto no planejamento
 							</dt>
-							<dd className="text-[18px] font-semibold tabular-nums text-ink">
+							<dd className="text-destaque font-semibold tabular-nums text-ink">
 								{formatOptionalDecimal(dados.duracao_estimada_media_horas, "h")}
 							</dd>
 						</div>
 						<div>
-							<dt className="text-[11px] text-ink-2">Rotas medidas</dt>
-							<dd className="text-[18px] font-semibold tabular-nums text-ink">
+							<dt className="text-rotulo text-ink-2">Rotas medidas</dt>
+							<dd className="text-destaque font-semibold tabular-nums text-ink">
 								{dados.rotas_com_duracao_medida}
 							</dd>
 						</div>
 						<div>
-							<dt className="text-[11px] text-ink-2">Acima de 6h</dt>
+							<dt className="text-rotulo text-ink-2">Acima de 6h</dt>
 							<dd
 								className={
 									dados.rotas_acima_de_6h > 0
-										? "text-[18px] font-semibold tabular-nums text-orange"
-										: "text-[18px] font-semibold tabular-nums text-ink"
+										? "text-destaque font-semibold tabular-nums text-orange"
+										: "text-destaque font-semibold tabular-nums text-ink"
 								}
 							>
 								{dados.rotas_acima_de_6h}
@@ -92,7 +92,7 @@ export function CadeiaFriaCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 					{dados.rotas_que_passaram_de_6h.slice(0, 3).map((rota) => (
 						<li
 							key={`${rota.rota}-${rota.data}`}
-							className="flex items-baseline justify-between gap-3 text-[12px] text-ink-2"
+							className="flex items-baseline justify-between gap-3 text-rotulo text-ink-2"
 						>
 							<span className="truncate">
 								{rota.rota} · {rota.motorista ?? "—"} ·{" "}

@@ -38,7 +38,7 @@ export function FormField({
 }: FormFieldProps) {
 	return (
 		<div className={cn("flex flex-col gap-1.5", className)}>
-			<Label htmlFor={id} className="text-[13px] font-semibold text-ink-2">
+			<Label htmlFor={id} className="text-apoio font-semibold text-ink-2">
 				{label}
 				{optional && (
 					<span className="font-normal text-ink-3"> (opcional)</span>
@@ -67,7 +67,7 @@ export function FormField({
 					aria-invalid={!!error}
 					aria-describedby={error ? `${id}-error` : undefined}
 					className={cn(
-						"h-11 rounded-xl border-line bg-surface-2 px-4 text-[15px] text-ink shadow-none",
+						"h-11 rounded-xl border-line bg-surface-2 px-4 text-corpo text-ink shadow-none",
 						"placeholder:text-ink-3/70",
 						"focus-visible:border-blue-bright focus-visible:bg-surface focus-visible:ring-blue-bright/25",
 						"aria-invalid:border-danger/40 aria-invalid:bg-danger-tint/40 aria-invalid:ring-danger/15",
@@ -84,7 +84,7 @@ export function FormField({
 			</div>
 
 			{error && (
-				<p id={`${id}-error`} className="text-[12px] font-medium text-danger">
+				<p id={`${id}-error`} className="text-rotulo font-medium text-danger">
 					{error}
 				</p>
 			)}

@@ -61,14 +61,14 @@ export function DonationCard({
 						"flex shrink-0 items-center justify-center rounded-full",
 						isInProgress
 							? "size-10 bg-blue-tint lg:size-14"
-							: "size-9 bg-eva-tint lg:size-10",
+							: "size-9 bg-blue-tint lg:size-10",
 					)}
 				>
 					<Heart
 						className={cn(
 							isInProgress
 								? "size-5 text-blue-bright lg:size-7"
-								: "size-4 text-eva-deep lg:size-[18px]",
+								: "size-4 text-blue lg:size-[18px]",
 						)}
 					/>
 				</span>
@@ -84,24 +84,18 @@ export function DonationCard({
 								className={cn(
 									"truncate font-bold text-ink",
 									isInProgress
-										? "text-[16px] lg:text-[22px]"
-										: "text-[15px] lg:text-[17px]",
+										? "text-corpo lg:text-secao"
+										: "text-corpo lg:text-destaque",
 								)}
 							>
 								Doação #{number}
 							</p>
-							<div className="flex shrink-0 items-center gap-1.5">
-								{isRecurrent && (
-									<Badge tone="teal" size="sm">
-										Recorrente
-									</Badge>
-								)}
-								<StatusBadge
-									token={donationToken(isInProgress, hasError)}
-									gender="f"
-									size="lg"
-								/>
-							</div>
+							<StatusBadge
+								token={donationToken(isInProgress, hasError)}
+								gender="f"
+								size="lg"
+								className="shrink-0"
+							/>
 						</div>
 						{isClickable && (
 							<ChevronRight className="size-5 shrink-0 text-ink-3 lg:size-6" />
@@ -114,8 +108,8 @@ export function DonationCard({
 				className={cn(
 					"flex items-center gap-2",
 					isInProgress
-						? "text-[13px] text-ink-2 lg:gap-2.5 lg:text-[14px]"
-						: "text-[12.5px] text-ink-3 lg:text-[13px]",
+						? "text-apoio text-ink-2 lg:gap-2.5 lg:text-apoio"
+						: "text-apoio text-ink-3",
 				)}
 			>
 				<Calendar
@@ -124,7 +118,12 @@ export function DonationCard({
 						isInProgress ? "size-4 lg:size-[18px]" : "size-3.5 lg:size-4",
 					)}
 				/>
-				Criada em {formattedDate}
+				<span className="min-w-0 truncate">Criada em {formattedDate}</span>
+				{isRecurrent && (
+					<Badge tone="teal" size="sm" className="ml-auto shrink-0">
+						Recorrente
+					</Badge>
+				)}
 			</div>
 
 			{isInProgress && (
@@ -138,15 +137,15 @@ export function DonationCard({
 						/>
 
 						<div className="flex items-center justify-between gap-2">
-							<span className="text-[10px] font-bold uppercase tracking-wider text-ink-2 lg:text-[11px]">
+							<span className="text-rotulo font-bold uppercase tracking-wider text-ink-2 lg:text-rotulo">
 								Etapa atual
 							</span>
-							<span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-bold text-ink lg:text-[12px]">
+							<span className="rounded-full bg-surface px-2 py-0.5 text-rotulo font-bold text-ink lg:text-rotulo">
 								{currentStep}/{totalSteps}
 							</span>
 						</div>
 						{stepLabel && (
-							<p className="text-[16px] font-bold leading-tight text-ink lg:text-[18px]">
+							<p className="text-corpo font-bold leading-tight text-ink lg:text-destaque">
 								{stepLabel}
 							</p>
 						)}

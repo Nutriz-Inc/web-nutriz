@@ -32,15 +32,15 @@ export function CelulaDeNumero({
 		<>
 			<span
 				className={cn(
-					"text-[24px] font-semibold leading-none tracking-tight tabular-nums",
+					"text-secao font-semibold leading-none tracking-tight tabular-nums",
 					COR_DO_TOM[tom],
 				)}
 			>
 				{valor}
 			</span>
-			<span className="text-[12px] leading-snug text-ink-2">{rotulo}</span>
+			<span className="text-rotulo leading-snug text-ink-2">{rotulo}</span>
 			{detalhe ? (
-				<span className="text-[11px] leading-snug text-ink-3">{detalhe}</span>
+				<span className="text-rotulo leading-snug text-ink-3">{detalhe}</span>
 			) : null}
 		</>
 	);

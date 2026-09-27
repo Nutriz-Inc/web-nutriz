@@ -47,14 +47,14 @@ export function StepJobCard({
 
 	if (!isEditing) {
 		return (
-			<div className="flex flex-col gap-3 rounded-card-sm border border-line bg-surface p-4 shadow-soft">
+			<div className="flex flex-col gap-3 rounded-card-sm border border-line bg-surface p-4">
 				<div className="flex items-start justify-between gap-3">
 					<div className="flex items-center gap-3">
-						<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-tint text-[13px] font-bold text-blue-deep">
+						<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-tint text-apoio font-bold text-blue-deep">
 							{getInitials(nurseName)}
 						</div>
 						<div className="flex flex-col gap-1">
-							<span className="text-[13px] font-semibold text-ink">
+							<span className="text-apoio font-semibold text-ink">
 								{nurseName}
 							</span>
 							<Badge tone={JOB_STATUS_TONE[job.status]} size="sm" caps>
@@ -78,7 +78,7 @@ export function StepJobCard({
 							onClick={onRemove}
 							disabled={disabled}
 							aria-label="Remover agendamento"
-							className="flex items-center justify-center rounded-lg p-2 text-eva-deep hover:bg-eva-tint disabled:opacity-60"
+							className="flex items-center justify-center rounded-lg p-2 text-danger hover:bg-danger-tint disabled:opacity-60"
 						>
 							<Trash2 className="size-3.5" />
 						</button>
@@ -90,14 +90,14 @@ export function StepJobCard({
 				)}
 
 				{job.date_set && (
-					<div className="flex items-center gap-2 text-[12px] text-ink-2">
+					<div className="flex items-center gap-2 text-rotulo text-ink-2">
 						<Calendar className="size-3.5 shrink-0 text-ink-3" />
 						{formatCreatedAt(job.date_set)}
 					</div>
 				)}
 
 				{job.description && (
-					<p className="text-[12px] leading-[18px] text-ink-2">
+					<p className="text-rotulo leading-[18px] text-ink-2">
 						{job.description}
 					</p>
 				)}
@@ -113,7 +113,7 @@ export function StepJobCard({
 					value={nurseId}
 					onChange={(event) => setNurseId(event.target.value)}
 					disabled={disabled}
-					className="w-full rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-[13px] text-ink outline-none disabled:opacity-60"
+					className="w-full rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-apoio text-ink outline-none disabled:opacity-60"
 				>
 					{nurses.map((nurse) => (
 						<option key={nurse.id_user} value={nurse.id_user}>
@@ -129,7 +129,7 @@ export function StepJobCard({
 				rows={2}
 				disabled={disabled}
 				placeholder="Descrição do atendimento"
-				className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
+				className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-apoio text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
 			/>
 
 			<div className="flex gap-2">
@@ -137,7 +137,7 @@ export function StepJobCard({
 					type="button"
 					onClick={handleSave}
 					disabled={disabled || !description}
-					className="rounded-full bg-blue-deep-fill hover:bg-blue-fill px-3 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60"
+					className="rounded-full bg-blue-deep-fill hover:bg-blue-fill px-3 py-1.5 text-rotulo font-semibold text-white disabled:opacity-60"
 				>
 					Salvar
 				</button>
@@ -145,7 +145,7 @@ export function StepJobCard({
 					type="button"
 					onClick={() => setIsEditing(false)}
 					disabled={disabled}
-					className="rounded-lg px-3 py-1.5 text-[12px] font-semibold text-ink-2 disabled:opacity-60"
+					className="rounded-lg px-3 py-1.5 text-rotulo font-semibold text-ink-2 disabled:opacity-60"
 				>
 					Cancelar
 				</button>

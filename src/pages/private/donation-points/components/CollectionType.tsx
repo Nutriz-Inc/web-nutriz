@@ -18,7 +18,7 @@ export function CollectionType({
 
 		return (
 			<span
-				className={`inline-flex w-fit shrink-0 items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[11px] font-bold uppercase ${colorClassName} ${borderClassName}`}
+				className={`inline-flex w-fit shrink-0 items-center gap-1.5 rounded-lg border px-3 py-1.5 text-rotulo font-bold uppercase ${colorClassName} ${borderClassName}`}
 			>
 				<span className={`size-[8px] rounded-sm ${dotClassName}`} />
 				{label}
@@ -28,7 +28,7 @@ export function CollectionType({
 
 	return (
 		<span
-			className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[12px] font-semibold shrink-0 ${colorClassName}`}
+			className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-rotulo font-semibold shrink-0 ${colorClassName}`}
 		>
 			{label}
 		</span>

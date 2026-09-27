@@ -10,7 +10,7 @@ type RecurrenceCardProps = {
 };
 
 const configuracao = {
-	recorrencia: { label: "Recorrência", color: CORES_DO_GRAFICO.azul },
+	recorrencia: { label: "Recorrência", color: CORES_DO_GRAFICO.principal },
 } satisfies ChartConfig;
 
 export function RecurrenceCard({ rate }: RecurrenceCardProps) {
@@ -21,7 +21,7 @@ export function RecurrenceCard({ rate }: RecurrenceCardProps) {
 		<div className="flex h-full w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
 				icon={<RefreshCcw className="size-[15px]" strokeWidth={1.6} />}
-				title="Taxa de Recorrência de Doadoras"
+				title="Recorrência de doadoras"
 				subtitle="Doadoras que ajudaram mais de uma vez"
 			/>
 
@@ -53,14 +53,14 @@ export function RecurrenceCard({ rate }: RecurrenceCardProps) {
 											<tspan
 												x={viewBox.cx}
 												y={viewBox.cy}
-												className="fill-ink text-[32px] font-bold"
+												className="fill-ink text-titulo font-bold"
 											>
 												{`${percent}%`}
 											</tspan>
 											<tspan
 												x={viewBox.cx}
 												y={(viewBox.cy ?? 0) + 26}
-												className="fill-ink-3 text-[12px]"
+												className="fill-ink-3 text-rotulo"
 											>
 												voltaram a doar
 											</tspan>
@@ -78,7 +78,7 @@ export function RecurrenceCard({ rate }: RecurrenceCardProps) {
 					</RadialBarChart>
 				</ChartContainer>
 
-				<p className="mt-1 text-center text-[13px] leading-snug text-ink-2">
+				<p className="mt-1 text-center text-apoio leading-snug text-ink-2">
 					De cada 100 doadoras,{" "}
 					<span className="font-semibold text-ink">{percent}</span> doaram mais
 					de uma vez no período.

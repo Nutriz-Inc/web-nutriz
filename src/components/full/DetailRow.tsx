@@ -15,8 +15,8 @@ export function DetailRow({
 				{icon}
 			</div>
 			<div className="flex flex-col gap-0.5">
-				<span className="text-[12px] text-ink-3">{label}</span>
-				<span className="text-[12px] text-ink">{value}</span>
+				<span className="text-rotulo text-ink-3">{label}</span>
+				<span className="text-rotulo text-ink">{value}</span>
 			</div>
 		</div>
 	);

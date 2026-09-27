@@ -17,10 +17,10 @@ export function DashboardCardHeader({
 			<div className="flex items-start gap-2.5">
 				<span className="mt-[3px] shrink-0 text-ink-3">{icon}</span>
 				<div className="flex min-w-0 flex-col gap-0.5">
-					<p className="text-[15px] font-semibold leading-tight text-ink">
+					<p className="text-corpo font-semibold leading-tight text-ink">
 						{title}
 					</p>
-					<p className="text-[12px] leading-snug text-ink-3">{subtitle}</p>
+					<p className="text-rotulo leading-snug text-ink-3">{subtitle}</p>
 				</div>
 			</div>
 		</div>

@@ -31,7 +31,7 @@ export function StepTrail({ items, className }: StepTrailProps) {
 							<StepDot
 								status={item.status}
 								order={item.order}
-								className="size-7 text-[12px]"
+								className="size-7 text-rotulo"
 							/>
 
 							{!isLast && (
@@ -55,7 +55,7 @@ export function StepTrail({ items, className }: StepTrailProps) {
 							<div className="flex min-w-0 flex-col gap-px">
 								<p
 									className={cn(
-										"text-[14px]",
+										"text-apoio",
 										isFailed
 											? "font-bold text-danger"
 											: isCurrent
@@ -71,7 +71,7 @@ export function StepTrail({ items, className }: StepTrailProps) {
 								{item.subLabel && (
 									<p
 										className={cn(
-											"text-[11px]",
+											"text-rotulo",
 											isFailed ? "text-danger" : "text-ink-3",
 										)}
 									>

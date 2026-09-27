@@ -24,7 +24,7 @@ export function DonationInfoCard({ donation }: Props) {
 		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-6">
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center justify-between gap-2">
-					<p className="text-[16px] font-bold text-ink">Dados da doação</p>
+					<p className="text-corpo font-bold text-ink">Dados da doação</p>
 					<div className="flex shrink-0 items-center gap-1.5">
 						{donation.is_recurrent && (
 							<Badge tone="teal" size="sm">
@@ -38,7 +38,7 @@ export function DonationInfoCard({ donation }: Props) {
 						/>
 					</div>
 				</div>
-				<p className="text-[12px] text-ink-2">
+				<p className="text-rotulo text-ink-2">
 					Informações de cadastro — somente leitura
 				</p>
 			</div>
@@ -58,14 +58,14 @@ export function DonationInfoCard({ donation }: Props) {
 
 			{donation.bottles && donation.bottles.length > 0 && (
 				<div className="flex flex-col gap-1.5">
-					<span className="text-[12px] font-semibold text-ink-2">Frascos</span>
+					<span className="text-rotulo font-semibold text-ink-2">Frascos</span>
 					<BottleSummaryList bottles={donation.bottles} />
 				</div>
 			)}
 
 			{(donation.user_feedback || donation.score_feedback != null) && (
 				<div className="flex flex-col gap-1.5">
-					<span className="text-[12px] font-semibold text-ink-2">
+					<span className="text-rotulo font-semibold text-ink-2">
 						Feedback da doadora
 					</span>
 					<div className="flex flex-col gap-2 rounded-card-sm border border-line bg-surface px-3.5 py-3">
@@ -73,7 +73,7 @@ export function DonationInfoCard({ donation }: Props) {
 							<StarRating value={donation.score_feedback} size="sm" />
 						)}
 						{donation.user_feedback && (
-							<p className="text-[14px] text-ink">{donation.user_feedback}</p>
+							<p className="text-apoio text-ink">{donation.user_feedback}</p>
 						)}
 					</div>
 				</div>

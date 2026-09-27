@@ -25,13 +25,13 @@ export function StepHeader({
 			</span>
 
 			<div className="min-w-0 flex-1">
-				<p className="font-display text-[10px] font-bold uppercase tracking-[0.12em] text-blue-bright">
+				<p className="font-display text-rotulo font-bold uppercase tracking-[0.12em] text-blue-bright">
 					Etapa {order} de {total}
 				</p>
-				<h2 className="mt-0.5 font-display text-[17px] font-extrabold tracking-tight text-ink">
+				<h2 className="mt-0.5 font-display text-destaque font-extrabold tracking-tight text-ink">
 					{title}
 				</h2>
-				<p className="mt-0.5 text-[13px] leading-[18px] text-ink-2">
+				<p className="mt-0.5 text-apoio leading-[18px] text-ink-2">
 					{description}
 				</p>
 			</div>

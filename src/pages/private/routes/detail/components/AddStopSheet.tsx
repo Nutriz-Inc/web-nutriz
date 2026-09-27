@@ -88,10 +88,10 @@ export function AddStopSheet({
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[22px] font-bold text-ink">
+					<SheetTitle className="text-secao font-bold text-ink">
 						Adicionar parada
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-ink-2">
+					<SheetDescription className="text-apoio text-ink-2">
 						Só aparecem etapas com endereço, na região da rota e que ainda não
 						estão em outra rota ativa. A ordem das paradas é recalculada
 						automaticamente.
@@ -146,20 +146,20 @@ export function AddStopSheet({
 									)}
 								>
 									<div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-										<span className="text-[14px] font-bold text-ink">
+										<span className="text-apoio font-bold text-ink">
 											{step.name}
 										</span>
 										<CopyableId
 											id={step.id_donation}
-											className="shrink-0 text-[12px]"
+											className="shrink-0 text-rotulo"
 										/>
 									</div>
-									<span className="flex items-start gap-2 text-[13px] text-ink-2">
+									<span className="flex items-start gap-2 text-apoio text-ink-2">
 										<MapPin className="mt-px size-4 shrink-0" />
 										{enderecoDaEtapa(step)}
 									</span>
 									{step.set_date && (
-										<span className="text-[12px] text-ink-2">
+										<span className="text-rotulo text-ink-2">
 											Agendada para {formatCreatedAt(step.set_date)}
 										</span>
 									)}
@@ -169,7 +169,7 @@ export function AddStopSheet({
 					)}
 
 					{erro && (
-						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-[13px] font-semibold text-danger">
+						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-apoio font-semibold text-danger">
 							{erro}
 						</p>
 					)}

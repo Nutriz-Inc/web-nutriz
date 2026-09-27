@@ -79,7 +79,7 @@ export function LandingHeader() {
 								onClick={() => handleNavClick(link.targetId)}
 								aria-current={ativa ? "location" : undefined}
 								className={cn(
-									"relative rounded-full px-4 py-2 text-[14px] font-medium transition-[color,background-color] duration-200 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60",
+									"relative rounded-full px-4 py-2 text-apoio font-medium transition-[color,background-color] duration-200 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60",
 									ativa ? "text-white" : "text-blue-tint-2 hover:bg-white/10",
 								)}
 							>
@@ -106,13 +106,13 @@ export function LandingHeader() {
 					<button
 						type="button"
 						onClick={() => navigate("/login")}
-						className="inline-flex h-11 items-center rounded-full border border-white/15 bg-white/10 px-5 text-[14px] font-semibold text-white transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
+						className="inline-flex h-11 items-center rounded-full border border-white/15 bg-white/10 px-5 text-apoio font-semibold text-white transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] hover:bg-white/20 focus-visible:ring-3 focus-visible:ring-mint/60"
 					>
 						Login
 					</button>
 					<Button
 						onClick={() => navigate("/registro")}
-						className="h-11 rounded-full bg-surface-on-fill px-6 text-[14px] font-semibold text-ink-on-fill hover:bg-blue-tint-2"
+						className="h-11 rounded-full bg-surface-on-fill px-6 text-apoio font-semibold text-ink-on-fill hover:bg-blue-tint-2"
 					>
 						Cadastrar-se
 					</Button>

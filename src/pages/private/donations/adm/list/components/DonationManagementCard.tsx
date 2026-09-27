@@ -42,7 +42,7 @@ export function DonationManagementCard({
 			<div className="flex min-w-0 items-center gap-3 lg:w-[250px] lg:shrink-0">
 				<span
 					className={cn(
-						"flex size-10 shrink-0 items-center justify-center rounded-full text-[14px] font-bold",
+						"flex size-10 shrink-0 items-center justify-center rounded-full text-apoio font-bold",
 						donation.isActive
 							? "bg-blue-tint text-blue-deep"
 							: "bg-surface-3 text-ink-2",
@@ -51,10 +51,10 @@ export function DonationManagementCard({
 					{getInitials(donation.userName)}
 				</span>
 				<div className="flex min-w-0 flex-col">
-					<p className="truncate text-[16px] font-semibold text-ink">
+					<p className="truncate text-corpo font-semibold text-ink">
 						{donation.userName}
 					</p>
-					<span className="truncate text-[12px] text-ink-3">
+					<span className="truncate text-rotulo text-ink-3">
 						{donation.id_donation}
 					</span>
 				</div>
@@ -83,15 +83,15 @@ export function DonationManagementCard({
 			<div className="flex flex-wrap items-center gap-x-5 gap-y-2 lg:flex-1 lg:justify-end">
 				<div className="flex items-center gap-2">
 					<CreditCard className="size-4 shrink-0 text-ink-3" />
-					<span className="text-[13px] text-ink-2">CPF</span>
-					<span className="text-[14px] font-semibold tabular-nums text-ink">
+					<span className="text-apoio text-ink-2">CPF</span>
+					<span className="text-apoio font-semibold tabular-nums text-ink">
 						{donation.userCpf ? formatCpf(donation.userCpf) : "—"}
 					</span>
 				</div>
 				<div className="flex items-center gap-2">
 					<Calendar className="size-4 shrink-0 text-ink-3" />
-					<span className="text-[13px] text-ink-2">Criada em</span>
-					<span className="text-[14px] font-semibold text-ink">
+					<span className="text-apoio text-ink-2">Criada em</span>
+					<span className="text-apoio font-semibold text-ink">
 						{formatDateBR(donation.createdAt)}
 					</span>
 				</div>

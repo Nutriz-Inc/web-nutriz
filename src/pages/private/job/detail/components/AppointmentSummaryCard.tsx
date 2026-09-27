@@ -19,15 +19,15 @@ export function AppointmentSummaryCard({
 			<div className="flex items-start justify-between gap-3">
 				<div className="flex min-w-0 items-center gap-3">
 					<div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-tint">
-						<span className="text-[15px] font-bold text-blue-bright">
+						<span className="text-corpo font-bold text-blue-bright">
 							{getInitials(appointment.donorName)}
 						</span>
 					</div>
 					<div className="flex min-w-0 flex-col">
-						<p className="text-[16px] font-bold leading-tight text-ink">
+						<p className="text-corpo font-bold leading-tight text-ink">
 							{appointment.donorName}
 						</p>
-						<span className="text-[13px] text-ink-3">Doadora</span>
+						<span className="text-apoio text-ink-3">Doadora</span>
 					</div>
 				</div>
 				<StatusBadge

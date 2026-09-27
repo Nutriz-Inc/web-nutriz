@@ -43,10 +43,10 @@ export function NextDonationStep({
 		>
 			<div className="flex items-start justify-between gap-3">
 				<div className="flex min-w-0 flex-col gap-1">
-					<p className="font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-blue-bright">
+					<p className="font-display text-rotulo font-bold uppercase tracking-[0.06em] text-blue-bright">
 						Etapa atual
 					</p>
-					<p className="text-sm text-ink-2">{stepName}</p>
+					<p className="text-apoio text-ink-2">{stepName}</p>
 					<p className="mt-1 font-display text-xl font-extrabold tracking-tight text-blue-deep">
 						{formattedDate}
 					</p>
@@ -56,14 +56,14 @@ export function NextDonationStep({
 			</div>
 
 			<div className="flex items-center gap-3">
-				<span className="text-xs font-medium text-ink-2">Progresso</span>
+				<span className="text-rotulo font-medium text-ink-2">Progresso</span>
 				<ProgressBar
 					current={stepNumber}
 					total={totalSteps}
 					size="sm"
 					className="flex-1"
 				/>
-				<span className="font-sans text-xs font-bold tabular-nums text-blue-deep">
+				<span className="font-sans text-rotulo font-bold tabular-nums text-blue-deep">
 					{stepNumber} / {totalSteps}
 				</span>
 			</div>

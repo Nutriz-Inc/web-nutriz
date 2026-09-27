@@ -10,14 +10,6 @@ export const PERIOD_PRESET_OPTIONS: FilterChipOption<PeriodPreset>[] = [
 	{ key: "custom", label: "Personalizado" },
 ];
 
-export const SCORE_OPACITY: Record<number, string> = {
-	5: "bg-eva",
-	4: "bg-eva/80",
-	3: "bg-eva/70",
-	2: "bg-eva/50",
-	1: "bg-eva/35",
-};
-
 export const BAR_SHADES = [
 	"bg-blue-deep",
 	"bg-blue-deep/80",

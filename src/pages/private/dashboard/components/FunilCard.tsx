@@ -37,7 +37,7 @@ export function FunilCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 								key={etapa.etapa}
 								className="flex min-w-0 flex-col gap-3 bg-surface px-4 py-4"
 							>
-								<p className="flex items-baseline gap-2 text-[12px] text-ink-2">
+								<p className="flex items-baseline gap-2 text-rotulo text-ink-2">
 									<span className="tabular-nums text-ink-3">
 										{String(posicao + 1).padStart(2, "0")}
 									</span>
@@ -47,14 +47,14 @@ export function FunilCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 								</p>
 
 								<p className="flex items-baseline gap-1.5">
-									<span className="text-[28px] font-semibold leading-none tracking-tight tabular-nums text-ink">
+									<span className="text-titulo font-semibold leading-none tracking-tight tabular-nums text-ink">
 										{formatOptionalDecimal(
 											etapa.conversao_da_etapa_pct,
 											"%",
 											0,
 										)}
 									</span>
-									<span className="text-[12px] text-ink-2">concluem</span>
+									<span className="text-rotulo text-ink-2">concluem</span>
 								</p>
 
 								<div className="h-1 w-full overflow-hidden rounded-full bg-surface-3">
@@ -67,7 +67,7 @@ export function FunilCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 									/>
 								</div>
 
-								<dl className="grid grid-cols-2 gap-x-3 gap-y-1 text-[12px]">
+								<dl className="grid grid-cols-2 gap-x-3 gap-y-1 text-rotulo">
 									<dt className="text-ink-3">Concluíram</dt>
 									<dd className="text-right tabular-nums text-ink">
 										{etapa.doacoes_que_concluiram} de{" "}
@@ -95,7 +95,7 @@ export function FunilCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 								</dl>
 
 								{maisLenta ? (
-									<p className="text-[11px] font-medium text-orange">
+									<p className="text-rotulo font-medium text-orange">
 										Etapa mais lenta do período
 									</p>
 								) : null}

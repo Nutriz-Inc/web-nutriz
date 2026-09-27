@@ -40,10 +40,10 @@ export function DeactivateUserSheet({
 				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 px-5 pb-0 pt-3 text-left">
-					<SheetTitle className="text-[14px] font-bold text-ink">
+					<SheetTitle className="text-apoio font-bold text-ink">
 						Desativar usuário
 					</SheetTitle>
-					<SheetDescription className="text-[11px] text-ink-3">
+					<SheetDescription className="text-rotulo text-ink-3">
 						Tem certeza que deseja desativar{" "}
 						<span className="font-semibold text-ink">{userName}</span>? O
 						usuário perderá o acesso à plataforma.
@@ -51,7 +51,7 @@ export function DeactivateUserSheet({
 				</SheetHeader>
 
 				<div className="flex flex-col gap-3 px-5 pb-6 pt-4">
-					{error && <p className="text-[11px] text-red-500">{error}</p>}
+					{error && <p className="text-rotulo text-red-500">{error}</p>}
 
 					<Button
 						variant="danger"
@@ -69,7 +69,7 @@ export function DeactivateUserSheet({
 						type="button"
 						onClick={() => onOpenChange(false)}
 						disabled={isPending}
-						className="flex h-11 w-full items-center justify-center rounded-card-sm border border-line bg-surface text-[12px] font-bold text-ink transition-opacity disabled:opacity-60"
+						className="flex h-11 w-full items-center justify-center rounded-card-sm border border-line bg-surface text-rotulo font-bold text-ink transition-opacity disabled:opacity-60"
 					>
 						Cancelar
 					</button>

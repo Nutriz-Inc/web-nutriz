@@ -25,7 +25,7 @@ export function StepHeroCard({
 				<button
 					type="button"
 					onClick={onViewTimeline}
-					className="flex items-center gap-1.5 text-[13px] font-semibold text-blue-deep"
+					className="flex items-center gap-1.5 text-apoio font-semibold text-blue-deep"
 				>
 					<History className="size-[18px]" />
 					Ver timeline
@@ -37,8 +37,8 @@ export function StepHeroCard({
 					{Icon && <Icon className="size-[30px] text-blue-deep" />}
 				</div>
 
-				<p className="text-center text-[18px] font-bold text-ink">{title}</p>
-				<p className="text-center text-[13px] text-ink-2">{description}</p>
+				<p className="text-center text-destaque font-bold text-ink">{title}</p>
+				<p className="text-center text-apoio text-ink-2">{description}</p>
 
 				<StatusBadge
 					token={donationStepToken(status)}

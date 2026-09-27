@@ -28,13 +28,13 @@ export function EndedNotice({ status }: EndedNoticeProps) {
 			<div className="flex flex-col gap-0.5">
 				<p
 					className={cn(
-						"text-[14px] font-bold",
+						"text-apoio font-bold",
 						isFailed ? "text-danger" : "text-success",
 					)}
 				>
 					Tarefa encerrada
 				</p>
-				<p className="text-[13px] text-ink-2">
+				<p className="text-apoio text-ink-2">
 					Esta tarefa foi finalizada e o status não pode mais ser alterado.
 				</p>
 			</div>

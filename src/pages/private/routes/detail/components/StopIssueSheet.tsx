@@ -55,10 +55,10 @@ export function StopIssueSheet({
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[22px] font-bold text-ink">
+					<SheetTitle className="text-secao font-bold text-ink">
 						Registrar imprevisto
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-ink-2">
+					<SheetDescription className="text-apoio text-ink-2">
 						{endereco}
 					</SheetDescription>
 				</SheetHeader>
@@ -68,10 +68,10 @@ export function StopIssueSheet({
 						<CircleAlert className="mt-0.5 size-4 shrink-0 text-danger" />
 
 						<div className="flex min-w-0 flex-col gap-1">
-							<p className="text-[13px] font-bold leading-snug text-danger">
+							<p className="text-apoio font-bold leading-snug text-danger">
 								Não dá para voltar atrás
 							</p>
-							<p className="text-[13px] leading-relaxed text-danger/85">
+							<p className="text-apoio leading-relaxed text-danger/85">
 								A parada fica marcada como não realizada até o fim da rota e
 								você segue para a próxima.
 							</p>
@@ -81,7 +81,7 @@ export function StopIssueSheet({
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="parada-imprevisto"
-							className="text-[13px] font-semibold text-ink-2"
+							className="text-apoio font-semibold text-ink-2"
 						>
 							O que aconteceu
 						</label>
@@ -94,13 +94,13 @@ export function StopIssueSheet({
 							placeholder="Ex.: doadora não estava em casa, portão fechado, endereço não encontrado..."
 							className={CLASSE_CAMPO_TEXTO}
 						/>
-						<span className="text-[11px] text-ink-2">
+						<span className="text-rotulo text-ink-2">
 							Vai para o relatório da rota, que o administrador acompanha.
 						</span>
 					</div>
 
 					{(erroLocal || erro) && (
-						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-[13px] font-semibold text-danger">
+						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-apoio font-semibold text-danger">
 							{erroLocal ?? erro}
 						</p>
 					)}

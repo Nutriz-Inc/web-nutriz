@@ -23,12 +23,12 @@ export function RotaEmAndamentoLinha({ rota }: { rota: RotaEmAndamento }) {
 			className="group flex flex-col gap-2 border-t border-line px-1 py-3 transition-colors duration-150 hover:bg-surface-2"
 		>
 			<div className="flex items-baseline justify-between gap-3">
-				<p className="truncate text-[14px] font-semibold text-ink">
+				<p className="truncate text-apoio font-semibold text-ink">
 					{rota.rota}
 				</p>
 				<p
 					className={cn(
-						"shrink-0 text-[12px] font-semibold tabular-nums",
+						"shrink-0 text-rotulo font-semibold tabular-nums",
 						tom === "danger" && "text-danger",
 						tom === "orange" && "text-orange",
 						tom === "blue-deep" && "text-ink-2",
@@ -55,7 +55,7 @@ export function RotaEmAndamentoLinha({ rota }: { rota: RotaEmAndamento }) {
 					style={{ width: `${decorridoPct}%` }}
 				/>
 			</div>
-			<p className="text-[12px] text-ink-2">
+			<p className="text-rotulo text-ink-2">
 				{rota.motorista ?? "Motorista não informado"} · {rota.paradas_feitas} de{" "}
 				{rota.paradas} paradas
 				{rota.paradas_com_imprevisto > 0

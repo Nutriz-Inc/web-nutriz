@@ -40,9 +40,9 @@ const badgeVariants = cva(
 	{
 		variants: {
 			size: {
-				sm: "px-2.5 py-0.5 text-[11px]",
-				md: "px-3 py-1 text-[12px]",
-				lg: "px-3 py-1.5 text-[13px]",
+				sm: "px-2.5 py-0.5 text-rotulo",
+				md: "px-3 py-1 text-rotulo",
+				lg: "px-3 py-1.5 text-apoio",
 			},
 			caps: {
 				true: "uppercase tracking-[0.3px]",

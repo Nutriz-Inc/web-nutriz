@@ -41,11 +41,11 @@ export function UpdateStepStatusForm({
 			<div className="flex flex-col gap-1">
 				<div className="flex items-center gap-2">
 					<ClipboardEdit className="size-4 text-ink-3" />
-					<span className="text-[12px] font-bold uppercase tracking-wide text-ink-2">
+					<span className="text-rotulo font-bold uppercase tracking-wide text-ink-2">
 						Atualizar status da etapa
 					</span>
 				</div>
-				<p className="text-[13px] text-ink-3">
+				<p className="text-apoio text-ink-3">
 					Selecione o novo status e registre o relatório desta etapa
 					{stepName ? ` (${stepName})` : ""}.
 				</p>
@@ -68,7 +68,7 @@ export function UpdateStepStatusForm({
 			<div className="flex flex-col gap-2">
 				<label
 					htmlFor="step-report"
-					className="text-[14px] font-semibold text-ink-2"
+					className="text-apoio font-semibold text-ink-2"
 				>
 					Relatório de etapa
 				</label>
@@ -81,14 +81,14 @@ export function UpdateStepStatusForm({
 					}}
 					rows={4}
 					placeholder="Descreva o resultado desta etapa e os próximos passos..."
-					className="w-full resize-y rounded-xl border border-blue-tint bg-surface px-3.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-blue-bright"
+					className="w-full resize-y rounded-xl border border-blue-tint bg-surface px-3.5 py-3 text-apoio text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-blue-bright"
 				/>
 			</div>
 
 			{isSuccess && (
 				<div className="flex items-center gap-2 rounded-xl border border-teal-tint bg-success-tint px-4 py-3">
 					<CheckCircle2 className="size-4 shrink-0 text-success" />
-					<p className="text-[13px] font-semibold text-success">
+					<p className="text-apoio font-semibold text-success">
 						Status atualizado com sucesso.
 					</p>
 				</div>
@@ -97,7 +97,7 @@ export function UpdateStepStatusForm({
 			{isError && (
 				<div className="flex items-center gap-2 rounded-xl border border-danger-tint bg-danger-tint px-4 py-3">
 					<AlertCircle className="size-4 shrink-0 text-danger" />
-					<p className="text-[13px] font-semibold text-danger">
+					<p className="text-apoio font-semibold text-danger">
 						Não foi possível salvar. Tente novamente.
 					</p>
 				</div>

@@ -60,7 +60,7 @@ export function HeroSection() {
 				<div className="relative flex max-w-[34rem] flex-col items-start">
 					<motion.h1
 						variants={TITULO_EM_CASCATA}
-						className="font-display text-[40px] font-medium leading-[1.08] tracking-[-0.02em] text-white min-[420px]:text-[46px] sm:text-[52px] lg:text-[56px] xl:text-[64px]"
+						className="font-display text-numero font-medium leading-[1.08] tracking-[-0.02em] text-white min-[420px]:text-numero sm:text-[52px] lg:text-[56px] xl:text-[64px]"
 					>
 						<HeroPalavra>Doar</HeroPalavra>{" "}
 						<HeroPalavra>
@@ -77,7 +77,7 @@ export function HeroSection() {
 
 					<motion.p
 						variants={fadeUp}
-						className="mt-6 max-w-md text-[15px] leading-relaxed text-canvas-on-fill sm:text-[16px]"
+						className="mt-6 max-w-md text-corpo leading-relaxed text-canvas-on-fill sm:text-corpo"
 					>
 						Uma gota do seu leite pode ser tudo que um bebê prematuro precisa
 						para sobreviver.
@@ -94,7 +94,7 @@ export function HeroSection() {
 						<button
 							type="button"
 							onClick={() => scrollToSection("como-funciona")}
-							className="inline-flex h-10 items-center rounded-full border border-white/30 px-5 text-[14px] font-medium text-white/90 outline-none transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.97] hover:border-white/60 hover:bg-white/10 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
+							className="inline-flex h-10 items-center rounded-full border border-white/30 px-5 text-apoio font-medium text-white/90 outline-none transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.97] hover:border-white/60 hover:bg-white/10 hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
 						>
 							Saiba mais
 						</button>

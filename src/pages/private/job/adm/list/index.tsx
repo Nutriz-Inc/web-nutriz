@@ -1,15 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { EmptyState } from "@/components/full/EmptyState";
+import { ListaDeDados } from "@/components/full/ListaDeDados";
+import { ListaDeDadosEsqueleto } from "@/components/full/ListaDeDadosEsqueleto";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import type { ICreateJobRequest } from "@/services/types/i-job";
 import { EnumUserType } from "@/services/types/i-user";
-import { AppointmentCard } from "../../list/components/AppointmentCard";
+import { toDateSetParam } from "@/utils/formatter";
+import { colunasDoAgendamento } from "../../list/colunas";
 import { LoadMoreButton } from "../../list/components/LoadMoreButton";
-import { toDateSetParam } from "../../list/utils";
-import { AppointmentFilters } from "./components/AppointmentFilters";
+import {
+	AppointmentFilters,
+	type CampoDoAgendamento,
+} from "./components/AppointmentFilters";
 import { CreateAppointmentSheet } from "./components/CreateAppointmentSheet";
 import { NewAppointmentButton } from "./components/NewAppointmentButton";
 import type { StatusFilter } from "./constants";
@@ -17,19 +24,17 @@ import { useAdminAppointmentsList, useCreateAppointment } from "./hooks";
 
 export function AppointmentsManagementPage() {
 	const { auth } = useAuth();
+	const navigate = useNavigate();
 
 	const [status, setStatus] = useState<StatusFilter>("all");
 	const [dateFilter, setDateFilter] = useState("");
-	const [donorName, setDonorName] = useState("");
-	const [appliedDonorName, setAppliedDonorName] = useState("");
-	const [nurseName, setNurseName] = useState("");
-	const [appliedNurseName, setAppliedNurseName] = useState("");
+	const [campo, setCampo] = useState<CampoDoAgendamento>("doadora");
+	const [termo, setTermo] = useState("");
 	const [isCreateOpen, setIsCreateOpen] = useState(false);
 
-	function handleApplyFilters() {
-		setAppliedDonorName(donorName.trim());
-		setAppliedNurseName(nurseName.trim());
-	}
+	const termoAplicado = useDebouncedValue(termo.trim(), 400);
+	const dataAplicada = toDateSetParam(dateFilter);
+	const temFiltro = !!(termoAplicado || dataAplicada || status !== "all");
 
 	function handleCreateOpenChange(open: boolean) {
 		setIsCreateOpen(open);
@@ -46,10 +51,7 @@ export function AppointmentsManagementPage() {
 	function handleClearFilters() {
 		setStatus("all");
 		setDateFilter("");
-		setDonorName("");
-		setAppliedDonorName("");
-		setNurseName("");
-		setAppliedNurseName("");
+		setTermo("");
 	}
 
 	const createAppointment = useCreateAppointment();
@@ -64,21 +66,22 @@ export function AppointmentsManagementPage() {
 		fetchNextPage,
 	} = useAdminAppointmentsList({
 		status: status === "all" ? undefined : status,
-		dateSet: toDateSetParam(dateFilter),
-		donorName: appliedDonorName || undefined,
-		nurseName: appliedNurseName || undefined,
+		dateSet: dataAplicada,
+		donorName: campo === "doadora" ? termoAplicado || undefined : undefined,
+		nurseName: campo === "enfermagem" ? termoAplicado || undefined : undefined,
 	});
 
 	return (
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={isLoading}
+			skeleton={<ListaDeDadosEsqueleto rotulo="Carregando os agendamentos" />}
 			title="Agendamentos"
-			description="Filtre os agendamentos e clique em um card para ver os detalhes."
+			description="Abra um agendamento para ver os detalhes e o relatório."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 			actionSlot={
 				<div className="flex items-center gap-2.5">
-					<span className="shrink-0 rounded-full bg-blue-tint px-3 py-1.5 text-[13px] font-semibold text-blue-bright">
+					<span className="shrink-0 rounded-full bg-blue-tint px-3 py-1.5 text-apoio font-semibold text-blue-bright">
 						{total} <span className="lg:hidden">agend.</span>
 						<span className="hidden lg:inline">agendamentos</span>
 					</span>
@@ -86,47 +89,45 @@ export function AppointmentsManagementPage() {
 				</div>
 			}
 		>
-			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-5 bg-canvas px-4 pb-24 pt-5 lg:m-0 lg:mx-auto lg:min-h-0 lg:w-full lg:max-w-[1200px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
+			<div className="flex flex-col gap-4 pb-24 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-5 lg:pb-8">
 				<AppointmentFilters
-					donorName={donorName}
-					onDonorNameChange={setDonorName}
-					nurseName={nurseName}
-					onNurseNameChange={setNurseName}
+					campo={campo}
+					onCampoChange={(proximo) => {
+						setCampo(proximo);
+						setTermo("");
+					}}
+					termo={termo}
+					onTermoChange={setTermo}
 					dateFilter={dateFilter}
 					onDateFilterChange={setDateFilter}
 					status={status}
 					onStatusChange={setStatus}
-					onApply={handleApplyFilters}
+					temFiltro={temFiltro}
 					onClear={handleClearFilters}
 				/>
 
 				<RefreshableList updating={isUpdating}>
-					{appointments.length === 0 ? (
-						<div className="rounded-card-sm border border-line bg-surface">
+					<ListaDeDados
+						itens={appointments}
+						colunas={colunasDoAgendamento({
+							mostrarEnfermagem: true,
+							podePreencher: false,
+						})}
+						chaveDoItem={(appointment) => appointment.id}
+						rotuloDoItem={(appointment) =>
+							`Abrir o agendamento de ${appointment.donorName}`
+						}
+						aoAbrir={(appointment) =>
+							navigate(`/gestao-agendamentos/${appointment.id}`)
+						}
+						vazio={
 							<EmptyState
 								illustration={buscaSemResultado}
 								title="Nenhum agendamento encontrado"
 								description="Ajuste a busca ou os filtros selecionados."
 							/>
-						</div>
-					) : (
-						<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-							{appointments.map((appointment, index) => (
-								<div
-									key={appointment.id}
-									className="h-full motion-safe:surge-etapa"
-									style={{ animationDelay: `${Math.min(index, 7) * 55}ms` }}
-								>
-									<AppointmentCard
-										appointment={appointment}
-										basePath="/gestao-agendamentos"
-										canFillReport={false}
-										highlightNurse
-									/>
-								</div>
-							))}
-						</div>
-					)}
+						}
+					/>
 				</RefreshableList>
 
 				{hasNextPage && (

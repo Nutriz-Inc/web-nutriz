@@ -20,7 +20,7 @@ export function BrandPanel() {
 			/>
 			<span
 				aria-hidden="true"
-				className="ink-blob -bottom-28 -left-16 h-72 w-80 bg-eva/25 blur-3xl"
+				className="ink-blob -bottom-28 -left-16 h-72 w-80 bg-blue-bright/25 blur-3xl"
 			/>
 
 			<img
@@ -49,13 +49,13 @@ export function BrandPanel() {
 
 			<div className="relative mt-6 flex items-center gap-5 lg:mt-8 lg:gap-10">
 				<div className="min-w-0 flex-1">
-					<h1 className="font-display text-[26px] font-extrabold leading-[1.1] tracking-tight sm:text-[32px] lg:text-[40px]">
+					<h1 className="font-display text-secao font-extrabold leading-[1.1] tracking-tight sm:text-titulo lg:text-numero">
 						Cada gota conta.
 						<br />
 						<span className="text-blue-tint-2">Continue de onde parou.</span>
 					</h1>
 
-					<p className="mt-3 max-w-md text-[14px] leading-relaxed text-blue-tint-2 lg:mt-4 lg:text-[16px]">
+					<p className="mt-3 max-w-md text-apoio leading-relaxed text-blue-tint-2 lg:mt-4 lg:text-corpo">
 						Entre para acompanhar suas doações, agendar a próxima coleta e falar
 						com a equipe Lactare.
 					</p>
@@ -77,7 +77,7 @@ export function BrandPanel() {
 					return (
 						<span
 							key={selo.label}
-							className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-[13px] font-semibold text-white"
+							className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-apoio font-semibold text-white"
 						>
 							<Icon className="size-4 shrink-0" aria-hidden="true" />
 							{selo.label}
@@ -86,7 +86,7 @@ export function BrandPanel() {
 				})}
 			</div>
 
-			<p className="relative mt-8 hidden text-[12px] text-blue-tint-2/80 lg:block">
+			<p className="relative mt-8 hidden text-rotulo text-blue-tint-2/80 lg:block">
 				© 2026 Nutriz · Lactare
 			</p>
 		</aside>

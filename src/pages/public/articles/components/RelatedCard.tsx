@@ -10,7 +10,7 @@ export function RelatedCard({ article, onSelectArticle }: RelatedCardProps) {
 
 	return (
 		<section className="rounded-card-sm border border-line bg-surface p-5 shadow-soft">
-			<h2 className="text-[15px] font-bold text-ink">Outros artigos</h2>
+			<h2 className="text-corpo font-bold text-ink">Outros artigos</h2>
 			<ul className="mt-3 flex flex-col gap-1">
 				{others.map((item) => (
 					<li key={item.id}>
@@ -28,10 +28,10 @@ export function RelatedCard({ article, onSelectArticle }: RelatedCardProps) {
 								className="size-11 shrink-0 rounded-lg object-cover"
 							/>
 							<span className="flex flex-col gap-0.5">
-								<span className="text-[13px] font-semibold leading-snug text-ink">
+								<span className="text-apoio font-semibold leading-snug text-ink">
 									{item.title}
 								</span>
-								<span className="text-[11px] text-ink-2">
+								<span className="text-rotulo text-ink-2">
 									{item.category} · {item.readTimeMinutes} min
 								</span>
 							</span>

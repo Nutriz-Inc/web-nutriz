@@ -304,7 +304,7 @@ export function AdminStepCard({
 					{isFailed && (
 						<div className="flex items-center gap-2.5 rounded-xl border border-danger-tint bg-danger-tint px-4 py-3">
 							<AlertTriangle className="size-4 shrink-0 text-danger" />
-							<p className="text-[13px] font-semibold text-danger">
+							<p className="text-apoio font-semibold text-danger">
 								Etapa marcada como erro — a doação foi encerrada.
 							</p>
 						</div>
@@ -312,7 +312,7 @@ export function AdminStepCard({
 
 					<div className="flex flex-col gap-3.5">
 						{!isLocked && (
-							<p className="text-[11px] font-bold tracking-[0.6px] text-blue-deep">
+							<p className="text-rotulo font-bold tracking-[0.6px] text-blue-deep">
 								DADOS DO AGENDAMENTO · EDITÁVEL
 							</p>
 						)}

@@ -22,11 +22,11 @@ export function LegendaDeSeries({ itens, className }: LegendaDeSeriesProps) {
 							className="size-[10px] shrink-0 rounded-[3px]"
 							style={{ backgroundColor: item.cor }}
 						/>
-						<span className="truncate text-[13px] text-ink-2">
+						<span className="truncate text-apoio text-ink-2">
 							{item.rotulo}
 						</span>
 					</span>
-					<span className="shrink-0 text-[15px] font-bold tabular-nums text-ink">
+					<span className="shrink-0 text-corpo font-bold tabular-nums text-ink">
 						{item.valor}
 					</span>
 				</li>

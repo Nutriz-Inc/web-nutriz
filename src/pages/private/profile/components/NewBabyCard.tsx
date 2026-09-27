@@ -19,7 +19,6 @@ export function NewBabyCard({ draft, onChange, onRemove }: NewBabyCardProps) {
 	return (
 		<ProfileSectionCard
 			as="h3"
-			tone="eva"
 			label="Novo"
 			title="Novo bebê"
 			action={
@@ -53,7 +52,7 @@ export function NewBabyCard({ draft, onChange, onRemove }: NewBabyCardProps) {
 			</div>
 
 			{(!draft.name || !draft.birth_date) && (
-				<p className="text-[12px] text-ink-2">
+				<p className="text-rotulo text-ink-2">
 					Preencha nome e data de nascimento para que este bebê seja salvo.
 				</p>
 			)}

@@ -53,17 +53,17 @@ export function CancelRouteSheet({
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[22px] font-bold text-ink">
+					<SheetTitle className="text-secao font-bold text-ink">
 						Cancelar esta rota?
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-ink-2">
+					<SheetDescription className="text-apoio text-ink-2">
 						A rota fica encerrada e não pode mais ser alterada. Esta ação não
 						tem volta.
 					</SheetDescription>
 				</SheetHeader>
 
 				<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-0.5">
-					<p className="flex items-start gap-2 rounded-xl bg-danger-tint px-3.5 py-3 text-[13px] font-semibold text-danger">
+					<p className="flex items-start gap-2 rounded-xl bg-danger-tint px-3.5 py-3 text-apoio font-semibold text-danger">
 						<AlertTriangle className="mt-px size-4 shrink-0" />
 						As paradas desta rota deixam de ser atendidas.
 					</p>
@@ -71,7 +71,7 @@ export function CancelRouteSheet({
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="rota-motivo"
-							className="text-[13px] font-semibold text-ink-2"
+							className="text-apoio font-semibold text-ink-2"
 						>
 							Motivo do cancelamento
 						</label>
@@ -87,7 +87,7 @@ export function CancelRouteSheet({
 					</div>
 
 					{(erroLocal || erro) && (
-						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-[13px] font-semibold text-danger">
+						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-apoio font-semibold text-danger">
 							{erroLocal ?? erro}
 						</p>
 					)}

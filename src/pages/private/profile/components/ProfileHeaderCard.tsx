@@ -37,12 +37,12 @@ export function ProfileHeaderCard({
 		: null;
 
 	return (
-		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-surface p-5 shadow-soft sm:p-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
+		<div className="flex flex-col gap-5 rounded-card-sm border border-line bg-surface p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
 			<div className="flex min-w-0 items-center gap-4">
 				<AvatarColorPicker idUser={idUser} className="shrink-0">
 					<span
 						className={cn(
-							"flex size-16 items-center justify-center rounded-full text-[20px] font-bold",
+							"flex size-16 items-center justify-center rounded-full text-destaque font-bold",
 							cor.bg,
 							cor.text,
 						)}
@@ -53,7 +53,7 @@ export function ProfileHeaderCard({
 
 				<div className="flex min-w-0 flex-col gap-1.5">
 					<div className="flex min-w-0 flex-wrap items-center gap-2">
-						<p className="min-w-0 break-words text-[18px] font-extrabold leading-tight text-ink lg:truncate lg:text-[22px]">
+						<p className="min-w-0 break-words text-destaque font-extrabold leading-tight text-ink lg:truncate lg:text-secao">
 							{name}
 						</p>
 						{userType && (
@@ -62,7 +62,7 @@ export function ProfileHeaderCard({
 							</Badge>
 						)}
 					</div>
-					<p className="truncate text-[13px] text-ink-2">{email}</p>
+					<p className="truncate text-apoio text-ink-2">{email}</p>
 				</div>
 			</div>
 

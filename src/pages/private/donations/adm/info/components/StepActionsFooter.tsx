@@ -49,10 +49,8 @@ export function StepActionsFooter({
 		<div className="flex flex-col gap-3 lg:flex-row">
 			<div className="flex flex-1 flex-col gap-3 rounded-xl border border-blue-deep/20 bg-blue-tint p-4 lg:flex-row lg:items-center lg:justify-between">
 				<div className="flex flex-col gap-0.5">
-					<p className="text-[13px] font-bold text-blue-deep">
-						Finalizar etapa
-					</p>
-					<p className="text-[12px] text-ink-2">
+					<p className="text-apoio font-bold text-blue-deep">Finalizar etapa</p>
+					<p className="text-rotulo text-ink-2">
 						A próxima etapa é liberada automaticamente.
 					</p>
 				</div>
@@ -63,7 +61,7 @@ export function StepActionsFooter({
 							type="button"
 							onClick={() => onFinalizeDescriptionChange(stepDescription)}
 							disabled={isPending}
-							className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+							className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-apoio font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 						>
 							<Check className="size-4" />
 							Finalizar etapa
@@ -91,7 +89,7 @@ export function StepActionsFooter({
 							<div className="flex flex-col gap-1.5 text-left">
 								<label
 									htmlFor="finalize-description"
-									className="text-[12px] font-semibold text-ink-2"
+									className="text-rotulo font-semibold text-ink-2"
 								>
 									Descrição a ser registrada
 								</label>
@@ -103,7 +101,7 @@ export function StepActionsFooter({
 									}
 									rows={3}
 									placeholder="Descreva o resultado desta etapa"
-									className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
+									className="rounded-card-sm border border-line bg-surface px-3 py-2 text-apoio text-ink outline-none placeholder:text-ink-3"
 								/>
 							</div>
 
@@ -132,8 +130,8 @@ export function StepActionsFooter({
 
 			<div className="flex flex-1 flex-col gap-3 rounded-xl border border-danger-tint bg-danger-tint p-4 lg:flex-row lg:items-center lg:justify-between">
 				<div className="flex flex-col gap-0.5">
-					<p className="text-[13px] font-bold text-danger">Marcar como erro</p>
-					<p className="text-[12px] text-danger">
+					<p className="text-apoio font-bold text-danger">Marcar como erro</p>
+					<p className="text-rotulo text-danger">
 						Encerra a doação — não pode ser desfeito.
 					</p>
 				</div>
@@ -144,7 +142,7 @@ export function StepActionsFooter({
 							type="button"
 							onClick={() => onErrorDescriptionChange(stepDescription)}
 							disabled={isPending}
-							className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-danger-fill px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+							className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-danger-fill px-5 py-2.5 text-apoio font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 						>
 							<AlertTriangle className="size-4" />
 							Marcar como erro
@@ -167,7 +165,7 @@ export function StepActionsFooter({
 						<div className="flex flex-col gap-1.5 text-left">
 							<label
 								htmlFor="error-description"
-								className="text-[12px] font-semibold text-ink-2"
+								className="text-rotulo font-semibold text-ink-2"
 							>
 								Descreva o erro ocorrido
 							</label>
@@ -179,7 +177,7 @@ export function StepActionsFooter({
 								}
 								rows={3}
 								placeholder="Explique o motivo do encerramento"
-								className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
+								className="rounded-card-sm border border-line bg-surface px-3 py-2 text-apoio text-ink outline-none placeholder:text-ink-3"
 							/>
 						</div>
 

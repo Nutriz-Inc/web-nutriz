@@ -43,14 +43,14 @@ export function RegioesCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 					onTentarDeNovo={() => consulta.refetch()}
 				/>
 			) : regioes.length === 0 ? (
-				<p className="py-8 text-center text-[13px] text-ink-3">
+				<p className="py-8 text-center text-apoio text-ink-3">
 					Nenhuma doação no período.
 				</p>
 			) : (
 				<ul className="flex flex-col gap-3">
 					{regioes.map((regiao) => (
 						<li key={regiao.regiao} className="flex flex-col gap-1.5">
-							<div className="flex items-baseline justify-between gap-3 text-[13px]">
+							<div className="flex items-baseline justify-between gap-3 text-apoio">
 								<span className="truncate font-semibold text-ink">
 									{regiao.regiao}
 								</span>

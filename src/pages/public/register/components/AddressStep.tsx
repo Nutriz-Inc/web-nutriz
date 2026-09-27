@@ -48,7 +48,7 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 			</div>
 
 			{status === "loading" && (
-				<p className="flex items-center gap-2 text-sm text-ink-2">
+				<p className="flex items-center gap-2 text-apoio text-ink-2">
 					<LoaderCircle className="size-4 animate-spin" aria-hidden />
 					Buscando endereço...
 				</p>
@@ -60,7 +60,7 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 						className="mt-0.5 size-4 shrink-0 text-blue-deep"
 						aria-hidden
 					/>
-					<p className="text-sm leading-relaxed text-blue-deep">
+					<p className="text-apoio leading-relaxed text-blue-deep">
 						<span className="font-semibold">
 							{[address.street, address.neighborhood]
 								.filter(Boolean)
@@ -73,7 +73,7 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 			)}
 
 			{status === "not_found" && (
-				<p className="text-sm text-danger">
+				<p className="text-apoio text-danger">
 					CEP não encontrado. Confira o número digitado.
 				</p>
 			)}
@@ -90,7 +90,7 @@ export function AddressStep({ form, errors, onChange }: AddressStepProps) {
 				optional
 			/>
 
-			<p className="text-xs text-ink-2">
+			<p className="text-rotulo text-ink-2">
 				Rua, bairro e cidade são preenchidos automaticamente pelo CEP.
 			</p>
 		</fieldset>

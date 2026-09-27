@@ -27,11 +27,11 @@ export function FinalCtaSection() {
 							<div className="max-w-lg">
 								<ActivityBadge label="Junte-se a nós" />
 
-								<h2 className="mt-5 font-display text-[28px] font-extrabold leading-tight tracking-tight text-white sm:text-[34px] lg:text-[40px]">
+								<h2 className="mt-5 font-display text-titulo font-extrabold leading-tight tracking-tight text-white sm:text-titulo lg:text-numero">
 									Pronta para fazer a diferença?
 								</h2>
 
-								<p className="mt-3 max-w-md text-[15px] leading-relaxed text-blue-tint-2 sm:text-[16px]">
+								<p className="mt-3 max-w-md text-corpo leading-relaxed text-blue-tint-2 sm:text-corpo">
 									Cadastre-se agora e comece sua jornada de doação.
 								</p>
 							</div>
@@ -54,7 +54,7 @@ export function FinalCtaSection() {
 									/>
 									<Button
 										onClick={() => navigate("/login")}
-										className="h-12 w-full rounded-full border border-white/40 bg-transparent px-7 text-[15px] font-semibold text-white transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] hover:bg-white/10 sm:w-auto"
+										className="h-12 w-full rounded-full border border-white/40 bg-transparent px-7 text-corpo font-semibold text-white transition-[background-color,transform] duration-150 ease-out active:scale-[0.97] hover:bg-white/10 sm:w-auto"
 									>
 										Já sou doadora — fazer login
 									</Button>
@@ -72,7 +72,7 @@ export function FinalCtaSection() {
 											/>
 										))}
 									</div>
-									<span className="text-[13px] text-blue-tint-2">
+									<span className="text-apoio text-blue-tint-2">
 										<span className="font-bold text-white">4.200+</span>{" "}
 										doadoras já fazem parte
 									</span>

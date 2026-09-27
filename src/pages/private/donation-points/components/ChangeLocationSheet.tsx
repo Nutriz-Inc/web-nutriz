@@ -96,10 +96,10 @@ export function ChangeLocationSheet({
 				<div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 px-5 pb-0 pt-3 text-left">
-					<SheetTitle className="text-[14px] font-bold text-ink">
+					<SheetTitle className="text-apoio font-bold text-ink">
 						Trocar endereço de busca
 					</SheetTitle>
-					<SheetDescription className="text-[11px] text-ink-3">
+					<SheetDescription className="text-rotulo text-ink-3">
 						Digite o CEP
 					</SheetDescription>
 				</SheetHeader>
@@ -116,13 +116,13 @@ export function ChangeLocationSheet({
 							}}
 							placeholder="00000-000"
 							aria-label="CEP para buscar pontos de coleta"
-							className="h-11 w-full rounded-xl border border-line bg-surface-2 pl-10 pr-4 text-[13px] text-ink outline-none placeholder:text-ink-3/65"
+							className="h-11 w-full rounded-xl border border-line bg-surface-2 pl-10 pr-4 text-apoio text-ink outline-none placeholder:text-ink-3/65"
 						/>
 					</div>
 
 					<div className="flex items-center gap-3">
 						<div className="h-px flex-1 bg-blue-tint-2" />
-						<span className="text-[11px] text-ink-3">ou</span>
+						<span className="text-rotulo text-ink-3">ou</span>
 						<div className="h-px flex-1 bg-blue-tint-2" />
 					</div>
 
@@ -138,19 +138,19 @@ export function ChangeLocationSheet({
 							<LocateFixed className="size-[19px] shrink-0 text-blue-deep" />
 						)}
 						<div className="flex flex-col">
-							<span className="text-[12px] font-bold text-ink">
+							<span className="text-rotulo font-bold text-ink">
 								{isLocating
 									? "Obtendo localização..."
 									: "Usar minha localização atual"}
 							</span>
-							<span className="text-[10px] text-ink-3">
+							<span className="text-rotulo text-ink-3">
 								Ativa o GPS do dispositivo
 							</span>
 						</div>
 					</button>
 
 					{locationError && (
-						<p className="text-[11px] text-danger">{locationError}</p>
+						<p className="text-rotulo text-danger">{locationError}</p>
 					)}
 
 					<Button

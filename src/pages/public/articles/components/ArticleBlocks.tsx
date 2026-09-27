@@ -16,7 +16,7 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 							key={blockKey(block)}
 							id={headingId(block.h)}
 							tabIndex={-1}
-							className="mb-2 mt-[22px] scroll-mt-20 text-[16px] font-bold text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-deep"
+							className="mb-2 mt-[22px] scroll-mt-20 text-corpo font-bold text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-deep"
 						>
 							{block.h}
 						</h2>
@@ -27,7 +27,7 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 					return (
 						<p
 							key={blockKey(block)}
-							className="mt-2 text-[14px] leading-[1.7] text-ink-2"
+							className="mt-2 text-apoio leading-[1.7] text-ink-2"
 						>
 							{block.p}
 						</p>
@@ -38,7 +38,7 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 					return (
 						<ul
 							key={blockKey(block)}
-							className="mt-3 flex list-disc flex-col gap-1.5 pl-5 text-[14px] leading-[1.7] text-ink-2"
+							className="mt-3 flex list-disc flex-col gap-1.5 pl-5 text-apoio leading-[1.7] text-ink-2"
 						>
 							{block.list.map((item) => (
 								<li key={item}>{item}</li>
@@ -62,7 +62,7 @@ export function ArticleBlocks({ article }: ArticleBlocksProps) {
 							aria-hidden
 						/>
 						<p
-							className="text-[13px] leading-[1.6]"
+							className="text-apoio leading-[1.6]"
 							style={{ color: "oklch(0.244 0.061 261.8)" }}
 						>
 							{block.callout}

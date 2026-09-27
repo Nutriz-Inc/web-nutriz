@@ -46,10 +46,10 @@ export function ConfirmActionDialog({
 		>
 			<AlertDialogContent className="rounded-card border-line bg-surface">
 				<AlertDialogHeader>
-					<AlertDialogTitle className="text-[18px] font-bold text-ink">
+					<AlertDialogTitle className="text-destaque font-bold text-ink">
 						{titulo}
 					</AlertDialogTitle>
-					<AlertDialogDescription className="text-[14px] leading-relaxed text-ink-2">
+					<AlertDialogDescription className="text-apoio leading-relaxed text-ink-2">
 						{descricao}
 					</AlertDialogDescription>
 				</AlertDialogHeader>
@@ -57,7 +57,7 @@ export function ConfirmActionDialog({
 				{extra}
 
 				{erro && (
-					<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-[13px] font-semibold text-danger">
+					<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-apoio font-semibold text-danger">
 						{erro}
 					</p>
 				)}

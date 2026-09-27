@@ -12,14 +12,14 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
 	return (
 		<figure className="rounded-card flex h-full w-full flex-col gap-4 border border-line bg-surface-2 p-7 sm:p-8">
 			<figcaption className="flex items-center gap-3">
-				<span className="flex size-11 items-center justify-center rounded-full bg-blue-bright/15 text-[14px] font-bold text-blue-bright">
+				<span className="flex size-11 items-center justify-center rounded-full bg-blue-bright/15 text-apoio font-bold text-blue-bright">
 					{getInitials(testimonial.name)}
 				</span>
 				<span className="flex flex-col">
-					<span className="font-display text-[15px] font-bold text-ink">
+					<span className="font-display text-corpo font-bold text-ink">
 						{testimonial.name}
 					</span>
-					<span className="text-[12px] text-ink-3">{testimonial.since}</span>
+					<span className="text-rotulo text-ink-3">{testimonial.since}</span>
 				</span>
 			</figcaption>
 
@@ -29,7 +29,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
 				))}
 			</div>
 
-			<blockquote className="text-[15px] leading-relaxed text-ink-2">
+			<blockquote className="text-corpo leading-relaxed text-ink-2">
 				“{testimonial.text}”
 			</blockquote>
 		</figure>

@@ -67,8 +67,8 @@ export const STEPS: Step[] = [
 		title: "Doe e acompanhe",
 		description:
 			"Coletamos o leite e você acompanha cada etapa pela plataforma em tempo real.",
-		badge: "bg-eva-fill",
-		accent: "text-eva",
+		badge: "bg-blue-deep-fill",
+		accent: "text-blue-deep",
 	},
 ];
 
@@ -109,11 +109,11 @@ export const METRICS: Metric[] = [
 	},
 	{
 		Icon: Heart,
-		iconClassName: "size-6 fill-eva text-eva",
-		iconBg: "bg-eva-tint",
+		iconClassName: "size-6 fill-blue-bright text-blue-bright",
+		iconBg: "bg-blue-tint",
 		value: 98,
 		suffix: "%",
-		valueColor: "text-eva",
+		valueColor: "text-blue-bright",
 		label: "Satisfação",
 		sublabel: "Das nossas doadoras",
 	},
@@ -151,7 +151,7 @@ export const FOOTER_SOCIALS = [
 ];
 
 export const CTA_AVATARS = [
-	"bg-eva",
+	"bg-blue-soft",
 	"bg-mint",
 	"bg-blue-bright",
 	"bg-mint-bright",

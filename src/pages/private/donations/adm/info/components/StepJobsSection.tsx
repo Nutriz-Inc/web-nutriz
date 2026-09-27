@@ -40,7 +40,7 @@ export function StepJobsSection({
 
 	return (
 		<div className="flex flex-col gap-2.5">
-			<span className="text-[12px] font-semibold text-ink-2">
+			<span className="text-rotulo font-semibold text-ink-2">
 				Agendamentos com enfermeiros
 			</span>
 
@@ -69,7 +69,7 @@ export function StepJobsSection({
 					<select
 						value={nurseId}
 						onChange={(event) => setNurseId(event.target.value)}
-						className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-[13px] text-ink outline-none"
+						className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-apoio text-ink outline-none"
 					>
 						<option value="">Selecione um enfermeiro</option>
 						{nurses.map((nurse) => (
@@ -84,7 +84,7 @@ export function StepJobsSection({
 						onChange={(event) => setDescription(event.target.value)}
 						rows={2}
 						placeholder="Descrição do atendimento"
-						className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3"
+						className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3 py-2 text-apoio text-ink outline-none placeholder:text-ink-3"
 					/>
 
 					<div className="flex gap-2">
@@ -92,14 +92,14 @@ export function StepJobsSection({
 							type="button"
 							onClick={handleCreate}
 							disabled={disabled || !nurseId || !description}
-							className="rounded-full bg-blue-deep-fill hover:bg-blue-fill px-3 py-1.5 text-[12px] font-semibold text-white disabled:opacity-60"
+							className="rounded-full bg-blue-deep-fill hover:bg-blue-fill px-3 py-1.5 text-rotulo font-semibold text-white disabled:opacity-60"
 						>
 							Adicionar agendamento
 						</button>
 						<button
 							type="button"
 							onClick={() => setShowNewForm(false)}
-							className="rounded-lg px-3 py-1.5 text-[12px] font-semibold text-ink-2"
+							className="rounded-lg px-3 py-1.5 text-rotulo font-semibold text-ink-2"
 						>
 							Cancelar
 						</button>
@@ -110,7 +110,7 @@ export function StepJobsSection({
 					type="button"
 					onClick={() => setShowNewForm(true)}
 					disabled={disabled || nurses.length === 0}
-					className="flex items-center gap-1.5 self-start rounded-full border border-line bg-surface px-3.5 py-2 text-[13px] font-semibold text-blue-deep disabled:opacity-60"
+					className="flex items-center gap-1.5 self-start rounded-full border border-line bg-surface px-3.5 py-2 text-apoio font-semibold text-blue-deep disabled:opacity-60"
 				>
 					<Plus className="size-3.5" />
 					Adicionar agendamento

@@ -1,7 +1,11 @@
 .eva-fab {
 	position: fixed;
 	right: 20px;
-	bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+	bottom: calc(
+		20px +
+		var(--barra-inferior, 0px) +
+		env(safe-area-inset-bottom, 0px)
+	);
 	z-index: 60;
 	width: 60px;
 	height: 60px;

@@ -26,7 +26,7 @@ export function RefreshableList({
 
 			{updating && (
 				<div className="pointer-events-none absolute inset-x-0 top-4 flex justify-center">
-					<span className="flex items-center gap-2 rounded-full bg-surface px-3.5 py-1.5 text-[12px] font-semibold text-ink-2 shadow-soft">
+					<span className="flex items-center gap-2 rounded-full bg-surface px-3.5 py-1.5 text-rotulo font-semibold text-ink-2 shadow-soft">
 						<LoaderCircle className="size-3.5 animate-spin text-blue-bright" />
 						Atualizando…
 					</span>

@@ -7,11 +7,11 @@ import {
 } from "@/components/full/FilterChips";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { SearchBar } from "@/components/full/SearchBar";
-import { SkeletonList } from "@/components/full/SkeletonList";
 import { Page } from "@/components/layout/Page";
 import { ChangeLocationSheet } from "./components/ChangeLocationSheet";
 import { DonationPointCard } from "./components/DonationPointCard";
 import { DonationPointDetailSheet } from "./components/DonationPointDetailSheet";
+import { EsqueletoDosPontos } from "./components/EsqueletoDosPontos";
 import { MapPreview } from "./components/MapPreview";
 import {
 	type DonationPointsFilter,
@@ -47,7 +47,6 @@ export function DonationPointsPage() {
 
 	return (
 		<Page
-			loading={isLoading}
 			title="Pontos de Coleta"
 			description="Encontre o ponto de coleta mais próximo de você."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
@@ -86,12 +85,7 @@ export function DonationPointsPage() {
 					<div className="mx-auto mb-3 h-1 w-9 rounded-full bg-blue-tint-2 lg:hidden" />
 
 					{isLoading ? (
-						<SkeletonList
-							rows={4}
-							avatar={false}
-							className="px-1 py-2"
-							label="Carregando os pontos de coleta"
-						/>
+						<EsqueletoDosPontos />
 					) : points.length === 0 ? (
 						<EmptyState
 							size="sm"

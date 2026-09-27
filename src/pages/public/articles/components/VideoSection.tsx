@@ -1,4 +1,4 @@
-import { Clock, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import type { Article } from "../data";
 
 type VideoSectionProps = {
@@ -7,14 +7,21 @@ type VideoSectionProps = {
 
 export function VideoSection({ article }: VideoSectionProps) {
 	return (
-		<section className="mt-8">
-			<h2 className="flex items-center gap-1.5 text-rotulo font-bold uppercase tracking-wide text-blue-deep">
-				<Play className="size-3.5 fill-blue-deep" aria-hidden />
-				Assista e aprenda
-			</h2>
+		<section aria-labelledby="video-do-artigo" className="flex flex-col gap-4">
+			<div className="flex items-baseline justify-between gap-4">
+				<h2
+					id="video-do-artigo"
+					className="text-rotulo font-semibold uppercase tracking-[0.14em] text-ink-3"
+				>
+					Em vídeo
+				</h2>
+				<span className="text-rotulo tabular-nums text-ink-3">
+					{article.videoDuration}
+				</span>
+			</div>
 
 			{article.videoUrl ? (
-				<div className="mt-3 aspect-video overflow-hidden rounded-xl">
+				<div className="aspect-video overflow-hidden rounded-card bg-surface-3">
 					<iframe
 						src={article.videoUrl}
 						title={article.videoTitle}
@@ -24,24 +31,29 @@ export function VideoSection({ article }: VideoSectionProps) {
 					/>
 				</div>
 			) : (
-				<div className="relative mt-3 flex h-[280px] items-center justify-center overflow-hidden rounded-xl">
+				<div className="group relative isolate flex aspect-video items-end overflow-hidden rounded-card bg-blue-deep-fill">
 					<img
 						src={article.coverImage}
 						alt=""
-						aria-hidden
-						className="absolute inset-0 h-full w-full object-cover brightness-[0.45]"
+						aria-hidden="true"
+						className="absolute inset-0 -z-10 h-full w-full object-cover opacity-45 mix-blend-luminosity transition-transform duration-700 ease-out group-hover:scale-[1.03]"
 					/>
-
-					<span className="relative inline-flex items-center gap-1.5 rounded-full bg-black/50 px-3 py-1.5 text-rotulo font-semibold text-white">
-						<Clock className="size-3.5" aria-hidden />
-						Vídeo em breve
-					</span>
-
-					<div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10">
-						<p className="text-apoio font-semibold text-white">
-							{article.videoTitle}
-						</p>
-						<p className="text-rotulo text-white/80">{article.videoDuration}</p>
+					<div className="absolute inset-0 -z-10 bg-gradient-to-t from-blue-deep-fill via-blue-deep-fill/40 to-transparent" />
+					<div className="flex w-full items-end justify-between gap-4 p-5 sm:p-7">
+						<div className="flex flex-col gap-1">
+							<p className="text-rotulo font-semibold uppercase tracking-[0.14em] text-white/65">
+								Em breve
+							</p>
+							<p className="max-w-[28ch] font-display text-destaque font-bold leading-snug text-white sm:text-secao">
+								{article.videoTitle}
+							</p>
+						</div>
+						<span
+							aria-hidden="true"
+							className="flex size-14 shrink-0 items-center justify-center rounded-full bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-sm"
+						>
+							<Play className="size-5 translate-x-px fill-current" />
+						</span>
 					</div>
 				</div>
 			)}

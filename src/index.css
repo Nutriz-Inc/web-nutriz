@@ -1081,3 +1081,16 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 		transform: scaleY(0);
 	}
 }
+
+:is(input, textarea, select):is(:-webkit-autofill, :autofill),
+:is(input, textarea, select):is(:-webkit-autofill, :autofill):is(
+	:hover,
+	:focus,
+	:active
+) {
+	-webkit-text-fill-color: var(--ink);
+	caret-color: var(--ink);
+	transition:
+		background-color 600000s 0s,
+		color 600000s 0s;
+}

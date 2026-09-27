@@ -1,5 +1,6 @@
 import { useState } from "react";
 import agendaVazia from "@/assets/illustrations/agenda-vazia.svg";
+import { DateFilter } from "@/components/full/DateFilter";
 import { EmptyState } from "@/components/full/EmptyState";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
@@ -7,7 +8,6 @@ import { useAuth } from "@/hooks/use-auth";
 import { EnumJobStatus } from "@/services/types/i-job";
 import { EnumUserType } from "@/services/types/i-user";
 import { AppointmentCard } from "./components/AppointmentCard";
-import { DateFilter } from "./components/DateFilter";
 import { LoadMoreButton } from "./components/LoadMoreButton";
 import { StatusTabs } from "./components/StatusTabs";
 import { useAppointmentsList } from "./hooks";

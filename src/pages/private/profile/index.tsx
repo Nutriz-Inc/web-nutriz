@@ -239,6 +239,7 @@ export function ProfilePage() {
 			skeleton={
 				<EsqueletoDePerfil
 					rotulo="Carregando o seu perfil"
+					comAbas={auth?.type === EnumUserType.Common}
 					className="lg:max-w-[1400px]"
 				/>
 			}

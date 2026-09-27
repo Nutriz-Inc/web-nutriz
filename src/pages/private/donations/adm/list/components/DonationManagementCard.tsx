@@ -1,9 +1,8 @@
-import { Calendar, CreditCard } from "lucide-react";
+import { Calendar, CreditCard, Repeat } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { StatusBadge } from "@/components/full/StatusBadge";
 import { StepBadge } from "@/components/full/StepBadge";
 import { getInitials } from "@/components/layout/utils";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { formatCpf, formatDateBR } from "@/utils/formatter";
 import { donationToken, STEP_DISPLAY } from "@/utils/status";
@@ -54,6 +53,16 @@ export function DonationManagementCard({
 					<p className="truncate text-corpo font-semibold text-ink">
 						{donation.userName}
 					</p>
+					{donation.isRecurrent ? (
+						<span className="flex items-center gap-1 text-rotulo font-semibold text-teal">
+							<Repeat
+								className="size-3 shrink-0"
+								strokeWidth={2.2}
+								aria-hidden="true"
+							/>
+							Doadora recorrente
+						</span>
+					) : null}
 					<span className="truncate text-rotulo text-ink-3">
 						{donation.id_donation}
 					</span>
@@ -71,11 +80,6 @@ export function DonationManagementCard({
 					label={rotuloDaEtapa(donation)}
 					size="md"
 				/>
-				{donation.isRecurrent && (
-					<Badge tone="teal" size="md">
-						Recorrente
-					</Badge>
-				)}
 			</div>
 
 			<div className="h-px bg-line lg:hidden" />

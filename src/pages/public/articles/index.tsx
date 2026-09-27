@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { AppHeader } from "@/components/layout/AppHeader";
+import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EASE_OUT } from "@/lib/easing";
@@ -10,7 +11,6 @@ import { ArticleBlocks } from "./components/ArticleBlocks";
 import { AutoraDoArtigo } from "./components/AutoraDoArtigo";
 import { CabecalhoDoArtigo } from "./components/CabecalhoDoArtigo";
 import { ContinueLendo } from "./components/ContinueLendo";
-import { DonateCta } from "./components/DonateCta";
 import { IndiceDoArtigo } from "./components/IndiceDoArtigo";
 import { NumerosDaDoacao } from "./components/NumerosDaDoacao";
 import { ProgressoDeLeitura } from "./components/ProgressoDeLeitura";
@@ -43,11 +43,11 @@ export function ArticlesScreen() {
 			};
 
 	return (
-		<div className="min-h-dvh bg-canvas font-body [&_button]:cursor-pointer">
+		<div className="flex min-h-dvh flex-col bg-canvas font-body [&_button]:cursor-pointer">
 			<ProgressoDeLeitura />
 			<AppHeader />
 
-			<div className="mx-auto w-full max-w-[1200px] px-5 pt-6 pb-20 sm:px-6 lg:px-8 lg:pt-10 lg:pb-28">
+			<div className="mx-auto w-full max-w-[1200px] grow px-5 pt-6 pb-20 sm:px-6 lg:px-8 lg:pt-10 lg:pb-28">
 				<Page>
 					{isAuthenticated ? null : (
 						<Link
@@ -90,11 +90,11 @@ export function ArticlesScreen() {
 								article={article}
 								onSelectArticle={handleSelectArticle}
 							/>
-							{isAuthenticated ? null : <DonateCta />}
 						</div>
 					</main>
 				</Page>
 			</div>
+			<Footer />
 		</div>
 	);
 }

@@ -20,7 +20,7 @@ export function RotaEmAndamentoLinha({ rota }: { rota: RotaEmAndamento }) {
 	return (
 		<Link
 			to={`/rotas/${rota.id_rota}`}
-			className="group flex flex-col gap-2.5 rounded-card-sm border border-line bg-surface px-4 py-3.5 transition-[border-color,box-shadow] duration-200 hover:border-line-strong hover:shadow-soft"
+			className="group flex flex-col gap-2 border-t border-line px-1 py-3 transition-colors duration-150 hover:bg-surface-2"
 		>
 			<div className="flex items-baseline justify-between gap-3">
 				<p className="truncate text-[14px] font-semibold text-ink">

@@ -13,7 +13,7 @@ export function ListaDeDadosEsqueleto({
 		<div
 			aria-busy="true"
 			aria-live="polite"
-			className="flex flex-col gap-4 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-5"
+			className="esqueleto-surge flex flex-col gap-4 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-5"
 		>
 			<span className="sr-only">{rotulo}</span>
 

@@ -1,5 +1,6 @@
 import { CalendarX } from "lucide-react";
 import { useParams } from "react-router-dom";
+import { EsqueletoDeDetalhe } from "@/components/full/EsqueletoDeDetalhe";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
@@ -27,6 +28,12 @@ export function AppointmentDetailPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Nurse}
 			loading={isLoading}
+			skeleton={
+				<EsqueletoDeDetalhe
+					rotulo="Carregando o agendamento"
+					className="lg:max-w-[1200px]"
+				/>
+			}
 			error={isError ? error : undefined}
 			onRetry={() => refetch()}
 			backTo="/agendamentos"

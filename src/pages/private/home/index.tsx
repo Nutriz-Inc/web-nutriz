@@ -1,5 +1,6 @@
 import { Droplet, Gift, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { EsqueletoDaHome } from "@/components/full/EsqueletoDaHome";
 import { Reveal } from "@/components/full/Reveal";
 import { SectionHeading } from "@/components/full/SectionHeading";
 import { AppHeader } from "@/components/layout/AppHeader";
@@ -96,7 +97,11 @@ export function HomePage() {
 	const hasDonationInProgress = !!donationSteps && donationSteps.length > 0;
 
 	return (
-		<Page loading={loading} hasPermission={auth?.type === EnumUserType.Common}>
+		<Page
+			loading={loading}
+			skeleton={<EsqueletoDaHome />}
+			hasPermission={auth?.type === EnumUserType.Common}
+		>
 			<div className="relative isolate flex min-h-dvh flex-col overflow-hidden bg-canvas font-body">
 				<AppHeader />
 

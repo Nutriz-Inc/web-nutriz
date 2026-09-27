@@ -3,6 +3,7 @@ import { type FormEvent, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import { DateFilter } from "@/components/full/DateFilter";
 import { EmptyState } from "@/components/full/EmptyState";
+import { EsqueletoDeCartoes } from "@/components/full/EsqueletoDeCartoes";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
 import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
@@ -127,6 +128,14 @@ export function RoutesListPage() {
 			title="Rotas"
 			description={`${total} rotas cadastradas`}
 			loading={isLoading}
+			skeleton={
+				<EsqueletoDeCartoes
+					rotulo="Carregando as rotas"
+					buscas={4}
+					comMapa
+					className="lg:max-w-[1400px]"
+				/>
+			}
 			error={isError ? error : undefined}
 			onRetry={() => refetch()}
 			hasPermission={auth?.type !== EnumUserType.Common}

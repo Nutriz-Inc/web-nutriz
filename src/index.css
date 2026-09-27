@@ -880,35 +880,53 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 	}
 }
 
-@keyframes nz-brilho {
-	100% {
-		transform: translateX(100%);
+@utility esqueleto {
+	background-color: var(--esqueleto-base);
+	background-image: linear-gradient(
+		100deg,
+		transparent 35%,
+		var(--esqueleto-brilho) 50%,
+		transparent 65%
+	);
+	background-size: 200vw 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	animation: nz-varrer 1.9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes nz-varrer {
+	from {
+		background-position: 100vw 0;
+	}
+	to {
+		background-position: -100vw 0;
 	}
 }
 
-@utility esqueleto {
-	position: relative;
-	overflow: hidden;
-	background-color: var(--surface-2);
+@utility esqueleto-surge {
+	animation: nz-aparecer-esqueleto 320ms var(--ease-out) 150ms both;
+}
 
-	&::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		transform: translateX(-100%);
-		background: linear-gradient(
-			90deg,
-			transparent 0%,
-			color-mix(in oklch, var(--surface), transparent 35%) 50%,
-			transparent 100%
-		);
-		animation: nz-brilho 1.6s ease-in-out infinite;
+@keyframes nz-aparecer-esqueleto {
+	from {
+		opacity: 0;
 	}
+}
+
+:root {
+	--esqueleto-base: oklch(0.935 0.014 255);
+	--esqueleto-brilho: oklch(1 0 0 / 0.75);
+}
+
+:root[data-tema="escuro"] {
+	--esqueleto-base: oklch(0.29 0.022 258);
+	--esqueleto-brilho: oklch(1 0 0 / 0.07);
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.esqueleto::after {
+	.esqueleto {
 		animation: none;
+		background-image: none;
 	}
 }
 

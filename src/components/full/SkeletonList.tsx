@@ -8,6 +8,8 @@ type SkeletonListProps = {
 	label?: string;
 };
 
+const LARGURAS = ["w-1/2", "w-2/5", "w-3/5"];
+
 export function SkeletonList({
 	rows = 3,
 	avatar = true,
@@ -16,9 +18,10 @@ export function SkeletonList({
 }: SkeletonListProps) {
 	return (
 		<div
+			role="status"
 			aria-busy="true"
 			aria-live="polite"
-			className={cn("flex w-full flex-col gap-3", className)}
+			className={cn("esqueleto-surge flex w-full flex-col gap-3", className)}
 		>
 			<span className="sr-only">{label}</span>
 
@@ -32,7 +35,12 @@ export function SkeletonList({
 					{avatar && <Skeleton className="size-10 shrink-0 rounded-full" />}
 
 					<div className="flex min-w-0 flex-1 flex-col gap-2">
-						<Skeleton className="h-3.5 w-1/2 rounded-full" />
+						<Skeleton
+							className={cn(
+								"h-3.5 rounded-full",
+								LARGURAS[indice % LARGURAS.length],
+							)}
+						/>
 						<Skeleton className="h-3 w-3/4 rounded-full" />
 					</div>
 

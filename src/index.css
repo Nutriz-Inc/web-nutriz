@@ -945,3 +945,97 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 		display: none;
 	}
 }
+
+@keyframes nz-subir {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+}
+
+@utility entra {
+	animation: nz-subir 420ms var(--ease-out) both;
+	animation-delay: calc(min(var(--i, 0), 12) * 40ms);
+}
+
+@utility cascata {
+	& > * {
+		animation: nz-subir 460ms var(--ease-out) both;
+	}
+	& > :nth-child(2) {
+		animation-delay: 60ms;
+	}
+	& > :nth-child(3) {
+		animation-delay: 120ms;
+	}
+	& > :nth-child(4) {
+		animation-delay: 170ms;
+	}
+	& > :nth-child(n + 5) {
+		animation-delay: 210ms;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	[data-slot="sheet-content"][data-state="open"] [data-slot="sheet-header"] {
+		animation: nz-subir 380ms var(--ease-out) 60ms both;
+	}
+
+	[data-slot="sheet-content"][data-state="open"] .area-rolavel > * {
+		animation: nz-subir 420ms var(--ease-out) 110ms both;
+	}
+
+	[data-slot="sheet-content"][data-state="open"] .area-rolavel > :nth-child(2) {
+		animation-delay: 150ms;
+	}
+
+	[data-slot="sheet-content"][data-state="open"] .area-rolavel > :nth-child(3) {
+		animation-delay: 190ms;
+	}
+
+	[data-slot="sheet-content"][data-state="open"]
+		.area-rolavel
+		> :nth-child(n + 4) {
+		animation-delay: 230ms;
+	}
+
+	[data-slot="sheet-content"][data-state="open"] .area-rolavel ~ * {
+		animation: nz-subir 380ms var(--ease-out) 240ms both;
+	}
+
+	[data-slot="sheet-close"] svg,
+	svg.lucide-plus,
+	svg.lucide-arrow-right,
+	svg.lucide-arrow-up-right,
+	svg.lucide-chevron-right,
+	svg.lucide-refresh-cw,
+	svg.lucide-rotate-cw {
+		transition: transform 280ms var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		[data-slot="sheet-close"]:hover svg,
+		:is(button, a):hover > svg.lucide-plus {
+			transform: rotate(90deg);
+		}
+
+		:is(button, a):hover svg:is(.lucide-arrow-right, .lucide-chevron-right) {
+			transform: translateX(2px);
+		}
+
+		:is(button, a):hover svg.lucide-arrow-up-right {
+			transform: translate(1.5px, -1.5px);
+		}
+
+		:is(button, a):hover > svg:is(.lucide-refresh-cw, .lucide-rotate-cw) {
+			transform: rotate(120deg);
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.entra,
+	.cascata > * {
+		animation: none;
+	}
+}

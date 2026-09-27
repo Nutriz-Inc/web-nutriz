@@ -7,8 +7,8 @@ type CabecalhoDoArtigoProps = {
 
 export function CabecalhoDoArtigo({ article }: CabecalhoDoArtigoProps) {
 	return (
-		<header className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-end lg:gap-14">
-			<div className="flex flex-col gap-6 lg:pb-4">
+		<header className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-14">
+			<div className="flex flex-col gap-6">
 				<p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-rotulo font-semibold uppercase tracking-[0.14em] text-blue-bright">
 					{article.category}
 					<span aria-hidden="true" className="h-px w-6 bg-line-strong" />
@@ -47,7 +47,7 @@ export function CabecalhoDoArtigo({ article }: CabecalhoDoArtigoProps) {
 					alt={article.coverAlt}
 					width={article.coverWidth}
 					height={article.coverHeight}
-					className="aspect-[4/3] w-full object-cover lg:aspect-[4/5]"
+					className="aspect-[3/2] w-full object-cover"
 				/>
 			</figure>
 		</header>

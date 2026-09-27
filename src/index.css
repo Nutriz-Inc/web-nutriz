@@ -914,13 +914,15 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 }
 
 :root {
-	--esqueleto-base: oklch(0.935 0.014 255);
-	--esqueleto-brilho: oklch(1 0 0 / 0.75);
+	--esqueleto-base-padrao: oklch(0.935 0.014 255);
+	--esqueleto-brilho-padrao: oklch(1 0 0 / 0.75);
+	--esqueleto-base: var(--esqueleto-base-padrao);
+	--esqueleto-brilho: var(--esqueleto-brilho-padrao);
 }
 
 :root[data-tema="escuro"] {
-	--esqueleto-base: oklch(0.29 0.022 258);
-	--esqueleto-brilho: oklch(1 0 0 / 0.07);
+	--esqueleto-base-padrao: oklch(0.29 0.022 258);
+	--esqueleto-brilho-padrao: oklch(1 0 0 / 0.07);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1120,4 +1122,14 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 	transform-origin: left center;
 	animation: nz-leite-corre 650ms var(--ease-out) both;
 	animation-delay: calc(var(--i, 0) * 180ms + 150ms);
+}
+
+@utility esqueleto-padrao {
+	--esqueleto-base: var(--esqueleto-base-padrao);
+	--esqueleto-brilho: var(--esqueleto-brilho-padrao);
+}
+
+@utility esqueleto-no-azul {
+	--esqueleto-base: oklch(1 0 0 / 0.14);
+	--esqueleto-brilho: oklch(1 0 0 / 0.22);
 }

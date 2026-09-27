@@ -8,10 +8,13 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { useBarraInferior } from "@/hooks/use-barra-inferior";
 import { EnumUserType } from "@/services/types/i-user";
-import { getStepNumber } from "@/utils/constants";
-import { getNumberOfDonationSteps } from "@/utils/donation";
-import { DonationCard } from "./components/DonationCard";
+import { ConviteParaDoar } from "./components/ConviteParaDoar";
+import { DoacaoEmAndamento } from "./components/DoacaoEmAndamento";
+import { EsqueletoDasDoacoes } from "./components/EsqueletoDasDoacoes";
+import { HistoricoDeDoacoes } from "./components/HistoricoDeDoacoes";
+import { ResumoDaJornada } from "./components/ResumoDaJornada";
 import { useDonationsList } from "./hooks";
+import type { DoacaoDaLista } from "./types";
 
 export function DonationsPage() {
 	const barra = useBarraInferior();
@@ -22,15 +25,26 @@ export function DonationsPage() {
 
 	const donations = data?.data ?? [];
 
-	const orderedDonations = [...donations]
+	const doacoes: DoacaoDaLista[] = [...donations]
 		.sort((a, b) => a.created_at.localeCompare(b.created_at))
-		.map((donation, index) => ({ donation, number: index + 1 }))
+		.map((donation, index) => ({
+			id: donation.id_donation,
+			numero: index + 1,
+			ativa: donation.is_active,
+			comErro: donation.has_error,
+			criadaEm: donation.created_at,
+			etapaAtual: donation.current_step ?? undefined,
+			recorrente: donation.is_recurrent,
+		}))
 		.sort((a, b) => {
-			if (a.donation.is_active !== b.donation.is_active) {
-				return Number(b.donation.is_active) - Number(a.donation.is_active);
+			if (a.ativa !== b.ativa) {
+				return Number(b.ativa) - Number(a.ativa);
 			}
-			return b.donation.created_at.localeCompare(a.donation.created_at);
+			return b.criadaEm.localeCompare(a.criadaEm);
 		});
+
+	const emAndamento = doacoes.find((doacao) => doacao.ativa);
+	const historico = doacoes.filter((doacao) => doacao !== emAndamento);
 
 	function goToCreation() {
 		navigate("/nova-doacao");
@@ -59,19 +73,12 @@ export function DonationsPage() {
 			}
 		>
 			<div className="-mx-4 -mt-4 -mb-16 flex min-h-[calc(100vh-69px)] flex-col bg-canvas sm:-mx-6 sm:-mt-6 lg:-mx-10">
-				<div className="flex flex-1 flex-col gap-4 px-4 pb-28 pt-6 sm:px-6 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:px-10 lg:pb-4 lg:pt-8">
+				<div className="flex flex-1 flex-col gap-4 px-4 pb-28 pt-6 sm:px-6 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-8 lg:px-10 lg:pb-12 lg:pt-8">
 					{isLoading ? (
-						<div className="flex flex-col gap-3">
-							{[0, 1, 2].map((index) => (
-								<div
-									key={index}
-									className="h-24 w-full animate-pulse rounded-2xl bg-surface/70"
-								/>
-							))}
-						</div>
+						<EsqueletoDasDoacoes />
 					) : isError ? (
 						<ErrorState error={error} onRetry={() => refetch()} />
-					) : donations.length === 0 ? (
+					) : doacoes.length === 0 ? (
 						<div className="rounded-card-sm bg-surface shadow-soft">
 							<EmptyState
 								illustration={doacaoVazia}
@@ -90,38 +97,31 @@ export function DonationsPage() {
 							/>
 						</div>
 					) : (
-						<div className="flex flex-col gap-3 lg:gap-4">
-							{orderedDonations.map(({ donation, number }) => {
-								const isInProgress = donation.is_active;
-								const hasCurrentStep = Boolean(donation.current_step);
-								const totalSteps = getNumberOfDonationSteps(
-									donation.is_recurrent,
-								);
-								const currentStepNumber = donation.current_step
-									? getStepNumber(donation.current_step, donation.is_recurrent)
-									: 0;
-
-								return (
-									<DonationCard
-										key={donation.id_donation}
-										number={number}
-										isInProgress={isInProgress}
-										hasError={donation.has_error}
-										createdAt={donation.created_at}
-										currentStep={isInProgress ? currentStepNumber : totalSteps}
-										totalSteps={totalSteps}
-										isRecurrent={donation.is_recurrent}
-										stepLabel={isInProgress ? donation.current_step : undefined}
-										isClickable={hasCurrentStep}
-										onClick={
-											hasCurrentStep
-												? () => goToDetail(donation.id_donation)
+						<>
+							<div className="cascata grid items-stretch gap-4 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] lg:gap-6">
+								{emAndamento ? (
+									<DoacaoEmAndamento
+										doacao={emAndamento}
+										onAbrir={
+											emAndamento.etapaAtual
+												? () => goToDetail(emAndamento.id)
 												: undefined
 										}
 									/>
-								);
-							})}
-						</div>
+								) : (
+									<ConviteParaDoar onDoar={goToCreation} />
+								)}
+								<ResumoDaJornada doacoes={doacoes} />
+							</div>
+
+							{historico.length > 0 ? (
+								<HistoricoDeDoacoes
+									doacoes={historico}
+									podeAbrir={(doacao) => Boolean(doacao.etapaAtual)}
+									onAbrir={(doacao) => goToDetail(doacao.id)}
+								/>
+							) : null}
+						</>
 					)}
 				</div>
 

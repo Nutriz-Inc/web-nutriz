@@ -1046,3 +1046,9 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 		animation: none;
 	}
 }
+
+@keyframes nz-crescer {
+	from {
+		transform: scaleY(0);
+	}
+}

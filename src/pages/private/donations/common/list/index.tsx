@@ -12,7 +12,7 @@ import { ConviteParaDoar } from "./components/ConviteParaDoar";
 import { DoacaoEmAndamento } from "./components/DoacaoEmAndamento";
 import { EsqueletoDasDoacoes } from "./components/EsqueletoDasDoacoes";
 import { HistoricoDeDoacoes } from "./components/HistoricoDeDoacoes";
-import { ImpactoDaDoadora } from "./components/ImpactoDaDoadora";
+import { ResumoDaJornada } from "./components/ResumoDaJornada";
 import { useDonationsList, useLeiteDoado } from "./hooks";
 import type { DoacaoDaLista } from "./types";
 
@@ -112,19 +112,15 @@ export function DonationsPage() {
 								) : (
 									<ConviteParaDoar onDoar={goToCreation} />
 								)}
-								<ImpactoDaDoadora mlDoados={leiteDoado.data ?? 0} />
+								<ResumoDaJornada
+									doacoes={doacoes}
+									mlDoados={leiteDoado.data ?? 0}
+								/>
 							</div>
 
 							{historico.length > 0 ? (
 								<HistoricoDeDoacoes
 									doacoes={historico}
-									primeiraEm={doacoes.reduce<string | undefined>(
-										(antiga, doacao) =>
-											!antiga || doacao.criadaEm < antiga
-												? doacao.criadaEm
-												: antiga,
-										undefined,
-									)}
 									podeAbrir={(doacao) => Boolean(doacao.etapaAtual)}
 									onAbrir={(doacao) => goToDetail(doacao.id)}
 								/>

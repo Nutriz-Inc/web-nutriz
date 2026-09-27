@@ -1,92 +1,100 @@
-import { X } from "lucide-react";
-import {
-	BuscaPorCampo,
-	type CampoDeBusca,
-} from "@/components/full/BuscaPorCampo";
-import { DateFilter } from "@/components/full/DateFilter";
+import { Search, X } from "lucide-react";
+import type { FormEvent } from "react";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
 import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
+import { SearchBar } from "@/components/full/SearchBar";
 import { Button } from "@/components/ui/button";
+import { DateFilter } from "../../../list/components/DateFilter";
 import { STATUS_FILTER_OPTIONS, type StatusFilter } from "../constants";
 
-export type CampoDoAgendamento = "doadora" | "enfermagem";
-
-const CAMPOS_DO_AGENDAMENTO: CampoDeBusca<CampoDoAgendamento>[] = [
-	{
-		chave: "doadora",
-		rotulo: "Doadora",
-		placeholder: "Buscar pelo nome da doadora",
-	},
-	{
-		chave: "enfermagem",
-		rotulo: "Enfermagem",
-		placeholder: "Buscar pela enfermagem responsável",
-	},
-];
-
 type AppointmentFiltersProps = {
-	campo: CampoDoAgendamento;
-	onCampoChange: (campo: CampoDoAgendamento) => void;
-	termo: string;
-	onTermoChange: (valor: string) => void;
+	donorName: string;
+	onDonorNameChange: (value: string) => void;
+	nurseName: string;
+	onNurseNameChange: (value: string) => void;
 	dateFilter: string;
 	onDateFilterChange: (value: string) => void;
 	status: StatusFilter;
 	onStatusChange: (value: StatusFilter) => void;
-	temFiltro: boolean;
+	onApply: () => void;
 	onClear: () => void;
 };
 
 export function AppointmentFilters({
-	campo,
-	onCampoChange,
-	termo,
-	onTermoChange,
+	donorName,
+	onDonorNameChange,
+	nurseName,
+	onNurseNameChange,
 	dateFilter,
 	onDateFilterChange,
 	status,
 	onStatusChange,
-	temFiltro,
+	onApply,
 	onClear,
 }: AppointmentFiltersProps) {
+	function handleSubmit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		onApply();
+	}
+
 	return (
-		<div className="flex flex-col gap-4 lg:gap-5">
-			<BuscaPorCampo
-				campos={CAMPOS_DO_AGENDAMENTO}
-				campo={campo}
-				aoTrocarCampo={onCampoChange}
-				valor={termo}
-				aoMudar={onTermoChange}
-			/>
-			<PainelDeFiltros>
-				<GrupoDeFiltro rotulo="Situação do agendamento">
-					<FilterChips
-						options={STATUS_FILTER_OPTIONS}
-						value={status}
-						onChange={onStatusChange}
-					/>
-				</GrupoDeFiltro>
-				<GrupoDeFiltro rotulo="Data do agendamento">
-					<DateFilter
-						value={dateFilter}
-						onChange={onDateFilterChange}
-						semRotulo
-					/>
-				</GrupoDeFiltro>
-				{temFiltro && (
-					<Button
-						variant="ghost"
-						size="pill"
-						type="button"
-						onClick={onClear}
-						className="self-start text-ink-2 lg:ml-auto lg:self-end"
-					>
-						<X className="size-4" />
-						Limpar filtros
-					</Button>
-				)}
-			</PainelDeFiltros>
+		<div className="flex flex-col gap-[18px] lg:gap-5">
+			<form onSubmit={handleSubmit} className="flex flex-col gap-[18px]">
+				<PainelDeFiltros>
+					<GrupoDeFiltro rotulo="Situação do agendamento">
+						<FilterChips
+							options={STATUS_FILTER_OPTIONS}
+							value={status}
+							onChange={onStatusChange}
+						/>
+					</GrupoDeFiltro>
+					<GrupoDeFiltro rotulo="Data do agendamento">
+						<DateFilter
+							value={dateFilter}
+							onChange={onDateFilterChange}
+							semRotulo
+						/>
+					</GrupoDeFiltro>
+				</PainelDeFiltros>
+				<div className="flex flex-col gap-2.5 lg:flex-row lg:items-center">
+					<div className="lg:flex-1">
+						<SearchBar
+							value={donorName}
+							onChange={onDonorNameChange}
+							placeholder="Buscar por doadora..."
+						/>
+					</div>
+					<div className="lg:flex-1">
+						<SearchBar
+							value={nurseName}
+							onChange={onNurseNameChange}
+							placeholder="Buscar por responsável..."
+						/>
+					</div>
+					<div className="grid grid-cols-2 gap-2.5 lg:flex lg:shrink-0 lg:gap-2.5">
+						<Button
+							variant="primary"
+							size="pill"
+							type="submit"
+							className="shrink-0"
+						>
+							<Search className="size-4" />
+							Aplicar filtro
+						</Button>
+						<Button
+							variant="neutral"
+							size="pill"
+							type="button"
+							onClick={onClear}
+							className="shrink-0"
+						>
+							<X className="size-4" />
+							Limpar filtro
+						</Button>
+					</div>
+				</div>
+			</form>
 		</div>
 	);
 }

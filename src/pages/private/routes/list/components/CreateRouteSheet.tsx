@@ -131,7 +131,7 @@ export function CreateRouteSheet() {
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto pr-0.5">
+				<div className="flex min-h-0 flex-1 flex-col gap-6 area-rolavel">
 					<section className="flex flex-col gap-4">
 						<SectionLabel>Identificação</SectionLabel>
 

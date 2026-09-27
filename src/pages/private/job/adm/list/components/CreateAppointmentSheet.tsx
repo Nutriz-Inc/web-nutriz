@@ -87,7 +87,7 @@ export function CreateAppointmentSheet({
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto pr-0.5">
+				<div className="flex min-h-0 flex-1 flex-col gap-5 area-rolavel">
 					<div className="flex flex-col gap-2.5">
 						<div className="flex items-center justify-between gap-3">
 							<p className="text-apoio font-semibold text-ink">
@@ -112,7 +112,7 @@ export function CreateAppointmentSheet({
 								description="Não há etapas aguardando agendamento no momento."
 							/>
 						) : (
-							<div className="flex max-h-[280px] flex-col gap-2.5 overflow-y-auto pr-0.5">
+							<div className="flex max-h-[280px] flex-col gap-2.5 area-rolavel">
 								{steps.map((step) => (
 									<PendingStepOption
 										key={step.id_donation_step}

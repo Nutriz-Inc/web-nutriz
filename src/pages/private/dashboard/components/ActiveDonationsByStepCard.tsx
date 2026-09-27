@@ -82,7 +82,7 @@ export function ActiveDonationsByStepCard({
 										key={item.etapa}
 										fill={
 											item.ehGargalo
-												? CORES_DO_GRAFICO.principal
+												? CORES_DO_GRAFICO.roxo
 												: CORES_DO_GRAFICO.trilho
 										}
 									/>

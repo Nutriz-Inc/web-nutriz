@@ -10,7 +10,7 @@ type RecurrenceCardProps = {
 };
 
 const configuracao = {
-	recorrencia: { label: "Recorrência", color: CORES_DO_GRAFICO.principal },
+	recorrencia: { label: "Recorrência", color: CORES_DO_GRAFICO.azul },
 } satisfies ChartConfig;
 
 export function RecurrenceCard({ rate }: RecurrenceCardProps) {

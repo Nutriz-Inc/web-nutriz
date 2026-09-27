@@ -95,7 +95,7 @@ export function FinishRouteSheet({
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-0.5">
+				<div className="flex min-h-0 flex-1 flex-col gap-4 area-rolavel">
 					{excedeu && (
 						<p className="flex items-start gap-2 rounded-xl bg-danger-tint px-3.5 py-3 text-apoio font-semibold text-danger">
 							<AlertTriangle className="mt-px size-4 shrink-0" />

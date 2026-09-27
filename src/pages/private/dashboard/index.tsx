@@ -1,6 +1,5 @@
+import { AlertTriangle, Clock } from "lucide-react";
 import { useState } from "react";
-import { CountUp } from "@/components/full/CountUp";
-import { FaixaDeIndicadores } from "@/components/full/FaixaDeIndicadores";
 import { StaggerGroup } from "@/components/full/StaggerGroup";
 import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
@@ -21,6 +20,7 @@ import { RecurrenceCard } from "./components/RecurrenceCard";
 import { RegioesCard } from "./components/RegioesCard";
 import { RelatorioDoDashboard } from "./components/report/RelatorioDoDashboard";
 import { SatisfactionCard } from "./components/SatisfactionCard";
+import { StatCard } from "./components/StatCard";
 import type { PeriodPreset } from "./constants";
 import { useQueryAdmDashboard } from "./hooks";
 import { useIndicador } from "./hooks/use-indicadores";
@@ -73,53 +73,6 @@ export function AdmDashboardPage() {
 	const logisticaDoRelatorio = useIndicador("logistica", filtroDeIndicadores);
 	const { emitidoEm, gerarRelatorio } = useRelatorio(!!data);
 
-	const doacoesAtivas = (data?.active_donations_by_step ?? []).reduce(
-		(soma, etapa) => soma + etapa.count,
-		0,
-	);
-	const tempoDeResposta = data?.average_service_time_hours ?? null;
-	const naoConcluidas = data?.donations_with_error ?? 0;
-
-	const indicadores = [
-		{
-			chave: "litros",
-			rotulo: "Litros captados",
-			detalhe: "Todas as doadoras, no período",
-			tom: "marca" as const,
-			valor: (
-				<CountUp
-					value={(data?.total_milk_collected ?? 0) / 1000}
-					decimals={1}
-					suffix=" L"
-				/>
-			),
-		},
-		{
-			chave: "ativas",
-			rotulo: "Doações em andamento",
-			detalhe: "Em alguma etapa agora",
-			valor: <CountUp value={doacoesAtivas} />,
-		},
-		{
-			chave: "resposta",
-			rotulo: "Tempo médio de resposta",
-			detalhe: "Da triagem à 1ª coleta agendada",
-			valor:
-				tempoDeResposta === null ? (
-					"—"
-				) : (
-					<CountUp value={tempoDeResposta} decimals={1} suffix="h" />
-				),
-		},
-		{
-			chave: "nao-concluidas",
-			rotulo: "Doações não concluídas",
-			detalhe: "Interrompidas no período",
-			tom: naoConcluidas > 0 ? ("perigo" as const) : ("neutro" as const),
-			valor: <CountUp value={naoConcluidas} />,
-		},
-	];
-
 	return (
 		<Page
 			title="Dashboard"
@@ -160,11 +113,6 @@ export function AdmDashboardPage() {
 					onApplyCustom={handleApplyCustom}
 				/>
 
-				<FaixaDeIndicadores
-					rotulo="Resumo do período"
-					indicadores={indicadores}
-				/>
-
 				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
 					<StaggerItem className="h-full">
 						<CadeiaFriaCard filtro={filtroDeIndicadores} />
@@ -176,17 +124,19 @@ export function AdmDashboardPage() {
 
 				<FunilCard filtro={filtroDeIndicadores} />
 
-				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-					<StaggerItem className="h-full">
-						<MilkCollectedCard
-							total={data?.total_milk_collected ?? 0}
-							byMonth={data?.milk_collected_by_month ?? []}
-						/>
-					</StaggerItem>
+				<MilkCollectedCard
+					total={data?.total_milk_collected ?? 0}
+					byMonth={data?.milk_collected_by_month ?? []}
+				/>
+
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
 					<StaggerItem className="h-full">
 						<ActiveDonationsByStepCard
 							activeDonationsByStep={data?.active_donations_by_step ?? []}
 						/>
+					</StaggerItem>
+					<StaggerItem className="h-full">
+						<SatisfactionCard feedbackByScore={data?.feedback_by_score ?? []} />
 					</StaggerItem>
 				</StaggerGroup>
 
@@ -208,14 +158,38 @@ export function AdmDashboardPage() {
 
 				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
 					<StaggerItem className="h-full">
-						<SatisfactionCard feedbackByScore={data?.feedback_by_score ?? []} />
+						<StatCard
+							icon={<Clock className="size-4 text-blue-deep" />}
+							iconBg="bg-blue-tint"
+							title="Tempo Médio de Resposta"
+							subtitle="Triagem até a 1ª coleta agendada"
+							value={data?.average_service_time_hours ?? null}
+							decimals={1}
+							suffix="h"
+							footnote="Média de horas até o primeiro agendamento"
+						/>
+					</StaggerItem>
+					<StaggerItem className="h-full">
+						<StatCard
+							icon={<AlertTriangle className="size-4 text-eva-deep" />}
+							iconBg="bg-danger-tint"
+							title="Doações não concluídas"
+							subtitle="Ocorrências no período selecionado"
+							value={data?.donations_with_error ?? 0}
+							valueColor="text-eva-deep"
+							footnote="Doações que não puderam ser completadas"
+						/>
+					</StaggerItem>
+				</StaggerGroup>
+
+				<StaggerGroup className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+					<StaggerItem className="h-full">
+						<MotoristasCard filtro={filtroDeIndicadores} />
 					</StaggerItem>
 					<StaggerItem className="h-full">
 						<RegioesCard filtro={filtroDeIndicadores} />
 					</StaggerItem>
 				</StaggerGroup>
-
-				<MotoristasCard filtro={filtroDeIndicadores} />
 			</div>
 		</Page>
 	);

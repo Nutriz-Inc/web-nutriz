@@ -119,7 +119,26 @@ export type Regioes = {
 	}[];
 };
 
+export type HorarioDaAgenda = {
+	hora: number;
+	agendados: number;
+	vagas: number;
+	lotado: boolean;
+};
+
+export type AgendaDoDia = {
+	data: string;
+	capacidade_por_horario: number;
+	capacidade_por_dia: number;
+	agendados_no_dia: number;
+	vagas_no_dia: number;
+	dia_lotado: boolean;
+	agendados_fora_do_expediente: number;
+	horarios: HorarioDaAgenda[];
+};
+
 export type ConsultasDeIndicadores = {
+	agenda: AgendaDoDia;
 	operacao_agora: OperacaoAgora;
 	cadeia_fria: CadeiaFria;
 	logistica: Logistica;
@@ -133,4 +152,6 @@ export type FiltroDeIndicadores = {
 	fim?: string;
 	periodo?: string;
 	agrupar_por?: "cidade" | "bairro";
+	data?: string;
+	ignorar?: string;
 };

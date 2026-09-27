@@ -80,11 +80,7 @@
 	}
 
 	.relatorio-logo {
-		box-sizing: content-box;
-		padding: 1.6mm 3mm;
-		border-radius: 999px;
-		background: #ffffff;
-		height: 6.5mm;
+		height: 8mm;
 		width: auto;
 		flex-shrink: 0;
 	}
@@ -511,5 +507,72 @@
 		padding: 2mm 0;
 		font-size: 8.5pt;
 		color: var(--r-tinta-3);
+	}
+
+	@page relatorio-continuo {
+		size: A4 portrait;
+		margin: 10mm 0;
+	}
+
+	.relatorio.relatorio--continua {
+		page: relatorio-continuo;
+		height: auto;
+		min-height: 0;
+		overflow: visible;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	.relatorio--continua .relatorio-secao {
+		break-inside: auto;
+	}
+
+	.relatorio--continua .relatorio-topo,
+	.relatorio--continua .relatorio-faixa {
+		break-inside: avoid;
+	}
+
+	.relatorio-tabela--lista {
+		font-size: 8pt;
+	}
+
+	.relatorio-tabela--lista th,
+	.relatorio-tabela--lista td,
+	.relatorio-tabela--lista th:not(:first-child),
+	.relatorio-tabela--lista td:not(:first-child) {
+		width: auto;
+		white-space: normal;
+		text-align: left;
+	}
+
+	.relatorio-tabela--lista td {
+		font-weight: 500;
+		color: var(--r-tinta);
+	}
+
+	.relatorio-tabela--lista td:first-child {
+		font-weight: 700;
+		color: var(--r-tinta);
+	}
+
+	.relatorio-tabela--lista tbody tr:last-child td {
+		background: transparent;
+		font-weight: 500;
+	}
+
+	.relatorio-tabela--lista tbody tr:last-child td:first-child {
+		font-weight: 700;
+	}
+
+	.relatorio-tabela--lista tbody tr:nth-child(even) td {
+		background: var(--r-tint-2);
+	}
+
+	.relatorio-tabela--lista tr {
+		break-inside: avoid;
+	}
+
+	.relatorio--continua .relatorio-rodape {
+		margin-top: 6mm;
 	}
 }

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { fundoBrancoNaImpressao } from "@/utils/fundo-branco-na-impressao";
 import {
 	consumirPedidoDeRelatorio,
 	subscribePedidoDeRelatorio,
@@ -51,6 +52,8 @@ export function useRelatorio(pronto: boolean) {
 		}
 
 		aguardando.current = false;
+		const restaurarFundo = fundoBrancoNaImpressao();
+		window.addEventListener("afterprint", restaurarFundo, { once: true });
 
 		const quadro = requestAnimationFrame(() => {
 			requestAnimationFrame(() => window.print());

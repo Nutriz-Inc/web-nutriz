@@ -30,10 +30,10 @@ export function LandingFooter() {
 					<div className="max-w-sm">
 						<div className="flex items-center gap-2">
 							<Wordmark className="h-6" />
-							<span className="text-[11px] text-blue-tint-2">por Lactare</span>
+							<span className="text-rotulo text-blue-tint-2">por Lactare</span>
 						</div>
 
-						<p className="mt-4 text-[14px] leading-relaxed text-blue-tint-2">
+						<p className="mt-4 text-apoio leading-relaxed text-blue-tint-2">
 							Conectamos doadoras de leite humano aos bancos de leite para dar a
 							bebês prematuros a chance de crescer com saúde.
 						</p>
@@ -61,7 +61,7 @@ export function LandingFooter() {
 								aria-label={column.title}
 								className="flex flex-col gap-3"
 							>
-								<h3 className="text-[14px] font-bold text-white">
+								<h3 className="text-apoio font-bold text-white">
 									{column.title}
 								</h3>
 								{column.links.map((link) => (
@@ -69,7 +69,7 @@ export function LandingFooter() {
 										key={link.label}
 										type="button"
 										onClick={() => handleLink(link)}
-										className="flex min-h-6 w-fit items-center text-left text-[14px] text-blue-tint-2 transition-colors hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
+										className="flex min-h-6 w-fit items-center text-left text-apoio text-blue-tint-2 transition-colors hover:text-white focus-visible:ring-3 focus-visible:ring-mint/60"
 									>
 										{link.label}
 									</button>
@@ -79,7 +79,7 @@ export function LandingFooter() {
 					</div>
 				</motion.div>
 
-				<div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-[13px] text-blue-tint-2 sm:flex-row sm:items-center sm:justify-between">
+				<div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-apoio text-blue-tint-2 sm:flex-row sm:items-center sm:justify-between">
 					<span>© 2026 Nutriz por Lactare</span>
 					<span>Conteúdo educativo validado por rBLH e Fiocruz</span>
 				</div>

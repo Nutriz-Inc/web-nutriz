@@ -123,10 +123,10 @@ export function CreateRouteSheet() {
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[24px] font-bold text-ink">
+					<SheetTitle className="text-secao font-bold text-ink">
 						Criar rota
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-ink-2">
+					<SheetDescription className="text-apoio text-ink-2">
 						O motorista recebe a rota com as paradas na ordem otimizada.
 					</SheetDescription>
 				</SheetHeader>
@@ -142,7 +142,7 @@ export function CreateRouteSheet() {
 								</label>
 								<span
 									className={cn(
-										"text-[11px] tabular-nums",
+										"text-rotulo tabular-nums",
 										name.length > LIMITE_NOME - 20
 											? "font-semibold text-orange"
 											: "text-ink-3",
@@ -306,7 +306,7 @@ export function CreateRouteSheet() {
 				</div>
 
 				{tentouCriar && faltando.length > 0 ? (
-					<p className="text-[12px] font-medium text-danger" role="alert">
+					<p className="text-rotulo font-medium text-danger" role="alert">
 						Falta preencher: {faltando.join(", ")}.
 					</p>
 				) : null}

@@ -96,8 +96,10 @@ export function DonationManagementDetailPage() {
 
 					<div className="flex min-w-0 flex-1 flex-col gap-4">
 						<div className="flex flex-col gap-1">
-							<p className="text-[20px] font-bold text-ink">Etapas da doação</p>
-							<p className="text-[14px] text-ink-2">
+							<p className="text-destaque font-bold text-ink">
+								Etapas da doação
+							</p>
+							<p className="text-apoio text-ink-2">
 								Gerencie o agendamento e o status de cada etapa. Finalize para
 								liberar a próxima.
 							</p>
@@ -106,7 +108,7 @@ export function DonationManagementDetailPage() {
 						{hasFailedStep && (
 							<div className="flex items-center gap-2.5 rounded-xl border border-danger-tint bg-danger-tint px-4 py-3">
 								<AlertTriangle className="size-4 shrink-0 text-danger" />
-								<p className="text-[13px] font-semibold text-danger">
+								<p className="text-apoio font-semibold text-danger">
 									Esta doação foi encerrada — uma das etapas foi marcada como
 									erro.
 								</p>
@@ -116,7 +118,7 @@ export function DonationManagementDetailPage() {
 						{isFullyCompleted && (
 							<div className="flex items-center gap-2.5 rounded-xl border border-teal-tint bg-success-tint px-4 py-3">
 								<CheckCircle2 className="size-4 shrink-0 text-success" />
-								<p className="text-[13px] font-semibold text-success">
+								<p className="text-apoio font-semibold text-success">
 									Esta doação foi concluída com sucesso — todas as etapas foram
 									finalizadas.
 								</p>

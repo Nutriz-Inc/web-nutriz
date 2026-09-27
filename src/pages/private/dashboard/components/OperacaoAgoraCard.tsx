@@ -104,13 +104,13 @@ export function OperacaoAgoraCard() {
 						</GradeDeNumeros>
 
 						<div className="flex flex-col gap-2.5">
-							<p className="text-[13px] font-semibold text-ink">Rotas na rua</p>
+							<p className="text-apoio font-semibold text-ink">Rotas na rua</p>
 							{dados.rotas_em_andamento.length > 0 ? (
 								dados.rotas_em_andamento.map((rota) => (
 									<RotaEmAndamentoLinha key={rota.id_rota} rota={rota} />
 								))
 							) : (
-								<p className="border-t border-line pt-2.5 text-[13px] text-ink-2">
+								<p className="border-t border-line pt-2.5 text-apoio text-ink-2">
 									Nenhuma rota em andamento.{" "}
 									{dados.rotas_agendadas_hoje > 0
 										? `${dados.rotas_agendadas_hoje} agendada(s) para hoje.`
@@ -122,8 +122,8 @@ export function OperacaoAgoraCard() {
 
 					<div className="flex min-w-0 flex-col gap-2.5">
 						<div className="flex items-baseline justify-between gap-3">
-							<p className="text-[13px] font-semibold text-ink">Pede atenção</p>
-							<p className="text-[12px] text-ink-2">
+							<p className="text-apoio font-semibold text-ink">Pede atenção</p>
+							<p className="text-rotulo text-ink-2">
 								{pendencias === 0
 									? "Nenhuma pendência"
 									: `${pendencias} de ${alertas.length} com pendência`}

@@ -33,8 +33,8 @@ export function StepRow({
 			</div>
 
 			<div className={cn("min-w-0", isLast ? "pb-0" : "pb-5")}>
-				<p className="text-[15px] font-bold text-ink">{title}</p>
-				<p className="mt-0.5 text-[14px] leading-[20px] text-ink-2">
+				<p className="text-corpo font-bold text-ink">{title}</p>
+				<p className="mt-0.5 text-apoio leading-[20px] text-ink-2">
 					{description}
 				</p>
 			</div>

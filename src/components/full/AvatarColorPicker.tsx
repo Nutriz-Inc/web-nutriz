@@ -49,7 +49,7 @@ export function AvatarColorPicker({
 			</DropdownMenuTrigger>
 
 			<DropdownMenuContent align="start" className="min-w-0 p-2">
-				<p className="px-1 pb-2 text-[12px] font-semibold text-ink-2">
+				<p className="px-1 pb-2 text-rotulo font-semibold text-ink-2">
 					Cor do avatar
 				</p>
 

@@ -31,7 +31,7 @@ export function ArticlesSection() {
 			/>
 
 			<div className="mb-8 flex justify-center">
-				<span className="inline-flex items-center gap-1.5 rounded-full bg-success-tint px-3.5 py-1.5 text-[12px] font-semibold text-teal">
+				<span className="inline-flex items-center gap-1.5 rounded-full bg-success-tint px-3.5 py-1.5 text-rotulo font-semibold text-teal">
 					<BadgeCheck className="size-4" />
 					Conteúdo validado por rBLH e Fiocruz
 				</span>
@@ -71,12 +71,12 @@ export function ArticlesSection() {
 								{article.category}
 							</Badge>
 
-							<h3 className="flex-1 text-[15px] font-bold leading-snug text-ink">
+							<h3 className="flex-1 text-corpo font-bold leading-snug text-ink">
 								{article.title}
 							</h3>
 
 							<div className="flex items-center justify-between">
-								<span className="text-[12px] text-ink-3">
+								<span className="text-rotulo text-ink-3">
 									{article.readTime}
 								</span>
 								<button
@@ -86,7 +86,7 @@ export function ArticlesSection() {
 										navigate(`/artigos?a=${article.id}`);
 									}}
 									aria-label={`Ler artigo: ${article.title}`}
-									className="inline-flex min-h-6 items-center gap-1 rounded-lg py-1 text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+									className="inline-flex min-h-6 items-center gap-1 rounded-lg py-1 text-apoio font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
 									style={{ color: article.categoryColor }}
 								>
 									Ler artigo

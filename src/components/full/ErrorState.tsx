@@ -19,7 +19,7 @@ export function ErrorState({ error, onRetry, className }: ErrorStateProps) {
 				className,
 			)}
 		>
-			<p className="max-w-[42ch] text-[14px] leading-relaxed text-ink">
+			<p className="max-w-[42ch] text-apoio leading-relaxed text-ink">
 				{getErrorMessage(error)}
 			</p>
 

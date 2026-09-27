@@ -74,16 +74,16 @@ export function DonationPointDetailSheet({
 
 				<SheetHeader className="gap-1 pb-0 pl-5 pr-12 pt-2 text-left">
 					<div className="flex min-w-0 items-start justify-between gap-2">
-						<SheetTitle className="min-w-0 flex-1 break-words text-[16px] font-bold text-ink">
+						<SheetTitle className="min-w-0 flex-1 break-words text-corpo font-bold text-ink">
 							{displayPoint.name}
 						</SheetTitle>
 						{isClosest && (
-							<span className="shrink-0 rounded-full bg-canvas px-2.5 py-1 text-[10px] font-bold text-blue-bright">
+							<span className="shrink-0 rounded-full bg-canvas px-2.5 py-1 text-rotulo font-bold text-blue-bright">
 								Mais próximo
 							</span>
 						)}
 					</div>
-					<SheetDescription className="text-[11px] text-ink-3">
+					<SheetDescription className="text-rotulo text-ink-3">
 						{displayPoint.description ?? "Ponto de coleta"}
 						{displayPoint.distance_from_you != null &&
 							` · ${displayPoint.distance_from_you.toFixed(1).replace(".", ",")} km de você`}

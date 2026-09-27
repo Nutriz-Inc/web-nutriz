@@ -46,14 +46,14 @@ export function RouteTimeCard({
 					role="timer"
 					aria-live="off"
 					className={cn(
-						"font-display text-[38px] font-extrabold leading-none tabular-nums tracking-tight",
+						"font-display text-numero font-extrabold leading-none tabular-nums tracking-tight",
 						tom,
 					)}
 				>
 					{naoIniciada ? "6h" : formatarCronometro(decorrido)}
 				</p>
 
-				<p className="text-[13px] text-ink-2">
+				<p className="text-apoio text-ink-2">
 					{naoIniciada
 						? "disponíveis para a rota"
 						: emAndamento
@@ -83,7 +83,7 @@ export function RouteTimeCard({
 				{(excedeu || emAviso) && (
 					<p
 						className={cn(
-							"flex items-start gap-2 text-[12px] font-semibold",
+							"flex items-start gap-2 text-rotulo font-semibold",
 							excedeu ? "text-danger" : "text-warning",
 						)}
 					>
@@ -96,16 +96,16 @@ export function RouteTimeCard({
 			</div>
 
 			<div className="mt-auto flex items-center justify-between gap-3 border-t border-line px-5 py-4">
-				<span className="flex items-center gap-2 text-[13px] text-ink-2">
+				<span className="flex items-center gap-2 text-apoio text-ink-2">
 					<Gauge className="size-4 shrink-0" />
 					Quilometragem
 				</span>
 
-				<span className="text-right text-[14px] font-semibold tabular-nums text-ink">
+				<span className="text-right text-apoio font-semibold tabular-nums text-ink">
 					{mileage != null ? (
 						`${formatarKm(mileage)} km`
 					) : mediaPorRota != null ? (
-						<span className="text-[12px] font-normal text-ink-2">
+						<span className="text-rotulo font-normal text-ink-2">
 							média de {formatarKm(mediaPorRota)} km
 						</span>
 					) : (

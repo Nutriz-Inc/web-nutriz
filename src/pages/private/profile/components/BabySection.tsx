@@ -47,7 +47,7 @@ export function BabySection({
 
 			{isEmpty ? (
 				<Reveal>
-					<div className="rounded-card-sm border border-line bg-surface shadow-soft">
+					<div className="rounded-card-sm border border-line bg-surface">
 						<EmptyState
 							illustration={bebeNaoCadastrado}
 							title="Nenhum bebê cadastrado ainda"

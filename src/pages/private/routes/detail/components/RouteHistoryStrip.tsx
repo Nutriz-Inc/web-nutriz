@@ -54,14 +54,14 @@ export function RouteHistoryStrip({ route }: Props) {
 							</span>
 
 							<div className="flex min-w-0 flex-col">
-								<span className="text-[11px] text-ink-2">{marco.rotulo}</span>
+								<span className="text-rotulo text-ink-2">{marco.rotulo}</span>
 								{partes ? (
-									<span className="truncate text-[13px] font-semibold tabular-nums text-ink">
+									<span className="truncate text-apoio font-semibold tabular-nums text-ink">
 										{partes.date}
 										<span className="ml-1.5 text-ink-2">{partes.time}</span>
 									</span>
 								) : (
-									<span className="text-[13px] font-semibold text-ink-3">
+									<span className="text-apoio font-semibold text-ink-3">
 										Ainda não
 									</span>
 								)}

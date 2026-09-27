@@ -6,6 +6,7 @@ import { ErrorState } from "@/components/full/ErrorState";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
+import { useBarraInferior } from "@/hooks/use-barra-inferior";
 import { EnumUserType } from "@/services/types/i-user";
 import { getStepNumber } from "@/utils/constants";
 import { getNumberOfDonationSteps } from "@/utils/donation";
@@ -13,6 +14,7 @@ import { DonationCard } from "./components/DonationCard";
 import { useDonationsList } from "./hooks";
 
 export function DonationsPage() {
+	const barra = useBarraInferior();
 	const navigate = useNavigate();
 	const { auth } = useAuth();
 
@@ -27,7 +29,7 @@ export function DonationsPage() {
 			if (a.donation.is_active !== b.donation.is_active) {
 				return Number(b.donation.is_active) - Number(a.donation.is_active);
 			}
-			return a.donation.created_at.localeCompare(b.donation.created_at);
+			return b.donation.created_at.localeCompare(a.donation.created_at);
 		});
 
 	function goToCreation() {
@@ -49,10 +51,10 @@ export function DonationsPage() {
 					type="button"
 					onClick={goToCreation}
 					disabled={false}
-					className="hidden items-center gap-2 rounded-full bg-blue-deep-fill px-6 py-3 text-[14px] font-semibold text-white transition-[transform,background-color] hover:bg-blue-fill active:scale-[0.98] disabled:opacity-60 lg:flex"
+					className="hidden items-center gap-2 rounded-full bg-blue-deep-fill px-6 py-3 text-apoio font-semibold text-white transition-[transform,background-color] hover:bg-blue-fill active:scale-[0.98] disabled:opacity-60 lg:flex"
 				>
 					<Plus className="size-4" />
-					Nova Doação
+					Nova doação
 				</button>
 			}
 		>
@@ -123,7 +125,10 @@ export function DonationsPage() {
 					)}
 				</div>
 
-				<div className="fixed inset-x-0 bottom-0 z-20 border-t border-blue-tint bg-surface-3 px-5 pb-5 pt-3 lg:hidden">
+				<div
+					ref={barra}
+					className="fixed inset-x-0 bottom-0 z-20 border-t border-blue-tint bg-surface-3 px-5 pb-5 pt-3 lg:hidden"
+				>
 					<Button
 						variant="primary"
 						size="pill"
@@ -133,7 +138,7 @@ export function DonationsPage() {
 						className="w-full"
 					>
 						<Plus className="size-5" />
-						Nova Doação
+						Nova doação
 					</Button>
 				</div>
 			</div>

@@ -16,8 +16,8 @@ export function StepReadOnlyInfo({ step, addressText, nurseNames }: Props) {
 			{step.set_date && (
 				<div className="flex items-center gap-2.5">
 					<Calendar className="size-4 shrink-0 text-ink-3" />
-					<span className="text-[13px] text-ink-2">Data e horário:</span>
-					<span className="text-[14px] font-semibold text-ink">
+					<span className="text-apoio text-ink-2">Data e horário:</span>
+					<span className="text-apoio font-semibold text-ink">
 						{formatCreatedAt(step.set_date)}
 					</span>
 				</div>
@@ -25,8 +25,8 @@ export function StepReadOnlyInfo({ step, addressText, nurseNames }: Props) {
 			{addressText && (
 				<div className="flex items-center gap-2.5">
 					<MapPin className="size-4 shrink-0 text-ink-3" />
-					<span className="text-[13px] text-ink-2">Endereço:</span>
-					<span className="text-[14px] font-semibold text-ink">
+					<span className="text-apoio text-ink-2">Endereço:</span>
+					<span className="text-apoio font-semibold text-ink">
 						{addressText}
 					</span>
 				</div>
@@ -34,14 +34,14 @@ export function StepReadOnlyInfo({ step, addressText, nurseNames }: Props) {
 			{nurseNames && (
 				<div className="flex items-center gap-2.5">
 					<User className="size-4 shrink-0 text-ink-3" />
-					<span className="text-[13px] text-ink-2">Enfermeiro:</span>
-					<span className="text-[14px] font-semibold text-ink">
+					<span className="text-apoio text-ink-2">Enfermeiro:</span>
+					<span className="text-apoio font-semibold text-ink">
 						{nurseNames}
 					</span>
 				</div>
 			)}
 			{hasNoInfo && (
-				<p className="text-[13px] text-ink-3">
+				<p className="text-apoio text-ink-3">
 					Sem informações registradas nesta etapa.
 				</p>
 			)}

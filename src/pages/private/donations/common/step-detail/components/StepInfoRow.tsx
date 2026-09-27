@@ -13,8 +13,8 @@ export function StepInfoRow({ icon: Icon, label, value }: Props) {
 				<Icon className="size-[18px] text-blue-deep" />
 			</div>
 			<div className="flex min-w-0 flex-1 flex-col gap-0.5">
-				<span className="text-[11px] text-ink-3">{label}</span>
-				<span className="text-[14px] font-semibold text-ink">{value}</span>
+				<span className="text-rotulo text-ink-3">{label}</span>
+				<span className="text-apoio font-semibold text-ink">{value}</span>
 			</div>
 		</div>
 	);

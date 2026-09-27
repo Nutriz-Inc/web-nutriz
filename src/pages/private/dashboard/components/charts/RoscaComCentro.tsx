@@ -65,14 +65,14 @@ export function RoscaComCentro({
 									<tspan
 										x={viewBox.cx}
 										y={(viewBox.cy ?? 0) - 4}
-										className="fill-ink text-[24px] font-bold"
+										className="fill-ink text-secao font-bold"
 									>
 										{destaque}
 									</tspan>
 									<tspan
 										x={viewBox.cx}
 										y={(viewBox.cy ?? 0) + 16}
-										className="fill-ink-3 text-[11px]"
+										className="fill-ink-3 text-rotulo"
 									>
 										{legenda}
 									</tspan>

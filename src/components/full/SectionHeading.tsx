@@ -48,7 +48,7 @@ export function SectionHeading({
 			>
 				<p
 					className={cn(
-						"font-display text-[0.7rem] font-bold uppercase tracking-[0.06em]",
+						"font-display text-rotulo font-bold uppercase tracking-[0.06em]",
 						LABEL_TONE[tone],
 					)}
 				>
@@ -57,7 +57,7 @@ export function SectionHeading({
 				<Heading
 					id={id}
 					className={cn(
-						"mt-2 font-display text-[1.375rem] font-extrabold tracking-tight sm:text-2xl lg:text-3xl",
+						"mt-2 font-display text-secao font-bold tracking-tight lg:text-titulo",
 						onDark ? "text-white" : "text-blue-deep",
 					)}
 				>

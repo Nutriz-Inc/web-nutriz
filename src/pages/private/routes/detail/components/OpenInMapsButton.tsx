@@ -27,7 +27,7 @@ export function OpenInMapsButton({
 			rel="noopener noreferrer"
 			className={cn(
 				"flex shrink-0 items-center gap-1.5 rounded-full border border-blue-tint-2 bg-surface font-semibold text-blue-deep outline-none transition-colors hover:bg-blue-tint focus-visible:ring-4 focus-visible:ring-blue-bright/50",
-				compacto ? "h-7 px-2.5 text-[12px]" : "h-9 px-3.5 text-[13px]",
+				compacto ? "h-7 px-2.5 text-rotulo" : "h-9 px-3.5 text-apoio",
 				className,
 			)}
 		>

@@ -52,7 +52,7 @@ export function DonationStatusStepper({
 						: "waiting",
 			trailingSlot:
 				isCurrent && !isFailed ? (
-					<span className="shrink-0 rounded-full bg-blue-tint px-2.5 py-1 text-[11px] font-semibold text-blue-deep">
+					<span className="shrink-0 rounded-full bg-blue-tint px-2.5 py-1 text-rotulo font-semibold text-blue-deep">
 						Atual
 					</span>
 				) : undefined,
@@ -60,12 +60,12 @@ export function DonationStatusStepper({
 	});
 
 	return (
-		<div className="flex flex-col gap-4 rounded-card-sm bg-surface p-6 shadow-soft">
+		<div className="flex flex-col gap-4 rounded-card-sm border border-line bg-surface p-6">
 			<div className="flex flex-col gap-1">
-				<p className="font-display text-xs font-bold uppercase tracking-[0.06em] text-blue-bright">
+				<p className="font-display text-rotulo font-bold uppercase tracking-[0.06em] text-blue-bright">
 					Status da doação
 				</p>
-				<p className="text-[12px] text-ink-2">
+				<p className="text-rotulo text-ink-2">
 					Etapa só inicia após a anterior ser concluída
 				</p>
 			</div>

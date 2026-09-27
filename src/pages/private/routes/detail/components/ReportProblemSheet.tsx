@@ -69,10 +69,10 @@ export function ReportProblemSheet({
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[22px] font-bold text-ink">
+					<SheetTitle className="text-secao font-bold text-ink">
 						Reportar problema
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-ink-2">
+					<SheetDescription className="text-apoio text-ink-2">
 						A rota é marcada com erro e a equipe é avisada. Esta ação encerra a
 						rota.
 					</SheetDescription>
@@ -80,7 +80,7 @@ export function ReportProblemSheet({
 
 				<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-0.5">
 					<fieldset className="flex flex-col gap-2">
-						<legend className="mb-2 text-[13px] font-semibold text-ink-2">
+						<legend className="mb-2 text-apoio font-semibold text-ink-2">
 							Tipo do problema
 						</legend>
 
@@ -92,7 +92,7 @@ export function ReportProblemSheet({
 									aria-pressed={tipo === item.valor}
 									onClick={() => setTipo(item.valor)}
 									className={cn(
-										"flex h-11 items-center rounded-full border px-4 text-[13px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
+										"flex h-11 items-center rounded-full border px-4 text-apoio font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
 										tipo === item.valor
 											? "border-blue-bright bg-blue-tint text-blue-deep"
 											: "border-line bg-surface text-ink-2 hover:bg-surface-2",
@@ -107,7 +107,7 @@ export function ReportProblemSheet({
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="rota-problema"
-							className="text-[13px] font-semibold text-ink-2"
+							className="text-apoio font-semibold text-ink-2"
 						>
 							O que aconteceu
 						</label>
@@ -123,7 +123,7 @@ export function ReportProblemSheet({
 					</div>
 
 					{(erroLocal || erro) && (
-						<p className="flex items-start gap-2 rounded-xl bg-danger-tint px-3.5 py-2.5 text-[13px] font-semibold text-danger">
+						<p className="flex items-start gap-2 rounded-xl bg-danger-tint px-3.5 py-2.5 text-apoio font-semibold text-danger">
 							<TriangleAlert className="mt-px size-4 shrink-0" />
 							{erroLocal ?? erro}
 						</p>

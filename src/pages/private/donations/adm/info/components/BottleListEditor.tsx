@@ -28,14 +28,14 @@ export function BottleListEditor({ bottles, onChange, disabled }: Props) {
 	return (
 		<div className="flex flex-col gap-3 text-left">
 			<div className="flex items-center justify-between gap-3">
-				<span className="text-[12px] font-semibold text-ink-2">
+				<span className="text-rotulo font-semibold text-ink-2">
 					Frascos coletados
 				</span>
 				<button
 					type="button"
 					onClick={addBottle}
 					disabled={disabled}
-					className="flex shrink-0 items-center gap-1.5 rounded-full bg-blue-tint px-3.5 py-1.5 text-[12px] font-bold text-blue-deep transition-transform active:scale-[0.98] disabled:opacity-60"
+					className="flex shrink-0 items-center gap-1.5 rounded-full bg-blue-tint px-3.5 py-1.5 text-rotulo font-bold text-blue-deep transition-transform active:scale-[0.98] disabled:opacity-60"
 				>
 					<Plus className="size-3.5" />
 					Adicionar frasco
@@ -50,7 +50,7 @@ export function BottleListEditor({ bottles, onChange, disabled }: Props) {
 						className="flex flex-col gap-2.5 rounded-card-sm border border-line bg-surface-2 p-3"
 					>
 						<div className="flex items-center justify-between">
-							<span className="text-[11px] font-bold tracking-[0.6px] text-blue-deep">
+							<span className="text-rotulo font-bold tracking-[0.6px] text-blue-deep">
 								FRASCO {index + 1}
 							</span>
 							{bottles.length > 1 && (
@@ -69,7 +69,7 @@ export function BottleListEditor({ bottles, onChange, disabled }: Props) {
 						<div className="flex flex-col gap-1.5">
 							<label
 								htmlFor={`bottle-ml-${index}`}
-								className="text-[12px] font-semibold text-ink-2"
+								className="text-rotulo font-semibold text-ink-2"
 							>
 								Quantidade doada (ml)
 							</label>
@@ -89,11 +89,11 @@ export function BottleListEditor({ bottles, onChange, disabled }: Props) {
 								}
 								disabled={disabled}
 								placeholder="Ex.: 250"
-								className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
+								className="rounded-card-sm border border-line bg-surface px-3 py-2 text-apoio text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
 							/>
 						</div>
 
-						<label className="flex items-center gap-2 text-[13px] font-semibold text-ink-2">
+						<label className="flex items-center gap-2 text-apoio font-semibold text-ink-2">
 							<input
 								type="checkbox"
 								checked={Boolean(bottle.discarded)}
@@ -113,7 +113,7 @@ export function BottleListEditor({ bottles, onChange, disabled }: Props) {
 							<div className="flex flex-col gap-1.5">
 								<label
 									htmlFor={`bottle-description-${index}`}
-									className="text-[12px] font-semibold text-ink-2"
+									className="text-rotulo font-semibold text-ink-2"
 								>
 									Motivo do descarte
 								</label>
@@ -126,7 +126,7 @@ export function BottleListEditor({ bottles, onChange, disabled }: Props) {
 									disabled={disabled}
 									rows={2}
 									placeholder="Descreva o motivo do descarte"
-									className="rounded-card-sm border border-line bg-surface px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
+									className="rounded-card-sm border border-line bg-surface px-3 py-2 text-apoio text-ink outline-none placeholder:text-ink-3 disabled:opacity-60"
 								/>
 							</div>
 						)}

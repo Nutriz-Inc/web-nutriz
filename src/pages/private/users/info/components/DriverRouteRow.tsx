@@ -33,21 +33,21 @@ export function DriverRouteRow({ route }: DriverRouteRowProps) {
 					<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-tint">
 						<RouteIcon className="size-4 text-blue-deep" />
 					</div>
-					<span className="min-w-0 truncate text-[14px] font-semibold text-ink">
+					<span className="min-w-0 truncate text-apoio font-semibold text-ink">
 						{route.name}
 					</span>
 				</div>
 				<ChevronRight className="size-4 text-ink-3 lg:hidden" />
 			</div>
-			<span className="text-[14px] text-ink-2">
+			<span className="text-apoio text-ink-2">
 				<span className="lg:hidden">Data: </span>
 				{formatDateBR(route.date_set)}
 			</span>
-			<span className="min-w-0 text-[14px] text-ink-2 lg:truncate">
+			<span className="min-w-0 text-apoio text-ink-2 lg:truncate">
 				<span className="lg:hidden">Local: </span>
 				{place || "—"}
 			</span>
-			<span className="text-[14px] text-ink-2">
+			<span className="text-apoio text-ink-2">
 				<span className="lg:hidden">Quilometragem: </span>
 				{showMileage ? `${route.mileage} km` : "—"}
 			</span>

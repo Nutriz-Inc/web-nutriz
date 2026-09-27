@@ -60,10 +60,10 @@ export function EditRouteSheet({
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[22px] font-bold text-ink">
+					<SheetTitle className="text-secao font-bold text-ink">
 						Editar rota
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-ink-2">
+					<SheetDescription className="text-apoio text-ink-2">
 						Ajuste o nome e a descrição desta rota.
 					</SheetDescription>
 				</SheetHeader>
@@ -72,7 +72,7 @@ export function EditRouteSheet({
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="rota-nome"
-							className="text-[13px] font-semibold text-ink-2"
+							className="text-apoio font-semibold text-ink-2"
 						>
 							Nome da rota
 						</label>
@@ -88,7 +88,7 @@ export function EditRouteSheet({
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="rota-descricao"
-							className="text-[13px] font-semibold text-ink-2"
+							className="text-apoio font-semibold text-ink-2"
 						>
 							Descrição
 						</label>
@@ -103,7 +103,7 @@ export function EditRouteSheet({
 					</div>
 
 					{(erroLocal || erro) && (
-						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-[13px] font-semibold text-danger">
+						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-apoio font-semibold text-danger">
 							{erroLocal ?? erro}
 						</p>
 					)}

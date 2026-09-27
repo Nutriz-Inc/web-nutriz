@@ -95,7 +95,7 @@ function AlertDialogTitle({
 	return (
 		<AlertDialogPrimitive.Title
 			data-slot="alert-dialog-title"
-			className={cn("text-[16px] font-bold text-ink", className)}
+			className={cn("text-corpo font-bold text-ink", className)}
 			{...props}
 		/>
 	);
@@ -108,7 +108,7 @@ function AlertDialogDescription({
 	return (
 		<AlertDialogPrimitive.Description
 			data-slot="alert-dialog-description"
-			className={cn("text-[13px] leading-relaxed text-ink-3", className)}
+			className={cn("text-apoio leading-relaxed text-ink-3", className)}
 			{...props}
 		/>
 	);
@@ -123,7 +123,7 @@ function AlertDialogAction({
 			data-slot="alert-dialog-action"
 			className={cn(
 				buttonVariants({ variant: "default" }),
-				"h-12 w-full rounded-2xl bg-eva-fill text-[14px] font-semibold text-white hover:bg-eva-fill",
+				"h-12 w-full rounded-2xl bg-blue-deep-fill text-apoio font-semibold text-white hover:bg-blue-fill",
 				className,
 			)}
 			{...props}
@@ -140,7 +140,7 @@ function AlertDialogCancel({
 			data-slot="alert-dialog-cancel"
 			className={cn(
 				buttonVariants({ variant: "outline" }),
-				"h-11 w-full rounded-2xl border-line text-[14px] font-medium text-ink-3",
+				"h-11 w-full rounded-2xl border-line text-apoio font-medium text-ink-3",
 				className,
 			)}
 			{...props}

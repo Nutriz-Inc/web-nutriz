@@ -43,7 +43,7 @@ export function DonationStatusCard({ steps, isRecurrent, className }: Props) {
 				className,
 			)}
 		>
-			<p className="font-display text-xs font-bold uppercase tracking-[0.06em] text-blue-bright lg:text-center">
+			<p className="font-display text-rotulo font-bold uppercase tracking-[0.06em] text-blue-bright lg:text-center">
 				Status da sua doação atual
 			</p>
 
@@ -87,7 +87,7 @@ export function DonationStatusCard({ steps, isRecurrent, className }: Props) {
 								<StepDot
 									status={visualStatus}
 									order={definition.order}
-									className="size-9 text-sm lg:size-10 lg:text-base"
+									className="size-9 text-apoio lg:size-10 lg:text-corpo"
 									iconClassName="size-4 lg:size-[1.125rem]"
 								/>
 
@@ -107,7 +107,7 @@ export function DonationStatusCard({ steps, isRecurrent, className }: Props) {
 							<div className="flex min-w-0 flex-col items-start gap-2 pb-6 lg:items-center lg:pb-0">
 								<p
 									className={cn(
-										"font-display text-base leading-snug lg:text-[1.0625rem]",
+										"font-display text-corpo leading-snug lg:text-destaque",
 										isDone || isCurrent
 											? "font-bold text-blue-deep"
 											: "font-medium text-ink-2",
@@ -123,7 +123,7 @@ export function DonationStatusCard({ steps, isRecurrent, className }: Props) {
 									size="sm"
 									caps
 									dot={isCurrent}
-									className="px-2 py-0.5 text-[10px]"
+									className="px-2 py-0.5 text-rotulo"
 								>
 									{BADGE_LABEL[visualStatus]}
 								</Badge>
@@ -135,7 +135,7 @@ export function DonationStatusCard({ steps, isRecurrent, className }: Props) {
 
 			<hr className="border-0 border-t border-blue-tint-2/60" />
 
-			<p className="text-sm leading-relaxed text-ink-2 lg:text-center lg:text-[0.9375rem]">
+			<p className="text-apoio leading-relaxed text-ink-2 lg:text-center lg:text-corpo">
 				{currentStep?.description ??
 					"Acompanhe por aqui as atualizações da sua doação."}
 			</p>

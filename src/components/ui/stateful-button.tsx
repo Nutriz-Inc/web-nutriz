@@ -65,7 +65,7 @@ export function StatefulButton({
 			{...props}
 			onClick={handleClick}
 			className={cn(
-				"flex min-h-[46px] min-w-[150px] items-center justify-center gap-2 rounded-full px-5 text-[14px] font-semibold outline-none transition-[filter,transform] duration-200 hover:brightness-105 focus-visible:ring-3 focus-visible:ring-blue-bright/50 active:scale-[0.97]",
+				"flex min-h-[46px] min-w-[150px] items-center justify-center gap-2 rounded-full px-5 text-apoio font-semibold outline-none transition-[filter,transform] duration-200 hover:brightness-105 focus-visible:ring-3 focus-visible:ring-blue-bright/50 active:scale-[0.97]",
 				className,
 			)}
 		>

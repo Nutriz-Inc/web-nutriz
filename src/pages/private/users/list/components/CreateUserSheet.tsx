@@ -89,10 +89,10 @@ export function CreateUserSheet({
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[24px] font-bold text-ink">
+					<SheetTitle className="text-secao font-bold text-ink">
 						Cadastrar novo usuário
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-ink-2">
+					<SheetDescription className="text-apoio text-ink-2">
 						Crie um novo acesso para a equipe Lactare
 					</SheetDescription>
 				</SheetHeader>
@@ -200,7 +200,7 @@ export function CreateUserSheet({
 					<div className="flex flex-col gap-3 sm:col-span-2">
 						<div className="flex items-center gap-1.5">
 							<ShieldCheck className="size-3.5 text-ink" />
-							<p className="text-[13px] font-semibold text-ink">
+							<p className="text-apoio font-semibold text-ink">
 								Perfil de acesso
 							</p>
 						</div>
@@ -217,7 +217,7 @@ export function CreateUserSheet({
 					</div>
 				</div>
 
-				{error && <p className="text-[12px] text-danger">{error}</p>}
+				{error && <p className="text-rotulo text-danger">{error}</p>}
 
 				<AcoesDoSheet>
 					<Button

@@ -1,7 +1,4 @@
-import {
-	type ArticleCategory,
-	ARTICLES as SHARED_ARTICLES,
-} from "@/pages/public/articles/data";
+import { ARTICLES as SHARED_ARTICLES } from "@/pages/public/articles/data";
 
 export type Article = {
 	id: number;
@@ -16,14 +13,9 @@ export type Article = {
 	coverHeight: number;
 };
 
-const LANDING_ARTICLE_COLORS: Record<
-	ArticleCategory,
-	{ categoryColor: string; accent: string }
-> = {
-	Amamentação: { categoryColor: "#0f9d8c", accent: "#d7f2ec" },
-	Nutrição: { categoryColor: "#3f8f2f", accent: "#e2f1d6" },
-	Acolhimento: { categoryColor: "#d84e83", accent: "#fbdce8" },
-	Cuidados: { categoryColor: "#3b6fd0", accent: "#dbe7fb" },
+const COR_DA_CATEGORIA = {
+	categoryColor: "var(--blue)",
+	accent: "var(--blue-tint)",
 };
 
 export const ARTICLES: Article[] = SHARED_ARTICLES.slice(0, 4).map(
@@ -36,7 +28,7 @@ export const ARTICLES: Article[] = SHARED_ARTICLES.slice(0, 4).map(
 		coverAlt: article.coverAlt,
 		coverWidth: article.coverWidth,
 		coverHeight: article.coverHeight,
-		...LANDING_ARTICLE_COLORS[article.category],
+		...COR_DA_CATEGORIA,
 	}),
 );
 

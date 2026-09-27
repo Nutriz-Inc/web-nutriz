@@ -37,7 +37,7 @@ export function CreateUserField({
 }: CreateUserFieldProps) {
 	return (
 		<div className={cn("flex w-full flex-col gap-1.5", className)}>
-			<label htmlFor={id} className="text-[13px] font-semibold text-ink">
+			<label htmlFor={id} className="text-apoio font-semibold text-ink">
 				{label}
 				{optional && (
 					<span className="font-normal text-ink-3"> (opcional)</span>
@@ -61,12 +61,12 @@ export function CreateUserField({
 					maxLength={maxLength}
 					aria-invalid={!!error}
 					aria-describedby={error ? `${id}-error` : undefined}
-					className="w-full bg-transparent text-[14px] text-ink outline-none placeholder:text-ink-3"
+					className="w-full bg-transparent text-apoio text-ink outline-none placeholder:text-ink-3"
 				/>
 				{trailing}
 			</div>
 			{error && (
-				<p id={`${id}-error`} className="text-[12px] text-danger">
+				<p id={`${id}-error`} className="text-rotulo text-danger">
 					{error}
 				</p>
 			)}

@@ -79,10 +79,10 @@ export function CreateAppointmentSheet({
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[24px] font-bold text-ink">
+					<SheetTitle className="text-secao font-bold text-ink">
 						Novo agendamento
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-ink-2">
+					<SheetDescription className="text-apoio text-ink-2">
 						Escolha uma etapa pendente e atribua um enfermeiro responsável.
 					</SheetDescription>
 				</SheetHeader>
@@ -90,10 +90,10 @@ export function CreateAppointmentSheet({
 				<div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto pr-0.5">
 					<div className="flex flex-col gap-2.5">
 						<div className="flex items-center justify-between gap-3">
-							<p className="text-[13px] font-semibold text-ink">
+							<p className="text-apoio font-semibold text-ink">
 								Etapa da doação
 							</p>
-							<span className="text-[12px] text-ink-3">
+							<span className="text-rotulo text-ink-3">
 								Selecione apenas uma
 							</span>
 						</div>
@@ -128,7 +128,7 @@ export function CreateAppointmentSheet({
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="create-appointment-nurse"
-							className="text-[13px] font-semibold text-ink"
+							className="text-apoio font-semibold text-ink"
 						>
 							Enfermeiro responsável
 						</label>
@@ -153,7 +153,7 @@ export function CreateAppointmentSheet({
 									id="create-appointment-nurse"
 									value={nurseId}
 									onChange={(event) => setNurseId(event.target.value)}
-									className="w-full bg-transparent text-[14px] text-ink outline-none"
+									className="w-full bg-transparent text-apoio text-ink outline-none"
 								>
 									<option value="">Selecione um enfermeiro</option>
 									{nurses.map((nurse) => (
@@ -169,7 +169,7 @@ export function CreateAppointmentSheet({
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="create-appointment-description"
-							className="text-[13px] font-semibold text-ink"
+							className="text-apoio font-semibold text-ink"
 						>
 							Descrição do agendamento
 						</label>
@@ -179,12 +179,12 @@ export function CreateAppointmentSheet({
 							onChange={(event) => setDescription(event.target.value)}
 							rows={3}
 							placeholder="Descreva o que deve ser feito nesta visita..."
-							className="w-full resize-y rounded-xl bg-canvas px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
+							className="w-full resize-y rounded-xl bg-canvas px-3.5 py-3 text-apoio text-ink outline-none placeholder:text-ink-3"
 						/>
 					</div>
 				</div>
 
-				{error && <p className="text-[12px] text-danger">{error}</p>}
+				{error && <p className="text-rotulo text-danger">{error}</p>}
 
 				<AcoesDoSheet>
 					<Button

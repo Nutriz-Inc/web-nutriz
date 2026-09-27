@@ -52,7 +52,7 @@ function ChartContainer({
 				data-slot="chart"
 				data-chart={chartId}
 				className={cn(
-					"flex aspect-video justify-center text-[12px] [&_.recharts-cartesian-axis-tick_text]:fill-ink-3 [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-line [&_.recharts-curve.recharts-tooltip-cursor]:stroke-line [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-line [&_.recharts-radial-bar-background-sector]:fill-surface-3 [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-surface-3 [&_.recharts-reference-line_[stroke='#ccc']]:stroke-line [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+					"flex aspect-video justify-center text-rotulo [&_.recharts-cartesian-axis-tick_text]:fill-ink-3 [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-line [&_.recharts-curve.recharts-tooltip-cursor]:stroke-line [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-line [&_.recharts-radial-bar-background-sector]:fill-surface-3 [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-surface-3 [&_.recharts-reference-line_[stroke='#ccc']]:stroke-line [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
 					className,
 				)}
 				{...props}
@@ -136,7 +136,7 @@ function ChartTooltipContent({
 	return (
 		<div
 			className={cn(
-				"grid min-w-[9rem] items-start gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-[12px] shadow-lift",
+				"grid min-w-[9rem] items-start gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-rotulo shadow-lift",
 				className,
 			)}
 		>

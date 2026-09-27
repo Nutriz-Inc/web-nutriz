@@ -46,7 +46,7 @@ export function DonationStepCard({
 					status={visualStatus}
 					order={order}
 					celebrate={justChanged && isDone}
-					className={isCurrent ? "size-9 text-[14px]" : "size-7 text-[12px]"}
+					className={isCurrent ? "size-9 text-apoio" : "size-7 text-rotulo"}
 				/>
 
 				{!isLast && (
@@ -104,10 +104,10 @@ export function DonationStepCard({
 								className={cn(
 									"min-w-0 break-words font-bold",
 									isCurrent
-										? "text-[16px] text-ink lg:text-[18px]"
+										? "text-corpo text-ink lg:text-destaque"
 										: isDone
-											? "text-[15px] text-ink lg:text-[16px]"
-											: "text-[15px] text-ink-3 lg:text-[16px]",
+											? "text-corpo text-ink lg:text-corpo"
+											: "text-corpo text-ink-3 lg:text-corpo",
 								)}
 							>
 								{title}
@@ -118,7 +118,7 @@ export function DonationStepCard({
 								size="sm"
 								caps
 								dot={isCurrent}
-								className="px-2 py-0.5 text-[10px] tracking-wider lg:text-[11px]"
+								className="px-2 py-0.5 text-rotulo tracking-wider lg:text-rotulo"
 							>
 								{isDone && <Check className="size-3" strokeWidth={3} />}
 								{BADGE_LABEL[visualStatus]}
@@ -127,7 +127,7 @@ export function DonationStepCard({
 
 						<p
 							className={cn(
-								"text-[13px] leading-[19px] lg:text-[14px] lg:leading-[20px]",
+								"text-apoio leading-[19px] lg:text-apoio lg:leading-[20px]",
 								isCurrent || isDone ? "text-ink-2" : "text-ink-3",
 							)}
 						>
@@ -139,15 +139,15 @@ export function DonationStepCard({
 						<div className="flex flex-col items-end leading-tight">
 							{stamp ? (
 								<>
-									<span className="text-[12px] font-semibold text-ink-2 lg:text-[13px]">
+									<span className="text-rotulo font-semibold text-ink-2 lg:text-apoio">
 										{stamp.date}
 									</span>
-									<span className="text-[11px] text-ink-3 lg:text-[12px]">
+									<span className="text-rotulo text-ink-3 lg:text-rotulo">
 										{stamp.time}
 									</span>
 								</>
 							) : (
-								<span className="text-[13px] text-ink-3">—</span>
+								<span className="text-apoio text-ink-3">—</span>
 							)}
 						</div>
 

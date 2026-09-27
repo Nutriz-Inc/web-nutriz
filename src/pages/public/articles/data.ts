@@ -42,13 +42,17 @@ export type Article = {
 	blocks: ArticleBlock[];
 };
 
+const COR_DE_ARTIGO = {
+	accent: "var(--blue)",
+	soft: "var(--blue-tint)",
+	softBorder: "var(--blue-tint-2)",
+};
+
 export const ARTICLES: Article[] = [
 	{
 		id: 1,
 		category: "Amamentação",
-		accent: "#14b8a6",
-		soft: "#ccfbf1",
-		softBorder: "#99f6e4",
+		...COR_DE_ARTIGO,
 		title: "Como armazenar e transportar seu leite com segurança",
 		coverImage: armazenamentoLeite,
 		coverAlt:
@@ -102,9 +106,7 @@ export const ARTICLES: Article[] = [
 	{
 		id: 2,
 		category: "Nutrição",
-		accent: "#65a30d",
-		soft: "#ecfccb",
-		softBorder: "#d9f99d",
+		...COR_DE_ARTIGO,
 		title: "Alimentação da nutriz: o que comer durante a doação",
 		coverImage: alimentacaoNutriz,
 		coverAlt: "Mulher segurando bomba manual de ordenha",
@@ -157,9 +159,7 @@ export const ARTICLES: Article[] = [
 	{
 		id: 3,
 		category: "Acolhimento",
-		accent: "#e0457a",
-		soft: "#fdf1f5",
-		softBorder: "#fadbe7",
+		...COR_DE_ARTIGO,
 		title: "Não pôde doar? Veja como você ainda pode ajudar",
 		coverImage: apoioSemDoar,
 		coverAlt:
@@ -210,9 +210,7 @@ export const ARTICLES: Article[] = [
 	{
 		id: 4,
 		category: "Cuidados",
-		accent: "#3b82f6",
-		soft: "#dbeafe",
-		softBorder: "#bfdbfe",
+		...COR_DE_ARTIGO,
 		title: "Higiene na ordenha: passo a passo da rBLH",
 		coverImage: higieneOrdenha,
 		coverAlt:
@@ -263,9 +261,7 @@ export const ARTICLES: Article[] = [
 	{
 		id: 5,
 		category: "Amamentação",
-		accent: "#14b8a6",
-		soft: "#ccfbf1",
-		softBorder: "#99f6e4",
+		...COR_DE_ARTIGO,
 		title: "Excesso de leite: transforme o que sobra em doação",
 		coverImage: excessoDeLeite,
 		coverAlt: "Bomba de ordenha com mamadeira, mãe amamentando ao fundo",
@@ -318,9 +314,7 @@ export const ARTICLES: Article[] = [
 	{
 		id: 6,
 		category: "Cuidados",
-		accent: "#3b82f6",
-		soft: "#dbeafe",
-		softBorder: "#bfdbfe",
+		...COR_DE_ARTIGO,
 		title: "Quem pode doar? Critérios de saúde e triagem",
 		coverImage: triagemDoacao,
 		coverAlt:
@@ -374,9 +368,7 @@ export const ARTICLES: Article[] = [
 	{
 		id: 7,
 		category: "Acolhimento",
-		accent: "#e0457a",
-		soft: "#fdf1f5",
-		softBorder: "#fadbe7",
+		...COR_DE_ARTIGO,
 		title: "Diário de uma doadora: a história da Juliana e do Theo",
 		coverImage: diarioDoadora,
 		coverAlt: "Mãos servindo leite humano em um frasco",
@@ -426,9 +418,7 @@ export const ARTICLES: Article[] = [
 	{
 		id: 8,
 		category: "Nutrição",
-		accent: "#65a30d",
-		soft: "#ecfccb",
-		softBorder: "#d9f99d",
+		...COR_DE_ARTIGO,
 		title: "Ferro, cálcio e vitamina D: os nutrientes-chave da lactação",
 		coverImage: nutrientesLactacao,
 		coverAlt:

@@ -7,13 +7,13 @@ export function DonateCta() {
 
 	return (
 		<section className="rounded-xl bg-blue-deep-fill p-5 shadow-soft">
-			<h2 className="text-[15px] font-bold text-white">Pronta para doar?</h2>
-			<p className="mt-1.5 text-[13px] leading-relaxed text-white/75">
+			<h2 className="text-corpo font-bold text-white">Pronta para doar?</h2>
+			<p className="mt-1.5 text-apoio leading-relaxed text-white/75">
 				Crie sua conta e comece a ajudar bebês que precisam de leite humano.
 			</p>
 			<Button
 				onClick={() => navigate("/registro")}
-				className="mt-4 h-11 w-full rounded-lg bg-surface-on-fill text-[14px] font-semibold text-ink-on-fill hover:bg-blue-tint-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+				className="mt-4 h-11 w-full rounded-lg bg-surface-on-fill text-apoio font-semibold text-ink-on-fill hover:bg-blue-tint-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
 			>
 				Quero doar
 				<ArrowRight className="size-4" aria-hidden />

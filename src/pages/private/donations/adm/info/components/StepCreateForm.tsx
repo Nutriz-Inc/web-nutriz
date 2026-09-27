@@ -49,13 +49,13 @@ export function StepCreateForm({
 }: Props) {
 	return (
 		<div className="flex flex-col gap-3.5">
-			<p className="text-[11px] font-bold tracking-[0.6px] text-blue-deep">
+			<p className="text-rotulo font-bold tracking-[0.6px] text-blue-deep">
 				AGENDAR ETAPA
 			</p>
 
 			<div className="flex flex-col gap-3.5 lg:flex-row">
 				<label className="flex flex-1 flex-col gap-1.5">
-					<span className="text-[12px] font-semibold text-ink-2">
+					<span className="text-rotulo font-semibold text-ink-2">
 						Data do agendamento
 					</span>
 					<div className="flex items-center gap-2 rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3.5 py-3">
@@ -64,13 +64,13 @@ export function StepCreateForm({
 							type="date"
 							value={date}
 							onChange={(event) => onDateChange(event.target.value)}
-							className="w-full bg-transparent text-[14px] text-ink outline-none"
+							className="w-full bg-transparent text-apoio text-ink outline-none"
 						/>
 					</div>
 				</label>
 
 				<label className="flex flex-1 flex-col gap-1.5">
-					<span className="text-[12px] font-semibold text-ink-2">
+					<span className="text-rotulo font-semibold text-ink-2">
 						Horário do agendamento
 					</span>
 					<div className="flex items-center gap-2 rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3.5 py-3">
@@ -79,7 +79,7 @@ export function StepCreateForm({
 							type="time"
 							value={time}
 							onChange={(event) => onTimeChange(event.target.value)}
-							className="w-full bg-transparent text-[14px] text-ink outline-none"
+							className="w-full bg-transparent text-apoio text-ink outline-none"
 						/>
 					</div>
 				</label>
@@ -102,7 +102,7 @@ export function StepCreateForm({
 			)}
 
 			<label className="flex flex-col gap-1.5">
-				<span className="text-[12px] font-semibold text-ink-2">
+				<span className="text-rotulo font-semibold text-ink-2">
 					Descrição da etapa
 				</span>
 				<textarea
@@ -110,7 +110,7 @@ export function StepCreateForm({
 					onChange={(event) => onDescriptionChange(event.target.value)}
 					rows={2}
 					placeholder="Descreva o que será feito nesta etapa"
-					className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3.5 py-3 text-[14px] text-ink outline-none placeholder:text-ink-3"
+					className="rounded-xl border border-line bg-surface-2 transition-colors focus:border-blue-bright focus:bg-surface focus-within:border-blue-bright focus-within:bg-surface px-3.5 py-3 text-apoio text-ink outline-none placeholder:text-ink-3"
 				/>
 			</label>
 
@@ -118,7 +118,7 @@ export function StepCreateForm({
 				type="button"
 				onClick={onCreate}
 				disabled={isPending || !date || !description}
-				className="self-start rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-[14px] font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+				className="self-start rounded-full bg-blue-deep-fill hover:bg-blue-fill px-5 py-2.5 text-apoio font-bold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
 			>
 				Agendar etapa
 			</button>

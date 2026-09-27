@@ -14,7 +14,7 @@ export function ActivityBadge({
 	return (
 		<span
 			className={cn(
-				"inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-[13px] font-semibold text-blue-tint-2",
+				"inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-apoio font-semibold text-blue-tint-2",
 				className,
 			)}
 		>

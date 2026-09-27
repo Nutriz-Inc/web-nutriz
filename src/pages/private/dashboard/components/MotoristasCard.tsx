@@ -25,14 +25,14 @@ export function MotoristasCard({ filtro }: { filtro: FiltroDeIndicadores }) {
 					onTentarDeNovo={() => consulta.refetch()}
 				/>
 			) : motoristas.length === 0 ? (
-				<p className="py-8 text-center text-[13px] text-ink-3">
+				<p className="py-8 text-center text-apoio text-ink-3">
 					Nenhuma rota no período.
 				</p>
 			) : (
 				<div className="-mx-1 overflow-x-auto">
-					<table className="w-full min-w-[420px] text-left text-[13px]">
+					<table className="w-full min-w-[420px] text-left text-apoio">
 						<thead>
-							<tr className="text-[11px] text-ink-2">
+							<tr className="text-rotulo text-ink-2">
 								<th scope="col" className="px-1 pb-2 font-medium">
 									Motorista
 								</th>

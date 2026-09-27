@@ -34,26 +34,26 @@ export function NurseAppointmentRow({ job }: NurseAppointmentRowProps) {
 			<div className="flex items-center justify-between lg:contents">
 				<div className="flex items-center gap-3">
 					<div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-tint">
-						<span className="text-[12px] font-bold text-blue-deep">
+						<span className="text-rotulo font-bold text-blue-deep">
 							{getInitials(donorName)}
 						</span>
 					</div>
-					<span className="min-w-0 truncate text-[14px] font-semibold text-ink">
+					<span className="min-w-0 truncate text-apoio font-semibold text-ink">
 						{donorName}
 					</span>
 				</div>
 				<ChevronRight className="size-4 text-ink-3 lg:hidden" />
 			</div>
 			<StepBadge step={stepName} label={stepName ?? job.name} />
-			<span className="text-[14px] text-ink-2">
+			<span className="text-apoio text-ink-2">
 				<span className="lg:hidden">Data: </span>
 				{job.date_set ? formatDateBR(job.date_set) : "—"}
 			</span>
-			<span className="text-[14px] text-ink-2">
+			<span className="text-apoio text-ink-2">
 				<span className="lg:hidden">Horário: </span>
 				{job.date_set ? formatTimeBR(job.date_set) : "—"}
 			</span>
-			<span className="min-w-0 text-[14px] text-ink-2 lg:truncate">
+			<span className="min-w-0 text-apoio text-ink-2 lg:truncate">
 				<span className="lg:hidden">Local: </span>
 				{formatJobLocation(job.address)}
 			</span>

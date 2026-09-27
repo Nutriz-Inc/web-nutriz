@@ -42,12 +42,12 @@ export function ActiveDonationsByStepCard({
 		<div className="flex h-full w-full flex-col gap-4 rounded-card-sm border border-line bg-surface p-5 lg:p-[26px]">
 			<DashboardCardHeader
 				icon={<ListChecks className="size-[15px]" strokeWidth={1.6} />}
-				title="Doações Ativas por Etapa"
+				title="Doações ativas por etapa"
 				subtitle="Onde as doações em andamento estão paradas"
 			/>
 
 			{total === 0 ? (
-				<p className="py-8 text-center text-[13px] text-ink-3">
+				<p className="py-8 text-center text-apoio text-ink-3">
 					Nenhuma doação ativa no período selecionado.
 				</p>
 			) : (
@@ -82,7 +82,7 @@ export function ActiveDonationsByStepCard({
 										key={item.etapa}
 										fill={
 											item.ehGargalo
-												? CORES_DO_GRAFICO.roxo
+												? CORES_DO_GRAFICO.principal
 												: CORES_DO_GRAFICO.trilho
 										}
 									/>
@@ -91,7 +91,7 @@ export function ActiveDonationsByStepCard({
 									dataKey="count"
 									position="right"
 									offset={10}
-									className="fill-ink text-[12px] font-bold"
+									className="fill-ink text-rotulo font-bold"
 								/>
 							</Bar>
 						</BarChart>
@@ -101,15 +101,15 @@ export function ActiveDonationsByStepCard({
 						<div className="h-px w-full bg-blue-tint" />
 						<div className="flex items-end justify-between gap-4">
 							<div className="flex flex-col gap-0.5">
-								<p className="text-[11px] text-ink-3">
+								<p className="text-rotulo text-ink-3">
 									Total de doações ativas
 								</p>
-								<p className="text-[16px] font-bold tabular-nums text-ink">
+								<p className="text-corpo font-bold tabular-nums text-ink">
 									{total}
 								</p>
 							</div>
 							{gargalo ? (
-								<p className="max-w-[60%] text-right text-[12px] leading-snug text-ink-2">
+								<p className="max-w-[60%] text-right text-rotulo leading-snug text-ink-2">
 									A maior fila está em{" "}
 									<span className="font-semibold text-ink">
 										{STEP_DISPLAY[gargalo.step]?.label ?? gargalo.step}

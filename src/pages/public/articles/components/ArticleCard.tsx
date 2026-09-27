@@ -22,15 +22,15 @@ export function ArticleCard({ article }: ArticleCardProps) {
 				{article.category}
 			</Badge>
 
-			<h1 className="mt-3 text-[26px] font-bold leading-[1.25] text-ink">
+			<h1 className="mt-3 text-secao font-bold leading-[1.25] text-ink">
 				{article.title}
 			</h1>
 
-			<div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2 text-[13px] text-ink-2">
+			<div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2 text-apoio text-ink-2">
 				<span className="flex items-center gap-2 whitespace-nowrap">
 					<span
 						aria-hidden
-						className="flex size-[26px] items-center justify-center rounded-full text-[10px] font-bold"
+						className="flex size-[26px] items-center justify-center rounded-full text-rotulo font-bold"
 						style={{ backgroundColor: article.soft, color: article.accent }}
 					>
 						{article.authorInitials}
@@ -69,7 +69,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
 				}}
 			>
 				<h2
-					className="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wide"
+					className="flex items-center gap-1.5 text-rotulo font-bold uppercase tracking-wide"
 					style={{ color: article.accent }}
 				>
 					<Sparkles className="size-3.5" aria-hidden />O que você vai aprender
@@ -78,7 +78,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
 					{article.takeaways.map((takeaway) => (
 						<li
 							key={takeaway}
-							className="flex items-start gap-2 text-[13px] leading-snug text-ink-2"
+							className="flex items-start gap-2 text-apoio leading-snug text-ink-2"
 						>
 							<Check
 								className="mt-0.5 size-4 shrink-0"
@@ -98,14 +98,14 @@ export function ArticleCard({ article }: ArticleCardProps) {
 			<div className="mt-8 flex items-start gap-3 rounded-xl border border-line bg-surface-2 p-4">
 				<span
 					aria-hidden
-					className="flex size-11 shrink-0 items-center justify-center rounded-full text-[13px] font-bold"
+					className="flex size-11 shrink-0 items-center justify-center rounded-full text-apoio font-bold"
 					style={{ backgroundColor: article.soft, color: article.accent }}
 				>
 					{article.authorInitials}
 				</span>
 				<div>
-					<p className="text-[14px] font-bold text-ink">{article.author}</p>
-					<p className="mt-0.5 text-[12px] leading-relaxed text-ink-2">
+					<p className="text-apoio font-bold text-ink">{article.author}</p>
+					<p className="mt-0.5 text-rotulo leading-relaxed text-ink-2">
 						{article.authorBio}
 					</p>
 				</div>

@@ -35,17 +35,17 @@ export function DonationPointCard({
 
 			<div className="flex min-w-0 flex-1 flex-col gap-1.5">
 				<div className="flex min-w-0 items-start justify-between gap-2">
-					<p className="min-w-0 flex-1 truncate text-[13px] font-bold text-ink lg:whitespace-normal lg:line-clamp-2">
+					<p className="min-w-0 flex-1 truncate text-apoio font-bold text-ink lg:whitespace-normal lg:line-clamp-2">
 						{point.name}
 					</p>
 					{point.distance_from_you != null && (
-						<span className="shrink-0 text-[11px] text-ink-3">
+						<span className="shrink-0 text-rotulo text-ink-3">
 							{point.distance_from_you.toFixed(1).replace(".", ",")} km
 						</span>
 					)}
 				</div>
 
-				<p className="text-[11px] text-ink-3">{address}</p>
+				<p className="text-rotulo text-ink-3">{address}</p>
 
 				<div className="flex flex-wrap items-center gap-1.5">
 					<CollectionType hasHome={point.has_home} />

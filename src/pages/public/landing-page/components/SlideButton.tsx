@@ -21,7 +21,7 @@ export function SlideButton({
 			type="button"
 			onClick={onClick}
 			className={cn(
-				"group inline-flex h-12 cursor-pointer items-center justify-between gap-3 whitespace-nowrap rounded-full py-1.5 pr-1.5 pl-6 text-[15px] font-semibold outline-none transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97] focus-visible:ring-3 focus-visible:ring-blue-bright/50",
+				"group inline-flex h-12 cursor-pointer items-center justify-between gap-3 whitespace-nowrap rounded-full py-1.5 pr-1.5 pl-6 text-corpo font-semibold outline-none transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97] focus-visible:ring-3 focus-visible:ring-blue-bright/50",
 				pillClassName,
 				className,
 			)}

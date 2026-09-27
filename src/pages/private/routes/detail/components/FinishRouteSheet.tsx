@@ -86,10 +86,10 @@ export function FinishRouteSheet({
 				<div className="mx-auto -mt-1 h-1 w-9 shrink-0 rounded-full bg-blue-tint-2 lg:hidden" />
 
 				<SheetHeader className="gap-1 p-0 text-left">
-					<SheetTitle className="text-[22px] font-bold text-ink">
+					<SheetTitle className="text-secao font-bold text-ink">
 						Finalizar rota
 					</SheetTitle>
-					<SheetDescription className="text-[13px] text-ink-2">
+					<SheetDescription className="text-apoio text-ink-2">
 						Registre a quilometragem e como foi o trajeto. A rota é encerrada em
 						seguida.
 					</SheetDescription>
@@ -97,7 +97,7 @@ export function FinishRouteSheet({
 
 				<div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-0.5">
 					{excedeu && (
-						<p className="flex items-start gap-2 rounded-xl bg-danger-tint px-3.5 py-3 text-[13px] font-semibold text-danger">
+						<p className="flex items-start gap-2 rounded-xl bg-danger-tint px-3.5 py-3 text-apoio font-semibold text-danger">
 							<AlertTriangle className="mt-px size-4 shrink-0" />
 							Esta rota passou do limite de 6 horas. Você ainda pode finalizar.
 						</p>
@@ -109,10 +109,10 @@ export function FinishRouteSheet({
 								key={item.rotulo}
 								className="flex flex-col items-center gap-1 rounded-xl bg-surface-2 px-2 py-3 text-center"
 							>
-								<span className="font-sans text-[15px] font-extrabold leading-none tabular-nums text-blue-deep">
+								<span className="font-sans text-corpo font-extrabold leading-none tabular-nums text-blue-deep">
 									{item.valor}
 								</span>
-								<span className="text-[10px] font-bold uppercase leading-tight tracking-[0.06em] text-ink-2">
+								<span className="text-rotulo font-bold uppercase leading-tight tracking-[0.06em] text-ink-2">
 									{item.rotulo}
 								</span>
 							</div>
@@ -122,7 +122,7 @@ export function FinishRouteSheet({
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="rota-km"
-							className="text-[13px] font-semibold text-ink-2"
+							className="text-apoio font-semibold text-ink-2"
 						>
 							Quilometragem percorrida (km)
 						</label>
@@ -139,7 +139,7 @@ export function FinishRouteSheet({
 					<div className="flex flex-col gap-1.5">
 						<label
 							htmlFor="rota-relato"
-							className="text-[13px] font-semibold text-ink-2"
+							className="text-apoio font-semibold text-ink-2"
 						>
 							Como foi a rota
 						</label>
@@ -155,7 +155,7 @@ export function FinishRouteSheet({
 					</div>
 
 					{(erroLocal || erro) && (
-						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-[13px] font-semibold text-danger">
+						<p className="rounded-xl bg-danger-tint px-3.5 py-2.5 text-apoio font-semibold text-danger">
 							{erroLocal ?? erro}
 						</p>
 					)}

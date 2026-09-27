@@ -23,10 +23,10 @@ export function NotFoundScreen() {
 				/>
 
 				<div className="flex flex-col gap-2">
-					<h1 className="font-display text-[26px] font-extrabold leading-tight tracking-tight text-blue-deep sm:text-[32px]">
+					<h1 className="font-display text-secao font-extrabold leading-tight tracking-tight text-blue-deep sm:text-titulo">
 						Não encontramos esta página
 					</h1>
-					<p className="text-[15px] leading-relaxed text-ink-2">
+					<p className="text-corpo leading-relaxed text-ink-2">
 						O endereço pode ter mudado de lugar ou nunca ter existido. Nada de
 						errado com você — vamos te levar de volta.
 					</p>

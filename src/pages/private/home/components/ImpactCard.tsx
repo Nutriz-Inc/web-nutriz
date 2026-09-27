@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { CountUp } from "@/components/full/CountUp";
 import { cn } from "@/lib/utils";
 
-type ImpactTone = "blue" | "bright" | "eva";
+type ImpactTone = "blue" | "bright";
 
 type ImpactCardProps = {
 	icon: LucideIcon;
@@ -42,14 +42,6 @@ const TONE_MAP: Record<
 		marca: "text-blue-tint-2/60",
 		chip: "bg-blue-tint text-blue-bright",
 	},
-	eva: {
-		fundo: "bg-gradient-to-br from-eva-tint via-surface to-surface",
-		borda: "border-eva-tint",
-		rotulo: "text-eva-deep",
-		valor: "text-eva-deep",
-		marca: "text-eva-tint",
-		chip: "bg-eva-tint text-eva-deep",
-	},
 };
 
 export function ImpactCard({
@@ -67,7 +59,7 @@ export function ImpactCard({
 	return (
 		<article
 			className={cn(
-				"relative isolate flex h-full flex-col overflow-hidden rounded-card-sm border p-6 shadow-soft transition-shadow hover:shadow-lift sm:p-7",
+				"relative isolate flex h-full flex-col overflow-hidden rounded-card-sm border p-6 sm:p-7",
 				t.fundo,
 				t.borda,
 				featured && "lg:p-8",
@@ -96,7 +88,7 @@ export function ImpactCard({
 
 				<h3
 					className={cn(
-						"font-display text-[0.6875rem] font-bold uppercase tracking-[0.08em]",
+						"font-display text-rotulo font-bold uppercase tracking-[0.08em]",
 						t.rotulo,
 					)}
 				>
@@ -118,7 +110,7 @@ export function ImpactCard({
 				)}
 			</p>
 
-			<p className="mt-2 text-xs leading-relaxed text-ink-2">{hint}</p>
+			<p className="mt-2 text-rotulo leading-relaxed text-ink-2">{hint}</p>
 		</article>
 	);
 }

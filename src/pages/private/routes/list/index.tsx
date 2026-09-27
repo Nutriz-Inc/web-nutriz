@@ -1,23 +1,30 @@
-import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import { type FormEvent, useState } from "react";
+import { X } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
+import {
+	BuscaPorCampo,
+	type CampoDeBusca,
+} from "@/components/full/BuscaPorCampo";
+import { DateFilter } from "@/components/full/DateFilter";
 import { EmptyState } from "@/components/full/EmptyState";
 import { FilterChips } from "@/components/full/FilterChips";
 import { GrupoDeFiltro } from "@/components/full/GrupoDeFiltro";
+import { ListaDeDados } from "@/components/full/ListaDeDados";
+import { ListaDeDadosEsqueleto } from "@/components/full/ListaDeDadosEsqueleto";
+import { Paginacao } from "@/components/full/Paginacao";
 import { PainelDeFiltros } from "@/components/full/PainelDeFiltros";
 import { RefreshableList } from "@/components/full/RefreshableList";
-import { SearchBar } from "@/components/full/SearchBar";
-import { StaggerGroup } from "@/components/full/StaggerGroup";
-import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { cn } from "@/lib/utils";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { EnumRouteStatus } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
 import { DEFAULT_PAGE_SIZE } from "@/utils/constants";
+import { toDateSetParam } from "@/utils/formatter";
+import { colunasDaRota } from "./colunas";
 import { CreateRouteSheet } from "./components/CreateRouteSheet";
-import { RouteCard } from "./components/RouteCard";
 import {
 	ROUTE_STATUS_FILTER_OPTIONS,
 	ROUTE_STATUS_FILTER_OPTIONS_OPERACAO,
@@ -26,51 +33,55 @@ import {
 import { useRoutesList } from "./hooks";
 import { ordenarPorPrioridade } from "./utils";
 
+type CampoDaRota = "name" | "driver_name" | "city" | "neighborhood";
+
+const CAMPOS_DA_ROTA: CampoDeBusca<CampoDaRota>[] = [
+	{ chave: "name", rotulo: "Rota", placeholder: "Buscar pelo nome da rota" },
+	{
+		chave: "driver_name",
+		rotulo: "Motorista",
+		placeholder: "Buscar pelo nome do motorista",
+	},
+	{ chave: "city", rotulo: "Cidade", placeholder: "Buscar pela cidade" },
+	{
+		chave: "neighborhood",
+		rotulo: "Bairro",
+		placeholder: "Buscar pelo bairro",
+	},
+];
+
 export function RoutesListPage() {
 	const { auth } = useAuth();
+	const navigate = useNavigate();
 
 	const ehAdm = auth?.type === EnumUserType.Admin;
 	const ehMotorista = auth?.type === EnumUserType.Driver;
 
-	const [driverName, setDriverName] = useState("");
-	const [appliedDriverName, setAppliedDriverName] = useState("");
-	const [name, setName] = useState("");
-	const [appliedName, setAppliedName] = useState("");
-	const [city, setCity] = useState("");
-	const [appliedCity, setAppliedCity] = useState("");
-	const [neighborhood, setNeighborhood] = useState("");
-	const [appliedNeighborhood, setAppliedNeighborhood] = useState("");
+	const campos = ehAdm ? CAMPOS_DA_ROTA : CAMPOS_DA_ROTA.slice(0, 1);
+
+	const [campo, setCampo] = useState<CampoDaRota>("name");
+	const [termo, setTermo] = useState("");
 	const [dateSet, setDateSet] = useState("");
 	const [status, setStatus] = useState<RouteStatusFilter>("all");
 	const [page, setPage] = useState(1);
 
-	function handleApplyFilters(event: FormEvent<HTMLFormElement>) {
-		event.preventDefault();
+	const termoAplicado = useDebouncedValue(termo.trim(), 400);
 
-		setAppliedDriverName(driverName);
-		setAppliedName(name);
-		setAppliedCity(city);
-		setAppliedNeighborhood(neighborhood);
+	const dataAplicada = toDateSetParam(dateSet);
+	const temFiltro = !!(termoAplicado || dataAplicada || status !== "all");
+
+	function handleTermoChange(valor: string) {
+		setTermo(valor);
 		setPage(1);
 	}
 
-	const temFiltro = !!(
-		appliedName ||
-		appliedDriverName ||
-		appliedCity ||
-		appliedNeighborhood ||
-		dateSet
-	);
+	function handleCampoChange(proximo: CampoDaRota) {
+		setCampo(proximo);
+		setPage(1);
+	}
 
 	function handleClearFilters() {
-		setDriverName("");
-		setAppliedDriverName("");
-		setName("");
-		setAppliedName("");
-		setCity("");
-		setAppliedCity("");
-		setNeighborhood("");
-		setAppliedNeighborhood("");
+		setTermo("");
 		setDateSet("");
 		setStatus("all");
 		setPage(1);
@@ -86,6 +97,9 @@ export function RoutesListPage() {
 		setPage(1);
 	}
 
+	const busca = (chave: CampoDaRota) =>
+		campo === chave ? termoAplicado || undefined : undefined;
+
 	const filtrarErroLocalmente = status === EnumRouteStatus.Error;
 	const statusParaApi =
 		status === "all" || filtrarErroLocalmente ? undefined : status;
@@ -95,11 +109,11 @@ export function RoutesListPage() {
 			page,
 			page_size: DEFAULT_PAGE_SIZE,
 			id_driver: ehMotorista ? auth?.id_user : undefined,
-			driver_name: (ehAdm && appliedDriverName) || undefined,
-			name: appliedName || undefined,
-			city: (ehAdm && appliedCity) || undefined,
-			neighborhood: (ehAdm && appliedNeighborhood) || undefined,
-			date_set: dateSet || undefined,
+			driver_name: ehAdm ? busca("driver_name") : undefined,
+			name: busca("name"),
+			city: ehAdm ? busca("city") : undefined,
+			neighborhood: ehAdm ? busca("neighborhood") : undefined,
+			date_set: dataAplicada,
 			status: statusParaApi,
 		});
 
@@ -118,81 +132,23 @@ export function RoutesListPage() {
 	return (
 		<Page
 			title="Rotas"
-			description={`${total} rotas cadastradas`}
+			description={`${total} ${total === 1 ? "rota" : "rotas"}${temFiltro ? " no filtro" : " cadastradas"}`}
 			loading={isLoading}
+			skeleton={<ListaDeDadosEsqueleto rotulo="Carregando as rotas" />}
 			error={isError ? error : undefined}
 			onRetry={() => refetch()}
 			hasPermission={auth?.type !== EnumUserType.Common}
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
-			actionSlot={auth?.type === EnumUserType.Admin && <CreateRouteSheet />}
+			actionSlot={ehAdm && <CreateRouteSheet />}
 		>
-			<div className="-mx-4 -mt-4 -mb-16 sm:-mx-6 sm:-mt-6 flex min-h-[calc(100vh-69px)] flex-col gap-[18px] bg-canvas px-4 pb-32 pt-5 lg:m-0 lg:min-h-0 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-6 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
-				<form onSubmit={handleApplyFilters} className="flex flex-col gap-2.5">
-					<div
-						className={cn(
-							"grid gap-2.5",
-							ehAdm && "lg:grid-cols-2 xl:grid-cols-4",
-						)}
-					>
-						{ehAdm && (
-							<SearchBar
-								value={driverName}
-								onChange={setDriverName}
-								placeholder="Buscar por motorista..."
-							/>
-						)}
-						<SearchBar
-							value={name}
-							onChange={setName}
-							placeholder="Buscar por nome da rota..."
-						/>
-						{ehAdm && (
-							<>
-								<SearchBar
-									value={city}
-									onChange={setCity}
-									placeholder="Buscar por cidade..."
-								/>
-								<SearchBar
-									value={neighborhood}
-									onChange={setNeighborhood}
-									placeholder="Buscar por bairro..."
-								/>
-							</>
-						)}
-					</div>
-
-					<div className="flex flex-col gap-2.5 lg:flex-row lg:items-center">
-						<input
-							type="date"
-							value={dateSet}
-							onChange={(event) => handleDateSetChange(event.target.value)}
-							aria-label="Filtrar por data programada"
-							className="h-[43px] w-full rounded-card-sm border border-line bg-surface px-4 text-[15px] text-ink outline-none placeholder:text-ink-3 lg:w-[180px] lg:shrink-0"
-						/>
-						<div className="grid grid-cols-2 gap-2.5 lg:ml-auto lg:flex lg:shrink-0 lg:gap-2.5">
-							<Button
-								variant="primary"
-								size="pill"
-								type="submit"
-								className="shrink-0"
-							>
-								<Search className="size-4" />
-								Aplicar filtro
-							</Button>
-							<Button
-								variant="neutral"
-								size="pill"
-								type="button"
-								onClick={handleClearFilters}
-								className="shrink-0"
-							>
-								<X className="size-4" />
-								Limpar filtro
-							</Button>
-						</div>
-					</div>
-				</form>
+			<div className="flex flex-col gap-4 pb-24 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-5 lg:pb-8">
+				<BuscaPorCampo
+					campos={campos}
+					campo={campo}
+					aoTrocarCampo={handleCampoChange}
+					valor={termo}
+					aoMudar={handleTermoChange}
+				/>
 
 				<PainelDeFiltros>
 					<GrupoDeFiltro rotulo="Situação da rota">
@@ -206,11 +162,35 @@ export function RoutesListPage() {
 							onChange={handleStatusChange}
 						/>
 					</GrupoDeFiltro>
+					<GrupoDeFiltro rotulo="Data programada">
+						<DateFilter
+							value={dateSet}
+							onChange={handleDateSetChange}
+							semRotulo
+						/>
+					</GrupoDeFiltro>
+					{temFiltro && (
+						<Button
+							variant="ghost"
+							size="pill"
+							type="button"
+							onClick={handleClearFilters}
+							className="self-start text-ink-2 lg:ml-auto lg:self-end"
+						>
+							<X className="size-4" />
+							Limpar filtros
+						</Button>
+					)}
 				</PainelDeFiltros>
 
 				<RefreshableList updating={isPlaceholderData}>
-					{routes.length === 0 ? (
-						<div className="rounded-card-sm bg-surface">
+					<ListaDeDados
+						itens={routes}
+						colunas={colunasDaRota(!ehMotorista)}
+						chaveDoItem={(route) => route.id_route}
+						rotuloDoItem={(route) => `Abrir a rota ${route.name}`}
+						aoAbrir={(route) => navigate(`/rotas/${route.id_route}`)}
+						vazio={
 							<EmptyState
 								illustration={buscaSemResultado}
 								title={
@@ -228,52 +208,15 @@ export function RoutesListPage() {
 											: "Crie a primeira rota para começar a organizar as coletas."
 								}
 							/>
-						</div>
-					) : (
-						<>
-							<StaggerGroup
-								key={page}
-								className="grid grid-cols-1 gap-4 lg:grid-cols-2"
-							>
-								{routes.map((route) => (
-									<StaggerItem key={route.id_route} className="h-full">
-										<RouteCard route={route} />
-									</StaggerItem>
-								))}
-							</StaggerGroup>
-
-							{totalPages > 1 && (
-								<div className="flex items-center justify-center gap-3 lg:justify-end">
-									<button
-										type="button"
-										onClick={() =>
-											setPage((current) => Math.max(1, current - 1))
-										}
-										disabled={page === 1}
-										aria-label="Página anterior"
-										className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
-									>
-										<ChevronLeft className="size-4" />
-									</button>
-									<span className="text-[13px] font-semibold text-ink">
-										Página {page} de {totalPages}
-									</span>
-									<button
-										type="button"
-										onClick={() =>
-											setPage((current) => Math.min(totalPages, current + 1))
-										}
-										disabled={page === totalPages}
-										aria-label="Próxima página"
-										className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-ink-2 transition-colors hover:bg-surface-3 disabled:opacity-40"
-									>
-										<ChevronRight className="size-4" />
-									</button>
-								</div>
-							)}
-						</>
-					)}
+						}
+					/>
 				</RefreshableList>
+
+				<Paginacao
+					pagina={page}
+					totalDePaginas={totalPages}
+					aoMudar={setPage}
+				/>
 			</div>
 		</Page>
 	);

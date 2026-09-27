@@ -62,7 +62,7 @@ export function AppHeader({ showMenu = true, className }: AppHeaderProps) {
 									to={item.to ?? "/"}
 									className={({ isActive }) =>
 										cn(
-											"rounded-full px-4 py-2 text-[14px] outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
+											"rounded-full px-4 py-2 text-apoio outline-none transition-colors focus-visible:ring-3 focus-visible:ring-blue-bright/50",
 											isActive
 												? "bg-blue-tint font-semibold text-blue-deep"
 												: "font-medium text-ink-2 hover:bg-blue-tint/60 hover:text-blue-deep",

@@ -34,12 +34,12 @@ export function VideoPreviewCard({ article }: VideoPreviewCardProps) {
 					className="absolute inset-0 h-full w-full object-cover brightness-[0.6] transition-transform duration-150 group-hover:scale-105"
 				/>
 
-				<span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/50 px-2 py-1 text-[11px] font-medium text-white">
+				<span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/50 px-2 py-1 text-rotulo font-medium text-white">
 					<Play className="size-3 fill-white" aria-hidden />
 					Vídeo no artigo
 				</span>
 
-				<span className="absolute right-3 top-3 rounded bg-black/50 px-1.5 py-0.5 text-[11px] font-medium text-white">
+				<span className="absolute right-3 top-3 rounded bg-black/50 px-1.5 py-0.5 text-rotulo font-medium text-white">
 					{article.videoDuration}
 				</span>
 			</button>
@@ -59,7 +59,7 @@ export function VideoPreviewCard({ article }: VideoPreviewCardProps) {
 				<button
 					type="button"
 					onClick={goToArticle}
-					className="min-h-6 text-left text-[14px] font-bold leading-snug text-ink"
+					className="min-h-6 text-left text-apoio font-bold leading-snug text-ink"
 				>
 					{article.videoTitle}
 				</button>

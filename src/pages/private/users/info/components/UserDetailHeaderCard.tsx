@@ -24,13 +24,13 @@ export function UserDetailHeaderCard({
 				<div
 					className={cn(
 						"flex size-[56px] shrink-0 items-center justify-center rounded-full",
-						isDonor ? "bg-eva-tint" : "bg-blue-tint",
+						isDonor ? "bg-blue-tint" : "bg-blue-tint",
 					)}
 				>
 					<span
 						className={cn(
-							"text-[18px] font-bold",
-							isDonor ? "text-eva-deep" : "text-blue-deep",
+							"text-destaque font-bold",
+							isDonor ? "text-blue" : "text-blue-deep",
 						)}
 					>
 						{getInitials(user.name)}
@@ -38,7 +38,7 @@ export function UserDetailHeaderCard({
 				</div>
 				<div className="flex min-w-0 flex-col gap-1.5">
 					<div className="flex min-w-0 flex-wrap items-center gap-2">
-						<p className="min-w-0 break-words text-[18px] font-extrabold leading-tight text-ink lg:truncate lg:text-[22px] lg:leading-normal">
+						<p className="min-w-0 break-words text-destaque font-extrabold leading-tight text-ink lg:truncate lg:text-secao lg:leading-normal">
 							{user.name}
 						</p>
 						<UserTypeBadge

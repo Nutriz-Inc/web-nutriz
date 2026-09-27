@@ -36,19 +36,19 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 					{article.category}
 				</Badge>
 
-				<h2 className="text-[22px] font-bold leading-snug text-ink">
+				<h2 className="text-secao font-bold leading-snug text-ink">
 					{article.title}
 				</h2>
 
-				<p className="line-clamp-2 text-[14px] leading-relaxed text-ink-2">
+				<p className="line-clamp-2 text-apoio leading-relaxed text-ink-2">
 					{getArticleSummary(article)}
 				</p>
 
 				<div className="mt-1 flex items-center justify-between">
-					<span className="flex items-center gap-2 text-[13px] text-ink-2">
+					<span className="flex items-center gap-2 text-apoio text-ink-2">
 						<span
 							aria-hidden
-							className="flex size-[26px] items-center justify-center rounded-full text-[10px] font-bold"
+							className="flex size-[26px] items-center justify-center rounded-full text-rotulo font-bold"
 							style={{ backgroundColor: article.soft, color: article.accent }}
 						>
 							{article.authorInitials}
@@ -58,7 +58,7 @@ export function FeaturedMainCard({ article }: FeaturedMainCardProps) {
 
 					<span
 						aria-hidden="true"
-						className="inline-flex min-h-6 items-center text-[13px] font-semibold"
+						className="inline-flex min-h-6 items-center text-apoio font-semibold"
 						style={{ color: article.accent }}
 					>
 						Ler artigo →

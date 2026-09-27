@@ -177,3 +177,13 @@ export function formatDateTimeParts(value: string): {
 		time: formatTimeBR(value),
 	};
 }
+
+export function toDateSetParam(dateFilter: string): string | undefined {
+	const digits = onlyDigits(dateFilter);
+	if (digits.length !== 8) return undefined;
+
+	const day = digits.slice(0, 2);
+	const month = digits.slice(2, 4);
+	const year = digits.slice(4, 8);
+	return `${year}-${month}-${day}`;
+}

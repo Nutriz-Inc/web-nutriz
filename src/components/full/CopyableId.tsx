@@ -21,7 +21,7 @@ export function CopyableId({ id, className }: CopyableIdProps) {
 			type="button"
 			onClick={handleCopy}
 			className={cn(
-				"flex min-w-0 items-center gap-1.5 text-[13px] text-ink-3 transition-colors active:text-ink-2",
+				"flex min-w-0 items-center gap-1.5 text-apoio text-ink-3 transition-colors active:text-ink-2",
 				className,
 			)}
 		>

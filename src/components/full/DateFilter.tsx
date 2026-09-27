@@ -15,7 +15,7 @@ export function DateFilter({
 	return (
 		<div className="flex flex-col gap-2">
 			{semRotulo ? null : (
-				<span className="text-[13px] font-medium text-ink-2">
+				<span className="text-apoio font-medium text-ink-2">
 					Período do Agendamento
 				</span>
 			)}
@@ -28,7 +28,7 @@ export function DateFilter({
 					onChange={(event) => onChange(maskDate(event.target.value))}
 					placeholder="DD/MM/AAAA"
 					aria-label="Filtrar por data"
-					className="min-h-6 min-w-0 flex-1 bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-3"
+					className="min-h-6 min-w-0 flex-1 bg-transparent text-corpo text-ink outline-none placeholder:text-ink-3"
 				/>
 				{value && (
 					<button

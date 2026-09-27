@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { CountUp } from "@/components/full/CountUp";
 import { cn } from "@/lib/utils";
 
 type TomDoNumero = "neutro" | "atencao" | "grave" | "em-dia";
@@ -36,7 +37,7 @@ export function CelulaDeNumero({
 					COR_DO_TOM[tom],
 				)}
 			>
-				{valor}
+				{typeof valor === "number" ? <CountUp value={valor} /> : valor}
 			</span>
 			<span className="text-rotulo leading-snug text-ink-2">{rotulo}</span>
 			{detalhe ? (

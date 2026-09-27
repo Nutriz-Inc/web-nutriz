@@ -49,6 +49,7 @@ export type EvaChatStatus = "connecting" | "open" | "reconnecting" | "failed";
 
 export type EvaBlockedReason =
 	| "session"
+	| "indisponivel"
 	| "consent"
 	| "forbidden"
 	| "rate_limit"

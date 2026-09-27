@@ -29,7 +29,6 @@ export function EvaModalConteudo({
 }: EvaModalConteudoProps) {
 	const rotuloDoModo = EVA_PERSONAS[mode].rotuloDoModo;
 	const lembraDasBoasVindas = mode !== "anonymous";
-	const mostrarAjuda = mode !== "anonymous";
 
 	const chat = useEvaChat(mensagemInicial);
 	const { enviarAoConectar } = chat;
@@ -61,16 +60,14 @@ export function EvaModalConteudo({
 		<EvaTransicaoDeVisao visao={view}>
 			{view === "ajuda" ? null : view === "welcome" ? (
 				<>
-					{mostrarAjuda ? (
-						<button
-							type="button"
-							className="eva-widget-ajuda eva-widget-ajuda--solto"
-							onClick={abrirAjuda}
-							aria-label="Como usar a EVA"
-						>
-							?
-						</button>
-					) : null}
+					<button
+						type="button"
+						className="eva-widget-ajuda eva-widget-ajuda--solto"
+						onClick={abrirAjuda}
+						aria-label="Como usar a EVA"
+					>
+						?
+					</button>
 					<div className="eva-widget-header eva-widget-header--bare">
 						<EvaBotaoFechar />
 						<Dialog.Title className="sr-only">Assistente EVA</Dialog.Title>
@@ -78,18 +75,14 @@ export function EvaModalConteudo({
 				</>
 			) : (
 				<div className="eva-widget-header eva-widget-header--chat">
-					{mostrarAjuda ? (
-						<button
-							type="button"
-							className="eva-widget-ajuda"
-							onClick={abrirAjuda}
-							aria-label="Como usar a EVA"
-						>
-							?
-						</button>
-					) : (
-						<span className="eva-widget-ajuda-vazio" />
-					)}
+					<button
+						type="button"
+						className="eva-widget-ajuda"
+						onClick={abrirAjuda}
+						aria-label="Como usar a EVA"
+					>
+						?
+					</button>
 					<Dialog.Title className="eva-widget-header-title">
 						EVA
 						{rotuloDoModo ? (

@@ -1,13 +1,13 @@
 import { Calendar, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { EsqueletoDeDetalhe } from "@/components/full/EsqueletoDeDetalhe";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
 import { formatCep, formatCreatedAt } from "@/utils/formatter";
 import { getStepDefinitions } from "../info/constants";
 import { useDonation } from "../info/hooks/use-donation";
+import { EsqueletoDaEtapa } from "./components/EsqueletoDaEtapa";
 import { StepAboutCard } from "./components/StepAboutCard";
 import { StepHelpCard } from "./components/StepHelpCard";
 import { StepHeroCard } from "./components/StepHeroCard";
@@ -44,12 +44,7 @@ export function DonationStepDetailPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Common}
 			loading={donationQuery.isLoading}
-			skeleton={
-				<EsqueletoDeDetalhe
-					rotulo="Carregando a etapa"
-					className="lg:max-w-[1400px]"
-				/>
-			}
+			skeleton={<EsqueletoDaEtapa />}
 			backTo={`/doacao/${id_donation}`}
 		>
 			{!donationQuery.isLoading && !step ? (

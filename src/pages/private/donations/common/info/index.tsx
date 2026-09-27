@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { EsqueletoDeDetalhe } from "@/components/full/EsqueletoDeDetalhe";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
@@ -7,6 +6,7 @@ import { EnumUserType } from "@/services/types/i-user";
 import { DonationFeedbackCard } from "./components/DonationFeedbackCard";
 import { DonationSummaryCard } from "./components/DonationSummaryCard";
 import { DonationTimelineCard } from "./components/DonationTimelineCard";
+import { EsqueletoDaDoacao } from "./components/EsqueletoDaDoacao";
 import { getStepDefinitions } from "./constants";
 import { useDonation, useUpdateDonation } from "./hooks/use-donation";
 
@@ -40,12 +40,7 @@ export function DonationInfoPage() {
 			description="Acompanhe cada etapa do processo da sua doação."
 			hasPermission={auth?.type === EnumUserType.Common}
 			loading={donationQuery.isLoading}
-			skeleton={
-				<EsqueletoDeDetalhe
-					rotulo="Carregando a doação"
-					className="lg:max-w-[1400px]"
-				/>
-			}
+			skeleton={<EsqueletoDaDoacao />}
 			backTo="/minhas-doacoes"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>

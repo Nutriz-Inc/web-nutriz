@@ -2,7 +2,6 @@ import { Droplet, Heart, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import novaDoacao from "@/assets/illustrations/nova-doacao.svg";
 import WhatsAppIcon from "@/assets/images/whatsapp-icon.svg";
-import { EsqueletoDeDetalhe } from "@/components/full/EsqueletoDeDetalhe";
 import { Reveal } from "@/components/full/Reveal";
 import { Footer } from "@/components/layout/Footer";
 import { Page } from "@/components/layout/Page";
@@ -15,6 +14,7 @@ import {
 } from "@/utils/whatsapp-link";
 import { ActiveDonationNotice } from "./components/ActiveDonationNotice";
 import { AttentionNotice } from "./components/AttentionNotice";
+import { EsqueletoDaNovaDoacao } from "./components/EsqueletoDaNovaDoacao";
 import { StepRow } from "./components/StepRow";
 import { useActiveDonation } from "./hooks/use-active-donation";
 import { useCreateDonation } from "./hooks/use-create-donation";
@@ -92,12 +92,7 @@ export function NewDonationPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Common}
 			loading={isLoading}
-			skeleton={
-				<EsqueletoDeDetalhe
-					rotulo="Preparando a nova doação"
-					className="lg:max-w-[1400px]"
-				/>
-			}
+			skeleton={<EsqueletoDaNovaDoacao />}
 		>
 			<Reveal className="mx-auto w-full max-w-[1000px]">
 				<section className="rounded-card overflow-hidden border border-line bg-surface shadow-soft lg:grid lg:grid-cols-[minmax(0,42%)_1fr] lg:items-stretch">

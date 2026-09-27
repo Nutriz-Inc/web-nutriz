@@ -1,4 +1,4 @@
-import { SectionWave } from "../SectionWave";
+import { SectionWave } from "@/components/full/SectionWave";
 
 export function HeroWave() {
 	return (

@@ -1,3 +1,4 @@
+import { SectionWave } from "@/components/full/SectionWave";
 import { ArticlesSection } from "./components/ArticlesSection";
 import { CollectionPointsSection } from "./components/CollectionPointsSection";
 import { EvaSection } from "./components/EvaSection";
@@ -7,7 +8,6 @@ import { HowItWorksSection } from "./components/HowItWorksSection";
 import { LandingFooter } from "./components/LandingFooter";
 import { LandingHeader } from "./components/LandingHeader";
 import { SectionRibbon } from "./components/SectionRibbon";
-import { SectionWave } from "./components/SectionWave";
 import { TestimonialsSection } from "./components/TestimonialsSection";
 
 const ALTURA_DA_ONDA = "h-24 sm:h-32 lg:h-40";

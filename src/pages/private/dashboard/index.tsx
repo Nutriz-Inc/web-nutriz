@@ -1,5 +1,6 @@
 import { AlertTriangle, Clock } from "lucide-react";
 import { useState } from "react";
+import { EsqueletoDoPainel } from "@/components/full/EsqueletoDoPainel";
 import { StaggerGroup } from "@/components/full/StaggerGroup";
 import { StaggerItem } from "@/components/full/StaggerItem";
 import { Page } from "@/components/layout/Page";
@@ -78,6 +79,7 @@ export function AdmDashboardPage() {
 			title="Dashboard"
 			description="Indicadores consolidados de todas as doadoras · atualizado em tempo real"
 			loading={dashboardQuery.isLoading}
+			skeleton={<EsqueletoDoPainel rotulo="Carregando o painel" />}
 			error={dashboardQuery.isError ? dashboardQuery.error : undefined}
 			onRetry={() => dashboardQuery.refetch()}
 			hasPermission={auth?.type === EnumUserType.Admin}

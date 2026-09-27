@@ -1,6 +1,7 @@
 import { Calendar, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { EsqueletoDeDetalhe } from "@/components/full/EsqueletoDeDetalhe";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
@@ -41,6 +42,12 @@ export function DonationStepDetailPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Common}
 			loading={donationQuery.isLoading}
+			skeleton={
+				<EsqueletoDeDetalhe
+					rotulo="Carregando a etapa"
+					className="lg:max-w-[1400px]"
+				/>
+			}
 			backTo={`/doacao/${id_donation}`}
 		>
 			{!donationQuery.isLoading && !step ? (

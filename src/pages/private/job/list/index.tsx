@@ -2,6 +2,7 @@ import { useState } from "react";
 import agendaVazia from "@/assets/illustrations/agenda-vazia.svg";
 import { DateFilter } from "@/components/full/DateFilter";
 import { EmptyState } from "@/components/full/EmptyState";
+import { EsqueletoDeCartoes } from "@/components/full/EsqueletoDeCartoes";
 import { RefreshableList } from "@/components/full/RefreshableList";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -32,6 +33,12 @@ export function AppointmentsPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Nurse}
 			loading={isLoading}
+			skeleton={
+				<EsqueletoDeCartoes
+					rotulo="Carregando os agendamentos"
+					className="lg:max-w-[1400px]"
+				/>
+			}
 			title="Agendamentos atribuídos"
 			description="Toque ou clique em um card para ver os detalhes e o relatório da consulta."
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"

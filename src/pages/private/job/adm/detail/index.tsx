@@ -1,5 +1,6 @@
 import { CalendarX } from "lucide-react";
 import { useLocation, useParams } from "react-router-dom";
+import { EsqueletoDeDetalhe } from "@/components/full/EsqueletoDeDetalhe";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumUserType } from "@/services/types/i-user";
@@ -29,6 +30,12 @@ export function AppointmentManagementDetailPage() {
 		<Page
 			hasPermission={auth?.type === EnumUserType.Admin}
 			loading={isLoading}
+			skeleton={
+				<EsqueletoDeDetalhe
+					rotulo="Carregando o agendamento"
+					className="lg:max-w-[1200px]"
+				/>
+			}
 			backTo={backTo}
 			title={`Agendamento #${id_job.slice(0, 8)}`}
 			description="Acompanhe as etapas do agendamento e edite a descrição enquanto ele estiver em andamento."

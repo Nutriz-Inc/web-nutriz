@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
+import { EsqueletoDePerfil } from "@/components/full/EsqueletoDePerfil";
 import { Reveal } from "@/components/full/Reveal";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
@@ -235,6 +236,12 @@ export function ProfilePage() {
 	return (
 		<Page
 			loading={isLoading}
+			skeleton={
+				<EsqueletoDePerfil
+					rotulo="Carregando o seu perfil"
+					className="lg:max-w-[1400px]"
+				/>
+			}
 			error={isError ? error : undefined}
 			onRetry={() => refetch()}
 			title="Perfil"

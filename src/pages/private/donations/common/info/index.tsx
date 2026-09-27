@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { EsqueletoDeDetalhe } from "@/components/full/EsqueletoDeDetalhe";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { EnumDonationStepStatus } from "@/services/types/i-donation";
@@ -39,6 +40,12 @@ export function DonationInfoPage() {
 			description="Acompanhe cada etapa do processo da sua doação."
 			hasPermission={auth?.type === EnumUserType.Common}
 			loading={donationQuery.isLoading}
+			skeleton={
+				<EsqueletoDeDetalhe
+					rotulo="Carregando a doação"
+					className="lg:max-w-[1400px]"
+				/>
+			}
 			backTo="/minhas-doacoes"
 			titleClassName="lg:mx-auto lg:w-full lg:max-w-[1400px]"
 		>

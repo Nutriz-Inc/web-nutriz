@@ -97,7 +97,7 @@ export function CreateUserSheet({
 					</SheetDescription>
 				</SheetHeader>
 
-				<div className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)] gap-x-4 gap-y-5 overflow-y-auto pr-0.5 sm:grid-cols-2">
+				<div className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)] gap-x-4 gap-y-5 area-rolavel sm:grid-cols-2">
 					<CreateUserField
 						id="create-user-name"
 						className="sm:col-span-2"

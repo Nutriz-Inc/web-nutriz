@@ -932,3 +932,14 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 		overflow: visible;
 	}
 }
+
+@utility area-rolavel {
+	overflow-y: auto;
+	margin-inline: -0.5rem;
+	padding-inline: 0.5rem;
+	margin-block: -0.25rem;
+	padding-block: 0.25rem;
+	scrollbar-gutter: stable;
+	scrollbar-width: thin;
+	scrollbar-color: var(--line-strong) transparent;
+}

@@ -114,7 +114,7 @@ export function AddStopSheet({
 					</div>
 				</div>
 
-				<div className="flex min-h-0 flex-1 flex-col gap-2.5 overflow-y-auto pr-0.5">
+				<div className="flex min-h-0 flex-1 flex-col gap-2.5 area-rolavel">
 					{carregando ? (
 						<SkeletonList
 							rows={4}

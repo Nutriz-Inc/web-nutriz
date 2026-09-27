@@ -78,6 +78,7 @@ export function RouteMap({ stops, interativo = true, className }: Props) {
 				className="size-full"
 			>
 				<TileLayer
+					className="mapa-sem-tema-escuro"
 					attribution='Tiles &copy; <a href="https://www.esri.com">Esri</a>'
 					url={TILE_ROTA}
 					maxZoom={ZOOM_MAXIMO}

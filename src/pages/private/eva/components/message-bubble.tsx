@@ -70,7 +70,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 				transformOrigin: "bottom left",
 			}}
 		>
-			<AvatarEva size={28} />
+			<AvatarEva size={28} resposta />
 			<div
 				style={{
 					display: "flex",

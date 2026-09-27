@@ -241,15 +241,6 @@
 	align-items: center;
 }
 
-.eva-widget-header--bare {
-	position: absolute;
-	top: 27px;
-	right: 16px;
-	z-index: 2;
-	padding: 0;
-	background: transparent;
-}
-
 .eva-widget-header--welcome .eva-widget-header-title {
 	text-align: center;
 }
@@ -332,8 +323,8 @@
 	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
-	padding: 26px 22px 16px;
+	gap: 8px;
+	padding: 0 22px 6px;
 	background: var(--surface);
 }
 
@@ -350,7 +341,6 @@
 
 .eva-welcome-id-text {
 	min-width: 0;
-	padding-right: 48px;
 }
 
 .eva-welcome-name {
@@ -894,11 +884,10 @@
 	color: var(--eva-deep);
 }
 
-.eva-widget-ajuda--solto {
-	position: absolute;
-	top: 27px;
-	left: 16px;
-	z-index: 2;
+.eva-widget-header--acoes {
+	justify-content: flex-end;
+	gap: 8px;
+	padding: 8px 12px 0;
 }
 
 .eva-help-capa-placa {
@@ -959,7 +948,7 @@
 }
 
 .eva-help-voltar,
-.eva-widget-ajuda:not(.eva-widget-ajuda--solto) {
+.eva-widget-ajuda {
 	position: relative;
 }
 
@@ -974,6 +963,7 @@
 	background: oklch(0.12 0.02 258 / 0.55);
 }
 
+.eva-widget-welcome,
 .eva-widget-scroll {
 	scrollbar-width: thin;
 	scrollbar-color: color-mix(in oklch, var(--eva-deep) 28%, transparent)
@@ -987,14 +977,17 @@
 	);
 }
 
+.eva-widget-welcome::-webkit-scrollbar,
 .eva-widget-scroll::-webkit-scrollbar {
 	width: 6px;
 }
 
+.eva-widget-welcome::-webkit-scrollbar-track,
 .eva-widget-scroll::-webkit-scrollbar-track {
 	background: transparent;
 }
 
+.eva-widget-welcome::-webkit-scrollbar-thumb,
 .eva-widget-scroll::-webkit-scrollbar-thumb {
 	border-radius: 999px;
 	background: color-mix(in oklch, var(--eva-deep) 28%, transparent);

@@ -60,15 +60,15 @@ export function EvaModalConteudo({
 		<EvaTransicaoDeVisao visao={view}>
 			{view === "ajuda" ? null : view === "welcome" ? (
 				<>
-					<button
-						type="button"
-						className="eva-widget-ajuda eva-widget-ajuda--solto"
-						onClick={abrirAjuda}
-						aria-label="Como usar a EVA"
-					>
-						?
-					</button>
-					<div className="eva-widget-header eva-widget-header--bare">
+					<div className="eva-widget-header eva-widget-header--acoes">
+						<button
+							type="button"
+							className="eva-widget-ajuda"
+							onClick={abrirAjuda}
+							aria-label="Como usar a EVA"
+						>
+							?
+						</button>
 						<EvaBotaoFechar />
 						<Dialog.Title className="sr-only">Assistente EVA</Dialog.Title>
 					</div>

@@ -1065,12 +1065,6 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 	}
 }
 
-@keyframes nz-crescer {
-	from {
-		transform: scaleY(0);
-	}
-}
-
 :root[data-revelando-tema]::view-transition-new(root) {
 	animation: none;
 }
@@ -1079,5 +1073,11 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 	from {
 		opacity: 0;
 		transform: rotate(-90deg) scale(0.6);
+	}
+}
+
+@keyframes nz-subir-leite {
+	from {
+		transform: translateY(160px);
 	}
 }

@@ -12,8 +12,8 @@ import { ConviteParaDoar } from "./components/ConviteParaDoar";
 import { DoacaoEmAndamento } from "./components/DoacaoEmAndamento";
 import { EsqueletoDasDoacoes } from "./components/EsqueletoDasDoacoes";
 import { HistoricoDeDoacoes } from "./components/HistoricoDeDoacoes";
-import { ResumoDaJornada } from "./components/ResumoDaJornada";
-import { useDonationsList } from "./hooks";
+import { ImpactoDaDoadora } from "./components/ImpactoDaDoadora";
+import { useDonationsList, useLeiteDoado } from "./hooks";
 import type { DoacaoDaLista } from "./types";
 
 export function DonationsPage() {
@@ -22,6 +22,7 @@ export function DonationsPage() {
 	const { auth } = useAuth();
 
 	const { data, isLoading, isError, error, refetch } = useDonationsList();
+	const leiteDoado = useLeiteDoado(auth?.id_user);
 
 	const donations = data?.data ?? [];
 
@@ -74,7 +75,7 @@ export function DonationsPage() {
 		>
 			<div className="-mx-4 -mt-4 -mb-16 flex min-h-[calc(100vh-69px)] flex-col bg-canvas sm:-mx-6 sm:-mt-6 lg:-mx-10">
 				<div className="flex flex-1 flex-col gap-4 px-4 pb-28 pt-6 sm:px-6 lg:mx-auto lg:w-full lg:max-w-[1400px] lg:gap-8 lg:px-10 lg:pb-12 lg:pt-8">
-					{isLoading ? (
+					{isLoading || leiteDoado.isLoading ? (
 						<EsqueletoDasDoacoes />
 					) : isError ? (
 						<ErrorState error={error} onRetry={() => refetch()} />
@@ -111,12 +112,19 @@ export function DonationsPage() {
 								) : (
 									<ConviteParaDoar onDoar={goToCreation} />
 								)}
-								<ResumoDaJornada doacoes={doacoes} />
+								<ImpactoDaDoadora mlDoados={leiteDoado.data ?? 0} />
 							</div>
 
 							{historico.length > 0 ? (
 								<HistoricoDeDoacoes
 									doacoes={historico}
+									primeiraEm={doacoes.reduce<string | undefined>(
+										(antiga, doacao) =>
+											!antiga || doacao.criadaEm < antiga
+												? doacao.criadaEm
+												: antiga,
+										undefined,
+									)}
 									podeAbrir={(doacao) => Boolean(doacao.etapaAtual)}
 									onAbrir={(doacao) => goToDetail(doacao.id)}
 								/>

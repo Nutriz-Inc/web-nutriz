@@ -44,9 +44,9 @@ export function useDonationPointsSearch() {
 	const { data, isLoading, isPlaceholderData } = useQueryDonationPoints({
 		name: debouncedSearch || undefined,
 		has_home: filter === "home" ? true : undefined,
-		zipcode: zipCodeOverride,
-		latitude: zipCodeOverride ? undefined : effectiveCoordinates?.latitude,
-		longitude: zipCodeOverride ? undefined : effectiveCoordinates?.longitude,
+		zipcode: effectiveCoordinates ? undefined : zipCodeOverride,
+		latitude: effectiveCoordinates?.latitude,
+		longitude: effectiveCoordinates?.longitude,
 	});
 
 	const points = data?.data ?? [];

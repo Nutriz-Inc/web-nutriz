@@ -1097,3 +1097,27 @@ video[data-video-ambiente]::-webkit-media-controls-start-playback-button {
 		background-color 600000s 0s,
 		color 600000s 0s;
 }
+
+@keyframes nz-leite-desce {
+	from {
+		transform: scaleY(0);
+	}
+}
+
+@keyframes nz-leite-corre {
+	from {
+		transform: scaleX(0);
+	}
+}
+
+@utility leite-desce {
+	transform-origin: top center;
+	animation: nz-leite-desce 650ms var(--ease-out) both;
+	animation-delay: calc(var(--i, 0) * 180ms + 150ms);
+}
+
+@utility leite-corre {
+	transform-origin: left center;
+	animation: nz-leite-corre 650ms var(--ease-out) both;
+	animation-delay: calc(var(--i, 0) * 180ms + 150ms);
+}

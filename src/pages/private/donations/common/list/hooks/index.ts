@@ -10,3 +10,20 @@ export function useDonationsList() {
 		...OPCOES_AO_VIVO,
 	});
 }
+
+export function useLeiteDoado(idDaDoadora?: string) {
+	return useQuery({
+		queryKey: ["user-info", idDaDoadora, "leite-doado"],
+		staleTime: 0,
+		enabled: Boolean(idDaDoadora),
+		queryFn: () =>
+			services.user.get(idDaDoadora as string, {
+				show_current_donation: false,
+				show_donations_completed: true,
+				show_address: false,
+				show_baby: false,
+			}),
+		select: (usuario) => usuario.milk_donated ?? 0,
+		...OPCOES_AO_VIVO,
+	});
+}

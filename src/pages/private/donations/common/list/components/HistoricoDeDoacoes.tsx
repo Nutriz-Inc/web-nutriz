@@ -1,37 +1,44 @@
+import { formatDateBR } from "@/utils/formatter";
 import type { DoacaoDaLista } from "../types";
-import { LinhaDoHistorico } from "./LinhaDoHistorico";
+import { CartaoDoHistorico } from "./CartaoDoHistorico";
 
 type HistoricoDeDoacoesProps = {
 	doacoes: DoacaoDaLista[];
+	primeiraEm?: string;
 	podeAbrir: (doacao: DoacaoDaLista) => boolean;
 	onAbrir: (doacao: DoacaoDaLista) => void;
 };
 
 export function HistoricoDeDoacoes({
 	doacoes,
+	primeiraEm,
 	podeAbrir,
 	onAbrir,
 }: HistoricoDeDoacoesProps) {
+	const concluidas = doacoes.filter(
+		(doacao) => !doacao.ativa && !doacao.comErro,
+	).length;
+
 	return (
-		<section aria-labelledby="titulo-historico" className="flex flex-col gap-3">
-			<div className="flex items-baseline justify-between gap-3 px-1">
+		<section aria-labelledby="titulo-historico" className="flex flex-col gap-4">
+			<div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-1 px-1">
 				<h2
 					id="titulo-historico"
-					className="text-destaque font-bold tracking-tight text-ink"
+					className="font-display text-secao font-bold tracking-tight text-ink"
 				>
 					Histórico
 				</h2>
-				<span className="text-apoio text-ink-3">
-					{doacoes.length} {doacoes.length === 1 ? "doação" : "doações"}
-				</span>
+				<p className="text-apoio text-ink-3">
+					{concluidas} {concluidas === 1 ? "concluída" : "concluídas"}
+					{primeiraEm ? ` · doando desde ${formatDateBR(primeiraEm)}` : ""}
+				</p>
 			</div>
-			<ol className="overflow-hidden rounded-card border border-line bg-surface shadow-soft">
+			<ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 				{doacoes.map((doacao, indice) => (
-					<LinhaDoHistorico
+					<CartaoDoHistorico
 						key={doacao.id}
 						doacao={doacao}
 						indice={indice}
-						ultima={indice === doacoes.length - 1}
 						onAbrir={podeAbrir(doacao) ? () => onAbrir(doacao) : undefined}
 					/>
 				))}

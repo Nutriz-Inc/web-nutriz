@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import buscaSemResultado from "@/assets/illustrations/busca-sem-resultado.svg";
 import {
 	BuscaPorCampo,
@@ -185,8 +185,12 @@ export function DonationsManagementPage() {
 						</div>
 					) : (
 						<ul className="flex flex-col gap-2.5">
-							{donations.map((donation) => (
-								<li key={donation.id_donation}>
+							{donations.map((donation, indice) => (
+								<li
+									key={donation.id_donation}
+									className="entra"
+									style={{ "--i": indice } as CSSProperties}
+								>
 									<DonationManagementCard donation={donation} />
 								</li>
 							))}

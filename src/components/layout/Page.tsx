@@ -81,7 +81,7 @@ export function Page({
 			{(temTrilha || backTo) && (
 				<div
 					className={cn(
-						"mb-5 flex flex-wrap items-center gap-x-3 gap-y-2",
+						"entra mb-5 flex flex-wrap items-center gap-x-3 gap-y-2",
 						titleClassName,
 					)}
 				>
@@ -91,7 +91,7 @@ export function Page({
 			)}
 
 			{title && (
-				<div className={cn("mb-8 flex flex-col gap-2", titleClassName)}>
+				<div className={cn("cascata mb-8 flex flex-col gap-2", titleClassName)}>
 					<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
 						<h1 className="font-display text-titulo font-bold tracking-tight text-blue-deep lg:text-pagina">
 							{title}

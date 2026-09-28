@@ -141,6 +141,8 @@ export function AdminStepCard({
 	}
 
 	const showAddress = definition.name !== EnumDonationStepName.MilkAnalysis;
+	const allowJobsAndRoutes =
+		definition.name !== EnumDonationStepName.MilkAnalysis;
 
 	const isDone = step?.status === EnumDonationStepStatus.Done;
 	const isFailed = step?.status === EnumDonationStepStatus.Failed;
@@ -383,13 +385,16 @@ export function AdminStepCard({
 								onCreateJob={handleCreateJob}
 								onUpdateJob={handleUpdateJob}
 								onRemoveJob={handleRemoveJob}
+								showJobs={allowJobsAndRoutes}
 							/>
 						)}
 					</div>
 
-					<StepRoutesList idDonationStep={step.id_donation_step} />
+					{allowJobsAndRoutes && (
+						<StepRoutesList idDonationStep={step.id_donation_step} />
+					)}
 
-					{!isLocked && (
+					{!isLocked && allowJobsAndRoutes && (
 						<AddStepToRouteButton
 							idDonation={idDonation}
 							idDonationStep={step.id_donation_step}

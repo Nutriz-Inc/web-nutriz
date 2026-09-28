@@ -43,6 +43,7 @@ type Props = {
 		data: { id_user: string; description: string },
 	) => void;
 	onRemoveJob: (id_job: string) => void;
+	showJobs?: boolean;
 };
 
 export function StepEditableForm({
@@ -77,6 +78,7 @@ export function StepEditableForm({
 	onCreateJob,
 	onUpdateJob,
 	onRemoveJob,
+	showJobs = true,
 }: Props) {
 	return (
 		<>
@@ -177,9 +179,9 @@ export function StepEditableForm({
 				Salvar
 			</button>
 
-			<div className="h-px bg-blue-tint" />
+			{showJobs && <div className="h-px bg-blue-tint" />}
 
-			{!jobsLoading && (
+			{showJobs && !jobsLoading && (
 				<StepJobsSection
 					jobs={jobs}
 					nurses={nurses}

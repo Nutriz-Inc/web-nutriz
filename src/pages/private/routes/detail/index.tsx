@@ -6,6 +6,7 @@ import { SectionLabel } from "@/components/full/SectionLabel";
 import { Page } from "@/components/layout/Page";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
+import { EnumDonationStepName } from "@/services/types/i-donation";
 import { EnumRouteStatus, type IRouteStop } from "@/services/types/i-route";
 import { EnumUserType } from "@/services/types/i-user";
 import { AddStopSheet, type EtapaFiltro } from "./components/AddStopSheet";
@@ -160,6 +161,7 @@ export function RouteDetailPage() {
 	const opcoesDisponiveis = (opcoesQuery.data?.data ?? []).filter(
 		(step) =>
 			!idsJaNaRota.has(step.id_donation_step) &&
+			step.name !== EnumDonationStepName.MilkAnalysis &&
 			(ehIdDeDoacao(buscaEtapa) ||
 				combinaComBusca(
 					step,

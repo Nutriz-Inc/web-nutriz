@@ -30,7 +30,6 @@ const ETAPA_OPCOES: FilterChipOption<EtapaFiltro>[] = [
 	{ key: EnumDonationStepName.BloodTest, label: "Exame de sangue" },
 	{ key: EnumDonationStepName.DeliverMilkingKit, label: "Kit de ordenha" },
 	{ key: EnumDonationStepName.CollectMilk, label: "Coletar leite" },
-	{ key: EnumDonationStepName.MilkAnalysis, label: "Análise de leite" },
 ];
 
 type Props = {
